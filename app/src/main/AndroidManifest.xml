@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          package="it.giovanni.kotlin">
+
+    <application
+            android:allowBackup="true"
+            android:label="@string/app_name"
+            android:icon="@mipmap/logo_audioslave_light_blue"
+            android:roundIcon="@mipmap/logo_audioslave_light_blue"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme"
+            tools:ignore="GoogleAppIndexingWarning"
+            android:fullBackupContent="@xml/backup_descriptor">
+        <activity android:name=".activities.MainActivity"
+                  android:screenOrientation="portrait"
+                  android:resizeableActivity="false"
+                  android:supportsPictureInPicture="false"
+                  android:windowSoftInputMode="adjustNothing">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

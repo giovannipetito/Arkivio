@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white">
+
+    <RelativeLayout
+            android:id="@+id/top_bar"
+            android:layout_width="match_parent"
+            android:background="@color/colorPrimary"
+            android:layout_height="56dp"
+            android:elevation="6dp">
+
+        <ImageView
+                android:id="@+id/arrow_go_back"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:src="@drawable/ico_back_rvd" />
+
+        <TextView
+                android:id="@+id/detail_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/arrow_go_back"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:layout_marginLeft="18dp"
+                android:textStyle="bold"
+                android:textSize="20dp" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+                android:visibility="gone"
+                android:id="@+id/search_input_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Cerca..."
+                android:layout_toRightOf="@id/arrow_go_back"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/white"
+                style="@style/EmployeeSearchEditText"
+                android:textColorHint="@color/light_grey"
+                android:textColorLink="@color/white"
+                android:textColorHighlight="@color/white"
+                android:singleLine="true"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="55dp"
+                android:textSize="20dp" />
+
+        <ImageView
+                android:id="@+id/detail_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dp"
+                android:src="@drawable/ico_search_rvd" />
+
+        <ImageView
+                android:id="@+id/detail_trash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dp"
+                android:src="@drawable/ico_trash_rvd"
+                android:visibility="gone"/>
+
+        <ImageView
+                android:id="@+id/edit_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="50dp"
+                android:src="@drawable/ico_modify_rvd"
+                android:visibility="gone" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:layout_below="@+id/top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/detail_background">
+
+        <it.giovanni.kotlin.utils.MultiSwipeRefreshLayout
+                android:id="@+id/swipeRefreshLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <FrameLayout
+                    android:id="@+id/frame_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+        </it.giovanni.kotlin.utils.MultiSwipeRefreshLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

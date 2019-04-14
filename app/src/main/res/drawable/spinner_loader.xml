@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list android:id="@+id/spinner_animation"
+                android:oneshot="false"
+                xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/loading_step_1" android:duration="40" />
+    <item android:drawable="@drawable/loading_step_2" android:duration="40" />
+    <item android:drawable="@drawable/loading_step_3" android:duration="40" />
+    <item android:drawable="@drawable/loading_step_4" android:duration="40" />
+    <item android:drawable="@drawable/loading_step_5" android:duration="40" />
+    <item android:drawable="@drawable/loading_step_6" android:duration="40" />
+    <item android:drawable="@drawable/loading_step_7" android:duration="40" />
+    <item android:drawable="@drawable/loading_step_8" android:duration="40" />
+    <item android:drawable="@drawable/loading_step_9" android:duration="40" />
+
+    <item android:drawable="@drawable/loading_step_10" android:duration="100" />
+    <item android:drawable="@drawable/loading_step_11" android:duration="200" />
+    <item android:drawable="@drawable/loading_step_12" android:duration="20" />
+    <item android:drawable="@drawable/loading_step_13" android:duration="20" />
+    <item android:drawable="@drawable/loading_step_14" android:duration="20" />
+    <item android:drawable="@drawable/loading_step_15" android:duration="20" />
+    <item android:drawable="@drawable/loading_step_16" android:duration="100" />
+    <item android:drawable="@drawable/loading_step_17" android:duration="40" />
+    <item android:drawable="@drawable/loading_step_18" android:duration="40" />
+
+    <item android:drawable="@drawable/loading_step_19" android:duration="40" />
+    <item android:drawable="@drawable/loading_step_20" android:duration="40" />
+    <item android:drawable="@drawable/loading_step_21" android:duration="40" />
+    <item android:drawable="@drawable/loading_step_22" android:duration="40" />
+    <item android:drawable="@drawable/loading_step_23" android:duration="40" />
+    <item android:drawable="@drawable/loading_step_24" android:duration="40" />
+    <item android:drawable="@drawable/loading_step_25" android:duration="40" />
+    <item android:drawable="@drawable/loading_step_26" android:duration="40" />
+    <item android:drawable="@drawable/loading_step_27" android:duration="40" />
+
+</animation-list>

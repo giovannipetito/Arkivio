@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">GiovanniKotlin</string>
+
+    <!-- POPUP LABEL BUTTON -->
+    <string name="popup_button_ok">OK</string>
+    <string name="popup_button_yes">SI</string>
+    <string name="popup_button_remove">RIMUOVI</string>
+    <string name="popup_button_cancel">ANNULLA</string>
+    <string name="popup_button_confirm">CONFERMA</string>
+    <string name="popup_button_try_again">RIPROVA</string>
+
+</resources>

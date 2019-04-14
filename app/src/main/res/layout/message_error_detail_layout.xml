@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <ImageView
+                android:id="@+id/error_ico"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="157dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/ico_error"
+                android:alpha="0.6" />
+
+        <TextView
+                android:id="@+id/oops"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/error_ico"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:text="Oops!"
+                android:textAlignment="center"
+                android:textColor="@color/dark"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        <TextView
+                android:id="@+id/smile_message_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/oops"
+                android:layout_centerHorizontal="true"
+                android:text="Sembra che ci sia qualche problema, tappa per aggiornare."
+                android:textAlignment="center"
+                android:textColor="@color/dark"
+                android:textSize="14sp" />
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
