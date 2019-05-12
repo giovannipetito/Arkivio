@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.View
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -74,8 +75,8 @@ class RubricaFragment : DetailFragment(), View.OnClickListener {
     override fun onActionSearch(search_string: String) {
     }
 
-    override fun onFragmentReady() {
-        super.onFragmentReady()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         avatar = BitmapFactory.decodeResource(context!!.resources, R.drawable.giovanni)
         val roundAvatar : Bitmap = Utils.getRoundBitmap(avatar!!, avatar!!.width)

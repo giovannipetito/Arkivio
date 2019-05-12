@@ -4,23 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
 import androidx.fragment.app.Fragment
 import it.giovanni.kotlin.customview.popup.CustomDialogPopup
-import it.giovanni.kotlin.interfaces.IFragmentReady
 import it.giovanni.kotlin.interfaces.IProgressLoader
 import it.giovanni.kotlin.R
 import it.giovanni.kotlin.activities.MainActivity
 
-abstract class BaseFragment(private var sectionType: SectionType) : Fragment(),
-    IFragmentReady {
+abstract class BaseFragment(private var sectionType: SectionType) : Fragment() {
 
     lateinit var currentActivity: MainActivity
     protected var popupError: CustomDialogPopup? = null
 
-    abstract fun getTitle(): Int
+    companion object {
+        var NO_TITLE : Int = -1
+    }
 
-    override fun onFragmentReady() {}
+    abstract fun getTitle(): Int
 
     // define layout
     enum class SectionType {
@@ -38,11 +37,10 @@ abstract class BaseFragment(private var sectionType: SectionType) : Fragment(),
         popupError!!.setCancelable(false)
         popupError!!.setTitle("")
         popupError!!.setMessage(msg)
-        popupError!!.setButton(resources.getString(R.string.popup_button_ok), object : View.OnClickListener {
-            override fun onClick(v: View?) {
+        popupError!!.setButton(resources.getString(R.string.popup_button_ok),
+            View.OnClickListener {
                 popupError!!.dismiss()
-            }
-        })
+            })
         popupError!!.show()
     }
 
@@ -61,33 +59,12 @@ abstract class BaseFragment(private var sectionType: SectionType) : Fragment(),
         when (sectionType) {
             SectionType.MAIN -> {
                 view = inflater.inflate(R.layout.main_layout, container, false)
-                view!!.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-                    override fun onGlobalLayout() {
-                        view.viewTreeObserver.removeOnGlobalLayoutListener(this)
-
-                        onFragmentReady()
-                    }
-                })
             }
             SectionType.TAB_DETAIL -> {
                 view = inflater.inflate(R.layout.working_area_tab_detail, container, false)
-                view!!.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-                    override fun onGlobalLayout() {
-                        view.viewTreeObserver.removeOnGlobalLayoutListener(this)
-
-                        onFragmentReady()
-                    }
-                })
             }
             SectionType.PERMITS_TAB_DETAIL -> {
                 view = inflater.inflate(R.layout.workpermits_list_layout, container, false)
-                view!!.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-                    override fun onGlobalLayout() {
-                        view.viewTreeObserver.removeOnGlobalLayoutListener(this)
-
-                        onFragmentReady()
-                    }
-                })
             }
             SectionType.HOME -> {
                 view = inflater.inflate(R.layout.homepage, container, false)
@@ -97,23 +74,9 @@ abstract class BaseFragment(private var sectionType: SectionType) : Fragment(),
             }
             SectionType.SPLASH -> {
                 view = inflater.inflate(R.layout.splash, container, false)
-                view!!.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-                    override fun onGlobalLayout() {
-                        view.viewTreeObserver.removeOnGlobalLayoutListener(this)
-
-                        onFragmentReady()
-                    }
-                })
             }
             SectionType.LOGIN -> {
                 view = inflater.inflate(R.layout.login, container, false)
-                view!!.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-                    override fun onGlobalLayout() {
-                        view.viewTreeObserver.removeOnGlobalLayoutListener(this)
-
-                        onFragmentReady()
-                    }
-                })
             }
             else -> {
                 view = super.onCreateView(inflater, container, savedInstanceState)

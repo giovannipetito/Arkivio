@@ -30,7 +30,7 @@ class HomePageFragment : HomeFragment() {
     }
 
     override fun getTitle(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return NO_TITLE
     }
 
     companion object {
@@ -47,8 +47,8 @@ class HomePageFragment : HomeFragment() {
     }
 
     @SuppressLint("SimpleDateFormat")
-    override fun onFragmentReady() {
-        super.onFragmentReady()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         val date = Date()
 

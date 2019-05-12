@@ -6,16 +6,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
 import it.giovanni.kotlin.interfaces.IDetailFragment
 import it.giovanni.kotlin.R
 import kotlinx.android.synthetic.main.detail_layout.*
 
-abstract class DetailFragment : BaseFragment(SectionType.DETAIL),
-    IDetailFragment {
+abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragment {
 
     abstract fun getLayout(): Int
     abstract fun searchAction(): Boolean
@@ -34,78 +31,62 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL),
         return Intent()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = super.onCreateView(inflater, container, savedInstanceState)
-
-        view!!.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-            override fun onGlobalLayout() {
-                view.viewTreeObserver.removeOnGlobalLayoutListener(this)
-
-                // manage arguments
-
-                if (backAction())
-                    arrow_go_back.visibility = View.VISIBLE
-                else
-                    arrow_go_back.visibility = View.GONE
-
-                if (searchAction())
-                    detail_search.visibility = View.VISIBLE
-                else
-                    detail_search.visibility = View.GONE
-                detail_search.setOnClickListener(searchClickListener)
-
-                if (deleteAction())
-                    detail_trash.visibility = View.VISIBLE
-                else
-                    detail_trash.visibility = View.GONE
-
-                if(editAction())
-                    edit_icon.visibility = View.VISIBLE
-                else
-                    edit_icon.visibility = View.GONE
-
-                edit_icon.setOnClickListener(editClickListener)
-
-                if (closeAction()) {
-                    arrow_go_back.visibility = View.VISIBLE
-                    arrow_go_back.setImageDrawable(ContextCompat.getDrawable(context!!,
-                        R.drawable.ico_close_rvd
-                    ))
-                }
-
-                arrow_go_back.setOnClickListener(arrowGoBackClickListener)
-
-                if (getTitle() != -1) {
-                    detail_title.text = getString(getTitle())
-                }
-
-                if (getLayout() != -1) {
-                    val customLayout = LayoutInflater.from(context).inflate(getLayout(), null, false)
-                    frame_layout.addView(customLayout)
-                }
-
-                onFragmentReady()
-
-                if (isRefreshEnabled()) {
-                    swipeRefreshLayout.setSwipeableChildren(R.id.frame_layout)
-                    swipeRefreshLayout!!.setOnRefreshListener {
-                        refresh()
-                    }
-                }
-            }
-        })
-        return view
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // manage arguments
+
+        if (backAction())
+            arrow_go_back.visibility = View.VISIBLE
+        else
+            arrow_go_back.visibility = View.GONE
+
+        if (searchAction())
+            detail_search.visibility = View.VISIBLE
+        else
+            detail_search.visibility = View.GONE
+        detail_search.setOnClickListener(searchClickListener)
+
+        if (deleteAction())
+            detail_trash.visibility = View.VISIBLE
+        else
+            detail_trash.visibility = View.GONE
+
+        if(editAction())
+            edit_icon.visibility = View.VISIBLE
+        else
+            edit_icon.visibility = View.GONE
+
+        edit_icon.setOnClickListener(editClickListener)
+
+        if (closeAction()) {
+            arrow_go_back.visibility = View.VISIBLE
+            arrow_go_back.setImageDrawable(ContextCompat.getDrawable(context!!,
+                R.drawable.ico_close_rvd
+            ))
+        }
+
+        arrow_go_back.setOnClickListener(arrowGoBackClickListener)
+
+        if (getTitle() != -1) {
+            detail_title.text = getString(getTitle())
+        }
+
+        if (getLayout() != -1) {
+            val customLayout = LayoutInflater.from(context).inflate(getLayout(), null, false)
+            frame_layout.addView(customLayout)
+        }
+
+        if (isRefreshEnabled()) {
+            swipeRefreshLayout.setSwipeableChildren(R.id.frame_layout)
+            swipeRefreshLayout!!.setOnRefreshListener {
+                refresh()
+            }
+        }
 
         if (swipeRefreshLayout != null) {
             swipeRefreshLayout!!.setColorSchemeResources(android.R.color.black)
         }
-    }
-
-    override fun onFragmentReady() {
     }
 
     protected var arrowGoBackClickListener = View.OnClickListener {

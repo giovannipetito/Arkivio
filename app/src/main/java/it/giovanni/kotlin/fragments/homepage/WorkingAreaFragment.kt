@@ -19,7 +19,7 @@ class WorkingAreaFragment : HomeFragment() {
     }
 
     override fun getTitle(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return NO_TITLE
     }
 
     companion object {
@@ -35,8 +35,8 @@ class WorkingAreaFragment : HomeFragment() {
         return viewFragment
     }
 
-    override fun onFragmentReady() {
-        super.onFragmentReady()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         label_rubrica.setOnClickListener {
             currentActivity.openDetail(Globals.RUBRICA, null)

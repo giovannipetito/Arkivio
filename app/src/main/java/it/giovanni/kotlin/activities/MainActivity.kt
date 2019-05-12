@@ -114,10 +114,6 @@ class MainActivity : BaseActivity(), IProgressLoader {
         fragment?.onActivityResult(requestCode, resultCode, data)
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-    }
-
     private fun removeAllFragments() {
         for (fragment in supportFragmentManager.fragments) {
             if (fragment != null) {

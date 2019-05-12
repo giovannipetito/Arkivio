@@ -13,6 +13,7 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
@@ -32,7 +33,7 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
     private var currentPosition: Int = 0
 
     override fun getTitle(): Int {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+        return NO_TITLE
     }
 
     companion object {
@@ -41,7 +42,6 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
         var TAB_INDEX_ADMINISTRATIVE: Int = 3
     }
 
-    var displayWidth: Int = 0
     var defaultX: Float = 0f
     var TRANSITION_TIME: Long = 100
     var animationFinish = true
@@ -51,17 +51,25 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
+
         hideProgressDialog() // TODO: Questo l'ho messo io qui.
 
-        val displayMetrics = DisplayMetrics()
-        activity!!.windowManager.defaultDisplay.getMetrics(displayMetrics)
-        displayWidth = displayMetrics.widthPixels
+        val drawListener = object : ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                view!!.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                draw()
+            }
+        }
+
+        view!!.viewTreeObserver.addOnGlobalLayoutListener(drawListener)
 
         return view
     }
 
-    override fun onFragmentReady() {
-        super.onFragmentReady()
+    private fun draw() {
+
+        val displayMetrics = DisplayMetrics()
+        currentActivity.windowManager.defaultDisplay.getMetrics(displayMetrics)
 
         attachViewPager()
         attachRightMenu()

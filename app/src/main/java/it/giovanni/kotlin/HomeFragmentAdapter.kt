@@ -8,15 +8,11 @@ import it.giovanni.kotlin.fragments.homepage.AdministrativeAreaFragment
 import it.giovanni.kotlin.fragments.homepage.HomePageFragment
 import it.giovanni.kotlin.fragments.homepage.WorkingAreaFragment
 
-class HomeFragmentAdapter(fragmentManager: FragmentManager, private val homePageCounter: Int, val caller: MainFragment) : FragmentPagerAdapter(fragmentManager) {
+class HomeFragmentAdapter(fragmentManager: FragmentManager, private val homePageCounter: Int, private val caller: MainFragment) : FragmentPagerAdapter(fragmentManager) {
 
     private var homePageFragment: HomePageFragment? = null
     private var workingAreaFragment: WorkingAreaFragment? = null
     private var administrativeAreaFragment: AdministrativeAreaFragment? = null
-
-    fun mainFragment(): MainFragment {
-        return caller
-    }
 
     override fun getItem(position: Int): Fragment {
         when (position) {
