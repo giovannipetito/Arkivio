@@ -9,4 +9,8 @@
     <string name="popup_button_confirm">CONFERMA</string>
     <string name="popup_button_try_again">RIPROVA</string>
 
+    <!-- RUBRICA -->
+    <string name="rubrica_title">Rubrica</string>
+    <string name="rubrica_message_dialog">Vuoi aggiungere il contatto in rubrica?</string>
+
 </resources>

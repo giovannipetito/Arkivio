@@ -2,9 +2,11 @@ package it.giovanni.kotlin.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.res.Resources
 import android.graphics.*
 import android.media.ThumbnailUtils
+import android.net.Uri
 import android.os.Build
 import android.text.Html
 import android.text.Spanned
@@ -51,18 +53,46 @@ class Utils {
             return ThumbnailUtils.extractThumbnail(bitmap, dimension, dimension)
         }
 
+        // Su W3B questo metodo viene utilizzato nella classe NotificationDetailFragment per trasformare in stringa un
+        // testo Html.
         @SuppressLint("ObsoleteSdkInt")
         fun fromHtml(htmlMessage: String?): Spanned {
             var html = htmlMessage
             if (html == null)
                 html = ""
             val result : Spanned
-            result = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            result = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY)
             } else {
                 Html.fromHtml(html)
             }
             return result
+        }
+
+        private fun returnLongVersion(version: String): Long {
+            val versionList = version.split(".")
+            var longVersion = ""
+            for (item in versionList) {
+                longVersion += item
+            }
+            return longVersion.toLong()
+        }
+
+        fun callContact(context: Context, phone: String) {
+            try {
+                val uri = "tel:$phone"
+                val intent = Intent(Intent.ACTION_DIAL, Uri.parse(uri))
+                context.startActivity(intent)
+            } catch (e: Exception) {}
+        }
+
+        fun sendEmail(context: Context, email: String) {
+
+            val intent = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:$email"))
+            intent.putExtra(Intent.EXTRA_SUBJECT, "")
+            intent.putExtra(Intent.EXTRA_TEXT, "")
+            // intent.putExtra(Intent.EXTRA_HTML_TEXT, "") // If you are using HTML in your body text
+            context.startActivity(Intent.createChooser(intent, ""))
         }
     }
 }

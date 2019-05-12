@@ -16,6 +16,8 @@ import androidx.fragment.app.Fragment
 import it.giovanni.kotlin.interfaces.IProgressLoader
 import it.giovanni.kotlin.R
 import it.giovanni.kotlin.fragments.*
+import it.giovanni.kotlin.fragments.detail.RubricaFragment
+import it.giovanni.kotlin.utils.Globals
 
 class MainActivity : BaseActivity(), IProgressLoader {
 
@@ -130,12 +132,12 @@ class MainActivity : BaseActivity(), IProgressLoader {
 
     override fun openDetail(detailType: String, extraParams: Bundle?, caller: Fragment?, requestCode: Int?) {
 
-        val baseFragment: BaseFragment? = null
+        var baseFragment: BaseFragment? = null
 
         when (detailType) {
-//            Globals.WORKING_AREA_DETAIL -> {
-//                baseFragment = WorkingAreaDetailFragment()
-//            }
+            Globals.RUBRICA -> {
+                baseFragment = RubricaFragment()
+            }
 //            Globals.MEETING_MANAGEMENT -> {
 //                baseFragment = MeetingManageFragment()
 //            }

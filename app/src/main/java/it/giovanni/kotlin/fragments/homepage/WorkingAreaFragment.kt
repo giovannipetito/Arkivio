@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import it.giovanni.kotlin.fragments.HomeFragment
 import it.giovanni.kotlin.fragments.MainFragment
 import it.giovanni.kotlin.R
+import it.giovanni.kotlin.utils.Globals
 import kotlinx.android.synthetic.main.working_area_layout.*
 
 class WorkingAreaFragment : HomeFragment() {
@@ -36,7 +37,12 @@ class WorkingAreaFragment : HomeFragment() {
 
     override fun onFragmentReady() {
         super.onFragmentReady()
-        example_title_1.setOnClickListener {
+
+        label_rubrica.setOnClickListener {
+            currentActivity.openDetail(Globals.RUBRICA, null)
+        }
+
+        example_title_2.setOnClickListener {
             showPopupError(context!!.getString(R.string.app_name))
         }
     }

@@ -16,14 +16,16 @@ import androidx.core.content.ContextCompat
 import it.giovanni.kotlin.utils.Utils
 import it.giovanni.kotlin.R
 
-class CustomDialogPopup : AlertDialog.Builder {
+open class CustomDialogPopup : AlertDialog.Builder {
 
     private val DIALOG_INTERFACE_KEY = 1258932039
     private var popup: LinearLayout? = null
-    private var bodyContent: TextView? = null
+    protected var elementList: LinearLayout? = null
+    protected var labelList: LinearLayout? = null
+    protected var bodyContent: TextView? = null
     private var containerLeftButton: RelativeLayout? = null
     private var containerCenterButton: RelativeLayout? = null
-    private var buttonsContainer: LinearLayout? = null
+    protected var buttonsContainer: LinearLayout? = null
     private var rightButton: AppCompatButton? = null
     private var centerButton: AppCompatButton? = null
     private var leftButton: AppCompatButton? = null
@@ -33,7 +35,7 @@ class CustomDialogPopup : AlertDialog.Builder {
     private var message: String? = null
 
     private var dialogView: View? = null
-    private var activity: Context? = null
+    protected var activity: Context? = null
 
     private var leftAction: View.OnClickListener? = null
     private var leftText: String? = null
@@ -44,8 +46,6 @@ class CustomDialogPopup : AlertDialog.Builder {
 
     private var buttonNumber = 0
     private var dialog: AlertDialog? = null
-
-    private var elementList: LinearLayout? = null
 
     private var isVisible = false
 
@@ -64,11 +64,12 @@ class CustomDialogPopup : AlertDialog.Builder {
         prepare()
     }
 
-    private fun prepare() {
+    protected fun prepare() {
         val inflater = activity!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         dialogView = inflater.inflate(R.layout.custom_dialog_popup, null)
 
         elementList = dialogView!!.findViewById(R.id.element_list) as LinearLayout
+        labelList = dialogView!!.findViewById(R.id.label_list) as LinearLayout
         popup = dialogView!!.findViewById(R.id.popup) as LinearLayout
 
         bodyContent = dialogView!!.findViewById(R.id.body_content) as TextView

@@ -28,11 +28,11 @@
               android:alpha=".4"/>
 
         <TextView
-                android:id="@+id/example_title_1"
+                android:id="@+id/label_rubrica"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Example 1"
+                android:text="Rubrica"
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:textAlignment="center"/>

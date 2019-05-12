@@ -4,7 +4,7 @@ class Globals {
 
     companion object {
 
-        var WORKING_AREA_DETAIL = "WORKING_AREA_DETAIL"
+        var RUBRICA = "RUBRICA"
         var MEETING_MANAGEMENT = "MEETING_MANAGEMENT"
         var SEARCH_ROOM_LIST = "SEARCH_ROOM_LIST"
 

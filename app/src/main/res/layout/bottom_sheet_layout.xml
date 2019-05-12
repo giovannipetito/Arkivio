@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:id="@+id/bottom_sheet"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/colorPrimary"
+              app:behavior_hideable="true"
+              app:behavior_peekHeight="45dp"
+              app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Il contatto è già presente in rubrica"
+            android:textSize="14sp"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="6dp"
+            android:textColor="@color/colorAccent"/>
+
+    <TextView
+            android:id="@+id/bottom_sheet_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="ANNULLA"
+            android:textSize="16sp"
+            android:layout_marginTop="6dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="6dp"
+            android:textColor="@color/colorAccent"/>
+
+    <TextView
+            android:id="@+id/bottom_sheet_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="MODIFICA"
+            android:textSize="16sp"
+            android:layout_marginTop="6dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="6dp"
+            android:textColor="@color/colorAccent"/>
+
+    <TextView
+            android:id="@+id/bottom_sheet_insert"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="AGGIUNGI"
+            android:textSize="16sp"
+            android:layout_marginTop="6dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="12dp"
+            android:textColor="@color/colorAccent"/>
+
+</LinearLayout>
