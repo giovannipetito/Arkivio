@@ -184,13 +184,7 @@ class RubricaFragment : DetailFragment(), View.OnClickListener {
         handleContactPopup!!.setMessage(resources.getString(R.string.rubrica_message_dialog))
         handleContactPopup!!.setLabels(labels!!, this)
         handleContactPopup!!.setButton(resources.getString(R.string.popup_button_cancel), View.OnClickListener {})
-
-        // Il codice seguente mostra il popup in basso alla view, ma non funziona.
-        // val window = handleContactPopup?.getDialog().window
-        // val wlp : WindowManager.LayoutParams? = window.attributes
-        // wlp?.gravity = Gravity.BOTTOM
-        // window.attributes = wlp
-
+        handleContactPopup!!.setGravityBottom(true)
         handleContactPopup!!.show()
     }
 
@@ -206,6 +200,7 @@ class RubricaFragment : DetailFragment(), View.OnClickListener {
         handleContactPopup!!.setMessage(resources.getString(R.string.rubrica_message_dialog))
         handleContactPopup!!.setLabels(labels!!, this)
         handleContactPopup!!.setButton(resources.getString(R.string.popup_button_cancel), View.OnClickListener {})
+        handleContactPopup!!.setGravityBottom(true)
         handleContactPopup!!.show()
     }
 

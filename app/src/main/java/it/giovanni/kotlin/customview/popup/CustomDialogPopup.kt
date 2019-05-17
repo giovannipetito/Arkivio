@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
 import android.text.method.LinkMovementMethod
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
@@ -33,6 +34,7 @@ open class CustomDialogPopup : AlertDialog.Builder {
     private var title: String? = null
     private var subtitle: String? = null
     private var message: String? = null
+    private var isBottom: Boolean? = false
 
     private var dialogView: View? = null
     protected var activity: Context? = null
@@ -96,6 +98,10 @@ open class CustomDialogPopup : AlertDialog.Builder {
         this.message = message
     }
 
+    fun setGravityBottom(isBottom: Boolean) {
+        this.isBottom = isBottom
+    }
+
     override fun show(): AlertDialog {
 
         bodyContent!!.text = Utils.fromHtml(message)
@@ -105,6 +111,11 @@ open class CustomDialogPopup : AlertDialog.Builder {
         dialog = create()
         dialog!!.setView(dialogView)
         dialog!!.setOnDismissListener { isVisible = false }
+
+        if (isBottom!!) {
+            val window = dialog?.window
+            window?.setGravity(Gravity.BOTTOM)
+        }
 
         when (type) {
             TYPE_INFO -> {
