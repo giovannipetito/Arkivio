@@ -28,6 +28,24 @@
               android:alpha=".4"/>
 
         <TextView
+                android:id="@+id/label_logcat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Logcat projects"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textAlignment="center"/>
+
+        <View android:layout_width="120dp"
+              android:layout_height="1dp"
+              android:layout_marginTop="8dp"
+              android:layout_marginBottom="8dp"
+              android:background="@color/white"
+              android:layout_gravity="center"
+              android:alpha=".4"/>
+
+        <TextView
                 android:id="@+id/label_rubrica"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -46,11 +64,29 @@
               android:alpha=".4"/>
 
         <TextView
-                android:id="@+id/example_title_2"
+                android:id="@+id/label_popup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Example 2"
+                android:text="Popup"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textAlignment="center"/>
+
+        <View android:layout_width="120dp"
+              android:layout_height="1dp"
+              android:layout_marginTop="8dp"
+              android:layout_marginBottom="8dp"
+              android:background="@color/white"
+              android:layout_gravity="center"
+              android:alpha=".4"/>
+
+        <TextView
+                android:id="@+id/label_date_manager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Date Manager"
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:textAlignment="center"/>

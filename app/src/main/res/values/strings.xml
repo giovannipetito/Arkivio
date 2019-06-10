@@ -9,8 +9,14 @@
     <string name="popup_button_confirm">CONFERMA</string>
     <string name="popup_button_try_again">RIPROVA</string>
 
+    <!-- LOGCAT -->
+    <string name="logcat_title">Logcat</string>
+
     <!-- RUBRICA -->
     <string name="rubrica_title">Rubrica</string>
     <string name="rubrica_message_dialog">Vuoi aggiungere il contatto in rubrica?</string>
+
+    <!-- CUSTOM PICKER -->
+    <string name="custom_picker_title">Custom Picker</string>
 
 </resources>

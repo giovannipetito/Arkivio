@@ -4,9 +4,9 @@ class Globals {
 
     companion object {
 
+        var LOGCAT = "LOGCAT"
         var RUBRICA = "RUBRICA"
-        var MEETING_MANAGEMENT = "MEETING_MANAGEMENT"
-        var SEARCH_ROOM_LIST = "SEARCH_ROOM_LIST"
+        var DATE_MANAGER = "DATE_MANAGER"
 
         var BEAN = "bean"
 
@@ -27,22 +27,22 @@ class Globals {
         var REQUEST_CODE_PERMIT_DETAIL_DELETE = 1007
         var REQUEST_CODE_PERMIT_DETAIL_NEW = 1008
 
-        //GLOBALS ACTION (EDIT/DELETE/UPDATE
+        // GLOBALS ACTION (EDIT/DELETE/UPDATE
         var KEY_ACTION = "ACTION_KEY"
         var ACTION_NEW = "action_new"
         var ACTION_UPDATE = "action_update"
         var ACTION_DELETE = "action_delete"
 
-        //Internal Error
+        // Internal Error
         var INTERNAL_ERROR = "INTERNAL_ERROR"
 
-        //HARD PRIORITY ERROR
+        // HARD PRIORITY ERROR
         var EXCHANGE_ERROR_BAD_GATEWAY = "EXCHANGE_ERROR_BAD_GATEWAY"
         var JWT_EXPIRED = "JWT_EXPIRED"
         var JWT_NOT_VALID = "JWT_NOT_VALID"
         var JWT_EXPIRED_KEEP_ALIVE= "JWT_EXPIRED_KEEP_ALIVE"
 
-        //Permit - Status
+        // Permit - Status
         var PERMIT_STATUS_APPROVED = "APPROVED"
         var PERMIT_STATUS_APPROVING = "APPROVING"
         var PERMIT_STATUS_NOT_APPROVED = "NOT_APPROVED"

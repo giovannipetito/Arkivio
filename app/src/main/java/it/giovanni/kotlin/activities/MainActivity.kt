@@ -16,6 +16,8 @@ import androidx.fragment.app.Fragment
 import it.giovanni.kotlin.interfaces.IProgressLoader
 import it.giovanni.kotlin.R
 import it.giovanni.kotlin.fragments.*
+import it.giovanni.kotlin.fragments.detail.DateManagerFragment
+import it.giovanni.kotlin.fragments.detail.LogcatFragment
 import it.giovanni.kotlin.fragments.detail.RubricaFragment
 import it.giovanni.kotlin.utils.Globals
 
@@ -131,15 +133,16 @@ class MainActivity : BaseActivity(), IProgressLoader {
         var baseFragment: BaseFragment? = null
 
         when (detailType) {
+
+            Globals.LOGCAT -> {
+                baseFragment = LogcatFragment()
+            }
             Globals.RUBRICA -> {
                 baseFragment = RubricaFragment()
             }
-//            Globals.MEETING_MANAGEMENT -> {
-//                baseFragment = MeetingManageFragment()
-//            }
-//            Globals.SEARCH_ROOM_LIST -> {
-//                baseFragment = SearchRoomFragment()
-//            }
+            Globals.DATE_MANAGER -> {
+                baseFragment = DateManagerFragment()
+            }
         }
 
         if (baseFragment != null) {

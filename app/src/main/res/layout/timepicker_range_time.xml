@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:background="@color/colorPrimary">
+
+        <TextView
+                android:id="@+id/back_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:text="INDIETRO"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/white"/>
+
+        <TextView
+                android:id="@+id/ok_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_toEndOf="@+id/back_label"
+                android:gravity="end"
+                android:text="OK"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/white" />
+
+    </RelativeLayout>
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:background="@color/colorPrimary">
+
+        <RelativeLayout android:id="@+id/start_time_container"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5">
+
+            <RelativeLayout android:id="@+id/start_time_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="16dp">
+
+                <RelativeLayout android:id="@+id/start_time_content_2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true">
+
+                    <TextView android:id="@+id/start_time_label"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_alignParentStart="true"
+                              android:text="Dalle"
+                              android:textColor="@color/white"
+                              android:textSize="18sp"/>
+
+                    <TextView android:id="@+id/start_time_value"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_alignParentStart="true"
+                              android:text="12:00"
+                              android:textColor="@color/white"
+                              android:textSize="40sp"
+                              android:layout_below="@+id/start_time_label"/>
+
+                </RelativeLayout>
+
+                <TextView android:id="@+id/inizio"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_marginTop="24dp"
+                          android:layout_marginBottom="8dp"
+                          android:layout_centerHorizontal="true"
+                          android:text="INIZIO"
+                          android:textColor="@color/white"
+                          android:textSize="16sp"
+                          android:layout_below="@+id/start_time_content_2"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout android:id="@+id/start_tab_indicator"
+                            android:layout_width="match_parent"
+                            android:layout_height="4dp"
+                            android:background="@color/white"
+                            android:layout_below="@+id/start_time_content"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout android:id="@+id/end_time_container"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5">
+
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="62dp"
+                    android:src="@drawable/ico_from_to_rvd" />
+
+            <RelativeLayout android:id="@+id/end_time_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="16dp">
+
+                <RelativeLayout android:id="@+id/end_time_content_2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true">
+
+                    <TextView android:id="@+id/end_time_label"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_alignParentStart="true"
+                              android:text="Alle"
+                              android:textColor="@color/white"
+                              android:textSize="18sp"/>
+
+                    <TextView android:id="@+id/end_time_value"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_alignParentStart="true"
+                              android:text="13:00"
+                              android:textColor="@color/white"
+                              android:textSize="40sp"
+                              android:layout_below="@+id/end_time_label"/>
+
+                </RelativeLayout>
+
+                <TextView android:id="@+id/fine"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_marginTop="24dp"
+                          android:layout_marginBottom="8dp"
+                          android:layout_centerHorizontal="true"
+                          android:text="FINE"
+                          android:textColor="@color/white"
+                          android:textSize="16sp"
+                          android:alpha="0.4"
+                          android:layout_below="@+id/end_time_content_2"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout android:id="@+id/end_tab_indicator"
+                            android:layout_width="match_parent"
+                            android:layout_height="4dp"
+                            android:background="@color/white"
+                            android:layout_below="@+id/end_time_content"
+                            android:visibility="gone"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <TimePicker
+            android:id="@+id/start_time_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:calendarViewShown="false"
+            android:timePickerMode="spinner" />
+
+    <TimePicker
+            android:id="@+id/end_time_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:calendarViewShown="false"
+            android:timePickerMode="spinner"
+            android:visibility="gone" />
+
+</LinearLayout>
