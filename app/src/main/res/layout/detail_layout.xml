@@ -31,7 +31,7 @@
                 android:textColor="@color/white"
                 android:layout_marginStart="@dimen/dimen_18dp"
                 android:textStyle="bold"
-                android:textSize="@dimen/dimen_20dp" />
+                android:textSize="20sp" />
 
         <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/search_input_text"
@@ -45,7 +45,7 @@
                 android:textColorHint="@color/light_grey"
                 android:textColorLink="@color/white"
                 android:textColorHighlight="@color/white"
-                android:textSize="@dimen/dimen_20dp"
+                android:textSize="20sp"
                 style="@style/EmployeeSearchEditText"
                 android:singleLine="true"
                 android:ellipsize="end"
@@ -89,6 +89,17 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ico_rubrica"
+                android:visibility="gone"/>
+
+        <TextView
+                android:id="@+id/action_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/dimen_16dp"
+                style="@style/ActionLabel"
+                android:enabled="false"
                 android:visibility="gone"/>
 
     </RelativeLayout>

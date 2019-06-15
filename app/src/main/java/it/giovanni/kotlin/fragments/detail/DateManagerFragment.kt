@@ -90,6 +90,10 @@ class DateManagerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener
         return R.string.custom_picker_title
     }
 
+    override fun getActionTitle(): Int {
+        return NO_TITLE
+    }
+
     override fun searchAction(): Boolean {
         return false
     }
@@ -229,8 +233,12 @@ class DateManagerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener
             showSingleTimePicker()
         }
 
-        range_time_picker.setOnClickListener {
-            showRangeTimePicker()
+        range_time_picker_1.setOnClickListener {
+            showRangeTimePicker1()
+        }
+
+        range_time_picker_2.setOnClickListener {
+            // showRangeTimePicker2()
         }
     }
 
@@ -241,8 +249,8 @@ class DateManagerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener
         val maxDate: Calendar = Calendar.getInstance()
         maxDate.set(Calendar.getInstance().get(Calendar.YEAR), 11, 31, 23, 59, 59)
 
-        datePickerDialog.datePicker.minDate = calendar!!.timeInMillis // minDate Ë il giorno corrente.
-        datePickerDialog.datePicker.maxDate = maxDate.timeInMillis // maxDate Ë il 31 dicembre dell'anno corrente.
+        datePickerDialog.datePicker.minDate = calendar!!.timeInMillis // minDate è il giorno corrente.
+        datePickerDialog.datePicker.maxDate = maxDate.timeInMillis // maxDate è il 31 dicembre dell'anno corrente.
         isMinDate = true
 
         datePickerDialog.setCancelable(false)
@@ -311,13 +319,13 @@ class DateManagerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener
 
     private val rangeTimePickerDialogClickListener = View.OnClickListener {
         calendar = Calendar.getInstance()
-        val startTimePickerDialog = TimePickerDialog(context, R.style.PickerDialogTheme, { _, hourOfDay, minute ->
+        val startTimePickerDialog = TimePickerDialog(context, R.style.PickerDialogTheme, { _, startHourOfDay, startMinute ->
 
-            startTime = String.format("%02d:%02d", hourOfDay, minute) + ":00"
+            startTime = String.format("%02d:%02d", startHourOfDay, startMinute) + ":00"
 
-            val endTimePickerDialog = TimePickerDialog(context, R.style.PickerDialogTheme, { _, hourOfDay, minute ->
+            val endTimePickerDialog = TimePickerDialog(context, R.style.PickerDialogTheme, { _, endHourOfDay, endMinute ->
 
-                endTime = String.format("%02d:%02d", hourOfDay, minute) + ":00"
+                endTime = String.format("%02d:%02d", endHourOfDay, endMinute) + ":00"
                 rangeTime = "Dalle $startTime alle $endTime"
                 range_time_picker_label!!.text = rangeTime
 
@@ -388,6 +396,7 @@ class DateManagerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener
         view.time_picker.setIs24HourView(true)
         view.time_picker.setOnTimeChangedListener { _, hourOfDay, minute ->
             startTime = String.format("%02d:%02d", hourOfDay, minute) + ":00"
+            view.time_value.text = String.format("%02d:%02d", hourOfDay, minute)
         }
         view.back.setOnClickListener {
             dialog.dismiss()
@@ -400,7 +409,7 @@ class DateManagerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener
     }
 
     @SuppressLint("InflateParams")
-    private fun showRangeTimePicker() {
+    private fun showRangeTimePicker1() {
 
         val builder = AlertDialog.Builder(context!!)
         builder.setCancelable(false)
@@ -430,12 +439,20 @@ class DateManagerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener
         view.end_time_picker.minute = 0
         setMinutePicker(view.end_time_picker)
 
+        var startHour: Int? = 9
+        var startMinute: Int? = 0
+        var endHour: Int? = 18
+        var endMinute: Int? = 0
+
         view.start_time_picker.setOnTimeChangedListener { _, hourOfDay, minute ->
 
             view.start_time_value.text = String.format("%02d:%02d", hourOfDay, minute * 15)
 
             startTime = String.format("%02d:%02d", hourOfDay, minute * 15) + ":00"
             rangeTime = "Dalle $startTime alle $endTime"
+
+            startHour = hourOfDay
+            startMinute = minute
         }
         view.end_time_picker.setOnTimeChangedListener { _, hourOfDay, minute ->
 
@@ -443,12 +460,23 @@ class DateManagerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener
 
             endTime = String.format("%02d:%02d", hourOfDay, minute * 15) + ":00"
             rangeTime = "Dalle $startTime alle $endTime"
+
+            endHour = hourOfDay
+            endMinute = minute
         }
         view.back_label.setOnClickListener {
             dialog.dismiss()
         }
         view.ok_label.setOnClickListener {
-            range_time_picker.text = rangeTime
+
+            if (startHour!! > endHour!! || (startHour == endHour && startMinute!! >= endMinute!!)) {
+
+                showPopupError("Intervallo di tempo non valido.", View.OnClickListener {
+                    popupError!!.dismiss()
+                })
+            } else
+                range_time_picker_1.text = rangeTime
+
             dialog.dismiss()
         }
         view.start_time_container.setOnClickListener {

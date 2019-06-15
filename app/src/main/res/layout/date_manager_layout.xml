@@ -1369,12 +1369,37 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.45"
-                    android:text="Range TimePicker"
+                    android:text="Range TimePicker 1"
                     android:textColor="@color/grey"
                     android:textSize="12sp" />
 
             <TextView
-                    android:id="@+id/range_time_picker"
+                    android:id="@+id/range_time_picker_1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.55"
+                    android:hint="Tap here"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10dp"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.45"
+                    android:text="Range TimePicker 2"
+                    android:textColor="@color/grey"
+                    android:textSize="12sp" />
+
+            <TextView
+                    android:id="@+id/range_time_picker_2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.55"

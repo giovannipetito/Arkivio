@@ -53,4 +53,12 @@
         <item name="android:windowBackground">@color/colorAccent</item>
     </style>
 
+    <style name="ActionLabel" parent="android:Widget.Button">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/action_label_text_color</item>
+        <item name="android:stateListAnimator">@null</item>
+    </style>
+
 </resources>

@@ -20,6 +20,7 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
     abstract fun closeAction(): Boolean
     abstract fun deleteAction(): Boolean
     abstract fun editAction():Boolean
+    abstract fun getActionTitle(): Int
 
     open fun beforeClosing(): Boolean {
         // Default DO NOTHING, return true if action is just elaborated!
@@ -61,14 +62,14 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
 
         if (closeAction()) {
             arrow_go_back.visibility = View.VISIBLE
-            arrow_go_back.setImageDrawable(ContextCompat.getDrawable(context!!,
-                R.drawable.ico_close_rvd
-            ))
+            arrow_go_back.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ico_close_rvd))
         }
 
         arrow_go_back.setOnClickListener(arrowGoBackClickListener)
 
-        if (getTitle() != -1) {
+        if (arguments != null && arguments!!.containsKey("link_deeplink")) {
+            detail_title.text = arguments!!.getString("link_deeplink")
+        } else if (getTitle() != NO_TITLE) {
             detail_title.text = getString(getTitle())
         }
 
@@ -87,9 +88,40 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
         if (swipeRefreshLayout != null) {
             swipeRefreshLayout!!.setColorSchemeResources(android.R.color.black)
         }
+
+        if (getActionTitle() != NO_TITLE) {
+            action_label.visibility = View.VISIBLE
+            action_label.text = getString(getActionTitle())
+            action_label.setOnClickListener {
+                onActionClickListener()
+            }
+        } else {
+            action_label.visibility = View.GONE
+        }
     }
 
-    protected var arrowGoBackClickListener = View.OnClickListener {
+    open fun onActionClickListener() {}
+
+    fun actionLabelState(state: Boolean) {
+        when (state) {
+            true -> {action_label.isEnabled = true}
+            false -> {action_label.isEnabled = false}
+        }
+    }
+
+    fun actionLabelText(label: String) {
+        action_label.text = label
+    }
+
+    fun actionLabelVisibility(visibility: Int) {
+        action_label.visibility = visibility
+    }
+
+    fun actionLabelClickListener(listener:View.OnClickListener) {
+        action_label.setOnClickListener(listener)
+    }
+
+    private var arrowGoBackClickListener = View.OnClickListener {
         currentActivity.onBackPressed()
         hideSoftKeyboard()
     }
@@ -155,7 +187,7 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
     }
 
     protected fun startSwipeRefresh() {
-        if (swipeRefreshLayout != null && !swipeRefreshLayout!!.isRefreshing())
+        if (swipeRefreshLayout != null && !swipeRefreshLayout!!.isRefreshing)
             swipeRefreshLayout!!.isRefreshing = true
     }
 

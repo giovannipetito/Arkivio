@@ -36,10 +36,10 @@ class RubricaFragment : DetailFragment(), View.OnClickListener {
     private var label: String? = null
 
     private val REQUEST_CODE_CONTACTS_PERMISSION = 1000
-    var lookupKey: String? = null
+    private var lookupKey: String? = null
     var id: Long = 0
-    var name: String? = null
-    var selectedContactUri: Uri? = null
+    private var name: String? = null
+    private var selectedContactUri: Uri? = null
 
     override fun getLayout(): Int {
         return R.layout.rubrica_layout
@@ -47,6 +47,10 @@ class RubricaFragment : DetailFragment(), View.OnClickListener {
 
     override fun getTitle(): Int {
         return R.string.rubrica_title
+    }
+
+    override fun getActionTitle(): Int {
+        return NO_TITLE
     }
 
     override fun searchAction(): Boolean {

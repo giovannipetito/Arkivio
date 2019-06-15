@@ -55,7 +55,8 @@
                 <RelativeLayout android:id="@+id/start_time_content_2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_centerHorizontal="true">
+                                android:paddingStart="40dp"
+                                android:paddingEnd="1dp">
 
                     <TextView android:id="@+id/start_time_label"
                               android:layout_width="wrap_content"
@@ -117,7 +118,8 @@
                 <RelativeLayout android:id="@+id/end_time_content_2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_centerHorizontal="true">
+                                android:paddingStart="40dp"
+                                android:paddingEnd="1dp">
 
                     <TextView android:id="@+id/end_time_label"
                               android:layout_width="wrap_content"

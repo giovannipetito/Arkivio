@@ -19,6 +19,10 @@ class LogcatFragment : DetailFragment() {
         return R.string.logcat_title
     }
 
+    override fun getActionTitle(): Int {
+        return NO_TITLE
+    }
+
     override fun searchAction(): Boolean {
         return false
     }
