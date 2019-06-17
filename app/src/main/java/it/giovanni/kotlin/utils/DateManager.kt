@@ -477,6 +477,28 @@ class DateManager {
         data = sdf.parse(dataString)
     }
 
+    fun setIntervalTimeDate(hourOfDay: Int, minute: Int) {
+
+        var min = minute
+        if (minute in 0..14) min = 15
+        if (minute in 15..29) min = 30
+        if (minute in 30..44) min = 45
+        if (minute in 45..59) min = 0
+
+        val sdf = SimpleDateFormat(BASE_FORMAT, Locale.UK)
+        sdf.timeZone = TimeZone.getDefault()
+        val formattedHour = sdf.parse(dataString)
+        var baseFormat = BASE_FORMAT
+
+        baseFormat =
+            if (min == 0) baseFormat.replace("HH", (hourOfDay + 1).toString())
+            else baseFormat.replace("HH", hourOfDay.toString())
+
+        baseFormat = baseFormat.replace("mm", min.toString())
+        dataString = SimpleDateFormat(baseFormat, Locale.UK).format(formattedHour)
+        data = sdf.parse(dataString)
+    }
+
     fun setDateFromPicker(year: Int, month: Int, dayOfMonth: Int) {
         val calendar: Calendar = Calendar.getInstance()
         calendar.set(Calendar.MONTH, month)

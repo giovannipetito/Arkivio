@@ -16,12 +16,7 @@
         <item name="android:windowBackground">@color/colorPrimary</item>
     </style>
 
-    <style name="MyDialogTheme" parent="Base.V7.Theme.AppCompat.Light.Dialog">
-        <item name="colorAccent">@color/grey</item>
-        <item name="android:background">@android:color/transparent</item>
-    </style>
-
-    <style name="EmployeeButton" parent="android:Widget.Button">
+    <style name="CustomButton" parent="android:Widget.Button">
         <item name="android:background">@drawable/custom_button</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">18sp</item>
@@ -33,12 +28,30 @@
         <item name="android:stateListAnimator">@null</item>
     </style>
 
-    <style name="EmployeeSearchEditText" parent="Base.V7.Widget.AppCompat.EditText">
+    <style name="EditText1" parent="android:Widget.EditText">
+        <item name="android:background">@null</item>
+        <item name="colorControlNormal">@color/black</item>
+        <item name="colorControlActivated">@color/black</item>
+    </style>
+
+    <style name="EditText2" parent="android:Widget.EditText">
+        <item name="android:background">@null</item>
+        <item name="android:textColorHighlight">@color/black</item>
+        <item name="colorAccent">@color/black</item>
+        <item name="android:activatedBackgroundIndicator">@null</item>
+    </style>
+
+    <style name="EditText3" parent="Base.V7.Widget.AppCompat.EditText">
         <item name="colorControlNormal">#c5c5c5</item>
         <item name="colorControlActivated">@color/white</item>
         <item name="colorControlHighlight">@color/white</item>
         <item name="android:colorAccent">@color/white</item>
         <item name="android:colorPrimary">@color/white</item>
+    </style>
+
+    <style name="DialogTheme" parent="Base.V7.Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/grey</item>
+        <item name="android:background">@android:color/transparent</item>
     </style>
 
     <style name="PopupTheme" parent="Base.V7.Theme.AppCompat.Light.Dialog">
@@ -59,6 +72,18 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/action_label_text_color</item>
         <item name="android:stateListAnimator">@null</item>
+    </style>
+
+    <style name="SwitchCompatTheme">
+        <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="colorControlHighlight">#626a73</item>
+        <item name="android:colorForeground">#A9AAAB</item>
+    </style>
+
+    <style name="SwitchCompatDarkTheme">
+        <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="colorControlHighlight">#626a73</item>
+        <item name="android:colorForeground">#626a73</item>
     </style>
 
 </resources>

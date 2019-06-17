@@ -87,7 +87,7 @@ class DateManagerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener
     }
 
     override fun getTitle(): Int {
-        return R.string.custom_picker_title
+        return R.string.date_manager_title
     }
 
     override fun getActionTitle(): Int {
@@ -238,7 +238,7 @@ class DateManagerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener
         }
 
         range_time_picker_2.setOnClickListener {
-            // showRangeTimePicker2()
+            showRangeTimePicker2()
         }
     }
 
@@ -433,11 +433,11 @@ class DateManagerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener
         view.start_time_picker.setIs24HourView(true)
         view.start_time_picker.hour = 9
         view.start_time_picker.minute = 0
-        setMinutePicker(view.start_time_picker)
+        setTimePickerInterval(view.start_time_picker)
         view.end_time_picker.setIs24HourView(true)
         view.end_time_picker.hour = 18
         view.end_time_picker.minute = 0
-        setMinutePicker(view.end_time_picker)
+        setTimePickerInterval(view.end_time_picker)
 
         var startHour: Int? = 9
         var startMinute: Int? = 0
@@ -498,7 +498,116 @@ class DateManagerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener
         dialog.show()
     }
 
-    private fun setMinutePicker(picker: TimePicker) {
+    @SuppressLint("InflateParams")
+    private fun showRangeTimePicker2() {
+
+        val builder = AlertDialog.Builder(context!!)
+        builder.setCancelable(false)
+        val inflater = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val view = inflater.inflate(R.layout.timepicker_range_time, null)
+        builder.setView(view)
+        val dialog = builder.create()
+        if (dialog.window != null) {
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.window!!.setBackgroundDrawableResource(R.color.white)
+        }
+
+        calendar = Calendar.getInstance()
+        startDate = DateManager(Date())
+        endDate = DateManager(Date(Date().time + (60 * 60 * 1000)))
+        startDate?.setIntervalTimeDate(calendar?.get(Calendar.HOUR_OF_DAY)!!, calendar?.get(Calendar.MINUTE)!!)
+        endDate?.setIntervalTimeDate(calendar?.get(Calendar.HOUR_OF_DAY)!! + 1, calendar?.get(Calendar.MINUTE)!!)
+
+        view.start_time_value.text = startDate?.getFormatTime()
+        view.end_time_value.text = endDate?.getFormatTime()
+
+        view.start_time_picker.setIs24HourView(true)
+        view.start_time_picker.hour = startDate!!.getDatePickerHour()
+        view.start_time_picker.minute = startDate!!.getDatePickerMinute()/15
+        setTimePickerInterval(view.start_time_picker)
+
+        view.end_time_picker.setIs24HourView(true)
+        view.end_time_picker.hour = endDate!!.getDatePickerHour()
+        view.end_time_picker.minute = endDate!!.getDatePickerMinute()/15
+        setTimePickerInterval(view.end_time_picker)
+
+        view.start_time_picker.setOnTimeChangedListener { _, hourOfDay, minute ->
+
+            view.start_time_value.text = String.format("%02d:%02d", hourOfDay, minute * 15)
+            startDate?.setTimeDate(hourOfDay, minute * 15)
+        }
+        view.end_time_picker.setOnTimeChangedListener { _, hourOfDay, minute ->
+
+            view.end_time_value.text = String.format("%02d:%02d", hourOfDay, minute * 15)
+            endDate?.setTimeDate(hourOfDay, minute * 15)
+        }
+        view.back_label.setOnClickListener {
+            dialog.dismiss()
+        }
+        view.ok_label.setOnClickListener {
+
+            if (startDate?.getFormatDate3() == startCurrentDate?.getFormatDate3()) {
+
+                if (startDate!!.getDatePickerHour() < startCurrentDate!!.getDatePickerHour() ||
+                    endDate!!.getDatePickerHour() < startCurrentDate!!.getDatePickerHour() ||
+                    endDate!!.getDatePickerHour() < startDate!!.getDatePickerHour() ||
+                    (startDate!!.getDatePickerHour() == startCurrentDate!!.getDatePickerHour() &&
+                            startDate!!.getDatePickerMinute() <= startCurrentDate!!.getDatePickerMinute()) ||
+                    (startDate!!.getDatePickerHour() == endDate!!.getDatePickerHour() &&
+                            startDate!!.getDatePickerMinute() >= endDate!!.getDatePickerMinute())) {
+
+                    startDate?.setIntervalTimeDate(calendar?.get(Calendar.HOUR_OF_DAY)!!, calendar?.get(Calendar.MINUTE)!!)
+                    endDate?.setIntervalTimeDate(calendar?.get(Calendar.HOUR_OF_DAY)!! + 1, calendar?.get(Calendar.MINUTE)!!)
+
+                    showPopupError("Intervallo di tempo non valido.", View.OnClickListener {
+                        popupError!!.dismiss()
+                    })
+                } else {
+                    val result = "Dalle " + startDate?.getFormatTime() + " alle " + endDate?.getFormatTime()
+                    range_time_picker_2.text = result
+                }
+
+            } else {
+
+                if (endDate!!.getDatePickerHour() < startDate!!.getDatePickerHour() ||
+                    (startDate!!.getDatePickerHour() == endDate!!.getDatePickerHour() &&
+                            startDate!!.getDatePickerMinute() >= endDate!!.getDatePickerMinute())) {
+
+                    startDate?.setIntervalTimeDate(calendar?.get(Calendar.HOUR_OF_DAY)!!, calendar?.get(Calendar.MINUTE)!!)
+                    endDate?.setIntervalTimeDate(calendar?.get(Calendar.HOUR_OF_DAY)!! + 1, calendar?.get(Calendar.MINUTE)!!)
+
+                    showPopupError("Intervallo di tempo non valido.", View.OnClickListener {
+                        popupError!!.dismiss()
+                    })
+                } else {
+                    val result = "Dalle " + startDate?.getFormatTime() + " alle " + endDate?.getFormatTime()
+                    range_time_picker_2.text = result
+                }
+            }
+
+            dialog.dismiss()
+        }
+        view.start_time_container.setOnClickListener {
+            view.start_time_picker.visibility = View.VISIBLE
+            view.end_time_picker.visibility = View.GONE
+            view.start_tab_indicator.visibility = View.VISIBLE
+            view.end_tab_indicator.visibility = View.GONE
+            view.inizio.alpha = 1F
+            view.fine.alpha = 0.4F
+        }
+        view.end_time_container.setOnClickListener {
+            view.start_time_picker.visibility = View.GONE
+            view.end_time_picker.visibility = View.VISIBLE
+            view.start_tab_indicator.visibility = View.GONE
+            view.end_tab_indicator.visibility = View.VISIBLE
+            view.inizio.alpha = 0.4F
+            view.fine.alpha = 1F
+        }
+        dialog.show()
+    }
+
+    private fun setTimePickerInterval(picker: TimePicker) {
         val numValues = 60 / interval
         val displayedValues = arrayOfNulls<String>(numValues)
         for (i in 0 until numValues) {

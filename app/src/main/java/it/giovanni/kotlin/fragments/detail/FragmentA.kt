@@ -6,6 +6,6 @@ import it.giovanni.kotlin.fragments.BaseFragment
 class FragmentA : BaseFragment(SectionType.TAB_DETAIL) {
 
     override fun getTitle(): Int {
-        return R.string.logcat_title
+        return R.string.logcat_projects_title
     }
 }

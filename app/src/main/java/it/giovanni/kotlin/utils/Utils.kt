@@ -10,6 +10,7 @@ import android.net.Uri
 import android.os.Build
 import android.text.Html
 import android.text.Spanned
+import java.util.regex.Pattern
 
 class Utils {
 
@@ -93,6 +94,17 @@ class Utils {
             intent.putExtra(Intent.EXTRA_TEXT, "")
             // intent.putExtra(Intent.EXTRA_HTML_TEXT, "") // If you are using HTML in your body text
             context.startActivity(Intent.createChooser(intent, ""))
+        }
+
+        fun checkEmail(email: String): Boolean {
+            return Pattern.compile(
+                "^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]|[\\w-]{2,}))@"
+                        + "((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
+                        + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\."
+                        + "([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
+                        + "[0-9]{1,2}|25[0-5]|2[0-4][0-9]))|"
+                        + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$"
+            ).matcher(email).matches()
         }
     }
 }

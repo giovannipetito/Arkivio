@@ -4,9 +4,11 @@ class Globals {
 
     companion object {
 
-        var LOGCAT = "LOGCAT"
+        var LOGCAT_PROJECTS = "LOGCAT_PROJECTS"
         var RUBRICA = "RUBRICA"
         var DATE_MANAGER = "DATE_MANAGER"
+        var ADD_CONTACTS = "ADD_CONTACTS"
+        var CONTACTS_LIST = "CONTACTS_LIST"
 
         var BEAN = "bean"
 

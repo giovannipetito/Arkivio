@@ -53,7 +53,7 @@
 
             <Button
                     android:id="@+id/login_button"
-                    style="@style/EmployeeButton"
+                    style="@style/CustomButton"
                     android:layout_width="290dp"
                     android:layout_height="45dp"
                     android:layout_marginTop="32dp"

@@ -41,21 +41,17 @@ class WorkingAreaFragment : HomeFragment() {
         label_rubrica.setOnClickListener {
             currentActivity.openDetail(Globals.RUBRICA, null)
         }
-
         label_logcat.setOnClickListener {
-            currentActivity.openDetail(Globals.LOGCAT, null)
+            currentActivity.openDetail(Globals.LOGCAT_PROJECTS, null)
         }
-
         label_rubrica.setOnClickListener {
             currentActivity.openDetail(Globals.RUBRICA, null)
         }
-
-        label_popup.setOnClickListener {
-            showPopupError(context!!.getString(R.string.app_name))
-        }
-
         label_date_manager.setOnClickListener {
             currentActivity.openDetail(Globals.DATE_MANAGER, null)
+        }
+        label_add_contacts.setOnClickListener {
+            currentActivity.openDetail(Globals.ADD_CONTACTS, null)
         }
     }
 }

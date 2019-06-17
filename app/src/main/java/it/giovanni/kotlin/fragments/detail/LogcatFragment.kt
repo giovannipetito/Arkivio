@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.viewpager.widget.ViewPager
 import it.giovanni.kotlin.R
-import it.giovanni.kotlin.adapters.LogcatAdapter
+import it.giovanni.kotlin.fragments.adapter.LogcatAdapter
 import it.giovanni.kotlin.fragments.DetailFragment
 import kotlinx.android.synthetic.main.logcat_layout.*
 
@@ -16,7 +16,7 @@ class LogcatFragment : DetailFragment() {
     }
 
     override fun getTitle(): Int {
-        return R.string.logcat_title
+        return R.string.logcat_projects_title
     }
 
     override fun getActionTitle(): Int {

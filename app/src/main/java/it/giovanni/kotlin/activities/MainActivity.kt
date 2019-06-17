@@ -19,6 +19,8 @@ import it.giovanni.kotlin.fragments.*
 import it.giovanni.kotlin.fragments.detail.DateManagerFragment
 import it.giovanni.kotlin.fragments.detail.LogcatFragment
 import it.giovanni.kotlin.fragments.detail.RubricaFragment
+import it.giovanni.kotlin.fragments.detail.addcontacts.AddContactsFragment
+import it.giovanni.kotlin.fragments.detail.addcontacts.ContactsListFragment
 import it.giovanni.kotlin.utils.Globals
 
 class MainActivity : BaseActivity(), IProgressLoader {
@@ -38,7 +40,7 @@ class MainActivity : BaseActivity(), IProgressLoader {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        progressDialog = Dialog(this, R.style.MyDialogTheme)
+        progressDialog = Dialog(this, R.style.DialogTheme)
         progressDialog?.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         val view = LayoutInflater.from(applicationContext).inflate(R.layout.progress_dialog_custom, null)
@@ -134,7 +136,7 @@ class MainActivity : BaseActivity(), IProgressLoader {
 
         when (detailType) {
 
-            Globals.LOGCAT -> {
+            Globals.LOGCAT_PROJECTS -> {
                 baseFragment = LogcatFragment()
             }
             Globals.RUBRICA -> {
@@ -142,6 +144,12 @@ class MainActivity : BaseActivity(), IProgressLoader {
             }
             Globals.DATE_MANAGER -> {
                 baseFragment = DateManagerFragment()
+            }
+            Globals.ADD_CONTACTS -> {
+                baseFragment = AddContactsFragment()
+            }
+            Globals.CONTACTS_LIST -> {
+                baseFragment = ContactsListFragment()
             }
         }
 

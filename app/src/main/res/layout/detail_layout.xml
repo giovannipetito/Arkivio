@@ -46,7 +46,7 @@
                 android:textColorLink="@color/white"
                 android:textColorHighlight="@color/white"
                 android:textSize="20sp"
-                style="@style/EmployeeSearchEditText"
+                style="@style/EditText3"
                 android:singleLine="true"
                 android:ellipsize="end"
                 android:maxLines="1"
