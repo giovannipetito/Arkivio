@@ -23,6 +23,7 @@
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning"
             android:fullBackupContent="@xml/backup_descriptor">
+
         <activity android:name=".activities.MainActivity"
                   android:screenOrientation="portrait"
                   android:resizeableActivity="false"
@@ -34,6 +35,21 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity
+                android:name=".activities.DeepLinkActivity"
+                android:launchMode="singleTask"
+                android:noHistory="true"
+                android:theme="@style/AppThemeNoDisplay">
+            <intent-filter>
+                <data android:scheme="waw3" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>

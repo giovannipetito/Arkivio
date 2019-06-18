@@ -25,7 +25,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:text="ciao"
+                        android:text="Non sono presenti eventi"
                         android:textColor="@color/black" />
 
             </RelativeLayout>
@@ -36,6 +36,11 @@
                     android:layout_height="match_parent"
                     android:clipToPadding="false"
                     android:paddingBottom="90dp"/>
+
+            <include
+                    android:id="@+id/smile_cries_detail_layout"
+                    layout="@layout/message_error_detail_layout"
+                    android:visibility="gone" />
 
         </RelativeLayout>
 

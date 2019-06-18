@@ -16,6 +16,15 @@
         <item name="android:windowBackground">@color/colorPrimary</item>
     </style>
 
+    <style name="AppThemeNoDisplay" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowNoDisplay">true</item>
+    </style>
+
     <style name="CustomButton" parent="android:Widget.Button">
         <item name="android:background">@drawable/custom_button</item>
         <item name="android:gravity">center</item>
@@ -84,6 +93,11 @@
         <item name="colorControlActivated">@color/colorPrimary</item>
         <item name="colorControlHighlight">#626a73</item>
         <item name="android:colorForeground">#626a73</item>
+    </style>
+
+    <style name="tabFontStyle">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textAllCaps">true</item>
     </style>
 
 </resources>

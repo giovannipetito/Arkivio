@@ -5,6 +5,8 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.TransitionDrawable
@@ -24,6 +26,7 @@ import it.giovanni.kotlin.interfaces.IDataRefresh
 import it.giovanni.kotlin.utils.Globals
 import it.giovanni.kotlin.BuildConfig
 import it.giovanni.kotlin.R
+import it.giovanni.kotlin.utils.Utils
 import kotlinx.android.synthetic.main.main_content_layout.*
 import kotlinx.android.synthetic.main.main_layout.*
 import kotlinx.android.synthetic.main.nav_header_main.*
@@ -31,6 +34,9 @@ import kotlinx.android.synthetic.main.nav_header_main.*
 class MainFragment : BaseFragment(SectionType.MAIN) {
 
     private var currentPosition: Int = 0
+    private var bundleW3B: Bundle = Bundle()
+    private var bundleWAW3: Bundle = Bundle()
+    private var bundleGitHub: Bundle = Bundle()
 
     override fun getTitle(): Int {
         return NO_TITLE
@@ -52,6 +58,15 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
 
+        bundleW3B.putInt("link_drive_w3b", R.string.link_drive_w3b)
+        bundleW3B.putString("url_drive_w3b", resources.getString(R.string.url_drive_w3b))
+
+        bundleWAW3.putInt("link_drive_waw3", R.string.link_drive_waw3)
+        bundleWAW3.putString("url_drive_waw3", resources.getString(R.string.url_drive_waw3))
+
+        bundleGitHub.putInt("link_github", R.string.link_github)
+        bundleGitHub.putString("url_github", resources.getString(R.string.url_github))
+
         hideProgressDialog() // TODO: Questo l'ho messo io qui.
 
         val drawListener = object : ViewTreeObserver.OnGlobalLayoutListener {
@@ -64,6 +79,14 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
         view!!.viewTreeObserver.addOnGlobalLayoutListener(drawListener)
 
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val avatar : Bitmap = BitmapFactory.decodeResource(context!!.resources, R.drawable.giovanni)
+        val roundAvatar : Bitmap = Utils.getRoundBitmap(avatar, avatar.width)
+        nav_header_avatar.setImageBitmap(roundAvatar)
     }
 
     private fun draw() {
@@ -156,19 +179,35 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
         val versionCode = "(" + BuildConfig.VERSION_CODE.toString() + ")"
         version_code.text = versionCode
 
-        menu_intranet.setOnClickListener {
+        webview_drive_w3b.setOnClickListener {
             closeRightMenu()
-//            currentActivity.openDetail(Globals.FRAGMENT_WEB_VIEW, bundleIntranet)
+            currentActivity.openDetail(Globals.WEB_VIEW, bundleW3B)
         }
 
-        menu_rubrica.setOnClickListener {
+        link_drive_waw3.setOnClickListener {
             closeRightMenu()
-//            currentActivity.openDetail(Globals.SEARCH_RUBRICA, null)
+            Utils.openBrowser(context!!, context!!.getString(R.string.url_drive_waw3))
+            // currentActivity.openDetail(Globals.WEB_VIEW, bundleWAW3)
         }
 
-        link_feedback.setOnClickListener {
+        link_github.setOnClickListener {
             closeRightMenu()
-//            currentActivity.openDetail(Globals.FRAGMENT_WEB_VIEW, bundleFeedback)
+            Utils.openBrowser(context!!, context!!.getString(R.string.url_github))
+        }
+
+        webview_github.setOnClickListener {
+            closeRightMenu()
+            currentActivity.openDetail(Globals.WEB_VIEW, bundleGitHub)
+        }
+
+        link_app.setOnClickListener {
+            closeRightMenu()
+            Utils.openApp(context!!, context!!.resources.getString(R.string.url_gympass))
+        }
+
+        link_test.setOnClickListener {
+            closeRightMenu()
+            Utils.openBrowser(context!!, context!!.getString(R.string.test_url))
         }
     }
 

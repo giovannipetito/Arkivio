@@ -3,13 +3,16 @@ package it.giovanni.kotlin.utils
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.graphics.*
 import android.media.ThumbnailUtils
 import android.net.Uri
 import android.os.Build
+import android.os.Bundle
 import android.text.Html
 import android.text.Spanned
+import androidx.core.content.ContextCompat
 import java.util.regex.Pattern
 
 class Utils {
@@ -105,6 +108,45 @@ class Utils {
                         + "[0-9]{1,2}|25[0-5]|2[0-4][0-9]))|"
                         + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$"
             ).matcher(email).matches()
+        }
+
+        fun openBrowser(context: Context, link: String) {
+            var url: String = link
+            if (!url.startsWith("http://") && !url.startsWith("https://"))
+                url = "http://$url"
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            ContextCompat.startActivity(context, browserIntent, Bundle())
+        }
+
+        fun openApp(context: Context, packageName: String) {
+            try {
+                val manager = context.packageManager
+                if (isPackageInstalled(packageName, manager)) {
+                    val i = manager.getLaunchIntentForPackage(packageName)
+                    i?.addCategory(Intent.CATEGORY_LAUNCHER)
+                    ContextCompat.startActivity(context, i!!, Bundle())
+                } else {
+                    // app not installed, try to open google play store
+                    val marketUri = Uri.parse("market://details?id=$packageName")
+                    ContextCompat.startActivity(context, Intent(Intent.ACTION_VIEW).setData(marketUri), Bundle())
+                }
+            } catch (e: Exception) {
+                // app not installed, google play store not installed, then open browser
+                ContextCompat.startActivity(
+                    context,
+                    Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=$packageName")),
+                    Bundle()
+                )
+            }
+        }
+
+        private fun isPackageInstalled(packagename: String, packageManager: PackageManager): Boolean {
+            return try {
+                packageManager.getPackageInfo(packagename, 0)
+                true
+            } catch (e: PackageManager.NameNotFoundException) {
+                false
+            }
         }
     }
 }

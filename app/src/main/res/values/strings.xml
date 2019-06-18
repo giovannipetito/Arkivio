@@ -12,6 +12,10 @@
     <!-- LOGCAT PROJECTS -->
     <string name="logcat_projects_title">Logcat projects</string>
 
+    <string name="current_week">QUESTA SETTIMANA</string>
+    <string name="next_week">PROSSIMA SETTIMANA</string>
+    <string name="future_events">EVENTI FUTURI</string>
+
     <!-- RUBRICA -->
     <string name="rubrica_title">Rubrica</string>
     <string name="rubrica_message_dialog">Vuoi aggiungere il contatto in rubrica?</string>
@@ -29,5 +33,18 @@
     <string name="no_list">Nessuna lista presente.</string>
     <string name="reset">Reset</string>
     <string name="popup_really_close_message">Confermi di voler annullare l\'inserimento dei contatti?</string>
+
+    <!-- LINK -->
+    <string name="link_drive_w3b">Drive W3B</string>
+    <string name="url_drive_w3b">https://drive.google.com/drive/folders/167sOVpUrgzTLdWXb9j3qQv7StwbhzZWA</string>
+    <string name="link_drive_waw3">Drive WAW3</string>
+    <string name="url_drive_waw3">https://drive.google.com/drive/folders/141pTucTh3eYyHKs752PvPu9fpgm8nMev</string>
+
+    <string name="link_github">GitHub</string>
+    <string name="url_github">https://github.com/giovannipetito/</string>
+
+    <string name="url_gympass">com.gympass</string>
+
+    <string name="test_url">https://app.windtre.it/Apps/WAW3/uri.php</string>
 
 </resources>

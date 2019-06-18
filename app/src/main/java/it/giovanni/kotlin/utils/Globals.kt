@@ -10,6 +10,8 @@ class Globals {
         var ADD_CONTACTS = "ADD_CONTACTS"
         var CONTACTS_LIST = "CONTACTS_LIST"
 
+        var WEB_VIEW = "WEB_VIEW"
+
         var BEAN = "bean"
 
         // BACK INTENT KEY PARAMS

@@ -15,80 +15,139 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
-            android:orientation="horizontal"
-            android:visibility="gone">
+            android:orientation="horizontal">
 
         <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/nav_header_avatar"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:src="@drawable/ico_avatar" />
 
-        <LinearLayout
+        <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="16dp"
-                android:orientation="vertical">
+                android:layout_marginStart="16dp">
 
             <TextView
                     android:id="@+id/menu_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:layout_centerVertical="true"
+                    android:text="Giovanni Petito"
                     android:textColor="@color/colorPrimary"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-            <TextView
-                    android:id="@+id/matricola"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="-"
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <ScrollView android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/profile_container">
+
+        <LinearLayout
+                android:id="@+id/nav_header_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="20dp"
+                android:orientation="vertical">
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+
+                <TextView
+                        android:id="@+id/webview_drive_w3b"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="Drive W3B"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+
+                <TextView
+                        android:id="@+id/link_drive_waw3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="Drive WAW3"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+
+                <TextView
+                        android:id="@+id/link_github"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="Browser GitHub"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+
+                <TextView
+                        android:id="@+id/webview_github"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="WebView GitHub"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+
+                <TextView
+                        android:id="@+id/link_app"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="Link App"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+
+                <TextView
+                        android:id="@+id/link_test"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="Link test"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp" />
+
+            </RelativeLayout>
+
         </LinearLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/profile_container"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="20dp"
-            android:orientation="vertical">
-
-        <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp">
-
-            <TextView
-                    android:id="@+id/menu_intranet"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="Bacheca"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16sp" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp">
-
-            <TextView
-                    android:id="@+id/menu_rubrica"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="Rubrica"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16sp" />
-
-        </RelativeLayout>
-
-    </LinearLayout>
+    </ScrollView>
 
     <RelativeLayout
             android:layout_width="match_parent"
@@ -145,7 +204,7 @@
             <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                 <ImageView
                         android:id="@+id/menu_ico_configuration"
@@ -160,8 +219,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="20dp"
-                        android:layout_toRightOf="@id/menu_ico_configuration"
+                        android:layout_marginStart="20dp"
+                        android:layout_toEndOf="@id/menu_ico_configuration"
                         android:text="Configurazioni"
                         android:textColor="@color/colorPrimary"
                         android:textSize="16sp" />
@@ -186,8 +245,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="20dp"
-                        android:layout_toRightOf="@id/menu_ico_link"
+                        android:layout_marginStart="20dp"
+                        android:layout_toEndOf="@id/menu_ico_link"
                         android:text="Feedback"
                         android:textColor="@color/colorPrimary"
                         android:textSize="16sp" />
@@ -213,8 +272,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="20dp"
-                        android:layout_toRightOf="@id/menu_ico_exit"
+                        android:layout_marginStart="20dp"
+                        android:layout_toEndOf="@id/menu_ico_exit"
                         android:text="LOGOUT"
                         android:textColor="@color/colorPrimary"
                         android:textSize="16sp" />

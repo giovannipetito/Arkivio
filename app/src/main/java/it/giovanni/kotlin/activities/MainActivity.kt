@@ -21,7 +21,9 @@ import it.giovanni.kotlin.fragments.detail.LogcatFragment
 import it.giovanni.kotlin.fragments.detail.RubricaFragment
 import it.giovanni.kotlin.fragments.detail.addcontacts.AddContactsFragment
 import it.giovanni.kotlin.fragments.detail.addcontacts.ContactsListFragment
+import it.giovanni.kotlin.fragments.detail.webview.WebViewFragment
 import it.giovanni.kotlin.utils.Globals
+import it.giovanni.kotlin.utils.Utils
 
 class MainActivity : BaseActivity(), IProgressLoader {
 
@@ -34,6 +36,10 @@ class MainActivity : BaseActivity(), IProgressLoader {
     private var HOME_FRAGMENT: String = "HOME_FRAGMENT"
     private var LOGIN_FRAGMENT: String = "LOGIN_FRAGMENT"
     private var SPLASH_FRAGMENT: String = "SPLASH_FRAGMENT"
+
+    companion object {
+        var running = false
+    }
 
     @SuppressLint("InflateParams")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,6 +72,24 @@ class MainActivity : BaseActivity(), IProgressLoader {
 
             }, SPLASH_DISPLAY_TIME)
         }
+    }
+
+    private fun removeAllFragmentsToMainFragment() {
+        for (fragment in supportFragmentManager.fragments) {
+            if (fragment != null && fragment !is MainFragment) {
+                supportFragmentManager.beginTransaction().remove(fragment).commit()
+            }
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        running = true
+    }
+
+    override fun onStop() {
+        super.onStop()
+        running = false
     }
 
     override fun showProgressDialog() {
@@ -151,6 +175,9 @@ class MainActivity : BaseActivity(), IProgressLoader {
             Globals.CONTACTS_LIST -> {
                 baseFragment = ContactsListFragment()
             }
+            Globals.WEB_VIEW -> {
+                baseFragment = WebViewFragment()
+            }
         }
 
         if (baseFragment != null) {
@@ -206,5 +233,13 @@ class MainActivity : BaseActivity(), IProgressLoader {
             R.anim.out_right_to_left
         )
         transaction.remove(baseFragmentView).commit()
+    }
+
+    fun openApp(packageName: String) {
+        Utils.openApp(this, packageName)
+    }
+
+    fun openBrowser(url: String) {
+        Utils.openBrowser(this, url)
     }
 }
