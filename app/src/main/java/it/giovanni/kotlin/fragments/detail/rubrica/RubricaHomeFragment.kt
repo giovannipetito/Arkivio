@@ -19,9 +19,11 @@ import kotlin.math.roundToInt
 
 class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback {
 
-    var viewFragment: View? = null
-    var viewParent: View? = null
     private var contacts: ArrayList<Persona>? = null
+
+    private var viewFragment: View? = null
+    private var viewParent: View? = null
+    private var progressBarContainer: RelativeLayout? = null
 
     override fun getLayout(): Int {
         return R.layout.rubrica_home_layout
@@ -66,6 +68,7 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback {
         return viewFragment
     }
 
+    @Suppress("DEPRECATION")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -103,37 +106,53 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback {
             currentActivity.openDetail(Globals.RUBRICA_LIST, contactsBundle, this@RubricaHomeFragment, Globals.REQUEST_CODE_EVENT_EMPLOYEE_SEARCH)
         }
 
-        number_picker_1.minValue = 104
-        number_picker_1.maxValue = 167
-        number_picker_1.value = 104
-        // number_picker_1.setBackgroundColor(context?.resources!!.getColor(R.color.colorPrimary))
-
-        number_picker_2.minValue = 0
-        number_picker_2.maxValue = 350
-
         val viewGroup = viewFragment?.findViewById(R.id.progress_bar_viewgroup) as ViewGroup
         viewParent = layoutInflater.inflate(R.layout.rubrica_home_layout, viewGroup, false)
 
+        // val inflater = LayoutInflater.from(context)
+        // val viewParent = inflater.inflate(R.layout.rubrica_home_layout, null)
+        // NOTA: viewParent e viewFragment sono equivalenti.
+
         val progressBarContent = viewFragment?.findViewById(R.id.progress_bar_content) as View
-        // val progressBarContainer = progressBarContent.findViewById(R.id.progress_bar_container) as RelativeLayout
+        progressBarContainer = progressBarContent.findViewById(R.id.progress_bar_container)
         val progressBar = progressBarContent.findViewById(R.id.progress_bar) as RelativeLayout
         val bar = progressBarContent.findViewById(R.id.bar) as ImageView
 
         val drawableBar = GradientDrawable(
             GradientDrawable.Orientation.LEFT_RIGHT,
-            intArrayOf(resources.getColor(R.color.red), resources.getColor(R.color.yellow), resources.getColor(R.color.azzurro))
+            intArrayOf(resources.getColor(R.color.red),
+                resources.getColor(R.color.yellow),
+                resources.getColor(R.color.azzurro))
         )
 
         drawableBar.cornerRadius = 50f
         progressBar.setBackgroundDrawable(drawableBar)
 
+        /*
+        var progressbarwidth: Int? = null
+        viewParent?.viewTreeObserver?.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                view.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                if (progressBarContainer != null)
+                    progressbarwidth = progressBarContainer?.width!! * 1000 / 5
+            }
+        })
+        viewParent?.requestLayout()
+        */
+
         multi_spinner_view.setValues(104F, 140F, 104F, 20F)
-        number_picker_1.setOnValueChangedListener { picker, oldVal, newVal ->
+        number_picker_1.minValue = 104
+        number_picker_1.maxValue = 167
+        number_picker_1.value = 104
+        // number_picker_1.setBackgroundColor(context?.resources!!.getColor(R.color.colorPrimary))
+        number_picker_1.setOnValueChangedListener { _, _, newVal ->
 
             multi_spinner_view.setValues(newVal.toFloat(), 140F, 104F, 20F)
         }
 
-        number_picker_2.setOnValueChangedListener { picker, oldVal, newVal ->
+        number_picker_2.minValue = 0
+        number_picker_2.maxValue = 350
+        number_picker_2.setOnValueChangedListener { _, _, newVal ->
 
             bar.translationX = newVal.toFloat()
         }
