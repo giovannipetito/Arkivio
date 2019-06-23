@@ -24,10 +24,15 @@ class ContactsListAdapter(onItemClicked: OnItemViewClicked) : RecyclerView.Adapt
     override fun onBindViewHolder(holder: ContactsListViewHolder, position: Int) {
 
         val contact : Persona = contacts!![position]
-        holder.nome.text = contact.nome
+        val name = contact.nome + " " + contact.cognome
+        holder.nome.text = name
         holder.email.text = contact.email
-        holder.itemView.setOnClickListener {
-            onItemViewClicked?.onItemClicked(contact, contacts)
+
+        holder.contactInfoContainer.setOnClickListener {
+            onItemViewClicked?.onItemInfoClicked(contact, contacts)
+        }
+        holder.addContactContainer.setOnClickListener {
+            onItemViewClicked?.onItemIconClicked(contact)
         }
     }
 
@@ -41,6 +46,7 @@ class ContactsListAdapter(onItemClicked: OnItemViewClicked) : RecyclerView.Adapt
     }
 
     interface OnItemViewClicked {
-        fun onItemClicked(persona: Persona, list: ArrayList<Persona>?)
+        fun onItemInfoClicked(persona: Persona, list: ArrayList<Persona>?)
+        fun onItemIconClicked(persona: Persona)
     }
 }

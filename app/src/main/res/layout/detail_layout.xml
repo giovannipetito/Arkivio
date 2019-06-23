@@ -110,7 +110,7 @@
             android:layout_height="match_parent"
             android:background="@color/detail_background">
 
-        <it.giovanni.kotlin.utils.MultiSwipeRefreshLayout
+        <it.giovanni.kotlin.customview.MultiSwipeRefreshLayout
                 android:id="@+id/swipeRefreshLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -120,7 +120,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
 
-        </it.giovanni.kotlin.utils.MultiSwipeRefreshLayout>
+        </it.giovanni.kotlin.customview.MultiSwipeRefreshLayout>
 
     </RelativeLayout>
 

@@ -46,24 +46,6 @@
               android:alpha=".4"/>
 
         <TextView
-                android:id="@+id/label_rubrica"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="@string/rubrica_title"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                android:textAlignment="center"/>
-
-        <View android:layout_width="120dp"
-              android:layout_height="1dp"
-              android:layout_marginTop="8dp"
-              android:layout_marginBottom="8dp"
-              android:background="@color/white"
-              android:layout_gravity="center"
-              android:alpha=".4"/>
-
-        <TextView
                 android:id="@+id/label_date_manager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -82,11 +64,11 @@
               android:alpha=".4"/>
 
         <TextView
-                android:id="@+id/label_add_contacts"
+                android:id="@+id/label_rubrica"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="@string/add_contacts_title"
+                android:text="@string/rubrica_title"
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:textAlignment="center"/>

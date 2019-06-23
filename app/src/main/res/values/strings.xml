@@ -16,17 +16,17 @@
     <string name="next_week">PROSSIMA SETTIMANA</string>
     <string name="future_events">EVENTI FUTURI</string>
 
-    <!-- RUBRICA -->
-    <string name="rubrica_title">Rubrica</string>
-    <string name="rubrica_message_dialog">Vuoi aggiungere il contatto in rubrica?</string>
-
     <!-- DATE MANAGER -->
     <string name="date_manager_title">Date Manager</string>
     <string name="range_time_error">Intervallo di tempo non valido.</string>
 
-    <!-- AGGIUNGI CONTATTI -->
-    <string name="add_contacts_title">Aggiungi contatti</string>
-    <string name="contacts_list_action_label">Fatto</string>
+    <!-- RUBRICA -->
+    <string name="rubrica_title">Rubrica</string>
+    <string name="rubrica_home_title">Home Rubrica</string>
+    <string name="rubrica_list_title">Lista Rubrica</string>
+    <string name="rubrica_detail_title">Dettaglio Rubrica</string>
+    <string name="rubrica_message_dialog">Vuoi aggiungere il contatto in rubrica?</string>
+    <string name="rubrica_list_action_label">Fatto</string>
     <string name="activate_the_search">Attiva la ricerca</string>
     <string name="search_by_name_or_msisdn">Cerca per nome o msisdn</string>
     <string name="no_result_by_search">Nessun risultato con questa stringa di ricerca.</string>

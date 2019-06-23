@@ -18,11 +18,12 @@ import it.giovanni.kotlin.R
 import it.giovanni.kotlin.fragments.*
 import it.giovanni.kotlin.fragments.detail.DateManagerFragment
 import it.giovanni.kotlin.fragments.detail.LogcatFragment
-import it.giovanni.kotlin.fragments.detail.RubricaFragment
-import it.giovanni.kotlin.fragments.detail.addcontacts.AddContactsFragment
-import it.giovanni.kotlin.fragments.detail.addcontacts.ContactsListFragment
+import it.giovanni.kotlin.fragments.detail.rubrica.RubricaDetailFragment
+import it.giovanni.kotlin.fragments.detail.rubrica.RubricaHomeFragment
+import it.giovanni.kotlin.fragments.detail.rubrica.RubricaListFragment
 import it.giovanni.kotlin.fragments.detail.webview.WebViewFragment
 import it.giovanni.kotlin.utils.Globals
+import it.giovanni.kotlin.utils.UserFactory
 import it.giovanni.kotlin.utils.Utils
 
 class MainActivity : BaseActivity(), IProgressLoader {
@@ -150,6 +151,18 @@ class MainActivity : BaseActivity(), IProgressLoader {
         }
     }
 
+    fun logout() {
+        removeAllFragments()
+        val loginFragment = LoginFragment()
+        loginFragment.arguments = Bundle()
+        UserFactory.getInstance().clear()
+        supportFragmentManager
+            .beginTransaction()
+            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+            .replace(R.id.frame_container, loginFragment, LOGIN_FRAGMENT)
+            .commit()
+    }
+
     override fun openDetail(detailType: String, extraParams: Bundle?) {
         openDetail(detailType, extraParams, null, null)
     }
@@ -163,17 +176,17 @@ class MainActivity : BaseActivity(), IProgressLoader {
             Globals.LOGCAT_PROJECTS -> {
                 baseFragment = LogcatFragment()
             }
-            Globals.RUBRICA -> {
-                baseFragment = RubricaFragment()
-            }
             Globals.DATE_MANAGER -> {
                 baseFragment = DateManagerFragment()
             }
-            Globals.ADD_CONTACTS -> {
-                baseFragment = AddContactsFragment()
+            Globals.RUBRICA_HOME -> {
+                baseFragment = RubricaHomeFragment()
             }
-            Globals.CONTACTS_LIST -> {
-                baseFragment = ContactsListFragment()
+            Globals.RUBRICA_LIST -> {
+                baseFragment = RubricaListFragment()
+            }
+            Globals.RUBRICA_DETAIL -> {
+                baseFragment = RubricaDetailFragment()
             }
             Globals.WEB_VIEW -> {
                 baseFragment = WebViewFragment()

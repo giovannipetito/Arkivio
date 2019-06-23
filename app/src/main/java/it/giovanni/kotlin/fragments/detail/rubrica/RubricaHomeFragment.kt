@@ -1,26 +1,34 @@
-package it.giovanni.kotlin.fragments.detail.addcontacts
+package it.giovanni.kotlin.fragments.detail.rubrica
 
 import android.content.Intent
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.RelativeLayout
 import it.giovanni.kotlin.R
 import it.giovanni.kotlin.bean.Persona
 import it.giovanni.kotlin.customview.Brick
 import it.giovanni.kotlin.fragments.DetailFragment
 import it.giovanni.kotlin.interfaces.IFlexBoxCallback
 import it.giovanni.kotlin.utils.Globals
-import kotlinx.android.synthetic.main.add_contacts_layout.*
+import kotlinx.android.synthetic.main.rubrica_home_layout.*
+import kotlin.math.roundToInt
 
-class AddContactsFragment: DetailFragment(), IFlexBoxCallback {
+class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback {
 
+    var viewFragment: View? = null
+    var viewParent: View? = null
     private var contacts: ArrayList<Persona>? = null
 
     override fun getLayout(): Int {
-        return R.layout.add_contacts_layout
+        return R.layout.rubrica_home_layout
     }
 
     override fun getTitle(): Int {
-        return R.string.add_contacts_title
+        return R.string.rubrica_home_title
     }
 
     override fun getActionTitle(): Int {
@@ -53,6 +61,11 @@ class AddContactsFragment: DetailFragment(), IFlexBoxCallback {
     override fun onActionSearch(search_string: String) {
     }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
+        return viewFragment
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -66,12 +79,12 @@ class AddContactsFragment: DetailFragment(), IFlexBoxCallback {
             if (count > 0) {
                 for (index in 1..count) {
                     val eb = (partecipanti_flex_box.getChildAt(index - 1) as Brick)
-                    val contact = Persona(eb.getName(), eb.getName(), true)
+                    val contact = Persona(eb.getName(), eb.getName(), "", "", "", "", "", true)
                     contacts.add(contact)
                 }
             }
-            contactsBundle.putSerializable(ContactsListFragment.KEY_EMPLOYEES, contacts)
-            currentActivity.openDetail(Globals.CONTACTS_LIST, contactsBundle, this@AddContactsFragment, Globals.REQUEST_CODE_EVENT_EMPLOYEE_SEARCH)
+            contactsBundle.putSerializable(RubricaListFragment.KEY_EMPLOYEES, contacts)
+            currentActivity.openDetail(Globals.RUBRICA_LIST, contactsBundle, this@RubricaHomeFragment, Globals.REQUEST_CODE_EVENT_EMPLOYEE_SEARCH)
         }
 
         partecipanti_flex_box.setOnClickListener {
@@ -82,12 +95,47 @@ class AddContactsFragment: DetailFragment(), IFlexBoxCallback {
             if (count > 0) {
                 for (index in 1..count) {
                     val eb = (partecipanti_flex_box.getChildAt(index - 1) as Brick)
-                    val contact = Persona(eb.getName(), eb.getName(), true)
+                    val contact = Persona(eb.getName(), eb.getName(), "", "", "", "", "", true)
                     contacts.add(contact)
                 }
             }
-            contactsBundle.putSerializable(ContactsListFragment.KEY_EMPLOYEES, contacts)
-            currentActivity.openDetail(Globals.CONTACTS_LIST, contactsBundle, this@AddContactsFragment, Globals.REQUEST_CODE_EVENT_EMPLOYEE_SEARCH)
+            contactsBundle.putSerializable(RubricaListFragment.KEY_EMPLOYEES, contacts)
+            currentActivity.openDetail(Globals.RUBRICA_LIST, contactsBundle, this@RubricaHomeFragment, Globals.REQUEST_CODE_EVENT_EMPLOYEE_SEARCH)
+        }
+
+        number_picker_1.minValue = 104
+        number_picker_1.maxValue = 167
+        number_picker_1.value = 104
+        // number_picker_1.setBackgroundColor(context?.resources!!.getColor(R.color.colorPrimary))
+
+        number_picker_2.minValue = 0
+        number_picker_2.maxValue = 350
+
+        val viewGroup = viewFragment?.findViewById(R.id.progress_bar_viewgroup) as ViewGroup
+        viewParent = layoutInflater.inflate(R.layout.rubrica_home_layout, viewGroup, false)
+
+        val progressBarContent = viewFragment?.findViewById(R.id.progress_bar_content) as View
+        // val progressBarContainer = progressBarContent.findViewById(R.id.progress_bar_container) as RelativeLayout
+        val progressBar = progressBarContent.findViewById(R.id.progress_bar) as RelativeLayout
+        val bar = progressBarContent.findViewById(R.id.bar) as ImageView
+
+        val drawableBar = GradientDrawable(
+            GradientDrawable.Orientation.LEFT_RIGHT,
+            intArrayOf(resources.getColor(R.color.red), resources.getColor(R.color.yellow), resources.getColor(R.color.azzurro))
+        )
+
+        drawableBar.cornerRadius = 50f
+        progressBar.setBackgroundDrawable(drawableBar)
+
+        multi_spinner_view.setValues(104F, 140F, 104F, 20F)
+        number_picker_1.setOnValueChangedListener { picker, oldVal, newVal ->
+
+            multi_spinner_view.setValues(newVal.toFloat(), 140F, 104F, 20F)
+        }
+
+        number_picker_2.setOnValueChangedListener { picker, oldVal, newVal ->
+
+            bar.translationX = newVal.toFloat()
         }
     }
 
@@ -104,7 +152,7 @@ class AddContactsFragment: DetailFragment(), IFlexBoxCallback {
                 for (contact in contacts!!) {
                     val employeeBrick = Brick(context!!)
                     employeeBrick.mode(Brick.ModeType.VIEW)
-                    employeeBrick.setName(contact.nome)
+                    employeeBrick.setName(contact.nome!!)
                     employeeBrick.callback(this)
                     partecipanti_flex_box.addView(employeeBrick)
                 }
@@ -118,16 +166,16 @@ class AddContactsFragment: DetailFragment(), IFlexBoxCallback {
         if (brickCount == 0) {
             partecipanti_flex_box.visibility = View.GONE
             users_text.visibility = View.VISIBLE
-            flexboxlayout_container.layoutParams.height = Math.round(50.toFloat() * density)
+            flexboxlayout_container.layoutParams.height = (50.toFloat() * density).roundToInt()
         } else {
             partecipanti_flex_box.visibility = View.VISIBLE
             users_text.visibility = View.GONE
             if (brickCount == 1)
-                flexboxlayout_container.layoutParams.height = Math.round(50.toFloat() * density)
+                flexboxlayout_container.layoutParams.height = (50.toFloat() * density).roundToInt()
             if (brickCount == 2)
-                flexboxlayout_container.layoutParams.height = Math.round(90.toFloat() * density)
+                flexboxlayout_container.layoutParams.height = (90.toFloat() * density).roundToInt()
             if (brickCount == 3 || brickCount > 3)
-                flexboxlayout_container.layoutParams.height = Math.round(130.toFloat() * density)
+                flexboxlayout_container.layoutParams.height = (130.toFloat() * density).roundToInt()
         }
     }
 

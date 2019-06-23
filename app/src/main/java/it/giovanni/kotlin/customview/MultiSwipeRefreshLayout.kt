@@ -1,4 +1,4 @@
-package it.giovanni.kotlin.utils
+package it.giovanni.kotlin.customview
 
 import android.content.Context
 import android.util.AttributeSet

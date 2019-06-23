@@ -21,11 +21,12 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager.widget.ViewPager
-import it.giovanni.kotlin.HomeFragmentAdapter
+import it.giovanni.kotlin.adapters.HomeFragmentAdapter
 import it.giovanni.kotlin.interfaces.IDataRefresh
 import it.giovanni.kotlin.utils.Globals
 import it.giovanni.kotlin.BuildConfig
 import it.giovanni.kotlin.R
+import it.giovanni.kotlin.activities.MainActivity
 import it.giovanni.kotlin.utils.Utils
 import kotlinx.android.synthetic.main.main_content_layout.*
 import kotlinx.android.synthetic.main.main_layout.*
@@ -167,6 +168,10 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
         })
 
         drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+
+        logout_container.setOnClickListener {
+            (activity as MainActivity).logout()
+        }
 
         if (BuildConfig.CREDITS_PREFIX == "DEBUG") {
             val versionName = BuildConfig.VERSION_NAME + " " + BuildConfig.CREDITS_PREFIX

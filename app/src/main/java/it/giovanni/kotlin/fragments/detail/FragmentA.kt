@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import it.giovanni.kotlin.R
 import it.giovanni.kotlin.fragments.BaseFragment
-import it.giovanni.kotlin.utils.MultiSwipeRefreshLayout
+import it.giovanni.kotlin.customview.MultiSwipeRefreshLayout
 import kotlinx.android.synthetic.main.message_error_detail_layout.*
 import kotlinx.android.synthetic.main.working_area_tab_detail.*
 
@@ -46,7 +46,7 @@ class FragmentA : BaseFragment(SectionType.TAB_DETAIL) {
         recycler_view.setHasFixedSize(true)
         val layoutManager = LinearLayoutManager(context)
         recycler_view.layoutManager = layoutManager
-// recycler_view.adapter = eventsDateAdapter
+        // recycler_view.adapter = eventsDateAdapter
 
         smile_cries_detail_layout.setOnClickListener {
             loadData()
@@ -62,8 +62,7 @@ class FragmentA : BaseFragment(SectionType.TAB_DETAIL) {
         }
     }
 
-    private fun loadData() {
-    }
+    private fun loadData() {}
 
     private fun showSmileCry(msg:String) {
         smile_message_detail.text = msg

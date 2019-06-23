@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import androidx.core.content.ContextCompat
 import it.giovanni.kotlin.interfaces.IDetailFragment
 import it.giovanni.kotlin.R
@@ -155,20 +156,25 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
     private fun openSearch() {
         search_input_text.visibility = View.VISIBLE
         search_input_text.requestFocus()
-        showSoftKeyboard()
+        showDetailSoftKeyboard()
         detail_title.visibility = View.GONE
     }
 
     abstract fun onActionSearch(search_string: String)
 
+    fun showDetailSoftKeyboard() {
+        val imm = currentActivity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.showSoftInput(search_input_text, InputMethodManager.SHOW_IMPLICIT)
+    }
+
+    fun showSoftKeyboard(editText: EditText) {
+        val imm = currentActivity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
+    }
+
     fun hideSoftKeyboard() {
         val imm = currentActivity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(currentActivity.currentFocus?.windowToken, 0)
-    }
-
-    fun showSoftKeyboard() {
-        val imm = currentActivity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.showSoftInput(search_input_text, InputMethodManager.SHOW_IMPLICIT)
     }
 
     open fun isRefreshEnabled(): Boolean {

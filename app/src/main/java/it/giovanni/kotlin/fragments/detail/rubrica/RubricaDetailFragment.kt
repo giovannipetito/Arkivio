@@ -1,4 +1,4 @@
-package it.giovanni.kotlin.fragments.detail
+package it.giovanni.kotlin.fragments.detail.rubrica
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -13,6 +13,7 @@ import android.provider.ContactsContract
 import android.view.View
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import it.giovanni.kotlin.R
+import it.giovanni.kotlin.bean.Persona
 import it.giovanni.kotlin.customview.popup.DialogListPopup
 import it.giovanni.kotlin.fragments.DetailFragment
 import it.giovanni.kotlin.utils.Utils
@@ -20,10 +21,10 @@ import it.giovanni.kotlin.utils.Utils.Companion.callContact
 import it.giovanni.kotlin.utils.Utils.Companion.sendEmail
 import kotlinx.android.synthetic.main.bottom_sheet_layout.*
 import kotlinx.android.synthetic.main.detail_layout.*
-import kotlinx.android.synthetic.main.rubrica_layout.*
+import kotlinx.android.synthetic.main.rubrica_detail_layout.*
 import java.io.ByteArrayOutputStream
 
-class RubricaFragment : DetailFragment(), View.OnClickListener {
+class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
 
     val LABEL_DELETE = "annulla"
     val LABEL_INSERT = "crea nuovo contatto"
@@ -41,12 +42,18 @@ class RubricaFragment : DetailFragment(), View.OnClickListener {
     private var name: String? = null
     private var selectedContactUri: Uri? = null
 
+    private var persona: Persona? = null
+
+    companion object {
+        var KEY_RUBRICA = "KEY_RUBRICA"
+    }
+
     override fun getLayout(): Int {
-        return R.layout.rubrica_layout
+        return R.layout.rubrica_detail_layout
     }
 
     override fun getTitle(): Int {
-        return R.string.rubrica_title
+        return R.string.rubrica_detail_title
     }
 
     override fun getActionTitle(): Int {
@@ -82,9 +89,33 @@ class RubricaFragment : DetailFragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        avatar = BitmapFactory.decodeResource(context!!.resources, R.drawable.giovanni)
-        val roundAvatar : Bitmap = Utils.getRoundBitmap(avatar!!, avatar!!.width)
-        ico_profile.setImageBitmap(roundAvatar)
+        if (arguments != null) {
+            persona = arguments!!.getSerializable(KEY_RUBRICA) as Persona?
+
+            val contact = persona?.nome + " " + persona?.cognome
+            contact_name.text = contact
+
+            if (persona?.fisso != "") value_numero_fisso.text = persona?.fisso
+            else numero_fisso_container.visibility = View.GONE
+
+            if (persona?.cellulare != "") value_cellulare.text = persona?.cellulare
+            else cellulare_container.visibility = View.GONE
+
+            if (persona?.email != "") value_mail.text = persona?.email
+            else email_container.visibility = View.GONE
+
+            if (persona?.indirizzo != "") value_indirizzo.text = persona?.indirizzo
+            else indirizzo_container.visibility = View.GONE
+
+            if (persona?.occupazione != "") value_occupazione.text = persona?.occupazione
+            else occupazione_container.visibility = View.GONE
+        }
+
+        if (persona?.nome == "Giovanni" && persona?.cognome == "Petito") {
+            avatar = BitmapFactory.decodeResource(context!!.resources, R.drawable.giovanni)
+            val roundAvatar : Bitmap = Utils.getRoundBitmap(avatar!!, avatar!!.width)
+            ico_profile.setImageBitmap(roundAvatar)
+        }
 
         numero_fisso_container.setOnClickListener {
             callContact(context!!, value_numero_fisso.text.toString())

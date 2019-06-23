@@ -1,7 +1,6 @@
-package it.giovanni.kotlin.fragments.detail.addcontacts
+package it.giovanni.kotlin.fragments.detail.rubrica
 
 import android.animation.Animator
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -11,7 +10,6 @@ import android.view.View
 import android.view.ViewAnimationUtils
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,16 +22,19 @@ import it.giovanni.kotlin.fragments.adapter.ContactsListAdapter
 import it.giovanni.kotlin.interfaces.IFlexBoxCallback
 import it.giovanni.kotlin.utils.Globals
 import it.giovanni.kotlin.utils.Utils
-import kotlinx.android.synthetic.main.contacts_list_layout.*
+import kotlinx.android.synthetic.main.rubrica_list_layout.*
 import kotlinx.android.synthetic.main.detail_layout.*
+import kotlin.math.hypot
+import kotlin.math.max
+import kotlin.math.roundToInt
 
-class ContactsListFragment: DetailFragment(), ContactsListAdapter.OnItemViewClicked, IFlexBoxCallback {
+class RubricaListFragment: DetailFragment(), ContactsListAdapter.OnItemViewClicked, IFlexBoxCallback {
 
-    var TRANSITION_TIME: Long = 275
+    private var TRANSITION_TIME: Long = 275
     private var FLEXBOX_CONTAINER_HEIGHT: Int? = 80
 
     private var viewFragment: View? = null
-    lateinit var adapter: ContactsListAdapter
+    private lateinit var adapter: ContactsListAdapter
     private var list: ArrayList<Persona>? = null
     private var filtered: ArrayList<Persona>? = null
     private var updatedList: ArrayList<Persona>? = null
@@ -49,15 +50,15 @@ class ContactsListFragment: DetailFragment(), ContactsListAdapter.OnItemViewClic
     }
 
     override fun getLayout(): Int {
-        return R.layout.contacts_list_layout
+        return R.layout.rubrica_list_layout
     }
 
     override fun getTitle(): Int {
-        return R.string.add_contacts_title
+        return R.string.rubrica_list_title
     }
 
     override fun getActionTitle(): Int {
-        return R.string.contacts_list_action_label
+        return R.string.rubrica_list_action_label
     }
 
     override fun searchAction(): Boolean {
@@ -123,7 +124,7 @@ class ContactsListFragment: DetailFragment(), ContactsListAdapter.OnItemViewClic
                     for (index in 1..count) {
                         val eb = (partecipanti_flex_search_box.getChildAt(index - 1) as Brick)
                         if (eb.isVisible()) {
-                            val contact = Persona(eb.getName(), eb.getEmail(), true)
+                            val contact = Persona(eb.getName(), eb.getEmail(), "", "", "", "", "", true)
                             list!!.add(contact)
                         }
                     }
@@ -168,8 +169,8 @@ class ContactsListFragment: DetailFragment(), ContactsListAdapter.OnItemViewClic
                 for ((i, contact) in contacts.withIndex()) {
                     val employeeBrick = Brick(context!!)
                     employeeBrick.mode(Brick.ModeType.EDIT)
-                    employeeBrick.setName(contact.nome)
-                    employeeBrick.setEmail(contact.email)
+                    employeeBrick.setName(contact.nome!!)
+                    employeeBrick.setEmail(contact.email!!)
                     employeeBrick.callback(this)
                     employeeBrick.position(i)
                     partecipanti_flex_search_box.addView(employeeBrick)
@@ -186,11 +187,11 @@ class ContactsListFragment: DetailFragment(), ContactsListAdapter.OnItemViewClic
 
             if (switch_compat.isChecked) {
                 edit_search.requestFocus()
-                val imm = currentActivity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.showSoftInput(edit_search, InputMethodManager.SHOW_IMPLICIT)
+                showSoftKeyboard(edit_search)
                 recyclerview_contacts.visibility = View.VISIBLE
             } else {
                 edit_search.clearFocus()
+                hideSoftKeyboard()
                 recyclerview_contacts.visibility = View.GONE
             }
         }
@@ -208,6 +209,10 @@ class ContactsListFragment: DetailFragment(), ContactsListAdapter.OnItemViewClic
                     if (edit_search.text.endsWith(",") || edit_search.text.endsWith(" ")) {
                         var email: String = edit_search.text.toString().toLowerCase()
                         email = email.substring(0, email.length - 1)
+                        addBrick(email, email)
+                        edit_search.setText("")
+                        /*
+                        email = email.substring(0, email.length - 1)
                         if (Utils.checkEmail(email)) {
                             if (list?.size != 0) {
                                 if (list != null && list?.isNotEmpty()!!) {
@@ -222,6 +227,7 @@ class ContactsListFragment: DetailFragment(), ContactsListAdapter.OnItemViewClic
                                 edit_search.setText("")
                             }
                         }
+                        */
                     }
                 } else if (edit_search.text?.isEmpty()!!) {
                     close_action.visibility = View.GONE
@@ -239,7 +245,7 @@ class ContactsListFragment: DetailFragment(), ContactsListAdapter.OnItemViewClic
                 if (Utils.checkEmail(email)) {
                     if (list?.size != 0) {
                         if (email == list!![0].email) {
-                            addBrick(list!![0].nome, email)
+                            addBrick(list!![0].nome!!, email)
                             edit_search.setText("")
                         }
                     } else {
@@ -282,20 +288,19 @@ class ContactsListFragment: DetailFragment(), ContactsListAdapter.OnItemViewClic
         return false
     }
 
-    override fun onItemClicked(persona: Persona, list: ArrayList<Persona>?) {
+    override fun onItemInfoClicked(persona: Persona, list: ArrayList<Persona>?) {
 
         updatedList = ArrayList()
         persona.isVisible = false
-        addBrick(persona.nome, persona.email)
+        addBrick(persona.nome!!, persona.email!!)
         val density = resources.displayMetrics.density
-        if (flexbox_container.measuredHeight >= Math.round(FLEXBOX_CONTAINER_HEIGHT?.toFloat()!! * density)) {
-            flexbox_container.layoutParams.height = Math.round(FLEXBOX_CONTAINER_HEIGHT?.toFloat()!! * density)
-        }
+        if (flexbox_container.measuredHeight >= (FLEXBOX_CONTAINER_HEIGHT?.toFloat()!! * density).roundToInt())
+            flexbox_container.layoutParams.height = (FLEXBOX_CONTAINER_HEIGHT?.toFloat()!! * density).roundToInt()
 
         if (list != null) {
-            for (item in list) {
-                if (persona.email != item.email)
-                    updatedList!!.add(item)
+            for (notChosen in list) {
+                if (notChosen.email != persona.email)
+                    updatedList!!.add(notChosen)
             }
         }
 
@@ -303,6 +308,13 @@ class ContactsListFragment: DetailFragment(), ContactsListAdapter.OnItemViewClic
         adapter.notifyDataSetChanged()
 
         actionLabelState(true)
+    }
+
+    override fun onItemIconClicked(persona: Persona) {
+        hideSoftKeyboard()
+        val bundlePersona = Bundle()
+        bundlePersona.putSerializable(RubricaDetailFragment.KEY_RUBRICA, persona)
+        currentActivity.openDetail(Globals.RUBRICA_DETAIL, bundlePersona)
     }
 
     override fun onActionClickListener() {
@@ -336,7 +348,9 @@ class ContactsListFragment: DetailFragment(), ContactsListAdapter.OnItemViewClic
             return
         }
         for (persona in list!!) {
-            if (persona.nome.toLowerCase().contains(sentence?.toLowerCase()!!))
+            if (persona.nome!!.toLowerCase().contains(sentence?.toLowerCase()!!) ||
+                persona.cognome!!.toLowerCase().contains(sentence?.toLowerCase()!!) ||
+                persona.cellulare!!.toLowerCase().contains(sentence?.toLowerCase()!!))
                 filtered?.add(persona)
         }
         if (filtered == null || filtered?.size == 0) {
@@ -371,7 +385,7 @@ class ContactsListFragment: DetailFragment(), ContactsListAdapter.OnItemViewClic
             val centerX = switch_compat.x.toInt() + switch_compat.width/2
             val centerY = switch_compat.y.toInt() + switch_compat.height/2
             val startRadius = 0
-            val endRadius = Math.hypot(container.width.toDouble(), container.height.toDouble()).toInt()
+            val endRadius = hypot(container.width.toDouble(), container.height.toDouble()).toInt()
 
             val anim = ViewAnimationUtils.createCircularReveal(content, centerX, centerY, startRadius.toFloat(), endRadius.toFloat())
             anim.duration = TRANSITION_TIME
@@ -382,7 +396,7 @@ class ContactsListFragment: DetailFragment(), ContactsListAdapter.OnItemViewClic
         } else {
             val centerX = switch_compat.x.toInt() + switch_compat.width/2
             val centerY = switch_compat.y.toInt() + switch_compat.height/2
-            val startRadius = Math.max(container.width, container.height)
+            val startRadius = max(container.width, container.height)
             val endRadius = 0
 
             val anim = ViewAnimationUtils.createCircularReveal(content, centerX, centerY, startRadius.toFloat(), endRadius.toFloat())
@@ -407,21 +421,21 @@ class ContactsListFragment: DetailFragment(), ContactsListAdapter.OnItemViewClic
     private fun init(): ArrayList<Persona> {
 
         val list = ArrayList<Persona>()
-        list.add(Persona("Giovanni", "Petito", false))
-        list.add(Persona("Raffaele", "Petito", false))
-        list.add(Persona("Teresa", "Petito", false))
-        list.add(Persona("Salvatore", "Pragliola", false))
-        list.add(Persona("Angelina", "Basile", false))
-        list.add(Persona("Vincenzo", "Petito", false))
-        list.add(Persona("Giovanni", "Basile", false))
-        list.add(Persona("Marco", "Basile", false))
-        list.add(Persona("Antonio", "D'Ascia", false))
-        list.add(Persona("Giovanni", "D'Ascia", false))
-        list.add(Persona("Mariano", "Pinto", false))
-        list.add(Persona("Pasquale", "Amato", false))
-        list.add(Persona("Francesco", "Mongiello", false))
-        list.add(Persona("Gianluigi", "Santillo", false))
-        list.add(Persona("Daniele", "Musacchia", false))
+        list.add(Persona("Giovanni", "Petito", "", "3331582355", "giovanni.petito88@gmail.com", "Via Casoretto 60, Milano (MI)", "Android Developer", false))
+        list.add(Persona("Raffaele", "Petito", "0818183301", "3802689011", "raffaele.petito@gmail.com", "Via Santa Maria a Cubito 19, Giugliano in Campania (NA)", "Studente", false))
+        list.add(Persona("Teresa", "Petito", "", "3343540536", "teresa_petito@yahoo.it", "Via Raffaele Carelli 8, Giugliano in Campania (NA)", "Commercialista", false))
+        list.add(Persona("Salvatore", "Pragliola", "", "3384672609", "salvatore.pragliola@gmail.com", "Via Raffaele Carelli 8, Giugliano in Campania (NA)", "Marmista", false))
+        list.add(Persona("Angelina", "Basile", "0818183301", "3334392578", "angelina.basile@gmail.com", "Via Santa Maria a Cubito 19, Giugliano in Campania (NA)", "Casalinga", false))
+        list.add(Persona("Vincenzo", "Petito", "0818183301", "3666872262", "vincenzo.petito@gmail.com", "Via Santa Maria a Cubito 19, Giugliano in Campania (NA)", "Impiegato", false))
+        list.add(Persona("Giovanni", "Basile", "0818188619", "3884723340", "giovanni.basile@gmail.com", "Via Santa Maria a Cubito 21, Giugliano in Campania (NA)", "Studente", false))
+        list.add(Persona("Marco", "Basile", "0818188619", "3892148853", "marco.basile@gmail.com", "Via Santa Maria a Cubito 21, Giugliano in Campania (NA)", "Studente", false))
+        list.add(Persona("Antonio", "D'Ascia", "", "3315605694", "antonio.dascia@gmail.com", "", "Impiegato", false))
+        list.add(Persona("Giovanni", "D'Ascia", "024404881", "3331711437", "giovanni.dascia@gmail.com", "Via 4 Novembre 19, Corsico (MI)", "", false))
+        list.add(Persona("Mariano", "Pinto", "", "3397016728", "mariano.pinto@gmail.com", "", "Impiegato", false))
+        list.add(Persona("Pasquale", "Amato", "", "3665917760", "pasquale.amato@gmail.com", "", "Impiegato", false))
+        list.add(Persona("Francesco", "Mongiello", "", "3299376402", "francesco.mongiello@gmail.com", "", "Sacerdote", false))
+        list.add(Persona("Gianluigi", "Santillo", "", "3386124867", "gianluigi.santillo@gmail.com", "", "Manager", false))
+        list.add(Persona("Daniele", "Musacchia", "", "3494977374", "daniele.musacchia@gmail.com", "", "Impiegato", false))
 
         return list
     }

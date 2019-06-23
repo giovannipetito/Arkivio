@@ -1,4 +1,4 @@
-package it.giovanni.kotlin
+package it.giovanni.kotlin.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

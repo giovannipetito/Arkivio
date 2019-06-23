@@ -38,20 +38,14 @@ class WorkingAreaFragment : HomeFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        label_rubrica.setOnClickListener {
-            currentActivity.openDetail(Globals.RUBRICA, null)
-        }
         label_logcat.setOnClickListener {
             currentActivity.openDetail(Globals.LOGCAT_PROJECTS, null)
-        }
-        label_rubrica.setOnClickListener {
-            currentActivity.openDetail(Globals.RUBRICA, null)
         }
         label_date_manager.setOnClickListener {
             currentActivity.openDetail(Globals.DATE_MANAGER, null)
         }
-        label_add_contacts.setOnClickListener {
-            currentActivity.openDetail(Globals.ADD_CONTACTS, null)
+        label_rubrica.setOnClickListener {
+            currentActivity.openDetail(Globals.RUBRICA_HOME, null)
         }
     }
 }

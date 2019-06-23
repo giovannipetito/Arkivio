@@ -44,8 +44,6 @@ import kotlinx.android.synthetic.main.date_manager_layout.*
 import kotlinx.android.synthetic.main.datepicker_single_date.view.*
 import kotlinx.android.synthetic.main.timepicker_range_time.view.*
 import kotlinx.android.synthetic.main.timepicker_single_time.view.*
-import kotlinx.android.synthetic.main.timepicker_single_time.view.back
-import kotlinx.android.synthetic.main.timepicker_single_time.view.ok
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -218,9 +216,6 @@ class DateManagerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener
 
         // CUSTOM PICKERS
 
-        number_picker.minValue = 0
-        number_picker.maxValue = 12
-
         giorno = calendar?.get(Calendar.DAY_OF_MONTH)
         mese = calendar?.get(Calendar.MONTH)!! + 1
         anno = calendar?.get(Calendar.YEAR)
@@ -390,18 +385,18 @@ class DateManagerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener
         }
 
         calendar = Calendar.getInstance()
-        startTime = String.format("%02d:%02d", calendar?.get(Calendar.HOUR_OF_DAY), calendar?.get(Calendar.MINUTE))
-        view.time_value.text = startTime
+        startTime = String.format("%02d:%02d", calendar?.get(Calendar.HOUR_OF_DAY), calendar?.get(Calendar.MINUTE)) + ":00"
+        view.time_value.text = String.format("%02d:%02d", calendar?.get(Calendar.HOUR_OF_DAY), calendar?.get(Calendar.MINUTE))
 
         view.time_picker.setIs24HourView(true)
         view.time_picker.setOnTimeChangedListener { _, hourOfDay, minute ->
             startTime = String.format("%02d:%02d", hourOfDay, minute) + ":00"
             view.time_value.text = String.format("%02d:%02d", hourOfDay, minute)
         }
-        view.back.setOnClickListener {
+        view.single_time_annulla.setOnClickListener {
             dialog.dismiss()
         }
-        view.ok.setOnClickListener {
+        view.single_time_ok.setOnClickListener {
             single_time_picker.text = startTime
             dialog.dismiss()
         }
@@ -424,6 +419,8 @@ class DateManagerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener
         }
 
         calendar = Calendar.getInstance()
+        startCurrentDate = DateManager(Date())
+
         startTime = String.format("%02d:%02d:%02d", 9, 0, 0)
         endTime = String.format("%02d:%02d:%02d", 18, 0, 0)
         view.start_time_value.text = String.format("%02d:%02d", 9, 0)
@@ -464,18 +461,24 @@ class DateManagerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener
             endHour = hourOfDay
             endMinute = minute
         }
-        view.back_label.setOnClickListener {
+        view.range_time_annulla.setOnClickListener {
             dialog.dismiss()
         }
-        view.ok_label.setOnClickListener {
+        view.range_time_ok.setOnClickListener {
 
-            if (startHour!! > endHour!! || (startHour == endHour && startMinute!! >= endMinute!!)) {
+            if (startHour!! > endHour!! || (startHour == endHour && startMinute!! > endMinute!!)) {
 
-                showPopupError("Intervallo di tempo non valido.", View.OnClickListener {
+                showPopupError("L'ora di fine non può essere precedente a quella di inizio.", View.OnClickListener {
                     popupError!!.dismiss()
                 })
-            } else
+            } else if (startHour!! > endHour!! || (startHour == endHour && startMinute!! == endMinute!!)) {
+
+                showPopupError("L'ora di inizio non può coincidere con quella di fine.", View.OnClickListener {
+                    popupError!!.dismiss()
+                })
+            } else {
                 range_time_picker_1.text = rangeTime
+            }
 
             dialog.dismiss()
         }
@@ -514,10 +517,14 @@ class DateManagerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener
         }
 
         calendar = Calendar.getInstance()
+        startCurrentDate = DateManager(Date())
+
         startDate = DateManager(Date())
         endDate = DateManager(Date(Date().time + (60 * 60 * 1000)))
-        startDate?.setIntervalTimeDate(calendar?.get(Calendar.HOUR_OF_DAY)!!, calendar?.get(Calendar.MINUTE)!!)
-        endDate?.setIntervalTimeDate(calendar?.get(Calendar.HOUR_OF_DAY)!! + 1, calendar?.get(Calendar.MINUTE)!!)
+
+        initDate()
+        // startDate?.setIntervalTimeDate(calendar?.get(Calendar.HOUR_OF_DAY)!!, calendar?.get(Calendar.MINUTE)!!)
+        // endDate?.setIntervalTimeDate(calendar?.get(Calendar.HOUR_OF_DAY)!! + 1, calendar?.get(Calendar.MINUTE)!!)
 
         view.start_time_value.text = startDate?.getFormatTime()
         view.end_time_value.text = endDate?.getFormatTime()
@@ -542,13 +549,13 @@ class DateManagerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener
             view.end_time_value.text = String.format("%02d:%02d", hourOfDay, minute * 15)
             endDate?.setTimeDate(hourOfDay, minute * 15)
         }
-        view.back_label.setOnClickListener {
+        view.range_time_annulla.setOnClickListener {
             dialog.dismiss()
         }
-        view.ok_label.setOnClickListener {
+        view.range_time_ok.setOnClickListener {
 
             if (startDate?.getFormatDate3() == startCurrentDate?.getFormatDate3()) {
-
+                /*
                 if (startDate!!.getDatePickerHour() < startCurrentDate!!.getDatePickerHour() ||
                     endDate!!.getDatePickerHour() < startCurrentDate!!.getDatePickerHour() ||
                     endDate!!.getDatePickerHour() < startDate!!.getDatePickerHour() ||
@@ -557,25 +564,61 @@ class DateManagerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener
                     (startDate!!.getDatePickerHour() == endDate!!.getDatePickerHour() &&
                             startDate!!.getDatePickerMinute() >= endDate!!.getDatePickerMinute())) {
 
-                    startDate?.setIntervalTimeDate(calendar?.get(Calendar.HOUR_OF_DAY)!!, calendar?.get(Calendar.MINUTE)!!)
-                    endDate?.setIntervalTimeDate(calendar?.get(Calendar.HOUR_OF_DAY)!! + 1, calendar?.get(Calendar.MINUTE)!!)
+                    initDate()
 
                     showPopupError("Intervallo di tempo non valido.", View.OnClickListener {
                         popupError!!.dismiss()
                     })
                 } else {
+                    val result = "Dalle " + startDate?.getFormatTime() + " alle " + endDate?.getFormatTime()
+                    range_time_picker_2.text = result
+                }
+                */
+                if (startDate!!.getDatePickerHour() < startCurrentDate!!.getDatePickerHour() ||
+                    (startDate!!.getDatePickerHour() == startCurrentDate!!.getDatePickerHour() &&
+                            startDate!!.getDatePickerMinute() < startCurrentDate!!.getDatePickerMinute())) {
+
+                    wrongTimeInterval("L'ora di inizio non può essere precedente a quella attuale.")
+                }
+                else if (startDate!!.getDatePickerHour() > endDate!!.getDatePickerHour() ||
+                    (startDate!!.getDatePickerHour() == endDate!!.getDatePickerHour() &&
+                            startDate!!.getDatePickerMinute() > endDate!!.getDatePickerMinute())) {
+
+                    wrongTimeInterval("L'ora di fine non può essere precedente a quella di inizio.")
+                }
+                else if (startDate!!.getDatePickerHour() == endDate!!.getDatePickerHour() &&
+                    startDate!!.getDatePickerMinute() == endDate!!.getDatePickerMinute()) {
+
+                    wrongTimeInterval("L'ora di inizio non può coincidere con quella di fine.")
+                }
+                else {
                     val result = "Dalle " + startDate?.getFormatTime() + " alle " + endDate?.getFormatTime()
                     range_time_picker_2.text = result
                 }
 
             } else {
 
+                if (startDate!!.getDatePickerHour() > endDate!!.getDatePickerHour() ||
+                    (startDate!!.getDatePickerHour() == endDate!!.getDatePickerHour() &&
+                            startDate!!.getDatePickerMinute() > endDate!!.getDatePickerMinute())) {
+
+                    wrongTimeInterval("L'ora di fine non può essere precedente a quella di inizio.")
+                }
+                else if (startDate!!.getDatePickerHour() == endDate!!.getDatePickerHour() &&
+                    startDate!!.getDatePickerMinute() == endDate!!.getDatePickerMinute()) {
+
+                    wrongTimeInterval("L'ora di inizio non può coincidere con quella di fine.")
+                }
+                else {
+                    val result = "Dalle " + startDate?.getFormatTime() + " alle " + endDate?.getFormatTime()
+                    range_time_picker_2.text = result
+                }
+                /*
                 if (endDate!!.getDatePickerHour() < startDate!!.getDatePickerHour() ||
                     (startDate!!.getDatePickerHour() == endDate!!.getDatePickerHour() &&
                             startDate!!.getDatePickerMinute() >= endDate!!.getDatePickerMinute())) {
 
-                    startDate?.setIntervalTimeDate(calendar?.get(Calendar.HOUR_OF_DAY)!!, calendar?.get(Calendar.MINUTE)!!)
-                    endDate?.setIntervalTimeDate(calendar?.get(Calendar.HOUR_OF_DAY)!! + 1, calendar?.get(Calendar.MINUTE)!!)
+                    initDate()
 
                     showPopupError("Intervallo di tempo non valido.", View.OnClickListener {
                         popupError!!.dismiss()
@@ -584,6 +627,7 @@ class DateManagerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener
                     val result = "Dalle " + startDate?.getFormatTime() + " alle " + endDate?.getFormatTime()
                     range_time_picker_2.text = result
                 }
+                */
             }
 
             dialog.dismiss()
@@ -605,6 +649,18 @@ class DateManagerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener
             view.fine.alpha = 1F
         }
         dialog.show()
+    }
+
+    private fun wrongTimeInterval(message: String) {
+        initDate()
+        showPopupError(message, View.OnClickListener {
+            popupError!!.dismiss()
+        })
+    }
+
+    private fun initDate() {
+        startDate?.setIntervalTimeDate(calendar?.get(Calendar.HOUR_OF_DAY)!!, calendar?.get(Calendar.MINUTE)!!)
+        endDate?.setIntervalTimeDate(calendar?.get(Calendar.HOUR_OF_DAY)!! + 1, calendar?.get(Calendar.MINUTE)!!)
     }
 
     private fun setTimePickerInterval(picker: TimePicker) {
