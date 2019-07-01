@@ -17,6 +17,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -27,6 +28,8 @@ import it.giovanni.kotlin.utils.Globals
 import it.giovanni.kotlin.BuildConfig
 import it.giovanni.kotlin.R
 import it.giovanni.kotlin.activities.MainActivity
+import it.giovanni.kotlin.bean.LinkMenu
+import it.giovanni.kotlin.utils.UserFactory
 import it.giovanni.kotlin.utils.Utils
 import kotlinx.android.synthetic.main.main_content_layout.*
 import kotlinx.android.synthetic.main.main_layout.*
@@ -34,39 +37,32 @@ import kotlinx.android.synthetic.main.nav_header_main.*
 
 class MainFragment : BaseFragment(SectionType.MAIN) {
 
-    private var currentPosition: Int = 0
-    private var bundleW3B: Bundle = Bundle()
-    private var bundleWAW3: Bundle = Bundle()
-    private var bundleGitHub: Bundle = Bundle()
-
-    override fun getTitle(): Int {
-        return NO_TITLE
-    }
-
     companion object {
         var TAB_INDEX_HOME: Int = 1
         var TAB_INDEX_WORKING_AREA: Int = 2
         var TAB_INDEX_ADMINISTRATIVE: Int = 3
     }
 
-    var defaultX: Float = 0f
-    var TRANSITION_TIME: Long = 100
+    private var currentPosition: Int = 0
+    private var defaultX: Float = 0f
+    private var TRANSITION_TIME: Long = 100
     var animationFinish = true
-    var previousTab: Int = TAB_INDEX_HOME
-    lateinit var pagesAdapter: HomeFragmentAdapter
+    private var previousTab: Int = TAB_INDEX_HOME
+    private lateinit var pagesAdapter: HomeFragmentAdapter
     private val END_SCALE = 0.9f
+    private var listaLinkMenu: ArrayList<LinkMenu>? = null
+    private val WEBVIEW_TYPE = "webview"
+    private val APPLINK_TYPE = "inAppLink"
+    private val APP_TYPE = "app"
+    private val EXT_TYPE = "ext"
+    private var bundleDeepLink: Bundle = Bundle()
+
+    override fun getTitle(): Int {
+        return NO_TITLE
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
-
-        bundleW3B.putInt("link_drive_w3b", R.string.link_drive_w3b)
-        bundleW3B.putString("url_drive_w3b", resources.getString(R.string.url_drive_w3b))
-
-        bundleWAW3.putInt("link_drive_waw3", R.string.link_drive_waw3)
-        bundleWAW3.putString("url_drive_waw3", resources.getString(R.string.url_drive_waw3))
-
-        bundleGitHub.putInt("link_github", R.string.link_github)
-        bundleGitHub.putString("url_github", resources.getString(R.string.url_github))
 
         hideProgressDialog() // TODO: Questo l'ho messo io qui.
 
@@ -95,8 +91,13 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
         val displayMetrics = DisplayMetrics()
         currentActivity.windowManager.defaultDisplay.getMetrics(displayMetrics)
 
+        listaLinkMenu =
+            if (UserFactory.getInstance().listaLinkMenu != null)
+                UserFactory.getInstance().listaLinkMenu!!
+            else init()
+
         attachViewPager()
-        attachRightMenu()
+        attachRightMenu(listaLinkMenu)
         attachTabListener()
         resetBackgroundTabNav()
     }
@@ -110,11 +111,9 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
 
         view_pager.addOnPageChangeListener(
             object : ViewPager.OnPageChangeListener {
-                override fun onPageScrollStateChanged(state: Int) {
-                }
+                override fun onPageScrollStateChanged(state: Int) {}
 
-                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                }
+                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
 
                 override fun onPageSelected(position: Int) {
                     translateAnimation(position + 1, getTabInstanceByPosition(position + 1),
@@ -140,7 +139,7 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
         )
     }
 
-    private fun attachRightMenu() {
+    private fun attachRightMenu(listaLinkMenu: ArrayList<LinkMenu>?) {
         drawer_layout.isEnabled = false
         drawer_layout.setScrimColor(Color.TRANSPARENT)
 
@@ -184,36 +183,49 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
         val versionCode = "(" + BuildConfig.VERSION_CODE.toString() + ")"
         version_code.text = versionCode
 
-        webview_drive_w3b.setOnClickListener {
-            closeRightMenu()
-            currentActivity.openDetail(Globals.WEB_VIEW, bundleW3B)
+        if (listaLinkMenu != null) {
+            addViews(listaLinkMenu)
         }
+    }
 
-        link_drive_waw3.setOnClickListener {
-            closeRightMenu()
-            Utils.openBrowser(context!!, context!!.getString(R.string.url_drive_waw3))
-            // currentActivity.openDetail(Globals.WEB_VIEW, bundleWAW3)
-        }
+    private fun addViews(listaLinkMenu: ArrayList<LinkMenu>?) {
+        if (listaLinkMenu == null)
+            return
+        if (listaLinkMenu.size == 0)
+            return
+        for (item in listaLinkMenu) {
 
-        link_github.setOnClickListener {
-            closeRightMenu()
-            Utils.openBrowser(context!!, context!!.getString(R.string.url_github))
-        }
+            val rowView = LayoutInflater.from(context).inflate(
+                R.layout.nav_header_item,
+                nav_header_container,
+                false)
+            val labelName: TextView = rowView.findViewById(R.id.label_name)
+            labelName.text = item.name
 
-        webview_github.setOnClickListener {
-            closeRightMenu()
-            currentActivity.openDetail(Globals.WEB_VIEW, bundleGitHub)
-        }
+            nav_header_container.addView(rowView)
 
-        link_app.setOnClickListener {
-            closeRightMenu()
-            Utils.openApp(context!!, context!!.resources.getString(R.string.url_gympass))
-        }
+            labelName.setOnClickListener {
+                closeRightMenu()
+                when (item.type) {
+                    WEBVIEW_TYPE -> {
+                        bundleDeepLink.putString("link_deeplink", item.name)
+                        bundleDeepLink.putString("url_deeplink", item.link)
+                        currentActivity.openDetail(Globals.WEB_VIEW, bundleDeepLink)
+                    }
+                    APPLINK_TYPE -> {
+                        currentActivity.openDetail(Globals.RUBRICA_HOME, null)
+                    }
+                    APP_TYPE -> {
+                        currentActivity.openApp(item.appLinkAndroid)
+                    }
 
-        link_test.setOnClickListener {
-            closeRightMenu()
-            Utils.openBrowser(context!!, context!!.getString(R.string.test_url))
+                    EXT_TYPE -> {
+                        currentActivity.openBrowser(item.link)
+                    }
+                }
+            }
         }
+        nav_header_container.visibility = View.VISIBLE
     }
 
     private fun attachTabListener() {
@@ -375,5 +387,21 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
                 (pagesAdapter.getItem(1) as IDataRefresh).refresh()
             }
         }
+    }
+
+    private fun init(): ArrayList<LinkMenu> {
+
+        val list = ArrayList<LinkMenu>()
+        list.add(LinkMenu("Wind_Tre_Per_Noi", "WindTre Per Noi", "https:\\/\\/eudaimonint.secure.force.com\\/sso\\/SSOAuthenticationPage?azienda=wind&user=150511&hash=8780a3af7b6d86bb366a3e21cedef465", "1", "webview", ""))
+        list.add(LinkMenu("Intranet", "Intranet", "https:\\/\\/intranet3.sharepoint.com\\/Pages\\/Home.aspx", "2", "webview", ""))
+        list.add(LinkMenu("Bacheca", "Bacheca", "https:\\/\\/intranet3.sharepoint.com\\/sites\\/bacheca\\/Pagine\\/Bacheca.aspx", "3", "webview", ""))
+        list.add(LinkMenu("Emergenze", "Emergenze", "https:\\/\\/intranet3.sharepoint.com\\/Pages\\/Utilities_Servizi\\/AmbienteSicurezza.aspx", "4", "webview", ""))
+        list.add(LinkMenu("Fondo_Solidarietà", "Fondo Solidarietà", "https:\\/\\/sisalute.gruppofos.com\\/Login\\/", "5", "webview", ""))
+        list.add(LinkMenu("Offerta_Dipendenti", "Offerta Dipendenti", "https:\\/\\/intranet3.sharepoint.com\\/sites\\/WindTrePerNoi\\/Pagine\\/Offerta-dipendenti.aspx", "6", "webview", ""))
+        list.add(LinkMenu("#Time4Me", "#Time4Me", "https:\\/\\/intranet3.sharepoint.com\\/Pages\\/Time4Me\\/pages\\/Home.aspx", "7", "webview", ""))
+        list.add(LinkMenu("CCS", "CCS", "", "8", "app", "it.ccsitalia.app"))
+        list.add(LinkMenu("Password_Manager", "Password Manager", "https:\\/\\/myaccount.windtre.it\\/", "9", "webview", ""))
+
+        return list
     }
 }

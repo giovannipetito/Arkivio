@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import it.giovanni.kotlin.utils.DeepLinkManager
+import it.giovanni.kotlin.utils.DeepLinkDescriptor
 
 class DeepLinkActivity : AppCompatActivity() {
 
@@ -24,16 +24,16 @@ class DeepLinkActivity : AppCompatActivity() {
 
             if (MainActivity.running) {
                 // send broadcast
-                val intentBroadcast = Intent(DeepLinkManager.DEEP_LINK_ACTION)
-                intentBroadcast.putExtra(DeepLinkManager.DEEP_LINK_URI, intent.data)
+                val intentBroadcast = Intent(DeepLinkDescriptor.DEEP_LINK_ACTION)
+                intentBroadcast.putExtra(DeepLinkDescriptor.DEEP_LINK_URI, intent.data)
                 broadcastManager!!.sendBroadcast(intentBroadcast)
             } else {
                 // open activity
                 val intent = Intent(this@DeepLinkActivity, MainActivity::class.java)
                 val extras = Bundle()
-                extras.putString("action", DeepLinkManager.DEEP_LINK_ACTION)
-                extras.putParcelable(DeepLinkManager.DEEP_LINK_URI, data)
-                intent.putExtra(DeepLinkManager.DEEP_LINK, extras)
+                extras.putString("action", DeepLinkDescriptor.DEEP_LINK_ACTION)
+                extras.putParcelable(DeepLinkDescriptor.DEEP_LINK_URI, data)
+                intent.putExtra(DeepLinkDescriptor.DEEP_LINK, extras)
 
                 startActivity(intent)
             }

@@ -22,6 +22,7 @@ import it.giovanni.kotlin.fragments.detail.rubrica.RubricaDetailFragment
 import it.giovanni.kotlin.fragments.detail.rubrica.RubricaHomeFragment
 import it.giovanni.kotlin.fragments.detail.rubrica.RubricaListFragment
 import it.giovanni.kotlin.fragments.detail.webview.WebViewFragment
+import it.giovanni.kotlin.utils.DeepLinkDescriptor
 import it.giovanni.kotlin.utils.Globals
 import it.giovanni.kotlin.utils.UserFactory
 import it.giovanni.kotlin.utils.Utils
@@ -37,6 +38,8 @@ class MainActivity : BaseActivity(), IProgressLoader {
     private var HOME_FRAGMENT: String = "HOME_FRAGMENT"
     private var LOGIN_FRAGMENT: String = "LOGIN_FRAGMENT"
     private var SPLASH_FRAGMENT: String = "SPLASH_FRAGMENT"
+
+    private var deepLinkEvent: DeepLinkDescriptor? = null // TODO: IMPLEMENTARE LA LOGICA DI deepLinkEvent
 
     companion object {
         var running = false
@@ -107,14 +110,16 @@ class MainActivity : BaseActivity(), IProgressLoader {
     }
 
     // Questo è il metodo hideProgressDialog originale, non quello col metodo postDelayed.
-//    override fun hideProgressDialog() {
-//        try {
-//            progressDialog?.dismiss()
-//            if (spinnerAnimation != null)
-//                spinnerAnimation?.stop()
-//        } catch (e: Exception) {
-//        }
-//    }
+    /*
+    override fun hideProgressDialog() {
+        try {
+            progressDialog?.dismiss()
+            if (spinnerAnimation != null)
+                spinnerAnimation?.stop()
+        } catch (e: Exception) {
+        }
+    }
+    */
 
     override fun hideProgressDialog() {
         Handler().postDelayed({

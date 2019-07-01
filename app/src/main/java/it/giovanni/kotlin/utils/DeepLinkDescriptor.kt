@@ -2,7 +2,7 @@ package it.giovanni.kotlin.utils
 
 import android.net.Uri
 
-class DeepLinkManager {
+class DeepLinkDescriptor {
 
     companion object {
 

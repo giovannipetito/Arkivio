@@ -15,6 +15,7 @@
     <string name="current_week">QUESTA SETTIMANA</string>
     <string name="next_week">PROSSIMA SETTIMANA</string>
     <string name="future_events">EVENTI FUTURI</string>
+    <string name="current_year">anno in corso</string>
 
     <!-- DATE MANAGER -->
     <string name="date_manager_title">Date Manager</string>

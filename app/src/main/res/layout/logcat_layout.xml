@@ -11,13 +11,15 @@
             android:id="@+id/working_area_tabs"
             android:layout_width="match_parent"
             android:layout_height="44dp"
+            android:background="@color/colorPrimary"
             app:tabSelectedTextColor="@android:color/white"
             app:tabTextAppearance="@style/tabFontStyle"
-            android:background="@color/colorPrimary"
             app:tabTextColor="@color/tab_white"
             app:tabIndicatorHeight="4dp"
+            app:tabMaxWidth="0dp"
             app:tabGravity="fill"
-            app:tabMode="fixed" />
+            app:tabMode="fixed"
+            app:tabIndicatorGravity="top"/>
 
     <androidx.viewpager.widget.ViewPager
             android:id="@+id/working_area_viewpager"

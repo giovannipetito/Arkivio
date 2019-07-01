@@ -2,6 +2,7 @@ package it.giovanni.kotlin.fragments.detail
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.viewpager.widget.ViewPager
@@ -70,7 +71,9 @@ class LogcatFragment : DetailFragment() {
             } else
                 currentActivity.onBackPressed()
         }
-        createTabs()
+        createTabs1()
+        // createTabs2()
+        // createTabs3()
 
         Toast.makeText(context, "Position " + 0, Toast.LENGTH_SHORT).show()
 
@@ -90,7 +93,7 @@ class LogcatFragment : DetailFragment() {
     }
 
     @SuppressLint("SimpleDateFormat")
-    private fun createTabs() {
+    private fun createTabs1() {
 
         working_area_tabs.removeAllTabs()
         adapter = LogcatViewPager(childFragmentManager)
@@ -130,9 +133,8 @@ class LogcatFragment : DetailFragment() {
         working_area_viewpager.currentItem = 0
     }
 
-    /*
     @SuppressLint("SimpleDateFormat")
-    private fun createTabs() {
+    private fun createTabs2() {
 
         working_area_tabs.removeAllTabs()
         adapter = LogcatViewPager(childFragmentManager)
@@ -167,5 +169,84 @@ class LogcatFragment : DetailFragment() {
         working_area_viewpager.offscreenPageLimit = 3
         working_area_viewpager.currentItem = 0
     }
-    */
+
+    @SuppressLint("SimpleDateFormat")
+    private fun createTabs3() {
+
+        working_area_tabs.removeAllTabs()
+        adapter = LogcatViewPager(childFragmentManager)
+
+        val sdf = SimpleDateFormat("dd/MM/yyyy")
+
+        val firstDayOfCurrentYear = Calendar.getInstance()
+        firstDayOfCurrentYear.set(Calendar.DATE, 1)
+        firstDayOfCurrentYear.set(Calendar.MONTH, 0)
+        Log.i("YEARTAG", "df.format(firstDayOfCurrentYear.time): " + sdf.format(firstDayOfCurrentYear.time))
+
+        val currentDay = Calendar.getInstance()
+        Log.i("YEARTAG", "df.format(currentDay.time): " + sdf.format(currentDay.time))
+
+        val firstDayOf1YearAgo = Calendar.getInstance()
+        firstDayOf1YearAgo.add(Calendar.YEAR, -1)
+        firstDayOf1YearAgo.set(Calendar.DATE, 1)
+        firstDayOf1YearAgo.set(Calendar.MONTH, 0)
+        Log.i("YEARTAG", "df.format(firstDayOf1YearAgo.time): " + sdf.format(firstDayOf1YearAgo.time))
+
+        val lastDayOf1YearAgo = Calendar.getInstance()
+        lastDayOf1YearAgo.add(Calendar.YEAR, -1)
+        lastDayOf1YearAgo.set(Calendar.DATE, 31)
+        lastDayOf1YearAgo.set(Calendar.MONTH, 11)
+        Log.i("YEARTAG", "df.format(lastDayOf1YearAgo.time): " + sdf.format(lastDayOf1YearAgo.time))
+
+        val firstDayOf2YearsAgo = Calendar.getInstance()
+        firstDayOf2YearsAgo.add(Calendar.YEAR, -2)
+        firstDayOf2YearsAgo.set(Calendar.DATE, 1)
+        firstDayOf2YearsAgo.set(Calendar.MONTH, 0)
+        Log.i("YEARTAG", "df.format(firstDayOf2YearsAgo.time): " + sdf.format(firstDayOf2YearsAgo.time))
+
+        val lastDayOf2YearsAgo = Calendar.getInstance()
+        lastDayOf2YearsAgo.add(Calendar.YEAR, -2)
+        lastDayOf2YearsAgo.set(Calendar.DATE, 31)
+        lastDayOf2YearsAgo.set(Calendar.MONTH, 11)
+        Log.i("YEARTAG", "df.format(lastDayOf2YearsAgo.time): " + sdf.format(lastDayOf2YearsAgo.time))
+
+        val firstDayOf3YearsAgo = Calendar.getInstance()
+        firstDayOf3YearsAgo.add(Calendar.YEAR, -3)
+        firstDayOf3YearsAgo.set(Calendar.DATE, 1)
+        firstDayOf3YearsAgo.set(Calendar.MONTH, 0)
+        Log.i("YEARTAG", "df.format(firstDayOf3YearsAgo.time): " + sdf.format(firstDayOf3YearsAgo.time))
+
+        val lastDayOf3YearsAgo = Calendar.getInstance()
+        lastDayOf3YearsAgo.add(Calendar.YEAR, -3)
+        lastDayOf3YearsAgo.set(Calendar.DATE, 31)
+        lastDayOf3YearsAgo.set(Calendar.MONTH, 11)
+        Log.i("YEARTAG", "df.format(lastDayOf3YearsAgo.time): " + sdf.format(lastDayOf3YearsAgo.time))
+
+        adapter!!.addFragment(
+            sdf.format(firstDayOfCurrentYear.time),
+            sdf.format(currentDay.time),
+            resources.getString(R.string.current_year))
+
+        adapter!!.addFragment(
+            sdf.format(firstDayOf1YearAgo.time),
+            sdf.format(lastDayOf1YearAgo.time),
+            SimpleDateFormat("yyyy").format(firstDayOf1YearAgo.time))
+
+        adapter!!.addFragment(
+            sdf.format(firstDayOf2YearsAgo.time),
+            sdf.format(lastDayOf2YearsAgo.time),
+            SimpleDateFormat("yyyy").format(firstDayOf2YearsAgo.time))
+
+        adapter!!.addFragment(
+            sdf.format(firstDayOf3YearsAgo.time),
+            sdf.format(lastDayOf3YearsAgo.time),
+            SimpleDateFormat("yyyy").format(firstDayOf3YearsAgo.time))
+
+        working_area_viewpager.adapter = adapter
+        working_area_tabs.setupWithViewPager(working_area_viewpager)
+        working_area_tabs.tabGravity = TabLayout.GRAVITY_CENTER
+        working_area_tabs.tabMode = TabLayout.MODE_SCROLLABLE
+        working_area_viewpager.offscreenPageLimit = 3
+        working_area_viewpager.currentItem = 0
+    }
 }

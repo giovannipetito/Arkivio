@@ -8,14 +8,19 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Handler
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import it.giovanni.kotlin.BuildConfig
 import it.giovanni.kotlin.fragments.HomeFragment
 import it.giovanni.kotlin.fragments.MainFragment
 import it.giovanni.kotlin.utils.Utils.Companion.getRoundBitmap
 import it.giovanni.kotlin.R
-import kotlinx.android.synthetic.main.home_layout.*
+import it.giovanni.kotlin.utils.Utils.Companion.convertDpToPixel
+import it.giovanni.kotlin.utils.Utils.Companion.getHashKey
+import it.giovanni.kotlin.utils.Utils.Companion.getVersionNameLong
+import kotlinx.android.synthetic.main.home_page_layout.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -23,10 +28,10 @@ class HomePageFragment : HomeFragment() {
 
     private val GALLERY_CODE = 201
     private val DELAY_TIME: Long = 3000
-    var viewFragment: View? = null
+    private var viewFragment: View? = null
 
     override fun getLayout(): Int {
-        return R.layout.home_layout
+        return R.layout.home_page_layout
     }
 
     override fun getTitle(): Int {
@@ -64,14 +69,23 @@ class HomePageFragment : HomeFragment() {
         year.text = SimpleDateFormat("yyyy").format(date)
 
         Handler().postDelayed({
-            val avatar : Bitmap = BitmapFactory.decodeResource(context!!.resources, R.drawable.giovanni)
-            val roundAvatar : Bitmap = getRoundBitmap(avatar, avatar.width)
+            val avatar: Bitmap = BitmapFactory.decodeResource(context!!.resources, R.drawable.giovanni)
+            val roundAvatar: Bitmap = getRoundBitmap(avatar, avatar.width)
             ico_avatar.setImageBitmap(roundAvatar)
         }, DELAY_TIME)
 
         ico_avatar.setOnClickListener {
             pickFromGallery()
         }
+
+        val pixel = convertDpToPixel(context!!, 24F)
+        Log.i("HOMEPAGETAG", "pixel: $pixel")
+
+        val versionName = BuildConfig.VERSION_NAME
+        Log.i("HOMEPAGETAG", "versionName: " + getVersionNameLong(versionName))
+
+        val hashKey = getHashKey(context!!)
+        Log.i("HOMEPAGETAG", "Hash Key: $hashKey")
     }
 
     private fun pickFromGallery() {
@@ -84,8 +98,8 @@ class HomePageFragment : HomeFragment() {
         if (requestCode == GALLERY_CODE && resultCode == RESULT_OK && null != data) run {
             try {
                 if (data.data != null) {
-                    val avatar : Bitmap = MediaStore.Images.Media.getBitmap(context!!.contentResolver, data.data)
-                    val roundAvatar : Bitmap = getRoundBitmap(avatar, avatar.width)
+                    val avatar: Bitmap = MediaStore.Images.Media.getBitmap(context!!.contentResolver, data.data)
+                    val roundAvatar: Bitmap = getRoundBitmap(avatar, avatar.width)
                     ico_avatar.setImageBitmap(roundAvatar)
                 }
             } catch (e: Exception) {

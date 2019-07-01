@@ -1,5 +1,7 @@
 package it.giovanni.kotlin.utils
 
+import it.giovanni.kotlin.bean.LinkMenu
+
 class UserFactory {
 
     companion object {
@@ -15,7 +17,7 @@ class UserFactory {
         private lateinit var email: String
         private lateinit var password: String
         private var avatarImage:ByteArray? = null
-
+        var listaLinkMenu : ArrayList<LinkMenu>? = null
         private var matricola : String? = null
         private var isLogged = false
 
@@ -23,6 +25,7 @@ class UserFactory {
             email = ""
             password = ""
             avatarImage = null
+            listaLinkMenu = null
             matricola = ""
             isLogged = false
         }

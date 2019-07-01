@@ -3,6 +3,7 @@ package it.giovanni.kotlin.utils
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.graphics.*
@@ -12,8 +13,12 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Html
 import android.text.Spanned
+import android.util.Base64
 import androidx.core.content.ContextCompat
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 import java.util.regex.Pattern
+import kotlin.math.min
 
 class Utils {
 
@@ -53,12 +58,13 @@ class Utils {
             var dimen: Int = bitmap.width
             if (bitmap.width > bitmap.height)
                 dimen = bitmap.height
-            val dimension = Math.min(dimen, dimen)
+            val dimension = min(dimen, dimen)
             return ThumbnailUtils.extractThumbnail(bitmap, dimension, dimension)
         }
 
         // Su W3B questo metodo viene utilizzato nella classe NotificationDetailFragment per trasformare in stringa un
         // testo Html.
+        @Suppress("DEPRECATION")
         @SuppressLint("ObsoleteSdkInt")
         fun fromHtml(htmlMessage: String?): Spanned {
             var html = htmlMessage
@@ -73,8 +79,8 @@ class Utils {
             return result
         }
 
-        private fun returnLongVersion(version: String): Long {
-            val versionList = version.split(".")
+        fun getVersionNameLong(versionName: String): Long {
+            val versionList = versionName.split(".")
             var longVersion = ""
             for (item in versionList) {
                 longVersion += item
@@ -140,13 +146,31 @@ class Utils {
             }
         }
 
-        private fun isPackageInstalled(packagename: String, packageManager: PackageManager): Boolean {
+        private fun isPackageInstalled(packageName: String, packageManager: PackageManager): Boolean {
             return try {
-                packageManager.getPackageInfo(packagename, 0)
+                packageManager.getPackageInfo(packageName, 0)
                 true
             } catch (e: PackageManager.NameNotFoundException) {
                 false
             }
+        }
+
+        @Suppress("DEPRECATION")
+        @SuppressLint("PackageManagerGetSignatures")
+        fun getHashKey(context: Context): String? {
+
+            var hashKey: String? = null
+            try {
+                val info : PackageInfo = context.packageManager!!.getPackageInfo(context.packageName, PackageManager.GET_SIGNATURES)
+                for (signature in info.signatures) {
+                    val md = MessageDigest.getInstance("SHA")
+                    md.update(signature.toByteArray())
+                    hashKey = String(Base64.encode(md.digest(), Base64.DEFAULT))
+                }
+            } catch (e: NoSuchAlgorithmException) {}
+            catch (e: Exception) {}
+
+            return hashKey
         }
     }
 }
