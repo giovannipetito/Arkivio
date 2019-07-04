@@ -15,6 +15,10 @@ import android.text.Html
 import android.text.Spanned
 import android.util.Base64
 import androidx.core.content.ContextCompat
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
+import java.io.ObjectInputStream
+import java.io.ObjectOutputStream
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import java.util.regex.Pattern
@@ -171,6 +175,34 @@ class Utils {
             catch (e: Exception) {}
 
             return hashKey
+        }
+
+        fun encodeBase64Url(decodedUrl: String): String {
+            var encodedUrl = ""
+            try {
+                val baos = ByteArrayOutputStream()
+                val oos: ObjectOutputStream
+                oos = ObjectOutputStream(baos)
+                oos.writeObject(decodedUrl)
+                oos.close()
+                encodedUrl = Base64.encodeToString(baos.toByteArray(), Base64.URL_SAFE)
+                baos.close()
+            } catch (e: Exception) {
+            }
+            return encodedUrl
+        }
+
+        fun decodeBase64Url(encodedUrl: String): String {
+            var decodedUrl = ""
+            try {
+                val data: ByteArray? = Base64.decode(encodedUrl, Base64.URL_SAFE)
+                val ois: ObjectInputStream
+                ois = ObjectInputStream(ByteArrayInputStream(data))
+                decodedUrl = ois.readObject() as String
+                ois.close()
+            } catch (e: Exception) {
+            }
+            return decodedUrl
         }
     }
 }

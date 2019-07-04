@@ -28,7 +28,7 @@ import it.giovanni.kotlin.utils.Globals
 import it.giovanni.kotlin.BuildConfig
 import it.giovanni.kotlin.R
 import it.giovanni.kotlin.activities.MainActivity
-import it.giovanni.kotlin.bean.LinkMenu
+import it.giovanni.kotlin.bean.LinkSide
 import it.giovanni.kotlin.utils.UserFactory
 import it.giovanni.kotlin.utils.Utils
 import kotlinx.android.synthetic.main.main_content_layout.*
@@ -50,7 +50,7 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
     private var previousTab: Int = TAB_INDEX_HOME
     private lateinit var pagesAdapter: HomeFragmentAdapter
     private val END_SCALE = 0.9f
-    private var listaLinkMenu: ArrayList<LinkMenu>? = null
+    private var listLinkSide: ArrayList<LinkSide>? = null
     private val WEBVIEW_TYPE = "webview"
     private val APPLINK_TYPE = "inAppLink"
     private val APP_TYPE = "app"
@@ -91,13 +91,13 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
         val displayMetrics = DisplayMetrics()
         currentActivity.windowManager.defaultDisplay.getMetrics(displayMetrics)
 
-        listaLinkMenu =
+        listLinkSide =
             if (UserFactory.getInstance().listaLinkMenu != null)
                 UserFactory.getInstance().listaLinkMenu!!
             else init()
 
         attachViewPager()
-        attachRightMenu(listaLinkMenu)
+        attachSideMenu(listLinkSide)
         attachTabListener()
         resetBackgroundTabNav()
     }
@@ -139,7 +139,7 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
         )
     }
 
-    private fun attachRightMenu(listaLinkMenu: ArrayList<LinkMenu>?) {
+    private fun attachSideMenu(listLinkSide: ArrayList<LinkSide>?) {
         drawer_layout.isEnabled = false
         drawer_layout.setScrimColor(Color.TRANSPARENT)
 
@@ -183,17 +183,17 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
         val versionCode = "(" + BuildConfig.VERSION_CODE.toString() + ")"
         version_code.text = versionCode
 
-        if (listaLinkMenu != null) {
-            addViews(listaLinkMenu)
+        if (listLinkSide != null) {
+            addViews(listLinkSide)
         }
     }
 
-    private fun addViews(listaLinkMenu: ArrayList<LinkMenu>?) {
-        if (listaLinkMenu == null)
+    private fun addViews(listLinkSide: ArrayList<LinkSide>?) {
+        if (listLinkSide == null)
             return
-        if (listaLinkMenu.size == 0)
+        if (listLinkSide.size == 0)
             return
-        for (item in listaLinkMenu) {
+        for (item in listLinkSide) {
 
             val rowView = LayoutInflater.from(context).inflate(
                 R.layout.nav_header_item,
@@ -205,7 +205,7 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
             nav_header_container.addView(rowView)
 
             labelName.setOnClickListener {
-                closeRightMenu()
+                closeSideMenu()
                 when (item.type) {
                     WEBVIEW_TYPE -> {
                         bundleDeepLink.putString("link_deeplink", item.name)
@@ -314,17 +314,17 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
     }
 
     private var tabMenuClick: View.OnClickListener = View.OnClickListener {
-        openRightMenu()
+        openSideMenu()
     }
 
-    private fun closeRightMenu() {
+    private fun closeSideMenu() {
         if (drawer_layout.isDrawerOpen(GravityCompat.END)) {
             drawer_layout.closeDrawer(GravityCompat.END)
             tab_menu.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ico_bottom_menu))
         }
     }
 
-    private fun openRightMenu() {
+    private fun openSideMenu() {
         drawer_layout.isEnabled = true
         if (drawer_layout.isDrawerOpen(GravityCompat.END)) {
             drawer_layout.closeDrawer(GravityCompat.END)
@@ -346,10 +346,9 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
 
             valueAnimator.addListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator) {
-                    // done
                     animationFinish = true
-                    // check in right menu is open
-                    closeRightMenu()
+                    // check in side menu is open
+                    closeSideMenu()
                 }
             })
 
@@ -389,18 +388,18 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
         }
     }
 
-    private fun init(): ArrayList<LinkMenu> {
+    private fun init(): ArrayList<LinkSide> {
 
-        val list = ArrayList<LinkMenu>()
-        list.add(LinkMenu("Wind_Tre_Per_Noi", "WindTre Per Noi", "https:\\/\\/eudaimonint.secure.force.com\\/sso\\/SSOAuthenticationPage?azienda=wind&user=150511&hash=8780a3af7b6d86bb366a3e21cedef465", "1", "webview", ""))
-        list.add(LinkMenu("Intranet", "Intranet", "https:\\/\\/intranet3.sharepoint.com\\/Pages\\/Home.aspx", "2", "webview", ""))
-        list.add(LinkMenu("Bacheca", "Bacheca", "https:\\/\\/intranet3.sharepoint.com\\/sites\\/bacheca\\/Pagine\\/Bacheca.aspx", "3", "webview", ""))
-        list.add(LinkMenu("Emergenze", "Emergenze", "https:\\/\\/intranet3.sharepoint.com\\/Pages\\/Utilities_Servizi\\/AmbienteSicurezza.aspx", "4", "webview", ""))
-        list.add(LinkMenu("Fondo_Solidarietà", "Fondo Solidarietà", "https:\\/\\/sisalute.gruppofos.com\\/Login\\/", "5", "webview", ""))
-        list.add(LinkMenu("Offerta_Dipendenti", "Offerta Dipendenti", "https:\\/\\/intranet3.sharepoint.com\\/sites\\/WindTrePerNoi\\/Pagine\\/Offerta-dipendenti.aspx", "6", "webview", ""))
-        list.add(LinkMenu("#Time4Me", "#Time4Me", "https:\\/\\/intranet3.sharepoint.com\\/Pages\\/Time4Me\\/pages\\/Home.aspx", "7", "webview", ""))
-        list.add(LinkMenu("CCS", "CCS", "", "8", "app", "it.ccsitalia.app"))
-        list.add(LinkMenu("Password_Manager", "Password Manager", "https:\\/\\/myaccount.windtre.it\\/", "9", "webview", ""))
+        val list = ArrayList<LinkSide>()
+        list.add(LinkSide("Wind_Tre_Per_Noi", "WindTre Per Noi", "https:\\/\\/eudaimonint.secure.force.com\\/sso\\/SSOAuthenticationPage?azienda=wind&user=150511&hash=8780a3af7b6d86bb366a3e21cedef465", "1", "webview", ""))
+        list.add(LinkSide("Intranet", "Intranet", "https:\\/\\/intranet3.sharepoint.com\\/Pages\\/Home.aspx", "2", "webview", ""))
+        list.add(LinkSide("Bacheca", "Bacheca", "https:\\/\\/intranet3.sharepoint.com\\/sites\\/bacheca\\/Pagine\\/Bacheca.aspx", "3", "webview", ""))
+        list.add(LinkSide("Emergenze", "Emergenze", "https:\\/\\/intranet3.sharepoint.com\\/Pages\\/Utilities_Servizi\\/AmbienteSicurezza.aspx", "4", "webview", ""))
+        list.add(LinkSide("Fondo_Solidarietà", "Fondo Solidarietà", "https:\\/\\/sisalute.gruppofos.com\\/Login\\/", "5", "webview", ""))
+        list.add(LinkSide("Offerta_Dipendenti", "Offerta Dipendenti", "https:\\/\\/intranet3.sharepoint.com\\/sites\\/WindTrePerNoi\\/Pagine\\/Offerta-dipendenti.aspx", "6", "webview", ""))
+        list.add(LinkSide("#Time4Me", "#Time4Me", "https:\\/\\/intranet3.sharepoint.com\\/Pages\\/Time4Me\\/pages\\/Home.aspx", "7", "webview", ""))
+        list.add(LinkSide("CCS", "CCS", "", "8", "app", "it.ccsitalia.app"))
+        list.add(LinkSide("Password_Manager", "Password Manager", "https:\\/\\/myaccount.windtre.it\\/", "9", "webview", ""))
 
         return list
     }

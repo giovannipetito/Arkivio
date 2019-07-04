@@ -1,6 +1,6 @@
 package it.giovanni.kotlin.utils
 
-import it.giovanni.kotlin.bean.LinkMenu
+import it.giovanni.kotlin.bean.LinkSide
 
 class UserFactory {
 
@@ -17,7 +17,7 @@ class UserFactory {
         private lateinit var email: String
         private lateinit var password: String
         private var avatarImage:ByteArray? = null
-        var listaLinkMenu : ArrayList<LinkMenu>? = null
+        var listaLinkMenu : ArrayList<LinkSide>? = null
         private var matricola : String? = null
         private var isLogged = false
 

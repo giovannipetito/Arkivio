@@ -16,9 +16,9 @@ android {
     }
     buildTypes {
         debug {
-//            minifyEnabled false
+            // minifyEnabled false
             buildConfigField "String", "CREDITS_PREFIX", "\"DEBUG\""
-//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            // proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         release {
             minifyEnabled false
