@@ -17,17 +17,19 @@ class UserFactory {
         private lateinit var email: String
         private lateinit var password: String
         private var avatarImage:ByteArray? = null
-        var listaLinkMenu : ArrayList<LinkSide>? = null
+        var listLinkSide : ArrayList<LinkSide>? = null
         private var matricola : String? = null
         private var isLogged = false
+        var oAuthToken: String? = null
 
         fun clear() {
             email = ""
             password = ""
             avatarImage = null
-            listaLinkMenu = null
+            listLinkSide = null
             matricola = ""
             isLogged = false
+            oAuthToken = ""
         }
 
         fun getUserName(): String {

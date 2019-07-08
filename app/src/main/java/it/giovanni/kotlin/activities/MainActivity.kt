@@ -18,6 +18,8 @@ import it.giovanni.kotlin.R
 import it.giovanni.kotlin.fragments.*
 import it.giovanni.kotlin.fragments.detail.DateManagerFragment
 import it.giovanni.kotlin.fragments.detail.LogcatFragment
+import it.giovanni.kotlin.fragments.detail.OAuthFragment
+import it.giovanni.kotlin.fragments.detail.PDFFragment
 import it.giovanni.kotlin.fragments.detail.rubrica.RubricaDetailFragment
 import it.giovanni.kotlin.fragments.detail.rubrica.RubricaHomeFragment
 import it.giovanni.kotlin.fragments.detail.rubrica.RubricaListFragment
@@ -195,6 +197,12 @@ class MainActivity : BaseActivity(), IProgressLoader {
             }
             Globals.WEB_VIEW -> {
                 baseFragment = WebViewFragment()
+            }
+            Globals.PDF -> {
+                baseFragment = PDFFragment()
+            }
+            Globals.OAUTH_2 -> {
+                baseFragment = OAuthFragment()
             }
         }
 

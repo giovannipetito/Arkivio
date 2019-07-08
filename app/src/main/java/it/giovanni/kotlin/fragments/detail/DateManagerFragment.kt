@@ -42,6 +42,7 @@ import it.giovanni.kotlin.utils.DateManager.Companion.getUpperSimpleName1
 import it.giovanni.kotlin.utils.DateManager.Companion.getUpperSimpleName2
 import kotlinx.android.synthetic.main.date_manager_layout.*
 import kotlinx.android.synthetic.main.datepicker_single_date.view.*
+import kotlinx.android.synthetic.main.detail_layout.*
 import kotlinx.android.synthetic.main.timepicker_range_time.view.*
 import kotlinx.android.synthetic.main.timepicker_single_time.view.*
 import java.text.DecimalFormat
@@ -116,6 +117,16 @@ class DateManagerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener
     }
 
     override fun onActionSearch(search_string: String) {
+    }
+
+    override fun isRefreshEnabled(): Boolean {
+        return true
+    }
+
+    override fun refresh() {
+        startCurrentDate = DateManager(Date())
+        getdate_1?.text = DateManager(startCurrentDate!!.getFormatDate()).getDate().toString()
+        stopSwipeRefresh()
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -234,6 +245,10 @@ class DateManagerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener
 
         range_time_picker_2.setOnClickListener {
             showRangeTimePicker2()
+        }
+
+        swipeRefreshLayout!!.setOnRefreshListener {
+            refresh()
         }
     }
 

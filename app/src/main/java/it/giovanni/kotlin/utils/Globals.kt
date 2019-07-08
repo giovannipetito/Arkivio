@@ -9,8 +9,9 @@ class Globals {
         var RUBRICA_HOME = "RUBRICA_HOME"
         var RUBRICA_LIST = "RUBRICA_LIST"
         var RUBRICA_DETAIL = "RUBRICA_DETAIL"
-
         var WEB_VIEW = "WEB_VIEW"
+        var PDF = "PDF"
+        var OAUTH_2 = "OAUTH_2"
 
         var BEAN = "bean"
 

@@ -15,10 +15,9 @@ import android.text.Html
 import android.text.Spanned
 import android.util.Base64
 import androidx.core.content.ContextCompat
-import java.io.ByteArrayInputStream
-import java.io.ByteArrayOutputStream
-import java.io.ObjectInputStream
-import java.io.ObjectOutputStream
+import androidx.core.content.FileProvider
+import it.giovanni.kotlin.BuildConfig
+import java.io.*
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import java.util.regex.Pattern
@@ -203,6 +202,10 @@ class Utils {
             } catch (e: Exception) {
             }
             return decodedUrl
+        }
+
+        fun getFileUri(file: File, context: Context): Uri {
+            return FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider", file)
         }
     }
 }

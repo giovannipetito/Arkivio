@@ -1,19 +1,13 @@
 package it.giovanni.kotlin.fragments.homepage
 
-import android.content.ActivityNotFoundException
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import it.giovanni.kotlin.fragments.HomeFragment
 import it.giovanni.kotlin.fragments.MainFragment
 import it.giovanni.kotlin.R
 import it.giovanni.kotlin.utils.Globals
-import it.giovanni.kotlin.utils.Utils.Companion.decodeBase64Url
-import it.giovanni.kotlin.utils.Utils.Companion.encodeBase64Url
 import kotlinx.android.synthetic.main.working_area_layout.*
 
 class WorkingAreaFragment : HomeFragment() {
@@ -53,24 +47,11 @@ class WorkingAreaFragment : HomeFragment() {
         label_rubrica.setOnClickListener {
             currentActivity.openDetail(Globals.RUBRICA_HOME, null)
         }
-
         label_pdf.setOnClickListener {
-
-            val encodedUrl = encodeBase64Url("https://kotlinlang.org/docs/kotlin-docs.pdf")
-            Log.i("TAGPDF", "Encoded url: $encodedUrl")
-
-            val decodedUrl = decodeBase64Url("rO0ABXQAK2h0dHBzOi8va290bGlubGFuZy5vcmcvZG9jcy9rb3RsaW4tZG9jcy5wZGY=")
-            Log.i("TAGPDF", "Decoded url: $decodedUrl")
-
-            val intent = Intent(Intent.ACTION_VIEW)
-            // intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            // intent.action = Intent.ACTION_VIEW
-            intent.type = "application/pdf"
-            try {
-                startActivity(intent)
-            } catch (e: ActivityNotFoundException) {
-                Toast.makeText(activity, "No application found", Toast.LENGTH_SHORT).show()
-            }
+            currentActivity.openDetail(Globals.PDF, null)
+        }
+        label_oauth_2.setOnClickListener {
+            currentActivity.openDetail(Globals.OAUTH_2, null)
         }
     }
 }

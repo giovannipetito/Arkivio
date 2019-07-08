@@ -26,6 +26,24 @@ import java.util.*
 
 class HomePageFragment : HomeFragment() {
 
+    /*
+    - Click on Gradle (from right side panel)
+    - Click on your project
+    - Click on Tasks
+    - Click on Android
+    - Double click on signingReport
+    You will get SHA1 and MD5 in Run Tab:
+
+    Variant: debug
+    Config: debug
+    Store: C:\Users\giova\.android\debug.keystore
+    Alias: AndroidDebugKey
+    MD5: 10:DF:F7:97:43:F9:2F:73:47:39:DE:D3:9C:93:2D:7E
+    SHA1: 19:6F:40:61:7D:C4:56:A1:4A:03:B6:F6:BE:EA:74:16:5B:13:B6:92
+    SHA-256: A1:0D:D2:8E:B7:AF:FE:6A:13:DA:3B:30:B6:19:02:A9:88:79:7F:DA:A0:A7:04:F2:AB:A0:A4:88:8F:F4:1B:5F
+    Valid until: mercoledì 8 aprile 2048
+    */
+
     private val GALLERY_CODE = 201
     private val DELAY_TIME: Long = 3000
     private var viewFragment: View? = null

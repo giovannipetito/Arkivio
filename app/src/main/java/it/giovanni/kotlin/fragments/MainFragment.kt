@@ -74,7 +74,6 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
         }
 
         view!!.viewTreeObserver.addOnGlobalLayoutListener(drawListener)
-
         return view
     }
 
@@ -92,8 +91,8 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
         currentActivity.windowManager.defaultDisplay.getMetrics(displayMetrics)
 
         listLinkSide =
-            if (UserFactory.getInstance().listaLinkMenu != null)
-                UserFactory.getInstance().listaLinkMenu!!
+            if (UserFactory.getInstance().listLinkSide != null)
+                UserFactory.getInstance().listLinkSide!!
             else init()
 
         attachViewPager()

@@ -8,6 +8,8 @@
     <string name="popup_button_cancel">ANNULLA</string>
     <string name="popup_button_confirm">CONFERMA</string>
     <string name="popup_button_try_again">RIPROVA</string>
+    <string name="popup_button_send">INVIA</string>
+    <string name="popup_button_open">APRI</string>
 
     <!-- LOGCAT PROJECTS -->
     <string name="logcat_projects_title">Logcat projects</string>
@@ -40,14 +42,30 @@
     <string name="url_drive_w3b">https://drive.google.com/drive/folders/167sOVpUrgzTLdWXb9j3qQv7StwbhzZWA</string>
     <string name="link_drive_waw3">Drive WAW3</string>
     <string name="url_drive_waw3">https://drive.google.com/drive/folders/141pTucTh3eYyHKs752PvPu9fpgm8nMev</string>
-
     <string name="link_github">GitHub</string>
     <string name="url_github">https://github.com/giovannipetito/</string>
-
     <string name="url_gympass">com.gympass</string>
-
     <string name="test_url">https://app.windtre.it/Apps/WAW3/uri.php</string>
 
+    <!-- PDF -->
+    <string name="pdf">PDF</string>
     <string name="explores_pdf">Esplora PDF</string>
+    <string name="open_pdf">Apri PDF</string>
+
+    <string name="permission_conto3_pdf_request">Per scaricare le fatture è necessario accedere alla memoria del dispositivo e ti verrà richiesto di fornire il consenso ad accedere alla memoria interna del tuo dispositivo.</string>
+    <string name="permission_informativa_pdf_request">Per scaricare l\'informativa è necessario accedere alla memoria del dispositivo e ti verrà richiesto di fornire il consenso ad accedere alla memoria interna del tuo dispositivo.</string>
+    <string name="permission_conto3_pdf_never_ask_again">Per scaricare le fatture è necessario accedere alla memoria del dispositivo, seleziona Continua e verrai indirizzato alla sezione Impostazioni del dispositivo per modificare le Autorizzazioni app - Archiviazione.</string>
+    <string name="permission_informativa_pdf_never_ask_again">Per scaricare l\' informativa è necessario accedere alla memoria del dispositivo, seleziona Continua e verrai indirizzato alla sezione Impostazioni del dispositivo per modificare le Autorizzazioni app - Archiviazione.</string>
+    <string name="permission_button_explanation_dialog">CONTINUA</string>
+
+    <string name="text_billing_invoice_send_email">Invia Con</string>
+    <string name="text_billing_invoice_no_pdf_reader">Non ci sono applicazioni disponibili ad aprire il PDF.</string>
+
+    <!-- OAUTH 2.0 -->
+    <string name="oauth_2">OAuth 2.0</string>
+    <string name="logout">LOGOUT</string>
+    <string name="welcome_text">Welcome</string>
+    <string name="call_graph">Call Microsoft Graph</string>
+    <string name="graph_data">Getting data from Graph</string>
 
 </resources>

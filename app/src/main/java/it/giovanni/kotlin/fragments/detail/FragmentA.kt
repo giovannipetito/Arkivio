@@ -13,11 +13,11 @@ import kotlinx.android.synthetic.main.working_area_tab_detail.*
 
 class FragmentA : BaseFragment(SectionType.TAB_DETAIL) {
 
-    var viewFragment: View? = null
+    private var viewFragment: View? = null
     private var tabDateFrom: String = ""
     private var tabDateTo: String = ""
     var position: Int = -1
-    lateinit var swipeRefreshLayout: MultiSwipeRefreshLayout
+    private lateinit var swipeRefreshLayout: MultiSwipeRefreshLayout
 
     override fun getTitle(): Int {
         return NO_TITLE
@@ -52,7 +52,7 @@ class FragmentA : BaseFragment(SectionType.TAB_DETAIL) {
             loadData()
         }
 
-        swipeRefreshLayout = viewFragment?.findViewById(R.id.swipeRefreshLayout) as MultiSwipeRefreshLayout
+        swipeRefreshLayout = viewFragment?.findViewById(R.id.swipe_refresh_layout) as MultiSwipeRefreshLayout
         swipeRefreshLayout.setSwipeableChildren(R.id.working_area_tab_detail_container)
         swipeRefreshLayout.setOnRefreshListener {
             refresh()
@@ -62,7 +62,20 @@ class FragmentA : BaseFragment(SectionType.TAB_DETAIL) {
         }
     }
 
-    private fun loadData() {}
+    private fun loadData() {
+        hideSmileCry()
+    }
+
+    private fun loadSmileCryData() {
+        showSmileCry("Tap on it!")
+    }
+
+    private fun hideSmileCry() {
+        smile_cries_detail_layout.visibility = View.GONE
+        no_working_area_tab_container.visibility = View.VISIBLE
+        recycler_view.visibility = View.VISIBLE
+        stopSwipeRefresh()
+    }
 
     private fun showSmileCry(msg:String) {
         smile_message_detail.text = msg
@@ -71,8 +84,8 @@ class FragmentA : BaseFragment(SectionType.TAB_DETAIL) {
         recycler_view.visibility = View.GONE
     }
 
-    fun refresh() {
-        loadData()
+    private fun refresh() {
+        loadSmileCryData()
     }
 
     @Suppress("DEPRECATION")
