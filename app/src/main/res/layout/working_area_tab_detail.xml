@@ -13,30 +13,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-            <RelativeLayout
-                    android:id="@+id/no_working_area_tab_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:layout_marginTop="6dp">
-
-                <TextView
-                        android:id="@+id/no_working_area_tab_events"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:text="Non sono presenti eventi"
-                        android:textColor="@color/black" />
-
-            </RelativeLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:clipToPadding="false"
-                    android:paddingBottom="90dp"/>
-
             <include
                     android:id="@+id/smile_cries_detail_layout"
                     layout="@layout/message_error_detail_layout"

@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import it.giovanni.kotlin.fragments.MainFragment
-import it.giovanni.kotlin.fragments.homepage.AdministrativeAreaFragment
+import it.giovanni.kotlin.fragments.homepage.LinkAreaFragment
 import it.giovanni.kotlin.fragments.homepage.HomePageFragment
 import it.giovanni.kotlin.fragments.homepage.WorkingAreaFragment
 
@@ -12,7 +12,7 @@ class HomeFragmentAdapter(fragmentManager: FragmentManager, private val homePage
 
     private var homePageFragment: HomePageFragment? = null
     private var workingAreaFragment: WorkingAreaFragment? = null
-    private var administrativeAreaFragment: AdministrativeAreaFragment? = null
+    private var linkAreaFragment: LinkAreaFragment? = null
 
     override fun getItem(position: Int): Fragment {
         when (position) {
@@ -25,8 +25,8 @@ class HomeFragmentAdapter(fragmentManager: FragmentManager, private val homePage
                 return workingAreaFragment!!
             }
             2 -> {
-                if (administrativeAreaFragment == null) administrativeAreaFragment = AdministrativeAreaFragment.newInstance(caller)
-                return administrativeAreaFragment!!
+                if (linkAreaFragment == null) linkAreaFragment = LinkAreaFragment.newInstance(caller)
+                return linkAreaFragment!!
             }
             else -> {
                 if (homePageFragment == null) homePageFragment = HomePageFragment.newInstance(caller)

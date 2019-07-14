@@ -1,5 +1,6 @@
 package it.giovanni.kotlin.utils
 
+import it.giovanni.kotlin.bean.Link
 import it.giovanni.kotlin.bean.LinkSide
 
 class UserFactory {
@@ -14,18 +15,20 @@ class UserFactory {
 
     class User {
 
-        private lateinit var email: String
-        private lateinit var password: String
-        private var avatarImage:ByteArray? = null
+        lateinit var email: String
+        lateinit var password: String
+        var avatarImage:ByteArray? = null
+        var listLink : ArrayList<Link>? = null
         var listLinkSide : ArrayList<LinkSide>? = null
-        private var matricola : String? = null
-        private var isLogged = false
+        var matricola : String? = null
+        var isLogged = false
         var oAuthToken: String? = null
 
         fun clear() {
             email = ""
             password = ""
             avatarImage = null
+            listLink = null
             listLinkSide = null
             matricola = ""
             isLogged = false

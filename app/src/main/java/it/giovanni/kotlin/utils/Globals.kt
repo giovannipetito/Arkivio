@@ -10,8 +10,11 @@ class Globals {
         var RUBRICA_LIST = "RUBRICA_LIST"
         var RUBRICA_DETAIL = "RUBRICA_DETAIL"
         var WEB_VIEW = "WEB_VIEW"
+        var GC3_WEB_VIEW = "GC3_WEB_VIEW"
         var PDF = "PDF"
         var OAUTH_2 = "OAUTH_2"
+        var LAYOUT_MANAGE = "LAYOUT_MANAGE"
+        var DIALOG_FLOW = "DIALOG_FLOW"
 
         var BEAN = "bean"
 

@@ -22,6 +22,7 @@
             android:icon="@mipmap/logo_audioslave_light_blue"
             android:roundIcon="@mipmap/logo_audioslave_light_blue"
             android:supportsRtl="true"
+            android:name=".App"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning"
             android:fullBackupContent="@xml/backup_descriptor">
@@ -55,6 +56,8 @@
         <activity
                 android:name=".activities.PermissionActivity"
                 android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <activity android:name=".activities.GPSActivity" />
 
         <provider
                 android:name="androidx.core.content.FileProvider"

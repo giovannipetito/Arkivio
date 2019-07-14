@@ -12,22 +12,20 @@
             android:layout_height="48dp">
 
         <ImageView
+                android:id="@+id/voice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ico_voice_rvd" />
+
+        <ImageView
                 android:id="@+id/logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/logo_audioslave" />
-
-        <ImageView
-                android:id="@+id/rooms_available"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="55dp"
-                android:src="@drawable/ico_rooms"
-                android:visibility="gone"/>
 
         <ImageView
                 android:id="@+id/help"

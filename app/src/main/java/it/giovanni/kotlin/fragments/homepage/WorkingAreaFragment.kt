@@ -53,5 +53,8 @@ class WorkingAreaFragment : HomeFragment() {
         label_oauth_2.setOnClickListener {
             currentActivity.openDetail(Globals.OAUTH_2, null)
         }
+        label_layout_manage.setOnClickListener {
+            currentActivity.openDetail(Globals.LAYOUT_MANAGE, null)
+        }
     }
 }

@@ -3,8 +3,7 @@ package it.giovanni.kotlin.fragments.detail.webview
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
-import android.webkit.WebChromeClient
-import android.webkit.WebView
+import android.webkit.*
 import it.giovanni.kotlin.R
 import it.giovanni.kotlin.fragments.DetailFragment
 import kotlinx.android.synthetic.main.webview_layout.*
@@ -14,9 +13,7 @@ class WebViewFragment : DetailFragment() {
     private var urlGitHub = ""
     private var urlDriveW3B = ""
     private var urlDriveWAW3 = ""
-
     private var urlDeeplink = ""
-
     private var genericUrl:String? = null
 
     override fun getTitle(): Int {
@@ -101,16 +98,31 @@ class WebViewFragment : DetailFragment() {
                 }
             }
         }
+
+        webview.webViewClient = object : WebViewClient() {
+            override fun onReceivedHttpError(view: WebView?, request: WebResourceRequest?, errorResponse: WebResourceResponse?) {
+                if (errorResponse != null) {
+                    /*
+                    val statusCode = errorResponse.statusCode
+                    val params = Bundle()
+                    params.putString(Mapping.WAW3Key.WAW3_TYPE, Mapping.WAW3KeyValue.ERROR_HTTP_STATUS_TYPE)
+                    params.putInt(Mapping.WAW3Key.WAW3_ERROR_CODE, statusCode)
+                    params.putString(Mapping.WAW3Key.WAW3_SECTION, getUrl())
+                    trackError(params)
+                    gAnalytics.sendEvent(Mapping.GAnalyticsKey.CATEGORY_ERROR, "Opening_WebView", getUrl() + "|" + statusCode, null)
+                    */
+                }
+                super.onReceivedHttpError(view, request, errorResponse)
+            }
+        }
+
         if (arguments != null) {
 
             urlGitHub = getUrl("url_github")
             urlDriveW3B = getUrl("url_drive_w3b")
             urlDriveWAW3 = getUrl("url_drive_waw3")
-
             urlDeeplink = getUrl("url_deeplink")
-
-            genericUrl = getUrl("GENERIC_URL") //from deeplink
-
+            genericUrl = getUrl("GENERIC_URL") // from deeplink
         }
 
         when {
@@ -132,5 +144,15 @@ class WebViewFragment : DetailFragment() {
         return if (arguments!!.containsKey(key) && arguments!!.getString(key) != null) {
             arguments?.getString(key)!!
         } else ""
+    }
+
+    private fun getUrl(): String {
+        return when {
+            urlGitHub != "" -> urlGitHub
+            urlDriveW3B != "" -> urlDriveW3B
+            urlDriveWAW3 != "" -> urlDriveWAW3
+            urlDeeplink != "" -> urlDeeplink
+            else -> ""
+        }
     }
 }

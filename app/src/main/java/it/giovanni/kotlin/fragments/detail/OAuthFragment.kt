@@ -70,7 +70,7 @@ class OAuthFragment : DetailFragment() {
     }
 
     override fun getTitle(): Int {
-        return R.string.oauth_2
+        return R.string.oauth_2_title
     }
 
     override fun getActionTitle(): Int {

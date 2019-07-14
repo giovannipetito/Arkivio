@@ -17,20 +17,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager.widget.ViewPager
-import it.giovanni.kotlin.adapters.HomeFragmentAdapter
-import it.giovanni.kotlin.interfaces.IDataRefresh
-import it.giovanni.kotlin.utils.Globals
 import it.giovanni.kotlin.BuildConfig
 import it.giovanni.kotlin.R
 import it.giovanni.kotlin.activities.MainActivity
+import it.giovanni.kotlin.adapters.HomeFragmentAdapter
+import it.giovanni.kotlin.bean.Link
 import it.giovanni.kotlin.bean.LinkSide
+import it.giovanni.kotlin.interfaces.IDataRefresh
+import it.giovanni.kotlin.utils.Globals
 import it.giovanni.kotlin.utils.UserFactory
-import it.giovanni.kotlin.utils.Utils
+import it.giovanni.kotlin.utils.Utils.Companion.getRoundBitmap
+import it.giovanni.kotlin.utils.Utils.Companion.setBitmapFromUrl
+import kotlinx.android.synthetic.main.link_area_layout.*
 import kotlinx.android.synthetic.main.main_content_layout.*
 import kotlinx.android.synthetic.main.main_layout.*
 import kotlinx.android.synthetic.main.nav_header_main.*
@@ -50,6 +54,7 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
     private var previousTab: Int = TAB_INDEX_HOME
     private lateinit var pagesAdapter: HomeFragmentAdapter
     private val END_SCALE = 0.9f
+    private var listLink: ArrayList<Link>? = null
     private var listLinkSide: ArrayList<LinkSide>? = null
     private val WEBVIEW_TYPE = "webview"
     private val APPLINK_TYPE = "inAppLink"
@@ -81,7 +86,7 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
         super.onViewCreated(view, savedInstanceState)
 
         val avatar : Bitmap = BitmapFactory.decodeResource(context!!.resources, R.drawable.giovanni)
-        val roundAvatar : Bitmap = Utils.getRoundBitmap(avatar, avatar.width)
+        val roundAvatar : Bitmap = getRoundBitmap(avatar, avatar.width)
         nav_header_avatar.setImageBitmap(roundAvatar)
     }
 
@@ -90,15 +95,33 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
         val displayMetrics = DisplayMetrics()
         currentActivity.windowManager.defaultDisplay.getMetrics(displayMetrics)
 
+        listLink =
+            if (UserFactory.getInstance().listLink != null)
+                UserFactory.getInstance().listLink!!
+            else init()
+
         listLinkSide =
             if (UserFactory.getInstance().listLinkSide != null)
                 UserFactory.getInstance().listLinkSide!!
-            else init()
+            else initSide()
 
         attachViewPager()
         attachSideMenu(listLinkSide)
         attachTabListener()
         resetBackgroundTabNav()
+
+        if (listLink != null) {
+            addLinkViews(listLink)
+        }
+
+        voice.setOnClickListener {
+            currentActivity.openDialogDetail(Globals.DIALOG_FLOW, Bundle())
+            currentActivity.window.statusBarColor = ContextCompat.getColor(context!!, R.color.black_transparent)
+        }
+    }
+
+    fun goToHomePosition(position: Int) {
+        view_pager.currentItem = position - 1
     }
 
     private fun attachViewPager() {
@@ -121,15 +144,15 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
 
                     when (position) {
                         0 -> {
-                            rooms_available.visibility = View.GONE
+                            voice.visibility = View.VISIBLE
                             currentPosition = 0
                         }
                         1 -> {
-                            rooms_available.visibility = View.VISIBLE
+                            voice.visibility = View.GONE
                             currentPosition = 1
                         }
                         2 -> {
-                            rooms_available.visibility = View.GONE
+                            voice.visibility = View.GONE
                             currentPosition = 2
                         }
                     }
@@ -145,13 +168,13 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
         drawer_layout.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
 
-                // Scale the View based on current slide offset
+// Scale the View based on current slide offset
                 val diffScaledOffset = slideOffset * (1 - END_SCALE)
                 val offsetScale = 1 - diffScaledOffset
                 container.scaleX = offsetScale
                 container.scaleY = offsetScale
 
-                // Translate the View, accounting for the scaled width
+// Translate the View, accounting for the scaled width
                 val xOffset = drawerView.width * slideOffset
                 val xOffsetDiff = container.width * diffScaledOffset / 2
                 val xTranslation = xOffset - xOffsetDiff
@@ -183,21 +206,69 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
         version_code.text = versionCode
 
         if (listLinkSide != null) {
-            addViews(listLinkSide)
+            addSideViews(listLinkSide)
         }
     }
 
-    private fun addViews(listLinkSide: ArrayList<LinkSide>?) {
+    private fun addLinkViews(listLink: ArrayList<Link>?) {
+        if (listLink == null)
+            return
+        if (listLink.size == 0)
+            return
+        for (item in listLink) {
+
+            val rowView = LayoutInflater.from(context).inflate(R.layout.link_dynamic_item, link_utili_container, false)
+
+            val labelName: TextView = rowView.findViewById(R.id.link_name)
+            val labelIcon: ImageView = rowView.findViewById(R.id.link_icon)
+
+            setBitmapFromUrl(item.image, labelIcon, activity!!)
+
+            val linkItem: RelativeLayout = rowView.findViewById(R.id.link_item)
+
+            labelName.text = item.name
+
+            link_utili_container.addView(rowView)
+
+            linkItem.setOnClickListener {
+                when (item.type) {
+                    WEBVIEW_TYPE -> {
+                        bundleDeepLink.putString("link_deeplink", item.name)
+                        bundleDeepLink.putString("url_deeplink", item.link)
+                        currentActivity.openDetail(Globals.WEB_VIEW, bundleDeepLink)
+                    }
+                    APPLINK_TYPE -> {
+                        if (item.link == "waw3://cinema") {
+// gAnalytics.sendEvent(Mapping.GAnalyticsKey.CATEGORY_EXTERNAL_LINK, "Click", "GrandeCinema3", null)
+                            getGPSCoordinates()
+                        } else if (item.link == "waw3://contacts") {
+                            currentActivity.openDetail(Globals.RUBRICA_HOME, null)
+                        }
+                    }
+                    APP_TYPE -> {
+                        val params = Bundle()
+// params.putString(Mapping.WAW3Key.WAW3_LINK, item.analyticsLabel)
+// trackEvent(params)
+                        currentActivity.openApp(item.appLinkAndroid)
+                    }
+                    EXT_TYPE -> {
+                        currentActivity.openBrowser(item.link)
+                    }
+                }
+            }
+        }
+        link_utili_container.visibility = View.VISIBLE
+    }
+
+    private fun addSideViews(listLinkSide: ArrayList<LinkSide>?) {
         if (listLinkSide == null)
             return
         if (listLinkSide.size == 0)
             return
         for (item in listLinkSide) {
 
-            val rowView = LayoutInflater.from(context).inflate(
-                R.layout.nav_header_item,
-                nav_header_container,
-                false)
+            val rowView = LayoutInflater.from(context).inflate(R.layout.nav_header_item, nav_header_container, false)
+
             val labelName: TextView = rowView.findViewById(R.id.label_name)
             labelName.text = item.name
 
@@ -346,7 +417,7 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
             valueAnimator.addListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator) {
                     animationFinish = true
-                    // check in side menu is open
+// check in side menu is open
                     closeSideMenu()
                 }
             })
@@ -359,10 +430,10 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
 
     private fun tabSelectedDrawableAnimation(imageView: ImageView, drawable_from: Drawable, drawable_to: Drawable) {
 
-        // set res image array
+// set res image array
         val transitionDrawable = TransitionDrawable(arrayOf(drawable_from, drawable_to))
 
-        // your image view here - backgroundImageView
+// your image view here - backgroundImageView
         imageView.setImageDrawable(transitionDrawable)
         transitionDrawable.startTransition(TRANSITION_TIME.toInt())
         transitionDrawable.isCrossFadeEnabled = false // call public methods
@@ -387,19 +458,33 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
         }
     }
 
-    private fun init(): ArrayList<LinkSide> {
+    private fun getGPSCoordinates() {
+        showProgressDialog()
+        currentActivity.requestGPSPermission()
+    }
+
+    private fun init(): ArrayList<Link> {
+
+        val list = ArrayList<Link>()
+        list.add(Link("", "Grande Cinema 3", "waw3://cinema", "1", "inAppLink", "", "https://secure.gravatar.com/avatar/2d9999abdeffcd449b65c0a6b3d9d496?s=44&d=mm&r=pg"))
+        list.add(Link("Daytronic", "DayTronic", "", "2", "app", "it.day.daytronicFLAT", "https://peopledotcom.files.wordpress.com/2013/08/icon_love_44.png"))
+        list.add(Link("", "Gympass", "", "3", "app", "com.gympass", "https://2.gravatar.com/avatar/8c15d3b2c70c476d353056aebf8ab0c7?s=44&d=identicon&r=G"))
+        list.add(Link("Bacheca", "Rubrica", "waw3://contacts", "4", "inAppLink", "", "https://secure.gravatar.com/avatar/d1d7225eec483cbfbc2ff07b46cc1c30?s=44&d=blank&r=pg"))
+        return list
+    }
+
+    private fun initSide(): ArrayList<LinkSide> {
 
         val list = ArrayList<LinkSide>()
-        list.add(LinkSide("Wind_Tre_Per_Noi", "WindTre Per Noi", "https:\\/\\/eudaimonint.secure.force.com\\/sso\\/SSOAuthenticationPage?azienda=wind&user=150511&hash=8780a3af7b6d86bb366a3e21cedef465", "1", "webview", ""))
-        list.add(LinkSide("Intranet", "Intranet", "https:\\/\\/intranet3.sharepoint.com\\/Pages\\/Home.aspx", "2", "webview", ""))
-        list.add(LinkSide("Bacheca", "Bacheca", "https:\\/\\/intranet3.sharepoint.com\\/sites\\/bacheca\\/Pagine\\/Bacheca.aspx", "3", "webview", ""))
-        list.add(LinkSide("Emergenze", "Emergenze", "https:\\/\\/intranet3.sharepoint.com\\/Pages\\/Utilities_Servizi\\/AmbienteSicurezza.aspx", "4", "webview", ""))
-        list.add(LinkSide("Fondo_Solidarietà", "Fondo Solidarietà", "https:\\/\\/sisalute.gruppofos.com\\/Login\\/", "5", "webview", ""))
-        list.add(LinkSide("Offerta_Dipendenti", "Offerta Dipendenti", "https:\\/\\/intranet3.sharepoint.com\\/sites\\/WindTrePerNoi\\/Pagine\\/Offerta-dipendenti.aspx", "6", "webview", ""))
-        list.add(LinkSide("#Time4Me", "#Time4Me", "https:\\/\\/intranet3.sharepoint.com\\/Pages\\/Time4Me\\/pages\\/Home.aspx", "7", "webview", ""))
+        list.add(LinkSide("Wind_Tre_Per_Noi", "WindTre Per Noi", "https://eudaimonint.secure.force.com/sso/SSOAuthenticationPage?azienda=wind&user=150511&hash=8780a3af7b6d86bb366a3e21cedef465", "1", "webview", ""))
+        list.add(LinkSide("Intranet", "Intranet", "https://intranet3.sharepoint.com/Pages/Home.aspx", "2", "webview", ""))
+        list.add(LinkSide("Bacheca", "Bacheca", "https://intranet3.sharepoint.com/sites/bacheca/Pagine/Bacheca.aspx", "3", "webview", ""))
+        list.add(LinkSide("Emergenze", "Emergenze", "https://intranet3.sharepoint.com/Pages/Utilities_Servizi/AmbienteSicurezza.aspx", "4", "webview", ""))
+        list.add(LinkSide("Fondo_Solidarietà", "Fondo Solidarietà", "https://sisalute.gruppofos.com/Login/", "5", "webview", ""))
+        list.add(LinkSide("Offerta_Dipendenti", "Offerta Dipendenti", "https://intranet3.sharepoint.com/sites/WindTrePerNoi/Pagine/Offerta-dipendenti.aspx", "6", "webview", ""))
+        list.add(LinkSide("#Time4Me", "#Time4Me", "https://intranet3.sharepoint.com/Pages/Time4Me/pages/Home.aspx", "7", "webview", ""))
         list.add(LinkSide("CCS", "CCS", "", "8", "app", "it.ccsitalia.app"))
-        list.add(LinkSide("Password_Manager", "Password Manager", "https:\\/\\/myaccount.windtre.it\\/", "9", "webview", ""))
-
+        list.add(LinkSide("Password_Manager", "Password Manager", "https://myaccount.windtre.it/", "9", "webview", ""))
         return list
     }
 }

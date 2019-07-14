@@ -86,7 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="@string/pdf"
+                android:text="@string/pdf_title"
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:textAlignment="center"/>
@@ -104,7 +104,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="@string/oauth_2"
+                android:text="@string/oauth_2_title"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textAlignment="center"/>
+
+        <View android:layout_width="120dp"
+              android:layout_height="1dp"
+              android:layout_marginTop="8dp"
+              android:layout_marginBottom="8dp"
+              android:background="@color/white"
+              android:layout_gravity="center"
+              android:alpha=".4"/>
+
+        <TextView
+                android:id="@+id/label_layout_manage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@string/layout_manage_title"
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:textAlignment="center"/>

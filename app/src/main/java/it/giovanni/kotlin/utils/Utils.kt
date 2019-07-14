@@ -14,12 +14,21 @@ import android.os.Bundle
 import android.text.Html
 import android.text.Spanned
 import android.util.Base64
+import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.fragment.app.FragmentActivity
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
+import it.giovanni.kotlin.App.Companion.context
 import it.giovanni.kotlin.BuildConfig
 import java.io.*
+import java.net.HttpURLConnection
+import java.net.URL
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
+import java.util.concurrent.Executors
 import java.util.regex.Pattern
 import kotlin.math.min
 
@@ -55,6 +64,32 @@ class Utils {
             paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
             canvas.drawBitmap(cropCenter(bitmap), rect, rect, paint)
             return output
+        }
+
+        @Suppress("DEPRECATION")
+        fun setBitmapFromUrl(imageUrl: String, imageView: ImageView, activity: FragmentActivity) {
+            try {
+                Executors.newSingleThreadExecutor().execute {
+                    val url = URL(imageUrl)
+                    val connection = url.openConnection() as HttpURLConnection
+                    connection.doInput = true
+                    connection.connect()
+                    val input = connection.inputStream
+                    val bitmap = BitmapFactory.decodeStream(input)
+
+                    activity.runOnUiThread {
+
+                        Glide.with(context)
+                            .load(url)
+                            .apply(RequestOptions.bitmapTransform(RoundedCorners(14)))
+                            .into(imageView)
+
+                        imageView.setImageBitmap(bitmap)
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
 
         private fun cropCenter(bitmap: Bitmap): Bitmap {

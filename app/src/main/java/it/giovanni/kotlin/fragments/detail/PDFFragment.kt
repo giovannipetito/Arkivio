@@ -43,7 +43,7 @@ class PDFFragment : DetailFragment(), PermissionManager.PermissionListener {
     }
 
     override fun getTitle(): Int {
-        return R.string.pdf
+        return R.string.pdf_title
     }
 
     override fun getActionTitle(): Int {

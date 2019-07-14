@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
 import it.giovanni.kotlin.R
 import it.giovanni.kotlin.fragments.BaseFragment
 import it.giovanni.kotlin.customview.MultiSwipeRefreshLayout
@@ -40,13 +39,8 @@ class FragmentA : BaseFragment(SectionType.TAB_DETAIL) {
             position = arguments!!.getInt(POSITION)
             tabDateFrom = arguments?.getString(DATE_FROM)!!
             tabDateTo = arguments?.getString(DATE_TO)!!
-            tabDateFrom = tabDateFrom
             tabDateTo = "$tabDateTo 23:59:59"
         }
-        recycler_view.setHasFixedSize(true)
-        val layoutManager = LinearLayoutManager(context)
-        recycler_view.layoutManager = layoutManager
-        // recycler_view.adapter = eventsDateAdapter
 
         smile_cries_detail_layout.setOnClickListener {
             loadData()
@@ -67,21 +61,17 @@ class FragmentA : BaseFragment(SectionType.TAB_DETAIL) {
     }
 
     private fun loadSmileCryData() {
-        showSmileCry("Tap on it!")
+        showSmileCry("Tap on me!")
     }
 
     private fun hideSmileCry() {
         smile_cries_detail_layout.visibility = View.GONE
-        no_working_area_tab_container.visibility = View.VISIBLE
-        recycler_view.visibility = View.VISIBLE
-        stopSwipeRefresh()
     }
 
-    private fun showSmileCry(msg:String) {
-        smile_message_detail.text = msg
+    private fun showSmileCry(message: String) {
+        smile_message_detail.text = message
         smile_cries_detail_layout.visibility = View.VISIBLE
-        no_working_area_tab_container.visibility = View.GONE
-        recycler_view.visibility = View.GONE
+        stopSwipeRefresh()
     }
 
     private fun refresh() {

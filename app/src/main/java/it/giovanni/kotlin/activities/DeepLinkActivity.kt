@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import it.giovanni.kotlin.utils.DeepLinkDescriptor
+import it.giovanni.kotlin.deeplink.DeepLinkDescriptor
 
 class DeepLinkActivity : AppCompatActivity() {
 

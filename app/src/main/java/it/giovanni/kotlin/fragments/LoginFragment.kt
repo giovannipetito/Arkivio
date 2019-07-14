@@ -7,7 +7,7 @@ import kotlinx.android.synthetic.main.login.*
 class LoginFragment : BaseFragment(SectionType.LOGIN) {
 
     override fun getTitle(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return NO_TITLE
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -15,7 +15,7 @@ class LoginFragment : BaseFragment(SectionType.LOGIN) {
 
         login_button.setOnClickListener {
             showProgressDialog()
-            currentActivity.openHomeFragment()
+            currentActivity.openMainFragment()
         }
     }
 }

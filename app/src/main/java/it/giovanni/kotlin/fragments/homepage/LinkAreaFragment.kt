@@ -9,9 +9,9 @@ import it.giovanni.kotlin.fragments.MainFragment
 import it.giovanni.kotlin.R
 import it.giovanni.kotlin.utils.Globals
 import it.giovanni.kotlin.utils.Utils
-import kotlinx.android.synthetic.main.administrative_area_layout.*
+import kotlinx.android.synthetic.main.link_area_layout.*
 
-class AdministrativeAreaFragment : HomeFragment() {
+class LinkAreaFragment : HomeFragment() {
 
     private var viewFragment: View? = null
     private var bundleW3B: Bundle = Bundle()
@@ -19,7 +19,7 @@ class AdministrativeAreaFragment : HomeFragment() {
     private var bundleGitHub: Bundle = Bundle()
 
     override fun getLayout(): Int {
-        return R.layout.administrative_area_layout
+        return R.layout.link_area_layout
     }
 
     override fun getTitle(): Int {
@@ -28,9 +28,9 @@ class AdministrativeAreaFragment : HomeFragment() {
 
     companion object {
         private var caller: MainFragment? = null
-        fun newInstance(c: MainFragment): AdministrativeAreaFragment {
+        fun newInstance(c: MainFragment): LinkAreaFragment {
             caller = c
-            return AdministrativeAreaFragment()
+            return LinkAreaFragment()
         }
     }
 

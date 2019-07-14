@@ -1,4 +1,4 @@
-package it.giovanni.kotlin.utils
+package it.giovanni.kotlin.deeplink
 
 import android.net.Uri
 

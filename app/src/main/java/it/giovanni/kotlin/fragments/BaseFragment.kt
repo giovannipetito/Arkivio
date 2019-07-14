@@ -29,7 +29,8 @@ abstract class BaseFragment(private var sectionType: SectionType) : Fragment() {
         HOME,
         DETAIL,
         TAB_DETAIL,
-        PERMITS_TAB_DETAIL
+        PERMITS_TAB_DETAIL,
+        DIALOG_FLOW
     }
 
     fun showPopupError(msg: String) {
@@ -77,6 +78,9 @@ abstract class BaseFragment(private var sectionType: SectionType) : Fragment() {
             }
             SectionType.LOGIN -> {
                 view = inflater.inflate(R.layout.login, container, false)
+            }
+            SectionType.DIALOG_FLOW -> {
+                view = inflater.inflate(R.layout.dialog_flow_layout, container, false)
             }
             else -> {
                 view = super.onCreateView(inflater, container, savedInstanceState)
