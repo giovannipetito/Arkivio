@@ -9,7 +9,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.core.content.ContextCompat
-import it.giovanni.kotlin.interfaces.IDetailFragment
+import it.giovanni.kotlin.viewinterfaces.IDetailFragment
 import it.giovanni.kotlin.R
 import kotlinx.android.synthetic.main.detail_layout.*
 

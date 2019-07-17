@@ -36,6 +36,17 @@ class Utils {
 
     companion object {
 
+        fun turnToString(list: ArrayList<String>): String {
+            var string = ""
+            for (i in list.indices) {
+                string = if (i < list.size - 1)
+                    string + list[i] + ", "
+                else
+                    string + list[i]
+            }
+            return string
+        }
+
         private const val S6_EDGE_PLUS = "SM-G928F"
         fun convertDpToPixel(context: Context, dp: Float): Int {
             return if (Build.MODEL.startsWith(S6_EDGE_PLUS))

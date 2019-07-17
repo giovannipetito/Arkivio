@@ -1,4 +1,4 @@
-package it.giovanni.kotlin.interfaces
+package it.giovanni.kotlin.viewinterfaces
 
 interface IProgressLoader {
 

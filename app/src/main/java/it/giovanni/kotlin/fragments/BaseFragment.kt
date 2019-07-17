@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import it.giovanni.kotlin.customview.popup.CustomDialogPopup
-import it.giovanni.kotlin.interfaces.IProgressLoader
+import it.giovanni.kotlin.viewinterfaces.IProgressLoader
 import it.giovanni.kotlin.R
 import it.giovanni.kotlin.activities.MainActivity
 
@@ -105,5 +105,9 @@ abstract class BaseFragment(private var sectionType: SectionType) : Fragment() {
 
     fun hideProgressDialog() {
         (currentActivity as IProgressLoader).hideProgressDialog()
+    }
+
+    fun isSafe(): Boolean {
+        return !(isRemoving || activity == null || isDetached || !isAdded || view == null)
     }
 }

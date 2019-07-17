@@ -26,8 +26,10 @@ import it.giovanni.kotlin.fragments.detail.*
 import it.giovanni.kotlin.fragments.detail.rubrica.RubricaDetailFragment
 import it.giovanni.kotlin.fragments.detail.rubrica.RubricaHomeFragment
 import it.giovanni.kotlin.fragments.detail.rubrica.RubricaListFragment
+import it.giovanni.kotlin.fragments.detail.userpreference.UserPreferenceFragment
+import it.giovanni.kotlin.fragments.detail.userpreference.UserPreferenceListFragment
 import it.giovanni.kotlin.fragments.detail.webview.WebViewFragment
-import it.giovanni.kotlin.interfaces.IProgressLoader
+import it.giovanni.kotlin.viewinterfaces.IProgressLoader
 import it.giovanni.kotlin.utils.Globals
 import it.giovanni.kotlin.utils.UserFactory
 import it.giovanni.kotlin.utils.Utils
@@ -310,6 +312,12 @@ class MainActivity : GPSActivity(), IProgressLoader {
             }
             Globals.DIALOG_FLOW -> {
                 baseFragment = DialogFlowFragment()
+            }
+            Globals.USER_PREFERENCE -> {
+                baseFragment = UserPreferenceFragment()
+            }
+            Globals.USER_PREFERENCE_LIST -> {
+                baseFragment = UserPreferenceListFragment()
             }
         }
 

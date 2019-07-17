@@ -8,7 +8,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import it.giovanni.kotlin.R
-import it.giovanni.kotlin.interfaces.IFlexBoxCallback
+import it.giovanni.kotlin.viewinterfaces.IFlexBoxCallback
 
 class Brick : RelativeLayout {
 

@@ -19,7 +19,7 @@ import it.giovanni.kotlin.customview.Brick
 import it.giovanni.kotlin.customview.popup.CustomDialogPopup
 import it.giovanni.kotlin.fragments.DetailFragment
 import it.giovanni.kotlin.fragments.adapter.ContactsListAdapter
-import it.giovanni.kotlin.interfaces.IFlexBoxCallback
+import it.giovanni.kotlin.viewinterfaces.IFlexBoxCallback
 import it.giovanni.kotlin.utils.Globals
 import it.giovanni.kotlin.utils.Utils
 import kotlinx.android.synthetic.main.rubrica_list_layout.*
@@ -47,6 +47,7 @@ class RubricaListFragment: DetailFragment(), ContactsListAdapter.OnItemViewClick
 
     companion object {
         var KEY_EMPLOYEES: String = "KEY_EMPLOYEES"
+        var KEY_SPEECH_EMPLOYEES: String = "KEY_SPEECH_EMPLOYEES"
     }
 
     override fun getLayout(): Int {
@@ -163,7 +164,9 @@ class RubricaListFragment: DetailFragment(), ContactsListAdapter.OnItemViewClick
         }
 
         if (arguments != null) {
-            val contacts = arguments!!.getSerializable(KEY_EMPLOYEES) as ArrayList<Persona>
+            var contacts: ArrayList<Persona> = ArrayList()
+            if (arguments!!.getSerializable(KEY_EMPLOYEES) != null)
+                contacts = arguments!!.getSerializable(KEY_EMPLOYEES) as ArrayList<Persona>
             if (contacts.size > 0) {
                 partecipanti_flex_search_box.removeAllViews()
                 for ((i, contact) in contacts.withIndex()) {
@@ -176,6 +179,14 @@ class RubricaListFragment: DetailFragment(), ContactsListAdapter.OnItemViewClick
                     partecipanti_flex_search_box.addView(employeeBrick)
                 }
                 actionLabelState(true)
+            }
+
+            sentence = arguments!!.getString(KEY_SPEECH_EMPLOYEES)
+            if (sentence != null) {
+                edit_search.setText(sentence)
+                edit_search.requestFocus()
+                showSoftKeyboard(edit_search)
+                filter()
             }
         }
 
@@ -328,8 +339,8 @@ class RubricaListFragment: DetailFragment(), ContactsListAdapter.OnItemViewClick
 
     private fun filter() {
 
-        if (sentence != null && sentence.equals(edit_search.text.toString(), ignoreCase = true))
-            return
+//        if (sentence != null && sentence.equals(edit_search.text.toString(), ignoreCase = true))
+//            return
         sentence = edit_search.text.toString()
         if (sentence?.isEmpty()!!) {
             sentence = null
@@ -350,6 +361,8 @@ class RubricaListFragment: DetailFragment(), ContactsListAdapter.OnItemViewClick
         for (persona in list!!) {
             if (persona.nome!!.toLowerCase().contains(sentence?.toLowerCase()!!) ||
                 persona.cognome!!.toLowerCase().contains(sentence?.toLowerCase()!!) ||
+                (persona.nome!!.toLowerCase() + " " + persona.cognome!!.toLowerCase())
+                    .contains(sentence?.toLowerCase()!!) ||
                 persona.cellulare!!.toLowerCase().contains(sentence?.toLowerCase()!!))
                 filtered?.add(persona)
         }

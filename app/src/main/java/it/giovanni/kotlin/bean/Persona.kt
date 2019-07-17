@@ -12,12 +12,19 @@ class Persona : Serializable {
     var email: String? = null
     var indirizzo: String? = null
     var occupazione: String? = null
-
+    var checked: Boolean? = null
     var isVisible: Boolean? = null
 
     constructor(nome: String, cognome: String) {
         this.nome = nome
         this.cognome = cognome
+    }
+
+    constructor(nome: String, cognome: String, cellulare: String, checked: Boolean) {
+        this.nome = nome
+        this.cognome = cognome
+        this.cellulare = cellulare
+        this.checked = checked
     }
 
     constructor(nome: String,

@@ -1,18 +1,13 @@
 package it.giovanni.kotlin.fragments.detail.rubrica
 
 import android.content.Intent
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.RelativeLayout
 import it.giovanni.kotlin.R
 import it.giovanni.kotlin.bean.Persona
 import it.giovanni.kotlin.customview.Brick
 import it.giovanni.kotlin.fragments.DetailFragment
-import it.giovanni.kotlin.interfaces.IFlexBoxCallback
+import it.giovanni.kotlin.viewinterfaces.IFlexBoxCallback
 import it.giovanni.kotlin.utils.Globals
 import kotlinx.android.synthetic.main.rubrica_home_layout.*
 import kotlin.math.roundToInt

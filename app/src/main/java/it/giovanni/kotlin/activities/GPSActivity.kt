@@ -21,7 +21,7 @@ import com.google.android.gms.location.LocationSettingsRequest
 import com.google.android.gms.location.LocationSettingsStatusCodes
 import it.giovanni.kotlin.R
 import it.giovanni.kotlin.customview.popup.CustomDialogPopup
-import it.giovanni.kotlin.interfaces.IProgressLoader
+import it.giovanni.kotlin.viewinterfaces.IProgressLoader
 import it.giovanni.kotlin.utils.Globals
 
 open class GPSActivity : BaseActivity(), IProgressLoader, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {

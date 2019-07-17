@@ -247,6 +247,10 @@ class DateManagerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener
             showRangeTimePicker2()
         }
 
+        scroll_container.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            swipeRefreshLayout!!.isEnabled = scrollY == 0
+        }
+
         swipeRefreshLayout!!.setOnRefreshListener {
             refresh()
         }

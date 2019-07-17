@@ -29,7 +29,7 @@ import it.giovanni.kotlin.activities.MainActivity
 import it.giovanni.kotlin.adapters.HomeFragmentAdapter
 import it.giovanni.kotlin.bean.Link
 import it.giovanni.kotlin.bean.LinkSide
-import it.giovanni.kotlin.interfaces.IDataRefresh
+import it.giovanni.kotlin.viewinterfaces.IDataRefresh
 import it.giovanni.kotlin.utils.Globals
 import it.giovanni.kotlin.utils.UserFactory
 import it.giovanni.kotlin.utils.Utils.Companion.getRoundBitmap
@@ -97,12 +97,12 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
 
         listLink =
             if (UserFactory.getInstance().listLink != null)
-                UserFactory.getInstance().listLink!!
+                UserFactory.getInstance().listLink
             else init()
 
         listLinkSide =
             if (UserFactory.getInstance().listLinkSide != null)
-                UserFactory.getInstance().listLinkSide!!
+                UserFactory.getInstance().listLinkSide
             else initSide()
 
         attachViewPager()
@@ -168,13 +168,13 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
         drawer_layout.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
 
-// Scale the View based on current slide offset
+                // Scale the View based on current slide offset
                 val diffScaledOffset = slideOffset * (1 - END_SCALE)
                 val offsetScale = 1 - diffScaledOffset
                 container.scaleX = offsetScale
                 container.scaleY = offsetScale
 
-// Translate the View, accounting for the scaled width
+                // Translate the View, accounting for the scaled width
                 val xOffset = drawerView.width * slideOffset
                 val xOffsetDiff = container.width * diffScaledOffset / 2
                 val xTranslation = xOffset - xOffsetDiff
@@ -239,16 +239,16 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
                     }
                     APPLINK_TYPE -> {
                         if (item.link == "waw3://cinema") {
-// gAnalytics.sendEvent(Mapping.GAnalyticsKey.CATEGORY_EXTERNAL_LINK, "Click", "GrandeCinema3", null)
+                            // gAnalytics.sendEvent(Mapping.GAnalyticsKey.CATEGORY_EXTERNAL_LINK, "Click", "GrandeCinema3", null)
                             getGPSCoordinates()
                         } else if (item.link == "waw3://contacts") {
                             currentActivity.openDetail(Globals.RUBRICA_HOME, null)
                         }
                     }
                     APP_TYPE -> {
-                        val params = Bundle()
-// params.putString(Mapping.WAW3Key.WAW3_LINK, item.analyticsLabel)
-// trackEvent(params)
+                        // val params = Bundle()
+                        // params.putString(Mapping.WAW3Key.WAW3_LINK, item.analyticsLabel)
+                        // trackEvent(params)
                         currentActivity.openApp(item.appLinkAndroid)
                     }
                     EXT_TYPE -> {
@@ -417,7 +417,7 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
             valueAnimator.addListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator) {
                     animationFinish = true
-// check in side menu is open
+                    // check in side menu is open
                     closeSideMenu()
                 }
             })
@@ -430,10 +430,10 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
 
     private fun tabSelectedDrawableAnimation(imageView: ImageView, drawable_from: Drawable, drawable_to: Drawable) {
 
-// set res image array
+        // set res image array
         val transitionDrawable = TransitionDrawable(arrayOf(drawable_from, drawable_to))
 
-// your image view here - backgroundImageView
+        // your image view here - backgroundImageView
         imageView.setImageDrawable(transitionDrawable)
         transitionDrawable.startTransition(TRANSITION_TIME.toInt())
         transitionDrawable.isCrossFadeEnabled = false // call public methods

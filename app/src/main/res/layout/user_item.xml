@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_50dp"
+        android:orientation="vertical">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:orientation="horizontal">
+
+        <CheckBox
+                android:id="@+id/checkbox_item"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.1"
+                android:layout_marginStart="@dimen/dimen_10dp"
+                android:button="@drawable/checkbox_selector"/>
+
+        <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.6"
+                android:paddingStart="0dp"
+                android:paddingEnd="@dimen/dimen_10dp">
+
+            <TextView
+                    android:id="@+id/text_nome_checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="Giovanni"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:gravity="start|center_vertical"/>
+
+            <TextView
+                    android:id="@+id/text_cognome_checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@+id/text_nome_checkbox"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="Petito"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:gravity="start|center_vertical"/>
+
+        </RelativeLayout>
+
+        <TextView
+                android:id="@+id/text_msisdn_checkbox"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"
+                android:paddingStart="0dp"
+                android:paddingEnd="5dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="3331582355"
+                android:textColor="@color/grey"
+                android:textSize="18sp"
+                android:gravity="start|center_vertical"/>
+
+    </LinearLayout>
+
+    <View android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/black" />
+
+</LinearLayout>
