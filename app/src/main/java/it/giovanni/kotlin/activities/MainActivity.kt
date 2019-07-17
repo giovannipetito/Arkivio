@@ -18,6 +18,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import it.giovanni.kotlin.App
 import it.giovanni.kotlin.App.Companion.context
 import it.giovanni.kotlin.R
 import it.giovanni.kotlin.deeplink.DeepLinkDescriptor
@@ -88,7 +89,7 @@ class MainActivity : GPSActivity(), IProgressLoader {
         }
 
         // load user preferences
-        // App.getRepository()!!.loadPreferences()
+        App.getRepository()!!.loadPreferences()
 
         if (intent != null && intent.extras != null) {
             val params = intent.extras
