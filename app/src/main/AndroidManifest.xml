@@ -32,6 +32,7 @@
                   android:resizeableActivity="false"
                   android:supportsPictureInPicture="false"
                   android:windowSoftInputMode="adjustNothing">
+            <!-- android:windowSoftInputMode="adjustNothing" permette alla keyBoard di sovrapporsi alla View. -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

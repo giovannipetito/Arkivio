@@ -1,12 +1,12 @@
 package it.giovanni.kotlin.presenter
 
-import it.giovanni.kotlin.interfaces.IUserPreference
+import it.giovanni.kotlin.interfaces.IPreference
 
-class UserPreferencePresenter(
-    view: IUserPreference.UpdatesView,
-    model: IUserPreference.UpdateModel) : BasePresenter<IUserPreference.UpdatesView, IUserPreference.UpdateModel>(view, model),
-    IUserPreference.UserEvents,
-    IUserPreference.StateChangeEvents {
+class PreferencePresenter(
+    view: IPreference.UpdatesView,
+    model: IPreference.UpdateModel) : BasePresenter<IPreference.UpdatesView, IPreference.UpdateModel>(view, model),
+    IPreference.UserEvents,
+    IPreference.StateChangeEvents {
 
     override fun getUserPreference(keyPreference: String): String {
         return model.getUserPreference(keyPreference)

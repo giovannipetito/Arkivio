@@ -140,7 +140,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="@string/user_preference_title"
+                android:text="@string/preference_title"
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:textAlignment="center"/>

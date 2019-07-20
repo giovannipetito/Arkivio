@@ -23,6 +23,7 @@ class UserFactory {
         var matricola : String? = null
         var isLogged = false
         var oAuthToken: String? = null
+        var contacts: String? = null
 
         fun clear() {
             email = ""
@@ -33,6 +34,7 @@ class UserFactory {
             matricola = ""
             isLogged = false
             oAuthToken = ""
+            contacts = ""
         }
 
         fun getUserName(): String {

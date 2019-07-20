@@ -1,4 +1,4 @@
-package it.giovanni.kotlin.fragments.detail.userpreference
+package it.giovanni.kotlin.fragments.detail.preference
 
 import android.content.Intent
 import android.os.Bundle
@@ -15,25 +15,26 @@ import it.giovanni.kotlin.fragments.DetailFragment
 import it.giovanni.kotlin.fragments.adapter.UserPreferenceAdapter
 import it.giovanni.kotlin.utils.Globals
 import it.giovanni.kotlin.utils.Utils.Companion.turnToString
-import kotlinx.android.synthetic.main.user_preference_list_layout.*
-import java.util.*
+import kotlinx.android.synthetic.main.preference_list_layout.*
+import kotlin.collections.ArrayList
 
-class UserPreferenceListFragment: DetailFragment(), UserPreferenceAdapter.OnItemViewClicked {
+class PreferenceListFragment: DetailFragment(), UserPreferenceAdapter.OnItemViewClicked {
 
     var THRESHOLD = 3
     private var viewFragment: View? = null
     private var button: Button? = null
     private var checkedList: ArrayList<Persona>? = null
+    private var clonedList: ArrayList<Persona>? = null
     private var checkedContacts: ArrayList<String>? = null
     private var contacts: String? = null
     private var isButtonClicked: Boolean? = false
 
     override fun getLayout(): Int {
-        return R.layout.user_preference_list_layout
+        return R.layout.preference_list_layout
     }
 
     override fun getTitle(): Int {
-        return R.string.user_preference_title
+        return R.string.preference_title
     }
 
     override fun getActionTitle(): Int {
@@ -93,6 +94,10 @@ class UserPreferenceListFragment: DetailFragment(), UserPreferenceAdapter.OnItem
             isButtonClicked = true
             currentActivity.onBackPressed()
         }
+
+        // Attraverso il metodo cloneListaPersone() e la logica presente nella classe Persona, gli elementi della lista
+        // clonedList clonata da list non punteranno alla stessa area di memoria degli elementi della lista list.
+        clonedList = cloneListaPersone(list)
     }
 
     override fun onItemClicked(persona: Persona, isChecked: Boolean): Boolean {
@@ -125,7 +130,17 @@ class UserPreferenceListFragment: DetailFragment(), UserPreferenceAdapter.OnItem
         return backIntent
     }
 
-    private fun init(): List<Persona> {
+    private fun cloneListaPersone(list: ArrayList<Persona>?): ArrayList<Persona>? {
+        return if (list != null) {
+            val clonedList = ArrayList<Persona>()
+            for (i in list.indices) {
+                clonedList.add(list[i].cloneList())
+            }
+            clonedList
+        } else null
+    }
+
+    private fun init(): ArrayList<Persona> {
 
         val list = ArrayList<Persona>()
         list.add(Persona("Giovanni", "Petito", "3331582355", false))

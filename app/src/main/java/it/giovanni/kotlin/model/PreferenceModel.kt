@@ -1,9 +1,9 @@
 package it.giovanni.kotlin.model
 
 import it.giovanni.kotlin.App
-import it.giovanni.kotlin.interfaces.IUserPreference
+import it.giovanni.kotlin.interfaces.IPreference
 
-class UserPreferenceModel: BaseModel(), IUserPreference.UpdateModel {
+class PreferenceModel: BaseModel(), IPreference.UpdateModel {
 
     override fun cancelRequest() {
     }

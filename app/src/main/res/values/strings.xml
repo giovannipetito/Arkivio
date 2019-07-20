@@ -73,6 +73,6 @@
 
     <string name="layout_manage_title">Manage Layout</string>
 
-    <string name="user_preference_title">User Preference</string>
+    <string name="preference_title">Preference</string>
 
 </resources>

@@ -15,11 +15,10 @@
             app:tabSelectedTextColor="@android:color/white"
             app:tabTextAppearance="@style/tabFontStyle"
             app:tabTextColor="@color/tab_white"
+            app:tabIndicatorGravity="bottom"
             app:tabIndicatorHeight="4dp"
-            app:tabMaxWidth="0dp"
-            app:tabGravity="fill"
-            app:tabMode="fixed"
-            app:tabIndicatorGravity="top"/>
+            app:tabMode="fixed" />
+            <!-- app:tabContentStart="10dp" -->
 
     <androidx.viewpager.widget.ViewPager
             android:id="@+id/working_area_viewpager"

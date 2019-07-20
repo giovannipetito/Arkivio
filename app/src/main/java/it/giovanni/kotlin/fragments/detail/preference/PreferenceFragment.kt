@@ -1,28 +1,28 @@
-package it.giovanni.kotlin.fragments.detail.userpreference
+package it.giovanni.kotlin.fragments.detail.preference
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import it.giovanni.kotlin.R
 import it.giovanni.kotlin.fragments.DetailFragment
-import it.giovanni.kotlin.interfaces.IUserPreference
-import it.giovanni.kotlin.model.UserPreferenceModel
+import it.giovanni.kotlin.interfaces.IPreference
+import it.giovanni.kotlin.model.PreferenceModel
 import it.giovanni.kotlin.persistence.UserPreferencesRepository
-import it.giovanni.kotlin.presenter.UserPreferencePresenter
+import it.giovanni.kotlin.presenter.PreferencePresenter
 import it.giovanni.kotlin.utils.Globals
-import kotlinx.android.synthetic.main.user_preference_layout.*
+import it.giovanni.kotlin.utils.UserFactory
+import kotlinx.android.synthetic.main.preference_layout.*
 
-class UserPreferenceFragment: DetailFragment(), IUserPreference.UpdatesView {
+class PreferenceFragment: DetailFragment(), IPreference.UpdatesView {
 
-    var presenter: IUserPreference.UserEvents? = null
+    var presenter: IPreference.UserEvents? = null
 
     override fun getLayout(): Int {
-        return R.layout.user_preference_layout
+        return R.layout.preference_layout
     }
 
     override fun getTitle(): Int {
-        return R.string.user_preference_title
+        return R.string.preference_title
     }
 
     override fun getActionTitle(): Int {
@@ -59,12 +59,13 @@ class UserPreferenceFragment: DetailFragment(), IUserPreference.UpdatesView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        presenter = UserPreferencePresenter(this, UserPreferenceModel())
+        presenter = PreferencePresenter(this, PreferenceModel())
         contacts_text.text = presenter!!.getUserPreference(UserPreferencesRepository.KEY_PREFERENCE_CONTACT)
-        Log.i("USERTAG", "usertag 1: " + presenter!!.getUserPreference(UserPreferencesRepository.KEY_PREFERENCE_CONTACT))
         contacts_container.setOnClickListener {
-            currentActivity.openDetail(Globals.USER_PREFERENCE_LIST, null, this@UserPreferenceFragment, Globals.REQUEST_CODE_USER_PREFERENCE)
+            currentActivity.openDetail(Globals.USER_PREFERENCE_LIST, null, this@PreferenceFragment, Globals.REQUEST_CODE_USER_PREFERENCE)
         }
+
+        user_contacts_text.text = UserFactory.getInstance().contacts
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -74,7 +75,9 @@ class UserPreferenceFragment: DetailFragment(), IUserPreference.UpdatesView {
         if (requestCode == Globals.REQUEST_CODE_USER_PREFERENCE && data != null && data.hasExtra(Globals.BACK_PARAM_KEY_USER_PREFERENCE)) {
             contacts_text.text = data.getStringExtra(Globals.BACK_PARAM_KEY_USER_PREFERENCE) as String
             presenter!!.setUserPreference(UserPreferencesRepository.KEY_PREFERENCE_CONTACT, contacts_text.text.toString())
-            Log.i("USERTAG", "usertag 2: " + presenter!!.getUserPreference(UserPreferencesRepository.KEY_PREFERENCE_CONTACT))
+
+            UserFactory.getInstance().contacts = contacts_text.text.toString()
+            user_contacts_text.text = UserFactory.getInstance().contacts
         }
     }
 }

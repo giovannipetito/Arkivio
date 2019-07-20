@@ -1,12 +1,12 @@
 package it.giovanni.kotlin.interfaces
 
-interface IUserPreference {
+interface IPreference {
 
     // Interfaccia implementata dal Model per esser chiamato dal Presenter
     interface UpdateModel {
         fun cancelRequest()
         fun getUserPreference(keyPreference: String): String
-        fun setUserPreference(keyPreference: String, value:String)
+        fun setUserPreference(keyPreference: String, value: String)
     }
 
     // Interfaccia implementata dalla View
@@ -19,7 +19,7 @@ interface IUserPreference {
     // Interfaccia implementata dal Presenter per ricevere gli eventi utente dalla View
     interface UserEvents {
         fun getUserPreference(keyPreference: String): String
-        fun setUserPreference(keyPreference: String, value:String)
+        fun setUserPreference(keyPreference: String, value: String)
         fun cancelRequest()
     }
 
