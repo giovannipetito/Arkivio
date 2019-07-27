@@ -12,13 +12,13 @@ import androidx.recyclerview.widget.RecyclerView
 import it.giovanni.kotlin.R
 import it.giovanni.kotlin.bean.Persona
 import it.giovanni.kotlin.fragments.DetailFragment
-import it.giovanni.kotlin.fragments.adapter.UserPreferenceAdapter
+import it.giovanni.kotlin.fragments.adapter.PreferenceListAdapter
 import it.giovanni.kotlin.utils.Globals
 import it.giovanni.kotlin.utils.Utils.Companion.turnToString
 import kotlinx.android.synthetic.main.preference_list_layout.*
 import kotlin.collections.ArrayList
 
-class PreferenceListFragment: DetailFragment(), UserPreferenceAdapter.OnItemViewClicked {
+class PreferenceListFragment: DetailFragment(), PreferenceListAdapter.OnItemViewClicked {
 
     var THRESHOLD = 3
     private var viewFragment: View? = null
@@ -82,7 +82,7 @@ class PreferenceListFragment: DetailFragment(), UserPreferenceAdapter.OnItemView
         val list = init()
         checkedList = ArrayList()
         checkedContacts = ArrayList()
-        val adapter = UserPreferenceAdapter(this)
+        val adapter = PreferenceListAdapter(this)
 
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(activity)

@@ -8,7 +8,7 @@ import it.giovanni.kotlin.R
 import it.giovanni.kotlin.bean.Persona
 import it.giovanni.kotlin.fragments.viewholder.UserPreferenceViewHolder
 
-class UserPreferenceAdapter(private val onItemViewClicked: OnItemViewClicked) : RecyclerView.Adapter<UserPreferenceViewHolder>() {
+class PreferenceListAdapter(private val onItemViewClicked: OnItemViewClicked) : RecyclerView.Adapter<UserPreferenceViewHolder>() {
 
     private var list: List<Persona>? = null
 
