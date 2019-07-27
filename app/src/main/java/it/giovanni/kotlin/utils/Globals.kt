@@ -15,8 +15,9 @@ class Globals {
         var OAUTH_2 = "OAUTH_2"
         var LAYOUT_MANAGE = "LAYOUT_MANAGE"
         var DIALOG_FLOW = "DIALOG_FLOW"
-        var USER_PREFERENCE = "USER_PREFERENCE"
-        var USER_PREFERENCE_LIST = "USER_PREFERENCE_LIST"
+        var PREFERENCE = "PREFERENCE"
+        var PREFERENCE_LIST = "PREFERENCE_LIST"
+        var STICKY_HEADER = "STICKY_HEADER"
 
         var BEAN = "bean"
 

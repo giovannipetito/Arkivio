@@ -314,11 +314,14 @@ class MainActivity : GPSActivity(), IProgressLoader {
             Globals.DIALOG_FLOW -> {
                 baseFragment = DialogFlowFragment()
             }
-            Globals.USER_PREFERENCE -> {
+            Globals.PREFERENCE -> {
                 baseFragment = PreferenceFragment()
             }
-            Globals.USER_PREFERENCE_LIST -> {
+            Globals.PREFERENCE_LIST -> {
                 baseFragment = PreferenceListFragment()
+            }
+            Globals.STICKY_HEADER -> {
+                baseFragment = StickyHeaderFragment()
             }
         }
 

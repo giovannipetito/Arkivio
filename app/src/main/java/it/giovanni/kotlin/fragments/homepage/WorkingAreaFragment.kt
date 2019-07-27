@@ -56,8 +56,11 @@ class WorkingAreaFragment : HomeFragment() {
         label_layout_manage.setOnClickListener {
             currentActivity.openDetail(Globals.LAYOUT_MANAGE, null)
         }
-        label_user_preference.setOnClickListener {
-            currentActivity.openDetail(Globals.USER_PREFERENCE, null)
+        label_preference.setOnClickListener {
+            currentActivity.openDetail(Globals.PREFERENCE, null)
+        }
+        label_sticky_header.setOnClickListener {
+            currentActivity.openDetail(Globals.STICKY_HEADER, null)
         }
     }
 }

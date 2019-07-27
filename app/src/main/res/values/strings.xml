@@ -71,8 +71,13 @@
     <!-- POPUP GPS -->
     <string name="popup_message_enable_gps">Abilitando il GPS potrai vedere i cinema più vicini a te. Vuoi abilitarlo?</string>
 
+    <!-- MANAGE LAYOUT -->
     <string name="layout_manage_title">Manage Layout</string>
 
+    <!-- PREFERENCE -->
     <string name="preference_title">Preference</string>
+
+    <!-- STICKY HEADER -->
+    <string name="sticky_header_title">Sticky Header</string>
 
 </resources>

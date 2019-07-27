@@ -17,12 +17,19 @@ class Persona : Serializable, Cloneable {
     var occupazione: String? = null
     var checked: Boolean? = null
     var isVisible: Boolean? = null
+    var tipo: Int? = null
+
+    companion object {
+        val HEADER_TYPE = 0
+        val ITEM_TYPE = 1
+    }
 
     constructor()
 
-    constructor(nome: String, cognome: String) {
+    constructor(nome: String, cognome: String, tipo: Int) {
         this.nome = nome
         this.cognome = cognome
+        this.tipo = tipo
     }
 
     constructor(nome: String, cognome: String, cellulare: String, checked: Boolean) {

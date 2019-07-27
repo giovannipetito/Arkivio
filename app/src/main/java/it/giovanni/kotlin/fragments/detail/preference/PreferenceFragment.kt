@@ -62,7 +62,7 @@ class PreferenceFragment: DetailFragment(), IPreference.UpdatesView {
         presenter = PreferencePresenter(this, PreferenceModel())
         contacts_text.text = presenter!!.getUserPreference(UserPreferencesRepository.KEY_PREFERENCE_CONTACT)
         contacts_container.setOnClickListener {
-            currentActivity.openDetail(Globals.USER_PREFERENCE_LIST, null, this@PreferenceFragment, Globals.REQUEST_CODE_USER_PREFERENCE)
+            currentActivity.openDetail(Globals.PREFERENCE_LIST, null, this@PreferenceFragment, Globals.REQUEST_CODE_USER_PREFERENCE)
         }
 
         user_contacts_text.text = UserFactory.getInstance().contacts
