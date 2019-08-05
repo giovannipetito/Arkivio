@@ -133,6 +133,24 @@
 
             </LinearLayout>
 
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_margin="24dp"
+                    android:background="@drawable/rounded_corner_2">
+
+                <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:hint="Scrivi richiesta..."
+                        android:gravity="top"
+                        android:background="@drawable/edittext_background"/>
+
+            </RelativeLayout>
+
         </LinearLayout>
 
     </ScrollView>
