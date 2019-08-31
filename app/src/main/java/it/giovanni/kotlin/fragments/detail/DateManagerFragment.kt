@@ -144,10 +144,11 @@ class DateManagerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener
         getdate_1?.text = DateManager(startCurrentDate!!.getFormatDate()).getDate().toString()
         getdate_2?.text = DateManager(startCurrentDate!!.getFormatDate()).getDate().time.toString()
 
-        // TODO: //////////////////////////////////////////////////////////////
-        // getdate_2.text = Date().time.toString() // In Java: new Date().getTime()
-        // getdate_2.text = System.currentTimeMillis().toString()
-        // TODO: //////////////////////////////////////////////////////////////
+        getdate_3.text = Date().time.toString() // In Java: new Date().getTime()
+        getdate_4.text = System.currentTimeMillis().toString()
+        val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
+        getdate_5.text = sdf.format(Date()) // epoch
+        getdate_6.text = sdf.format(Date().time) // epoch
 
         current_start_time?.text = startCurrentDate?.getFormatTime()
         current_end_time?.text = endCurrentDate?.getFormatTime()

@@ -115,6 +115,102 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.45"
+                    android:text="millis 1"
+                    android:textColor="@color/grey"
+                    android:textSize="12sp" />
+
+            <TextView
+                    android:id="@+id/getdate_3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.55"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10dp"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.45"
+                    android:text="millis 2"
+                    android:textColor="@color/grey"
+                    android:textSize="12sp" />
+
+            <TextView
+                    android:id="@+id/getdate_4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.55"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10dp"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.45"
+                    android:text="millis 3"
+                    android:textColor="@color/grey"
+                    android:textSize="12sp" />
+
+            <TextView
+                    android:id="@+id/getdate_5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.55"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10dp"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.45"
+                    android:text="millis 4"
+                    android:textColor="@color/grey"
+                    android:textSize="12sp" />
+
+            <TextView
+                    android:id="@+id/getdate_6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.55"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10dp"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.45"
                     android:text="getFormatTime"
                     android:textColor="@color/grey"
                     android:textSize="12sp" />
