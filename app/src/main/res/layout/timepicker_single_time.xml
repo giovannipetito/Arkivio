@@ -14,8 +14,8 @@
             android:paddingEnd="24dp"
             android:background="@color/colorPrimary">
 
-        <TextView android:id="@+id/time_label"
-                  android:layout_width="wrap_content"
+        <TextView
+                android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:layout_alignParentStart="true"
                   android:text="Ore"
@@ -56,7 +56,7 @@
                 android:layout_marginEnd="32dp"
                 android:text="ANNULLA"
                 android:textStyle="bold"
-                android:textColor="@color/dark_grey" />
+                android:textColor="@color/grey_2" />
 
         <TextView
                 android:id="@+id/single_time_ok"

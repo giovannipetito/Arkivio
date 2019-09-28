@@ -3,8 +3,6 @@
 
     <!-- POPUP LABEL BUTTON -->
     <string name="popup_button_ok">OK</string>
-    <string name="popup_button_yes">SI</string>
-    <string name="popup_button_remove">RIMUOVI</string>
     <string name="popup_button_cancel">ANNULLA</string>
     <string name="popup_button_confirm">CONFERMA</string>
     <string name="popup_button_try_again">RIPROVA</string>
@@ -21,7 +19,6 @@
 
     <!-- DATE MANAGER -->
     <string name="date_manager_title">Date Manager</string>
-    <string name="range_time_error">Intervallo di tempo non valido.</string>
 
     <!-- RUBRICA -->
     <string name="rubrica_title">Rubrica</string>
@@ -34,7 +31,6 @@
     <string name="search_by_name_or_msisdn">Cerca per nome o msisdn</string>
     <string name="no_result_by_search">Nessun risultato con questa stringa di ricerca.</string>
     <string name="no_list">Nessuna lista presente.</string>
-    <string name="reset">Reset</string>
     <string name="popup_really_close_message">Confermi di voler annullare l\'inserimento dei contatti?</string>
 
     <!-- LINK -->
@@ -52,11 +48,8 @@
     <string name="explores_pdf">Esplora PDF</string>
     <string name="open_pdf">Apri PDF</string>
 
-    <string name="permission_conto3_pdf_request">Per scaricare le fatture è necessario accedere alla memoria del dispositivo e ti verrà richiesto di fornire il consenso ad accedere alla memoria interna del tuo dispositivo.</string>
     <string name="permission_informativa_pdf_request">Per scaricare l\'informativa è necessario accedere alla memoria del dispositivo e ti verrà richiesto di fornire il consenso ad accedere alla memoria interna del tuo dispositivo.</string>
-    <string name="permission_conto3_pdf_never_ask_again">Per scaricare le fatture è necessario accedere alla memoria del dispositivo, seleziona Continua e verrai indirizzato alla sezione Impostazioni del dispositivo per modificare le Autorizzazioni app - Archiviazione.</string>
     <string name="permission_informativa_pdf_never_ask_again">Per scaricare l\' informativa è necessario accedere alla memoria del dispositivo, seleziona Continua e verrai indirizzato alla sezione Impostazioni del dispositivo per modificare le Autorizzazioni app - Archiviazione.</string>
-    <string name="permission_button_explanation_dialog">CONTINUA</string>
 
     <string name="text_billing_invoice_send_email">Invia Con</string>
     <string name="text_billing_invoice_no_pdf_reader">Non ci sono applicazioni disponibili ad aprire il PDF.</string>
@@ -79,5 +72,8 @@
 
     <!-- STICKY HEADER -->
     <string name="sticky_header_title">Sticky Header</string>
+
+    <!-- CARD.IO -->
+    <string name="card_io_title">card.io</string>
 
 </resources>

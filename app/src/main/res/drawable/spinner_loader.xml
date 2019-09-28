@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<animation-list android:id="@+id/spinner_animation"
-                android:oneshot="false"
+<animation-list android:oneshot="false"
                 xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@drawable/loading_step_1" android:duration="40" />
     <item android:drawable="@drawable/loading_step_2" android:duration="40" />

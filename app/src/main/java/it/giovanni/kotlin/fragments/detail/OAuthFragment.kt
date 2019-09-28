@@ -31,7 +31,7 @@ class OAuthFragment : DetailFragment() {
 
     // Azure AD Constants
     // Authority is in the form of https://login.microsoftonline.com/yourtenant.onmicrosoft.com
-    private val AUTHORITY = "https://login.microsoftonline.com/common"
+    private val AUTHORITY = "https://login_layout.microsoftonline.com/common"
 
     // The clientID of your application is a unique identifier which can be obtained from the app registration portal
     private val CLIENT_ID = "c1497887-17d4-4bec-965c-99734850fcb2" // CLIENT_ID PIKSEL

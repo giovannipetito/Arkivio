@@ -29,7 +29,6 @@
                 android:layout_marginStart="16dp">
 
             <TextView
-                    android:id="@+id/menu_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -124,7 +123,6 @@
                         android:src="@drawable/ico_menu_configuration" />
 
                 <TextView
-                        android:id="@+id/menu_text_configuration"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -137,7 +135,6 @@
             </RelativeLayout>
 
             <RelativeLayout
-                    android:id="@+id/link_container"
                     android:layout_width="match_parent"
                     android:layout_height="40dp">
 
@@ -150,7 +147,6 @@
                         android:src="@drawable/ico_rate" />
 
                 <TextView
-                        android:id="@+id/link_feedback"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -177,7 +173,6 @@
                         android:src="@drawable/ico__menu_logout" />
 
                 <TextView
-                        android:id="@+id/menu_text_exit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"

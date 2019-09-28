@@ -61,7 +61,7 @@
                     android:gravity="center"
                     android:text="@string/popup_button_cancel"
                     android:background="@color/white"
-                    android:textColor="@color/dark_grey" />
+                    android:textColor="@color/grey_2" />
 
         </RelativeLayout>
 
@@ -79,7 +79,7 @@
                     android:gravity="center"
                     android:text="@string/popup_button_try_again"
                     android:background="@color/white"
-                    android:textColor="@color/dark_grey" />
+                    android:textColor="@color/grey_2" />
 
         </RelativeLayout>
 
@@ -91,7 +91,7 @@
                 android:gravity="center"
                 android:text="@string/popup_button_confirm"
                 android:background="@color/white"
-                android:textColor="@color/dark_grey"
+                android:textColor="@color/grey_2"
                 android:textStyle="bold" />
 
     </LinearLayout>

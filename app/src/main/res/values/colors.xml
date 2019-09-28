@@ -6,21 +6,39 @@
     <color name="white">#ffffff</color>
     <color name="black">#050505</color>
     <color name="black_transparent">#CC050505</color>
-    <color name="light_grey">#E2E3E4</color>
-    <color name="dark_grey">#9EA4A8</color>
-    <color name="darkGrey">#4A4A4A</color>
-    <color name="grey">#485861</color>
+    <color name="grey_1">#E2E3E4</color>
+    <color name="grey_2">#9EA4A8</color>
+    <color name="grey_4">#485861</color>
     <color name="dark">#273B44</color>
     <color name="red">#F13C27</color>
     <color name="yellow">#FEDC00</color>
     <color name="detail_background">#FAFAFA</color>
-    <color name="detail_background_dark">#F0F0F0</color>
     <color name="tab_white">#99FFFFFF</color>
 
-    <color name="blue">#2D32AA</color>
-    <color name="lightBlue">#00B8DE</color>
     <color name="azzurro">#007FFF</color>
-    <color name="azzurro_scuro">#4169E1</color>
-    <color name="azzurro_fiordaliso">#ABCDEF</color>
-    <color name="blu_ceruleo">#2A52BE</color>
 </resources>
+
+<!-- HEXADECIMAL COLOR CODE FOR TRANSPARENCY - Hex Opacity Values from 0% to 100% alpha: -->
+
+<!-- 0% - 00-->
+<!-- 1% - 03 11% - 1C 21% - 36 31% - 4F 41% - 69 -->
+<!-- 2% - 05 12% - 1F 22% - 38 32% - 52 42% - 6B -->
+<!-- 3% - 08 13% - 21 23% - 3B 33% - 54 43% - 6E -->
+<!-- 4% - 0A 14% - 24 24% - 3D 34% - 57 44% - 70 -->
+<!-- 5% - 0D 15% - 26 25% - 40 35% - 59 45% - 73 -->
+<!-- 6% - 0F 16% - 29 26% - 42 36% - 5C 46% - 75 -->
+<!-- 7% - 12 17% - 2B 27% - 45 37% - 5E 47% - 78 -->
+<!-- 8% - 14 18% - 2E 28% - 47 38% - 61 48% - 7A -->
+<!-- 9% - 17 19% - 30 29% - 4A 39% - 63 49% - 7D -->
+<!-- 10% - 1A 20% - 33 30% - 4D 40% - 66 50% - 80 -->
+
+<!-- 51% - 82 61% - 9C 71% - B5 81% - CF 91% - E8 -->
+<!-- 52% - 85 62% - 9E 72% - B8 82% - D1 92% - EB -->
+<!-- 53% - 87 63% - A1 73% - BA 83% - D4 93% - ED -->
+<!-- 54% - 8A 64% - A3 74% - BD 84% - D6 94% - F0 -->
+<!-- 55% - 8C 65% - A6 75% - BF 85% - D9 95% - F2 -->
+<!-- 56% - 8F 66% - A8 76% - C2 86% - DB 96% - F5 -->
+<!-- 57% - 91 67% - AB 77% - C4 87% - DE 97% - F7 -->
+<!-- 58% - 94 68% - AD 78% - C7 88% - E0 98% - FA -->
+<!-- 59% - 96 69% - B0 79% - C9 89% - E3 99% - FC -->
+<!-- 60% - 99 70% - B3 80% - CC 90% - E6 100% - FF -->

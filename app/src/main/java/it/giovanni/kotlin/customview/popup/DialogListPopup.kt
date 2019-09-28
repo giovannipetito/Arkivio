@@ -34,7 +34,7 @@ class DialogListPopup : CustomDialogPopup {
                 val view = inflater.inflate(R.layout.popup_labels_element, null)
                 view.label.text = element.toUpperCase()
                 if (element == LABEL_DELETE) {
-                    view.label.setTextColor(context.resources.getColor(R.color.dark_grey))
+                    view.label.setTextColor(context.resources.getColor(R.color.grey_2))
                 }
                 view.tag = element
                 view.setOnClickListener(callback)

@@ -288,16 +288,18 @@ class DateManagerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener
         val minDate: Calendar = Calendar.getInstance()
         minDate.set(Calendar.getInstance().get(Calendar.YEAR), 0, 1, 0, 0, 0)
 
-        datePickerDialog.datePicker.minDate = minDate.timeInMillis // minDate Ë il 1 gennaio dell'anno corrente.
-        datePickerDialog.datePicker.maxDate = calendar!!.timeInMillis // maxDate Ë il giorno corrente.
+        datePickerDialog.datePicker.minDate = minDate.timeInMillis // minDate è il 1 gennaio dell'anno corrente.
+        datePickerDialog.datePicker.maxDate = calendar!!.timeInMillis // maxDate è il giorno corrente.
         isMinDate = false
 
         datePickerDialog.setCancelable(false)
         datePickerDialog.show()
-//        datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE)?.setOnClickListener {
-//            Toast.makeText(context, "DatePickerDialog dismissed", Toast.LENGTH_SHORT).show()
-//            datePickerDialog.dismiss()
-//        }
+        /*
+        datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE)?.setOnClickListener {
+            Toast.makeText(context, "DatePickerDialog dismissed", Toast.LENGTH_SHORT).show()
+            datePickerDialog.dismiss()
+        }
+        */
     }
 
     override fun onDateSet(datePicker: DatePicker, year: Int, month: Int, day: Int) {
@@ -373,6 +375,7 @@ class DateManagerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
             dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog.window!!.setBackgroundDrawableResource(R.color.white)
+            // dialog.window!!.addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND) // TODO: NON FUNZIONA
         }
 
         // view.date.maxDate = calendar!!.timeInMillis

@@ -7,7 +7,6 @@
         android:background="@color/detail_background">
 
     <TextView
-            android:id="@+id/no_workpermits"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
@@ -18,7 +17,6 @@
             android:visibility="gone"/>
 
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/workpermits_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"

@@ -323,6 +323,12 @@ class MainActivity : GPSActivity(), IProgressLoader {
             Globals.STICKY_HEADER -> {
                 baseFragment = StickyHeaderFragment()
             }
+            Globals.STICKY_HEADER -> {
+                baseFragment = StickyHeaderFragment()
+            }
+            Globals.CARD_IO -> {
+                baseFragment = CardIOFragment()
+            }
         }
 
         if (baseFragment != null) {

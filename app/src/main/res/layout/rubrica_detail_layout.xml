@@ -46,7 +46,6 @@
                 android:layout_height="match_parent">
 
             <ScrollView
-                    android:id="@+id/scrollview_rubrica"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -93,7 +92,7 @@
                         <View
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
-                                android:background="@color/light_grey"
+                                android:background="@color/grey_1"
                                 android:layout_alignParentBottom="true"/>
 
                     </RelativeLayout>
@@ -136,7 +135,7 @@
                         <View
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
-                                android:background="@color/light_grey"
+                                android:background="@color/grey_1"
                                 android:layout_alignParentBottom="true"/>
 
                     </RelativeLayout>
@@ -179,7 +178,7 @@
                         <View
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
-                                android:background="@color/light_grey"
+                                android:background="@color/grey_1"
                                 android:layout_alignParentBottom="true"/>
 
                     </RelativeLayout>
@@ -222,7 +221,7 @@
                         <View
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
-                                android:background="@color/light_grey"
+                                android:background="@color/grey_1"
                                 android:layout_alignParentBottom="true"/>
 
                     </RelativeLayout>
@@ -265,7 +264,7 @@
                         <View
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
-                                android:background="@color/light_grey"
+                                android:background="@color/grey_1"
                                 android:layout_alignParentBottom="true"/>
 
                     </RelativeLayout>

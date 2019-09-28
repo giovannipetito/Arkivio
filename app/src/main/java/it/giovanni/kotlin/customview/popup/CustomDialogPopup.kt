@@ -115,17 +115,18 @@ open class CustomDialogPopup : AlertDialog.Builder {
         if (isBottom!!) {
             val window = dialog?.window
             window?.setGravity(Gravity.BOTTOM)
+            // window?.addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND) // TODO: NON FUNZIONA
         }
 
         when (type) {
             TYPE_INFO -> {
-                leftButton!!.setTextColor(ContextCompat.getColor(context, R.color.grey))
-                centerButton!!.setTextColor(ContextCompat.getColor(context, R.color.grey))
+                leftButton!!.setTextColor(ContextCompat.getColor(context, R.color.grey_4))
+                centerButton!!.setTextColor(ContextCompat.getColor(context, R.color.grey_4))
                 rightButton!!.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
             }
             TYPE_ERROR -> {
-                leftButton!!.setTextColor(ContextCompat.getColor(context, R.color.grey))
-                centerButton!!.setTextColor(ContextCompat.getColor(context, R.color.grey))
+                leftButton!!.setTextColor(ContextCompat.getColor(context, R.color.grey_4))
+                centerButton!!.setTextColor(ContextCompat.getColor(context, R.color.grey_4))
                 rightButton!!.setTextColor(ContextCompat.getColor(context, R.color.red))
             }
         }
@@ -207,7 +208,7 @@ open class CustomDialogPopup : AlertDialog.Builder {
     private fun setButtonColors() {
         val colors: ArrayList<Int> = ArrayList()
         colors.add(R.color.black)
-        colors.add(R.color.dark_grey)
+        colors.add(R.color.grey_2)
         colors.add(R.color.red)
         if (buttonNumber > 0) {
             when (buttonNumber) {

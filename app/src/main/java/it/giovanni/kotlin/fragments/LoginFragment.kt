@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import it.giovanni.kotlin.R
-import kotlinx.android.synthetic.main.login.*
+import kotlinx.android.synthetic.main.login_layout.*
 
 class LoginFragment : BaseFragment(SectionType.LOGIN) {
 

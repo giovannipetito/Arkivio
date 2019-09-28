@@ -62,5 +62,8 @@ class WorkingAreaFragment : HomeFragment() {
         label_sticky_header.setOnClickListener {
             currentActivity.openDetail(Globals.STICKY_HEADER, null)
         }
+        label_card_io.setOnClickListener {
+            currentActivity.openDetail(Globals.CARD_IO, null)
+        }
     }
 }

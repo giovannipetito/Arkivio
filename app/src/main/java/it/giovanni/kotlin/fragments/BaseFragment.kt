@@ -68,16 +68,16 @@ abstract class BaseFragment(private var sectionType: SectionType) : Fragment() {
                 view = inflater.inflate(R.layout.workpermits_list_layout, container, false)
             }
             SectionType.HOME -> {
-                view = inflater.inflate(R.layout.homepage, container, false)
+                view = inflater.inflate(R.layout.homepage_layout, container, false)
             }
             SectionType.DETAIL -> {
                 view = inflater.inflate(R.layout.detail_layout, container, false)
             }
             SectionType.SPLASH -> {
-                view = inflater.inflate(R.layout.splash, container, false)
+                view = inflater.inflate(R.layout.splash_layout, container, false)
             }
             SectionType.LOGIN -> {
-                view = inflater.inflate(R.layout.login, container, false)
+                view = inflater.inflate(R.layout.login_layout, container, false)
             }
             SectionType.DIALOG_FLOW -> {
                 view = inflater.inflate(R.layout.dialog_flow_layout, container, false)

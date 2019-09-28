@@ -20,7 +20,6 @@
                 android:src="@drawable/ico_voice_rvd" />
 
         <ImageView
-                android:id="@+id/logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -28,7 +27,6 @@
                 android:src="@drawable/logo_audioslave" />
 
         <ImageView
-                android:id="@+id/help"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -37,7 +35,6 @@
                 android:src="@drawable/ico_help_rvd" />
 
         <ImageView
-                android:id="@+id/notify_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"

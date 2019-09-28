@@ -42,7 +42,7 @@
                 android:layout_toEndOf="@id/arrow_go_back"
                 android:hint="Cerca..."
                 android:textColor="@color/white"
-                android:textColorHint="@color/light_grey"
+                android:textColorHint="@color/grey_1"
                 android:textColorLink="@color/white"
                 android:textColorHighlight="@color/white"
                 android:textSize="20sp"

@@ -18,6 +18,7 @@ class Globals {
         var PREFERENCE = "PREFERENCE"
         var PREFERENCE_LIST = "PREFERENCE_LIST"
         var STICKY_HEADER = "STICKY_HEADER"
+        var CARD_IO = "CARD_IO"
 
         var BEAN = "bean"
 
