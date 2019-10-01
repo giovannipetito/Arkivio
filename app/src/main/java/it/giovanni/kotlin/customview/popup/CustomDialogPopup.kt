@@ -120,13 +120,13 @@ open class CustomDialogPopup : AlertDialog.Builder {
 
         when (type) {
             TYPE_INFO -> {
-                leftButton!!.setTextColor(ContextCompat.getColor(context, R.color.grey_4))
-                centerButton!!.setTextColor(ContextCompat.getColor(context, R.color.grey_4))
+                leftButton!!.setTextColor(ContextCompat.getColor(context, R.color.grey_3))
+                centerButton!!.setTextColor(ContextCompat.getColor(context, R.color.grey_3))
                 rightButton!!.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
             }
             TYPE_ERROR -> {
-                leftButton!!.setTextColor(ContextCompat.getColor(context, R.color.grey_4))
-                centerButton!!.setTextColor(ContextCompat.getColor(context, R.color.grey_4))
+                leftButton!!.setTextColor(ContextCompat.getColor(context, R.color.grey_3))
+                centerButton!!.setTextColor(ContextCompat.getColor(context, R.color.grey_3))
                 rightButton!!.setTextColor(ContextCompat.getColor(context, R.color.red))
             }
         }

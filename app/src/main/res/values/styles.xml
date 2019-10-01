@@ -59,7 +59,7 @@
     </style>
 
     <style name="DialogTheme" parent="Base.V7.Theme.AppCompat.Light.Dialog">
-        <item name="colorAccent">@color/grey_4</item>
+        <item name="colorAccent">@color/grey_3</item>
         <item name="android:background">@android:color/transparent</item>
     </style>
 

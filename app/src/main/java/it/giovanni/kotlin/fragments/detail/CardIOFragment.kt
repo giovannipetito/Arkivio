@@ -68,7 +68,7 @@ class CardIOFragment : DetailFragment() {
         val info = "card.io library: " + CardIOActivity.sdkVersion() + "\n" + "Build date: " + CardIOActivity.sdkBuildDate()
         version.text = info
 
-        scan_credit_card.setOnClickListener {
+        button_scan.setOnClickListener {
             scanCreditCard()
         }
     }
@@ -109,7 +109,7 @@ class CardIOFragment : DetailFragment() {
             cardTypeImage = cardType?.imageBitmap(context)
 
             cardInfo = "Card number: " + creditCard?.redactedCardNumber + "\n" +
-                    "Card type: " + cardType.toString() + "\n" + "DisplayName: " + cardType?.getDisplayName(null) + "\n"
+                    "Card type: " + cardType.toString() + "\n" + "Display name: " + cardType?.getDisplayName(null) + "\n"
 
             if (expiry!!.isChecked)
                 cardInfo += "Expiry: " + creditCard?.expiryMonth + "/" + creditCard?.expiryYear + "\n"

@@ -1,176 +1,240 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp">
 
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-        <CheckBox
-                android:id="@+id/cvv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
-                android:checked="false"
-                android:text="CVV"
-                android:button="@drawable/checkbox_selector"/>
+                android:layout_marginBottom="116dp">
 
-        <CheckBox
-                android:id="@+id/expiry"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:checked="false"
-                android:text="Scadenza"
-                android:button="@drawable/checkbox_selector"/>
-
-        <CheckBox
-                android:id="@+id/postal_code"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:checked="false"
-                android:text="Codice Postale"
-                android:button="@drawable/checkbox_selector"/>
-
-        <CheckBox
-                android:id="@+id/use_card_io_logo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Usa il logo card.io"
-                android:button="@drawable/checkbox_selector"/>
-
-        <CheckBox
-                android:id="@+id/cardholder_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Titolare della carta"
-                android:button="@drawable/checkbox_selector"/>
-
-        <CheckBox
-                android:id="@+id/suppress_confirmation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Sopprimi la conferma"
-                android:button="@drawable/checkbox_selector"/>
-
-        <CheckBox
-                android:id="@+id/bypass_the_scan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Bypassa la scansione"
-                android:button="@drawable/checkbox_selector"/>
-
-        <CheckBox
-                android:id="@+id/keep_application_theme"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Mantieni l'application theme"
-                android:button="@drawable/checkbox_selector"/>
-
-        <CheckBox
-                android:id="@+id/suppress_keyboard_icon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Sopprimi l'icona della tastiera"
-                android:button="@drawable/checkbox_selector"/>
-
-        <CheckBox
-                android:id="@+id/suppress_scan_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Sopprimi le informazioni di scansione"
-                android:button="@drawable/checkbox_selector"/>
-
-        <CheckBox
-                android:id="@+id/postal_code_numeric"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Limita il codice postale solo ai numeri"
-                android:button="@drawable/checkbox_selector"/>
-
-        <CheckBox
-                android:id="@+id/show_paypal_action_bar_icon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Mostra l'icona di PayPal nella action bar"
-                android:button="@drawable/checkbox_selector"/>
-
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:focusableInTouchMode="true">
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="start"
-                    android:text="Seleziona la lingua:"/>
-
-            <Spinner
-                    android:id="@+id/language_spinner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:focusableInTouchMode="true">
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="Cifre non sfocate:"/>
-
-            <EditText
-                    android:id="@+id/unblurred_digits"
+            <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="4"
-                    android:gravity="center"
-                    android:inputType="number"/>
+                    android:orientation="vertical">
 
-        </LinearLayout>
+                <CheckBox
+                        android:id="@+id/cvv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="6dp"
+                        android:text="CVV"
+                        android:textColor="@color/grey_3"
+                        android:button="@drawable/checkbox_selector"/>
+
+                <CheckBox
+                        android:id="@+id/expiry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="6dp"
+                        android:text="Scadenza"
+                        android:textColor="@color/grey_3"
+                        android:button="@drawable/checkbox_selector"/>
+
+                <CheckBox
+                        android:id="@+id/postal_code"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="6dp"
+                        android:text="Codice Postale"
+                        android:textColor="@color/grey_3"
+                        android:button="@drawable/checkbox_selector"/>
+
+                <CheckBox
+                        android:id="@+id/use_card_io_logo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="6dp"
+                        android:text="Usa il logo card.io"
+                        android:textColor="@color/grey_3"
+                        android:button="@drawable/checkbox_selector"/>
+
+                <CheckBox
+                        android:id="@+id/cardholder_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="6dp"
+                        android:text="Titolare della carta"
+                        android:textColor="@color/grey_3"
+                        android:button="@drawable/checkbox_selector"/>
+
+                <CheckBox
+                        android:id="@+id/suppress_confirmation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="6dp"
+                        android:text="Sopprimi la conferma"
+                        android:textColor="@color/grey_3"
+                        android:button="@drawable/checkbox_selector"/>
+
+                <CheckBox
+                        android:id="@+id/bypass_the_scan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="6dp"
+                        android:text="Bypassa la scansione"
+                        android:textColor="@color/grey_3"
+                        android:button="@drawable/checkbox_selector"/>
+
+                <CheckBox
+                        android:id="@+id/keep_application_theme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="6dp"
+                        android:text="Mantieni l'application theme"
+                        android:textColor="@color/grey_3"
+                        android:button="@drawable/checkbox_selector"/>
+
+                <CheckBox
+                        android:id="@+id/suppress_keyboard_icon"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="6dp"
+                        android:text="Sopprimi l'icona della tastiera"
+                        android:textColor="@color/grey_3"
+                        android:button="@drawable/checkbox_selector"/>
+
+                <CheckBox
+                        android:id="@+id/suppress_scan_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="6dp"
+                        android:text="Sopprimi le informazioni di scansione"
+                        android:textColor="@color/grey_3"
+                        android:button="@drawable/checkbox_selector"/>
+
+                <CheckBox
+                        android:id="@+id/postal_code_numeric"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="6dp"
+                        android:text="Limita il codice postale solo ai numeri"
+                        android:textColor="@color/grey_3"
+                        android:button="@drawable/checkbox_selector"/>
+
+                <CheckBox
+                        android:id="@+id/show_paypal_action_bar_icon"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="6dp"
+                        android:text="Mostra l'icona di PayPal nella action bar"
+                        android:textColor="@color/grey_3"
+                        android:button="@drawable/checkbox_selector"/>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/dimen_16dp">
+
+                    <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:text="Seleziona la lingua:"
+                            android:textColor="@color/grey_3"
+                            android:gravity="center" />
+
+                    <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:text="Cifre non sfocate:"
+                            android:textColor="@color/grey_3"
+                            android:gravity="center" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                    <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5">
+
+                        <Spinner
+                                android:id="@+id/language_spinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5">
+
+                        <NumberPicker
+                                android:id="@+id/picker_unblurred_digits"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <EditText
+                        android:id="@+id/unblurred_digits"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="4"
+                        android:gravity="center"
+                        android:inputType="number"/>
+
+                <ImageView
+                        android:id="@+id/card_type_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/card_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"/>
+
+                <ImageView
+                        android:id="@+id/card_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
 
         <Button
-                android:id="@+id/scan_credit_card"
+                android:id="@+id/button_scan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Scansiona la carta di credito"
-                android:enabled="true"
                 style="@style/CustomButton" />
-
-        <ImageView
-                android:id="@+id/card_type_image"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-        <TextView
-                android:id="@+id/card_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"/>
-
-        <ImageView
-                android:id="@+id/card_image"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
 
         <TextView
                 android:id="@+id/version"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"/>
+                android:layout_marginTop="16dp"
+                android:layout_below="@+id/button_scan"
+                android:textColor="@color/grey_3" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
-</ScrollView>
+</RelativeLayout>
