@@ -2,9 +2,13 @@ package it.giovanni.kotlin.fragments.detail
 
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
 import io.card.payment.CardIOActivity
 import io.card.payment.CardType
@@ -14,13 +18,24 @@ import it.giovanni.kotlin.App
 import it.giovanni.kotlin.R
 import it.giovanni.kotlin.fragments.DetailFragment
 import kotlinx.android.synthetic.main.card_io_layout.*
+import java.text.DecimalFormat
 
 class CardIOFragment : DetailFragment() {
 
+    companion object {
+        private val REQUEST_SCAN = 100
+        private val REQUEST_AUTOTEST = 200
+    }
+
+    private var viewFragment: View? = null
     private var creditCard: CreditCard? = null
     private var cardType : CardType? = null
     private var cardTypeImage: Bitmap? = null
     private var cardInfo: String? = null
+    private var unblurredDigits: Int? = null
+
+    private val interval = 4
+    private val formatter = DecimalFormat("0")
 
     override fun getLayout(): Int {
         return R.layout.card_io_layout
@@ -60,24 +75,64 @@ class CardIOFragment : DetailFragment() {
     override fun onActionSearch(search_string: String) {
     }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
+        return viewFragment
+    }
+
+    @Suppress("DEPRECATION")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupLanguageList()
+        val spinnerContainer = viewFragment?.findViewById(R.id.spinner_container) as RelativeLayout
+        val drawableBar = GradientDrawable(
+            GradientDrawable.Orientation.LEFT_RIGHT,
+            intArrayOf(resources.getColor(R.color.white),
+                resources.getColor(R.color.colorPrimary))
+        )
+        drawableBar.cornerRadius = 100f
+        spinnerContainer.setBackgroundDrawable(drawableBar)
 
-        val info = "card.io library: " + CardIOActivity.sdkVersion() + "\n" + "Build date: " + CardIOActivity.sdkBuildDate()
-        version.text = info
+        unblurredDigits = 0
+        setPickerInterval()
+        picker_unblurred_digits.setOnValueChangedListener { _, _, newVal ->
+            unblurredDigits = newVal * 4
+        }
+
+        setupLanguageList()
+        enableScanExpiry()
+
+        expiry.setOnClickListener {
+            enableScanExpiry()
+        }
 
         button_scan.setOnClickListener {
             scanCreditCard()
+        }
+
+        val libraryVersion = "card.io library:\n" + CardIOActivity.sdkVersion()
+        library_version.text = libraryVersion
+
+        val buildDate = "CardIOActivity build date:\n" + CardIOActivity.sdkBuildDate()
+        build_date.text = buildDate
+    }
+
+    @Suppress("DEPRECATION")
+    private fun enableScanExpiry() {
+        if (expiry.isChecked) {
+            scan_expiry.isEnabled = true
+            scan_expiry.setTextColor(context?.resources!!.getColor(R.color.grey_3))
+        } else {
+            scan_expiry.isEnabled = false
+            scan_expiry.setTextColor(context?.resources!!.getColor(R.color.grey_2))
         }
     }
 
     private fun scanCreditCard() {
         val intent = Intent(context, CardIOActivity::class.java)
-            .putExtra(CardIOActivity.EXTRA_REQUIRE_CVV, cvv!!.isChecked)
             .putExtra(CardIOActivity.EXTRA_REQUIRE_EXPIRY, expiry!!.isChecked)
-            // .putExtra(CardIOActivity.EXTRA_SCAN_EXPIRY, expiry!!.isChecked)
+            .putExtra(CardIOActivity.EXTRA_SCAN_EXPIRY, scan_expiry!!.isChecked)
+            .putExtra(CardIOActivity.EXTRA_REQUIRE_CVV, cvv!!.isChecked)
             .putExtra(CardIOActivity.EXTRA_REQUIRE_POSTAL_CODE, postal_code!!.isChecked)
             .putExtra(CardIOActivity.EXTRA_USE_CARDIO_LOGO, use_card_io_logo!!.isChecked)
             .putExtra(CardIOActivity.EXTRA_REQUIRE_CARDHOLDER_NAME, cardholder_name!!.isChecked)
@@ -92,9 +147,8 @@ class CardIOFragment : DetailFragment() {
             .putExtra(CardIOActivity.EXTRA_LANGUAGE_OR_LOCALE, language_spinner!!.selectedItem as String)
             .putExtra(CardIOActivity.EXTRA_RETURN_CARD_IMAGE, true)
         try {
-            val unblurredDigits = Integer.parseInt(unblurred_digits!!.text.toString())
             intent.putExtra(CardIOActivity.EXTRA_UNBLUR_DIGITS, unblurredDigits)
-        } catch (ignored:NumberFormatException) {}
+        } catch (ignored: NumberFormatException) {}
 
         startActivityForResult(intent, REQUEST_SCAN)
     }
@@ -135,6 +189,13 @@ class CardIOFragment : DetailFragment() {
     private fun setupLanguageList() {
         val languages: ArrayList<String> = ArrayList()
         for (locale in LocalizedStringsList.ALL_LOCALES) {
+            if (locale.name == "de" ||
+                locale.name == "en" ||
+                locale.name == "es" ||
+                locale.name == "fr" ||
+                locale.name == "it" ||
+                locale.name == "pt" ||
+                locale.name == "ru")
             languages.add(locale.name)
         }
 
@@ -143,13 +204,22 @@ class CardIOFragment : DetailFragment() {
         language_spinner!!.setSelection(adapter.getPosition("it"))
     }
 
+    private fun setPickerInterval() {
+
+        val numValues = 20 / interval
+        val displayedValues = arrayOfNulls<String>(numValues)
+        for (i in 0 until numValues) {
+            displayedValues[i] = formatter.format(i * interval)
+        }
+
+        picker_unblurred_digits.value = 0
+        picker_unblurred_digits!!.minValue = 0
+        picker_unblurred_digits!!.maxValue = numValues - 1
+        picker_unblurred_digits!!.displayedValues = displayedValues
+    }
+
     override fun onStop() {
         super.onStop()
         card_info!!.text = ""
-    }
-
-    companion object {
-        private val REQUEST_SCAN = 100
-        private val REQUEST_AUTOTEST = 200
     }
 }
