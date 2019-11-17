@@ -8,7 +8,6 @@ import androidx.core.content.ContextCompat
 import it.giovanni.kotlin.biometric.BiometricCallback
 import kotlinx.android.synthetic.main.login_layout.*
 import android.widget.Toast
-import androidx.core.content.FileProvider
 import it.giovanni.kotlin.R
 import it.giovanni.kotlin.biometric.BiometricManager
 import it.giovanni.kotlin.customview.popup.CustomDialogPopup
