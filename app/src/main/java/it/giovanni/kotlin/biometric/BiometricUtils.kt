@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package it.giovanni.kotlin.biometric
 
 import android.content.pm.PackageManager
@@ -22,24 +24,18 @@ class BiometricUtils {
             return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
         }
 
-        @Suppress("DEPRECATION")
         fun isHardwareSupported(context: Context): Boolean {
             return FingerprintManagerCompat.from(context).isHardwareDetected
         }
 
-        @Suppress("DEPRECATION")
         fun isFingerprintAvailable(context: Context): Boolean {
             return FingerprintManagerCompat.from(context).hasEnrolledFingerprints()
         }
 
         fun isPermissionGranted(context: Context): Boolean {
-            return ActivityCompat.checkSelfPermission(context, USE_BIOMETRIC) == PackageManager.PERMISSION_GRANTED
+            return if (isBiometricPromptEnabled())
+                ActivityCompat.checkSelfPermission(context, USE_BIOMETRIC) == PackageManager.PERMISSION_GRANTED
+            else ActivityCompat.checkSelfPermission(context, USE_FINGERPRINT) == PackageManager.PERMISSION_GRANTED
         }
-        /*
-        @Suppress("DEPRECATION")
-        fun isPermissionGranted(context: Context): Boolean {
-            return ActivityCompat.checkSelfPermission(context, USE_FINGERPRINT) == PackageManager.PERMISSION_GRANTED
-        }
-        */
     }
 }
