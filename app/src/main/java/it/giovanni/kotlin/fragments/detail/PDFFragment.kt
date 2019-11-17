@@ -142,15 +142,6 @@ class PDFFragment : DetailFragment(), PermissionManager.PermissionListener {
         }
     }
 
-    private fun checkPermission() {
-        hasPermission = PermissionManager.checkSelfPermission(context!!, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-    }
-
-    override fun onPermissionResult(permissions: Array<String>, grantResults: IntArray) {
-        checkPermission()
-        download()
-    }
-
     private fun askPermission() {
         checkPermission()
         if (hasPermission)
@@ -166,6 +157,15 @@ class PDFFragment : DetailFragment(), PermissionManager.PermissionListener {
         )
     }
 
+    private fun checkPermission() {
+        hasPermission = PermissionManager.checkSelfPermission(context!!, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    }
+
+    override fun onPermissionResult(permissions: Array<String>, grantResults: IntArray) {
+        checkPermission()
+        download()
+    }
+
     private fun download() {
         if (!hasPermission)
             return
@@ -178,9 +178,7 @@ class PDFFragment : DetailFragment(), PermissionManager.PermissionListener {
         val params = Bundle()
         params.putString("url", url)
         params.putString("fileName", fileName)
-        // mService.startActionFromFragment(ScrapingService.GET_DOWNLOAD_FILE, params, true)
 
-        // La logica seguente bisogna essere fatta nella risposta della chiamata al dettaglio dei cedolini:
         if (action == Action.SEND) {
             send("/storage/emulated/0/Download", "CGC%20Unica_206442_24set18.pdf")
             isDownloading = false

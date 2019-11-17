@@ -8,6 +8,7 @@
     <string name="popup_button_try_again">RIPROVA</string>
     <string name="popup_button_send">INVIA</string>
     <string name="popup_button_open">APRI</string>
+    <string name="popup_button_register">REGISTRA</string>
 
     <!-- LOGCAT PROJECTS -->
     <string name="logcat_projects_title">Logcat projects</string>
@@ -75,5 +76,19 @@
 
     <!-- CARD.IO -->
     <string name="card_io_title">card.io</string>
+
+    <!-- BIOMETRIC -->
+    <string name="biometric_title">Login</string>
+    <string name="biometric_subtitle">Accedi al tuo account</string>
+    <string name="biometric_description">Posiziona il dito sul pulsante Home del dispositivo per verificare la tua identità</string>
+    <string name="biometric_cancel_button">Annulla</string>
+    <string name="biometric_error_sdk">Versione SDK non supportata</string>
+    <string name="biometric_error_permission">L\'autorizzazione non è concessa dall\'utente</string>
+    <string name="biometric_error_hardware">Il dispositivo non supporta l\'autenticazione biometrica</string>
+    <string name="biometric_error_fingerprint">L\'impronta digitale non è registrata sul tuo dispositivo</string>
+    <string name="biometric_success">Accesso riuscito</string>
+    <string name="biometric_failure">Accesso fallito</string>
+    <string name="biometric_failed">Impronta digitale non riconosciuta</string>
+    <string name="biometric_cancelled">Autenticazione annullata dall\'utente</string>
 
 </resources>
