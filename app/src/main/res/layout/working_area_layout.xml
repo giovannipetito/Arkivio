@@ -6,210 +6,248 @@
         android:background="@color/colorPrimary"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-        <TextView
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Varie"
-                android:textSize="21sp"
-                android:textColor="@color/white"
-                android:textAlignment="center"/>
+                android:orientation="vertical">
 
-        <View android:layout_width="120dp"
-              android:layout_height="1dp"
-              android:layout_marginTop="4dp"
-              android:layout_marginBottom="16dp"
-              android:background="@color/white"
-              android:layout_gravity="center"
-              android:alpha=".4"/>
-
-        <TextView
-                android:id="@+id/label_logcat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="@string/logcat_projects_title"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                android:textAlignment="center"/>
-
-        <View android:layout_width="120dp"
-              android:layout_height="1dp"
-              android:layout_marginTop="8dp"
-              android:layout_marginBottom="8dp"
-              android:background="@color/white"
-              android:layout_gravity="center"
-              android:alpha=".4"/>
-
-        <TextView
-                android:id="@+id/label_date_manager"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="@string/date_manager_title"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                android:textAlignment="center"/>
-
-        <View android:layout_width="120dp"
-              android:layout_height="1dp"
-              android:layout_marginTop="8dp"
-              android:layout_marginBottom="8dp"
-              android:background="@color/white"
-              android:layout_gravity="center"
-              android:alpha=".4"/>
-
-        <TextView
-                android:id="@+id/label_rubrica"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="@string/rubrica_title"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                android:textAlignment="center"/>
-
-        <View android:layout_width="120dp"
-              android:layout_height="1dp"
-              android:layout_marginTop="8dp"
-              android:layout_marginBottom="8dp"
-              android:background="@color/white"
-              android:layout_gravity="center"
-              android:alpha=".4"/>
-
-        <TextView
-                android:id="@+id/label_pdf"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="@string/pdf_title"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                android:textAlignment="center"/>
-
-        <View android:layout_width="120dp"
-              android:layout_height="1dp"
-              android:layout_marginTop="8dp"
-              android:layout_marginBottom="8dp"
-              android:background="@color/white"
-              android:layout_gravity="center"
-              android:alpha=".4"/>
-
-        <TextView
-                android:id="@+id/label_oauth_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="@string/oauth_2_title"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                android:textAlignment="center"/>
-
-        <View android:layout_width="120dp"
-              android:layout_height="1dp"
-              android:layout_marginTop="8dp"
-              android:layout_marginBottom="8dp"
-              android:background="@color/white"
-              android:layout_gravity="center"
-              android:alpha=".4"/>
-
-        <TextView
-                android:id="@+id/label_layout_manage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="@string/layout_manage_title"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                android:textAlignment="center"/>
-
-        <View android:layout_width="120dp"
-              android:layout_height="1dp"
-              android:layout_marginTop="8dp"
-              android:layout_marginBottom="8dp"
-              android:background="@color/white"
-              android:layout_gravity="center"
-              android:alpha=".4"/>
-
-        <TextView
-                android:id="@+id/label_preference"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="@string/preference_title"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                android:textAlignment="center"/>
-
-        <View android:layout_width="120dp"
-              android:layout_height="1dp"
-              android:layout_marginTop="8dp"
-              android:layout_marginBottom="8dp"
-              android:background="@color/white"
-              android:layout_gravity="center"
-              android:alpha=".4"/>
-
-        <TextView
-                android:id="@+id/label_sticky_header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="@string/sticky_header_title"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                android:textAlignment="center"/>
-
-        <View android:layout_width="120dp"
-              android:layout_height="1dp"
-              android:layout_marginTop="8dp"
-              android:layout_marginBottom="8dp"
-              android:background="@color/white"
-              android:layout_gravity="center"
-              android:alpha=".4"/>
-
-        <TextView
-                android:id="@+id/label_card_io"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="@string/card_io_title"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                android:textAlignment="center"/>
-
-        <View android:layout_width="120dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="@color/white"
-                android:layout_gravity="center"
-                android:alpha=".4"/>
-
-        <RelativeLayout android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    app:srcCompat="@drawable/ico_add_floating_button"
-                    android:layout_width="wrap_content"
+            <TextView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginBottom="12dp"
-                    android:layout_marginEnd="12dp"
-                    android:backgroundTint="@color/dark"
-                    android:elevation="6dp"
-                    app:borderWidth="0dp"/>
+                    android:text="Varie"
+                    android:textSize="21sp"
+                    android:textColor="@color/white"
+                    android:textAlignment="center"/>
 
-        </RelativeLayout>
+            <View android:layout_width="120dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/white"
+                    android:layout_gravity="center"
+                    android:alpha=".4"/>
 
-        <include
-                layout="@layout/message_error_layout"
-                 android:visibility="gone"/>
+            <TextView
+                    android:id="@+id/label_logcat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/logcat_projects_title"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textAlignment="center"/>
 
-    </LinearLayout>
+            <View android:layout_width="120dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/white"
+                    android:layout_gravity="center"
+                    android:alpha=".4"/>
+
+            <TextView
+                    android:id="@+id/label_date_manager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/date_manager_title"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textAlignment="center"/>
+
+            <View android:layout_width="120dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/white"
+                    android:layout_gravity="center"
+                    android:alpha=".4"/>
+
+            <TextView
+                    android:id="@+id/label_rubrica"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/rubrica_title"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textAlignment="center"/>
+
+            <View android:layout_width="120dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/white"
+                    android:layout_gravity="center"
+                    android:alpha=".4"/>
+
+            <TextView
+                    android:id="@+id/label_pdf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/pdf_title"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textAlignment="center"/>
+
+            <View android:layout_width="120dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/white"
+                    android:layout_gravity="center"
+                    android:alpha=".4"/>
+
+            <TextView
+                    android:id="@+id/label_oauth_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/oauth_2_title"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textAlignment="center"/>
+
+            <View android:layout_width="120dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/white"
+                    android:layout_gravity="center"
+                    android:alpha=".4"/>
+
+            <TextView
+                    android:id="@+id/label_layout_manage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/layout_manage_title"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textAlignment="center"/>
+
+            <View android:layout_width="120dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/white"
+                    android:layout_gravity="center"
+                    android:alpha=".4"/>
+
+            <TextView
+                    android:id="@+id/label_preference"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/preference_title"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textAlignment="center"/>
+
+            <View android:layout_width="120dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/white"
+                    android:layout_gravity="center"
+                    android:alpha=".4"/>
+
+            <TextView
+                    android:id="@+id/label_sticky_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/sticky_header_title"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textAlignment="center"/>
+
+            <View android:layout_width="120dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/white"
+                    android:layout_gravity="center"
+                    android:alpha=".4"/>
+
+            <TextView
+                    android:id="@+id/label_card_io"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/card_io_title"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textAlignment="center"/>
+
+            <View android:layout_width="120dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/white"
+                    android:layout_gravity="center"
+                    android:alpha=".4"/>
+
+            <TextView
+                    android:id="@+id/youtube"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="YouTube"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textAlignment="center"/>
+
+            <View android:layout_width="120dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/white"
+                    android:layout_gravity="center"
+                    android:alpha=".4"/>
+
+            <TextView
+                    android:autoLink="web"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="http://android-er.blogspot.com/"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textAlignment="center" />
+
+            <View android:layout_width="120dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/white"
+                    android:layout_gravity="center"
+                    android:alpha=".4"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <RelativeLayout android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                app:srcCompat="@drawable/ico_add_floating_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="12dp"
+                android:layout_marginEnd="12dp"
+                android:backgroundTint="@color/dark"
+                android:elevation="6dp"
+                app:borderWidth="0dp"/>
+
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

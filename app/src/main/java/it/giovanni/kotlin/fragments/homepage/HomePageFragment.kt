@@ -36,12 +36,12 @@ class HomePageFragment : HomeFragment() {
 
     Variant: debug
     Config: debug
-    Store: C:\Users\giova\.android\debug.keystore
+    Store: /Users/Giovanni/.android/debug.keystore
     Alias: AndroidDebugKey
-    MD5: 10:DF:F7:97:43:F9:2F:73:47:39:DE:D3:9C:93:2D:7E
-    SHA1: 19:6F:40:61:7D:C4:56:A1:4A:03:B6:F6:BE:EA:74:16:5B:13:B6:92
-    SHA-256: A1:0D:D2:8E:B7:AF:FE:6A:13:DA:3B:30:B6:19:02:A9:88:79:7F:DA:A0:A7:04:F2:AB:A0:A4:88:8F:F4:1B:5F
-    Valid until: mercoledì 8 aprile 2048
+    MD5: C3:9B:CE:AC:C2:C5:4B:4C:6C:24:56:F3:17:73:37:C1
+    SHA1: 03:29:32:E7:87:94:51:CA:67:F5:33:0E:53:50:BD:69:66:2F:F0:B0
+    SHA-256: ED:C1:9D:E9:CD:57:86:E6:1B:83:B0:28:39:99:32:0C:FF:A1:C0:25:68:DA:E4:95:3A:CD:94:DA:65:73:D8:37
+    Valid until: mercoledì 13 febbraio 2047
     */
 
     private val GALLERY_CODE = 201

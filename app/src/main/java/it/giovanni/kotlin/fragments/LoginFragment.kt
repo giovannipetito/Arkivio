@@ -35,14 +35,12 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
         currentActivity.window.statusBarColor = ContextCompat.getColor(context!!, R.color.colorPrimary)
         action = Action.NONE
 
-        /*
         login_button.setOnClickListener {
             showProgressDialog()
             currentActivity.openMainFragment()
         }
-        */
 
-        login_button.setOnClickListener {
+        image_fingerprint.setOnClickListener {
             biometricManager = BiometricManager.BiometricBuilder(context!!)
                 .setTitle(getString(R.string.biometric_title))
                 .setSubtitle(getString(R.string.biometric_subtitle))

@@ -106,6 +106,9 @@
 
         </LinearLayout>
 
+        <include
+                layout="@layout/message_error_layout"
+                android:visibility="gone"/>
 
     </RelativeLayout>
 

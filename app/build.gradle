@@ -15,8 +15,12 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+
+        def ENV_DEV = "\"https://www.googleapis.com/youtube/v3\""
+
         debug {
             // minifyEnabled false
+            buildConfigField "String", "MW_URL", ENV_DEV
             buildConfigField "String", "CREDITS_PREFIX", "\"DEBUG\""
             // proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -24,6 +28,15 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        // exclude 'META-INF/INDEX.LIST'
     }
 }
 
@@ -64,7 +77,16 @@ dependencies {
         exclude group: 'com.android.support'
     }
 
-    // okhttp
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
+
+    // OkHttp
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit2_converter_gson_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit2_version"
+    implementation "com.squareup.retrofit2:converter-scalars:$retrofit2_converter_gson_version"
+    implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$retrofit2_rxjava2_adapter_version"
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroid"
 
     // Google GPS
@@ -79,4 +101,23 @@ dependencies {
 
     // card.io
     implementation 'io.card:android-sdk:5.5.1'
+
+    // YouTube
+    implementation 'com.google.android.gms:play-services-plus:7.8.0'
+    implementation 'com.google.apis:google-api-services-youtube:v3-rev120-1.19.0'
+    implementation 'com.google.http-client:google-http-client-android:+'
+    implementation 'com.google.api-client:google-api-client-android:+'
+    implementation 'com.google.api-client:google-api-client-gson:+'
+    implementation 'com.google.code.gson:gson:2.2.4'
+    implementation files('libs/YouTubeAndroidPlayerApi.jar')
+
+    implementation 'com.google.android.gms:play-services-auth:16.0.+'
+    implementation 'com.google.android.gms:play-services-gcm:15.0.1'
+    implementation 'com.google.android.gms:play-services-location:15.0.1'
+    implementation "androidx.core:core-ktx:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+
+repositories {
+    mavenCentral()
 }

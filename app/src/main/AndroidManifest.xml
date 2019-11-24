@@ -32,6 +32,10 @@
             tools:ignore="GoogleAppIndexingWarning"
             android:fullBackupContent="@xml/backup_descriptor">
 
+        <meta-data
+                android:name="com.google.android.gms.version"
+                android:value="@integer/google_play_services_version" />
+
         <activity android:name=".activities.MainActivity"
                   android:screenOrientation="portrait"
                   android:resizeableActivity="false"
@@ -73,6 +77,14 @@
                     android:name="android.support.FILE_PROVIDER_PATHS"
                     android:resource="@xml/provider_paths" />
         </provider>
+
+        <activity android:name=".auth.MainYouTubeActivity" />
+        <activity android:name=".auth.PlayActivity" />
+        <activity android:name=".auth.ReviewActivity" />
+        <service android:name=".auth.UploadService" />
+        <activity android:name=".search.SearchActivity" />
+        <activity android:name=".search.Player1Activity" />
+        <activity android:name=".search.Player2Activity" />
 
     </application>
 

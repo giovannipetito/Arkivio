@@ -51,13 +51,27 @@
 
             <Button
                     android:id="@+id/login_button"
-                    style="@style/CustomButton"
                     android:layout_width="290dp"
                     android:layout_height="45dp"
                     android:layout_marginTop="32dp"
                     android:enabled="true"
                     android:text="Accedi"
-                    android:textSize="16dp" />
+                    android:textSize="16dp"
+                    style="@style/CustomButton" />
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+
+                <ImageView
+                        android:id="@+id/image_fingerprint"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/ico_fingerprint" />
+
+            </RelativeLayout>
 
             <!--<androidx.appcompat.widget.AppCompatCheckBox-->
                     <!--android:id="@+id/chk_remember_me"-->
