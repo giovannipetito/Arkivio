@@ -2,6 +2,7 @@ package it.giovanni.kotlin.fragments
 
 import android.Manifest
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -51,6 +52,9 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
             // Start authentication
             biometricManager!!.authenticate(this)
         }
+
+        val apiVersion = Build.VERSION.SDK_INT
+        api_version_text.text = getString(R.string.api_version, "" + apiVersion)
     }
 
     override fun onSdkVersionNotSupported() {

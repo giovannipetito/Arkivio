@@ -177,6 +177,11 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
         imm.hideSoftInputFromWindow(currentActivity.currentFocus?.windowToken, 0)
     }
 
+    fun hideSoftKeyboard2() {
+        val imm = currentActivity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(currentActivity.currentFocus?.windowToken, InputMethodManager.RESULT_UNCHANGED_SHOWN)
+    }
+
     open fun isRefreshEnabled(): Boolean {
         return false
     }

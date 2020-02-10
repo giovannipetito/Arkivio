@@ -1,4 +1,4 @@
-package it.giovanni.kotlin.search;
+package it.giovanni.kotlin.youtube.search;
 
 public class Video {
 

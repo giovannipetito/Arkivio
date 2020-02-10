@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        android:background="@color/colorPrimary">
 
     <ScrollView
             android:layout_width="match_parent"
@@ -38,7 +38,7 @@
                     android:layout_marginTop="2dp"
                     android:text="@string/logcat_projects_title"
                     android:textColor="@color/white"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textAlignment="center"/>
 
             <View android:layout_width="120dp"
@@ -56,7 +56,7 @@
                     android:layout_marginTop="2dp"
                     android:text="@string/date_manager_title"
                     android:textColor="@color/white"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textAlignment="center"/>
 
             <View android:layout_width="120dp"
@@ -74,7 +74,7 @@
                     android:layout_marginTop="2dp"
                     android:text="@string/rubrica_title"
                     android:textColor="@color/white"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textAlignment="center"/>
 
             <View android:layout_width="120dp"
@@ -92,7 +92,7 @@
                     android:layout_marginTop="2dp"
                     android:text="@string/pdf_title"
                     android:textColor="@color/white"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textAlignment="center"/>
 
             <View android:layout_width="120dp"
@@ -110,7 +110,7 @@
                     android:layout_marginTop="2dp"
                     android:text="@string/oauth_2_title"
                     android:textColor="@color/white"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textAlignment="center"/>
 
             <View android:layout_width="120dp"
@@ -128,7 +128,7 @@
                     android:layout_marginTop="2dp"
                     android:text="@string/layout_manage_title"
                     android:textColor="@color/white"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textAlignment="center"/>
 
             <View android:layout_width="120dp"
@@ -146,7 +146,7 @@
                     android:layout_marginTop="2dp"
                     android:text="@string/preference_title"
                     android:textColor="@color/white"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textAlignment="center"/>
 
             <View android:layout_width="120dp"
@@ -164,7 +164,7 @@
                     android:layout_marginTop="2dp"
                     android:text="@string/sticky_header_title"
                     android:textColor="@color/white"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textAlignment="center"/>
 
             <View android:layout_width="120dp"
@@ -182,7 +182,7 @@
                     android:layout_marginTop="2dp"
                     android:text="@string/card_io_title"
                     android:textColor="@color/white"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textAlignment="center"/>
 
             <View android:layout_width="120dp"
@@ -194,32 +194,14 @@
                     android:alpha=".4"/>
 
             <TextView
-                    android:id="@+id/youtube"
+                    android:id="@+id/label_youtube"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:text="YouTube"
+                    android:text="@string/youtube_title"
                     android:textColor="@color/white"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textAlignment="center"/>
-
-            <View android:layout_width="120dp"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="@color/white"
-                    android:layout_gravity="center"
-                    android:alpha=".4"/>
-
-            <TextView
-                    android:autoLink="web"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:text="http://android-er.blogspot.com/"
-                    android:textColor="@color/white"
-                    android:textSize="15sp"
-                    android:textAlignment="center" />
 
             <View android:layout_width="120dp"
                     android:layout_height="1dp"

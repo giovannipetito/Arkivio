@@ -41,7 +41,7 @@
                         android:layout_marginTop="2dp"
                         android:text="Drive W3B"
                         android:textColor="@color/white"
-                        android:textSize="15sp"
+                        android:textSize="16sp"
                         android:textAlignment="center"/>
 
                 <View android:layout_width="120dp"
@@ -59,7 +59,7 @@
                         android:layout_marginTop="2dp"
                         android:text="Drive WAW3"
                         android:textColor="@color/white"
-                        android:textSize="15sp"
+                        android:textSize="16sp"
                         android:textAlignment="center"/>
 
                 <View android:layout_width="120dp"
@@ -77,7 +77,7 @@
                         android:layout_marginTop="2dp"
                         android:text="Browser GitHub"
                         android:textColor="@color/white"
-                        android:textSize="15sp"
+                        android:textSize="16sp"
                         android:textAlignment="center"/>
 
                 <View android:layout_width="120dp"
@@ -95,7 +95,7 @@
                         android:layout_marginTop="2dp"
                         android:text="WebView GitHub"
                         android:textColor="@color/white"
-                        android:textSize="15sp"
+                        android:textSize="16sp"
                         android:textAlignment="center"/>
 
                 <View android:layout_width="120dp"
@@ -113,7 +113,7 @@
                         android:layout_marginTop="2dp"
                         android:text="Link App"
                         android:textColor="@color/white"
-                        android:textSize="15sp"
+                        android:textSize="16sp"
                         android:textAlignment="center"/>
 
                 <View android:layout_width="120dp"
@@ -131,7 +131,7 @@
                         android:layout_marginTop="2dp"
                         android:text="Link test"
                         android:textColor="@color/white"
-                        android:textSize="15sp"
+                        android:textSize="16sp"
                         android:textAlignment="center"/>
 
                 <View android:layout_width="120dp"
@@ -141,6 +141,25 @@
                       android:background="@color/white"
                       android:layout_gravity="center"
                       android:alpha=".4"/>
+
+                <TextView
+                        android:autoLink="web"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="4dp"
+                        android:text="http://android-er.blogspot.com/"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textAlignment="center" />
+
+                <View android:layout_width="120dp"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@color/white"
+                        android:layout_gravity="center"
+                        android:alpha=".4"/>
 
             </LinearLayout>
 

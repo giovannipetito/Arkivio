@@ -1,5 +1,9 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">GiovanniKotlin</string>
+
+    <!-- LOGIN -->
+    <string name="login_button">Accedi</string>
+    <string name="api_version">Your device is running Android API version <xliff:g id="current_version">%1$s</xliff:g>.</string>
 
     <!-- POPUP LABEL BUTTON -->
     <string name="popup_button_ok">OK</string>
@@ -92,48 +96,48 @@
     <string name="biometric_cancelled">Autenticazione annullata dall\'utente</string>
 
     <!-- YOUTUBE -->
-    <string name="youtube">YouTube</string>
-    <string name="button_authorize">Authorize</string>
-    <string name="button_record">RECORD</string>
-    <string name="button_pick">GALLERY</string>
-    <string name="button_upload">UPLOAD TO YTDL</string>
-    <string name="button_submit">SUBMIT TO YTDL</string>
-    <string name="menu_settings">Settings</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="title_activity_display_message">My Message</string>
-    <string name="google_play_not_available">Google Play Services not available</string>
-    <string name="youtube_upload_started">YouTube Direct Lite upload started</string>
-    <string name="connection_to_google_play_failed">Connection to Play Services failed.</string>
-    <string name="youtube_upload">YouTube upload</string>
-    <string name="not_signed_in">Not signed in</string>
-    <string name="dev_setup_explanation">If you\'re seeing this screen, congratulations! You\'ve set up the dependencies for YouTube Direct Lite correctly. You just need to set up the following for the app to work correctly:</string>
-    <string name="error">Error</string>
-    <string name="error_format">[Error] %s</string>
-    <string name="refresh">Refresh</string>
-    <string name="accounts">Accounts</string>
-    <string name="initiation_started">Initiation Started</string>
-    <string name="initiation_completed">Initiation Completed</string>
-    <string name="upload_in_progress">Direct Lite upload in progress</string>
-    <string name="yt_upload_completed">YouTube Upload Completed</string>
-    <string name="upload_completed">Upload completed</string>
-    <string name="upload_not_started">Upload Not Started!</string>
-    <string name="yt_upload_failed">YouTube Upload Failed</string>
-    <string name="reauth_required">Re-login required</string>
-    <string name="please_try_again">Please try again</string>
-    <string name="cant_access_play">Can\'t access to Google Play services</string>
-    <string name="title_activity_play">Click below to submit</string>
-    <string name="send">Click send</string>
-    <string name="title_activity_review">Click below to upload</string>
-    <string name="pick_one_of_your_videos_to_submit">Submit an existing YouTube video or upload a new video using the options below</string>
-    <string name="no_videos_to_show_here_">No videos to show here.</string>
-    <string name="avatar">avatar</string>
-    <string name="pick_or_record_a_video_to_upload">Upload an existing video from your device or record a new one</string>
-    <string name="see_the_newly_uploaded_video">See the newly uploaded video</string>
-    <string name="watch_your_video">Watch your video</string>
-    <string name="video_submitted_to_ytdl">Video submitted to YTDL</string>
-    <string name="playing_uploaded_video">Playing uploaded video</string>
-    <string name="playing_the_video_in_upload_progress">Playing the video in upload progress</string>
-    <string name="action_settings">Settings</string>
-    <string name="failed">Failed to initialize Youtube Player</string>
+    <string name="youtube_title">YouTube</string>
+    <string name="youtube_version">YouTube version installed on this device: <xliff:g id="youtube_version">%1$s</xliff:g>.</string>
+    <string name="youtube_not_installed">YouTube is not installed on this device.</string>
+
+    <string name="search_title">Search\nYouTubePlayerView\nYouTubePlayerFragment</string>
+    <string name="edit_search">Cerca</string>
+    <string name="player_title">Titolo: </string>
+    <string name="player_video_id">Video ID: </string>
+    <string name="player_description">Descrizione: </string>
+    <string name="full_screen_view">Full screen view</string>
+    <string name="landscape_fullscreen">Always fullscreen in landscape</string>
+    <string name="go_to_player_view">Go to PlayerView</string>
+    <string name="go_to_player_fragment">Go to PlayerFragment</string>
+    <string name="error_player">Failed to initialize Youtube Player (%1$s)</string>
+
+    <string name="video_wall">Video Wall</string>
+    <string name="error_thumbnail_view">Si è verificato un errore durante l\'inizializzazione di YouTubeThumbnailView (%1$s)</string>
+
+    <string name="video_list">Video List</string>
+    <string name="fullscreen_handling">Fullscreen Handling</string>
+    <string name="actionbar_overlay">ActionBar Overlay</string>
+
+    <string name="player_controls">Player Controls</string>
+    <string name="player_style">Player Style</string>
+    <string name="default_style">Default</string>
+    <string name="minimal_style">Minimal</string>
+    <string name="chromeless_style">Chromeless</string>
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
+    <string name="skip_to">Skip to</string>
+    <string name="seconds">seconds</string>
+
+    <string name="intent_controls">Intent Controls</string>
+    <string name="play_video">Play Video</string>
+    <string name="play_playlist">Play Playlist</string>
+    <string name="play_video_list">Play Video List</string>
+    <string name="choose_index">Choose Video List index</string>
+    <string name="choose_start_time">Choose Start Time (in seconds)</string>
+    <string name="autoplay">Autoplay</string>
+    <string name="box_mode">Box mode</string>
+
+    <string name="youtube_intents">YouTube App Launcher Intents</string>
+    <string name="intent_disabled">This intent is not supported with the currently installed version of YouTube.</string>
 
 </resources>

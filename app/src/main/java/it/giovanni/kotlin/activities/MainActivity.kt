@@ -34,6 +34,8 @@ import it.giovanni.kotlin.viewinterfaces.IProgressLoader
 import it.giovanni.kotlin.utils.Globals
 import it.giovanni.kotlin.utils.UserFactory
 import it.giovanni.kotlin.utils.Utils
+import it.giovanni.kotlin.youtube.search.SearchVideoFragment
+import java.util.ArrayList
 
 class MainActivity : GPSActivity(), IProgressLoader {
 
@@ -60,6 +62,10 @@ class MainActivity : GPSActivity(), IProgressLoader {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // NOTA: Convertire una lista di stringhe in un array di stringhe.
+        val list = ArrayList<String>()
+        val array: Array<String> = list.toTypedArray()
 
         progressDialog = Dialog(this, R.style.DialogTheme)
         progressDialog?.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -328,6 +334,12 @@ class MainActivity : GPSActivity(), IProgressLoader {
             }
             Globals.CARD_IO -> {
                 baseFragment = CardIOFragment()
+            }
+            Globals.YOUTUBE_MANAGER -> {
+                baseFragment = YouTubeManagerFragment()
+            }
+            Globals.SEARCH_VIDEO -> {
+                baseFragment = SearchVideoFragment()
             }
         }
 

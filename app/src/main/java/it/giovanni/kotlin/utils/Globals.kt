@@ -19,6 +19,8 @@ class Globals {
         var PREFERENCE_LIST = "PREFERENCE_LIST"
         var STICKY_HEADER = "STICKY_HEADER"
         var CARD_IO = "CARD_IO"
+        var YOUTUBE_MANAGER = "YOUTUBE_MANAGER"
+        var SEARCH_VIDEO = "SEARCH_VIDEO"
 
         var BEAN = "bean"
 

@@ -1,4 +1,4 @@
-package it.giovanni.kotlin.search;
+package it.giovanni.kotlin.youtube;
 
 import android.util.Log;
 
@@ -15,15 +15,17 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-class YoutubeConnector {
+import it.giovanni.kotlin.youtube.search.Video;
+
+public class YoutubeConnector {
 
     private YouTube.Search.List query;
-    static final String API_KEY = "AIzaSyCSFUynztrGEOTVyFjUmD2z98H4G9ilEtM";
+    public static final String API_KEY = "AIzaSyCSFUynztrGEOTVyFjUmD2z98H4G9ilEtM";
     private static final String PACKAGENAME = "it.giovanni.kotlin";
     private static final String SHA1 = "03:29:32:E7:87:94:51:CA:67:F5:33:0E:53:50:BD:69:66:2F:F0:B0";
     private static final long MAXRESULTS = 25;
 
-    YoutubeConnector() {
+    public YoutubeConnector() {
 
         YouTube youtube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), request -> {
             request.getHeaders().set("X-Android-Package", PACKAGENAME);
@@ -45,7 +47,7 @@ class YoutubeConnector {
         }
     }
 
-    List<Video> search(String keywords) {
+    public List<Video> search(String keywords) {
         query.setQ(keywords);
         query.setMaxResults(MAXRESULTS);
 

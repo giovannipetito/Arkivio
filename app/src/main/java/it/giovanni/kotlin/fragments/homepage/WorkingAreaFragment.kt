@@ -1,6 +1,5 @@
 package it.giovanni.kotlin.fragments.homepage
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +7,6 @@ import android.view.ViewGroup
 import it.giovanni.kotlin.fragments.HomeFragment
 import it.giovanni.kotlin.fragments.MainFragment
 import it.giovanni.kotlin.R
-import it.giovanni.kotlin.search.SearchActivity
 import it.giovanni.kotlin.utils.Globals
 import kotlinx.android.synthetic.main.working_area_layout.*
 
@@ -67,8 +65,8 @@ class WorkingAreaFragment : HomeFragment() {
         label_card_io.setOnClickListener {
             currentActivity.openDetail(Globals.CARD_IO, null)
         }
-        youtube.setOnClickListener {
-            startActivity(Intent(context, SearchActivity::class.java))
+        label_youtube.setOnClickListener {
+            currentActivity.openDetail(Globals.YOUTUBE_MANAGER, null)
         }
     }
 }
