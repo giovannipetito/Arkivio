@@ -24,28 +24,30 @@
         <!-- app:realtimeBlurRadius regola il livello del blur -->
 
         <LinearLayout
+                android:id="@+id/header"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:orientation="vertical">
-
-            <it.giovanni.kotlin.customview.AvatarImageView
-                    android:id="@+id/ico_avatar"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:padding="6dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ico_avatar" />
+                android:orientation="horizontal">
 
             <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center">
+                    android:layout_weight="0.5"
+                    android:orientation="vertical">
+
+                <it.giovanni.kotlin.customview.AvatarImageView
+                        android:id="@+id/ico_avatar"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:padding="6dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ico_avatar" />
 
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:text="Buongiorno"
                         android:textColor="@color/white"
                         android:textSize="21sp" />
@@ -53,7 +55,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
+                        android:layout_gravity="center"
                         android:text="Giovanni"
                         android:textColor="@color/white"
                         android:textSize="21sp"
@@ -61,10 +63,50 @@
 
             </LinearLayout>
 
-            <View android:layout_width="120dp"
+            <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5">
+
+                <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/lottie_sun"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"
+                        app:lottie_imageAssetsFolder="images"
+                        app:lottie_fileName="sun.json"
+                        android:visibility="visible" />
+
+                <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/lottie_moon"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"
+                        app:lottie_imageAssetsFolder="images"
+                        app:lottie_fileName="moon.json"
+                        android:visibility="gone" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/header"
+                android:orientation="vertical">
+
+            <View android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="4dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="48dp"
+                    android:layout_marginEnd="48dp"
                     android:background="@color/grey_2"
                     android:layout_gravity="center"
                     android:alpha=".4"/>
@@ -101,6 +143,15 @@
                         android:text="1988"
                         android:textColor="@color/grey_2"
                         android:textSize="14sp" />
+
+                <TextView
+                        android:id="@+id/time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="12:00"
+                        android:textColor="@color/grey_2"
+                        android:textSize="24sp" />
 
             </LinearLayout>
 

@@ -46,6 +46,39 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!-- Accepts URIs that begin with "http://www.host.it/v/v-app" -->
+                <data android:scheme="http"
+                        android:host="www.host.it"
+                        android:pathPrefix="/v/v-app" />
+
+                <!-- Accepts URIs that begin with "http://apps.dea.dev.wind-digital.com/dashboard" -->
+                <data android:scheme="http"
+                        android:host="apps.dea.dev.wind-digital.com"
+                        android:pathPrefix="/dashboard" />
+
+                <!-- It is not necessary to include the host in the second <data> element because,
+                within each <intent-filter> element, all combinations of each <data> attribute are considered valid. -->
+                <data android:scheme="https" />
+
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!-- Accepts URIs that begin with "mydea://dashboard" -->
+                <data android:scheme="mydea" android:host="dashboard" />
+
+            </intent-filter>
+
         </activity>
 
         <activity

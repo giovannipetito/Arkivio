@@ -17,6 +17,7 @@ import it.giovanni.kotlin.fragments.HomeFragment
 import it.giovanni.kotlin.fragments.MainFragment
 import it.giovanni.kotlin.utils.Utils.Companion.getRoundBitmap
 import it.giovanni.kotlin.R
+import it.giovanni.kotlin.utils.DateManager
 import it.giovanni.kotlin.utils.Utils.Companion.convertDpToPixel
 import it.giovanni.kotlin.utils.Utils.Companion.getHashKey
 import it.giovanni.kotlin.utils.Utils.Companion.getVersionNameLong
@@ -85,6 +86,8 @@ class HomePageFragment : HomeFragment() {
         month.text = currentMonth
 
         year.text = SimpleDateFormat("yyyy").format(date)
+
+        time.text = DateManager(Date()).getFormatTime()
 
         Handler().postDelayed({
             val avatar: Bitmap = BitmapFactory.decodeResource(context!!.resources, R.drawable.giovanni)

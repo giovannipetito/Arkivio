@@ -1,6 +1,7 @@
 package it.giovanni.kotlin.fragments.detail.rubrica
 
 import android.animation.Animator
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -10,7 +11,9 @@ import android.view.View
 import android.view.ViewAnimationUtils
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import it.giovanni.kotlin.R
@@ -244,6 +247,10 @@ class RubricaListFragment: DetailFragment(), ContactsListAdapter.OnItemViewClick
                     close_action.visibility = View.GONE
                     resetList()
                 }
+
+                val imm = currentActivity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                if (imm.isActive)
+                    Toast.makeText(activity, "SoftKeyboard is active", Toast.LENGTH_SHORT).show()
             }
 
             override fun afterTextChanged(s: Editable) {}

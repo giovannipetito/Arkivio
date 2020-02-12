@@ -80,6 +80,23 @@
 
     <!-- CARD.IO -->
     <string name="card_io_title">card.io</string>
+    <string name="expiry">Scadenza</string>
+    <string name="scan_expiry">Scansiona scadenza</string>
+    <string name="cvv">CVV</string>
+    <string name="postal_code">Codice Postale</string>
+    <string name="use_card_io_logo">Usa il logo card.io</string>
+    <string name="cardholder_name">Titolare della carta</string>
+    <string name="suppress_confirmation">Sopprimi la conferma</string>
+    <string name="bypass_the_scan">Bypassa la scansione</string>
+    <string name="keep_application_theme">Mantieni l\'application theme</string>
+    <string name="suppress_keyboard_icon">Sopprimi l\'icona della tastiera</string>
+    <string name="suppress_scan_info">Sopprimi le informazioni di scansione</string>
+    <string name="postal_code_numeric">Limita il codice postale solo ai numeri</string>
+    <string name="show_paypal_action_bar_icon">Mostra l\'icona di PayPal nella action bar</string>
+    <string name="select_language">Seleziona la lingua:</string>
+    <string name="unblurred_digits">Cifre non sfocate:</string>
+
+    <string name="scan_credit_card">Scansiona la carta di credito</string>
 
     <!-- BIOMETRIC -->
     <string name="biometric_title">Login</string>

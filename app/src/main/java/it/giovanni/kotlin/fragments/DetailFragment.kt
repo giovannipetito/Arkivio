@@ -162,7 +162,7 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
 
     abstract fun onActionSearch(search_string: String)
 
-    fun showDetailSoftKeyboard() {
+    private fun showDetailSoftKeyboard() {
         val imm = currentActivity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.showSoftInput(search_input_text, InputMethodManager.SHOW_IMPLICIT)
     }

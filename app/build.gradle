@@ -116,6 +116,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:15.0.1'
     implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    implementation 'com.airbnb.android:lottie:3.0.7'
 }
 
 repositories {

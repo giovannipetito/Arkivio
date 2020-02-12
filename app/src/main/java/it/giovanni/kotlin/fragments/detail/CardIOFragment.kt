@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.RelativeLayout
+import androidx.appcompat.widget.AppCompatSpinner
 import androidx.core.content.ContextCompat
 import io.card.payment.CardIOActivity
 import io.card.payment.CardType
@@ -16,11 +17,12 @@ import io.card.payment.CreditCard
 import io.card.payment.i18n.locales.LocalizedStringsList
 import it.giovanni.kotlin.App
 import it.giovanni.kotlin.R
+import it.giovanni.kotlin.customview.AppCompatSpinnerCustom
 import it.giovanni.kotlin.fragments.DetailFragment
 import kotlinx.android.synthetic.main.card_io_layout.*
 import java.text.DecimalFormat
 
-class CardIOFragment : DetailFragment() {
+class CardIOFragment : DetailFragment(), AppCompatSpinnerCustom.OnSpinnerEventsListener {
 
     companion object {
         private val REQUEST_SCAN = 100
@@ -199,9 +201,36 @@ class CardIOFragment : DetailFragment() {
             languages.add(locale.name)
         }
 
-        val adapter = ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, languages)
+        // TODO) Potrei passare all'adapter anche l'Array arraylanguages invece dell'ArrayList languages.
+        var arraylanguages: Array<String> = arrayOf("de", "en", "es", "fr", "it", "pt", "ru")
+
+        val adapter = ArrayAdapter(context!!, R.layout.spinner_dropdown_item, languages) // arraylanguages
+
+        // TODO) Nota: Per l'adapter ho definito un item custom (spinner_dropdown_item), ma avrei anche potuto utilizzare un item nativo di Android (simple_dropdown_item_1line):
+        // val adapter = ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, languages)
+
         language_spinner!!.adapter = adapter
         language_spinner!!.setSelection(adapter.getPosition("it"))
+        language_spinner.setSpinnerEventsListener(this)
+
+        /*
+        language_spinner.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                language_spinner.setBackgroundResource(R.drawable.spinner_background_up)
+            }
+            false
+        }
+
+        language_spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if (position == 1) {
+                    language_spinner.setBackgroundResource(R.drawable.spinner_background_down)
+                }
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+        }
+        */
     }
 
     private fun setPickerInterval() {
@@ -221,5 +250,13 @@ class CardIOFragment : DetailFragment() {
     override fun onStop() {
         super.onStop()
         card_info!!.text = ""
+    }
+
+    override fun onSpinnerOpened(spin: AppCompatSpinner?) {
+        language_spinner.setBackgroundResource(R.drawable.spinner_background_up)
+    }
+
+    override fun onSpinnerClosed(spin: AppCompatSpinner?) {
+        language_spinner.setBackgroundResource(R.drawable.spinner_background_down)
     }
 }

@@ -31,7 +31,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="0.4"
                             android:padding="6dp"
-                            android:text="Scadenza"
+                            android:text="@string/expiry"
                             android:textColor="@color/grey_3"
                             android:button="@drawable/checkbox_selector"/>
 
@@ -41,7 +41,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="0.6"
                             android:padding="6dp"
-                            android:text="Scansiona scadenza"
+                            android:text="@string/scan_expiry"
                             android:textColor="@color/grey_3"
                             android:checked="true"
                             android:button="@drawable/checkbox_selector"/>
@@ -53,7 +53,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="6dp"
-                        android:text="CVV"
+                        android:text="@string/cvv"
                         android:textColor="@color/grey_3"
                         android:button="@drawable/checkbox_selector"/>
 
@@ -62,7 +62,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="6dp"
-                        android:text="Codice Postale"
+                        android:text="@string/postal_code"
                         android:textColor="@color/grey_3"
                         android:button="@drawable/checkbox_selector"/>
 
@@ -71,7 +71,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="6dp"
-                        android:text="Usa il logo card.io"
+                        android:text="@string/use_card_io_logo"
                         android:textColor="@color/grey_3"
                         android:button="@drawable/checkbox_selector"/>
 
@@ -80,7 +80,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="6dp"
-                        android:text="Titolare della carta"
+                        android:text="@string/cardholder_name"
                         android:textColor="@color/grey_3"
                         android:button="@drawable/checkbox_selector"/>
 
@@ -89,7 +89,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="6dp"
-                        android:text="Sopprimi la conferma"
+                        android:text="@string/suppress_confirmation"
                         android:textColor="@color/grey_3"
                         android:button="@drawable/checkbox_selector"/>
 
@@ -98,7 +98,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="6dp"
-                        android:text="Bypassa la scansione"
+                        android:text="@string/bypass_the_scan"
                         android:textColor="@color/grey_3"
                         android:button="@drawable/checkbox_selector"/>
 
@@ -107,7 +107,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="6dp"
-                        android:text="Mantieni l'application theme"
+                        android:text="@string/keep_application_theme"
                         android:textColor="@color/grey_3"
                         android:button="@drawable/checkbox_selector"/>
 
@@ -116,7 +116,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="6dp"
-                        android:text="Sopprimi l'icona della tastiera"
+                        android:text="@string/suppress_keyboard_icon"
                         android:textColor="@color/grey_3"
                         android:button="@drawable/checkbox_selector"/>
 
@@ -125,7 +125,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="6dp"
-                        android:text="Sopprimi le informazioni di scansione"
+                        android:text="@string/suppress_scan_info"
                         android:textColor="@color/grey_3"
                         android:button="@drawable/checkbox_selector"/>
 
@@ -134,7 +134,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="6dp"
-                        android:text="Limita il codice postale solo ai numeri"
+                        android:text="@string/postal_code_numeric"
                         android:textColor="@color/grey_3"
                         android:button="@drawable/checkbox_selector"/>
 
@@ -143,7 +143,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="6dp"
-                        android:text="Mostra l'icona di PayPal nella action bar"
+                        android:text="@string/show_paypal_action_bar_icon"
                         android:textColor="@color/grey_3"
                         android:button="@drawable/checkbox_selector"/>
 
@@ -157,7 +157,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
-                            android:text="Seleziona la lingua:"
+                            android:text="@string/select_language"
                             android:textColor="@color/grey_3"
                             android:gravity="center" />
 
@@ -165,7 +165,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
-                            android:text="Cifre non sfocate:"
+                            android:text="@string/unblurred_digits"
                             android:textColor="@color/grey_3"
                             android:gravity="center" />
 
@@ -187,13 +187,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true">
 
-                            <Spinner
+                            <it.giovanni.kotlin.customview.AppCompatSpinnerCustom
                                     android:id="@+id/language_spinner"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerInParent="true"
-                                    android:paddingStart="16dp"
-                                    android:paddingEnd="16dp"/>
+                                    android:layout_margin="12dp"
+                                    android:overlapAnchor="false"
+                                    android:background="@drawable/spinner_background_down" />
 
                         </RelativeLayout>
 
@@ -274,7 +275,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Scansiona la carta di credito"
+                android:text="@string/scan_credit_card"
                 style="@style/CustomButton" />
 
         <LinearLayout
