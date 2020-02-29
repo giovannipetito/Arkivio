@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary">
 
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
         <TextView
@@ -26,144 +25,150 @@
               android:layout_gravity="center"
               android:alpha=".4"/>
 
-        <ScrollView
+        <TextView
+                android:id="@+id/webview_drive_w3b"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Drive W3B"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textAlignment="center"/>
 
-            <LinearLayout android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:orientation="vertical">
+        <View android:layout_width="120dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/white"
+                android:layout_gravity="center"
+                android:alpha=".4"/>
 
-                <TextView
-                        android:id="@+id/webview_drive_w3b"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:text="Drive W3B"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:textAlignment="center"/>
+        <TextView
+                android:id="@+id/link_drive_waw3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Drive WAW3"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textAlignment="center"/>
 
-                <View android:layout_width="120dp"
-                      android:layout_height="1dp"
-                      android:layout_marginTop="8dp"
-                      android:layout_marginBottom="8dp"
-                      android:background="@color/white"
-                      android:layout_gravity="center"
-                      android:alpha=".4"/>
+        <View android:layout_width="120dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/white"
+                android:layout_gravity="center"
+                android:alpha=".4"/>
 
-                <TextView
-                        android:id="@+id/link_drive_waw3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:text="Drive WAW3"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:textAlignment="center"/>
+        <TextView
+                android:id="@+id/link_github"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Browser GitHub"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textAlignment="center"/>
 
-                <View android:layout_width="120dp"
-                      android:layout_height="1dp"
-                      android:layout_marginTop="8dp"
-                      android:layout_marginBottom="8dp"
-                      android:background="@color/white"
-                      android:layout_gravity="center"
-                      android:alpha=".4"/>
+        <View android:layout_width="120dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/white"
+                android:layout_gravity="center"
+                android:alpha=".4"/>
 
-                <TextView
-                        android:id="@+id/link_github"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:text="Browser GitHub"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:textAlignment="center"/>
+        <TextView
+                android:id="@+id/webview_github"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="WebView GitHub"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textAlignment="center"/>
 
-                <View android:layout_width="120dp"
-                      android:layout_height="1dp"
-                      android:layout_marginTop="8dp"
-                      android:layout_marginBottom="8dp"
-                      android:background="@color/white"
-                      android:layout_gravity="center"
-                      android:alpha=".4"/>
+        <View android:layout_width="120dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/white"
+                android:layout_gravity="center"
+                android:alpha=".4"/>
 
-                <TextView
-                        android:id="@+id/webview_github"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:text="WebView GitHub"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:textAlignment="center"/>
+        <TextView
+                android:id="@+id/link_app"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Link App"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textAlignment="center"/>
 
-                <View android:layout_width="120dp"
-                      android:layout_height="1dp"
-                      android:layout_marginTop="8dp"
-                      android:layout_marginBottom="8dp"
-                      android:background="@color/white"
-                      android:layout_gravity="center"
-                      android:alpha=".4"/>
+        <View android:layout_width="120dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/white"
+                android:layout_gravity="center"
+                android:alpha=".4"/>
 
-                <TextView
-                        android:id="@+id/link_app"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:text="Link App"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:textAlignment="center"/>
+        <TextView
+                android:id="@+id/link_test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Link test"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textAlignment="center"/>
 
-                <View android:layout_width="120dp"
-                      android:layout_height="1dp"
-                      android:layout_marginTop="8dp"
-                      android:layout_marginBottom="8dp"
-                      android:background="@color/white"
-                      android:layout_gravity="center"
-                      android:alpha=".4"/>
+        <View android:layout_width="120dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/white"
+                android:layout_gravity="center"
+                android:alpha=".4"/>
 
-                <TextView
-                        android:id="@+id/link_test"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:text="Link test"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:textAlignment="center"/>
+        <TextView
+                android:autoLink="web"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="4dp"
+                android:text="http://android-er.blogspot.com/"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textAlignment="center" />
 
-                <View android:layout_width="120dp"
-                      android:layout_height="1dp"
-                      android:layout_marginTop="8dp"
-                      android:layout_marginBottom="8dp"
-                      android:background="@color/white"
-                      android:layout_gravity="center"
-                      android:alpha=".4"/>
+        <View android:layout_width="120dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/white"
+                android:layout_gravity="center"
+                android:alpha=".4"/>
 
-                <TextView
-                        android:autoLink="web"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginBottom="4dp"
-                        android:text="http://android-er.blogspot.com/"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:textAlignment="center" />
+        <TextView
+                android:id="@+id/webview_video_test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="WebView Video Test"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textAlignment="center"/>
 
-                <View android:layout_width="120dp"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:background="@color/white"
-                        android:layout_gravity="center"
-                        android:alpha=".4"/>
-
-            </LinearLayout>
-
-        </ScrollView>
+        <View android:layout_width="120dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/white"
+                android:layout_gravity="center"
+                android:alpha=".4"/>
 
         <TextView
                 android:layout_width="match_parent"
@@ -182,26 +187,19 @@
               android:layout_gravity="center"
               android:alpha=".4"/>
 
-        <ScrollView
+        <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp">
+                android:layout_height="wrap_content">
 
-            <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+            <GridLayout
+                    android:id="@+id/link_utili_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:columnCount="4" />
 
-                <GridLayout
-                        android:id="@+id/link_utili_container"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:columnCount="4" />
-
-            </RelativeLayout>
-
-        </ScrollView>
+        </RelativeLayout>
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

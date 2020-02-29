@@ -10,7 +10,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import it.giovanni.kotlin.R
 
 class BiometricDialogV23 internal constructor(@NonNull context: Context, private val biometricCallback: BiometricCallback) :
-    BottomSheetDialog(context, R.style.BottomSheetDialogTheme), View.OnClickListener {
+    BottomSheetDialog(context, R.style.BottomSheetDialogTheme1), View.OnClickListener {
 
     private var textTitle: TextView? = null
     private var textDescription: TextView? = null

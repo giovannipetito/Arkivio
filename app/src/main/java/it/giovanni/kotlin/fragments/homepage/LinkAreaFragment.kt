@@ -1,12 +1,14 @@
 package it.giovanni.kotlin.fragments.homepage
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import it.giovanni.kotlin.R
 import it.giovanni.kotlin.fragments.HomeFragment
 import it.giovanni.kotlin.fragments.MainFragment
-import it.giovanni.kotlin.R
+import it.giovanni.kotlin.fragments.detail.webview.WebViewActivity
 import it.giovanni.kotlin.utils.Globals
 import it.giovanni.kotlin.utils.Utils
 import kotlinx.android.synthetic.main.link_area_layout.*
@@ -17,6 +19,7 @@ class LinkAreaFragment : HomeFragment() {
     private var bundleW3B: Bundle = Bundle()
     private var bundleWAW3: Bundle = Bundle()
     private var bundleGitHub: Bundle = Bundle()
+    private var bundleVideoTest: Bundle = Bundle()
 
     override fun getLayout(): Int {
         return R.layout.link_area_layout
@@ -45,6 +48,9 @@ class LinkAreaFragment : HomeFragment() {
 
         bundleGitHub.putInt("link_github", R.string.link_github)
         bundleGitHub.putString("url_github", resources.getString(R.string.url_github))
+
+        bundleVideoTest.putString("link_video_test", resources.getString(R.string.link_video_test))
+        bundleVideoTest.putString("url_video_test", resources.getString(R.string.url_video_test))
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -78,6 +84,25 @@ class LinkAreaFragment : HomeFragment() {
 
         link_test.setOnClickListener {
             Utils.openBrowser(context!!, context!!.getString(R.string.test_url))
+        }
+
+        webview_video_test.setOnClickListener {
+
+            val intent = Intent(context, WebViewActivity::class.java)
+            intent.putExtra("bundle_video_test", bundleVideoTest)
+
+            // 1)
+            startActivity(intent)
+            activity?.overridePendingTransition(R.anim.left_to_right_2, R.anim.right_to_left_2)
+
+            // 2)
+            // val options = ActivityOptions.makeCustomAnimation(context, R.anim.left_to_right_2, R.anim.right_to_left_2)
+            // startActivity(intent, options.toBundle())
+
+            // Nota: La 1) e la 2) sono equivalenti e permettono l'animazione da destra a sinistra delle activities.
+
+            // startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle())
+            // Nota: ActivityOptions.makeSceneTransitionAnimation(activity).toBundle() crea un effetto dissolvenza.
         }
     }
 }

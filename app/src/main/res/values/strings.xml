@@ -48,6 +48,20 @@
     <string name="url_gympass">com.gympass</string>
     <string name="test_url">https://app.windtre.it/Apps/WAW3/uri.php</string>
 
+    <string name="link_video_test">VideoTest</string>
+
+    <!-- Video 1 -->
+<!--    <string name="url_video_test">https://appdipendentiw3.dev.piksel.it/videos/video1.mp4</string>-->
+
+    <!-- Video 2 -->
+<!--    <string name="url_video_test">https://appdipendentiw3.dev.piksel.it/videos/index.html</string>-->
+
+    <!-- Bacheca -->
+<!--    <string name="url_video_test">https://intranet3.sharepoint.com/sites/bacheca/Pagine/Bacheca.aspx</string>-->
+
+    <!-- Video Globo -->
+    <string name="url_video_test">https://d1qsjop7tycsfb.cloudfront.net/fileadmin/user_upload/bg_video.mp4</string>
+
     <!-- PDF -->
     <string name="pdf_title">PDF</string>
     <string name="explores_pdf">Esplora PDF</string>

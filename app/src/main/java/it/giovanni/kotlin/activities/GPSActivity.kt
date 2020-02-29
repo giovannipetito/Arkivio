@@ -183,7 +183,7 @@ open class GPSActivity : BaseActivity(), IProgressLoader, GoogleApiClient.Connec
     override fun onConnectionSuspended(p0: Int) {}
 
     @Suppress("DEPRECATION")
-    @SuppressLint("MissingPermission")
+    @SuppressLint("MissingPermission", "RestrictedApi")
     private fun getMyLocation() {
         if (googleApiClient != null) {
             if (googleApiClient!!.isConnected) {
