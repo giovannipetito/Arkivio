@@ -7,6 +7,7 @@ import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.graphics.*
+import android.graphics.drawable.BitmapDrawable
 import android.media.ThumbnailUtils
 import android.net.Uri
 import android.os.Build
@@ -23,6 +24,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import it.giovanni.kotlin.App.Companion.context
 import it.giovanni.kotlin.BuildConfig
+import it.giovanni.kotlin.R
 import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
@@ -81,21 +83,42 @@ class Utils {
         fun setBitmapFromUrl(imageUrl: String, imageView: ImageView, activity: FragmentActivity) {
             try {
                 Executors.newSingleThreadExecutor().execute {
-                    val url = URL(imageUrl)
-                    val connection = url.openConnection() as HttpURLConnection
-                    connection.doInput = true
-                    connection.connect()
-                    val input = connection.inputStream
-                    val bitmap = BitmapFactory.decodeStream(input)
 
-                    activity.runOnUiThread {
+                    val url: URL
 
-                        Glide.with(context)
-                            .load(url)
-                            .apply(RequestOptions.bitmapTransform(RoundedCorners(14)))
-                            .into(imageView)
+                    if (imageUrl.startsWith("http:", ignoreCase = true) || imageUrl.startsWith("https:", ignoreCase = true)) {
+                        url = URL(imageUrl)
+                        val connection = url.openConnection() as HttpURLConnection
+                        connection.doInput = true
+                        connection.connect()
+                        try {
+                            val input = connection.inputStream
+                            val bitmap = BitmapFactory.decodeStream(input)
 
-                        imageView.setImageBitmap(bitmap)
+                            activity.runOnUiThread {
+
+                                Glide.with(context)
+                                    .load(url)
+                                    .apply(RequestOptions.bitmapTransform(RoundedCorners(14)))
+                                    .into(imageView)
+
+                                imageView.setImageBitmap(bitmap)
+                            }
+                        } catch (ex: FileNotFoundException) {
+                            val defaultImage: ImageView = activity.findViewById(R.id.logo_app)
+                            val bitmap: Bitmap = (defaultImage.drawable as BitmapDrawable).bitmap
+                            activity.runOnUiThread {
+                                imageView.setImageBitmap(bitmap)
+                                imageView.setColorFilter(ContextCompat.getColor(context, R.color.dark))
+                            }
+                        }
+                    } else {
+                        val defaultImage: ImageView = activity.findViewById(R.id.logo_app)
+                        val bitmap: Bitmap = (defaultImage.drawable as BitmapDrawable).bitmap
+                        activity.runOnUiThread {
+                            imageView.setImageBitmap(bitmap)
+                            imageView.setColorFilter(context.resources.getColor(R.color.dark))
+                        }
                     }
                 }
             } catch (e: Exception) {

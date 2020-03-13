@@ -57,7 +57,7 @@
                     android:enabled="true"
                     android:text="@string/login_button"
                     android:textSize="16dp"
-                    style="@style/CustomButton" />
+                    style="@style/CustomButtonCompact" />
 
             <RelativeLayout
                     android:layout_width="match_parent"

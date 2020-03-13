@@ -1,18 +1,24 @@
 package it.giovanni.kotlin.fragments
 
 import android.Manifest
+import android.content.Context
+import android.content.Context.CONNECTIVITY_SERVICE
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import androidx.core.content.ContextCompat
-import it.giovanni.kotlin.biometric.BiometricCallback
-import kotlinx.android.synthetic.main.login_layout.*
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import it.giovanni.kotlin.R
+import it.giovanni.kotlin.biometric.BiometricCallback
 import it.giovanni.kotlin.biometric.BiometricManager
 import it.giovanni.kotlin.customview.popup.CustomDialogPopup
 import it.giovanni.kotlin.utils.PermissionManager
+import kotlinx.android.synthetic.main.login_layout.*
 
 class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, PermissionManager.PermissionListener {
 
@@ -37,8 +43,11 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
         action = Action.NONE
 
         login_button.setOnClickListener {
-            showProgressDialog()
-            currentActivity.openMainFragment()
+            if (isOnline()) {
+                showProgressDialog()
+                currentActivity.openMainFragment()
+            } else
+                Toast.makeText(context,"Errore di connessione", Toast.LENGTH_LONG).show()
         }
 
         image_fingerprint.setOnClickListener {
@@ -105,7 +114,7 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
 
     private fun open() {
 
-        val action = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
+        val action = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             android.provider.Settings.ACTION_FINGERPRINT_ENROLL
         } else {
             android.provider.Settings.ACTION_SECURITY_SETTINGS
@@ -151,5 +160,16 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
 
     override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
         Toast.makeText(context, errString, Toast.LENGTH_LONG).show()
+    }
+
+    private fun isOnline(): Boolean {
+        var status = false
+        val cm: ConnectivityManager = activity?.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = cm.activeNetworkInfo
+        if (networkInfo != null) {
+            val state: NetworkInfo.State = networkInfo.state
+            status = NetworkInfo.State.CONNECTED == state
+        }
+        return status
     }
 }

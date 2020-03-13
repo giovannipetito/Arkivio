@@ -20,6 +20,7 @@
                 android:src="@drawable/ico_voice_rvd" />
 
         <ImageView
+                android:id="@+id/logo_app"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"

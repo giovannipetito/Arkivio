@@ -15,8 +15,8 @@
     <color name="yellow">#FEDC00</color>
     <color name="detail_background">#FAFAFA</color>
     <color name="tab_white">#99FFFFFF</color>
-
     <color name="azzurro">#007FFF</color>
+    <color name="transparent">#00000000</color>
 </resources>
 
 <!-- HEXADECIMAL COLOR CODE FOR TRANSPARENCY - Hex Opacity Values from 0% to 100% alpha: -->

@@ -466,17 +466,17 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
     private fun init(): ArrayList<Link> {
 
         val list = ArrayList<Link>()
-        list.add(Link("", "Grande Cinema 3", "waw3://cinema", "1", "inAppLink", "", "https://secure.gravatar.com/avatar/2d9999abdeffcd449b65c0a6b3d9d496?s=44&d=mm&r=pg"))
-        list.add(Link("Daytronic", "DayTronic", "", "2", "app", "it.day.daytronicFLAT", "https://peopledotcom.files.wordpress.com/2013/08/icon_love_44.png"))
-        list.add(Link("", "Gympass", "", "3", "app", "com.gympass", "https://2.gravatar.com/avatar/8c15d3b2c70c476d353056aebf8ab0c7?s=44&d=identicon&r=G"))
-        list.add(Link("Bacheca", "Rubrica", "waw3://contacts", "4", "inAppLink", "", "https://secure.gravatar.com/avatar/d1d7225eec483cbfbc2ff07b46cc1c30?s=44&d=blank&r=pg"))
+        list.add(Link("", "Grande Cinema 3", "waw3://cinema", "1", "inAppLink", "", "https://static.windtrebusiness.it/mosaicow3b/static/configuration/ico_gctre.png"))
+        list.add(Link("Daytronic", "DayTronic", "", "2", "app", "it.day.daytronicFLAT", "https://static.windtrebusiness.it/mosaicow3b/static/configuration/ico_daytronic.png"))
+        list.add(Link("", "Gympass", "", "3", "app", "com.gympass", ""))
+        list.add(Link("Bacheca", "Rubrica", "waw3://contacts", "4", "inAppLink", "", "https://static.windtrebusiness.it/mosaicow3b/static/configuration/ico_rubrica.png"))
         return list
     }
 
     private fun initSide(): ArrayList<LinkSide> {
 
         val list = ArrayList<LinkSide>()
-        list.add(LinkSide("Wind_Tre_Per_Noi", "WindTre Per Noi", "https://eudaimonint.secure.force.com/sso/SSOAuthenticationPage?azienda=wind&user=150511&hash=8780a3af7b6d86bb366a3e21cedef465", "1", "webview", ""))
+        list.add(LinkSide("Wind_Tre_Per_Noi", "WINDTRE Per Noi", "https://eudaimonint.secure.force.com/sso/SSOAuthenticationPage?azienda=wind&user=150511&hash=8780a3af7b6d86bb366a3e21cedef465", "1", "webview", ""))
         list.add(LinkSide("Intranet", "Intranet", "https://intranet3.sharepoint.com/Pages/Home.aspx", "2", "webview", ""))
         list.add(LinkSide("Bacheca", "Bacheca", "https://intranet3.sharepoint.com/sites/bacheca/Pagine/Bacheca.aspx", "3", "webview", ""))
         list.add(LinkSide("Emergenze", "Emergenze", "https://intranet3.sharepoint.com/Pages/Utilities_Servizi/AmbienteSicurezza.aspx", "4", "webview", ""))

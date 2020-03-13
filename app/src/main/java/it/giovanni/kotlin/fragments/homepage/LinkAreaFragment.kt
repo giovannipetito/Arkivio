@@ -19,7 +19,7 @@ class LinkAreaFragment : HomeFragment() {
     private var bundleW3B: Bundle = Bundle()
     private var bundleWAW3: Bundle = Bundle()
     private var bundleGitHub: Bundle = Bundle()
-    private var bundleVideoTest: Bundle = Bundle()
+    private var bundleVideo: Bundle = Bundle()
 
     override fun getLayout(): Int {
         return R.layout.link_area_layout
@@ -49,8 +49,8 @@ class LinkAreaFragment : HomeFragment() {
         bundleGitHub.putInt("link_github", R.string.link_github)
         bundleGitHub.putString("url_github", resources.getString(R.string.url_github))
 
-        bundleVideoTest.putString("link_video_test", resources.getString(R.string.link_video_test))
-        bundleVideoTest.putString("url_video_test", resources.getString(R.string.url_video_test))
+        bundleVideo.putString("link_video", resources.getString(R.string.link_video))
+        bundleVideo.putString("url_video", resources.getString(R.string.url_video))
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -86,10 +86,10 @@ class LinkAreaFragment : HomeFragment() {
             Utils.openBrowser(context!!, context!!.getString(R.string.test_url))
         }
 
-        webview_video_test.setOnClickListener {
+        webview_video.setOnClickListener {
 
             val intent = Intent(context, WebViewActivity::class.java)
-            intent.putExtra("bundle_video_test", bundleVideoTest)
+            intent.putExtra("bundle_video", bundleVideo)
 
             // 1)
             startActivity(intent)

@@ -202,8 +202,7 @@ open class GPSActivity : BaseActivity(), IProgressLoader, GoogleApiClient.Connec
                     val status = result.status
                     when (status.statusCode) {
                         LocationSettingsStatusCodes.SUCCESS -> {
-                            // All location settings are satisfied.
-                            // You can initialize location requests here.
+                            // All location settings are satisfied. You can initialize location requests here.
                             myLocation = LocationServices.FusedLocationApi
                                 .getLastLocation(googleApiClient)
                             if (myLocation != null) {
@@ -215,12 +214,10 @@ open class GPSActivity : BaseActivity(), IProgressLoader, GoogleApiClient.Connec
                             openGC3ByCoordinates()
                         }
                         LocationSettingsStatusCodes.RESOLUTION_REQUIRED ->
-                            // Location settings are not satisfied.
-                            // But could be fixed by showing the user a dialog.
+                            // Location settings are not satisfied. But could be fixed by showing the user a dialog.
                             try {
                                 hideProgressDialog()
-                                // Show the dialog by calling startResolutionForResult(),
-                                // and check the result in onActivityResult().
+                                // Show the dialog by calling startResolutionForResult(), and check the result in onActivityResult().
                                 // Ask to turn on GPS automatically
                                 status.startResolutionForResult(this,
                                     REQUEST_CHECK_SETTINGS_GPS)

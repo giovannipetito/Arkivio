@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.popup_labels_element.view.*
 
 class DialogListPopup : CustomDialogPopup {
 
-    private var labels: ArrayList<String> = ArrayList<String>()
+    private var labels: ArrayList<String> = ArrayList()
     val LABEL_DELETE = "annulla"
 
     constructor(activity: Activity, @StyleRes themeResId: Int) : super(activity, themeResId) {

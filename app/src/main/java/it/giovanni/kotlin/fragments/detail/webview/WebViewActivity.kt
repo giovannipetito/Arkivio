@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.webview_video_layout.*
 
 class WebViewActivity: AppCompatActivity() {
 
-    private var bundleVideoTest: Bundle = Bundle()
+    private var bundleVideo: Bundle = Bundle()
     private var titleVideo: String? = null
     private var urlVideo: String? = null
 
@@ -21,16 +21,16 @@ class WebViewActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.webview_video_layout)
 
-        bundleVideoTest = intent.getBundleExtra("bundle_video_test")
+        bundleVideo = intent.getBundleExtra("bundle_video")
 
         titleVideo =
-            if (bundleVideoTest.getString("link_video_test") != null)
-                bundleVideoTest.getString("link_video_test")
+            if (bundleVideo.getString("link_video") != null)
+                bundleVideo.getString("link_video")
             else ""
 
         urlVideo =
-            if (bundleVideoTest.getString("url_video_test") != null)
-                bundleVideoTest.getString("url_video_test")
+            if (bundleVideo.getString("url_video") != null)
+                bundleVideo.getString("url_video")
             else ""
 
         when {
