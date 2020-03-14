@@ -14,7 +14,7 @@
             android:background="@color/colorPrimary"
             app:tabSelectedTextColor="@android:color/white"
             app:tabTextAppearance="@style/tabFontStyle"
-            app:tabTextColor="@color/tab_white"
+            app:tabTextColor="@color/white_transparent"
             app:tabIndicatorGravity="bottom"
             app:tabIndicatorHeight="4dp"
             app:tabMode="fixed" />

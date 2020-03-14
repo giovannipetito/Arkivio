@@ -12,14 +12,17 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import it.giovanni.kotlin.R
+import it.giovanni.kotlin.customview.TimelineView
 import it.giovanni.kotlin.fragments.DetailFragment
 import kotlinx.android.synthetic.main.layout_manage_layout.*
 
-class LayoutManageFragment: DetailFragment() {
+class LayoutManageFragment: DetailFragment(), TimelineView.TimelineViewListener {
 
     private var viewFragment: View? = null
     private var viewParent: View? = null
     private var progressBarContainer: RelativeLayout? = null
+
+    private lateinit var list: List<String>
 
     override fun getLayout(): Int {
         return R.layout.layout_manage_layout
@@ -149,5 +152,82 @@ class LayoutManageFragment: DetailFragment() {
             .apply(RequestOptions.circleCropTransform()) // This CircleTransform class help to crop an image as circle.
             // .animate(R.anim.fade_in)                  // When image (url) will be loaded by Glide, then this face in animation help to replace url image in the place of placeHolder image.
             .into(icon_5)                                // Passing imageView reference to appear the image.
+
+        val timelineView: TimelineView = view.findViewById(R.id.bar_tagli)
+        list = listOf("10€", "20€", "30€", "40€", "50€")
+
+        timelineView.setValues(list)
+        timelineView.setTimelineViewListener(this)
+
+        selectedValue = "20€"
+        timelineView.setValue(selectedValue, TimelineView.DISCRETE)
+
+        val buttonMinus: ImageView = view.findViewById(R.id.button_minus)
+        val buttonPlus: ImageView = view.findViewById(R.id.button_plus)
+
+        buttonMinus.setOnClickListener {
+            if (list.isNotEmpty()) {
+                selectedValue = getPreviousValue(list)
+                timelineView.setValue(selectedValue, TimelineView.DISCRETE)
+            }
+        }
+
+        buttonPlus.setOnClickListener {
+            if (list.isNotEmpty()) {
+                selectedValue = getNextValue(list)
+                timelineView.setValue(selectedValue, TimelineView.DISCRETE)
+            }
+        }
+    }
+
+    override fun onFinishDragging(var1: Int, var2: String) {
+        selectedValue = var2
+    }
+
+    private var selectedValue : String = ""
+        set(value) {
+            field = value
+            processSelectedValue()
+        }
+
+    private fun processSelectedValue() {
+        if (selectedValue.isEmpty())
+            return
+
+        var index = -1
+        for (i in list.indices) {
+            if (list[i].equals(selectedValue, ignoreCase = true)) {
+                index = i
+            }
+        }
+        /*
+        if (index > -1) {
+            topUpViewModel.pickedTopUpValue.postValue(topUpViewModel.creditCardPrices.value?.get(index))
+        }
+        */
+    }
+
+    private fun getPreviousValue(list: List<String>): String {
+        for (i in list.indices) {
+            if (list[i].equals(selectedValue, ignoreCase = true)) {
+                return if (i == 0)
+                    list[0]
+                else
+                    list[i - 1]
+            }
+        }
+        return list[0]
+    }
+
+    private fun getNextValue(list: List<String>): String {
+        for (i in list.indices) {
+            if (list[i].equals(selectedValue, ignoreCase = true)) {
+                return if (i == list.size - 1)
+                    list[list.size - 1]
+                else
+                    list[i + 1]
+            }
+        }
+        return list[0]
     }
 }

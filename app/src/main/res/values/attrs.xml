@@ -2,8 +2,37 @@
 <resources>
 
     <declare-styleable name="MultiSpinnerView">
+
         <attr name="thickStrokeWidth" format="dimension" />
         <attr name="thinStrokeWidth" format="dimension" />
+
+    </declare-styleable>
+
+    <declare-styleable name="TimelineView">
+
+        <attr name="indicator_background_color" format="color" />
+        <attr name="indicator_shadow_color" format="color" />
+        <attr name="background_line_color" format="color" />
+        <attr name="progress_line_color" format="color" />
+        <attr name="text_selected_color" format="color" />
+        <attr name="text_color" format="color" />
+
+        <attr name="indicator_circle_radius" format="dimension" />
+        <attr name="background_line_size" format="dimension" />
+        <attr name="progress_line_size" format="dimension" />
+        <attr name="text_selected_size" format="dimension" />
+        <attr name="padding_start" format="dimension" />
+        <attr name="padding_end" format="dimension" />
+        <attr name="text_size" format="dimension" />
+
+        <attr name="text_selected_style" format="integer" />
+        <attr name="text_style" format="integer" />
+
+        <attr name="text_selected_font" format="string" />
+        <attr name="text_font" format="string" />
+
+        <attr name="icon_progress" format="reference" />
+
     </declare-styleable>
 
 </resources>

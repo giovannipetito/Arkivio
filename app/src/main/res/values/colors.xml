@@ -3,20 +3,40 @@
     <color name="colorPrimary">#00B8DE</color>
     <color name="colorPrimaryDark">#00B8DE</color>
     <color name="colorAccent">#ffffff</color>
-    <color name="white">#ffffff</color>
-    <color name="black">#050505</color>
-    <color name="black_transparent">#CC050505</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
     <color name="white_transparent">#99ffffff</color>
+    <color name="black_transparent">#CC050505</color>
+    <color name="black_transparent_2">#22000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="transparent_2">#00FFFFFF</color>
     <color name="grey_1">#E2E3E4</color>
     <color name="grey_2">#9EA4A8</color>
     <color name="grey_3">#485861</color>
+    <color name="grey">#9B9B9B </color>
+    <color name="darkGrey">#4A4A4A</color>
     <color name="dark">#273B44</color>
-    <color name="red">#F13C27</color>
-    <color name="yellow">#FEDC00</color>
     <color name="detail_background">#FAFAFA</color>
-    <color name="tab_white">#99FFFFFF</color>
+    <color name="magenta">#F9423A</color>
+    <color name="red">#F13C27</color>
+    <color name="red_2">#FF0000</color>
+    <color name="orange">#FFA500</color>
+    <color name="giallo_pastello">#FFFF66</color>
+    <color name="yellow">#FEDC00</color>
+    <color name="yellow_2">#FFFF00</color>
+    <color name="avorio">#FFFFF0</color>
+    <color name="lightgreen">#6AE368</color>
+    <color name="green">#48D597</color>
+    <color name="giada">#00A86B</color>
+    <color name="carta_da_zucchero">#E0FFFF</color>
+    <color name="azzurro_fiordaliso">#ABCDEF</color>
+    <color name="lightBlue">#00B8DE</color>
     <color name="azzurro">#007FFF</color>
-    <color name="transparent">#00000000</color>
+    <color name="azzurro_scuro">#4169E1</color>
+    <color name="blu_ceruleo">#2A52BE</color>
+    <color name="blue">#2D32AA</color>
+    <color name="purple">#603668 </color>
+
 </resources>
 
 <!-- HEXADECIMAL COLOR CODE FOR TRANSPARENCY - Hex Opacity Values from 0% to 100% alpha: -->

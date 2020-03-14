@@ -71,6 +71,74 @@
 
             </LinearLayout>
 
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                    <it.giovanni.kotlin.customview.TimelineView
+                            android:id="@+id/bar_tagli"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="20dp"
+                            android:paddingStart="30dp"
+                            android:paddingEnd="40dp"
+                            android:paddingTop="20dp"
+                            android:paddingBottom="8dp"
+                            app:padding_start="30dp"
+                            app:padding_end="0dp"
+                            app:text_size="14dp"
+                            app:text_selected_size="16dp"
+                            app:text_font="nunito_sans_regular"
+                            app:text_selected_font="nunito_sans_black"
+                            app:text_color="@color/colorPrimary"
+                            app:text_selected_color="@color/giada"
+                            app:progress_line_size="6dp"
+                            app:background_line_size="5dp"
+                            app:progress_line_color="@color/giada"
+                            app:background_line_color="@color/grey_1"
+                            app:icon_progress="@drawable/ico_euro"
+                            app:indicator_circle_radius="20dp"
+                            app:indicator_shadow_color="@color/darkGrey"
+                            app:indicator_background_color="@color/azzurro_fiordaliso" />
+
+                    <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginEnd="30dp">
+
+                        <ImageView
+                                android:id="@+id/button_minus"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_alignParentStart="true"
+                                android:background="@android:color/transparent"
+                                android:src="@drawable/ico_minus"
+                                android:tint="@color/colorPrimary" />
+
+                        <ImageView
+                                android:id="@+id/button_plus"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="10dp"
+                                android:layout_alignParentEnd="true"
+                                android:background="@android:color/transparent"
+                                android:src="@drawable/ico_plus"
+                                android:tint="@color/colorPrimary" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
             <LinearLayout android:layout_width="match_parent"
                           android:layout_height="wrap_content"
                           android:layout_marginTop="@dimen/dimen_20dp"
