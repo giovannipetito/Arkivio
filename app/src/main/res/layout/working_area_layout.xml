@@ -49,7 +49,7 @@
                     android:layout_gravity="center"
                     android:alpha=".4"/>
 
-            <TextView
+            <it.giovanni.kotlin.customview.TextViewCustom
                     android:id="@+id/label_date_manager"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

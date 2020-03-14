@@ -54,7 +54,7 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
         else
             detail_trash.visibility = View.GONE
 
-        if(editAction())
+        if (editAction())
             edit_icon.visibility = View.VISIBLE
         else
             edit_icon.visibility = View.GONE

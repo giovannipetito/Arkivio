@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import it.giovanni.kotlin.persistence.UserPreferencesRepository
+import it.giovanni.kotlin.utils.typekit.Typekit
 
 class App : Application() {
 
@@ -26,11 +27,9 @@ class App : Application() {
         super.onCreate()
         context = applicationContext
         userPreferencesRepository = UserPreferencesRepository(this)
-        /*
         Typekit.getInstance()
             .addNormal(Typekit.createFromAsset(this, "fonts/fira_sans_light.ttf"))
             .addBold(Typekit.createFromAsset(this, "fonts/fira_sans_medium.ttf"))
             .addItalic(Typekit.createFromAsset(this, "fonts/fira_sans_regular.ttf"))
-        */
     }
 }
