@@ -11,9 +11,9 @@ public class FontCache {
 
     private static final boolean ENABLE_OLD_VERSION_CONTROL = false;
     private static final String FOLDER_FONTS = "fonts/";
-    public static final String NORMAL_FONT = "fira_sans_regular.ttf";
-    public static final String ITALIC_FONT = "fira_sans_light.ttf";
-    public static final String BOLD_FONT = "fira_sans_medium.ttf";
+    public static final String NORMAL_FONT = "fira_regular.ttf";
+    public static final String ITALIC_FONT = "fira_light.ttf";
+    public static final String BOLD_FONT = "fira_medium.ttf";
 
     private static Map<String, Typeface> fontMap = new HashMap<>();
 

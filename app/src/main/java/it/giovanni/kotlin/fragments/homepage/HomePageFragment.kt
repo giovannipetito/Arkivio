@@ -58,7 +58,7 @@ class HomePageFragment : HomeFragment() {
     }
 
     companion object {
-        var caller: MainFragment? = null
+        private var caller: MainFragment? = null
         fun newInstance(c: MainFragment): HomePageFragment {
             caller = c
             return HomePageFragment()
@@ -76,18 +76,18 @@ class HomePageFragment : HomeFragment() {
 
         val date = Date()
 
-        val dayOfWeek = SimpleDateFormat("EEEE").format(date).substring(0, 1).toUpperCase() +
+        val dayOfWeek = SimpleDateFormat("EEEE").format(date).substring(0, 1).toUpperCase(Locale.ITALIAN) +
                 SimpleDateFormat("EEEE").format(date).substring(1, SimpleDateFormat("EEEE").format(date).length)
-        day.text = dayOfWeek
+        label_day.text = dayOfWeek
 
         val currentMonth = SimpleDateFormat("dd MMMM").format(date).substring(0, 3) +
-                SimpleDateFormat("dd MMMM").format(date).substring(3, 4).toUpperCase() +
+                SimpleDateFormat("dd MMMM").format(date).substring(3, 4).toUpperCase(Locale.ITALIAN) +
                 SimpleDateFormat("dd MMMM").format(date).substring(4, SimpleDateFormat("dd MMMM").format(date).length)
-        month.text = currentMonth
+        label_date.text = currentMonth
 
-        year.text = SimpleDateFormat("yyyy").format(date)
+        label_year.text = SimpleDateFormat("yyyy").format(date)
 
-        time.text = DateManager(Date()).getFormatTime()
+        label_time.text = DateManager(Date()).getFormatTime()
 
         Handler().postDelayed({
             val avatar: Bitmap = BitmapFactory.decodeResource(context!!.resources, R.drawable.giovanni)

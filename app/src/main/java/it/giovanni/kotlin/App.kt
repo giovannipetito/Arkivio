@@ -28,8 +28,8 @@ class App : Application() {
         context = applicationContext
         userPreferencesRepository = UserPreferencesRepository(this)
         Typekit.getInstance()
-            .addNormal(Typekit.createFromAsset(this, "fonts/fira_sans_light.ttf"))
-            .addBold(Typekit.createFromAsset(this, "fonts/fira_sans_medium.ttf"))
-            .addItalic(Typekit.createFromAsset(this, "fonts/fira_sans_regular.ttf"))
+            .addNormal(Typekit.createFromAsset(this, "fonts/fira_light.ttf"))
+            .addBold(Typekit.createFromAsset(this, "fonts/fira_medium.ttf"))
+            .addItalic(Typekit.createFromAsset(this, "fonts/fira_regular.ttf"))
     }
 }

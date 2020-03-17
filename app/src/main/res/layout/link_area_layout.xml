@@ -12,7 +12,24 @@
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Link statici"
+                android:text="@string/link_area_title"
+                android:textSize="21sp"
+                android:textColor="@color/white"
+                android:textAlignment="center"/>
+
+        <View android:layout_width="120dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="16dp"
+                android:background="@color/white"
+                android:layout_gravity="center"
+                android:alpha=".4"/>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/static_links_title"
                 android:textSize="21sp"
                 android:textColor="@color/white"
                 android:textAlignment="center"/>
@@ -26,13 +43,13 @@
               android:alpha=".4"/>
 
         <TextView
-                android:id="@+id/webview_drive_w3b"
+                android:id="@+id/label_webview_drive_w3b"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Drive W3B"
-                android:textColor="@color/white"
+                android:text="@string/webview_drive_w3b_title"
                 android:textSize="16sp"
+                android:textColor="@color/white"
                 android:textAlignment="center"/>
 
         <View android:layout_width="120dp"
@@ -44,13 +61,13 @@
                 android:alpha=".4"/>
 
         <TextView
-                android:id="@+id/link_drive_waw3"
+                android:id="@+id/label_link_drive_waw3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Drive WAW3"
-                android:textColor="@color/white"
+                android:text="@string/link_drive_waw3_title"
                 android:textSize="16sp"
+                android:textColor="@color/white"
                 android:textAlignment="center"/>
 
         <View android:layout_width="120dp"
@@ -62,13 +79,13 @@
                 android:alpha=".4"/>
 
         <TextView
-                android:id="@+id/link_github"
+                android:id="@+id/label_browser_github"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Browser GitHub"
-                android:textColor="@color/white"
+                android:text="@string/browser_github_title"
                 android:textSize="16sp"
+                android:textColor="@color/white"
                 android:textAlignment="center"/>
 
         <View android:layout_width="120dp"
@@ -80,13 +97,13 @@
                 android:alpha=".4"/>
 
         <TextView
-                android:id="@+id/webview_github"
+                android:id="@+id/label_webview_github"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="WebView GitHub"
-                android:textColor="@color/white"
+                android:text="@string/webview_github_title"
                 android:textSize="16sp"
+                android:textColor="@color/white"
                 android:textAlignment="center"/>
 
         <View android:layout_width="120dp"
@@ -98,13 +115,13 @@
                 android:alpha=".4"/>
 
         <TextView
-                android:id="@+id/link_app"
+                android:id="@+id/label_link_app"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Link App"
-                android:textColor="@color/white"
+                android:text="@string/link_app_title"
                 android:textSize="16sp"
+                android:textColor="@color/white"
                 android:textAlignment="center"/>
 
         <View android:layout_width="120dp"
@@ -116,13 +133,13 @@
                 android:alpha=".4"/>
 
         <TextView
-                android:id="@+id/link_test"
+                android:id="@+id/label_link_test"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Link test"
-                android:textColor="@color/white"
+                android:text="@string/link_test_title"
                 android:textSize="16sp"
+                android:textColor="@color/white"
                 android:textAlignment="center"/>
 
         <View android:layout_width="120dp"
@@ -139,9 +156,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:layout_marginBottom="4dp"
-                android:text="http://android-er.blogspot.com/"
-                android:textColor="@color/white"
+                android:text="@string/web_url"
                 android:textSize="16sp"
+                android:textColor="@color/white"
                 android:textAlignment="center" />
 
         <View android:layout_width="120dp"
@@ -153,13 +170,13 @@
                 android:alpha=".4"/>
 
         <TextView
-                android:id="@+id/webview_video"
+                android:id="@+id/label_webview_video_player"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="WebView Video Player"
-                android:textColor="@color/white"
+                android:text="@string/webview_video_player_title"
                 android:textSize="16sp"
+                android:textColor="@color/white"
                 android:textAlignment="center"/>
 
         <View android:layout_width="120dp"
@@ -174,7 +191,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_16dp"
-                android:text="Link dinamici"
+                android:text="@string/dynamic_links_title"
                 android:textSize="21sp"
                 android:textColor="@color/white"
                 android:textAlignment="center"/>

@@ -38,7 +38,7 @@ class WorkingAreaFragment : HomeFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        label_logcat.setOnClickListener {
+        label_logcat_projects.setOnClickListener {
             currentActivity.openDetail(Globals.LOGCAT_PROJECTS, null)
         }
         label_date_manager.setOnClickListener {
@@ -53,7 +53,7 @@ class WorkingAreaFragment : HomeFragment() {
         label_oauth_2.setOnClickListener {
             currentActivity.openDetail(Globals.OAUTH_2, null)
         }
-        label_layout_manage.setOnClickListener {
+        label_layout_manager.setOnClickListener {
             currentActivity.openDetail(Globals.LAYOUT_MANAGE, null)
         }
         label_preference.setOnClickListener {
@@ -67,6 +67,9 @@ class WorkingAreaFragment : HomeFragment() {
         }
         label_youtube.setOnClickListener {
             currentActivity.openDetail(Globals.YOUTUBE_MANAGER, null)
+        }
+        label_fonts.setOnClickListener {
+            currentActivity.openDetail(Globals.FONTS, null)
         }
     }
 }

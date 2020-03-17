@@ -29,7 +29,7 @@ class LayoutManageFragment: DetailFragment(), TimelineView.TimelineViewListener 
     }
 
     override fun getTitle(): Int {
-        return R.string.layout_manage_title
+        return R.string.layout_manager_title
     }
 
     override fun getActionTitle(): Int {

@@ -21,6 +21,7 @@ class Globals {
         var CARD_IO = "CARD_IO"
         var YOUTUBE_MANAGER = "YOUTUBE_MANAGER"
         var SEARCH_VIDEO = "SEARCH_VIDEO"
+        var FONTS = "FONTS"
 
         var BEAN = "bean"
 

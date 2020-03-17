@@ -341,6 +341,9 @@ class MainActivity : GPSActivity(), IProgressLoader {
             Globals.SEARCH_VIDEO -> {
                 baseFragment = SearchVideoFragment()
             }
+            Globals.FONTS -> {
+                baseFragment = FontsFragment()
+            }
         }
 
         if (baseFragment != null) {

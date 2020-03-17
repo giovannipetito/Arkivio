@@ -101,7 +101,7 @@
         <item name="android:colorForeground">#626a73</item>
     </style>
 
-    <style name="tabFontStyle">
+    <style name="TabTextStyle">
         <item name="android:textSize">12sp</item>
         <item name="android:textAllCaps">true</item>
     </style>
@@ -143,6 +143,36 @@
         <item name="android:backgroundDimAmount">0.3</item>
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>
+    </style>
+
+    <style name="NunitoLight" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/nunito_light</item>
+        <item name="android:lineSpacingExtra">@dimen/lineSpacingExtra</item>
+    </style>
+
+    <style name="NunitoRegular" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/nunito_regular</item>
+        <item name="android:lineSpacingExtra">@dimen/lineSpacingExtra</item>
+    </style>
+
+    <style name="NunitoSemibold" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/nunito_semibold</item>
+        <item name="android:lineSpacingExtra">@dimen/lineSpacingExtra</item>
+    </style>
+
+    <style name="NunitoBold" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/nunito_bold</item>
+        <item name="android:lineSpacingExtra">@dimen/lineSpacingExtra</item>
+    </style>
+
+    <style name="NunitoExtrabold" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/nunito_extrabold</item>
+        <item name="android:lineSpacingExtra">@dimen/lineSpacingExtra</item>
+    </style>
+
+    <style name="NunitoBlack" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/nunito_black</item>
+        <item name="android:lineSpacingExtra">@dimen/lineSpacingExtra</item>
     </style>
 
 </resources>

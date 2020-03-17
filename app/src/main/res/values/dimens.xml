@@ -9,4 +9,7 @@
     <dimen name="dimen_16dp">16dp</dimen>
     <dimen name="dimen_10dp">10dp</dimen>
 
+    <dimen name="lineSpacingExtra">0dp</dimen>
+    <dimen name="lineSpacingExtra_negative">-5dp</dimen>
+
 </resources>

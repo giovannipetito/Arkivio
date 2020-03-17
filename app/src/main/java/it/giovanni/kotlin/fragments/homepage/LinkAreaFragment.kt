@@ -61,32 +61,32 @@ class LinkAreaFragment : HomeFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        webview_drive_w3b.setOnClickListener {
+        label_webview_drive_w3b.setOnClickListener {
             currentActivity.openDetail(Globals.WEB_VIEW, bundleW3B)
         }
 
-        link_drive_waw3.setOnClickListener {
+        label_link_drive_waw3.setOnClickListener {
             Utils.openBrowser(context!!, context!!.getString(R.string.url_drive_waw3))
             // currentActivity.openDetail(Globals.WEB_VIEW, bundleWAW3)
         }
 
-        link_github.setOnClickListener {
+        label_browser_github.setOnClickListener {
             Utils.openBrowser(context!!, context!!.getString(R.string.url_github))
         }
 
-        webview_github.setOnClickListener {
+        label_webview_github.setOnClickListener {
             currentActivity.openDetail(Globals.WEB_VIEW, bundleGitHub)
         }
 
-        link_app.setOnClickListener {
+        label_link_app.setOnClickListener {
             Utils.openApp(context!!, context!!.resources.getString(R.string.url_gympass))
         }
 
-        link_test.setOnClickListener {
+        label_link_test.setOnClickListener {
             Utils.openBrowser(context!!, context!!.getString(R.string.test_url))
         }
 
-        webview_video.setOnClickListener {
+        label_webview_video_player.setOnClickListener {
 
             val intent = Intent(context, WebViewActivity::class.java)
             intent.putExtra("bundle_video", bundleVideo)

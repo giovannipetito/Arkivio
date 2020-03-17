@@ -14,6 +14,26 @@
     <string name="popup_button_open">APRI</string>
     <string name="popup_button_register">REGISTRA</string>
 
+    <!-- HOME PAGE -->
+    <string name="greeting_title">Buongiorno</string>
+    <string name="name_title">Giovanni</string>
+
+    <!-- WORKING AREA -->
+    <string name="working_area_title">WORKING AREA</string>
+
+    <!-- LINK AREA -->
+    <string name="link_area_title">LINK AREA</string>
+    <string name="static_links_title">Link Statici</string>
+    <string name="dynamic_links_title">Link Dinamici</string>
+    <string name="webview_drive_w3b_title">Drive W3B</string>
+    <string name="link_drive_waw3_title">Drive WAW3</string>
+    <string name="browser_github_title">Browser GitHub</string>
+    <string name="webview_github_title">WebView GitHub</string>
+    <string name="link_app_title">Link App</string>
+    <string name="link_test_title">Link Test</string>
+    <string name="web_url">http://android-er.blogspot.com/</string>
+    <string name="webview_video_player_title">WebView Video Player</string>
+
     <!-- LOGCAT PROJECTS -->
     <string name="logcat_projects_title">Logcat projects</string>
 
@@ -73,7 +93,7 @@
     <string name="popup_message_enable_gps">Abilitando il GPS potrai vedere i cinema più vicini a te. Vuoi abilitarlo?</string>
 
     <!-- MANAGE LAYOUT -->
-    <string name="layout_manage_title">Manage Layout</string>
+    <string name="layout_manager_title">Layout Manager</string>
 
     <!-- PREFERENCE -->
     <string name="preference_title">Preference</string>
@@ -159,5 +179,8 @@
 
     <string name="youtube_intents">YouTube App Launcher Intents</string>
     <string name="intent_disabled">This intent is not supported with the currently installed version of YouTube.</string>
+
+    <!-- FONTS -->
+    <string name="fonts_title">Fonts</string>
 
 </resources>
