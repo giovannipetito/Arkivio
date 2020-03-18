@@ -57,7 +57,7 @@
                     android:enabled="true"
                     android:text="@string/login_button"
                     android:textSize="16dp"
-                    style="@style/CustomButtonCompact" />
+                    style="@style/CustomLoginButton" />
 
             <RelativeLayout
                     android:layout_width="match_parent"
@@ -73,16 +73,15 @@
 
             </RelativeLayout>
 
-            <!--<androidx.appcompat.widget.AppCompatCheckBox-->
-                    <!--android:id="@+id/chk_remember_me"-->
-                    <!--style="@style/Employee_chk"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginLeft="18dp"-->
-                    <!--android:layout_marginTop="20dp"-->
-                    <!--android:buttonTint="@color/white"-->
-                    <!--android:text="@string/login_remember_me"-->
-                    <!--android:textSize="16dp" />-->
+            <androidx.appcompat.widget.AppCompatCheckBox
+                    android:id="@+id/checkbox_remember_me"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:buttonTint="@color/white"
+                    android:text="@string/login_remember_me"
+                    android:textSize="16dp"
+                    style="@style/CustomLoginCheckBox" />
 
         </LinearLayout>
 

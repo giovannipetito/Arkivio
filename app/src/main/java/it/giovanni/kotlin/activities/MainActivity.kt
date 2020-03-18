@@ -6,12 +6,14 @@ import android.app.Dialog
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.AnimationDrawable
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.preference.PreferenceManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.FrameLayout
@@ -24,18 +26,18 @@ import it.giovanni.kotlin.R
 import it.giovanni.kotlin.deeplink.DeepLinkDescriptor
 import it.giovanni.kotlin.fragments.*
 import it.giovanni.kotlin.fragments.detail.*
+import it.giovanni.kotlin.fragments.detail.preference.PreferenceFragment
+import it.giovanni.kotlin.fragments.detail.preference.PreferenceListFragment
 import it.giovanni.kotlin.fragments.detail.rubrica.RubricaDetailFragment
 import it.giovanni.kotlin.fragments.detail.rubrica.RubricaHomeFragment
 import it.giovanni.kotlin.fragments.detail.rubrica.RubricaListFragment
-import it.giovanni.kotlin.fragments.detail.preference.PreferenceFragment
-import it.giovanni.kotlin.fragments.detail.preference.PreferenceListFragment
 import it.giovanni.kotlin.fragments.detail.webview.WebViewFragment
-import it.giovanni.kotlin.viewinterfaces.IProgressLoader
 import it.giovanni.kotlin.utils.Globals
 import it.giovanni.kotlin.utils.UserFactory
 import it.giovanni.kotlin.utils.Utils
+import it.giovanni.kotlin.viewinterfaces.IProgressLoader
 import it.giovanni.kotlin.youtube.search.SearchVideoFragment
-import java.util.ArrayList
+import java.util.*
 
 class MainActivity : GPSActivity(), IProgressLoader {
 
@@ -54,6 +56,9 @@ class MainActivity : GPSActivity(), IProgressLoader {
     private var pushBundle: Bundle? = null
     private var deepLinkEvent: DeepLinkDescriptor? = null
 
+    private lateinit var preferences: SharedPreferences
+    private var rememberMe: Boolean = false
+
     companion object {
         var running = false
     }
@@ -66,6 +71,9 @@ class MainActivity : GPSActivity(), IProgressLoader {
         // NOTA: Convertire una lista di stringhe in un array di stringhe.
         val list = ArrayList<String>()
         val array: Array<String> = list.toTypedArray()
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(context)
+        rememberMe = preferences.getBoolean("REMEMBER_ME", false)
 
         progressDialog = Dialog(this, R.style.DialogTheme)
         progressDialog?.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -82,16 +90,23 @@ class MainActivity : GPSActivity(), IProgressLoader {
                 .add(R.id.frame_container, SplashFragment(), SPLASH_FRAGMENT)
                 .commit()
 
-            Handler().postDelayed({
-                supportFragmentManager
-                    .beginTransaction()
-                    .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-                    .replace(
-                        R.id.frame_container,
-                        LoginFragment(), LOGIN_FRAGMENT)
-                    .commit()
-
-            }, SPLASH_DISPLAY_TIME)
+            if (!rememberMe) {
+                Handler().postDelayed({
+                    supportFragmentManager
+                        .beginTransaction()
+                        .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+                        .replace(R.id.frame_container, LoginFragment(), LOGIN_FRAGMENT
+                        ).commit()
+                }, SPLASH_DISPLAY_TIME)
+            } else {
+                Handler().postDelayed({
+                    supportFragmentManager
+                        .beginTransaction()
+                        .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+                        .replace(R.id.frame_container, MainFragment(), MAIN_FRAGMENT)
+                        .commit()
+                }, SPLASH_DISPLAY_TIME)
+            }
         }
 
         // load user preferences
@@ -104,7 +119,8 @@ class MainActivity : GPSActivity(), IProgressLoader {
                 Log.i(TAG, "DeepLink trovato..")
                 val bundle = params.getBundle(DeepLinkActivity.DEEP_LINK)
                 val uri = bundle!!.getParcelable<Uri>(DeepLinkActivity.DEEP_LINK_URI)
-                Log.i(TAG, "HOST:" + uri.host + "| path" + uri.path)
+                if (uri != null)
+                    Log.i(TAG, "HOST:" + uri.host + "| path" + uri.path)
                 deepLinkEvent = DeepLinkDescriptor()
                 deepLinkEvent!!.deeplink = uri
             }
@@ -126,7 +142,7 @@ class MainActivity : GPSActivity(), IProgressLoader {
     private fun openDeepLink(uri: Uri) {
 
         val host = uri.host
-        when (host?.toLowerCase()) {
+        when (host?.toLowerCase(Locale.ITALIAN)) {
             DeepLinkDescriptor.URI_GC3 -> {
                 requestGPSPermission()
             }
@@ -461,7 +477,7 @@ class MainActivity : GPSActivity(), IProgressLoader {
         return deepLinkEvent != null
     }
 
-    fun clearDeepLinkEvent() {
+    private fun clearDeepLinkEvent() {
         deepLinkEvent = null
     }
 

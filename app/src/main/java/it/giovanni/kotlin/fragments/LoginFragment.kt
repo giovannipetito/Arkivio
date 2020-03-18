@@ -1,18 +1,17 @@
 package it.giovanni.kotlin.fragments
 
 import android.Manifest
-import android.content.Context
 import android.content.Context.CONNECTIVITY_SERVICE
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
+import android.preference.PreferenceManager
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import it.giovanni.kotlin.R
 import it.giovanni.kotlin.biometric.BiometricCallback
 import it.giovanni.kotlin.biometric.BiometricManager
@@ -23,8 +22,10 @@ import kotlinx.android.synthetic.main.login_layout.*
 class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, PermissionManager.PermissionListener {
 
     private var biometricManager: BiometricManager? = null
+    private lateinit var preferences: SharedPreferences
     private var customPopup: CustomDialogPopup? = null
     private var hasPermission: Boolean = false
+    private var rememberMe: Boolean = false
     private var action: Action? = null
 
     internal enum class Action {
@@ -41,6 +42,9 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
 
         currentActivity.window.statusBarColor = ContextCompat.getColor(context!!, R.color.colorPrimary)
         action = Action.NONE
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(context)
+        checkbox_remember_me.isChecked = preferences.getBoolean("REMEMBER_ME", false)
 
         login_button.setOnClickListener {
             if (isOnline()) {
@@ -60,6 +64,11 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
 
             // Start authentication
             biometricManager!!.authenticate(this)
+        }
+
+        checkbox_remember_me.setOnCheckedChangeListener { _, isChecked ->
+            rememberMe = isChecked
+            saveStateToPreferences()
         }
 
         val apiVersion = Build.VERSION.SDK_INT
@@ -162,6 +171,7 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
         Toast.makeText(context, errString, Toast.LENGTH_LONG).show()
     }
 
+    @Suppress("DEPRECATION")
     private fun isOnline(): Boolean {
         var status = false
         val cm: ConnectivityManager = activity?.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -171,5 +181,11 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
             status = NetworkInfo.State.CONNECTED == state
         }
         return status
+    }
+
+    private fun saveStateToPreferences() {
+        val editor: SharedPreferences.Editor = preferences.edit()
+        editor.putBoolean("REMEMBER_ME", rememberMe)
+        editor.apply()
     }
 }

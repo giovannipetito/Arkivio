@@ -1,8 +1,9 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name">GiovanniKotlin</string>
+    <string name="app_name">Arkivio</string>
 
     <!-- LOGIN -->
     <string name="login_button">Accedi</string>
+    <string name="login_remember_me">Ricordami</string>
     <string name="api_version">Your device is running Android API version <xliff:g id="current_version">%1$s</xliff:g>.</string>
 
     <!-- POPUP LABEL BUTTON -->
@@ -17,6 +18,7 @@
     <!-- HOME PAGE -->
     <string name="greeting_title">Buongiorno</string>
     <string name="name_title">Giovanni</string>
+    <string name="name_surname_title">Giovanni Petito</string>
 
     <!-- WORKING AREA -->
     <string name="working_area_title">WORKING AREA</string>

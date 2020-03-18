@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorPrimary">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary">
 
     <RelativeLayout
             android:id="@+id/header_bar"
@@ -106,6 +106,7 @@
                     android:layout_height="34dp"
                     android:layout_weight=".25"
                     android:src="@drawable/ico_bottom_menu" />
+
         </LinearLayout>
 
     </RelativeLayout>
