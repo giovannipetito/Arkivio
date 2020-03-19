@@ -25,6 +25,7 @@ import kotlinx.android.synthetic.main.home_page_layout.*
 import java.text.SimpleDateFormat
 import java.util.*
 
+@Suppress("DEPRECATION")
 class HomePageFragment : HomeFragment() {
 
     /*
@@ -48,6 +49,7 @@ class HomePageFragment : HomeFragment() {
     private val GALLERY_CODE = 201
     private val DELAY_TIME: Long = 3000
     private var viewFragment: View? = null
+    private val currentHours = Date().hours
 
     override fun getLayout(): Int {
         return R.layout.home_page_layout
@@ -107,6 +109,16 @@ class HomePageFragment : HomeFragment() {
 
         val hashKey = getHashKey(context!!)
         Log.i("HOMEPAGETAG", "Hash Key: $hashKey")
+
+        if (currentHours in 5..17) {
+            lottie_sun.visibility = View.VISIBLE
+            lottie_moon.visibility = View.GONE
+            label_greeting.setText(R.string.good_moorning_title)
+        } else {
+            lottie_sun.visibility = View.GONE
+            lottie_moon.visibility = View.VISIBLE
+            label_greeting.setText(R.string.good_evening_title)
+        }
     }
 
     private fun pickFromGallery() {

@@ -23,17 +23,17 @@
                 app:realtimeOverlayColor="@color/transparent" />
         <!-- app:realtimeBlurRadius regola il livello del blur -->
 
-        <LinearLayout
+        <RelativeLayout
                 android:id="@+id/header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:orientation="horizontal">
+                android:layout_marginTop="12dp">
 
             <LinearLayout
-                    android:layout_width="0dp"
+                    android:id="@+id/avatar_container"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
+                    android:layout_centerHorizontal="true"
                     android:orientation="vertical">
 
                 <it.giovanni.kotlin.customview.AvatarImageView
@@ -45,12 +45,13 @@
                         android:src="@drawable/ico_avatar" />
 
                 <TextView
+                        android:id="@+id/label_greeting"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/greeting_title"
                         android:textColor="@color/white"
-                        android:textSize="21sp" />
+                        android:textSize="21sp"
+                        tools:text="@string/good_moorning_title" />
 
                 <TextView
                         android:layout_width="wrap_content"
@@ -63,38 +64,32 @@
 
             </LinearLayout>
 
-            <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5">
+            <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/lottie_sun"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerVertical="true"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_imageAssetsFolder="images"
+                    app:lottie_fileName="sun.json"
+                    android:layout_toEndOf="@+id/avatar_container"
+                    android:visibility="visible" />
 
-                <com.airbnb.lottie.LottieAnimationView
-                        android:id="@+id/lottie_sun"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        app:lottie_autoPlay="true"
-                        app:lottie_loop="true"
-                        app:lottie_imageAssetsFolder="images"
-                        app:lottie_fileName="sun.json"
-                        android:visibility="visible" />
+            <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/lottie_moon"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_centerVertical="true"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_imageAssetsFolder="images"
+                    app:lottie_fileName="moon.json"
+                    android:layout_toEndOf="@+id/avatar_container"
+                    android:visibility="gone" />
 
-                <com.airbnb.lottie.LottieAnimationView
-                        android:id="@+id/lottie_moon"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        app:lottie_autoPlay="true"
-                        app:lottie_loop="true"
-                        app:lottie_imageAssetsFolder="images"
-                        app:lottie_fileName="moon.json"
-                        android:visibility="gone" />
-
-            </RelativeLayout>
-
-        </LinearLayout>
+        </RelativeLayout>
 
         <LinearLayout
                 android:layout_width="match_parent"

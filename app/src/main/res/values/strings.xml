@@ -16,7 +16,8 @@
     <string name="popup_button_register">REGISTRA</string>
 
     <!-- HOME PAGE -->
-    <string name="greeting_title">Buongiorno</string>
+    <string name="good_moorning_title">Buongiorno</string>
+    <string name="good_evening_title">Buonasera</string>
     <string name="name_title">Giovanni</string>
     <string name="name_surname_title">Giovanni Petito</string>
 
