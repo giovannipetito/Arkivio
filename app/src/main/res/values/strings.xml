@@ -2,7 +2,17 @@
     <string name="app_name">Arkivio</string>
 
     <!-- LOGIN -->
-    <string name="login_button">Accedi</string>
+    <string name="dominio_gmail">\@gmail.com</string>
+    <string name="login_your_mail">LA TUA MAIL</string>
+    <string name="login_your_password">PASSWORD</string>
+    <string name="username">Username</string>
+    <style name="password">Password</style>
+    <string name="login_hint_username"><font size="14">nome.cognome</font></string>
+    <string name="login_hint_password"><font size="14">Password del dominio</font></string>
+    <string name="login_lost_password">Hai dimenticato la password?\nEffettua il reset</string>
+    <string name="input_type_text">text</string>
+    <string name="input_type_password">password</string>
+    <string name="login_button">ACCEDI</string>
     <string name="login_remember_me">Ricordami</string>
     <string name="api_version">Your device is running Android API version <xliff:g id="current_version">%1$s</xliff:g>.</string>
 

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <TextView
+            android:id="@+id/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/login_your_mail"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="normal" />
+
+    <RelativeLayout
+            android:layout_width="290dp"
+            android:layout_height="45dp"
+            android:background="@drawable/input_text_background">
+
+        <ImageView
+                android:id="@+id/image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ico_mail" />
+
+        <EditText
+                android:id="@+id/inputtext"
+                android:layout_width="210dp"
+                android:layout_height="match_parent"
+                android:paddingTop="12dp"
+                android:paddingBottom="8dp"
+                android:hint="@string/username"
+                android:maxLines="1"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                android:layout_toEndOf="@+id/image"
+                android:theme="@style/EditText2Theme"
+                style="@style/EditText2" />
+
+        <TextView
+                android:id="@+id/dominio_windtre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/dominio_gmail"
+                android:textColor="@color/black"
+                android:textStyle="normal"
+                android:textSize="14sp"
+                android:background="@color/white"
+                android:visibility="gone" />
+
+        <ImageView
+                android:id="@+id/show_hide_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="18dp"
+                android:src="@drawable/ico_show_password"
+                android:visibility="gone" />
+
+    </RelativeLayout>
+
+</LinearLayout>

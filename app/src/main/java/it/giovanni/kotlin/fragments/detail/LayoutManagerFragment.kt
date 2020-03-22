@@ -2,11 +2,14 @@ package it.giovanni.kotlin.fragments.detail
 
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -14,9 +17,10 @@ import com.bumptech.glide.request.RequestOptions
 import it.giovanni.kotlin.R
 import it.giovanni.kotlin.customview.TimelineView
 import it.giovanni.kotlin.fragments.DetailFragment
-import kotlinx.android.synthetic.main.layout_manage_layout.*
+import it.giovanni.kotlin.utils.Utils.Companion.isMyValidEmail
+import kotlinx.android.synthetic.main.layout_manager_layout.*
 
-class LayoutManageFragment: DetailFragment(), TimelineView.TimelineViewListener {
+class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener {
 
     private var viewFragment: View? = null
     private var viewParent: View? = null
@@ -25,7 +29,7 @@ class LayoutManageFragment: DetailFragment(), TimelineView.TimelineViewListener 
     private lateinit var list: List<String>
 
     override fun getLayout(): Int {
-        return R.layout.layout_manage_layout
+        return R.layout.layout_manager_layout
     }
 
     override fun getTitle(): Int {
@@ -72,10 +76,10 @@ class LayoutManageFragment: DetailFragment(), TimelineView.TimelineViewListener 
         super.onViewCreated(view, savedInstanceState)
 
         val viewGroup = viewFragment?.findViewById(R.id.progress_bar_viewgroup) as ViewGroup
-        viewParent = layoutInflater.inflate(R.layout.layout_manage_layout, viewGroup, false)
+        viewParent = layoutInflater.inflate(R.layout.layout_manager_layout, viewGroup, false)
 
         // val inflater = LayoutInflater.from(context)
-        // val viewParent = inflater.inflate(R.layout.layout_manage_layout, null)
+        // val viewParent = inflater.inflate(R.layout.layout_manager_layout, null)
         // NOTA: viewParent e viewFragment sono equivalenti.
 
         val progressBarContent = viewFragment?.findViewById(R.id.progress_bar_content) as View
@@ -178,6 +182,19 @@ class LayoutManageFragment: DetailFragment(), TimelineView.TimelineViewListener 
                 timelineView.setValue(selectedValue, TimelineView.DISCRETE)
             }
         }
+
+        edit_email.addTextChangedListener(object : TextWatcher {
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (isMyValidEmail(edit_email.text.toString())) {
+                    Toast.makeText(context, "Email valida", Toast.LENGTH_LONG).show()
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {}
+        })
     }
 
     override fun onFinishDragging(var1: Int, var2: String) {

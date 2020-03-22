@@ -49,6 +49,24 @@ class Utils {
             return string
         }
 
+        fun isValidEmail(email: String): Boolean {
+            val emailPattern = android.util.Patterns.EMAIL_ADDRESS
+            return emailPattern.matcher(email).matches()
+        }
+
+        fun isMyValidEmail(email: String): Boolean {
+            val emailPattern = Pattern.compile(
+                "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,64}" +
+                        "\\@" +
+                        "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+                        "(" +
+                        "\\." +
+                        "[a-z][a-z\\-]{0,2}" +
+                        ")"
+            )
+            return emailPattern.matcher(email).matches()
+        }
+
         private const val S6_EDGE_PLUS = "SM-G928F"
         fun convertDpToPixel(context: Context, dp: Float): Int {
             return if (Build.MODEL.startsWith(S6_EDGE_PLUS))

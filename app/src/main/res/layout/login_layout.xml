@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
             android:layout_width="match_parent"
@@ -29,34 +30,33 @@
                 android:layout_marginBottom="24dp"
                 android:orientation="vertical">
 
-            <!--<it.windtre.employee.custom_ui.LoginInputText-->
-                    <!--android:id="@+id/username"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--app:login_textview_hint="@string/login_hint_username"-->
-                    <!--app:login_textview_icon="@drawable/ico_mail"-->
-                    <!--app:login_textview_input_type="@string/input_type_text"-->
-                    <!--app:login_textview_title="@string/login_your_mail" />-->
+            <it.giovanni.kotlin.customview.LoginInputText
+                    android:id="@+id/username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:login_textview_hint="@string/login_hint_username"
+                    app:login_textview_icon="@drawable/ico_mail"
+                    app:login_textview_input_type="@string/input_type_text"
+                    app:login_textview_title="@string/login_your_mail" />
 
-            <!--<it.windtre.employee.custom_ui.LoginInputText-->
-                    <!--android:id="@+id/password"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginTop="12dp"-->
-
-                    <!--app:login_textview_hint="@string/login_hint_password"-->
-                    <!--app:login_textview_icon="@drawable/ico_lock"-->
-                    <!--app:login_textview_input_type="@string/input_type_password"-->
-                    <!--app:login_textview_title="@string/login_your_password" />-->
+            <it.giovanni.kotlin.customview.LoginInputText
+                    android:id="@+id/password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    app:login_textview_hint="@string/login_hint_password"
+                    app:login_textview_icon="@drawable/ico_lock"
+                    app:login_textview_input_type="@string/input_type_password"
+                    app:login_textview_title="@string/login_your_password" />
 
             <Button
                     android:id="@+id/login_button"
                     android:layout_width="290dp"
                     android:layout_height="45dp"
                     android:layout_marginTop="32dp"
-                    android:enabled="true"
                     android:text="@string/login_button"
                     android:textSize="16dp"
+                    android:enabled="false"
                     style="@style/CustomLoginButton" />
 
             <RelativeLayout
@@ -64,24 +64,25 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp">
 
+                <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/checkbox_remember_me"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:buttonTint="@color/white"
+                        android:text="@string/login_remember_me"
+                        android:textSize="16dp"
+                        style="@style/CustomLoginCheckBox" />
+
                 <ImageView
                         android:id="@+id/image_fingerprint"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:layout_centerInParent="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="12dp"
                         android:background="@drawable/ico_fingerprint" />
 
             </RelativeLayout>
-
-            <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/checkbox_remember_me"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:buttonTint="@color/white"
-                    android:text="@string/login_remember_me"
-                    android:textSize="16dp"
-                    style="@style/CustomLoginCheckBox" />
 
         </LinearLayout>
 
@@ -92,23 +93,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_margin="10dp"
+            android:layout_marginBottom="10dp"
             android:textColor="@color/grey_3"
             android:layout_alignParentBottom="true" />
-
-    <!--<RelativeLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentBottom="true"-->
-            <!--android:layout_marginBottom="12dp">-->
-
-        <!--<TextView-->
-                <!--android:id="@+id/lost_password"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="@string/login_lost_password"-->
-                <!--android:textAlignment="center"-->
-                <!--android:textColor="@color/white" />-->
-    <!--</RelativeLayout>-->
 
 </RelativeLayout>

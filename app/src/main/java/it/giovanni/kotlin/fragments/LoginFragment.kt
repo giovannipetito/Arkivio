@@ -9,7 +9,12 @@ import android.net.NetworkInfo
 import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import it.giovanni.kotlin.R
@@ -25,6 +30,7 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
     private lateinit var preferences: SharedPreferences
     private var customPopup: CustomDialogPopup? = null
     private var hasPermission: Boolean = false
+    private lateinit var loginButton: Button
     private var rememberMe: Boolean = false
     private var action: Action? = null
 
@@ -37,6 +43,14 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
         return NO_TITLE
     }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = super.onCreateView(inflater, container, savedInstanceState)
+
+        loginButton = view?.findViewById(R.id.login_button) as Button
+
+        return view
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -46,7 +60,39 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
         preferences = PreferenceManager.getDefaultSharedPreferences(context)
         checkbox_remember_me.isChecked = preferences.getBoolean("REMEMBER_ME", false)
 
-        login_button.setOnClickListener {
+        username.getInputText().setOnKeyListener { _, _, _ ->
+            loginButton.isEnabled = username.getText().trim().isNotEmpty() && password.getText().trim().isNotEmpty()
+            false
+        }
+
+        username.getInputText().addTextChangedListener(object : TextWatcher {
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                loginButton.isEnabled = username.getText().trim().isNotEmpty() && password.getText().trim().isNotEmpty()
+            }
+        })
+
+        password.getInputText().setOnKeyListener { _, _, _ ->
+            loginButton.isEnabled = username.getText().trim().isNotEmpty() && password.getText().trim().isNotEmpty()
+            false
+        }
+
+        password.getInputText().addTextChangedListener(object : TextWatcher {
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                loginButton.isEnabled = username.getText().trim().isNotEmpty() && password.getText().trim().isNotEmpty()
+            }
+        })
+
+        loginButton.setOnClickListener {
             if (isOnline()) {
                 showProgressDialog()
                 currentActivity.openMainFragment()

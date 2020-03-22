@@ -5,6 +5,13 @@
         <attr name="underlineText" format="boolean" />
     </declare-styleable>
 
+    <declare-styleable name="LoginInputText">
+        <attr name="login_textview_title" format="reference" />
+        <attr name="login_textview_icon" format="reference" />
+        <attr name="login_textview_hint" format="reference" />
+        <attr name="login_textview_input_type" format="reference" />
+    </declare-styleable>
+
     <declare-styleable name="Typekit">
         <attr name="typekit" format="string" />
     </declare-styleable>

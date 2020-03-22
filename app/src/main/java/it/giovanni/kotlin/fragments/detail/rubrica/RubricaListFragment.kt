@@ -27,10 +27,13 @@ import it.giovanni.kotlin.utils.Globals
 import it.giovanni.kotlin.utils.Utils
 import kotlinx.android.synthetic.main.rubrica_list_layout.*
 import kotlinx.android.synthetic.main.detail_layout.*
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.hypot
 import kotlin.math.max
 import kotlin.math.roundToInt
 
+@Suppress("PrivatePropertyName")
 class RubricaListFragment: DetailFragment(), ContactsListAdapter.OnItemViewClicked, IFlexBoxCallback {
 
     private var TRANSITION_TIME: Long = 275
@@ -221,7 +224,7 @@ class RubricaListFragment: DetailFragment(), ContactsListAdapter.OnItemViewClick
                     filter()
 
                     if (edit_search.text.endsWith(",") || edit_search.text.endsWith(" ")) {
-                        var email: String = edit_search.text.toString().toLowerCase()
+                        var email: String = edit_search.text.toString().toLowerCase(Locale.ITALIAN)
                         email = email.substring(0, email.length - 1)
                         addBrick(email, email)
                         edit_search.setText("")
@@ -258,7 +261,7 @@ class RubricaListFragment: DetailFragment(), ContactsListAdapter.OnItemViewClick
 
         edit_search.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                var email: String = edit_search.text.toString().toLowerCase()
+                var email: String = edit_search.text.toString().toLowerCase(Locale.ITALIAN)
                 email = email.substring(0, email.length)
                 if (Utils.checkEmail(email)) {
                     if (list?.size != 0) {
@@ -366,11 +369,12 @@ class RubricaListFragment: DetailFragment(), ContactsListAdapter.OnItemViewClick
             return
         }
         for (persona in list!!) {
-            if (persona.nome!!.toLowerCase().contains(sentence?.toLowerCase()!!) ||
-                persona.cognome!!.toLowerCase().contains(sentence?.toLowerCase()!!) ||
-                (persona.nome!!.toLowerCase() + " " + persona.cognome!!.toLowerCase())
-                    .contains(sentence?.toLowerCase()!!) ||
-                persona.cellulare!!.toLowerCase().contains(sentence?.toLowerCase()!!))
+            if (persona.nome!!.toLowerCase(Locale.ITALIAN).contains(sentence?.toLowerCase(Locale.ITALIAN)!!) ||
+                persona.cognome!!.toLowerCase(Locale.ITALIAN).contains(sentence?.toLowerCase(Locale.ITALIAN)!!) ||
+                (persona.nome!!.toLowerCase(Locale.ITALIAN) + " " + persona.cognome!!.toLowerCase(Locale.ITALIAN))
+                    .contains(sentence?.toLowerCase(Locale.ITALIAN)!!) ||
+                persona.cellulare!!.toLowerCase(Locale.ITALIAN).contains(sentence?.toLowerCase(Locale.ITALIAN)!!))
+
                 filtered?.add(persona)
         }
         if (filtered == null || filtered?.size == 0) {

@@ -331,7 +331,7 @@ class MainActivity : GPSActivity(), IProgressLoader {
                 baseFragment = OAuthFragment()
             }
             Globals.LAYOUT_MANAGE -> {
-                baseFragment = LayoutManageFragment()
+                baseFragment = LayoutManagerFragment()
             }
             Globals.DIALOG_FLOW -> {
                 baseFragment = DialogFlowFragment()
