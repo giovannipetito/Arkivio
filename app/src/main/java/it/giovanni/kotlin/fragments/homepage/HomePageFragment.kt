@@ -5,6 +5,7 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.provider.MediaStore
@@ -69,6 +70,10 @@ class HomePageFragment : HomeFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewFragment = super.onCreateView(inflater, container, savedInstanceState)
+
+        val intro = MediaPlayer.create(context, R.raw.intro)
+        intro.start()
+
         return viewFragment
     }
 

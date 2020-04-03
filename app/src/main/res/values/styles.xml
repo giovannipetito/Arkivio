@@ -38,7 +38,7 @@
     </style>
 
     <style name="CustomLoginButton" parent="android:Widget.Button">
-        <item name="android:background">@drawable/custom_button_compact</item>
+        <item name="android:background">@drawable/custom_login_button</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/button_text_color</item>

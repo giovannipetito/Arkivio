@@ -55,13 +55,13 @@
 
             <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/left_button"
-                    style="?android:attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:gravity="center"
                     android:text="@string/popup_button_cancel"
                     android:background="@color/white"
-                    android:textColor="@color/grey_2" />
+                    android:textColor="@color/grey_2"
+                    style="?android:attr/borderlessButtonStyle" />
 
         </RelativeLayout>
 
@@ -73,26 +73,26 @@
 
             <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/center_button"
-                    style="?android:attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:gravity="center"
                     android:text="@string/popup_button_try_again"
                     android:background="@color/white"
-                    android:textColor="@color/grey_2" />
+                    android:textColor="@color/grey_2"
+                    style="?android:attr/borderlessButtonStyle" />
 
         </RelativeLayout>
 
         <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/right_button"
-                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:gravity="center"
                 android:text="@string/popup_button_confirm"
                 android:background="@color/white"
                 android:textColor="@color/grey_2"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                style="?android:attr/borderlessButtonStyle" />
 
     </LinearLayout>
 
