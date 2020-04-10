@@ -5,12 +5,14 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.TransitionDrawable
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
@@ -29,6 +31,7 @@ import it.giovanni.kotlin.activities.MainActivity
 import it.giovanni.kotlin.adapters.HomeFragmentAdapter
 import it.giovanni.kotlin.bean.Link
 import it.giovanni.kotlin.bean.LinkSide
+import it.giovanni.kotlin.customview.popup.CustomDialogPopup
 import it.giovanni.kotlin.viewinterfaces.IDataRefresh
 import it.giovanni.kotlin.utils.Globals
 import it.giovanni.kotlin.utils.UserFactory
@@ -52,7 +55,7 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
     private var TRANSITION_TIME: Long = 100
     var animationFinish = true
     private var previousTab: Int = TAB_INDEX_HOME
-    private lateinit var pagesAdapter: HomeFragmentAdapter
+    private lateinit var fragmentAdapter: HomeFragmentAdapter
     private val END_SCALE = 0.9f
     private var listLink: ArrayList<Link>? = null
     private var listLinkSide: ArrayList<LinkSide>? = null
@@ -61,6 +64,10 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
     private val APP_TYPE = "app"
     private val EXT_TYPE = "ext"
     private var bundleDeepLink: Bundle = Bundle()
+
+    private lateinit var customPopup: CustomDialogPopup
+    private lateinit var preferences: SharedPreferences
+    private var compress: Boolean = false
 
     override fun getTitle(): Int {
         return NO_TITLE
@@ -84,6 +91,8 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(context)
 
         val avatar : Bitmap = BitmapFactory.decodeResource(context!!.resources, R.drawable.giovanni)
         val roundAvatar : Bitmap = getRoundBitmap(avatar, avatar.width)
@@ -125,9 +134,9 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
     }
 
     private fun attachViewPager() {
-        pagesAdapter = HomeFragmentAdapter(childFragmentManager, 3, this)
+        fragmentAdapter = HomeFragmentAdapter(childFragmentManager, 3, this)
 
-        view_pager.adapter = pagesAdapter
+        view_pager.adapter = fragmentAdapter
         view_pager.offscreenPageLimit = 3
         view_pager.currentItem = (TAB_INDEX_HOME - 1)
 
@@ -168,17 +177,31 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
         drawer_layout.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
 
-                // Scale the View based on current slide offset
-                val diffScaledOffset = slideOffset * (1 - END_SCALE)
-                val offsetScale = 1 - diffScaledOffset
-                container.scaleX = offsetScale
-                container.scaleY = offsetScale
+                if (preferences.getBoolean("COMPRESS", false)) {
+                    // Scale the View based on current slide offset
+                    val diffScaledOffset = slideOffset * (1 - END_SCALE)
+                    val offsetScale = 1 - diffScaledOffset
+                    container.scaleX = offsetScale
+                    container.scaleY = offsetScale
 
-                // Translate the View, accounting for the scaled width
-                val xOffset = drawerView.width * slideOffset
-                val xOffsetDiff = container.width * diffScaledOffset / 2
-                val xTranslation = xOffset - xOffsetDiff
-                container.translationX = - xTranslation
+                    // Translate the View, accounting for the scaled width
+                    val xOffset = drawerView.width * slideOffset
+                    val xOffsetDiff = container.width * diffScaledOffset / 2
+                    val xTranslation = xOffset - xOffsetDiff
+                    container.translationX = - xTranslation
+                } else {
+                    // Scale the View based on current slide offset
+                    val diffScaledOffset = slideOffset * (1 - END_SCALE)
+                    val offsetScale = 1.0f
+                    container.scaleX = offsetScale
+                    container.scaleY = offsetScale
+
+                    // Translate the View, accounting for the scaled width
+                    val xOffset = drawerView.width * slideOffset
+                    val xOffsetDiff = container.width * diffScaledOffset / 10
+                    val xTranslation = xOffset - xOffsetDiff
+                    container.translationX = - xTranslation
+                }
                 currentActivity.window.statusBarColor = ContextCompat.getColor(context!!, R.color.dark)
             }
 
@@ -190,7 +213,27 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
 
         drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
-        logout_container.setOnClickListener {
+        settings.setOnClickListener {
+            customPopup = CustomDialogPopup(currentActivity, R.style.PopupTheme)
+            customPopup.setCancelable(false)
+            customPopup.setTitle("IMPOSTAZIONI", "")
+            customPopup.setMessage("Vuoi comprimere il background all'apertura del menu laterale?")
+
+            customPopup.setButtons(resources.getString(R.string.popup_button_yes), View.OnClickListener {
+                compress = true
+                saveStateToPreferences()
+                customPopup.dismiss()
+            },
+                resources.getString(R.string.popup_button_no), View.OnClickListener {
+                    compress = false
+                    saveStateToPreferences()
+                    customPopup.dismiss()
+                }
+            )
+            customPopup.show()
+        }
+
+        logout.setOnClickListener {
             (activity as MainActivity).logout()
         }
 
@@ -449,11 +492,11 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == Globals.REQUEST_CODE_EVENT_WORKING_AREA) {
             if (data != null) {
-                (pagesAdapter.getItem(1) as IDataRefresh).refresh()
+                (fragmentAdapter.getItem(1) as IDataRefresh).refresh()
             }
         } else if (requestCode == Globals.REQUEST_CODE_EVENT_HOME) {
             if (data != null) {
-                (pagesAdapter.getItem(1) as IDataRefresh).refresh()
+                (fragmentAdapter.getItem(1) as IDataRefresh).refresh()
             }
         }
     }
@@ -486,5 +529,11 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
         list.add(LinkSide("CCS", "CCS", "", "8", "app", "it.ccsitalia.app"))
         list.add(LinkSide("Password_Manager", "Password Manager", "https://myaccount.windtre.it/", "9", "webview", ""))
         return list
+    }
+
+    private fun saveStateToPreferences() {
+        val editor: SharedPreferences.Editor = preferences.edit()
+        editor.putBoolean("COMPRESS", compress)
+        editor.apply()
     }
 }

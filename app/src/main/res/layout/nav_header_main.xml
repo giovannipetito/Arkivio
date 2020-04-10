@@ -113,6 +113,7 @@
                 android:orientation="vertical">
 
             <RelativeLayout
+                    android:id="@+id/settings"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:visibility="visible">
@@ -131,7 +132,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginStart="20dp"
                         android:layout_toEndOf="@id/menu_ico_configuration"
-                        android:text="Configurazioni"
+                        android:text="Impostazioni"
                         android:textColor="@color/colorPrimary"
                         android:textSize="16sp" />
 
@@ -163,7 +164,7 @@
 
 
             <RelativeLayout
-                    android:id="@+id/logout_container"
+                    android:id="@+id/logout"
                     android:layout_width="match_parent"
                     android:layout_height="40dp">
 

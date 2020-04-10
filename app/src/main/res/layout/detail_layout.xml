@@ -108,7 +108,7 @@
             android:layout_below="@+id/top_bar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/detail_background">
+            android:background="@color/white">
 
         <it.giovanni.kotlin.customview.MultiSwipeRefreshLayout
                 android:id="@+id/swipeRefreshLayout"

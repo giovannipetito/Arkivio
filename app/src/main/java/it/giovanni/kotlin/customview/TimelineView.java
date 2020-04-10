@@ -82,12 +82,12 @@ public class TimelineView extends View {
 
     private void initAttrs(Context context, TypedArray typedArray) {
 
-        this.indicatorBackgroundColor = typedArray.getColor(styleable.TimelineView_indicator_background_color, getColor(context, R.color.green));
-        this.indicatorShadowColor = typedArray.getColor(styleable.TimelineView_indicator_shadow_color, getColor(context, R.color.green));
-        this.backgroundLineColor = typedArray.getColor(styleable.TimelineView_background_line_color, getColor(context, R.color.grey));
-        this.progressLineColor = typedArray.getColor(styleable.TimelineView_progress_line_color, getColor(context, R.color.green));
-        this.textSelectedColor = typedArray.getColor(styleable.TimelineView_text_selected_color, getColor(context, R.color.green));
-        this.textColor = typedArray.getColor(styleable.TimelineView_text_color, getColor(context, R.color.green));
+        this.indicatorBackgroundColor = typedArray.getColor(styleable.TimelineView_indicator_background_color, getColor(context, R.color.verde_2));
+        this.indicatorShadowColor = typedArray.getColor(styleable.TimelineView_indicator_shadow_color, getColor(context, R.color.verde_2));
+        this.backgroundLineColor = typedArray.getColor(styleable.TimelineView_background_line_color, getColor(context, R.color.grey_4));
+        this.progressLineColor = typedArray.getColor(styleable.TimelineView_progress_line_color, getColor(context, R.color.verde_2));
+        this.textSelectedColor = typedArray.getColor(styleable.TimelineView_text_selected_color, getColor(context, R.color.verde_2));
+        this.textColor = typedArray.getColor(styleable.TimelineView_text_color, getColor(context, R.color.verde_2));
 
         this.radiusProgressSize = (float) typedArray.getDimensionPixelSize(styleable.TimelineView_indicator_circle_radius, 0);
         this.backgroundLineSize = (float) typedArray.getDimensionPixelSize(styleable.TimelineView_background_line_size, 0);

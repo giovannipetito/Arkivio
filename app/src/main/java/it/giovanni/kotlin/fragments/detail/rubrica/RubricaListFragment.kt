@@ -44,7 +44,7 @@ class RubricaListFragment: DetailFragment(), ContactsListAdapter.OnItemViewClick
     private var list: ArrayList<Persona>? = null
     private var filtered: ArrayList<Persona>? = null
     private var updatedList: ArrayList<Persona>? = null
-    private var customPopupGoOut: CustomDialogPopup? = null
+    private lateinit var customDialog: CustomDialogPopup
     private var reallyGoOut: Boolean = false
     private var labelIsClicked: Boolean = false
 
@@ -97,19 +97,21 @@ class RubricaListFragment: DetailFragment(), ContactsListAdapter.OnItemViewClick
     override fun beforeClosing(): Boolean {
         if (!labelIsClicked) {
             if (!reallyGoOut) {
-                customPopupGoOut = CustomDialogPopup(currentActivity, R.style.PopupTheme)
-                customPopupGoOut!!.setCancelable(false)
-                customPopupGoOut!!.setTitle("")
-                customPopupGoOut!!.setMessage(R.string.popup_really_close_message)
+                customDialog = CustomDialogPopup(currentActivity, R.style.PopupTheme)
+                customDialog.setCancelable(false)
+                customDialog.setTitle("Rubrica", "Prima di uscire...")
+                customDialog.setMessage("Confermi di voler annullare l'inserimento dei contatti?")
 
-                customPopupGoOut!!.setButtons(resources.getString(R.string.popup_button_confirm), View.OnClickListener {
+                customDialog.setButtons(resources.getString(R.string.popup_button_confirm), View.OnClickListener {
                     reallyGoOut = true
-                    customPopupGoOut!!.dismiss()
+                    customDialog.dismiss()
                     currentActivity.onBackPressed()
-                }, resources.getString(R.string.popup_button_cancel), View.OnClickListener {
-                    customPopupGoOut!!.dismiss()
-                })
-                customPopupGoOut!!.show()
+                },
+                    resources.getString(R.string.popup_button_cancel), View.OnClickListener {
+                        customDialog.dismiss()
+                    }
+                )
+                customDialog.show()
                 return false
             } else {
                 return true

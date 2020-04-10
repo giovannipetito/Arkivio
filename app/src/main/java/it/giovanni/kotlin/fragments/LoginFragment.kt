@@ -131,10 +131,7 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
 
     override fun onBiometricAuthenticationNotAvailable() {
 
-        customPopup = CustomDialogPopup(
-            currentActivity,
-            R.style.PopupTheme
-        )
+        customPopup = CustomDialogPopup(currentActivity, R.style.PopupTheme)
         customPopup!!.setCancelable(false)
         customPopup!!.setTitle("")
         customPopup!!.setMessage(getString(R.string.biometric_error_fingerprint))

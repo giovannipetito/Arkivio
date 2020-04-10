@@ -25,12 +25,12 @@ import java.util.*
 class PDFFragment : DetailFragment(), PermissionManager.PermissionListener {
 
     private var viewFragment: View? = null
-    private var customPopup: CustomDialogPopup? = null
     private var isDownloading: Boolean = false
     private var hasPermission: Boolean = false
-    private var action: Action? = null
-    private var url: String? = null
-    private var fileName: String? = null
+    private lateinit var customPopup: CustomDialogPopup
+    private lateinit var action: Action
+    private lateinit var url: String
+    private lateinit var fileName: String
 
     internal enum class Action {
         NONE,
@@ -104,7 +104,7 @@ class PDFFragment : DetailFragment(), PermissionManager.PermissionListener {
         Log.i("TAGPDF", "Decoded url: $decodedUrl")
 
         url = "https://kotlinlang.org/docs/kotlin-docs.pdf"
-        val list = url!!.split("/")
+        val list = url.split("/")
 
         if (list.isNotEmpty())
             fileName = list[list.size - 1]
@@ -113,32 +113,29 @@ class PDFFragment : DetailFragment(), PermissionManager.PermissionListener {
         isDownloading = false
 
         label_open_pdf.setOnClickListener {
-            customPopup = CustomDialogPopup(
-                currentActivity,
-                R.style.PopupTheme
-            )
-            customPopup!!.setCancelable(false)
-            customPopup!!.setTitle("")
-            customPopup!!.setMessage("")
+            customPopup = CustomDialogPopup(currentActivity, R.style.PopupTheme)
+            customPopup.setCancelable(false)
+            customPopup.setTitle("")
+            customPopup.setMessage("")
 
-            customPopup!!.setButtons(
+            customPopup.setButtons(
                 resources.getString(R.string.popup_button_cancel), View.OnClickListener {
-                    customPopup!!.dismiss()
+                    customPopup.dismiss()
                 },
                 resources.getString(R.string.popup_button_send), View.OnClickListener {
                     action = Action.SEND
                     askPermission()
                     download()
-                    customPopup!!.dismiss()
+                    customPopup.dismiss()
                 },
                 resources.getString(R.string.popup_button_open), View.OnClickListener {
                     action = Action.OPEN
                     askPermission()
                     download()
-                    customPopup!!.dismiss()
+                    customPopup.dismiss()
                 }
             )
-            customPopup!!.show()
+            customPopup.show()
         }
     }
 

@@ -18,6 +18,8 @@
 
     <!-- POPUP LABEL BUTTON -->
     <string name="popup_button_ok">OK</string>
+    <string name="popup_button_yes">SÌ</string>
+    <string name="popup_button_no">NO</string>
     <string name="popup_button_cancel">ANNULLA</string>
     <string name="popup_button_confirm">CONFERMA</string>
     <string name="popup_button_try_again">RIPROVA</string>
@@ -69,7 +71,6 @@
     <string name="search_by_name_or_msisdn">Cerca per nome o msisdn</string>
     <string name="no_result_by_search">Nessun risultato con questa stringa di ricerca.</string>
     <string name="no_list">Nessuna lista presente.</string>
-    <string name="popup_really_close_message">Confermi di voler annullare l\'inserimento dei contatti?</string>
 
     <!-- LINK -->
     <string name="link_drive_w3b">Drive W3B</string>

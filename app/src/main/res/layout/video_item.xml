@@ -76,7 +76,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/go_to_player_view"
                         android:textAlignment="center"
-                        android:textColor="@color/red" />
+                        android:textColor="@color/rosso_1" />
 
             </LinearLayout>
 

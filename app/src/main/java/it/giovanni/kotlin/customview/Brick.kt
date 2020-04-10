@@ -68,11 +68,11 @@ class Brick : RelativeLayout {
             container!!.setOnClickListener {
                 if (!isSelected!!) {
                     isSelected = true
-// change color
-                    container!!.setBackgroundColor(ContextCompat.getColor(context, R.color.red))
+                    // change color
+                    container!!.setBackgroundColor(ContextCompat.getColor(context, R.color.rosso_1))
                     icon!!.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ico_close_rvd))
                 } else {
-// remove it!
+                    // remove it!
                     if (position != -1 && callback != null) {
                         callback!!.flexBoxRemoved(position)
                         visible = false

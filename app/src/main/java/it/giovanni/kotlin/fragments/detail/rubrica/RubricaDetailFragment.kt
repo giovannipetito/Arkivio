@@ -14,7 +14,7 @@ import android.view.View
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import it.giovanni.kotlin.R
 import it.giovanni.kotlin.bean.Persona
-import it.giovanni.kotlin.customview.popup.DialogListPopup
+import it.giovanni.kotlin.customview.popup.ListDialogPopup
 import it.giovanni.kotlin.fragments.DetailFragment
 import it.giovanni.kotlin.utils.Utils
 import it.giovanni.kotlin.utils.Utils.Companion.callContact
@@ -32,17 +32,17 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
 
     private var avatar: Bitmap? = null
 
-    private var handleContactPopup: DialogListPopup? = null
-    private var labels: ArrayList<String>? = null
-    private var label: String? = null
+    private lateinit var listDialogPopup: ListDialogPopup
+    private lateinit var labels: ArrayList<String>
+    private lateinit var label: String
 
     private val REQUEST_CODE_CONTACTS_PERMISSION = 1000
-    private var lookupKey: String? = null
+    private lateinit var lookupKey: String
     var id: Long = 0
     private var name: String? = null
-    private var selectedContactUri: Uri? = null
+    private lateinit var selectedContactUri: Uri
 
-    private var persona: Persona? = null
+    private lateinit var persona: Persona
 
     companion object {
         var KEY_RUBRICA = "KEY_RUBRICA"
@@ -90,30 +90,30 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         if (arguments != null) {
-            persona = arguments!!.getSerializable(KEY_RUBRICA) as Persona?
+            persona = arguments!!.getSerializable(KEY_RUBRICA) as Persona
 
-            val contact = persona?.nome + " " + persona?.cognome
+            val contact = persona.nome + " " + persona.cognome
             contact_name.text = contact
 
-            if (persona?.fisso != "") value_numero_fisso.text = persona?.fisso
+            if (persona.fisso != "") value_numero_fisso.text = persona.fisso
             else numero_fisso_container.visibility = View.GONE
 
-            if (persona?.cellulare != "") value_cellulare.text = persona?.cellulare
+            if (persona.cellulare != "") value_cellulare.text = persona.cellulare
             else cellulare_container.visibility = View.GONE
 
-            if (persona?.email != "") value_mail.text = persona?.email
+            if (persona.email != "") value_mail.text = persona.email
             else email_container.visibility = View.GONE
 
-            if (persona?.indirizzo != "") value_indirizzo.text = persona?.indirizzo
+            if (persona.indirizzo != "") value_indirizzo.text = persona.indirizzo
             else indirizzo_container.visibility = View.GONE
 
-            if (persona?.occupazione != "") value_occupazione.text = persona?.occupazione
+            if (persona.occupazione != "") value_occupazione.text = persona.occupazione
             else occupazione_container.visibility = View.GONE
         }
 
-        if (persona?.nome == "Giovanni" && persona?.cognome == "Petito") {
+        if (persona.nome == "Giovanni" && persona.cognome == "Petito") {
             avatar = BitmapFactory.decodeResource(context!!.resources, R.drawable.giovanni)
-            val roundAvatar : Bitmap = Utils.getRoundBitmap(avatar!!, avatar!!.width)
+            val roundAvatar : Bitmap = Utils.getRoundBitmap(avatar!!, avatar?.width!!)
             ico_profile.setImageBitmap(roundAvatar)
         }
 
@@ -162,11 +162,11 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
     @SuppressLint("Recycle")
     private fun handleContact() {
 
-        val cr = context?.contentResolver
+        val contentResolver = context?.contentResolver
 
-        // val cur = cr?.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null)
+        // val cursor = contentResolver?.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null)
 
-        val cur = cr?.query(
+        val cursor = contentResolver?.query(
             ContactsContract.Contacts.CONTENT_URI,
             null,
             "lower(" + ContactsContract.Contacts.DISPLAY_NAME + ") = lower('" + contact_name.text.toString().replace("'", "''") + "')",
@@ -176,11 +176,11 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
 
         // selection: "lower(" + ContactsContract.Contacts.DISPLAY_NAME + ") = lower('" + employee.nome.replace("'", "''") + " " + employee.cognome.replace("'", "''") + "')"
 
-        if (cur?.count!! > 0) {
-            while (cur.moveToNext()) {
-                name = cur.getString(cur.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
-                id = cur.getLong(cur.getColumnIndex(ContactsContract.Contacts._ID))
-                lookupKey = cur.getString(cur.getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY))
+        if (cursor?.count!! > 0) {
+            while (cursor.moveToNext()) {
+                name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
+                id = cursor.getLong(cursor.getColumnIndex(ContactsContract.Contacts._ID))
+                lookupKey = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY))
                 selectedContactUri = ContactsContract.Contacts.getLookupUri(id, lookupKey)
             }
         }
@@ -211,46 +211,46 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
     private fun showInsertContactDialog() {
 
         labels = ArrayList()
-        labels?.add(LABEL_INSERT)
-        labels?.add(LABEL_DELETE)
+        labels.add(LABEL_INSERT)
+        labels.add(LABEL_DELETE)
 
-        handleContactPopup = DialogListPopup(currentActivity, R.style.PopupTheme)
-        handleContactPopup!!.setCancelable(true)
-        handleContactPopup!!.setMessage(resources.getString(R.string.rubrica_message_dialog))
-        handleContactPopup!!.setLabels(labels!!, this)
-        handleContactPopup!!.setButton(resources.getString(R.string.popup_button_cancel), View.OnClickListener {})
-        handleContactPopup!!.setGravityBottom(true)
-        handleContactPopup!!.show()
+        listDialogPopup = ListDialogPopup(currentActivity, R.style.PopupTheme)
+        listDialogPopup.setCancelable(true)
+        listDialogPopup.setMessage(resources.getString(R.string.rubrica_message_dialog))
+        listDialogPopup.setLabels(labels, this)
+        listDialogPopup.setButton(resources.getString(R.string.popup_button_cancel), View.OnClickListener {})
+        listDialogPopup.setGravityBottom(true)
+        listDialogPopup.show()
     }
 
     private fun showInsertEditContactDialog() {
 
         labels = ArrayList()
-        labels?.add(LABEL_EDIT)
-        labels?.add(LABEL_INSERT)
-        labels?.add(LABEL_DELETE)
+        labels.add(LABEL_EDIT)
+        labels.add(LABEL_INSERT)
+        labels.add(LABEL_DELETE)
 
-        handleContactPopup = DialogListPopup(currentActivity, R.style.PopupTheme)
-        handleContactPopup!!.setCancelable(true)
-        handleContactPopup!!.setMessage(resources.getString(R.string.rubrica_message_dialog))
-        handleContactPopup!!.setLabels(labels!!, this)
-        handleContactPopup!!.setButton(resources.getString(R.string.popup_button_cancel), View.OnClickListener {})
-        handleContactPopup!!.setGravityBottom(true)
-        handleContactPopup!!.show()
+        listDialogPopup = ListDialogPopup(currentActivity, R.style.PopupTheme)
+        listDialogPopup.setCancelable(true)
+        listDialogPopup.setMessage(resources.getString(R.string.rubrica_message_dialog))
+        listDialogPopup.setLabels(labels, this)
+        listDialogPopup.setButton(resources.getString(R.string.popup_button_cancel), View.OnClickListener {})
+        listDialogPopup.setGravityBottom(true)
+        listDialogPopup.show()
     }
 
     override fun onClick(v: View?) {
 
         label = v!!.tag as String
-        handleContactPopup!!.dismiss()
+        listDialogPopup.dismiss()
 
-        if (label!! == LABEL_EDIT) {
+        if (label == LABEL_EDIT) {
 
             // editContact(selectedContactUri)
 
             insertEditContact(selectedContactUri)
 
-        } else if (label!! == LABEL_INSERT) {
+        } else if (label == LABEL_INSERT) {
             insertContact()
         }
     }

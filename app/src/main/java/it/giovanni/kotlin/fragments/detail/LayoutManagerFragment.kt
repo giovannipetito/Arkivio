@@ -89,9 +89,9 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
 
         val drawableBar = GradientDrawable(
             GradientDrawable.Orientation.LEFT_RIGHT,
-            intArrayOf(resources.getColor(R.color.red),
-                resources.getColor(R.color.yellow),
-                resources.getColor(R.color.azzurro))
+            intArrayOf(resources.getColor(R.color.rosso_1),
+                resources.getColor(R.color.giallo_1),
+                resources.getColor(R.color.azzurro_4))
         )
 
         drawableBar.cornerRadius = 50f
