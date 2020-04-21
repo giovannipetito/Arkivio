@@ -17,7 +17,7 @@ import com.bumptech.glide.request.RequestOptions
 import it.giovanni.kotlin.R
 import it.giovanni.kotlin.customview.TimelineView
 import it.giovanni.kotlin.fragments.DetailFragment
-import it.giovanni.kotlin.utils.Utils.Companion.isMyValidEmail
+import it.giovanni.kotlin.utils.Utils.Companion.checkEmail
 import kotlinx.android.synthetic.main.layout_manager_layout.*
 
 class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener {
@@ -188,7 +188,7 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (isMyValidEmail(edit_email.text.toString())) {
+                if (checkEmail(edit_email.text.toString())) {
                     Toast.makeText(context, "Email valida", Toast.LENGTH_LONG).show()
                 }
             }

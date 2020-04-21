@@ -18,6 +18,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import it.giovanni.kotlin.App
@@ -35,6 +36,7 @@ import it.giovanni.kotlin.fragments.detail.webview.WebViewFragment
 import it.giovanni.kotlin.utils.Globals
 import it.giovanni.kotlin.utils.UserFactory
 import it.giovanni.kotlin.utils.Utils
+import it.giovanni.kotlin.utils.Utils.Companion.isOnline
 import it.giovanni.kotlin.viewinterfaces.IProgressLoader
 import it.giovanni.kotlin.youtube.search.SearchVideoFragment
 import java.util.*
@@ -99,13 +101,16 @@ class MainActivity : GPSActivity(), IProgressLoader {
                         ).commit()
                 }, SPLASH_DISPLAY_TIME)
             } else {
-                Handler().postDelayed({
-                    supportFragmentManager
-                        .beginTransaction()
-                        .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-                        .replace(R.id.frame_container, MainFragment(), MAIN_FRAGMENT)
-                        .commit()
-                }, SPLASH_DISPLAY_TIME)
+                if (isOnline()) {
+                    Handler().postDelayed({
+                        supportFragmentManager
+                            .beginTransaction()
+                            .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+                            .replace(R.id.frame_container, MainFragment(), MAIN_FRAGMENT)
+                            .commit()
+                    }, SPLASH_DISPLAY_TIME)
+                } else
+                    Toast.makeText(context,"Errore di connessione", Toast.LENGTH_LONG).show()
             }
         }
 
@@ -324,13 +329,13 @@ class MainActivity : GPSActivity(), IProgressLoader {
             Globals.WEB_VIEW -> {
                 baseFragment = WebViewFragment()
             }
-            Globals.PDF -> {
-                baseFragment = PDFFragment()
+            Globals.PERMISSIONS -> {
+                baseFragment = PermissionsFragment()
             }
             Globals.OAUTH_2 -> {
                 baseFragment = OAuthFragment()
             }
-            Globals.LAYOUT_MANAGE -> {
+            Globals.LAYOUT_MANAGER -> {
                 baseFragment = LayoutManagerFragment()
             }
             Globals.DIALOG_FLOW -> {

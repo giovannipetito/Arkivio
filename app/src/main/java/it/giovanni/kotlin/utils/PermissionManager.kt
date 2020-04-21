@@ -49,6 +49,18 @@ class PermissionManager {
             context.startActivity(intent)
         }
 
+        fun requestPermission(
+            context: Context,
+            permissionListener: PermissionListener,
+            requestedPermissions: Array<String>
+        ) {
+            listener = permissionListener
+            permissions = requestedPermissions
+            val intent = Intent(context, PermissionActivity::class.java)
+            // intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent)
+        }
+
         fun onActivityCreated(callBackActivity: Activity) {
             ActivityCompat.requestPermissions(callBackActivity, permissions!!, MY_PERMISSION_REQUEST_CODE)
             return

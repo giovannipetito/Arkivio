@@ -125,7 +125,7 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
 
         voice.setOnClickListener {
             currentActivity.openDialogDetail(Globals.DIALOG_FLOW, Bundle())
-            currentActivity.window.statusBarColor = ContextCompat.getColor(context!!, R.color.black_transparent)
+            currentActivity.window.statusBarColor = ContextCompat.getColor(context!!, R.color.black_transparent_1)
         }
     }
 
@@ -219,11 +219,12 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
             customPopup.setTitle("IMPOSTAZIONI", "")
             customPopup.setMessage("Vuoi comprimere il background all'apertura del menu laterale?")
 
-            customPopup.setButtons(resources.getString(R.string.popup_button_yes), View.OnClickListener {
-                compress = true
-                saveStateToPreferences()
-                customPopup.dismiss()
-            },
+            customPopup.setButtons(
+                resources.getString(R.string.popup_button_yes), View.OnClickListener {
+                    compress = true
+                    saveStateToPreferences()
+                    customPopup.dismiss()
+                },
                 resources.getString(R.string.popup_button_no), View.OnClickListener {
                     compress = false
                     saveStateToPreferences()

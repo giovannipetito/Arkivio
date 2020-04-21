@@ -1,5 +1,6 @@
 package it.giovanni.kotlin.utils
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -9,9 +10,12 @@ import android.content.res.Resources
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.media.ThumbnailUtils
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.telephony.TelephonyManager
 import android.text.Html
 import android.text.Spanned
 import android.util.Base64
@@ -30,8 +34,10 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
+import java.util.*
 import java.util.concurrent.Executors
 import java.util.regex.Pattern
+import kotlin.collections.ArrayList
 import kotlin.math.min
 
 class Utils {
@@ -47,24 +53,6 @@ class Utils {
                     string + list[i]
             }
             return string
-        }
-
-        fun isValidEmail(email: String): Boolean {
-            val emailPattern = android.util.Patterns.EMAIL_ADDRESS
-            return emailPattern.matcher(email).matches()
-        }
-
-        fun isMyValidEmail(email: String): Boolean {
-            val emailPattern = Pattern.compile(
-                "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,64}" +
-                        "\\@" +
-                        "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
-                        "(" +
-                        "\\." +
-                        "[a-z][a-z\\-]{0,2}" +
-                        ")"
-            )
-            return emailPattern.matcher(email).matches()
         }
 
         private const val S6_EDGE_PLUS = "SM-G928F"
@@ -152,8 +140,8 @@ class Utils {
             return ThumbnailUtils.extractThumbnail(bitmap, dimension, dimension)
         }
 
-        // Su W3B questo metodo viene utilizzato nella classe NotificationDetailFragment per trasformare in stringa un
-        // testo Html.
+        // Su W3B questo metodo viene utilizzato nella classe NotificationDetailFragment per
+        // trasformare in stringa un testo Html.
         @Suppress("DEPRECATION")
         @SuppressLint("ObsoleteSdkInt")
         fun fromHtml(htmlMessage: String?): Spanned {
@@ -293,6 +281,160 @@ class Utils {
 
         fun getFileUri(file: File, context: Context): Uri {
             return FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider", file)
+        }
+
+        fun isAutologinEnabled(): Boolean {
+            return if (PermissionManager.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE))
+                isOnline() && isOnMobileConnection() && isSimIliad()
+            else false
+        }
+
+        @Suppress("DEPRECATION")
+        fun isOnline(): Boolean {
+            var status = false
+            val cm: ConnectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val networkInfo = cm.activeNetworkInfo
+            if (networkInfo != null) {
+                val state: NetworkInfo.State = networkInfo.state
+                status = NetworkInfo.State.CONNECTED == state
+            }
+            return status
+        }
+
+        @Suppress("DEPRECATION")
+        fun isOnMobileConnection(): Boolean {
+            var result = false
+            val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            if (cm.activeNetworkInfo != null) {
+                try {
+                    val networkInfo = cm.activeNetworkInfo
+                    if (networkInfo != null) {
+                        val networkType = networkInfo.type
+                        result = networkType == ConnectivityManager.TYPE_MOBILE
+                    }
+                } catch (e: java.lang.Exception) {
+                }
+            }
+            return result
+        }
+
+        fun getDeviceLanguage(): String? {
+            return Locale.getDefault().toString()
+        }
+
+        fun getDeviceSoftwareVersion(): String {
+            return if (PermissionManager.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE)) {
+                // Permission Granted
+                val manager: TelephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+                val deviceSoftwareVersion = manager.deviceSoftwareVersion
+
+                deviceSoftwareVersion
+            } else {
+                "Permission required"
+            }
+        }
+
+        fun getSimOperator(): String {
+            return if (PermissionManager.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE)) {
+                // Permission Granted
+                val manager: TelephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+                val simOperator: String = manager.simOperator
+
+                simOperator
+            } else {
+                "Permission denied"
+            }
+        }
+
+        fun getSimOperatorName(): String {
+            return if (PermissionManager.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE)) {
+                // Permission Granted
+                val manager: TelephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+                val simOperatorName = manager.simOperatorName
+
+                simOperatorName
+            } else {
+                "Permission denied"
+            }
+        }
+
+        fun isSimIliad(): Boolean {
+            return if (PermissionManager.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE)) {
+                // Permission Granted
+                val manager: TelephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+                val simOperator: String = manager.simOperator
+
+                simOperator.startsWith("22250")
+            } else {
+                // Permission denied
+                false
+            }
+        }
+
+        fun getLine1Number(): String {
+            return if (PermissionManager.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE)) {
+                val manager: TelephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+                val line1Number = manager.line1Number
+
+                line1Number
+            } else {
+                "Permission denied"
+            }
+        }
+
+        fun getSimSerialNumber(): String {
+            return if (PermissionManager.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE)) {
+                val manager: TelephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+                val simSerialNumber = manager.simSerialNumber
+
+                simSerialNumber
+            } else {
+                "Permission denied"
+            }
+        }
+
+        fun getSimCountryIso(): String {
+            return if (PermissionManager.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE)) {
+                val manager: TelephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+                val simCountryIso = manager.simCountryIso
+
+                simCountryIso
+            } else {
+                "Permission denied"
+            }
+        }
+
+        fun getNetworkOperator(): String {
+            return if (PermissionManager.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE)) {
+                val manager: TelephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+                val networkOperator = manager.networkOperator
+
+                networkOperator
+            } else {
+                "Permission denied"
+            }
+        }
+
+        fun getNetworkOperatorName(): String {
+            return if (PermissionManager.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE)) {
+                val manager: TelephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+                val networkOperatorName = manager.networkOperatorName
+
+                networkOperatorName
+            } else {
+                "Permission denied"
+            }
+        }
+
+        fun getNetworkCountryIso(): String {
+            return if (PermissionManager.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE)) {
+                val manager: TelephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+                val networkCountryIso = manager.networkCountryIso
+
+                networkCountryIso
+            } else {
+                "Permission denied"
+            }
         }
     }
 }

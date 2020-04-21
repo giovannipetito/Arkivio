@@ -47,14 +47,14 @@ class WorkingAreaFragment : HomeFragment() {
         label_rubrica.setOnClickListener {
             currentActivity.openDetail(Globals.RUBRICA_HOME, null)
         }
-        label_pdf.setOnClickListener {
-            currentActivity.openDetail(Globals.PDF, null)
+        label_permissions.setOnClickListener {
+            currentActivity.openDetail(Globals.PERMISSIONS, null)
         }
         label_oauth_2.setOnClickListener {
             currentActivity.openDetail(Globals.OAUTH_2, null)
         }
         label_layout_manager.setOnClickListener {
-            currentActivity.openDetail(Globals.LAYOUT_MANAGE, null)
+            currentActivity.openDetail(Globals.LAYOUT_MANAGER, null)
         }
         label_preference.setOnClickListener {
             currentActivity.openDetail(Globals.PREFERENCE, null)

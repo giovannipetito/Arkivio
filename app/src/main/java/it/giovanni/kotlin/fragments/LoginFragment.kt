@@ -1,11 +1,8 @@
 package it.giovanni.kotlin.fragments
 
 import android.Manifest
-import android.content.Context.CONNECTIVITY_SERVICE
 import android.content.Intent
 import android.content.SharedPreferences
-import android.net.ConnectivityManager
-import android.net.NetworkInfo
 import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -22,6 +19,7 @@ import it.giovanni.kotlin.biometric.BiometricCallback
 import it.giovanni.kotlin.biometric.BiometricManager
 import it.giovanni.kotlin.customview.popup.CustomDialogPopup
 import it.giovanni.kotlin.utils.PermissionManager
+import it.giovanni.kotlin.utils.Utils.Companion.isOnline
 import kotlinx.android.synthetic.main.login_layout.*
 
 class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, PermissionManager.PermissionListener {
@@ -212,18 +210,6 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
 
     override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
         Toast.makeText(context, errString, Toast.LENGTH_LONG).show()
-    }
-
-    @Suppress("DEPRECATION")
-    private fun isOnline(): Boolean {
-        var status = false
-        val cm: ConnectivityManager = activity?.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkInfo = cm.activeNetworkInfo
-        if (networkInfo != null) {
-            val state: NetworkInfo.State = networkInfo.state
-            status = NetworkInfo.State.CONNECTED == state
-        }
-        return status
     }
 
     private fun saveStateToPreferences() {

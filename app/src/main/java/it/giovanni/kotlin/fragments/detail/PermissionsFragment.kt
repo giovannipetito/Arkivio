@@ -18,19 +18,35 @@ import it.giovanni.kotlin.utils.PermissionManager
 import it.giovanni.kotlin.utils.Utils
 import it.giovanni.kotlin.utils.Utils.Companion.decodeBase64Url
 import it.giovanni.kotlin.utils.Utils.Companion.encodeBase64Url
-import kotlinx.android.synthetic.main.pdf_layout.*
+import it.giovanni.kotlin.utils.Utils.Companion.getDeviceLanguage
+import it.giovanni.kotlin.utils.Utils.Companion.getDeviceSoftwareVersion
+import it.giovanni.kotlin.utils.Utils.Companion.getLine1Number
+import it.giovanni.kotlin.utils.Utils.Companion.getNetworkCountryIso
+import it.giovanni.kotlin.utils.Utils.Companion.getNetworkOperator
+import it.giovanni.kotlin.utils.Utils.Companion.getNetworkOperatorName
+import it.giovanni.kotlin.utils.Utils.Companion.getSimCountryIso
+import it.giovanni.kotlin.utils.Utils.Companion.getSimOperator
+import it.giovanni.kotlin.utils.Utils.Companion.getSimOperatorName
+import it.giovanni.kotlin.utils.Utils.Companion.getSimSerialNumber
+import it.giovanni.kotlin.utils.Utils.Companion.isOnMobileConnection
+import it.giovanni.kotlin.utils.Utils.Companion.isSimIliad
+import kotlinx.android.synthetic.main.permissions_layout.*
 import java.io.File
 import java.util.*
 
-class PDFFragment : DetailFragment(), PermissionManager.PermissionListener {
+class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListener {
 
     private var viewFragment: View? = null
     private var isDownloading: Boolean = false
     private var hasPermission: Boolean = false
+    private var hasPhonePermission: Boolean = false
     private lateinit var customPopup: CustomDialogPopup
     private lateinit var action: Action
     private lateinit var url: String
     private lateinit var fileName: String
+
+    private var openPdf: Boolean = false
+    private var phoneState: Boolean = false
 
     internal enum class Action {
         NONE,
@@ -39,11 +55,11 @@ class PDFFragment : DetailFragment(), PermissionManager.PermissionListener {
     }
 
     override fun getLayout(): Int {
-        return R.layout.pdf_layout
+        return R.layout.permissions_layout
     }
 
     override fun getTitle(): Int {
-        return R.string.pdf_title
+        return R.string.permissions_title
     }
 
     override fun getActionTitle(): Int {
@@ -113,6 +129,10 @@ class PDFFragment : DetailFragment(), PermissionManager.PermissionListener {
         isDownloading = false
 
         label_open_pdf.setOnClickListener {
+
+            openPdf = true
+            phoneState = false
+
             customPopup = CustomDialogPopup(currentActivity, R.style.PopupTheme)
             customPopup.setCancelable(false)
             customPopup.setTitle("")
@@ -124,23 +144,32 @@ class PDFFragment : DetailFragment(), PermissionManager.PermissionListener {
                 },
                 resources.getString(R.string.popup_button_send), View.OnClickListener {
                     action = Action.SEND
-                    askPermission()
+                    askPDFPermission()
                     download()
                     customPopup.dismiss()
                 },
                 resources.getString(R.string.popup_button_open), View.OnClickListener {
                     action = Action.OPEN
-                    askPermission()
+                    askPDFPermission()
                     download()
                     customPopup.dismiss()
                 }
             )
             customPopup.show()
         }
+
+        label_read_phone_state.setOnClickListener {
+
+            openPdf = false
+            phoneState = true
+
+            askPhonePermission()
+            showPhoneState()
+        }
     }
 
-    private fun askPermission() {
-        checkPermission()
+    private fun askPDFPermission() {
+        checkPDFPermission()
         if (hasPermission)
             return
         PermissionManager.requestPermission(
@@ -154,13 +183,19 @@ class PDFFragment : DetailFragment(), PermissionManager.PermissionListener {
         )
     }
 
-    private fun checkPermission() {
+    private fun checkPDFPermission() {
         hasPermission = PermissionManager.checkSelfPermission(context!!, Manifest.permission.WRITE_EXTERNAL_STORAGE)
     }
 
     override fun onPermissionResult(permissions: Array<String>, grantResults: IntArray) {
-        checkPermission()
-        download()
+        if (openPdf && !phoneState) {
+            checkPDFPermission()
+            download()
+        }
+        if (!openPdf && phoneState) {
+            checkPhonePermission()
+            showPhoneState()
+        }
     }
 
     private fun download() {
@@ -196,7 +231,7 @@ class PDFFragment : DetailFragment(), PermissionManager.PermissionListener {
         val uris = ArrayList<Uri>()
         uris.add(Utils.getFileUri(getFile(filePath, fileName), context!!))
         emailIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris)
-        startActivity(Intent.createChooser(emailIntent, resources.getString(R.string.text_billing_invoice_send_email)))
+        startActivity(Intent.createChooser(emailIntent, resources.getString(R.string.send_email)))
     }
 
     private fun getFile(filePath: String, fileName: String): File {
@@ -221,6 +256,47 @@ class PDFFragment : DetailFragment(), PermissionManager.PermissionListener {
         if (resolved != null && resolved.size > 0)
             startActivity(viewIntent)
         else
-            Toast.makeText(activity, resources.getString(R.string.text_billing_invoice_no_pdf_reader), Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, resources.getString(R.string.no_pdf_reader), Toast.LENGTH_SHORT).show()
+    }
+
+    private fun askPhonePermission() {
+        checkPhonePermission()
+        if (hasPhonePermission)
+            return
+        PermissionManager.requestPermission(context!!, this, arrayOf(Manifest.permission.READ_PHONE_STATE))
+    }
+
+    private fun checkPhonePermission() {
+        hasPhonePermission = PermissionManager.checkSelfPermission(context!!, Manifest.permission.READ_PHONE_STATE)
+    }
+
+    private fun showPhoneState() {
+        if (!hasPhonePermission)
+            return
+
+        customPopup = CustomDialogPopup(currentActivity, R.style.PopupTheme)
+        customPopup.setCancelable(false)
+        customPopup.setTitle("Stato del telefono", "")
+        customPopup.setMessage(
+            "Mobile connection: " + isOnMobileConnection() +
+                    "<br><br>Device Language: " + getDeviceLanguage() +
+                    "<br><br>Device Software Version: " + getDeviceSoftwareVersion() +
+                    "<br><br>SIM Operator: " + getSimOperator() +
+                    "<br><br>SIM Operator Name: " + getSimOperatorName() +
+                    "<br><br>SIM Iliad: " + isSimIliad() +
+                    "<br><br>SIM Number: " + getLine1Number() +
+                    "<br><br>SIM Serial Number: " + getSimSerialNumber() +
+                    "<br><br>SIM Country Iso: " + getSimCountryIso() +
+                    "<br><br>Network Operator: " + getNetworkOperator() +
+                    "<br><br>Network Operator Name: " + getNetworkOperatorName() +
+                    "<br><br>Network Country Iso: " + getNetworkCountryIso()
+        )
+
+        customPopup.setButton(
+            resources.getString(R.string.popup_button_close), View.OnClickListener {
+                customPopup.dismiss()
+            }
+        )
+        customPopup.show()
     }
 }

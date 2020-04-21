@@ -23,7 +23,6 @@ import kotlin.collections.ArrayList
 open class CustomDialogPopup : AlertDialog.Builder {
 
     private val DIALOG_INTERFACE_KEY = 1258932039
-    private lateinit var popup: LinearLayout
     private lateinit var elementList: LinearLayout
     protected lateinit var labelList: LinearLayout
     protected lateinit var titleDialog: TextView
@@ -78,7 +77,6 @@ open class CustomDialogPopup : AlertDialog.Builder {
 
         elementList = dialogView.findViewById(R.id.element_list) as LinearLayout
         labelList = dialogView.findViewById(R.id.label_list) as LinearLayout
-        popup = dialogView.findViewById(R.id.popup) as LinearLayout
 
         titleDialog = dialogView.findViewById(R.id.title_dialog) as TextView
         subtitleDialog = dialogView.findViewById(R.id.subtitle_dialog) as TextView

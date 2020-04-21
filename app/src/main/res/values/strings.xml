@@ -26,6 +26,7 @@
     <string name="popup_button_send">INVIA</string>
     <string name="popup_button_open">APRI</string>
     <string name="popup_button_register">REGISTRA</string>
+    <string name="popup_button_close">CHIUDI</string>
 
     <!-- HOME PAGE -->
     <string name="good_moorning_title">Buongiorno</string>
@@ -85,16 +86,17 @@
     <string name="link_video">Video Test</string>
     <string name="url_video">https:\/\/appdipendentiw3.piksel.it\/static\/greengrass\/player_appdip.html?videoUrl=https:\/\/newscms.windtre.it\/selfcare\/intranet\/JEFFREY%20DIPENDENTI%20CAFFETTERIA_EXPORT_REQUISITI_SERGIO.mp4</string>
 
-    <!-- PDF -->
-    <string name="pdf_title">PDF</string>
+    <!-- PERMISSIONS -->
+    <string name="permissions_title">Permissions</string>
     <string name="explores_pdf">Esplora PDF</string>
     <string name="open_pdf">Apri PDF</string>
+    <string name="read_phone_state">Stato del telefono</string>
 
     <string name="permission_informativa_pdf_request">Per scaricare l\'informativa è necessario accedere alla memoria del dispositivo e ti verrà richiesto di fornire il consenso ad accedere alla memoria interna del tuo dispositivo.</string>
     <string name="permission_informativa_pdf_never_ask_again">Per scaricare l\' informativa è necessario accedere alla memoria del dispositivo, seleziona Continua e verrai indirizzato alla sezione Impostazioni del dispositivo per modificare le Autorizzazioni app - Archiviazione.</string>
 
-    <string name="text_billing_invoice_send_email">Invia Con</string>
-    <string name="text_billing_invoice_no_pdf_reader">Non ci sono applicazioni disponibili ad aprire il PDF.</string>
+    <string name="send_email">Invia Con</string>
+    <string name="no_pdf_reader">Non ci sono applicazioni disponibili ad aprire il PDF.</string>
 
     <!-- OAUTH 2.0 -->
     <string name="oauth_2_title">OAuth 2.0</string>
