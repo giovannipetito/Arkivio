@@ -23,6 +23,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import it.giovanni.kotlin.App
 import it.giovanni.kotlin.App.Companion.context
+import it.giovanni.kotlin.LocalNotificationService
 import it.giovanni.kotlin.R
 import it.giovanni.kotlin.deeplink.DeepLinkDescriptor
 import it.giovanni.kotlin.fragments.*
@@ -129,6 +130,10 @@ class MainActivity : GPSActivity(), IProgressLoader {
                 deepLinkEvent = DeepLinkDescriptor()
                 deepLinkEvent!!.deeplink = uri
             }
+        }
+
+        Intent(this, LocalNotificationService::class.java).also { intent ->
+            startService(intent)
         }
     }
 
