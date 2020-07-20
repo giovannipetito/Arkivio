@@ -41,6 +41,7 @@
           android:inputType="number"
           android:hint="@string/choose_index"
           android:background="@drawable/rounded_corner_2"
+          android:autofillHints="@string/app_name"
           style="@style/EditText1" />
 
   <EditText
@@ -53,6 +54,7 @@
           android:inputType="number"
           android:hint="@string/choose_start_time"
           android:background="@drawable/rounded_corner_2"
+          android:autofillHints="@string/app_name"
           style="@style/EditText1" />
 
   <RelativeLayout

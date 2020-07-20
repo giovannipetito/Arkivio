@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <TextView
+            android:id="@+id/label_nearby_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/nearby_search_title"
+            android:textColor="@color/dark"
+            android:textSize="16sp"
+            android:textAlignment="center" />
+
+    <View android:layout_width="120dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/dark"
+            android:layout_gravity="center"
+            android:alpha=".4" />
+
+    <TextView
+            android:id="@+id/label_nearby_chat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/nearby_chat_title"
+            android:textColor="@color/dark"
+            android:textSize="16sp"
+            android:textAlignment="center" />
+
+    <View android:layout_width="120dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/dark"
+            android:layout_gravity="center"
+            android:alpha=".4" />
+
+    <TextView
+            android:id="@+id/label_nearby_game"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/nearby_game_title"
+            android:textColor="@color/dark"
+            android:textSize="16sp"
+            android:textAlignment="center" />
+
+    <View android:layout_width="120dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/dark"
+            android:layout_gravity="center"
+            android:alpha=".4" />
+
+    <TextView
+            android:id="@+id/label_nearby_beacons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/nearby_beacons_title"
+            android:textColor="@color/dark"
+            android:textSize="16sp"
+            android:textAlignment="center" />
+
+    <View android:layout_width="120dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/dark"
+            android:layout_gravity="center"
+            android:alpha=".4" />
+
+</LinearLayout>

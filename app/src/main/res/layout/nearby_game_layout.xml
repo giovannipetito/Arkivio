@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:orientation="vertical">
+
+    <TextView
+            android:id="@+id/text_player"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textColor="@color/dark" />
+
+    <TextView
+            android:id="@+id/text_opponent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textColor="@color/dark" />
+
+    <TextView
+            android:id="@+id/text_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textColor="@color/dark" />
+
+    <TextView
+            android:id="@+id/text_score"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:textSize="48sp"
+            android:textColor="@color/blueWave" />
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal">
+
+        <Button
+                android:id="@+id/button_rock"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.33"
+                android:layout_marginEnd="8dp"
+                android:drawableTop="@drawable/ico_nearby_rock"
+                android:drawableTint="@color/blueWave"
+                android:text="@string/rock"
+                style="@style/CustomButton" />
+
+        <Button
+                android:id="@+id/button_paper"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.33"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:drawableTop="@drawable/ico_nearby_paper"
+                android:drawableTint="@color/blueWave"
+                android:text="@string/paper"
+                style="@style/CustomButton" />
+
+        <Button
+                android:id="@+id/button_scissors"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.33"
+                android:layout_marginStart="8dp"
+                android:drawableTop="@drawable/ico_nearby_scissors"
+                android:drawableTint="@color/blueWave"
+                android:text="@string/scissors"
+                style="@style/CustomButton" />
+
+    </LinearLayout>
+
+    <Button
+            android:id="@+id/button_find_opponent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="@string/find_opponent"
+            style="@style/CustomLoginButton" />
+
+    <Button
+            android:id="@+id/button_disconnect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/disconnect"
+            style="@style/CustomLoginButton" />
+
+</LinearLayout>

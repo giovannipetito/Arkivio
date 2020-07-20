@@ -29,7 +29,6 @@ abstract class BaseFragment(private var sectionType: SectionType) : Fragment() {
         HOME,
         DETAIL,
         TAB_DETAIL,
-        PERMITS_TAB_DETAIL,
         DIALOG_FLOW
     }
 
@@ -64,9 +63,6 @@ abstract class BaseFragment(private var sectionType: SectionType) : Fragment() {
             SectionType.TAB_DETAIL -> {
                 view = inflater.inflate(R.layout.working_area_tab_detail, container, false)
             }
-            SectionType.PERMITS_TAB_DETAIL -> {
-                view = inflater.inflate(R.layout.workpermits_list_layout, container, false)
-            }
             SectionType.HOME -> {
                 view = inflater.inflate(R.layout.homepage_layout, container, false)
             }
@@ -81,9 +77,6 @@ abstract class BaseFragment(private var sectionType: SectionType) : Fragment() {
             }
             SectionType.DIALOG_FLOW -> {
                 view = inflater.inflate(R.layout.dialog_flow_layout, container, false)
-            }
-            else -> {
-                view = super.onCreateView(inflater, container, savedInstanceState)
             }
         }
         return view

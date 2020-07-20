@@ -10,7 +10,7 @@
           android:layout_height="96dp"
           android:src="@drawable/no_thumbnail"
           android:adjustViewBounds="true"
-          android:scaleType="centerInside"/>
+          android:scaleType="centerInside" />
 
   <TextView
           android:id="@+id/thumbnail_text"

@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:textColor="@color/dark"
-            android:layout_below="@+id/title_container"/>
+            android:layout_below="@+id/title_container" />
 
     <ImageView
             android:id="@+id/fingerprint_logo"
@@ -44,7 +44,8 @@
             android:layout_marginTop="32dp"
             android:background="@drawable/background_fingerprint"
             android:padding="16dp"
-            android:src="@drawable/ic_fingerprint" />
+            android:src="@drawable/ic_fingerprint"
+            android:contentDescription="@string/app_name" />
 
     <TextView
             android:id="@+id/text_status"

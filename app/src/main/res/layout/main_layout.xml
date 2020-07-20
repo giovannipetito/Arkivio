@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="false"
-        android:background="@color/dark">
+        android:background="@color/blueWave">
 
     <include layout="@layout/main_content_layout"
              android:layout_width="match_parent"
@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="end"
-            android:background="@color/dark"
+            android:background="@color/blueWave"
             android:fitsSystemWindows="true">
 
         <include layout="@layout/nav_header_main"

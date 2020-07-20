@@ -19,13 +19,13 @@ import android.telephony.TelephonyManager
 import android.text.Html
 import android.text.Spanned
 import android.util.Base64
+import android.webkit.WebSettings
+import android.webkit.WebView
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.FragmentActivity
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
+import com.squareup.picasso.Picasso
 import it.giovanni.kotlin.App.Companion.context
 import it.giovanni.kotlin.BuildConfig
 import it.giovanni.kotlin.R
@@ -37,7 +37,6 @@ import java.security.NoSuchAlgorithmException
 import java.util.*
 import java.util.concurrent.Executors
 import java.util.regex.Pattern
-import kotlin.collections.ArrayList
 import kotlin.math.min
 
 class Utils {
@@ -103,10 +102,16 @@ class Utils {
 
                             activity.runOnUiThread {
 
+                                Picasso.get()
+                                    .load(imageUrl)
+                                    .into(imageView)
+
+                                /*
                                 Glide.with(context)
                                     .load(url)
                                     .apply(RequestOptions.bitmapTransform(RoundedCorners(14)))
                                     .into(imageView)
+                                */
 
                                 imageView.setImageBitmap(bitmap)
                             }
@@ -283,17 +288,19 @@ class Utils {
             return FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider", file)
         }
 
+        /*
         fun isAutologinEnabled(): Boolean {
             return if (PermissionManager.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE))
-                isOnline() && isOnMobileConnection() && isSimIliad()
+                isOnline() && isOnMobileConnection() && isSimKena()
             else false
         }
+        */
 
         @Suppress("DEPRECATION")
         fun isOnline(): Boolean {
             var status = false
-            val cm: ConnectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            val networkInfo = cm.activeNetworkInfo
+            val manager: ConnectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val networkInfo = manager.activeNetworkInfo
             if (networkInfo != null) {
                 val state: NetworkInfo.State = networkInfo.state
                 status = NetworkInfo.State.CONNECTED == state
@@ -301,13 +308,24 @@ class Utils {
             return status
         }
 
+        /**
+         * Check if the device is connected (or connecting) to a WiFi network.
+         * @return true if connected or connecting, false otherwise.
+         */
+        @Suppress("DEPRECATION")
+        fun isOnWiFiConnection(): Boolean {
+            val manager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val networkInfo = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
+            return networkInfo != null && networkInfo.isConnectedOrConnecting
+        }
+
         @Suppress("DEPRECATION")
         fun isOnMobileConnection(): Boolean {
             var result = false
-            val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            if (cm.activeNetworkInfo != null) {
+            val manager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            if (manager.activeNetworkInfo != null) {
                 try {
-                    val networkInfo = cm.activeNetworkInfo
+                    val networkInfo = manager.activeNetworkInfo
                     if (networkInfo != null) {
                         val networkType = networkInfo.type
                         result = networkType == ConnectivityManager.TYPE_MOBILE
@@ -358,19 +376,20 @@ class Utils {
             }
         }
 
-        fun isSimIliad(): Boolean {
+        fun isSimKena(): Boolean {
             return if (PermissionManager.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE)) {
                 // Permission Granted
                 val manager: TelephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
                 val simOperator: String = manager.simOperator
 
-                simOperator.startsWith("22250")
+                simOperator.startsWith("22207")
             } else {
                 // Permission denied
                 false
             }
         }
 
+        @SuppressLint("HardwareIds")
         fun getLine1Number(): String {
             return if (PermissionManager.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE)) {
                 val manager: TelephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
@@ -382,6 +401,7 @@ class Utils {
             }
         }
 
+        @SuppressLint("HardwareIds")
         fun getSimSerialNumber(): String {
             return if (PermissionManager.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE)) {
                 val manager: TelephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
@@ -435,6 +455,45 @@ class Utils {
             } else {
                 "Permission denied"
             }
+        }
+
+        @Suppress("DEPRECATION")
+        fun setTextWebview(webview: WebView, body: String, context: Context) {
+
+            val head = "<head><style>@font-face {font-family: 'Fira';src: url('file:///android_asset/fonts/fira_medium.ttf');}body {font-family: 'Fira';}</style></head>"
+            val text = "<font color='#678AC5'>" +
+                    "<html>$head<body style=\"font-family: Fira\">$body</body></html>"
+            webview.settings.textSize = WebSettings.TextSize.NORMAL
+
+            /*
+            val fontSize = context.resources.getDimension(R.dimen.dimen_16dp)
+            webview.settings.defaultFontSize = fontSize.toInt()
+
+            webview.settings.setRenderPriority(WebSettings.RenderPriority.HIGH)
+            webview.settings.cacheMode = WebSettings.LOAD_NO_CACHE
+            webview.settings.loadsImagesAutomatically = true
+            webview.settings.setGeolocationEnabled(false)
+            webview.settings.setNeedInitialFocus(false)
+            webview.settings.setAppCacheEnabled(false)
+            webview.settings.blockNetworkImage = true
+            webview.settings.saveFormData = false
+            */
+
+            /*
+            if (Build.MODEL.startsWith("FIG-LX1")) {
+                webview.webViewClient = object : WebViewClient() {
+                    override fun shouldOverrideUrlLoading(wView: WebView?, url: String?): Boolean {
+                        val catchedUri = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                        catchedUri.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        context.startActivity(catchedUri)
+                        return true
+                    }
+                }
+            }
+            */
+            webview.setPadding(0, 0, 0, 0)
+            webview.setBackgroundColor(context.resources.getColor(R.color.colorAccent))
+            webview.loadDataWithBaseURL("", text, "text/html", "utf-8", "")
         }
     }
 }

@@ -11,7 +11,7 @@
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_50dp"
-            android:background="@color/colorPrimary">
+            android:background="@color/blueWave">
 
         <TextView
                 android:layout_width="wrap_content"
@@ -45,6 +45,8 @@
                     android:ellipsize="end"
                     android:imeOptions="actionSearch"
                     android:theme="@style/EditText1"
+                    android:autofillHints="@string/app_name"
+                    android:inputType="textPersonName"
                     style="@style/EditText2" />
 
         </RelativeLayout>
@@ -56,7 +58,8 @@
                 android:layout_centerVertical="true"
                 android:layout_toStartOf="@+id/switch_compat"
                 android:src="@drawable/ico_close"
-                android:visibility="gone"/>
+                android:contentDescription="@string/app_name"
+                android:visibility="gone" />
 
         <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switch_compat"
@@ -71,7 +74,7 @@
 
     <View android:layout_width="match_parent"
           android:layout_height="1dp"
-          android:background="@color/grey_1"/>
+          android:background="@color/grey_1" />
 
     <RelativeLayout
             android:id="@+id/flexbox_container"
@@ -98,7 +101,7 @@
 
     <View android:layout_width="match_parent"
           android:layout_height="1dp"
-          android:background="@color/grey_1"/>
+          android:background="@color/grey_1" />
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview_contacts"
@@ -117,6 +120,6 @@
             android:textAlignment="center"
             android:textColor="@color/grey_3"
             android:textSize="16sp"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
 </LinearLayout>

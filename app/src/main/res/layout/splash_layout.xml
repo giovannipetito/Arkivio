@@ -8,6 +8,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:src="@drawable/logo_audioslave_big" />
+            android:src="@drawable/logo_audioslave_big"
+            android:contentDescription="@string/app_name" />
 
 </RelativeLayout>

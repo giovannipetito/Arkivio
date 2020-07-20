@@ -44,9 +44,9 @@ class WebViewActivity: AppCompatActivity() {
         webview.settings.javaScriptCanOpenWindowsAutomatically = true
         webview.settings.useWideViewPort = true
         webview.settings.builtInZoomControls = false
-        webview.settings.builtInZoomControls = false
         webview.isVerticalScrollBarEnabled = true
         webview.isHorizontalScrollBarEnabled = true
+        webview.settings.domStorageEnabled = true
 
         webview.webChromeClient = object : WebChromeClient() {
 

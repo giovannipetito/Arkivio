@@ -16,6 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="24dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/bar" />
+            android:src="@drawable/bar"
+            android:contentDescription="@string/app_name" />
 
 </RelativeLayout>

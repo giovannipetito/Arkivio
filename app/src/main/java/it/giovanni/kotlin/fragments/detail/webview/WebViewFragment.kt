@@ -1,12 +1,17 @@
 package it.giovanni.kotlin.fragments.detail.webview
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.webkit.*
 import it.giovanni.kotlin.R
 import it.giovanni.kotlin.fragments.DetailFragment
+import it.giovanni.kotlin.utils.Utils.Companion.setTextWebview
 import kotlinx.android.synthetic.main.webview_layout.*
+
 
 class WebViewFragment : DetailFragment() {
 
@@ -14,13 +19,20 @@ class WebViewFragment : DetailFragment() {
     private var urlDriveW3B = ""
     private var urlDriveWAW3 = ""
     private var urlDeeplink = ""
-    private var genericUrl:String? = null
+    private var genericUrl: String? = null
+
+    private var message: String? = null
+
+    private val pathHtml = "file:///android_asset/cb_html/"
+    private var urlHtml = ""
 
     override fun getTitle(): Int {
 
         val linkGitHub = arguments!!.getInt("link_github")
         val linkDriveW3B = arguments!!.getInt("link_drive_w3b")
         val linkDriveWAW3 = arguments!!.getInt("link_drive_waw3")
+
+        val linkHtml = arguments!!.getInt("link_html")
 
         val noTitle = 0
 
@@ -32,6 +44,9 @@ class WebViewFragment : DetailFragment() {
         }
         if (linkDriveWAW3 != noTitle) {
             return linkDriveWAW3
+        }
+        if (linkHtml != noTitle) {
+            return linkHtml
         }
 
         return -1
@@ -71,6 +86,7 @@ class WebViewFragment : DetailFragment() {
     override fun onActionSearch(search_string: String) {
     }
 
+    @Suppress("DEPRECATION")
     @SuppressLint("SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -80,7 +96,25 @@ class WebViewFragment : DetailFragment() {
         webview.settings.javaScriptCanOpenWindowsAutomatically = true
         webview.settings.useWideViewPort = true
         webview.settings.builtInZoomControls = false
-        webview.settings.builtInZoomControls = false
+        webview.isVerticalScrollBarEnabled = true
+        webview.isHorizontalScrollBarEnabled = true
+        webview.settings.domStorageEnabled = true
+
+        webview.settings.textSize = WebSettings.TextSize.NORMAL // Definisce la size del testo del file HTML.
+
+        webview.webViewClient = object : WebViewClient() {
+            override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+                Log.i("TAG_HTML", "Url: $url") // market://details?id=it.wind.windtre
+                try {
+                    if (url.startsWith("market")) {
+                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                    } else currentActivity.onBackPressed()
+                } catch (e: Exception) {
+                    currentActivity.onBackPressed()
+                }
+                return true
+            }
+        }
 
         webview.webChromeClient = object : WebChromeClient() {
             override fun onProgressChanged(view: WebView, progress: Int) {
@@ -123,20 +157,33 @@ class WebViewFragment : DetailFragment() {
             urlDriveWAW3 = getUrl("url_drive_waw3")
             urlDeeplink = getUrl("url_deeplink")
             genericUrl = getUrl("GENERIC_URL") // from deeplink
+
+            urlHtml = getUrl("url_html")
+
+            message = arguments!!.getString("TEXT_KEY")
+            if (message != null && message!!.isNotEmpty())
+                setTextWebview(webview, message!!, context!!)
         }
 
-        when {
-            urlGitHub != "" -> {
-                webview.loadUrl(urlGitHub)
+        if (message == null) {
+            when {
+                urlGitHub != "" -> {
+                    webview.loadUrl(urlGitHub)
+                }
+                urlDriveW3B != "" -> {
+                    webview.loadUrl(urlDriveW3B)
+                }
+                urlDriveWAW3 != "" -> {
+                    webview.loadUrl(urlDriveWAW3)
+                }
+                urlDeeplink != "" -> webview.loadUrl(urlDeeplink)
+
+                urlHtml != "" -> {
+                    webview.loadUrl(pathHtml + urlHtml)
+                }
+
+                genericUrl != null -> webview.loadUrl(genericUrl)
             }
-            urlDriveW3B != "" -> {
-                webview.loadUrl(urlDriveW3B)
-            }
-            urlDriveWAW3 != "" -> {
-                webview.loadUrl(urlDriveWAW3)
-            }
-            urlDeeplink != "" -> webview.loadUrl(urlDeeplink)
-            genericUrl != null -> webview.loadUrl(genericUrl)
         }
     }
 
@@ -152,6 +199,7 @@ class WebViewFragment : DetailFragment() {
             urlDriveW3B != "" -> urlDriveW3B
             urlDriveWAW3 != "" -> urlDriveWAW3
             urlDeeplink != "" -> urlDeeplink
+            urlHtml != "" -> urlHtml
             else -> ""
         }
     }

@@ -4,26 +4,13 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingTop="24dp"
+        android:background="@drawable/background_home">
 
     <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-        <ImageView
-                android:id="@+id/logo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:src="@drawable/logo_audioslave_big"
-                android:contentDescription="@string/app_name" />
-
-        <com.github.mmin18.widget.RealtimeBlurView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:realtimeBlurRadius="20dp"
-                app:realtimeOverlayColor="@color/transparent_1" />
-        <!-- app:realtimeBlurRadius regola il livello del blur -->
 
         <RelativeLayout
                 android:id="@+id/header"

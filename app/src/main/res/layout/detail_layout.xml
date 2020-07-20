@@ -2,13 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white">
+                android:background="@color/colorAccent">
 
     <RelativeLayout
             android:id="@+id/top_bar"
             android:layout_width="match_parent"
-            android:background="@color/colorPrimary"
             android:layout_height="@dimen/dimen_56dp"
+            android:background="@drawable/background_empty"
             android:elevation="0dp">
 
         <ImageView
@@ -17,7 +17,8 @@
                 android:layout_height="@dimen/dimen_24dp"
                 android:layout_marginStart="@dimen/dimen_16dp"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ico_back_rvd" />
+                android:src="@drawable/ico_back_rvd"
+                android:contentDescription="@string/app_name" />
 
         <TextView
                 android:id="@+id/detail_title"
@@ -46,11 +47,11 @@
                 android:textColorLink="@color/white"
                 android:textColorHighlight="@color/white"
                 android:textSize="20sp"
-                style="@style/EditText3"
                 android:singleLine="true"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:visibility="gone" />
+                android:visibility="gone"
+                style="@style/EditText3" />
 
         <ImageView
                 android:id="@+id/detail_search"
@@ -59,7 +60,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/dimen_16dp"
-                android:src="@drawable/ico_search_rvd" />
+                android:src="@drawable/ico_search_rvd"
+                android:contentDescription="@string/app_name" />
 
         <ImageView
                 android:id="@+id/detail_trash"
@@ -69,7 +71,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/dimen_16dp"
                 android:src="@drawable/ico_trash_rvd"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:contentDescription="@string/app_name" />
 
         <ImageView
                 android:id="@+id/edit_icon"
@@ -79,6 +82,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ico_modify_rvd"
+                android:contentDescription="@string/app_name"
                 android:visibility="gone" />
 
         <ImageView
@@ -89,7 +93,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ico_rubrica"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:contentDescription="@string/app_name" />
 
         <TextView
                 android:id="@+id/action_label"
@@ -98,9 +103,9 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/dimen_16dp"
-                style="@style/ActionLabel"
                 android:enabled="false"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                style="@style/ActionLabel" />
 
     </RelativeLayout>
 
@@ -108,7 +113,13 @@
             android:layout_below="@+id/top_bar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white">
+            android:background="@color/colorAccent">
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:background="@drawable/shadow_bottom"
+                android:elevation="2dp" />
 
         <it.giovanni.kotlin.customview.MultiSwipeRefreshLayout
                 android:id="@+id/swipeRefreshLayout"
@@ -118,7 +129,7 @@
             <FrameLayout
                     android:id="@+id/frame_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent" />
 
         </it.giovanni.kotlin.customview.MultiSwipeRefreshLayout>
 

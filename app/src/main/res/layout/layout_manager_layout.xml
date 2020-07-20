@@ -27,7 +27,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dimen_10dp"
                             android:layout_marginBottom="@dimen/dimen_10dp"
-                            android:layout_centerHorizontal="true"/>
+                            android:layout_centerHorizontal="true" />
 
                     <it.giovanni.kotlin.customview.MultiSpinnerView
                             android:id="@+id/multi_spinner_view"
@@ -36,7 +36,7 @@
                             app:thickStrokeWidth="16dp"
                             app:thinStrokeWidth="2dp"
                             android:layout_centerHorizontal="true"
-                            android:layout_below="@+id/number_picker_1"/>
+                            android:layout_below="@+id/number_picker_1" />
 
                 </RelativeLayout>
 
@@ -121,7 +121,8 @@
                                 android:layout_alignParentStart="true"
                                 android:background="@android:color/transparent"
                                 android:src="@drawable/ico_minus"
-                                android:tint="@color/colorPrimary" />
+                                android:tint="@color/colorPrimary"
+                                android:contentDescription="@string/app_name" />
 
                         <ImageView
                                 android:id="@+id/button_plus"
@@ -131,7 +132,8 @@
                                 android:layout_alignParentEnd="true"
                                 android:background="@android:color/transparent"
                                 android:src="@drawable/ico_plus"
-                                android:tint="@color/colorPrimary" />
+                                android:tint="@color/colorPrimary"
+                                android:contentDescription="@string/app_name" />
 
                     </RelativeLayout>
 
@@ -148,10 +150,12 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.2">
 
-                    <ImageView android:id="@+id/icon_1"
-                               android:layout_width="48dp"
-                               android:layout_height="48dp"
-                               android:layout_centerHorizontal="true" />
+                    <ImageView
+                            android:id="@+id/icon_1"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_centerHorizontal="true"
+                            android:contentDescription="@string/app_name" />
 
                 </RelativeLayout>
 
@@ -159,10 +163,12 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.2">
 
-                    <ImageView android:id="@+id/icon_2"
-                               android:layout_width="48dp"
-                               android:layout_height="48dp"
-                               android:layout_centerHorizontal="true" />
+                    <ImageView
+                            android:id="@+id/icon_2"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_centerHorizontal="true"
+                            android:contentDescription="@string/app_name" />
 
                 </RelativeLayout>
 
@@ -170,10 +176,12 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.2">
 
-                    <ImageView android:id="@+id/icon_3"
-                               android:layout_width="48dp"
-                               android:layout_height="48dp"
-                               android:layout_centerHorizontal="true" />
+                    <ImageView
+                            android:id="@+id/icon_3"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_centerHorizontal="true"
+                            android:contentDescription="@string/app_name" />
 
                 </RelativeLayout>
 
@@ -181,10 +189,12 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.2">
 
-                    <ImageView android:id="@+id/icon_4"
-                               android:layout_width="48dp"
-                               android:layout_height="48dp"
-                               android:layout_centerHorizontal="true" />
+                    <ImageView
+                            android:id="@+id/icon_4"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_centerHorizontal="true"
+                            android:contentDescription="@string/app_name" />
 
                 </RelativeLayout>
 
@@ -192,10 +202,12 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.2">
 
-                    <ImageView android:id="@+id/icon_5"
-                               android:layout_width="48dp"
-                               android:layout_height="48dp"
-                               android:layout_centerHorizontal="true" />
+                    <ImageView
+                            android:id="@+id/icon_5"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_centerHorizontal="true"
+                            android:contentDescription="@string/app_name" />
 
                 </RelativeLayout>
 
@@ -216,7 +228,9 @@
                         android:layout_marginBottom="4dp"
                         android:hint="Inserisci la tua Email..."
                         android:gravity="top"
-                        android:background="@drawable/edittext_background"/>
+                        android:background="@drawable/edittext_background"
+                        android:inputType="textEmailAddress"
+                        android:autofillHints="@string/app_name" />
 
             </RelativeLayout>
 

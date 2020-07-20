@@ -29,7 +29,8 @@
                     android:layout_marginStart="9dp"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ico_add_floating_button"
-                    android:tint="@color/dark" />
+                    android:tint="@color/dark"
+                    android:contentDescription="@string/app_name" />
             <!-- ico_chat_plus (e eliminare android:tint="@color/dark") -->
 
             <RelativeLayout
@@ -62,7 +63,8 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_alignParentEnd="true"
-                        android:background="@drawable/ico_close_menu" />
+                        android:background="@drawable/ico_close_menu"
+                        android:contentDescription="@string/app_name" />
                 <!-- ico_chat_next_disabled -->
 
             </RelativeLayout>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+    <LinearLayout
+            android:id="@+id/message_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+        <EditText
+                android:id="@+id/edittext_message"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="16dp"
+                android:hint="@string/message"
+                android:inputType="textPersonName"
+                android:autofillHints="@string/app_name"
+                style="@style/EditText1" />
+
+        <Button
+                android:id="@+id/button_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/popup_button_send"
+                style="@style/CustomButton" />
+
+    </LinearLayout>
+
+    <TextView
+            android:id="@+id/debug_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="6dp"
+            android:paddingEnd="0dp"
+            android:layout_below="@+id/message_container"
+            android:textColor="@color/white"
+            android:background="@color/verde_1"
+            android:fadeScrollbars="false"
+            android:gravity="bottom"
+            android:lines="20"
+            android:maxLines="20"
+            android:scrollbars="vertical" />
+
+    <LinearLayout
+            android:id="@+id/buttons_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+        <Button
+                android:id="@+id/button_advertise"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_marginEnd="8dp"
+                android:text="@string/button_advertise"
+                style="@style/CustomButton" />
+
+        <Button
+                android:id="@+id/button_discover"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_marginStart="8dp"
+                android:text="@string/button_discover"
+                style="@style/CustomButton" />
+
+    </LinearLayout>
+
+</RelativeLayout>

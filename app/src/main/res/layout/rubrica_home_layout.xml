@@ -25,7 +25,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/ico_users" />
+                    android:src="@drawable/ico_users"
+                    android:contentDescription="@string/app_name" />
 
         </RelativeLayout>
 

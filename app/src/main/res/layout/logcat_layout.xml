@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="@color/colorAccent">
 
     <com.google.android.material.tabs.TabLayout
             android:id="@+id/working_area_tabs"
             android:layout_width="match_parent"
             android:layout_height="44dp"
-            android:background="@color/colorPrimary"
+            android:background="@color/blueWave"
             app:tabSelectedTextColor="@android:color/white"
             app:tabTextAppearance="@style/TabTextStyle"
             app:tabTextColor="@color/white_transparent"
@@ -20,12 +18,19 @@
             app:tabMode="fixed" />
             <!-- app:tabContentStart="10dp" -->
 
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:layout_below="@+id/working_area_tabs"
+            android:background="@drawable/shadow_bottom" />
+
     <androidx.viewpager.widget.ViewPager
             android:id="@+id/working_area_viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@+id/working_area_tabs"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     </androidx.viewpager.widget.ViewPager>
 
-</LinearLayout>
+</RelativeLayout>

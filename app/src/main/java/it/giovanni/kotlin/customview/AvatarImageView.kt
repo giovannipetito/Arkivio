@@ -7,12 +7,13 @@ import android.graphics.Paint
 import android.os.Build
 import android.util.AttributeSet
 import android.view.ViewTreeObserver
-import android.widget.ImageView
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import it.giovanni.kotlin.utils.Utils
 import it.giovanni.kotlin.R
 
-class AvatarImageView(context: Context, attrs: AttributeSet) : ImageView(context, attrs) {
+class AvatarImageView(context: Context, attrs: AttributeSet) : AppCompatImageView(context, attrs) {
+
     private val drawPaint: Paint
     private var size: Float = 0.toFloat()
     private var sWidth: Float = 0.toFloat()

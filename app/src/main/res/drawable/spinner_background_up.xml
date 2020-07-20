@@ -22,7 +22,7 @@
             <item>
                 <bitmap
                         android:gravity="center|end"
-                        android:src="@drawable/ico_arrow_up"/>
+                        android:src="@drawable/ico_arrow_up"  />
             </item>
         </layer-list>
     </item>

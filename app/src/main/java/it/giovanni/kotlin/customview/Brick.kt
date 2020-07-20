@@ -17,16 +17,16 @@ class Brick : RelativeLayout {
         VIEW
     }
 
+    private var callback: IFlexBoxCallback? = null
     private var mode: ModeType = ModeType.VIEW
     private var mInflater: LayoutInflater? = null
     private var employeeName: TextView? = null
     private var employeeEmail: TextView? = null
-    var container: RelativeLayout? = null
+    private var container: RelativeLayout? = null
     private var icon: ImageView? = null
     private var isSelected: Boolean? = null
-    var position: Int = -1
-    var callback: IFlexBoxCallback? = null
-    var visible: Boolean = true
+    private var position: Int = -1
+    private var visible: Boolean = true
 
     constructor(context: Context) : super(context) {
         mInflater = LayoutInflater.from(context)
@@ -44,12 +44,12 @@ class Brick : RelativeLayout {
     }
 
     private fun init() {
-        val v = mInflater?.inflate(R.layout.brick, this, true)
-        if (v != null) {
-            employeeName = v.findViewById(R.id.partecipante) as TextView
-            employeeEmail = v.findViewById(R.id.emailPartecipante) as TextView
-            container = v.findViewById(R.id.container) as RelativeLayout
-            icon = v.findViewById(R.id.icon) as ImageView
+        val view = mInflater?.inflate(R.layout.brick, this, true)
+        if (view != null) {
+            employeeName = view.findViewById(R.id.partecipante) as TextView
+            employeeEmail = view.findViewById(R.id.emailPartecipante) as TextView
+            container = view.findViewById(R.id.container) as RelativeLayout
+            icon = view.findViewById(R.id.icon) as ImageView
         }
         isSelected = false
     }

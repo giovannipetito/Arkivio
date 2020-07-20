@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <title>WindTre</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="title" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="owner" content="">
+    <meta name="language" content="it">
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:300,400m600">
+    <link rel="stylesheet" href="res/css/wta.min.css">
+</head>
+
+<body>
+<div class="wta windtre">
+    <main class="bg clearfix">
+        <div class="box_Container">
+            <div class="box_Text">
+                Per la tua offerta è disponibile<br/>
+                la nuova app WINDTRE.
+            </div>
+            <div class="box_Button">
+                <a href="https://play.google.com/store/apps/details?id=it.wind.myWind&hl=it" class="btn">SCARICA ORA</a>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>

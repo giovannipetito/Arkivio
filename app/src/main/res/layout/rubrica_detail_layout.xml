@@ -2,8 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
+        android:layout_height="match_parent">
 
     <LinearLayout android:layout_width="match_parent"
                   android:layout_height="match_parent"
@@ -19,7 +18,8 @@
                     android:id="@+id/ico_profile"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:src="@drawable/ico_profile"/>
+                    android:src="@drawable/ico_profile"
+                    android:contentDescription="@string/app_name" />
 
             <RelativeLayout
                     android:layout_width="match_parent"
@@ -35,7 +35,7 @@
                         android:textColor="@color/dark"
                         android:text="Giovanni Petito"
                         android:ellipsize="end"
-                        android:maxLines="1"/>
+                        android:maxLines="1" />
 
             </RelativeLayout>
 
@@ -93,7 +93,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
                                 android:background="@color/grey_1"
-                                android:layout_alignParentBottom="true"/>
+                                android:layout_alignParentBottom="true" />
 
                     </RelativeLayout>
 
@@ -136,7 +136,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
                                 android:background="@color/grey_1"
-                                android:layout_alignParentBottom="true"/>
+                                android:layout_alignParentBottom="true" />
 
                     </RelativeLayout>
 
@@ -173,13 +173,13 @@
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="16sp"
                                 android:ellipsize="end"
-                                android:maxLines="2"/>
+                                android:maxLines="2" />
 
                         <View
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
                                 android:background="@color/grey_1"
-                                android:layout_alignParentBottom="true"/>
+                                android:layout_alignParentBottom="true" />
 
                     </RelativeLayout>
 
@@ -222,7 +222,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
                                 android:background="@color/grey_1"
-                                android:layout_alignParentBottom="true"/>
+                                android:layout_alignParentBottom="true" />
 
                     </RelativeLayout>
 
@@ -265,7 +265,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
                                 android:background="@color/grey_1"
-                                android:layout_alignParentBottom="true"/>
+                                android:layout_alignParentBottom="true" />
 
                     </RelativeLayout>
 

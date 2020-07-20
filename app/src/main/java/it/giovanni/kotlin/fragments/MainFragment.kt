@@ -25,6 +25,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager.widget.ViewPager
+import it.giovanni.kotlin.App
 import it.giovanni.kotlin.BuildConfig
 import it.giovanni.kotlin.R
 import it.giovanni.kotlin.activities.MainActivity
@@ -75,6 +76,8 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
+
+        setStatusBarColor()
 
         hideProgressDialog() // TODO: Questo l'ho messo io qui.
 
@@ -202,11 +205,11 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
                     val xTranslation = xOffset - xOffsetDiff
                     container.translationX = - xTranslation
                 }
-                currentActivity.window.statusBarColor = ContextCompat.getColor(context!!, R.color.dark)
+                currentActivity.window.statusBarColor = ContextCompat.getColor(context!!, R.color.blueWave)
             }
 
             override fun onDrawerClosed(drawerView: View) {
-                currentActivity.window.statusBarColor = ContextCompat.getColor(context!!, R.color.colorPrimary)
+                setStatusBarColor()
                 tab_menu.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ico_bottom_menu))
             }
         })
@@ -356,6 +359,7 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
 
         background_bottom_bar.x = -(delta * 2)
         tab_home.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ico_bottom_home_rvd))
+        // tab_home.setColorFilter(ContextCompat.getColor(context!!, R.color.blueWave), android.graphics.PorterDuff.Mode.SRC_IN)
         defaultX = (tab_home.width).toFloat()
     }
 
@@ -500,6 +504,13 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
                 (fragmentAdapter.getItem(1) as IDataRefresh).refresh()
             }
         }
+    }
+
+    private fun setStatusBarColor() {
+        // currentActivity.window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        currentActivity.window.statusBarColor = ContextCompat.getColor(App.context, android.R.color.transparent)
+        // currentActivity.window.navigationBarColor = currentActivity.resources.getColor(android.R.color.transparent)
+        currentActivity.window.setBackgroundDrawable(ContextCompat.getDrawable(App.context, R.drawable.background_empty))
     }
 
     private fun getGPSCoordinates() {

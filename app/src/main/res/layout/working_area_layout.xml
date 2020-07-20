@@ -4,7 +4,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary">
+        android:paddingTop="24dp"
+        android:paddingBottom="56dp">
 
     <ScrollView
             android:layout_width="match_parent"
@@ -217,6 +218,42 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:text="@string/fonts_title"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textAlignment="center" />
+
+            <View android:layout_width="120dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/white"
+                    android:layout_gravity="center"
+                    android:alpha=".4" />
+
+            <TextView
+                    android:id="@+id/label_notification"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/notification_title"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textAlignment="center" />
+
+            <View android:layout_width="120dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/white"
+                    android:layout_gravity="center"
+                    android:alpha=".4" />
+
+            <TextView
+                    android:id="@+id/label_nearby"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/nearby_title"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textAlignment="center" />

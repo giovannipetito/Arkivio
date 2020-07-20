@@ -21,25 +21,37 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import it.giovanni.kotlin.App
+import it.giovanni.kotlin.*
 import it.giovanni.kotlin.App.Companion.context
-import it.giovanni.kotlin.LocalNotificationService
-import it.giovanni.kotlin.R
 import it.giovanni.kotlin.deeplink.DeepLinkDescriptor
 import it.giovanni.kotlin.fragments.*
-import it.giovanni.kotlin.fragments.detail.*
+import it.giovanni.kotlin.fragments.detail.cardio.CardIOFragment
+import it.giovanni.kotlin.fragments.detail.datemanager.DateManagerFragment
+import it.giovanni.kotlin.fragments.detail.fonts.FontsFragment
+import it.giovanni.kotlin.fragments.detail.layoutmanager.LayoutManagerFragment
+import it.giovanni.kotlin.fragments.detail.logcat.LogcatFragment
 import it.giovanni.kotlin.fragments.detail.preference.PreferenceFragment
 import it.giovanni.kotlin.fragments.detail.preference.PreferenceListFragment
 import it.giovanni.kotlin.fragments.detail.rubrica.RubricaDetailFragment
 import it.giovanni.kotlin.fragments.detail.rubrica.RubricaHomeFragment
 import it.giovanni.kotlin.fragments.detail.rubrica.RubricaListFragment
 import it.giovanni.kotlin.fragments.detail.webview.WebViewFragment
+import it.giovanni.kotlin.fragments.detail.nearby.NearbyFragment
+import it.giovanni.kotlin.fragments.detail.nearby.beacons.NearbyBeaconsFragment
+import it.giovanni.kotlin.fragments.detail.nearby.chat.NearbyChatFragment
+import it.giovanni.kotlin.fragments.detail.nearby.game.NearbyGameFragment
+import it.giovanni.kotlin.fragments.detail.nearby.search.NearbySearchFragment
+import it.giovanni.kotlin.fragments.detail.notification.NotificationFragment
+import it.giovanni.kotlin.fragments.detail.oauth.OAuthFragment
+import it.giovanni.kotlin.fragments.detail.permissions.PermissionsFragment
+import it.giovanni.kotlin.fragments.detail.stickyheader.StickyHeaderFragment
+import it.giovanni.kotlin.fragments.detail.youtube.YouTubeFragment
 import it.giovanni.kotlin.utils.Globals
 import it.giovanni.kotlin.utils.UserFactory
 import it.giovanni.kotlin.utils.Utils
 import it.giovanni.kotlin.utils.Utils.Companion.isOnline
 import it.giovanni.kotlin.viewinterfaces.IProgressLoader
-import it.giovanni.kotlin.youtube.search.SearchVideoFragment
+import it.giovanni.kotlin.fragments.detail.youtube.search.SearchVideoFragment
 import java.util.*
 
 class MainActivity : GPSActivity(), IProgressLoader {
@@ -108,7 +120,8 @@ class MainActivity : GPSActivity(), IProgressLoader {
                             .beginTransaction()
                             .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
                             .replace(R.id.frame_container, MainFragment(), MAIN_FRAGMENT)
-                            .commit()
+                            .commitAllowingStateLoss()
+                            // .commit()
                     }, SPLASH_DISPLAY_TIME)
                 } else
                     Toast.makeText(context,"Errore di connessione", Toast.LENGTH_LONG).show()
@@ -130,10 +143,6 @@ class MainActivity : GPSActivity(), IProgressLoader {
                 deepLinkEvent = DeepLinkDescriptor()
                 deepLinkEvent!!.deeplink = uri
             }
-        }
-
-        Intent(this, LocalNotificationService::class.java).also { intent ->
-            startService(intent)
         }
     }
 
@@ -317,10 +326,12 @@ class MainActivity : GPSActivity(), IProgressLoader {
         when (detailType) {
 
             Globals.LOGCAT_PROJECTS -> {
-                baseFragment = LogcatFragment()
+                baseFragment =
+                    LogcatFragment()
             }
             Globals.DATE_MANAGER -> {
-                baseFragment = DateManagerFragment()
+                baseFragment =
+                    DateManagerFragment()
             }
             Globals.RUBRICA_HOME -> {
                 baseFragment = RubricaHomeFragment()
@@ -335,13 +346,16 @@ class MainActivity : GPSActivity(), IProgressLoader {
                 baseFragment = WebViewFragment()
             }
             Globals.PERMISSIONS -> {
-                baseFragment = PermissionsFragment()
+                baseFragment =
+                    PermissionsFragment()
             }
             Globals.OAUTH_2 -> {
-                baseFragment = OAuthFragment()
+                baseFragment =
+                    OAuthFragment()
             }
             Globals.LAYOUT_MANAGER -> {
-                baseFragment = LayoutManagerFragment()
+                baseFragment =
+                    LayoutManagerFragment()
             }
             Globals.DIALOG_FLOW -> {
                 baseFragment = DialogFlowFragment()
@@ -353,22 +367,45 @@ class MainActivity : GPSActivity(), IProgressLoader {
                 baseFragment = PreferenceListFragment()
             }
             Globals.STICKY_HEADER -> {
-                baseFragment = StickyHeaderFragment()
+                baseFragment =
+                    StickyHeaderFragment()
             }
             Globals.STICKY_HEADER -> {
-                baseFragment = StickyHeaderFragment()
+                baseFragment =
+                    StickyHeaderFragment()
             }
             Globals.CARD_IO -> {
-                baseFragment = CardIOFragment()
+                baseFragment =
+                    CardIOFragment()
             }
             Globals.YOUTUBE_MANAGER -> {
-                baseFragment = YouTubeManagerFragment()
+                baseFragment =
+                    YouTubeFragment()
             }
             Globals.SEARCH_VIDEO -> {
                 baseFragment = SearchVideoFragment()
             }
             Globals.FONTS -> {
-                baseFragment = FontsFragment()
+                baseFragment =
+                    FontsFragment()
+            }
+            Globals.NOTIFICATION -> {
+                baseFragment = NotificationFragment()
+            }
+            Globals.NEARBY -> {
+                baseFragment = NearbyFragment()
+            }
+            Globals.NEARBY_SEARCH -> {
+                baseFragment = NearbySearchFragment()
+            }
+            Globals.NEARBY_CHAT -> {
+                baseFragment = NearbyChatFragment()
+            }
+            Globals.NEARBY_GAME -> {
+                baseFragment = NearbyGameFragment()
+            }
+            Globals.NEARBY_BEACONS -> {
+                baseFragment = NearbyBeaconsFragment()
             }
         }
 
@@ -419,7 +456,7 @@ class MainActivity : GPSActivity(), IProgressLoader {
         } else if (supportFragmentManager.findFragmentById(frameLayout.id) is BaseFragment &&
             baseFragment.getSectionType() == BaseFragment.SectionType.DIALOG_FLOW) {
             dialogFlowFragmentTransition(baseFragment)
-            window.statusBarColor = ContextCompat.getColor(context, R.color.colorPrimary)
+            setStatusBarColor()
         } else
             super.onBackPressed()
     }
@@ -477,10 +514,13 @@ class MainActivity : GPSActivity(), IProgressLoader {
                     openDeepLink(deepLinkEvent!!.deeplink!!)
                     clearDeepLinkEvent()
                 }
-            } else {
-                // do nothing
             }
         }
+    }
+
+    private fun setStatusBarColor() {
+        window.statusBarColor = ContextCompat.getColor(context, android.R.color.transparent)
+        window.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.background_empty))
     }
 
     fun checkDeepLinkEvent(): Boolean {

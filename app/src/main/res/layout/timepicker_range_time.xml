@@ -24,7 +24,7 @@
                     android:layout_marginStart="37dp"
                     android:text="Dalle"
                     android:textColor="@color/white"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp" />
 
             <TextView
                     android:id="@+id/start_time_value"
@@ -34,7 +34,7 @@
                     android:layout_marginStart="34dp"
                     android:text="12:00"
                     android:textColor="@color/white"
-                    android:textSize="50sp"/>
+                    android:textSize="50sp" />
 
             <TextView
                     android:id="@+id/inizio"
@@ -70,7 +70,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_marginTop="55dp"
-                    android:src="@drawable/ico_from_to_rvd"/>
+                    android:src="@drawable/ico_from_to_rvd"
+                    android:contentDescription="@string/app_name" />
 
             <TextView
                     android:layout_width="wrap_content"
@@ -79,7 +80,7 @@
                     android:layout_marginStart="37dp"
                     android:text="Alle"
                     android:textColor="@color/white"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp" />
 
             <TextView
                     android:id="@+id/end_time_value"
@@ -89,7 +90,7 @@
                     android:layout_marginStart="34dp"
                     android:text="13:00"
                     android:textColor="@color/white"
-                    android:textSize="50sp"/>
+                    android:textSize="50sp" />
 
             <TextView
                     android:id="@+id/fine"

@@ -1,13 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/side_nav_bar"
         android:gravity="top"
         android:orientation="vertical"
         android:paddingTop="16dp"
-        android:paddingBottom="16dp"
+        android:paddingBottom="8dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/logo_audioslave_big"
+            android:contentDescription="@string/app_name" />
+
+    <com.github.mmin18.widget.RealtimeBlurView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:realtimeBlurRadius="10dp"
+            app:realtimeOverlayColor="@color/transparent_1" />
+    <!-- app:realtimeBlurRadius regola il livello del blur -->
 
     <LinearLayout
             android:id="@+id/profile_container"
@@ -22,7 +37,8 @@
                 android:id="@+id/nav_header_avatar"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@drawable/ico_avatar" />
+                android:src="@drawable/ico_avatar"
+                android:contentDescription="@string/app_name" />
 
         <RelativeLayout
                 android:layout_width="match_parent"
@@ -92,7 +108,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="(Version Code)"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white" />
 
         </LinearLayout>
 
@@ -124,7 +140,9 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/ico_menu_configuration" />
+                        android:src="@drawable/ico_menu_configuration"
+                        android:tint="@color/white"
+                        android:contentDescription="@string/app_name" />
 
                 <TextView
                         android:layout_width="match_parent"
@@ -148,7 +166,9 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/ico_rate" />
+                        android:src="@drawable/ico_feedback"
+                        android:tint="@color/white"
+                        android:contentDescription="@string/app_name" />
 
                 <TextView
                         android:layout_width="match_parent"
@@ -174,7 +194,9 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/ico__menu_logout" />
+                        android:src="@drawable/ico_menu_logout"
+                        android:tint="@color/white"
+                        android:contentDescription="@string/app_name" />
 
                 <TextView
                         android:layout_width="match_parent"

@@ -14,11 +14,9 @@ import android.widget.RelativeLayout
 import it.giovanni.kotlin.R
 import kotlinx.android.synthetic.main.input_text.view.*
 
-class LoginInputText @JvmOverloads constructor(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defStyle: Int = 0
-) : LinearLayout(context, attrs, defStyle) {
+class LoginInputText @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0)
+
+    : LinearLayout(context, attrs, defStyle) {
 
     init {
         var passwordHidden = true
@@ -41,39 +39,40 @@ class LoginInputText @JvmOverloads constructor(
 
             label.text = title
             image.setImageDrawable(icon)
-            inputtext.hint = hint
+            input_text.hint = hint
             when (texttype) {
                 "text" -> {
-                    inputtext.inputType = InputType.TYPE_CLASS_TEXT
+                    input_text.inputType = InputType.TYPE_CLASS_TEXT
                     dominio_windtre.visibility = View.VISIBLE
                     val params = RelativeLayout.LayoutParams(
                         LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
                     params.addRule(RelativeLayout.LEFT_OF, dominio_windtre.id)
                     params.addRule(RelativeLayout.RIGHT_OF, image.id)
-                    inputtext.layoutParams = params
+                    input_text.layoutParams = params
                 }
                 "password" -> {
-                    inputtext.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-                    inputtext.typeface = Typeface.DEFAULT
+                    input_text.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                    val firaRegular = Typeface.createFromAsset(context.assets, "fonts/fira_regular.ttf")
+                    // inputtext.typeface = Typeface.DEFAULT
+                    input_text.typeface = firaRegular
                     show_hide_password.visibility = View.VISIBLE
                     show_hide_password.setOnClickListener {
                         passwordHidden = !passwordHidden
                         if (passwordHidden) {
                             show_hide_password.setImageResource(R.drawable.ico_show_password)
-                            inputtext.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
-                            inputtext.transformationMethod = PasswordTransformationMethod()
+                            input_text.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+                            input_text.transformationMethod = PasswordTransformationMethod()
                         }else {
                             show_hide_password.setImageResource(R.drawable.ico_hide_password)
-                            inputtext.inputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
-                            inputtext.transformationMethod = SingleLineTransformationMethod()
+                            input_text.inputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
+                            input_text.transformationMethod = SingleLineTransformationMethod()
                         }
-                        // inputtext.typeface = Typeface.DEFAULT
-                        inputtext.setSelection(inputtext.text.length)
+                        input_text.setSelection(input_text.text.length)
                     }
                     val params = RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
                     params.addRule(RelativeLayout.LEFT_OF, show_hide_password.id)
                     params.addRule(RelativeLayout.RIGHT_OF, image.id)
-                    inputtext.layoutParams = params
+                    input_text.layoutParams = params
                 }
             }
 
@@ -82,14 +81,16 @@ class LoginInputText @JvmOverloads constructor(
     }
 
     fun getText(): String {
-        return inputtext.text.toString()
+        return input_text.text.toString()
     }
 
+    /*
     fun setInputText(value: String) {
-        inputtext.setText(value)
+        input_text.setText(value)
     }
+    */
 
     fun getInputText(): EditText {
-        return inputtext
+        return input_text
     }
 }

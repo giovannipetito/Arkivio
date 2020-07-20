@@ -13,6 +13,6 @@
             android:orientation="vertical"
             android:textAlignment="center"
             android:textSize="16sp"
-            android:textColor="@color/colorPrimary"/>
+            android:textColor="@color/colorPrimary" />
 
 </RelativeLayout>

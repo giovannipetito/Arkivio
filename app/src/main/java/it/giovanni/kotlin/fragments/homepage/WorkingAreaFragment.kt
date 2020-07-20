@@ -71,5 +71,11 @@ class WorkingAreaFragment : HomeFragment() {
         label_fonts.setOnClickListener {
             currentActivity.openDetail(Globals.FONTS, null)
         }
+        label_notification.setOnClickListener {
+            currentActivity.openDetail(Globals.NOTIFICATION, null)
+        }
+        label_nearby.setOnClickListener {
+            currentActivity.openDetail(Globals.NEARBY, null)
+        }
     }
 }

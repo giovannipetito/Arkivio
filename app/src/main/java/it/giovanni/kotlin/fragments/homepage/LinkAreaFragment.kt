@@ -20,6 +20,7 @@ class LinkAreaFragment : HomeFragment() {
     private var bundleWAW3: Bundle = Bundle()
     private var bundleGitHub: Bundle = Bundle()
     private var bundleVideo: Bundle = Bundle()
+    private var bundleHtml: Bundle = Bundle()
 
     override fun getLayout(): Int {
         return R.layout.link_area_layout
@@ -51,6 +52,9 @@ class LinkAreaFragment : HomeFragment() {
 
         bundleVideo.putString("link_video", resources.getString(R.string.link_video))
         bundleVideo.putString("url_video", resources.getString(R.string.url_video))
+
+        bundleHtml.putInt("link_html", R.string.link_html)
+        bundleHtml.putString("url_html", resources.getString(R.string.url_html))
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -104,5 +108,37 @@ class LinkAreaFragment : HomeFragment() {
             // startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle())
             // Nota: ActivityOptions.makeSceneTransitionAnimation(activity).toBundle() crea un effetto dissolvenza.
         }
+
+        label_webview_text.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("TEXT_KEY", message())
+            currentActivity.openDetail(Globals.WEB_VIEW, bundle)
+        }
+
+        label_webview_html.setOnClickListener {
+            currentActivity.openDetail(Globals.WEB_VIEW, bundleHtml)
+        }
+    }
+
+    private fun message(): String {
+        return "Steve Jobs" +
+                "<br>" +
+                "<br>" +
+                "Ma era comunque una cosa straordinaria, soprattutto per un ragazzino di dieci anni, " +
+                "poter scrivere un programma diciamo in BASIC o Fortran, e questa macchina prendeva " +
+                "la tua idea, in qualche modo la realizzava e ti restituiva un risultato. E se il " +
+                "risultato era quello che avevi previsto allora il tuo programma funzionava davvero. " +
+                "Ma l’aspetto più importante non aveva niente a che fare con la pratica. Aveva a che " +
+                "fare con la possibilità di veder rispecchiati i processi del pensiero. Imparare a " +
+                "pensare. Credo sia la più alta forma di apprendimento. La programmazione informatica " +
+                "insegna a pensare in modo leggermente differente. Ecco perché considero l’informatica " +
+                "come una libera arte. Tutti dovrebbero impararla." +
+                "</p><p>&nbsp;" +
+                "<center>" +
+                "<a href=\"https://www.w3schools.com\">" +
+                "<img src=\"https://static.windtrebusiness.it/mosaicow3b/static/configuration/ico_rubrica.png\" alt=\"W3Schools.com\" width=\"48\" height=\"48\">" +
+                "</a>" +
+                "</center>" +
+                "</p>"
     }
 }

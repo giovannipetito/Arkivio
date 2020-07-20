@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+    <title>WindTre</title>
+    <meta name="title" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="owner" content="">
+    <meta name="language" content="it">
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+    <link rel="stylesheet" href="res/css/wta.min.css">
+</head>
+<body>
+<div class="wta veon">
+    <main class="bg clearfix">
+        <div class="box_Container">
+            <div class="box_Text">
+                Ricevi assistenza 24 ore su 24<br/>
+                grazie ai Servizi Clienti<br/>
+                via chat sempre attivo.
+            </div>
+            <div class="box_Button">
+                <a href="market://details?id=com.vimpelcom.veon" class="btn">Scarica ora</a>
+            </div>
+            <div class="txt_Continue">
+                Continua su <a href="finish://">Wind Tre Business</a>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>

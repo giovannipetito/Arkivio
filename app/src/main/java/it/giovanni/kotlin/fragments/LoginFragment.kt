@@ -52,7 +52,7 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        currentActivity.window.statusBarColor = ContextCompat.getColor(context!!, R.color.colorPrimary)
+        currentActivity.window.statusBarColor = ContextCompat.getColor(context!!, R.color.blueWave)
         action = Action.NONE
 
         preferences = PreferenceManager.getDefaultSharedPreferences(context)

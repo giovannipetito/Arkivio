@@ -66,8 +66,10 @@
             android:layout_width="48dp"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
+            android:hint=""
             android:inputType="number"
             android:textAlignment="center"
+            android:autofillHints="@string/app_name"
             style="@style/EditText3" />
 
     <TextView

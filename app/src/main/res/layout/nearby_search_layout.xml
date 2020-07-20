@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/nearby_search_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:clickable="true"
+        android:focusable="true">
+
+    <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/subscribe_switch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/discover_nearby_devices"
+            android:textColor="@color/dark"
+            android:theme="@style/SwitchCompatTheme" />
+
+    <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/publish_switch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/share_device_information"
+            android:textColor="@color/dark"
+            android:theme="@style/SwitchCompatDarkTheme" />
+
+    <ListView
+            android:id="@+id/nearby_devices_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:transcriptMode="alwaysScroll" />
+
+</LinearLayout>

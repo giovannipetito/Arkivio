@@ -2,7 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary">
+        android:paddingTop="24dp"
+        android:paddingBottom="56dp">
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -15,15 +16,16 @@
                 android:text="@string/link_area_title"
                 android:textSize="21sp"
                 android:textColor="@color/white"
-                android:textAlignment="center"/>
+                android:textAlignment="center" />
 
-        <View android:layout_width="120dp"
+        <View
+                android:layout_width="120dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="16dp"
                 android:background="@color/white"
                 android:layout_gravity="center"
-                android:alpha=".4"/>
+                android:alpha=".4" />
 
         <TextView
                 android:layout_width="match_parent"
@@ -32,7 +34,7 @@
                 android:text="@string/static_links_title"
                 android:textSize="21sp"
                 android:textColor="@color/white"
-                android:textAlignment="center"/>
+                android:textAlignment="center" />
 
         <View android:layout_width="120dp"
               android:layout_height="1dp"
@@ -40,7 +42,7 @@
               android:layout_marginBottom="16dp"
               android:background="@color/white"
               android:layout_gravity="center"
-              android:alpha=".4"/>
+              android:alpha=".4" />
 
         <TextView
                 android:id="@+id/label_webview_drive_w3b"
@@ -50,15 +52,16 @@
                 android:text="@string/webview_drive_w3b_title"
                 android:textSize="16sp"
                 android:textColor="@color/white"
-                android:textAlignment="center"/>
+                android:textAlignment="center" />
 
-        <View android:layout_width="120dp"
+        <View
+                android:layout_width="120dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:background="@color/white"
                 android:layout_gravity="center"
-                android:alpha=".4"/>
+                android:alpha=".4" />
 
         <TextView
                 android:id="@+id/label_link_drive_waw3"
@@ -68,15 +71,16 @@
                 android:text="@string/link_drive_waw3_title"
                 android:textSize="16sp"
                 android:textColor="@color/white"
-                android:textAlignment="center"/>
+                android:textAlignment="center" />
 
-        <View android:layout_width="120dp"
+        <View
+                android:layout_width="120dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:background="@color/white"
                 android:layout_gravity="center"
-                android:alpha=".4"/>
+                android:alpha=".4" />
 
         <TextView
                 android:id="@+id/label_browser_github"
@@ -86,15 +90,16 @@
                 android:text="@string/browser_github_title"
                 android:textSize="16sp"
                 android:textColor="@color/white"
-                android:textAlignment="center"/>
+                android:textAlignment="center" />
 
-        <View android:layout_width="120dp"
+        <View
+                android:layout_width="120dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:background="@color/white"
                 android:layout_gravity="center"
-                android:alpha=".4"/>
+                android:alpha=".4" />
 
         <TextView
                 android:id="@+id/label_webview_github"
@@ -104,15 +109,16 @@
                 android:text="@string/webview_github_title"
                 android:textSize="16sp"
                 android:textColor="@color/white"
-                android:textAlignment="center"/>
+                android:textAlignment="center" />
 
-        <View android:layout_width="120dp"
+        <View
+                android:layout_width="120dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:background="@color/white"
                 android:layout_gravity="center"
-                android:alpha=".4"/>
+                android:alpha=".4" />
 
         <TextView
                 android:id="@+id/label_link_app"
@@ -122,15 +128,16 @@
                 android:text="@string/link_app_title"
                 android:textSize="16sp"
                 android:textColor="@color/white"
-                android:textAlignment="center"/>
+                android:textAlignment="center" />
 
-        <View android:layout_width="120dp"
+        <View
+                android:layout_width="120dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:background="@color/white"
                 android:layout_gravity="center"
-                android:alpha=".4"/>
+                android:alpha=".4" />
 
         <TextView
                 android:id="@+id/label_link_test"
@@ -140,15 +147,16 @@
                 android:text="@string/link_test_title"
                 android:textSize="16sp"
                 android:textColor="@color/white"
-                android:textAlignment="center"/>
+                android:textAlignment="center" />
 
-        <View android:layout_width="120dp"
+        <View
+                android:layout_width="120dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:background="@color/white"
                 android:layout_gravity="center"
-                android:alpha=".4"/>
+                android:alpha=".4" />
 
         <TextView
                 android:autoLink="web"
@@ -161,13 +169,14 @@
                 android:textColor="@color/white"
                 android:textAlignment="center" />
 
-        <View android:layout_width="120dp"
+        <View
+                android:layout_width="120dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:background="@color/white"
                 android:layout_gravity="center"
-                android:alpha=".4"/>
+                android:alpha=".4" />
 
         <TextView
                 android:id="@+id/label_webview_video_player"
@@ -177,15 +186,54 @@
                 android:text="@string/webview_video_player_title"
                 android:textSize="16sp"
                 android:textColor="@color/white"
-                android:textAlignment="center"/>
+                android:textAlignment="center" />
 
-        <View android:layout_width="120dp"
+        <View
+                android:layout_width="120dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:background="@color/white"
                 android:layout_gravity="center"
-                android:alpha=".4"/>
+                android:alpha=".4" />
+
+        <TextView
+                android:id="@+id/label_webview_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@string/webview_text_title"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:textAlignment="center" />
+
+        <View
+                android:layout_width="120dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/white"
+                android:layout_gravity="center"
+                android:alpha=".4" />
+
+        <TextView
+                android:id="@+id/label_webview_html"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@string/webview_html_title"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:textAlignment="center" />
+
+        <View
+                android:layout_width="120dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/white"
+                android:layout_gravity="center"
+                android:alpha=".4" />
 
         <TextView
                 android:layout_width="match_parent"
@@ -194,7 +242,7 @@
                 android:text="@string/dynamic_links_title"
                 android:textSize="21sp"
                 android:textColor="@color/white"
-                android:textAlignment="center"/>
+                android:textAlignment="center" />
 
         <View android:layout_width="120dp"
               android:layout_height="1dp"
@@ -202,7 +250,7 @@
               android:layout_marginBottom="16dp"
               android:background="@color/white"
               android:layout_gravity="center"
-              android:alpha=".4"/>
+              android:alpha=".4" />
 
         <RelativeLayout
                 android:layout_width="match_parent"

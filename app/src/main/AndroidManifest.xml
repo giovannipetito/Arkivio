@@ -9,21 +9,24 @@
     <!-- suppress DeprecatedClassUsageInspection -->
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
 
-    <!-- To auto-complete the email text field in the login_layout form with the user's emails. -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <!-- Required for Nearby Connections -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
             android:allowBackup="true"
@@ -117,13 +120,14 @@
                     android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name="it.giovanni.kotlin.youtube.search.YouTubePlayerViewActivity" />
-        <activity android:name="it.giovanni.kotlin.youtube.search.YouTubePlayerFragmentActivity" />
+        <activity android:name="it.giovanni.kotlin.fragments.detail.youtube.search.YouTubePlayerViewActivity" />
+        <activity android:name="it.giovanni.kotlin.fragments.detail.youtube.search.YouTubePlayerFragmentActivity" />
 
+        <!-- android:screenOrientation="landscape" -->
         <activity
                 android:label="@string/video_wall"
-                android:name=".youtube.videowall.VideoWallActivity"
-                android:screenOrientation="landscape"
+                android:name="it.giovanni.kotlin.fragments.detail.youtube.videowall.VideoWallActivity"
+                android:screenOrientation="fullSensor"
                 android:theme="@style/BlackNoBarsTheme"
                 android:configChanges="orientation|screenSize|keyboardHidden">
             <meta-data android:name="@string/minVersion" android:value="11"/>
@@ -132,7 +136,7 @@
 
         <activity
                 android:label="@string/video_list"
-                android:name=".youtube.videolist.VideoListActivity"
+                android:name="it.giovanni.kotlin.fragments.detail.youtube.videolist.VideoListActivity"
                 android:configChanges="orientation|keyboardHidden|screenSize">
             <meta-data android:name="@string/minVersion" android:value="13"/>
             <meta-data android:name="@string/isLaunchableActivity" android:value="true"/>
@@ -140,7 +144,7 @@
 
         <activity
                 android:label="@string/fullscreen_handling"
-                android:name=".youtube.FullScreenActivity"
+                android:name="it.giovanni.kotlin.fragments.detail.youtube.FullScreenActivity"
                 android:screenOrientation="sensor"
                 android:configChanges="keyboardHidden|orientation|screenSize"
                 android:theme="@style/BlackNoTitleBarTheme">
@@ -148,19 +152,20 @@
             <meta-data android:name="@string/isLaunchableActivity" android:value="true"/>
         </activity>
 
+        <!-- android:screenOrientation="sensorLandscape" -->
         <activity
                 android:label="@string/actionbar_overlay"
-                android:name=".youtube.ActionBarActivity"
+                android:name="it.giovanni.kotlin.fragments.detail.youtube.ActionBarActivity"
                 android:configChanges="keyboardHidden|orientation|screenSize"
                 android:theme="@style/OverlayActionBarTheme"
-                android:screenOrientation="sensorLandscape">
+                android:screenOrientation="fullSensor">
             <meta-data android:name="@string/minVersion" android:value="11"/>
             <meta-data android:name="@string/isLaunchableActivity" android:value="true"/>
         </activity>
 
         <activity
                 android:label="@string/player_controls"
-                android:name=".youtube.PlayerControlsActivity"
+                android:name="it.giovanni.kotlin.fragments.detail.youtube.PlayerControlsActivity"
                 android:windowSoftInputMode="stateHidden">
             <meta-data android:name="@string/minVersion" android:value="8"/>
             <meta-data android:name="@string/isLaunchableActivity" android:value="true"/>
@@ -168,14 +173,14 @@
 
         <activity
                 android:label="@string/intent_controls"
-                android:name=".youtube.IntentControlsActivity">
+                android:name="it.giovanni.kotlin.fragments.detail.youtube.IntentControlsActivity">
             <meta-data android:name="@string/minVersion" android:value="8"/>
             <meta-data android:name="@string/isLaunchableActivity" android:value="true"/>
         </activity>
 
         <activity
                 android:label="@string/youtube_intents"
-                android:name=".youtube.intents.YouTubeIntentsActivity">
+                android:name="it.giovanni.kotlin.fragments.detail.youtube.intents.YouTubeIntentsActivity">
             <meta-data android:name="@string/minVersion" android:value="8"/>
             <meta-data android:name="@string/isLaunchableActivity" android:value="true"/>
         </activity>
@@ -184,7 +189,47 @@
                 android:name=".fragments.detail.webview.WebViewActivity"
                 android:configChanges="orientation|screenSize|keyboardHidden" />
 
-        <service android:name=".LocalNotificationService" />
+        <service android:name="it.giovanni.kotlin.fragments.detail.notification.NotificationService1" />
+        <receiver
+                android:name="it.giovanni.kotlin.fragments.detail.notification.NotificationReceiver1"
+                android:enabled="true"
+                android:exported="true">
+            <intent-filter>
+                <action android:name="restartservice" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="it.giovanni.kotlin.fragments.detail.notification.NotificationService2" />
+        <receiver
+                android:name="it.giovanni.kotlin.fragments.detail.notification.NotificationReceiver2"
+                android:enabled="true"
+                android:exported="true">
+            <intent-filter>
+                <action android:name="restartservice" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="it.giovanni.kotlin.fragments.detail.notification.NotificationService3" />
+        <receiver
+                android:name="it.giovanni.kotlin.fragments.detail.notification.NotificationReceiver3"
+                android:enabled="true"
+                android:exported="true">
+            <intent-filter>
+                <action android:name="restartservice" />
+            </intent-filter>
+        </receiver>
+
+        <meta-data
+                android:name="com.google.android.gms.nearby.connection.SERVICE_ID"
+                android:value="@string/service_id" />
+
+        <meta-data
+                android:name="com.google.android.nearby.messages.API_KEY"
+                android:value="AIzaSyCSFUynztrGEOTVyFjUmD2z98H4G9ilEtM" />
+
+        <service
+                android:name="it.giovanni.kotlin.fragments.detail.nearby.beacons.NearbyBeaconsService"
+                android:exported="false" />
 
     </application>
 
