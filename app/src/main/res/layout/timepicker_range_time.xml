@@ -119,6 +119,11 @@
 
     </LinearLayout>
 
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@drawable/shadow_bottom" />
+
     <TimePicker
             android:id="@+id/start_time_picker"
             android:layout_width="wrap_content"

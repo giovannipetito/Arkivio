@@ -161,7 +161,7 @@ open class CustomDialogPopup : AlertDialog.Builder {
         buttonNumber = 1
 
         if (text != null)
-            rightText = text.toString().toUpperCase(Locale.ITALIAN)
+            rightText = text.toString().toUpperCase(Locale.ITALY)
 
         leftAction = null
         centerAction = null

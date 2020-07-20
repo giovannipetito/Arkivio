@@ -269,6 +269,16 @@
 
                     </RelativeLayout>
 
+                    <TextView
+                            android:id="@+id/show_contacts"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:layout_gravity="center"
+                            android:text="Mostra i contatti della rubrica"
+                            android:textColor="@color/verde_3"
+                            android:textSize="16sp" />
+
                 </LinearLayout>
 
             </ScrollView>

@@ -2,6 +2,8 @@ package it.giovanni.kotlin.utils
 
 import it.giovanni.kotlin.bean.Link
 import it.giovanni.kotlin.bean.LinkSide
+import java.util.*
+import kotlin.collections.ArrayList
 
 class UserFactory {
 
@@ -41,7 +43,7 @@ class UserFactory {
             return if (email.isEmpty())
                 ""
             else {
-                email = email.substring(0, 1).toUpperCase() + "" + email.substring(1, email.length)
+                email = email.substring(0, 1).toUpperCase(Locale.ITALY) + "" + email.substring(1, email.length)
                 val partialEmail = email.split("@")[0]
                 val split = partialEmail.split(".")
                 if (split[0].isNotEmpty()) split[0]

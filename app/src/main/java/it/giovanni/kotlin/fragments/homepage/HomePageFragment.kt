@@ -83,12 +83,12 @@ class HomePageFragment : HomeFragment() {
 
         val date = Date()
 
-        val dayOfWeek = SimpleDateFormat("EEEE").format(date).substring(0, 1).toUpperCase(Locale.ITALIAN) +
+        val dayOfWeek = SimpleDateFormat("EEEE").format(date).substring(0, 1).toUpperCase(Locale.ITALY) +
                 SimpleDateFormat("EEEE").format(date).substring(1, SimpleDateFormat("EEEE").format(date).length)
         label_day.text = dayOfWeek
 
         val currentMonth = SimpleDateFormat("dd MMMM").format(date).substring(0, 3) +
-                SimpleDateFormat("dd MMMM").format(date).substring(3, 4).toUpperCase(Locale.ITALIAN) +
+                SimpleDateFormat("dd MMMM").format(date).substring(3, 4).toUpperCase(Locale.ITALY) +
                 SimpleDateFormat("dd MMMM").format(date).substring(4, SimpleDateFormat("dd MMMM").format(date).length)
         label_date.text = currentMonth
 

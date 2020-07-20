@@ -37,7 +37,7 @@ class ListDialogPopup : CustomDialogPopup {
                 val element: String = i.next()
                 val inflater = activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
                 val view = inflater.inflate(R.layout.popup_labels_element, null)
-                view.label.text = element.toUpperCase(Locale.ITALIAN)
+                view.label.text = element.toUpperCase(Locale.ITALY)
                 if (element == LABEL_DELETE) {
                     view.label.setTextColor(context.resources.getColor(R.color.grey_2))
                 }
