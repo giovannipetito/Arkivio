@@ -2,19 +2,14 @@ package it.giovanni.kotlin.fragments.detail.notification
 
 import android.annotation.SuppressLint
 import android.app.*
-import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothDevice
-import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Build
 import android.os.IBinder
 import android.os.SystemClock
 import android.util.Log
-import androidx.annotation.NonNull
 import androidx.core.app.AlarmManagerCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
@@ -27,8 +22,6 @@ class NotificationService2 : Service() {
     private var notificationManager: NotificationManager? = null
     private lateinit var notifyPendingIntent: PendingIntent
     private lateinit var notifyIntent: Intent
-
-    private val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
 
     private companion object {
         private const val SECOND: Long = 1_000L
@@ -46,8 +39,6 @@ class NotificationService2 : Service() {
 
         notifyIntent = Intent(this, NotificationReceiver2::class.java)
         notifyPendingIntent = PendingIntent.getBroadcast(application, REQUEST_CODE, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT)
-
-        searchForBluetooth()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -55,34 +46,9 @@ class NotificationService2 : Service() {
         return if (intent == null)
             START_NOT_STICKY
         else {
+            createNotificationChannel()
             startTimer()
             START_STICKY
-        }
-    }
-
-    private fun searchForBluetooth() {
-        registerReceiver(receiver, IntentFilter(BluetoothDevice.ACTION_FOUND))
-        bluetoothAdapter.startDiscovery()
-    }
-
-    private val receiver: BroadcastReceiver = object : BroadcastReceiver() {
-
-        override fun onReceive(@NonNull context: Context?, @NonNull intent: Intent?) {
-            val action = intent?.action
-            if (BluetoothDevice.ACTION_FOUND == action) {
-                val rssi = intent.getShortExtra(
-                    BluetoothDevice.EXTRA_RSSI,
-                    Short.MIN_VALUE
-                ).toInt()
-
-                val bluetoothName = intent.getStringExtra(BluetoothDevice.EXTRA_NAME)
-
-                if (bluetoothName != null) {
-                    Log.i("TAG_NOTIFY", bluetoothName + " ===> " + rssi + "dBm")
-                    createNotificationChannel()
-                    startTimer()
-                }
-            }
         }
     }
 
@@ -108,7 +74,7 @@ class NotificationService2 : Service() {
     // Creates a new alarm, notification and timer.
     private fun startTimer() {
 
-        val selectedInterval = SECOND * 3
+        val selectedInterval = SECOND * 360
         val triggerTime = SystemClock.elapsedRealtime() + selectedInterval
 
         // Get an instance of NotificationManager.
@@ -173,11 +139,6 @@ class NotificationService2 : Service() {
         val notification: Notification? = builder.build()
         notify(REQUEST_CODE, notification)
         startForeground(REQUEST_CODE, notification)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        // unregisterReceiver(receiver)
     }
 
     override fun onBind(p0: Intent?): IBinder? {

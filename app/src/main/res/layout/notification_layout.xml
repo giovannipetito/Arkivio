@@ -24,4 +24,10 @@
             android:layout_margin="8dp"
             layout="@layout/notification_item" />
 
+    <include android:id="@+id/notification_item_4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            layout="@layout/notification_item" />
+
 </LinearLayout>

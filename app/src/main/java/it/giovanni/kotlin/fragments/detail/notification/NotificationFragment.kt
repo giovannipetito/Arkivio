@@ -81,18 +81,22 @@ class NotificationFragment: DetailFragment() {
         val notificationItem1 = viewFragment?.findViewById(R.id.notification_item_1) as View
         val notificationItem2 = viewFragment?.findViewById(R.id.notification_item_2) as View
         val notificationItem3 = viewFragment?.findViewById(R.id.notification_item_3) as View
+        val notificationItem4 = viewFragment?.findViewById(R.id.notification_item_4) as View
 
         val serviceText1 = notificationItem1.findViewById(R.id.service_text) as TextView
         val serviceText2 = notificationItem2.findViewById(R.id.service_text) as TextView
         val serviceText3 = notificationItem3.findViewById(R.id.service_text) as TextView
+        val serviceText4 = notificationItem4.findViewById(R.id.service_text) as TextView
 
         serviceText1.setText(R.string.service_1)
         serviceText2.setText(R.string.service_2)
         serviceText3.setText(R.string.service_3)
+        serviceText4.setText(R.string.service_4)
 
         val serviceSwitch1 = notificationItem1.findViewById(R.id.service_switch) as SwitchCompat
         val serviceSwitch2 = notificationItem2.findViewById(R.id.service_switch) as SwitchCompat
         val serviceSwitch3 = notificationItem3.findViewById(R.id.service_switch) as SwitchCompat
+        val serviceSwitch4 = notificationItem4.findViewById(R.id.service_switch) as SwitchCompat
 
         val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
         if (bluetoothAdapter != null && !bluetoothAdapter.isEnabled)
@@ -128,6 +132,16 @@ class NotificationFragment: DetailFragment() {
             }
             else {
                 serviceSwitch3.setText(R.string.start_service)
+            }
+        }
+        serviceSwitch4.setOnClickListener {
+            if (serviceSwitch4.isChecked) {
+                serviceSwitch4.setText(R.string.stop_service)
+
+                startNotificationService4()
+            }
+            else {
+                serviceSwitch4.setText(R.string.start_service)
             }
         }
     }
@@ -185,6 +199,14 @@ class NotificationFragment: DetailFragment() {
 
     private fun startNotificationService3() {
         val notificationService = NotificationService3()
+        val intentService: Intent? = Intent(context, notificationService::class.java)
+        if (!isServiceRunning(notificationService::class.java)) {
+            currentActivity.startService(intentService)
+        }
+    }
+
+    private fun startNotificationService4() {
+        val notificationService = NotificationService4()
         val intentService: Intent? = Intent(context, notificationService::class.java)
         if (!isServiceRunning(notificationService::class.java)) {
             currentActivity.startService(intentService)

@@ -219,6 +219,16 @@
             </intent-filter>
         </receiver>
 
+        <service android:name="it.giovanni.kotlin.fragments.detail.notification.NotificationService4" />
+        <receiver
+                android:name="it.giovanni.kotlin.fragments.detail.notification.NotificationReceiver4"
+                android:enabled="true"
+                android:exported="true">
+            <intent-filter>
+                <action android:name="restartservice" />
+            </intent-filter>
+        </receiver>
+
         <meta-data
                 android:name="com.google.android.gms.nearby.connection.SERVICE_ID"
                 android:value="@string/service_id" />

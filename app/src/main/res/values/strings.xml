@@ -216,11 +216,14 @@
     <string name="service_1">Service 1</string>
     <string name="service_2">Service 2</string>
     <string name="service_3">Service 3</string>
+    <string name="service_4">Service 4</string>
 
     <string name="egg_time_channel_id_1" translatable="false">egg_channel_1</string>
     <string name="egg_time_channel_name_1" translatable="true">Egg 1</string>
     <string name="egg_time_channel_id_2" translatable="false">egg_channel_2</string>
     <string name="egg_time_channel_name_2" translatable="true">Egg 2</string>
+    <string name="egg_time_channel_id_3" translatable="false">egg_channel_3</string>
+    <string name="egg_time_channel_name_3" translatable="true">Egg 3</string>
     <string name="egg_ready">Your egg is ready! Bon appetit!</string>
 
     <string name="notification_channel_name">Covid Alert</string>
