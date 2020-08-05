@@ -18,7 +18,7 @@ class YouTubeIntentsAdapter internal constructor(
     ArrayAdapter<YouTubeIntentsAdapter.ListViewItem?>(context, textViewResourceId, objects!!) {
 
     @SuppressLint("InflateParams", "ViewHolder")
-    override fun getView(position: Int, view: View?, parent: ViewGroup): View? {
+    override fun getView(position: Int, view: View?, parent: ViewGroup): View {
 
         val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val mView = inflater.inflate(R.layout.intents_list_item, null)

@@ -3,13 +3,14 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'realm-android'
+apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         applicationId "it.giovanni.kotlin"
         minSdkVersion 28
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
     }
@@ -61,17 +62,30 @@ dependencies {
     // Material
     implementation 'com.google.android.material:material:1.2.0-alpha06'
 
-    // Flexbox
-    implementation 'com.google.android:flexbox:1.1.0'
+    // Google Mobile Services
+    implementation 'com.google.android.gms:play-services-location:17.0.0' // Google GPS
+    implementation 'com.google.android.gms:play-services-nearby:17.0.0' // Nearby
+    implementation 'com.google.android.gms:play-services-plus:17.0.0'
+    implementation 'com.google.android.gms:play-services-auth:18.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.gms:play-services-gcm:17.0.0'
+
+    // Add the Firebase SDK for Google Analytics
+    implementation 'com.google.firebase:firebase-analytics:17.4.4'
+
+    // Add the SDK for Firebase Cloud Messaging
+    implementation 'com.google.firebase:firebase-messaging:20.2.4'
+    implementation 'com.google.firebase:firebase-messaging-directboot:20.2.4'
+
+    implementation 'com.google.firebase:firebase-database:19.3.1'
+
+    // Check for v11.4.2 or higher
+    // implementation 'com.google.firebase:firebase-core:15.0.0'
+
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 
     //  GSON
     implementation 'com.google.code.gson:gson:2.8.6'
-
-    // OAuth 2.0
-    implementation 'com.android.volley:volley:1.1.1'
-    implementation('com.microsoft.aad:adal:1.16.3') {
-        exclude group: 'com.android.support'
-    }
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
@@ -85,12 +99,6 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-scalars:$retrofit2_converter_gson_version"
     implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$retrofit2_rxjava2_adapter_version"
 
-    // Google Mobile Services
-    implementation 'com.google.android.gms:play-services-location:17.0.0' // Google GPS
-    implementation 'com.google.android.gms:play-services-plus:17.0.0'
-    implementation 'com.google.android.gms:play-services-auth:18.0.0'
-    implementation 'com.google.android.gms:play-services-gcm:17.0.0'
-
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
@@ -98,14 +106,17 @@ dependencies {
     // Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
-    // Blur View
-    implementation 'com.github.mmin18:realtimeblurview:1.2.1'
-
     // Lottie
     implementation 'com.airbnb.android:lottie:3.0.7'
 
     // card.io
     implementation 'io.card:android-sdk:5.5.1'
+
+    // Flexbox
+    implementation 'com.google.android:flexbox:1.1.0'
+
+    // Blur View
+    implementation 'com.github.mmin18:realtimeblurview:1.2.1'
 
     // YouTube
     implementation 'com.google.apis:google-api-services-youtube:v3-rev120-1.19.0'
@@ -114,8 +125,11 @@ dependencies {
     implementation 'com.google.api-client:google-api-client-gson:1.30.9'
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
 
-    // Nearby
-    implementation 'com.google.android.gms:play-services-nearby:17.0.0'
+    // OAuth 2.0
+    implementation 'com.android.volley:volley:1.1.1'
+    implementation('com.microsoft.aad:adal:1.16.3') {
+        exclude group: 'com.android.support'
+    }
 }
 
 repositories {
