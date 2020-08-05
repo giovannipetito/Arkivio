@@ -1,0 +1,37 @@
+package it.giovanni.arkivio.bean
+
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
+import java.io.Serializable
+
+class Link(
+
+    @SerializedName("analyticsLabel")
+    @Expose
+    var analyticsLabel: String,
+
+    @SerializedName("name")
+    @Expose
+    var name: String,
+
+    @SerializedName("link")
+    @Expose
+    var link: String,
+
+    @SerializedName("position")
+    @Expose
+    var position: String,
+
+    @SerializedName("type")
+    @Expose
+    var type: String,
+
+    @SerializedName("appLinkAndroid")
+    @Expose
+    var appLinkAndroid: String,
+
+    @SerializedName("image")
+    @Expose
+    var image: String
+
+) : Serializable

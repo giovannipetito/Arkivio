@@ -32,7 +32,7 @@
                 android:layout_marginBottom="24dp"
                 android:orientation="vertical">
 
-            <it.giovanni.kotlin.customview.LoginInputText
+            <it.giovanni.arkivio.customview.LoginInputText
                     android:id="@+id/username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
                     app:login_textview_input_type="@string/input_type_text"
                     app:login_textview_title="@string/login_your_mail" />
 
-            <it.giovanni.kotlin.customview.LoginInputText
+            <it.giovanni.arkivio.customview.LoginInputText
                     android:id="@+id/password"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

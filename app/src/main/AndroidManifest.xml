@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
-          package="it.giovanni.kotlin">
+          package="it.giovanni.arkivio">
 
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
 
@@ -34,7 +34,7 @@
             android:icon="@mipmap/logo_audioslave_light_blue"
             android:roundIcon="@mipmap/logo_audioslave_light_blue"
             android:supportsRtl="true"
-            android:name=".App"
+            android:name="it.giovanni.arkivio.App"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning"
             android:fullBackupContent="@xml/backup_descriptor">
@@ -43,9 +43,9 @@
                 android:name="com.google.android.gms.version"
                 android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".activities.BaseView" />
+        <activity android:name="it.giovanni.arkivio.activities.BaseView" />
 
-        <activity android:name=".activities.MainActivity"
+        <activity android:name="it.giovanni.arkivio.activities.MainActivity"
                   android:screenOrientation="portrait"
                   android:resizeableActivity="false"
                   android:supportsPictureInPicture="false">
@@ -91,7 +91,7 @@
         </activity>
 
         <activity
-                android:name=".activities.DeepLinkActivity"
+                android:name="it.giovanni.arkivio.activities.DeepLinkActivity"
                 android:launchMode="singleTask"
                 android:noHistory="true"
                 android:theme="@style/AppThemeNoDisplay">
@@ -105,10 +105,10 @@
         </activity>
 
         <activity
-                android:name=".activities.PermissionActivity"
+                android:name="it.giovanni.arkivio.activities.PermissionActivity"
                 android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
-        <activity android:name=".activities.GPSActivity" />
+        <activity android:name="it.giovanni.arkivio.activities.GPSActivity" />
 
         <provider
                 android:name="androidx.core.content.FileProvider"
@@ -120,13 +120,13 @@
                     android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name="it.giovanni.kotlin.fragments.detail.youtube.search.YouTubePlayerViewActivity" />
-        <activity android:name="it.giovanni.kotlin.fragments.detail.youtube.search.YouTubePlayerFragmentActivity" />
+        <activity android:name="it.giovanni.arkivio.fragments.detail.youtube.search.YouTubePlayerViewActivity" />
+        <activity android:name="it.giovanni.arkivio.fragments.detail.youtube.search.YouTubePlayerFragmentActivity" />
 
         <!-- android:screenOrientation="landscape" -->
         <activity
                 android:label="@string/video_wall"
-                android:name="it.giovanni.kotlin.fragments.detail.youtube.videowall.VideoWallActivity"
+                android:name="it.giovanni.arkivio.fragments.detail.youtube.videowall.VideoWallActivity"
                 android:screenOrientation="fullSensor"
                 android:theme="@style/BlackNoBarsTheme"
                 android:configChanges="orientation|screenSize|keyboardHidden">
@@ -136,7 +136,7 @@
 
         <activity
                 android:label="@string/video_list"
-                android:name="it.giovanni.kotlin.fragments.detail.youtube.videolist.VideoListActivity"
+                android:name="it.giovanni.arkivio.fragments.detail.youtube.videolist.VideoListActivity"
                 android:configChanges="orientation|keyboardHidden|screenSize">
             <meta-data android:name="@string/minVersion" android:value="13"/>
             <meta-data android:name="@string/isLaunchableActivity" android:value="true"/>
@@ -144,7 +144,7 @@
 
         <activity
                 android:label="@string/fullscreen_handling"
-                android:name="it.giovanni.kotlin.fragments.detail.youtube.FullScreenActivity"
+                android:name="it.giovanni.arkivio.fragments.detail.youtube.FullScreenActivity"
                 android:screenOrientation="sensor"
                 android:configChanges="keyboardHidden|orientation|screenSize"
                 android:theme="@style/BlackNoTitleBarTheme">
@@ -155,7 +155,7 @@
         <!-- android:screenOrientation="sensorLandscape" -->
         <activity
                 android:label="@string/actionbar_overlay"
-                android:name="it.giovanni.kotlin.fragments.detail.youtube.ActionBarActivity"
+                android:name="it.giovanni.arkivio.fragments.detail.youtube.ActionBarActivity"
                 android:configChanges="keyboardHidden|orientation|screenSize"
                 android:theme="@style/OverlayActionBarTheme"
                 android:screenOrientation="fullSensor">
@@ -165,7 +165,7 @@
 
         <activity
                 android:label="@string/player_controls"
-                android:name="it.giovanni.kotlin.fragments.detail.youtube.PlayerControlsActivity"
+                android:name="it.giovanni.arkivio.fragments.detail.youtube.PlayerControlsActivity"
                 android:windowSoftInputMode="stateHidden">
             <meta-data android:name="@string/minVersion" android:value="8"/>
             <meta-data android:name="@string/isLaunchableActivity" android:value="true"/>
@@ -173,25 +173,25 @@
 
         <activity
                 android:label="@string/intent_controls"
-                android:name="it.giovanni.kotlin.fragments.detail.youtube.IntentControlsActivity">
+                android:name="it.giovanni.arkivio.fragments.detail.youtube.IntentControlsActivity">
             <meta-data android:name="@string/minVersion" android:value="8"/>
             <meta-data android:name="@string/isLaunchableActivity" android:value="true"/>
         </activity>
 
         <activity
                 android:label="@string/youtube_intents"
-                android:name="it.giovanni.kotlin.fragments.detail.youtube.intents.YouTubeIntentsActivity">
+                android:name="it.giovanni.arkivio.fragments.detail.youtube.intents.YouTubeIntentsActivity">
             <meta-data android:name="@string/minVersion" android:value="8"/>
             <meta-data android:name="@string/isLaunchableActivity" android:value="true"/>
         </activity>
 
         <activity
-                android:name=".fragments.detail.webview.WebViewActivity"
+                android:name="it.giovanni.arkivio.fragments.detail.webview.WebViewActivity"
                 android:configChanges="orientation|screenSize|keyboardHidden" />
 
-        <service android:name="it.giovanni.kotlin.fragments.detail.notification.NotificationService1" />
+        <service android:name="it.giovanni.arkivio.fragments.detail.notification.NotificationService1" />
         <receiver
-                android:name="it.giovanni.kotlin.fragments.detail.notification.NotificationReceiver1"
+                android:name="it.giovanni.arkivio.fragments.detail.notification.NotificationReceiver1"
                 android:enabled="true"
                 android:exported="true">
             <intent-filter>
@@ -199,9 +199,9 @@
             </intent-filter>
         </receiver>
 
-        <service android:name="it.giovanni.kotlin.fragments.detail.notification.NotificationService2" />
+        <service android:name="it.giovanni.arkivio.fragments.detail.notification.NotificationService2" />
         <receiver
-                android:name="it.giovanni.kotlin.fragments.detail.notification.NotificationReceiver2"
+                android:name="it.giovanni.arkivio.fragments.detail.notification.NotificationReceiver2"
                 android:enabled="true"
                 android:exported="true">
             <intent-filter>
@@ -209,9 +209,9 @@
             </intent-filter>
         </receiver>
 
-        <service android:name="it.giovanni.kotlin.fragments.detail.notification.NotificationService3" />
+        <service android:name="it.giovanni.arkivio.fragments.detail.notification.NotificationService3" />
         <receiver
-                android:name="it.giovanni.kotlin.fragments.detail.notification.NotificationReceiver3"
+                android:name="it.giovanni.arkivio.fragments.detail.notification.NotificationReceiver3"
                 android:enabled="true"
                 android:exported="true">
             <intent-filter>
@@ -219,9 +219,9 @@
             </intent-filter>
         </receiver>
 
-        <service android:name="it.giovanni.kotlin.fragments.detail.notification.NotificationService4" />
+        <service android:name="it.giovanni.arkivio.fragments.detail.notification.NotificationService4" />
         <receiver
-                android:name="it.giovanni.kotlin.fragments.detail.notification.NotificationReceiver4"
+                android:name="it.giovanni.arkivio.fragments.detail.notification.NotificationReceiver4"
                 android:enabled="true"
                 android:exported="true">
             <intent-filter>
@@ -238,7 +238,7 @@
                 android:value="AIzaSyCSFUynztrGEOTVyFjUmD2z98H4G9ilEtM" />
 
         <service
-                android:name="it.giovanni.kotlin.fragments.detail.nearby.beacons.NearbyBeaconsService"
+                android:name="it.giovanni.arkivio.fragments.detail.nearby.beacons.NearbyBeaconsService"
                 android:exported="false" />
 
     </application>

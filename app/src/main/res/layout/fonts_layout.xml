@@ -36,7 +36,7 @@
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
-        <it.giovanni.kotlin.customview.TextViewCustom
+        <it.giovanni.arkivio.customview.TextViewCustom
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"
@@ -45,7 +45,7 @@
                 android:textSize="14sp"
                 android:textStyle="italic" />
 
-        <it.giovanni.kotlin.customview.TextViewCustom
+        <it.giovanni.arkivio.customview.TextViewCustom
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"
@@ -54,7 +54,7 @@
                 android:textSize="14sp"
                 android:textStyle="normal" />
 
-        <it.giovanni.kotlin.customview.TextViewCustom
+        <it.giovanni.arkivio.customview.TextViewCustom
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"

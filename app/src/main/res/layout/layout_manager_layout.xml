@@ -29,7 +29,7 @@
                             android:layout_marginBottom="@dimen/dimen_10dp"
                             android:layout_centerHorizontal="true" />
 
-                    <it.giovanni.kotlin.customview.MultiSpinnerView
+                    <it.giovanni.arkivio.customview.MultiSpinnerView
                             android:id="@+id/multi_spinner_view"
                             android:layout_width="120dp"
                             android:layout_height="120dp"
@@ -80,7 +80,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                    <it.giovanni.kotlin.customview.TimelineView
+                    <it.giovanni.arkivio.customview.TimelineView
                             android:id="@+id/bar_tagli"
                             android:layout_width="match_parent"
                             android:layout_height="100dp"

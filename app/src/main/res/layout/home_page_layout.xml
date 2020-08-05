@@ -25,7 +25,7 @@
                     android:layout_centerHorizontal="true"
                     android:orientation="vertical">
 
-                <it.giovanni.kotlin.customview.AvatarImageView
+                <it.giovanni.arkivio.customview.AvatarImageView
                         android:id="@+id/ico_avatar"
                         android:layout_width="80dp"
                         android:layout_height="80dp"

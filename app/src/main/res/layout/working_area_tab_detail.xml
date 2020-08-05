@@ -3,7 +3,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-    <it.giovanni.kotlin.customview.MultiSwipeRefreshLayout
+    <it.giovanni.arkivio.customview.MultiSwipeRefreshLayout
             android:id="@+id/swipe_refresh_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -20,6 +20,6 @@
 
         </RelativeLayout>
 
-    </it.giovanni.kotlin.customview.MultiSwipeRefreshLayout>
+    </it.giovanni.arkivio.customview.MultiSwipeRefreshLayout>
 
 </RelativeLayout>
