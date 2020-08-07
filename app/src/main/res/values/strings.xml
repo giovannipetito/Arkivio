@@ -98,9 +98,9 @@
 
     <!-- PERMISSIONS -->
     <string name="permissions_title">Permissions</string>
-    <string name="read_phone_state">Stato del telefono</string>
-    <string name="explores_pdf">Esplora PDF</string>
-    <string name="download_pdf">Scarica PDF</string>
+    <string name="phone_state_title">Stato del telefono</string>
+    <string name="explores_pdf_title">Esplora PDF</string>
+    <string name="download_pdf_title">Scarica PDF</string>
 
     <string name="permission_pdf_request">Per scaricare il PDF è necessario accedere alla memoria del dispositivo e ti verrà richiesto di fornire il consenso ad accedere alla memoria interna del tuo dispositivo.</string>
     <string name="permission_pdf_never_ask_again">Per scaricare il PDF è necessario accedere alla memoria del dispositivo, seleziona Continua e verrai indirizzato alla sezione Impostazioni del dispositivo per modificare le Autorizzazioni app - Archiviazione.</string>
@@ -271,5 +271,18 @@
     <string name="scanning">Scanning for beacons&#8230;</string>
     <string name="one_message">Scanning. Found 1 message</string>
     <string name="many_messages">Scanning. Found %1$d messages</string>
+
+    <!-- MACHINE LEARNING -->
+    <string name="machine_learning_title">Machine Learning</string>
+    <string name="text_recognition_title">Riconoscimento del testo</string>
+    <string name="image_labeling_title">Etichettatura delle immagini</string>
+    <string name="facial_detection_title">Rilevamento facciale</string>
+    <string name="object_detection_and_tracking_title">Rilevamento e monitoraggio degli oggetti</string>
+    <string name="barcode_scanning_title">Scansione dei codici a barre</string>
+    <string name="language_id_title">ID lingua</string>
+    <string name="translation_on_device_title">Traduzione su dispositivo</string>
+    <string name="quick_answer_title">Risposta rapida</string>
+    <string name="automl_vision_edge_title">AutoML Vision Edge</string>
+    <string name="recognition_of_landmarks_title">Riconoscimento di punti di riferimento</string>
 
 </resources>

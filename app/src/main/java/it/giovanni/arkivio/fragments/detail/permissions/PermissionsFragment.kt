@@ -107,7 +107,7 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        label_read_phone_state.setOnClickListener {
+        label_phone_state.setOnClickListener {
 
             phoneState = true
             downloadPdf = false
@@ -344,7 +344,7 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
         )
         viewIntent.setDataAndType(apkURI, "application/pdf")
 
-        val resolved = activity!!.packageManager.queryIntentActivities(viewIntent, 0)
+        val resolved = activity?.packageManager?.queryIntentActivities(viewIntent, 0)
         if (resolved != null && resolved.size > 0)
             startActivity(viewIntent)
         else

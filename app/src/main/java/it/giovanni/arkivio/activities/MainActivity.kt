@@ -30,6 +30,17 @@ import it.giovanni.arkivio.fragments.detail.datemanager.DateManagerFragment
 import it.giovanni.arkivio.fragments.detail.fonts.FontsFragment
 import it.giovanni.arkivio.fragments.detail.layoutmanager.LayoutManagerFragment
 import it.giovanni.arkivio.fragments.detail.logcat.LogcatFragment
+import it.giovanni.arkivio.fragments.detail.machinelearning.MachineLearningFragment
+import it.giovanni.arkivio.fragments.detail.machinelearning.automlvisionedge.AutoMLVisionEdgeFragment
+import it.giovanni.arkivio.fragments.detail.machinelearning.barcodescanning.BarcodeScanningFragment
+import it.giovanni.arkivio.fragments.detail.machinelearning.facialdetection.FacialDetectionFragment
+import it.giovanni.arkivio.fragments.detail.machinelearning.imagelabeling.ImageLabelingFragment
+import it.giovanni.arkivio.fragments.detail.machinelearning.landmarksrecognition.LandmarksRecognitionFragment
+import it.giovanni.arkivio.fragments.detail.machinelearning.languageid.LanguageIDFragment
+import it.giovanni.arkivio.fragments.detail.machinelearning.objectdetectionandtracking.ObjectDetectionFragment
+import it.giovanni.arkivio.fragments.detail.machinelearning.quickanswer.QuickAnswerFragment
+import it.giovanni.arkivio.fragments.detail.machinelearning.textrecognition.TextRecognitionFragment
+import it.giovanni.arkivio.fragments.detail.machinelearning.translation.TranslationFragment
 import it.giovanni.arkivio.fragments.detail.preference.PreferenceFragment
 import it.giovanni.arkivio.fragments.detail.preference.PreferenceListFragment
 import it.giovanni.arkivio.fragments.detail.rubrica.RubricaDetailFragment
@@ -78,6 +89,7 @@ class MainActivity : GPSActivity(), IProgressLoader {
         var running = false
     }
 
+    @Suppress("DEPRECATION")
     @SuppressLint("InflateParams")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -406,6 +418,39 @@ class MainActivity : GPSActivity(), IProgressLoader {
             }
             Globals.NEARBY_BEACONS -> {
                 baseFragment = NearbyBeaconsFragment()
+            }
+            Globals.MACHINE_LEARNING -> {
+                baseFragment = MachineLearningFragment()
+            }
+            Globals.TEXT_RECOGNITION -> {
+                baseFragment = TextRecognitionFragment()
+            }
+            Globals.IMAGE_LABELING -> {
+                baseFragment = ImageLabelingFragment()
+            }
+            Globals.FACIAL_DETECTION -> {
+                baseFragment = FacialDetectionFragment()
+            }
+            Globals.OBJECT_DETECTION -> {
+                baseFragment = ObjectDetectionFragment()
+            }
+            Globals.BARCODE_SCANNING -> {
+                baseFragment = BarcodeScanningFragment()
+            }
+            Globals.LANGUAGE_ID -> {
+                baseFragment = LanguageIDFragment()
+            }
+            Globals.TRANSLATION -> {
+                baseFragment = TranslationFragment()
+            }
+            Globals.QUICK_ANSWER -> {
+                baseFragment = QuickAnswerFragment()
+            }
+            Globals.AUTOML_VISION_EDGE -> {
+                baseFragment = AutoMLVisionEdgeFragment()
+            }
+            Globals.LANDMARKS_RECOGNITION -> {
+                baseFragment = LandmarksRecognitionFragment()
             }
         }
 

@@ -77,5 +77,8 @@ class WorkingAreaFragment : HomeFragment() {
         label_nearby.setOnClickListener {
             currentActivity.openDetail(Globals.NEARBY, null)
         }
+        label_machine_learning.setOnClickListener {
+            currentActivity.openDetail(Globals.MACHINE_LEARNING, null)
+        }
     }
 }

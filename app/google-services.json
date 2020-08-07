@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "37711485697",
+    "firebase_url": "https://arkivio-ebf7e.firebaseio.com",
+    "project_id": "arkivio-ebf7e",
+    "storage_bucket": "arkivio-ebf7e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:37711485697:android:6f5026a664e2781aaa5900",
+        "android_client_info": {
+          "package_name": "it.giovanni.arkivio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "37711485697-i633pl5fcmljcns5rqucnhghs28ssq9o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "it.giovanni.arkivio",
+            "certificate_hash": "032932e7879451ca67f5330e5350bd69662ff0b0"
+          }
+        },
+        {
+          "client_id": "37711485697-r9cd9bploojm6hu70vdc9qsr49eue4vq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAFXljudG6ubVR-6MiszC5lT4y2YlQqH8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "37711485697-r9cd9bploojm6hu70vdc9qsr49eue4vq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
