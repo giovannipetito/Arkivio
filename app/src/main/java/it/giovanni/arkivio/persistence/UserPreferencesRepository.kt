@@ -16,10 +16,6 @@ class UserPreferencesRepository(context: Context) {
 
     companion object {
         // key
-        var KEY_PREFERENCE_SEDE: String = "SEDE"
-        var KEY_FINGERPRINT_ENABLED: String = "FINGERPRINT_ENABLED"
-        var KEY_FCM_TOPICS: String = "KEY_FCM_TOPICS"
-
         var KEY_PREFERENCE_CONTACT: String = "CONTACT"
     }
 

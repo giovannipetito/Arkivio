@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package it.giovanni.arkivio.fragments
 
 import android.animation.Animator
@@ -23,6 +25,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
+import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager.widget.ViewPager
 import it.giovanni.arkivio.App
@@ -33,17 +36,21 @@ import it.giovanni.arkivio.adapters.HomeFragmentAdapter
 import it.giovanni.arkivio.bean.Link
 import it.giovanni.arkivio.bean.LinkSide
 import it.giovanni.arkivio.customview.popup.CustomDialogPopup
-import it.giovanni.arkivio.viewinterfaces.IDataRefresh
+import it.giovanni.arkivio.databinding.MainLayoutBinding
+import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.Globals
 import it.giovanni.arkivio.utils.UserFactory
 import it.giovanni.arkivio.utils.Utils.Companion.getRoundBitmap
 import it.giovanni.arkivio.utils.Utils.Companion.setBitmapFromUrl
+import it.giovanni.arkivio.viewinterfaces.IDarkMode
+import it.giovanni.arkivio.viewinterfaces.IDataRefresh
 import kotlinx.android.synthetic.main.link_area_layout.*
 import kotlinx.android.synthetic.main.main_content_layout.*
 import kotlinx.android.synthetic.main.main_layout.*
 import kotlinx.android.synthetic.main.nav_header_main.*
 
-class MainFragment : BaseFragment(SectionType.MAIN) {
+class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
 
     companion object {
         var TAB_INDEX_HOME: Int = 1
@@ -67,15 +74,29 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
     private var bundleDeepLink: Bundle = Bundle()
 
     private lateinit var customPopup: CustomDialogPopup
-    private lateinit var preferences: SharedPreferences
     private var compress: Boolean = false
+
+    // DATA BINDING
+    private var binding: MainLayoutBinding? = null
+    private var presenter: DarkModePresenter? = null
+    private var model: DarkModeModel? = null
 
     override fun getTitle(): Int {
         return NO_TITLE
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = super.onCreateView(inflater, container, savedInstanceState)
+
+        var view = super.onCreateView(inflater, container, savedInstanceState)
+
+        // ----- DATA BINDING ----- //
+        binding = DataBindingUtil.inflate(inflater, R.layout.main_layout, container, false)
+        view = binding?.root
+        presenter = DarkModePresenter(this, context!!)
+        model = DarkModeModel(context!!)
+        binding?.temp = model
+        binding?.presenter = presenter
+        // ------------------------ //
 
         setStatusBarColor()
 
@@ -89,17 +110,21 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
         }
 
         view!!.viewTreeObserver.addOnGlobalLayoutListener(drawListener)
+
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        preferences = PreferenceManager.getDefaultSharedPreferences(context)
-
         val avatar : Bitmap = BitmapFactory.decodeResource(context!!.resources, R.drawable.giovanni)
         val roundAvatar : Bitmap = getRoundBitmap(avatar, avatar.width)
         nav_header_avatar.setImageBitmap(roundAvatar)
+
+        switch_mode.isChecked = !isDarkMode
+        switch_mode.setOnClickListener {
+            onSetLayout(model)
+        }
     }
 
     private fun draw() {
@@ -128,7 +153,10 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
 
         voice.setOnClickListener {
             currentActivity.openDialogDetail(Globals.DIALOG_FLOW, Bundle())
-            currentActivity.window.statusBarColor = ContextCompat.getColor(context!!, R.color.black_transparent_1)
+            currentActivity.window.statusBarColor = ContextCompat.getColor(
+                context!!,
+                R.color.black_transparent_1
+            )
         }
     }
 
@@ -147,12 +175,19 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
             object : ViewPager.OnPageChangeListener {
                 override fun onPageScrollStateChanged(state: Int) {}
 
-                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+                override fun onPageScrolled(
+                    position: Int,
+                    positionOffset: Float,
+                    positionOffsetPixels: Int
+                ) {
+                }
 
                 override fun onPageSelected(position: Int) {
-                    translateAnimation(position + 1, getTabInstanceByPosition(position + 1),
+                    translateAnimation(
+                        position + 1, getTabInstanceByPosition(position + 1),
                         getDrawableTabInstanceByPosition(position + 1, false),
-                        getDrawableTabInstanceByPosition(position + 1, true))
+                        getDrawableTabInstanceByPosition(position + 1, true)
+                    )
 
                     when (position) {
                         0 -> {
@@ -180,7 +215,7 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
         drawer_layout.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
 
-                if (preferences.getBoolean("COMPRESS", false)) {
+                if (currentActivity.preferences.getBoolean("COMPRESS", false)) {
                     // Scale the View based on current slide offset
                     val diffScaledOffset = slideOffset * (1 - END_SCALE)
                     val offsetScale = 1 - diffScaledOffset
@@ -191,7 +226,7 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
                     val xOffset = drawerView.width * slideOffset
                     val xOffsetDiff = container.width * diffScaledOffset / 2
                     val xTranslation = xOffset - xOffsetDiff
-                    container.translationX = - xTranslation
+                    container.translationX = -xTranslation
                 } else {
                     // Scale the View based on current slide offset
                     val diffScaledOffset = slideOffset * (1 - END_SCALE)
@@ -203,14 +238,22 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
                     val xOffset = drawerView.width * slideOffset
                     val xOffsetDiff = container.width * diffScaledOffset / 10
                     val xTranslation = xOffset - xOffsetDiff
-                    container.translationX = - xTranslation
+                    container.translationX = -xTranslation
                 }
-                currentActivity.window.statusBarColor = ContextCompat.getColor(context!!, R.color.blueWave)
+                currentActivity.window.statusBarColor = ContextCompat.getColor(
+                    context!!,
+                    R.color.blueWave
+                )
             }
 
             override fun onDrawerClosed(drawerView: View) {
                 setStatusBarColor()
-                tab_menu.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ico_bottom_menu))
+                tab_menu.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        context!!,
+                        R.drawable.ico_bottom_menu
+                    )
+                )
             }
         })
 
@@ -264,7 +307,11 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
             return
         for (item in listLink) {
 
-            val rowView = LayoutInflater.from(context).inflate(R.layout.link_dynamic_item, link_utili_container, false)
+            val rowView = LayoutInflater.from(context).inflate(
+                R.layout.link_dynamic_item,
+                link_utili_container,
+                false
+            )
 
             val labelName: TextView = rowView.findViewById(R.id.link_name)
             val labelIcon: ImageView = rowView.findViewById(R.id.link_icon)
@@ -314,7 +361,11 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
             return
         for (item in listLinkSide) {
 
-            val rowView = LayoutInflater.from(context).inflate(R.layout.nav_header_item, nav_header_container, false)
+            val rowView = LayoutInflater.from(context).inflate(
+                R.layout.nav_header_item,
+                nav_header_container,
+                false
+            )
 
             val labelName: TextView = rowView.findViewById(R.id.label_name)
             labelName.text = item.name
@@ -358,7 +409,12 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
         val delta = (end - start) / 4
 
         background_bottom_bar.x = -(delta * 2)
-        tab_home.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ico_bottom_home_rvd))
+        tab_home.setImageDrawable(
+            ContextCompat.getDrawable(
+                context!!,
+                R.drawable.ico_bottom_home_rvd
+            )
+        )
         // tab_home.setColorFilter(ContextCompat.getColor(context!!, R.color.blueWave), android.graphics.PorterDuff.Mode.SRC_IN)
         defaultX = (tab_home.width).toFloat()
     }
@@ -388,9 +444,15 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
             }
             3 -> {
                 return if (!rvdType)
-                    ContextCompat.getDrawable(context!!, R.drawable.ico_bottom_administrative_area)!!
+                    ContextCompat.getDrawable(
+                        context!!,
+                        R.drawable.ico_bottom_administrative_area
+                    )!!
                 else
-                    ContextCompat.getDrawable(context!!, R.drawable.ico_bottom_administrative_area_rvd)!!
+                    ContextCompat.getDrawable(
+                        context!!,
+                        R.drawable.ico_bottom_administrative_area_rvd
+                    )!!
             }
             else -> {
                 return if (!rvdType)
@@ -438,7 +500,12 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
     private fun closeSideMenu() {
         if (drawer_layout.isDrawerOpen(GravityCompat.END)) {
             drawer_layout.closeDrawer(GravityCompat.END)
-            tab_menu.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ico_bottom_menu))
+            tab_menu.setImageDrawable(
+                ContextCompat.getDrawable(
+                    context!!,
+                    R.drawable.ico_bottom_menu
+                )
+            )
         }
     }
 
@@ -446,19 +513,38 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
         drawer_layout.isEnabled = true
         if (drawer_layout.isDrawerOpen(GravityCompat.END)) {
             drawer_layout.closeDrawer(GravityCompat.END)
-            tab_menu.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ico_bottom_menu))
+            tab_menu.setImageDrawable(
+                ContextCompat.getDrawable(
+                    context!!,
+                    R.drawable.ico_bottom_menu
+                )
+            )
         } else {
             drawer_layout.openDrawer(GravityCompat.END)
-            tab_menu.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ico_close_menu))
+            tab_menu.setImageDrawable(
+                ContextCompat.getDrawable(
+                    context!!,
+                    R.drawable.ico_close_menu
+                )
+            )
         }
     }
 
-    private fun translateAnimation(tab: Int, imageView: ImageView, drawable_from: Drawable, drawable_to: Drawable) {
+    private fun translateAnimation(
+        tab: Int,
+        imageView: ImageView,
+        drawable_from: Drawable,
+        drawable_to: Drawable
+    ) {
         if (animationFinish) {
             resetAllImages()
             val offset: Float = background_bottom_bar.x + ((tab - previousTab) * defaultX)
             previousTab = tab
-            val valueAnimator: ValueAnimator = ObjectAnimator.ofFloat(background_bottom_bar, "translationX", offset).apply {
+            val valueAnimator: ValueAnimator = ObjectAnimator.ofFloat(
+                background_bottom_bar,
+                "translationX",
+                offset
+            ).apply {
                 duration = TRANSITION_TIME
             }
 
@@ -476,7 +562,11 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
         }
     }
 
-    private fun tabSelectedDrawableAnimation(imageView: ImageView, drawable_from: Drawable, drawable_to: Drawable) {
+    private fun tabSelectedDrawableAnimation(
+        imageView: ImageView,
+        drawable_from: Drawable,
+        drawable_to: Drawable
+    ) {
 
         // set res image array
         val transitionDrawable = TransitionDrawable(arrayOf(drawable_from, drawable_to))
@@ -489,8 +579,18 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
 
     private fun resetAllImages() {
         tab_home.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ico_bottom_home))
-        tab_working_area.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ico_bottom_working_area))
-        tab_administrative.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ico_bottom_administrative_area))
+        tab_working_area.setImageDrawable(
+            ContextCompat.getDrawable(
+                context!!,
+                R.drawable.ico_bottom_working_area
+            )
+        )
+        tab_administrative.setImageDrawable(
+            ContextCompat.getDrawable(
+                context!!,
+                R.drawable.ico_bottom_administrative_area
+            )
+        )
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -508,9 +608,17 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
 
     private fun setStatusBarColor() {
         // currentActivity.window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        currentActivity.window.statusBarColor = ContextCompat.getColor(App.context, android.R.color.transparent)
+        currentActivity.window.statusBarColor = ContextCompat.getColor(
+            App.context,
+            android.R.color.transparent
+        )
         // currentActivity.window.navigationBarColor = currentActivity.resources.getColor(android.R.color.transparent)
-        currentActivity.window.setBackgroundDrawable(ContextCompat.getDrawable(App.context, R.drawable.background_empty))
+        currentActivity.window.setBackgroundDrawable(
+            ContextCompat.getDrawable(
+                App.context,
+                R.drawable.background_empty
+            )
+        )
     }
 
     private fun getGPSCoordinates() {
@@ -521,30 +629,158 @@ class MainFragment : BaseFragment(SectionType.MAIN) {
     private fun init(): ArrayList<Link> {
 
         val list = ArrayList<Link>()
-        list.add(Link("", "Grande Cinema 3", "waw3://cinema", "1", "inAppLink", "", "https://static.windtrebusiness.it/mosaicow3b/static/configuration/ico_gctre.png"))
-        list.add(Link("Daytronic", "DayTronic", "", "2", "app", "it.day.daytronicFLAT", "https://static.windtrebusiness.it/mosaicow3b/static/configuration/ico_daytronic.png"))
+        list.add(
+            Link(
+                "",
+                "Grande Cinema 3",
+                "waw3://cinema",
+                "1",
+                "inAppLink",
+                "",
+                "https://static.windtrebusiness.it/mosaicow3b/static/configuration/ico_gctre.png"
+            )
+        )
+        list.add(
+            Link(
+                "Daytronic",
+                "DayTronic",
+                "",
+                "2",
+                "app",
+                "it.day.daytronicFLAT",
+                "https://static.windtrebusiness.it/mosaicow3b/static/configuration/ico_daytronic.png"
+            )
+        )
         list.add(Link("", "Gympass", "", "3", "app", "com.gympass", ""))
-        list.add(Link("Bacheca", "Rubrica", "waw3://contacts", "4", "inAppLink", "", "https://static.windtrebusiness.it/mosaicow3b/static/configuration/ico_rubrica.png"))
+        list.add(
+            Link(
+                "Bacheca",
+                "Rubrica",
+                "waw3://contacts",
+                "4",
+                "inAppLink",
+                "",
+                "https://static.windtrebusiness.it/mosaicow3b/static/configuration/ico_rubrica.png"
+            )
+        )
         return list
     }
 
     private fun initSide(): ArrayList<LinkSide> {
 
         val list = ArrayList<LinkSide>()
-        list.add(LinkSide("Wind_Tre_Per_Noi", "WINDTRE Per Noi", "https://eudaimonint.secure.force.com/sso/SSOAuthenticationPage?azienda=wind&user=150511&hash=8780a3af7b6d86bb366a3e21cedef465", "1", "webview", ""))
-        list.add(LinkSide("Intranet", "Intranet", "https://intranet3.sharepoint.com/Pages/Home.aspx", "2", "webview", ""))
-        list.add(LinkSide("Bacheca", "Bacheca", "https://intranet3.sharepoint.com/sites/bacheca/Pagine/Bacheca.aspx", "3", "webview", ""))
-        list.add(LinkSide("Emergenze", "Emergenze", "https://intranet3.sharepoint.com/Pages/Utilities_Servizi/AmbienteSicurezza.aspx", "4", "webview", ""))
-        list.add(LinkSide("Fondo_Solidarietà", "Fondo Solidarietà", "https://sisalute.gruppofos.com/Login/", "5", "webview", ""))
-        list.add(LinkSide("Offerta_Dipendenti", "Offerta Dipendenti", "https://intranet3.sharepoint.com/sites/WindTrePerNoi/Pagine/Offerta-dipendenti.aspx", "6", "webview", ""))
-        list.add(LinkSide("#Time4Me", "#Time4Me", "https://intranet3.sharepoint.com/Pages/Time4Me/pages/Home.aspx", "7", "webview", ""))
+        list.add(
+            LinkSide(
+                "Wind_Tre_Per_Noi",
+                "WINDTRE Per Noi",
+                "https://eudaimonint.secure.force.com/sso/SSOAuthenticationPage?azienda=wind&user=150511&hash=8780a3af7b6d86bb366a3e21cedef465",
+                "1",
+                "webview",
+                ""
+            )
+        )
+        list.add(
+            LinkSide(
+                "Intranet",
+                "Intranet",
+                "https://intranet3.sharepoint.com/Pages/Home.aspx",
+                "2",
+                "webview",
+                ""
+            )
+        )
+        list.add(
+            LinkSide(
+                "Bacheca",
+                "Bacheca",
+                "https://intranet3.sharepoint.com/sites/bacheca/Pagine/Bacheca.aspx",
+                "3",
+                "webview",
+                ""
+            )
+        )
+        list.add(
+            LinkSide(
+                "Emergenze",
+                "Emergenze",
+                "https://intranet3.sharepoint.com/Pages/Utilities_Servizi/AmbienteSicurezza.aspx",
+                "4",
+                "webview",
+                ""
+            )
+        )
+        list.add(
+            LinkSide(
+                "Fondo_Solidarietà",
+                "Fondo Solidarietà",
+                "https://sisalute.gruppofos.com/Login/",
+                "5",
+                "webview",
+                ""
+            )
+        )
+        list.add(
+            LinkSide(
+                "Offerta_Dipendenti",
+                "Offerta Dipendenti",
+                "https://intranet3.sharepoint.com/sites/WindTrePerNoi/Pagine/Offerta-dipendenti.aspx",
+                "6",
+                "webview",
+                ""
+            )
+        )
+        list.add(
+            LinkSide(
+                "#Time4Me",
+                "#Time4Me",
+                "https://intranet3.sharepoint.com/Pages/Time4Me/pages/Home.aspx",
+                "7",
+                "webview",
+                ""
+            )
+        )
         list.add(LinkSide("CCS", "CCS", "", "8", "app", "it.ccsitalia.app"))
-        list.add(LinkSide("Password_Manager", "Password Manager", "https://myaccount.windtre.it/", "9", "webview", ""))
+        list.add(
+            LinkSide(
+                "Password_Manager",
+                "Password Manager",
+                "https://myaccount.windtre.it/",
+                "9",
+                "webview",
+                ""
+            )
+        )
         return list
     }
 
+    override fun onShowDataModel(model: DarkModeModel?) {}
+
+    override fun onSetLayout(model: DarkModeModel?) {
+
+        var mModel: DarkModeModel? = model
+        isDarkMode = !isDarkMode
+        saveStateToPreferences(isDarkMode)
+
+        mModel = DarkModeModel(context!!)
+        binding?.temp = mModel
+        binding?.presenter = presenter
+
+        /*
+        if (isDarkMode)
+            currentActivity.setTheme(R.style.AppThemeDark)
+        else
+            currentActivity.setTheme(R.style.AppTheme)
+        */
+    }
+
+    private fun saveStateToPreferences(isDarkMode: Boolean) {
+        val editor = currentActivity.preferences.edit()
+        editor.putBoolean("DARK_MODE", isDarkMode)
+        editor.apply()
+    }
+
     private fun saveStateToPreferences() {
-        val editor: SharedPreferences.Editor = preferences.edit()
+        val editor: SharedPreferences.Editor = currentActivity.preferences.edit()
         editor.putBoolean("COMPRESS", compress)
         editor.apply()
     }

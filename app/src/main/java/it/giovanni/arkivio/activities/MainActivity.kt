@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package it.giovanni.arkivio.activities
 
 import android.annotation.SuppressLint
@@ -82,7 +84,7 @@ class MainActivity : GPSActivity(), IProgressLoader {
     private var pushBundle: Bundle? = null
     private var deepLinkEvent: DeepLinkDescriptor? = null
 
-    private lateinit var preferences: SharedPreferences
+    lateinit var preferences: SharedPreferences
     private var rememberMe: Boolean = false
 
     companion object {

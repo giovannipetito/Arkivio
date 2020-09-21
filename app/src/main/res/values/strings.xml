@@ -242,7 +242,7 @@
     <string name="share_device_information">Share device information</string>
 
     <!-- NEARBY CHAT -->
-    <string name="service_id">it.giovanni.kotlin</string>
+    <string name="service_id">it.giovanni.arkivio</string>
     <string name="message">Message</string>
 
     <!-- NEARBY GAME -->
@@ -284,5 +284,9 @@
     <string name="quick_answer_title">Risposta rapida</string>
     <string name="automl_vision_edge_title">AutoML Vision Edge</string>
     <string name="recognition_of_landmarks_title">Riconoscimento di punti di riferimento</string>
+
+    <string name="select_image">Select image</string>
+    <string name="find_text">Find text</string>
+    <string name="find_face_contour">Find face contour</string>
 
 </resources>

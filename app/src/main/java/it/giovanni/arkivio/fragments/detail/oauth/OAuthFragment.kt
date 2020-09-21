@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package it.giovanni.arkivio.fragments.detail.oauth
 
 import android.annotation.SuppressLint
@@ -6,7 +8,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
-import android.preference.PreferenceManager
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
@@ -135,8 +136,7 @@ class OAuthFragment : DetailFragment() {
         }
 
         // Attempt an acquireTokenSilent call to see if we're signed in
-        val preferences = PreferenceManager.getDefaultSharedPreferences(context)
-        val userId = preferences.getString(USER_ID, "")
+        val userId = currentActivity.preferences.getString(USER_ID, "")
         if (!TextUtils.isEmpty(userId)) {
             authContext!!.acquireTokenSilentAsync(RESOURCE_ID, CLIENT_ID, userId, getAuthSilentCallback())
         }
@@ -340,8 +340,7 @@ class OAuthFragment : DetailFragment() {
                 authResult = authenticationResult // Store the auth result
 
                 // Store User id to SharedPreferences to use it to acquire token silently later
-                val preferences = PreferenceManager.getDefaultSharedPreferences(context)
-                preferences.edit().putString(USER_ID, authenticationResult.userInfo.userId).apply()
+                currentActivity.preferences.edit().putString(USER_ID, authenticationResult.userInfo.userId).apply()
 
                 callGraphAPI() // call graph
 

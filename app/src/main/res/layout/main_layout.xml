@@ -1,27 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/drawer_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="false"
-        android:background="@color/blueWave">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
 
-    <include layout="@layout/main_content_layout"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent" />
+    <data>
+        <variable
+                name="temp"
+                type="it.giovanni.arkivio.model.DarkModeModel" />
 
-    <com.google.android.material.navigation.NavigationView
-            android:layout_width="wrap_content"
+        <variable
+                name="presenter"
+                type="it.giovanni.arkivio.presenter.DarkModePresenter" />
+    </data>
+
+    <androidx.drawerlayout.widget.DrawerLayout
+            android:id="@+id/drawer_layout"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="end"
-            android:background="@color/blueWave"
-            android:fitsSystemWindows="true">
+            android:fitsSystemWindows="false"
+            android:background="@color/blueWave">
 
-        <include layout="@layout/nav_header_main"
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent" />
+        <include layout="@layout/main_content_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
-    </com.google.android.material.navigation.NavigationView>
+        <com.google.android.material.navigation.NavigationView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:background="@color/blueWave"
+                android:fitsSystemWindows="true">
 
-</androidx.drawerlayout.widget.DrawerLayout>
+            <include layout="@layout/nav_header_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    bind:temp2="@{temp}" />
+
+        </com.google.android.material.navigation.NavigationView>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+</layout>

@@ -1,6 +1,10 @@
+@file:Suppress("DEPRECATION")
+
 package it.giovanni.arkivio.fragments
 
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +18,7 @@ abstract class BaseFragment(private var sectionType: SectionType) : Fragment() {
 
     lateinit var currentActivity: MainActivity
     protected var popupError: CustomDialogPopup? = null
+    var isDarkMode = false
 
     companion object {
         var NO_TITLE : Int = -1
@@ -54,6 +59,8 @@ abstract class BaseFragment(private var sectionType: SectionType) : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+        isDarkMode = currentActivity.preferences.getBoolean("DARK_MODE", false)
 
         val view: View?
         when (sectionType) {

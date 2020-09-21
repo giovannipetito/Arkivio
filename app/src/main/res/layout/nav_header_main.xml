@@ -1,217 +1,268 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/side_nav_bar"
-        android:gravity="top"
-        android:orientation="vertical"
-        android:paddingTop="16dp"
-        android:paddingBottom="8dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark">
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_centerInParent="true"
-            android:src="@drawable/logo_audioslave_big"
-            android:contentDescription="@string/app_name" />
+    <data>
+        <variable
+                name="temp2"
+                type="it.giovanni.arkivio.model.DarkModeModel" />
 
-    <com.github.mmin18.widget.RealtimeBlurView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:realtimeBlurRadius="10dp"
-            app:realtimeOverlayColor="@color/transparent_1" />
-    <!-- app:realtimeBlurRadius regola il livello del blur -->
-
-    <LinearLayout
-            android:id="@+id/profile_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="36dp"
-            android:layout_marginEnd="36dp"
-            android:orientation="horizontal">
-
-        <ImageView
-                android:id="@+id/nav_header_avatar"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:src="@drawable/ico_avatar"
-                android:contentDescription="@string/app_name" />
-
-        <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="16dp">
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/name_surname_title"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-        </RelativeLayout>
-
-    </LinearLayout>
-
-    <ScrollView android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="160dp"
-            android:layout_below="@+id/profile_container">
-
-        <LinearLayout
-                android:id="@+id/nav_header_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="36dp"
-                android:layout_marginEnd="36dp"
-                android:orientation="vertical" />
-
-    </ScrollView>
+        <variable
+                name="presenter"
+                type="it.giovanni.arkivio.presenter.DarkModePresenter" />
+    </data>
 
     <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_alignParentBottom="true">
+            android:layout_height="match_parent"
+            android:paddingTop="16dp"
+            android:paddingBottom="8dp"
+            android:background="@{temp2.sideNavBar}"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark"
+            tools:background="@drawable/side_nav_bar_light">
+
+        <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/logo_audioslave_big"
+                android:contentDescription="@string/app_name" />
+
+        <com.github.mmin18.widget.RealtimeBlurView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:realtimeBlurRadius="10dp"
+                app:realtimeOverlayColor="@color/transparent_1" />
+        <!-- app:realtimeBlurRadius regola il livello del blur -->
 
         <LinearLayout
-                android:id="@+id/app_version"
-                android:layout_width="wrap_content"
+                android:id="@+id/profile_container"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="36dp"
+                android:layout_marginEnd="36dp"
                 android:orientation="horizontal">
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Versione app: "
-                    android:textColor="@color/white" />
+            <ImageView
+                    android:id="@+id/nav_header_avatar"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/ico_avatar"
+                    android:contentDescription="@string/app_name" />
 
-            <TextView
-                    android:id="@+id/version_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:text="App Version: 0.1"
-                    android:textColor="@color/white" />
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16dp">
 
-            <TextView
-                    android:id="@+id/version_code"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="(Version Code)"
-                    android:textColor="@color/white" />
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/name_surname_title"
+                        android:textColor="@{temp2.colore}"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        tools:textColor="@color/colorPrimary" />
+
+            </RelativeLayout>
 
         </LinearLayout>
 
-        <View
-                android:id="@+id/sep_line"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@id/app_version"
-                android:alpha=".4"
-                android:background="@color/white" />
-
-        <LinearLayout
+        <RelativeLayout
+                android:id="@+id/switch_mode_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/sep_line"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:orientation="vertical">
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/profile_container">
 
-            <RelativeLayout
-                    android:id="@+id/settings"
+            <ImageView
+                    android:id="@+id/ico_dark_mode"
+                    android:layout_width="@dimen/dimen_24dp"
+                    android:layout_height="@dimen/dimen_24dp"
+                    android:layout_toStartOf="@+id/switch_mode"
+                    android:src="@{temp2.icoDarkMode}"
+                    android:contentDescription="@string/app_name"
+                    tools:src="@drawable/ico_dark_mode_light" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_centerHorizontal="true"
+                    android:theme="@style/SwitchCompatDarkTheme" />
+
+            <ImageView
+                    android:id="@+id/ico_light_mode"
+                    android:layout_width="@dimen/dimen_24dp"
+                    android:layout_height="@dimen/dimen_24dp"
+                    android:layout_toEndOf="@+id/switch_mode"
+                    android:src="@{temp2.icoLightMode}"
+                    android:contentDescription="@string/app_name"
+                    tools:src="@drawable/ico_light_mode_light" />
+
+        </RelativeLayout>
+
+        <ScrollView android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="160dp"
+                android:layout_below="@+id/switch_mode_container">
+
+            <LinearLayout
+                    android:id="@+id/nav_header_container"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:visibility="visible">
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginEnd="36dp"
+                    android:orientation="vertical" />
 
-                <ImageView
-                        android:id="@+id/menu_ico_configuration"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/ico_menu_configuration"
-                        android:tint="@color/white"
-                        android:contentDescription="@string/app_name" />
+        </ScrollView>
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_alignParentBottom="true">
+
+            <LinearLayout
+                    android:id="@+id/app_version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:orientation="horizontal">
 
                 <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="20dp"
-                        android:layout_toEndOf="@id/menu_ico_configuration"
-                        android:text="Impostazioni"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp">
-
-                <ImageView
-                        android:id="@+id/menu_ico_link"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/ico_feedback"
-                        android:tint="@color/white"
-                        android:contentDescription="@string/app_name" />
+                        android:text="Versione app: "
+                        android:textColor="@color/white" />
 
                 <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="20dp"
-                        android:layout_toEndOf="@id/menu_ico_link"
-                        android:text="Feedback"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp" />
-
-            </RelativeLayout>
-
-
-            <RelativeLayout
-                    android:id="@+id/logout"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp">
-
-                <ImageView
-                        android:id="@+id/menu_ico_exit"
+                        android:id="@+id/version_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/ico_menu_logout"
-                        android:tint="@color/white"
-                        android:contentDescription="@string/app_name" />
+                        android:layout_marginEnd="5dp"
+                        android:text="App Version: 0.1"
+                        android:textColor="@color/white" />
 
                 <TextView
-                        android:layout_width="match_parent"
+                        android:id="@+id/version_code"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="20dp"
-                        android:layout_toEndOf="@id/menu_ico_exit"
-                        android:text="LOGOUT"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp" />
+                        android:text="(Version Code)"
+                        android:textColor="@color/white" />
 
-            </RelativeLayout>
+            </LinearLayout>
 
-        </LinearLayout>
+            <View
+                    android:id="@+id/sep_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/app_version"
+                    android:alpha=".4"
+                    android:background="@color/white" />
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/sep_line"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:orientation="vertical">
+
+                <RelativeLayout
+                        android:id="@+id/settings"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:visibility="visible">
+
+                    <ImageView
+                            android:id="@+id/menu_ico_configuration"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ico_menu_configuration"
+                            android:tint="@color/white"
+                            android:contentDescription="@string/app_name" />
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="20dp"
+                            android:layout_toEndOf="@id/menu_ico_configuration"
+                            android:text="Impostazioni"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="16sp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp">
+
+                    <ImageView
+                            android:id="@+id/menu_ico_link"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ico_feedback"
+                            android:tint="@color/white"
+                            android:contentDescription="@string/app_name" />
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="20dp"
+                            android:layout_toEndOf="@id/menu_ico_link"
+                            android:text="Feedback"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="16sp" />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                        android:id="@+id/logout"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp">
+
+                    <ImageView
+                            android:id="@+id/menu_ico_exit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ico_menu_logout"
+                            android:tint="@color/white"
+                            android:contentDescription="@string/app_name" />
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="20dp"
+                            android:layout_toEndOf="@id/menu_ico_exit"
+                            android:text="LOGOUT"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="16sp" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
-</RelativeLayout>
+</layout>

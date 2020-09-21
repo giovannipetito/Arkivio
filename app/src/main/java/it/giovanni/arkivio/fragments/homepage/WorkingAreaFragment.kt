@@ -4,11 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import it.giovanni.arkivio.R
 import it.giovanni.arkivio.fragments.HomeFragment
 import it.giovanni.arkivio.fragments.MainFragment
-import it.giovanni.arkivio.R
 import it.giovanni.arkivio.utils.Globals
 import kotlinx.android.synthetic.main.working_area_layout.*
+
 
 class WorkingAreaFragment : HomeFragment() {
 
@@ -37,6 +38,21 @@ class WorkingAreaFragment : HomeFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        var oldPostion = 0
+
+        if (scroll_view != null) {
+            scroll_view.viewTreeObserver.addOnScrollChangedListener {
+                if (scroll_view != null) {
+                    if (scroll_view.scrollY > oldPostion) {
+                        fab.hide()
+                    } else if (scroll_view.scrollY < oldPostion || scroll_view.scrollY <= 0) {
+                        fab.show()
+                    }
+                    oldPostion = scroll_view.scrollY
+                }
+            }
+        }
 
         label_logcat_projects.setOnClickListener {
             currentActivity.openDetail(Globals.LOGCAT_PROJECTS, null)

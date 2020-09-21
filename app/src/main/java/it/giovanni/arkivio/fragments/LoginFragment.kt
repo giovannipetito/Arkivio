@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -25,7 +24,6 @@ import kotlinx.android.synthetic.main.login_layout.*
 class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, PermissionManager.PermissionListener {
 
     private var biometricManager: BiometricManager? = null
-    private lateinit var preferences: SharedPreferences
     private var customPopup: CustomDialogPopup? = null
     private var hasPermission: Boolean = false
     private lateinit var loginButton: Button
@@ -55,8 +53,7 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
         currentActivity.window.statusBarColor = ContextCompat.getColor(context!!, R.color.blueWave)
         action = Action.NONE
 
-        preferences = PreferenceManager.getDefaultSharedPreferences(context)
-        checkbox_remember_me.isChecked = preferences.getBoolean("REMEMBER_ME", false)
+        checkbox_remember_me.isChecked = currentActivity.preferences.getBoolean("REMEMBER_ME", false)
 
         username.getInputText().setOnKeyListener { _, _, _ ->
             loginButton.isEnabled = username.getText().trim().isNotEmpty() && password.getText().trim().isNotEmpty()
@@ -213,7 +210,7 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
     }
 
     private fun saveStateToPreferences() {
-        val editor: SharedPreferences.Editor = preferences.edit()
+        val editor: SharedPreferences.Editor = currentActivity.preferences.edit()
         editor.putBoolean("REMEMBER_ME", rememberMe)
         editor.apply()
     }

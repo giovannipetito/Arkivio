@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package it.giovanni.arkivio.utils
 
 import android.Manifest
@@ -84,6 +86,14 @@ class Utils {
             return output
         }
 
+        private fun cropCenter(bitmap: Bitmap): Bitmap {
+            var dimen: Int = bitmap.width
+            if (bitmap.width > bitmap.height)
+                dimen = bitmap.height
+            val dimension = min(dimen, dimen)
+            return ThumbnailUtils.extractThumbnail(bitmap, dimension, dimension)
+        }
+
         @Suppress("DEPRECATION")
         fun setBitmapFromUrl(imageUrl: String, imageView: ImageView, activity: FragmentActivity) {
             try {
@@ -137,12 +147,17 @@ class Utils {
             }
         }
 
-        private fun cropCenter(bitmap: Bitmap): Bitmap {
-            var dimen: Int = bitmap.width
-            if (bitmap.width > bitmap.height)
-                dimen = bitmap.height
-            val dimension = min(dimen, dimen)
-            return ThumbnailUtils.extractThumbnail(bitmap, dimension, dimension)
+        fun getBitmapFromAsset(context: Context, filePath: String?): Bitmap? {
+            val assetManager = context.assets
+            val inputStream: InputStream
+            var bitmap: Bitmap? = null
+            try {
+                inputStream = assetManager.open(filePath!!)
+                bitmap = BitmapFactory.decodeStream(inputStream)
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+            return bitmap
         }
 
         // Su W3B questo metodo viene utilizzato nella classe NotificationDetailFragment per

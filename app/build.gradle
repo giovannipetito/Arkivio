@@ -37,6 +37,10 @@ android {
         exclude 'META-INF/DEPENDENCIES'
         // exclude 'META-INF/INDEX.LIST'
     }
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -134,6 +138,10 @@ dependencies {
     implementation('com.microsoft.aad:adal:1.16.3') {
         exclude group: 'com.android.support'
     }
+
+    // Machine Learning
+    implementation 'com.google.mlkit:face-detection:16.0.1'
+    implementation 'com.google.android.gms:play-services-mlkit-text-recognition:16.1.0'
 }
 
 repositories {
