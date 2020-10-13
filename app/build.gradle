@@ -46,16 +46,16 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'org.jetbrains.kotlin:kotlin-reflect:1.3.72'
+    implementation 'org.jetbrains.kotlin:kotlin-reflect:1.4.10'
     testImplementation 'junit:junit:4.12'
 
     // androidx
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'androidx.work:work-runtime:2.3.4'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.work:work-runtime:2.4.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation "androidx.biometric:biometric:1.0.1"
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
 
     // Room
     kapt 'androidx.room:room-compiler:2.2.5'
@@ -65,41 +65,36 @@ dependencies {
     annotationProcessor 'androidx.room:room-compiler:2.2.5'
 
     // Material
-    implementation 'com.google.android.material:material:1.2.0-alpha06'
+    implementation 'com.google.android.material:material:1.3.0-alpha03'
 
     // Google Mobile Services
-    implementation 'com.google.android.gms:play-services-location:17.0.0' // Google GPS
+    implementation 'com.google.android.gms:play-services-location:17.1.0' // Google GPS
     implementation 'com.google.android.gms:play-services-nearby:17.0.0' // Nearby
     implementation 'com.google.android.gms:play-services-plus:17.0.0'
-    implementation 'com.google.android.gms:play-services-auth:18.0.0'
+    implementation 'com.google.android.gms:play-services-auth:18.1.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.android.gms:play-services-gcm:17.0.0'
 
     // Add the Firebase SDK for Google Analytics
-    implementation 'com.google.firebase:firebase-analytics-ktx:17.4.4' // Kotlin
-    // implementation 'com.google.firebase:firebase-analytics:17.4.4' // Java
+    implementation 'com.google.firebase:firebase-analytics-ktx:17.6.0' // Kotlin
 
     // Add the SDK for Firebase Cloud Messaging
-    implementation 'com.google.firebase:firebase-messaging:20.2.4'
-    implementation 'com.google.firebase:firebase-messaging-directboot:20.2.4'
+    implementation 'com.google.firebase:firebase-messaging:20.3.0'
+    implementation 'com.google.firebase:firebase-messaging-directboot:20.3.0'
 
-    implementation 'com.google.firebase:firebase-database:19.3.1'
-
-    // Check for v11.4.2 or higher
-    // implementation 'com.google.firebase:firebase-core:15.0.0'
+    implementation 'com.google.firebase:firebase-database:19.5.0'
 
     // Add the Firebase Crashlytics SDK.
-    implementation 'com.google.firebase:firebase-crashlytics:17.1.1'
-    // implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+    implementation 'com.google.firebase:firebase-crashlytics:17.2.2'
 
-    //  GSON
+    // GSON
     implementation 'com.google.code.gson:gson:2.8.6'
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
 
     // OkHttp
-    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroid"
     implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit2_version"
@@ -140,8 +135,8 @@ dependencies {
     }
 
     // Machine Learning
-    implementation 'com.google.mlkit:face-detection:16.0.1'
-    implementation 'com.google.android.gms:play-services-mlkit-text-recognition:16.1.0'
+    implementation 'com.google.mlkit:face-detection:16.0.2'
+    implementation 'com.google.android.gms:play-services-mlkit-text-recognition:16.1.1'
 }
 
 repositories {

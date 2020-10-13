@@ -165,8 +165,8 @@ class DateManagerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener
         val dataInizio = "06/02/1988 06:00:00"
         val dataFine = "06/02/1988 12:30:00"
         val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
-        startDate = DateManager(dateFormat.parse(dataInizio))
-        endDate = DateManager(dateFormat.parse(dataFine))
+        startDate = DateManager(dateFormat.parse(dataInizio)!!)
+        endDate = DateManager(dateFormat.parse(dataFine)!!)
 
         response_start_time?.text = startDate?.getFormatTime()
         response_end_time?.text = endDate?.getFormatTime()
@@ -218,7 +218,7 @@ class DateManagerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener
         granularity_date_1?.text = startCurrentDate?.getGranularityDate(granularityHour)
         granularity_date_2?.text = startCurrentDate?.getGranularityDate(granularityMinute)
 
-        timeDate = DateManager(dateFormat.parse(dataInizio))
+        timeDate = DateManager(dateFormat.parse(dataInizio)!!)
         timeDate?.setTimeDate(currentHours, currentMinutes)
         time_date?.text = getSimpleDate4(timeDate!!.getFormatDate())
 
