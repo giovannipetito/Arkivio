@@ -16,6 +16,7 @@ class WebViewActivity: AppCompatActivity() {
     private var titleVideo: String? = null
     private var urlVideo: String? = null
 
+    @Suppress("DEPRECATION")
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,13 +41,15 @@ class WebViewActivity: AppCompatActivity() {
         }
 
         webview.requestFocus(View.FOCUS_DOWN)
-        webview.settings.javaScriptEnabled = true
         webview.settings.javaScriptCanOpenWindowsAutomatically = true
-        webview.settings.useWideViewPort = true
+        webview.settings.pluginState = WebSettings.PluginState.ON
+        webview.settings.mediaPlaybackRequiresUserGesture = false
         webview.settings.builtInZoomControls = false
-        webview.isVerticalScrollBarEnabled = true
         webview.isHorizontalScrollBarEnabled = true
+        webview.isVerticalScrollBarEnabled = true
+        webview.settings.javaScriptEnabled = true
         webview.settings.domStorageEnabled = true
+        webview.settings.useWideViewPort = true
 
         webview.webChromeClient = object : WebChromeClient() {
 
