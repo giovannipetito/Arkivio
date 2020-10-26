@@ -22,7 +22,7 @@ class WebViewActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.webview_video_layout)
 
-        bundleVideo = intent.getBundleExtra("bundle_video")
+        bundleVideo = intent.getBundleExtra("bundle_video")!!
 
         titleVideo =
             if (bundleVideo.getString("link_video") != null)
@@ -92,6 +92,12 @@ class WebViewActivity: AppCompatActivity() {
                         progressBar.progress = 0
                         progressBar.visibility = View.GONE
                     }
+                }
+            }
+
+            override fun onPermissionRequest(request: PermissionRequest?) {
+                runOnUiThread {
+                    request?.grant(request.resources)
                 }
             }
         }

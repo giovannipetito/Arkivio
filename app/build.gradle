@@ -38,8 +38,11 @@ android {
         // exclude 'META-INF/INDEX.LIST'
     }
 
-    dataBinding {
-        enabled = true
+    android {
+        buildFeatures {
+            dataBinding = true
+            // viewBinding = true // For view binding
+        }
     }
 }
 
@@ -104,7 +107,7 @@ dependencies {
 
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
     // Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
@@ -124,7 +127,7 @@ dependencies {
     implementation 'com.github.mmin18:realtimeblurview:1.2.1'
 
     // YouTube
-    implementation 'com.google.apis:google-api-services-youtube:v3-rev120-1.19.0'
+    implementation 'com.google.apis:google-api-services-youtube:v3-rev99-1.17.0-rc'
     implementation 'com.google.http-client:google-http-client-android:1.37.0'
     implementation 'com.google.api-client:google-api-client-android:1.30.11'
     implementation 'com.google.api-client:google-api-client-gson:1.30.11'

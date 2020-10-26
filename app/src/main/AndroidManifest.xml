@@ -5,8 +5,8 @@
 
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
 
-    <!-- This permission is depreciated in Android P -->
-    <!-- suppress DeprecatedClassUsageInspection -->
+    <!--This permission is depreciated in Android P-->
+    <!--suppress DeprecatedClassUsageInspection -->
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -18,7 +18,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:ignore="ScopedStorage" />
 
     <!-- Required for Nearby Connections -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -27,6 +27,12 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
+    <uses-feature android:name="android.hardware.camera.front" android:required="true" />
 
     <application
             android:allowBackup="true"
@@ -193,7 +199,8 @@
         <receiver
                 android:name="it.giovanni.arkivio.fragments.detail.notification.NotificationReceiver1"
                 android:enabled="true"
-                android:exported="true">
+                android:exported="true"
+                tools:ignore="ExportedReceiver">
             <intent-filter>
                 <action android:name="restartservice" />
             </intent-filter>
@@ -203,7 +210,8 @@
         <receiver
                 android:name="it.giovanni.arkivio.fragments.detail.notification.NotificationReceiver2"
                 android:enabled="true"
-                android:exported="true">
+                android:exported="true"
+                tools:ignore="ExportedReceiver">
             <intent-filter>
                 <action android:name="restartservice" />
             </intent-filter>
@@ -213,7 +221,8 @@
         <receiver
                 android:name="it.giovanni.arkivio.fragments.detail.notification.NotificationReceiver3"
                 android:enabled="true"
-                android:exported="true">
+                android:exported="true"
+                tools:ignore="ExportedReceiver">
             <intent-filter>
                 <action android:name="restartservice" />
             </intent-filter>
@@ -223,7 +232,8 @@
         <receiver
                 android:name="it.giovanni.arkivio.fragments.detail.notification.NotificationReceiver4"
                 android:enabled="true"
-                android:exported="true">
+                android:exported="true"
+                tools:ignore="ExportedReceiver">
             <intent-filter>
                 <action android:name="restartservice" />
             </intent-filter>

@@ -101,6 +101,7 @@
     <string name="phone_state_title">Stato del telefono</string>
     <string name="explores_pdf_title">Esplora PDF</string>
     <string name="download_pdf_title">Scarica PDF</string>
+    <string name="show_webcam_title">Mostra la WebCam</string>
 
     <string name="permission_pdf_request">Per scaricare il PDF è necessario accedere alla memoria del dispositivo e ti verrà richiesto di fornire il consenso ad accedere alla memoria interna del tuo dispositivo.</string>
     <string name="permission_pdf_never_ask_again">Per scaricare il PDF è necessario accedere alla memoria del dispositivo, seleziona Continua e verrai indirizzato alla sezione Impostazioni del dispositivo per modificare le Autorizzazioni app - Archiviazione.</string>
@@ -120,6 +121,7 @@
 
     <!-- MANAGE LAYOUT -->
     <string name="layout_manager_title">Layout Manager</string>
+    <string name="change_style">Change Style</string>
 
     <!-- PREFERENCE -->
     <string name="preference_title">Preference</string>

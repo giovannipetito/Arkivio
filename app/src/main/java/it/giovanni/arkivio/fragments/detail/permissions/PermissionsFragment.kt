@@ -18,6 +18,7 @@ import androidx.core.content.FileProvider
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.customview.popup.CustomDialogPopup
 import it.giovanni.arkivio.fragments.DetailFragment
+import it.giovanni.arkivio.utils.Globals
 import it.giovanni.arkivio.utils.PermissionManager
 import it.giovanni.arkivio.utils.Utils
 import it.giovanni.arkivio.utils.Utils.Companion.decodeBase64Url
@@ -44,8 +45,9 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
 
     private var viewFragment: View? = null
     private var isDownloading: Boolean = false
-    private var hasPermission: Boolean = false
+    private var hasPDFPermission: Boolean = false
     private var hasPhonePermission: Boolean = false
+    private var hasPermissions: Boolean = false
     private lateinit var customPopup: CustomDialogPopup
     private lateinit var action: Action
     private lateinit var url: String
@@ -107,6 +109,14 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        askPermissions()
+        label_show_webcam.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("link_webcam", "WebCam")
+            bundle.putString("GENERIC_URL", "https://www.omegle.com/")
+            currentActivity.openDetail(Globals.WEB_VIEW, bundle)
+        }
+
         label_phone_state.setOnClickListener {
 
             phoneState = true
@@ -153,17 +163,17 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
             customPopup.setMessage("")
 
             customPopup.setButtons(
-                resources.getString(R.string.popup_button_cancel), View.OnClickListener {
+                resources.getString(R.string.popup_button_cancel), {
                     customPopup.dismiss()
                 },
-                resources.getString(R.string.popup_button_send), View.OnClickListener {
+                resources.getString(R.string.popup_button_send), {
                     customPopup.dismiss()
                     action =
                         Action.SEND
                     askPDFPermission()
                     downloadPDF()
                 },
-                resources.getString(R.string.popup_button_open), View.OnClickListener {
+                resources.getString(R.string.popup_button_open), {
                     customPopup.dismiss()
                     action =
                         Action.OPEN
@@ -173,6 +183,22 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
             )
             customPopup.show()
         }
+    }
+
+    private fun askPermissions() {
+        checkPermissions()
+        if (hasPermissions) {
+            label_show_webcam.visibility = View.VISIBLE
+            webcam_separator.visibility = View.VISIBLE
+            return
+        }
+        PermissionManager.requestPermission(context!!, this, arrayOf(Manifest.permission.MODIFY_AUDIO_SETTINGS, Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA))
+    }
+
+    private fun checkPermissions() {
+        hasPermissions = PermissionManager.checkSelfPermission(context!!, Manifest.permission.MODIFY_AUDIO_SETTINGS) &&
+                PermissionManager.checkSelfPermission(context!!, Manifest.permission.RECORD_AUDIO) &&
+                PermissionManager.checkSelfPermission(context!!, Manifest.permission.CAMERA)
     }
 
     private fun askPhonePermission() {
@@ -221,16 +247,16 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
         )
 
         customPopup.setButton(
-            resources.getString(R.string.popup_button_close), View.OnClickListener {
-                customPopup.dismiss()
-            }
-        )
+            resources.getString(R.string.popup_button_close)
+        ) {
+            customPopup.dismiss()
+        }
         customPopup.show()
     }
 
     private fun askPDFPermission() {
         checkPDFPermission()
-        if (hasPermission)
+        if (hasPDFPermission)
             return
         PermissionManager.requestPermission(
             context!!,
@@ -244,10 +270,15 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
     }
 
     private fun checkPDFPermission() {
-        hasPermission = PermissionManager.checkSelfPermission(context!!, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        hasPDFPermission = PermissionManager.checkSelfPermission(context!!, Manifest.permission.WRITE_EXTERNAL_STORAGE)
     }
 
     override fun onPermissionResult(permissions: Array<String>, grantResults: IntArray) {
+        if (!phoneState && !downloadPdf) {
+            checkPermissions()
+            label_show_webcam.visibility = View.VISIBLE
+            webcam_separator.visibility = View.VISIBLE
+        }
         if (phoneState && !downloadPdf) {
             checkPhonePermission()
             showPhoneState()
@@ -261,7 +292,7 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     private fun downloadPDF() {
 
-        if (!hasPermission)
+        if (!hasPDFPermission)
             return
         if (isDownloading)
             return

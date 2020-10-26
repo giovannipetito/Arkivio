@@ -31,8 +31,8 @@ class WebViewFragment : DetailFragment() {
         val linkGitHub = arguments!!.getInt("link_github")
         val linkDriveW3B = arguments!!.getInt("link_drive_w3b")
         val linkDriveWAW3 = arguments!!.getInt("link_drive_waw3")
-
         val linkHtml = arguments!!.getInt("link_html")
+        val linkWebCam = arguments!!.getInt("link_webcam")
 
         val noTitle = 0
 
@@ -47,6 +47,9 @@ class WebViewFragment : DetailFragment() {
         }
         if (linkHtml != noTitle) {
             return linkHtml
+        }
+        if (linkWebCam != noTitle) {
+            return linkWebCam
         }
 
         return -1
@@ -119,6 +122,7 @@ class WebViewFragment : DetailFragment() {
         }
 
         webview.webChromeClient = object : WebChromeClient() {
+
             override fun onProgressChanged(view: WebView, progress: Int) {
 
                 if (progressBar != null) {
@@ -131,6 +135,12 @@ class WebViewFragment : DetailFragment() {
                         progressBar.progress = 0
                         progressBar.visibility = View.GONE
                     }
+                }
+            }
+
+            override fun onPermissionRequest(request: PermissionRequest?) {
+                currentActivity.runOnUiThread {
+                    request?.grant(request.resources)
                 }
             }
         }

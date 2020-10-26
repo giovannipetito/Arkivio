@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.Toast
+import com.airbnb.paris.extensions.style
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -25,6 +26,7 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
     private var viewFragment: View? = null
     private var viewParent: View? = null
     private var progressBarContainer: RelativeLayout? = null
+    private var style = false
 
     private lateinit var list: List<String>
 
@@ -195,6 +197,17 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
 
             override fun afterTextChanged(p0: Editable?) {}
         })
+
+        button_change_style.style(R.style.CustomButton)
+        button_change_style.setOnClickListener {
+            style = if (style) {
+                button_change_style.style(R.style.CustomButton)
+                false
+            } else {
+                button_change_style.style(R.style.CustomLoginButton)
+                true
+            }
+        }
     }
 
     override fun onFinishDragging(var1: Int, var2: String) {

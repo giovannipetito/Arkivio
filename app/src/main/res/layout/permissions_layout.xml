@@ -60,4 +60,25 @@
           android:layout_gravity="center"
           android:alpha=".4" />
 
+    <TextView
+            android:id="@+id/label_show_webcam"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/show_webcam_title"
+            android:textColor="@color/dark"
+            android:textSize="16sp"
+            android:textAlignment="center"
+            android:visibility="invisible" />
+
+    <View android:id="@+id/webcam_separator"
+            android:layout_width="120dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/dark"
+            android:layout_gravity="center"
+            android:alpha=".4"
+            android:visibility="invisible" />
+
 </LinearLayout>
