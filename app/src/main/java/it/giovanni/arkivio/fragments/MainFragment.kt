@@ -14,7 +14,6 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.TransitionDrawable
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
@@ -266,12 +265,12 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
             customPopup.setMessage("Vuoi comprimere il background all'apertura del menu laterale?")
 
             customPopup.setButtons(
-                resources.getString(R.string.popup_button_yes), View.OnClickListener {
+                resources.getString(R.string.popup_button_yes), {
                     compress = true
                     saveStateToPreferences()
                     customPopup.dismiss()
                 },
-                resources.getString(R.string.popup_button_no), View.OnClickListener {
+                resources.getString(R.string.popup_button_no), {
                     compress = false
                     saveStateToPreferences()
                     customPopup.dismiss()

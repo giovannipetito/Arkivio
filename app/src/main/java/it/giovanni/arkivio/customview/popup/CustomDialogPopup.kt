@@ -10,30 +10,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
-import android.widget.TextView
 import androidx.annotation.StyleRes
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import it.giovanni.arkivio.utils.Utils
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.customview.TextViewCustom
 import java.util.*
-import kotlin.collections.ArrayList
 
 open class CustomDialogPopup : AlertDialog.Builder {
 
     private val DIALOG_INTERFACE_KEY = 1258932039
     private lateinit var elementList: LinearLayout
     protected lateinit var labelList: LinearLayout
-    protected lateinit var titleDialog: TextView
-    protected lateinit var subtitleDialog: TextView
-    protected lateinit var messageDialog: TextView
+    protected lateinit var titleDialog: TextViewCustom
+    protected lateinit var subtitleDialog: TextViewCustom
+    protected lateinit var messageDialog: TextViewCustom
     private lateinit var containerLeftButton: RelativeLayout
     private lateinit var containerCenterButton: RelativeLayout
     protected lateinit var buttonsContainer: LinearLayout
-    private lateinit var rightButton: AppCompatButton
-    private lateinit var centerButton: AppCompatButton
-    private lateinit var leftButton: AppCompatButton
+    private lateinit var rightButton: TextViewCustom
+    private lateinit var centerButton: TextViewCustom
+    private lateinit var leftButton: TextViewCustom
     private var type: Int = TYPE_INFO
     private var title: String? = null
     private var subtitle: String? = null
@@ -78,17 +76,17 @@ open class CustomDialogPopup : AlertDialog.Builder {
         elementList = dialogView.findViewById(R.id.element_list) as LinearLayout
         labelList = dialogView.findViewById(R.id.label_list) as LinearLayout
 
-        titleDialog = dialogView.findViewById(R.id.title_dialog) as TextView
-        subtitleDialog = dialogView.findViewById(R.id.subtitle_dialog) as TextView
-        messageDialog = dialogView.findViewById(R.id.message_dialog) as TextView
+        titleDialog = dialogView.findViewById(R.id.title_dialog) as TextViewCustom
+        subtitleDialog = dialogView.findViewById(R.id.subtitle_dialog) as TextViewCustom
+        messageDialog = dialogView.findViewById(R.id.message_dialog) as TextViewCustom
 
         buttonsContainer = dialogView.findViewById(R.id.buttons_container) as LinearLayout
         containerLeftButton = dialogView.findViewById(R.id.container_left_button) as RelativeLayout
         containerCenterButton = dialogView.findViewById(R.id.container_center_button) as RelativeLayout
 
-        leftButton = dialogView.findViewById(R.id.left_button) as AppCompatButton
-        centerButton = dialogView.findViewById(R.id.center_button) as AppCompatButton
-        rightButton = dialogView.findViewById(R.id.right_button) as AppCompatButton
+        leftButton = dialogView.findViewById(R.id.left_button) as TextViewCustom
+        centerButton = dialogView.findViewById(R.id.center_button) as TextViewCustom
+        rightButton = dialogView.findViewById(R.id.right_button) as TextViewCustom
     }
 
     fun setType(type: Int) {
@@ -156,8 +154,7 @@ open class CustomDialogPopup : AlertDialog.Builder {
         return dialog
     }
 
-    // CUSTOM BUTTON
-    fun setButton(text: String?, listener: View.OnClickListener) {
+    fun setButtons(text: String?, listener: View.OnClickListener) {
         buttonNumber = 1
 
         if (text != null)
@@ -166,7 +163,6 @@ open class CustomDialogPopup : AlertDialog.Builder {
         leftAction = null
         centerAction = null
         rightAction = listener
-        setButtonColors()
     }
 
     fun setButtons(textRight: String, listenerRight: View.OnClickListener,
@@ -180,8 +176,6 @@ open class CustomDialogPopup : AlertDialog.Builder {
 
         rightText = textRight
         rightAction = listenerRight
-
-        setButtonColors()
     }
 
     fun setButtons(textLeft: String, listenerLeft: View.OnClickListener,
@@ -197,8 +191,6 @@ open class CustomDialogPopup : AlertDialog.Builder {
 
         rightText = textRight
         rightAction = listenerRight
-
-        setButtonColors()
     }
 
     override fun setPositiveButton(text: CharSequence, listener: DialogInterface.OnClickListener): AlertDialog.Builder {
@@ -225,35 +217,6 @@ open class CustomDialogPopup : AlertDialog.Builder {
     override fun setMessage(mMessage: CharSequence?): AlertDialog.Builder {
         this.message = mMessage.toString()
         return super.setMessage(null)
-    }
-
-    private fun setButtonColors() {
-        val colors: ArrayList<Int> = ArrayList()
-        colors.add(R.color.black)
-        colors.add(R.color.grey_2)
-        colors.add(R.color.rosso_1)
-        if (buttonNumber > 0) {
-            when (buttonNumber) {
-                1 -> {
-                    if (colors.size < 1)
-                        return
-                    leftButton.setTextColor(colors[0])
-                }
-                2 -> {
-                    if (colors.size < 2)
-                        return
-                    leftButton.setTextColor(colors[1])
-                    centerButton.setTextColor(colors[2])
-                }
-                3 -> {
-                    if (colors.size < 3)
-                        return
-                    leftButton.setTextColor(colors[1])
-                    centerButton.setTextColor(colors[1])
-                    rightButton.setTextColor(colors[2])
-                }
-            }
-        }
     }
 
     private fun showButton() {

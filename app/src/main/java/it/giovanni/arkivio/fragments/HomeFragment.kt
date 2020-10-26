@@ -3,7 +3,7 @@ package it.giovanni.arkivio.fragments
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import kotlinx.android.synthetic.main.detail_layout.*
+import kotlinx.android.synthetic.main.home_layout.*
 
 abstract class HomeFragment : BaseFragment(SectionType.HOME) {
 

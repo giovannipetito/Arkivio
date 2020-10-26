@@ -2,9 +2,7 @@
 
 package it.giovanni.arkivio.fragments
 
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +19,7 @@ abstract class BaseFragment(private var sectionType: SectionType) : Fragment() {
     var isDarkMode = false
 
     companion object {
+        var NO_LAYOUT : Int = -1
         var NO_TITLE : Int = -1
     }
 
@@ -42,10 +41,10 @@ abstract class BaseFragment(private var sectionType: SectionType) : Fragment() {
         popupError!!.setCancelable(false)
         popupError!!.setTitle("")
         popupError!!.setMessage(msg)
-        popupError!!.setButton(resources.getString(R.string.popup_button_ok),
-            View.OnClickListener {
-                popupError!!.dismiss()
-            })
+        popupError!!.setButtons(resources.getString(R.string.popup_button_ok)
+        ) {
+            popupError!!.dismiss()
+        }
         popupError!!.show()
     }
 
@@ -54,7 +53,7 @@ abstract class BaseFragment(private var sectionType: SectionType) : Fragment() {
         popupError!!.setCancelable(false)
         popupError!!.setTitle("")
         popupError!!.setMessage(msg)
-        popupError!!.setButton(resources.getString(R.string.popup_button_ok), clickListener)
+        popupError!!.setButtons(resources.getString(R.string.popup_button_ok), clickListener)
         popupError!!.show()
     }
 
@@ -71,7 +70,7 @@ abstract class BaseFragment(private var sectionType: SectionType) : Fragment() {
                 view = inflater.inflate(R.layout.working_area_tab_detail, container, false)
             }
             SectionType.HOME -> {
-                view = inflater.inflate(R.layout.homepage_layout, container, false)
+                view = inflater.inflate(R.layout.home_layout, container, false)
             }
             SectionType.DETAIL -> {
                 view = inflater.inflate(R.layout.detail_layout, container, false)

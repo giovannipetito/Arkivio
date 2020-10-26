@@ -132,12 +132,12 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
         customPopup!!.setMessage(getString(R.string.biometric_error_fingerprint))
 
         customPopup!!.setButtons(
-            resources.getString(R.string.popup_button_register), View.OnClickListener {
+            resources.getString(R.string.popup_button_register), {
                 action = Action.REGISTER
                 askPermission()
                 customPopup!!.dismiss()
             },
-            resources.getString(R.string.popup_button_cancel), View.OnClickListener {
+            resources.getString(R.string.popup_button_cancel), {
                 customPopup!!.dismiss()
             }
         )

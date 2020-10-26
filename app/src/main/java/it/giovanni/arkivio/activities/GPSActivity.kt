@@ -146,13 +146,13 @@ open class GPSActivity : BaseActivity(), IProgressLoader, GoogleApiClient.Connec
         customPopup.setMessage(resources.getString(R.string.popup_message_enable_gps))
         customPopup.setButtons(
             resources.getString(R.string.popup_button_ok),
-            View.OnClickListener {
+            {
                 val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
                 startActivity(intent)
                 customPopup.dismiss()
             },
             resources.getString(R.string.popup_button_cancel),
-            View.OnClickListener { customPopup.dismiss() }
+            { customPopup.dismiss() }
         )
         customPopup.show()
     }

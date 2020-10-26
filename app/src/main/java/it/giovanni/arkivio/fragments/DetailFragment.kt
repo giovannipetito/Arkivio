@@ -189,6 +189,7 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
     open fun refresh() {
     }
 
+    @Suppress("DEPRECATION")
     fun stopSwipeRefresh() {
         if (swipeRefreshLayout != null) {
             swipeRefreshLayout!!.isRefreshing = false

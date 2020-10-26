@@ -102,12 +102,12 @@ class RubricaListFragment: DetailFragment(), ContactsListAdapter.OnItemViewClick
                 customDialog.setTitle("Rubrica", "Prima di uscire...")
                 customDialog.setMessage("Confermi di voler annullare l'inserimento dei contatti?")
 
-                customDialog.setButtons(resources.getString(R.string.popup_button_confirm), View.OnClickListener {
+                customDialog.setButtons(resources.getString(R.string.popup_button_confirm), {
                     reallyGoOut = true
                     customDialog.dismiss()
                     currentActivity.onBackPressed()
                 },
-                    resources.getString(R.string.popup_button_cancel), View.OnClickListener {
+                    resources.getString(R.string.popup_button_cancel), {
                         customDialog.dismiss()
                     }
                 )

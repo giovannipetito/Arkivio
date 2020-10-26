@@ -246,7 +246,7 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
                     "<br><br>Network Country Iso: " + getNetworkCountryIso()
         )
 
-        customPopup.setButton(
+        customPopup.setButtons(
             resources.getString(R.string.popup_button_close)
         ) {
             customPopup.dismiss()

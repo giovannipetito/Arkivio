@@ -21,7 +21,7 @@
                 android:orientation="vertical"
                 android:visibility="gone" />
 
-        <TextView
+        <it.giovanni.arkivio.customview.TextViewCustom
                 android:id="@+id/title_dialog"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -31,10 +31,10 @@
                 android:textColor="@color/dark"
                 android:textSize="14sp"
                 android:textAllCaps="true"
-                tools:text="titolo"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:text="titolo" />
 
-        <TextView
+        <it.giovanni.arkivio.customview.TextViewCustom
                 android:id="@+id/subtitle_dialog"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
                 android:textSize="14sp"
                 tools:text="sottotitolo" />
 
-        <TextView
+        <it.giovanni.arkivio.customview.TextViewCustom
                 android:id="@+id/message_dialog"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -62,16 +62,15 @@
                 android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-        </LinearLayout>
+                android:orientation="vertical" />
 
         <LinearLayout
                 android:id="@+id/buttons_container"
                 android:layout_width="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="end"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="4dp"
+                android:layout_marginEnd="16dp"
                 android:background="@color/white"
                 android:orientation="horizontal">
 
@@ -81,7 +80,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center">
 
-                <androidx.appcompat.widget.AppCompatButton
+                <it.giovanni.arkivio.customview.TextViewCustom
                         android:id="@+id/left_button"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
@@ -99,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center">
 
-                <androidx.appcompat.widget.AppCompatButton
+                <it.giovanni.arkivio.customview.TextViewCustom
                         android:id="@+id/center_button"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
@@ -111,7 +110,7 @@
 
             </RelativeLayout>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <it.giovanni.arkivio.customview.TextViewCustom
                     android:id="@+id/right_button"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"

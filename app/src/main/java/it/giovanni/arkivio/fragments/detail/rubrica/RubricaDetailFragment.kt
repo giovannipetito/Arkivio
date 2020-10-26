@@ -262,7 +262,7 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
         listDialogPopup.setCancelable(false)
         listDialogPopup.setMessage(resources.getString(R.string.rubrica_title))
         listDialogPopup.setLabels(contacts, this)
-        listDialogPopup.setButton(resources.getString(R.string.popup_button_cancel), View.OnClickListener {})
+        listDialogPopup.setButtons(resources.getString(R.string.popup_button_cancel)) {}
         listDialogPopup.setGravityBottom(false)
         listDialogPopup.show()
     }
@@ -277,7 +277,7 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
         listDialogPopup.setCancelable(false)
         listDialogPopup.setMessage(resources.getString(R.string.rubrica_message_dialog))
         listDialogPopup.setLabels(labels, this)
-        listDialogPopup.setButton(resources.getString(R.string.popup_button_cancel), View.OnClickListener {})
+        listDialogPopup.setButtons(resources.getString(R.string.popup_button_cancel)) {}
         listDialogPopup.setGravityBottom(true)
         listDialogPopup.show()
     }
@@ -294,7 +294,7 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
         listDialogPopup.setCancelable(false)
         listDialogPopup.setMessage(resources.getString(R.string.rubrica_message_dialog))
         listDialogPopup.setLabels(labels, this)
-        listDialogPopup.setButton(resources.getString(R.string.popup_button_cancel), View.OnClickListener {})
+        listDialogPopup.setButtons(resources.getString(R.string.popup_button_cancel)) {}
         listDialogPopup.setGravityBottom(true)
         listDialogPopup.show()
     }
