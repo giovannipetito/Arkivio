@@ -76,7 +76,7 @@ class CalendarView : RecyclerView {
     /**
      * The xml resource that is inflated and used as the day cell view. This must be provided.
      */
-    var dayItemResource = 0
+    var dayItem = 0
         set(value) {
             if (field != value) {
                 if (value == 0)
@@ -89,7 +89,7 @@ class CalendarView : RecyclerView {
     /**
      * The xml resource that is inflated and used as a header for every month. Set zero to disable.
      */
-    var monthHeaderResource = 0
+    var monthHeader = 0
         set(value) {
             if (field != value) {
                 field = value
@@ -100,7 +100,7 @@ class CalendarView : RecyclerView {
     /**
      * The xml resource that is inflated and used as a footer for every month. Set zero to disable.
      */
-    var monthFooterResource = 0
+    var monthFooter = 0
         set(value) {
             if (field != value) {
                 field = value
@@ -261,15 +261,15 @@ class CalendarView : RecyclerView {
         context!!.withStyledAttributes(attributeSet, R.styleable.CalendarView, defStyleAttr, defStyleRes) {
             month = getString(R.styleable.CalendarView_month)
             inMonth = getBoolean(R.styleable.CalendarView_in_month, inMonth)
+            dayItem = getResourceId(R.styleable.CalendarView_day_item, dayItem)
             scrollMode = ScrollMode.values()[getInt(R.styleable.CalendarView_scroll_mode, scrollMode.ordinal)]
+            monthHeader = getResourceId(R.styleable.CalendarView_month_header, monthHeader)
+            monthFooter = getResourceId(R.styleable.CalendarView_month_footer, monthFooter)
             maxRowCount = getInt(R.styleable.CalendarView_max_row_count, maxRowCount)
             orientation = getInt(R.styleable.CalendarView_orientation, orientation)
             inDateStyle = InDate.values()[getInt(R.styleable.CalendarView_in_date_style, inDateStyle.ordinal)]
             outDateStyle = OutDate.values()[getInt(R.styleable.CalendarView_out_date_style, outDateStyle.ordinal)]
-            dayItemResource = getResourceId(R.styleable.CalendarView_day_item, dayItemResource)
             animationDuration = getInt(R.styleable.CalendarView_animation_duration, animationDuration)
-            monthHeaderResource = getResourceId(R.styleable.CalendarView_month_header, monthHeaderResource)
-            monthFooterResource = getResourceId(R.styleable.CalendarView_month_footer_resource, monthFooterResource)
         }
     }
 
@@ -444,7 +444,7 @@ class CalendarView : RecyclerView {
 
     private fun updateAdapterViewConfig() {
         if (adapter != null) {
-            calendarAdapter.viewConfig = ViewConfig(dayItemResource, monthHeaderResource, monthFooterResource, month)
+            calendarAdapter.viewConfig = ViewConfig(dayItem, monthHeader, monthFooter, month)
             invalidateViewHolders()
         }
     }
@@ -650,7 +650,7 @@ class CalendarView : RecyclerView {
         removeOnScrollListener(scrollListenerInternal)
         addOnScrollListener(scrollListenerInternal)
         layoutManager = CalendarLayoutManager(this, orientation)
-        adapter = CalendarAdapter(this, ViewConfig(dayItemResource, monthHeaderResource, monthFooterResource, month), monthConfig)
+        adapter = CalendarAdapter(this, ViewConfig(dayItem, monthHeader, monthFooter, month), monthConfig)
     }
 
     /**
