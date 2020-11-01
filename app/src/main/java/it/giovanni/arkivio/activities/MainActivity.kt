@@ -28,7 +28,7 @@ import it.giovanni.arkivio.App.Companion.context
 import it.giovanni.arkivio.deeplink.DeepLinkDescriptor
 import it.giovanni.arkivio.fragments.*
 import it.giovanni.arkivio.fragments.detail.cardio.CardIOFragment
-import it.giovanni.arkivio.fragments.detail.datemanager.DateManagerFragment
+import it.giovanni.arkivio.fragments.detail.datemanager.*
 import it.giovanni.arkivio.fragments.detail.fonts.FontsFragment
 import it.giovanni.arkivio.fragments.detail.layoutmanager.LayoutManagerFragment
 import it.giovanni.arkivio.fragments.detail.logcat.LogcatFragment
@@ -96,10 +96,6 @@ class MainActivity : GPSActivity(), IProgressLoader {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        // NOTA: Convertire una lista di stringhe in un array di stringhe.
-        val list = ArrayList<String>()
-        val array: Array<String> = list.toTypedArray()
 
         preferences = PreferenceManager.getDefaultSharedPreferences(context)
         rememberMe = preferences.getBoolean("REMEMBER_ME", false)
@@ -343,9 +339,20 @@ class MainActivity : GPSActivity(), IProgressLoader {
                 baseFragment =
                     LogcatFragment()
             }
-            Globals.DATE_MANAGER -> {
-                baseFragment =
-                    DateManagerFragment()
+            Globals.DATE -> {
+                baseFragment = DateFragment()
+            }
+            Globals.DATE_FORMAT -> {
+                baseFragment = DateFormatFragment()
+            }
+            Globals.DATE_PICKER -> {
+                baseFragment = DatePickerFragment()
+            }
+            Globals.CALENDARVIEW_HORIZONTAL -> {
+                baseFragment = CalendarViewHorizontalFragment()
+            }
+            Globals.CALENDARVIEW_VERTICAL -> {
+                baseFragment = CalendarViewVerticalFragment()
             }
             Globals.RUBRICA_HOME -> {
                 baseFragment = RubricaHomeFragment()

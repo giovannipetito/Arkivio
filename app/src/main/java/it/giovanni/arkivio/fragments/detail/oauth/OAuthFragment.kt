@@ -27,7 +27,6 @@ import java.util.concurrent.atomic.AtomicBoolean
 class OAuthFragment : DetailFragment() {
 
     // UI & Debugging Variables
-    // private val TAG = CedoliniListFragment::class.java.simpleName
     private val TAG = "TOKENTAG"
 
     // Azure AD Constants

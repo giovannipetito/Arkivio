@@ -45,13 +45,24 @@ class Utils {
 
     companion object {
 
-        fun turnToString(list: ArrayList<String>): String {
+        fun turnArrayListToString(list: ArrayList<String>): String {
             var string = ""
             for (i in list.indices) {
                 string = if (i < list.size - 1)
-                    string + list[i] + ", "
+                    string + list[i] + " "
                 else
                     string + list[i]
+            }
+            return string
+        }
+
+        fun turnArrayToString(array: Array<String>): String {
+            var string = ""
+            for (i in array.indices) {
+                string = if (i < array.size - 1)
+                    string + array[i] + " "
+                else
+                    string + array[i]
             }
             return string
         }

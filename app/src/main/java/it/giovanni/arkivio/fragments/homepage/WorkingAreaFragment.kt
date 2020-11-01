@@ -57,8 +57,8 @@ class WorkingAreaFragment : HomeFragment() {
         label_logcat_projects.setOnClickListener {
             currentActivity.openDetail(Globals.LOGCAT_PROJECTS, null)
         }
-        label_date_manager.setOnClickListener {
-            currentActivity.openDetail(Globals.DATE_MANAGER, null)
+        label_date.setOnClickListener {
+            currentActivity.openDetail(Globals.DATE, null)
         }
         label_rubrica.setOnClickListener {
             currentActivity.openDetail(Globals.RUBRICA_HOME, null)

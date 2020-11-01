@@ -22,9 +22,12 @@ import it.giovanni.arkivio.utils.DateManager
 import it.giovanni.arkivio.utils.Utils.Companion.convertDpToPixel
 import it.giovanni.arkivio.utils.Utils.Companion.getHashKey
 import it.giovanni.arkivio.utils.Utils.Companion.getVersionNameLong
+import it.giovanni.arkivio.utils.Utils.Companion.turnArrayListToString
+import it.giovanni.arkivio.utils.Utils.Companion.turnArrayToString
 import kotlinx.android.synthetic.main.home_page_layout.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 @Suppress("DEPRECATION")
 class HomePageFragment : HomeFragment() {
@@ -47,10 +50,15 @@ class HomePageFragment : HomeFragment() {
     Valid until: mercoledì 13 febbraio 2047
     */
 
+    private val TAG = HomePageFragment::class.java.simpleName
+
     private val GALLERY_CODE = 201
     private val DELAY_TIME: Long = 3000
     private var viewFragment: View? = null
     private val currentHours = Date().hours
+
+    private var list: ArrayList<String>? = null
+    private var array: Array<String>? = null
 
     override fun getLayout(): Int {
         return R.layout.home_page_layout
@@ -80,6 +88,29 @@ class HomePageFragment : HomeFragment() {
     @SuppressLint("SimpleDateFormat")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        list = ArrayList() // Oppure: ArrayList<String>()
+        list?.add("Hi")
+        list?.add("how")
+        list?.add("are")
+        list?.add("you?")
+
+        // Come convertire una lista di stringhe in un array di stringhe:
+        array = list?.toTypedArray()
+
+        // Come convertire un array di stringhe in una stringa:
+        val message1 = turnArrayToString(array!!)
+        Log.i(TAG, message1)
+
+        // Come convertire una lista di stringhe in una stringa:
+        val message2 = turnArrayListToString(list!!)
+        Log.i(TAG, message2)
+
+        // Se ho bisogno di un'array di stringhe di cui conosco la dimensione, posso inizializzarlo nel modo seguente:
+        array = arrayOf("", "", "")
+        array?.set(0, "Ciao")
+        array?.set(1, "come")
+        array?.set(2, "stai?")
 
         val date = Date()
 

@@ -14,7 +14,7 @@ import it.giovanni.arkivio.bean.Persona
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.fragments.adapter.PreferenceListAdapter
 import it.giovanni.arkivio.utils.Globals
-import it.giovanni.arkivio.utils.Utils.Companion.turnToString
+import it.giovanni.arkivio.utils.Utils.Companion.turnArrayListToString
 import kotlinx.android.synthetic.main.preference_list_layout.*
 import kotlin.collections.ArrayList
 
@@ -124,7 +124,7 @@ class PreferenceListFragment: DetailFragment(), PreferenceListAdapter.OnItemView
 
         val backIntent = Intent()
         if (isButtonClicked!!) {
-            contacts = turnToString(checkedContacts!!)
+            contacts = turnArrayListToString(checkedContacts!!)
             backIntent.putExtra(Globals.BACK_PARAM_KEY_USER_PREFERENCE, contacts)
         }
         return backIntent

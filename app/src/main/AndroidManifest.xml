@@ -134,7 +134,7 @@
                 android:label="@string/video_wall"
                 android:name="it.giovanni.arkivio.fragments.detail.youtube.videowall.VideoWallActivity"
                 android:screenOrientation="fullSensor"
-                android:theme="@style/BlackNoBarsTheme"
+                android:theme="@style/NoActionBarTheme"
                 android:configChanges="orientation|screenSize|keyboardHidden">
             <meta-data android:name="@string/minVersion" android:value="11"/>
             <meta-data android:name="@string/isLaunchableActivity" android:value="true"/>
@@ -153,7 +153,7 @@
                 android:name="it.giovanni.arkivio.fragments.detail.youtube.FullScreenActivity"
                 android:screenOrientation="sensor"
                 android:configChanges="keyboardHidden|orientation|screenSize"
-                android:theme="@style/BlackNoTitleBarTheme">
+                android:theme="@style/NoTitleBarTheme">
             <meta-data android:name="@string/minVersion" android:value="8"/>
             <meta-data android:name="@string/isLaunchableActivity" android:value="true"/>
         </activity>
@@ -163,7 +163,7 @@
                 android:label="@string/actionbar_overlay"
                 android:name="it.giovanni.arkivio.fragments.detail.youtube.ActionBarActivity"
                 android:configChanges="keyboardHidden|orientation|screenSize"
-                android:theme="@style/OverlayActionBarTheme"
+                android:theme="@style/ActionBarOverlayTheme"
                 android:screenOrientation="fullSensor">
             <meta-data android:name="@string/minVersion" android:value="11"/>
             <meta-data android:name="@string/isLaunchableActivity" android:value="true"/>

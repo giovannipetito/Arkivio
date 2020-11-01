@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical">
+
+    <it.giovanni.arkivio.customview.calendarview.CalendarView
+            android:id="@+id/calendarview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:month_header="@layout/calendarview_vertical_header"
+            app:day_item="@layout/calendarview_vertical_item"
+            app:orientation="vertical"
+            app:scroll_mode="continuous" />
+
+    <it.giovanni.arkivio.customview.ButtonCustom
+            android:id="@+id/save_state_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="24dp"
+            android:text="Save State"
+            style="@style/CustomButton" />
+
+</RelativeLayout>

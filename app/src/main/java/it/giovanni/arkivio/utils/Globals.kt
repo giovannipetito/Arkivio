@@ -5,7 +5,13 @@ class Globals {
     companion object {
 
         var LOGCAT_PROJECTS = "LOGCAT_PROJECTS"
-        var DATE_MANAGER = "DATE_MANAGER"
+
+        var DATE = "DATE"
+        var DATE_FORMAT = "DATE_FORMAT"
+        var DATE_PICKER = "DATE_PICKER"
+        var CALENDARVIEW_HORIZONTAL = "CALENDARVIEW_HORIZONTAL"
+        var CALENDARVIEW_VERTICAL = "CALENDARVIEW_VERTICAL"
+
         var RUBRICA_HOME = "RUBRICA_HOME"
         var RUBRICA_LIST = "RUBRICA_LIST"
         var RUBRICA_DETAIL = "RUBRICA_DETAIL"

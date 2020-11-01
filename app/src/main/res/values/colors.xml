@@ -21,6 +21,7 @@
     <color name="magenta">#F9423A</color>
     <color name="rosso_1">#F13C27</color>
     <color name="rosso_2">#FF0000</color>
+    <color name="rosso_transparent">#99F13C27</color>
     <color name="arancio">#FFA500</color>
     <color name="giallo_1">#FFFF00</color>
     <color name="giallo_2">#FFFF66</color>

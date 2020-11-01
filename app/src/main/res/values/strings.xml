@@ -65,7 +65,11 @@
     <string name="current_year">anno in corso</string>
 
     <!-- DATE MANAGER -->
-    <string name="date_manager_title">Date Manager</string>
+    <string name="date_title">Date</string>
+    <string name="date_format_title">Date Format</string>
+    <string name="date_picker_title">Date Picker</string>
+    <string name="calendarview_horizontal_title">CalendarView Horizontal</string>
+    <string name="calendarview_vertical_title">CalendarView Vertical</string>
     <string name="tap_here">Tap here</string>
 
     <!-- RUBRICA -->
