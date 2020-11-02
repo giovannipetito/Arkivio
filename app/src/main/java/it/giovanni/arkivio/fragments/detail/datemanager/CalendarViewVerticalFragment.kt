@@ -1,21 +1,23 @@
 package it.giovanni.arkivio.fragments.detail.datemanager
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.children
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import it.giovanni.arkivio.App
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.bean.SelectedDay
 import it.giovanni.arkivio.bean.SelectedDaysResponse
-import it.giovanni.arkivio.customview.calendarview.daysOfWeekFromLocale
+import it.giovanni.arkivio.customview.TextViewCustom
+import it.giovanni.arkivio.customview.calendarview.getDaysOfWeek
 import it.giovanni.arkivio.customview.calendarview.generateBadges
 import it.giovanni.arkivio.customview.calendarview.model.Day
 import it.giovanni.arkivio.customview.calendarview.model.DayOwner
+import it.giovanni.arkivio.customview.calendarview.model.DaysOfWeek
 import it.giovanni.arkivio.customview.calendarview.model.Month
 import it.giovanni.arkivio.customview.calendarview.ui.Badge
 import it.giovanni.arkivio.customview.calendarview.ui.DayBinder
@@ -90,7 +92,7 @@ class CalendarViewVerticalFragment : DetailFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val daysOfWeek = daysOfWeekFromLocale()
+        val daysOfWeek = getDaysOfWeek()
 
         val currentMonth = YearMonth.now()
         val startMonth = currentMonth.minusMonths(1)
@@ -219,16 +221,48 @@ class CalendarViewVerticalFragment : DetailFragment() {
         }
 
         class MonthViewContainer(view: View) : ViewContainer(view) {
-            val textView = CalendarviewVerticalHeaderBinding.bind(view).calendarviewVerticalHeader
+            val header = CalendarviewVerticalHeaderBinding.bind(view).calendarviewVerticalHeader
+            val legend = CalendarviewVerticalHeaderBinding.bind(view).calendarviewVerticalLegend
         }
 
         calendarview.monthHeaderBinder = object : MonthHeaderFooterBinder<MonthViewContainer> {
+
             override fun create(view: View) = MonthViewContainer(view)
+
             override fun bind(container: MonthViewContainer, month: Month) {
-                @SuppressLint("SetTextI18n") // Concatenation warning for setText call.
-                container.textView.text = "${month.yearMonth.month.name.toUpperCase(Locale.getDefault()).capitalize(
-                    Locale.getDefault()
-                )} ${"|"} ${month.year}"
+
+                val currentDate = DateTimeFormatter.ofPattern("MMMM").format(month.yearMonth.month) + " | " + month.year
+                val headerDate = currentDate.toUpperCase(Locale.getDefault())
+                container.header.text = headerDate
+                // container.header.text = "${month.yearMonth.month.name.toUpperCase(Locale.getDefault()).capitalize(Locale.getDefault())} ${"|"} ${month.year}"
+
+                container.legend.children.forEachIndexed { index, mView ->
+                    (mView as TextViewCustom).apply {
+                        if (daysOfWeek[index].name == DaysOfWeek.MONDAY.name) {
+                            setText(R.string.monday)
+                        }
+                        if (daysOfWeek[index].name == DaysOfWeek.TUESDAY.name) {
+                            setText(R.string.tuesday)
+                        }
+                        if (daysOfWeek[index].name == DaysOfWeek.WEDNESDAY.name) {
+                            setText(R.string.wednesday)
+                        }
+                        if (daysOfWeek[index].name == DaysOfWeek.THURSDAY.name) {
+                            setText(R.string.thursday)
+                        }
+                        if (daysOfWeek[index].name == DaysOfWeek.FRIDAY.name) {
+                            setText(R.string.friday)
+                        }
+                        if (daysOfWeek[index].name == DaysOfWeek.SATURDAY.name) {
+                            setText(R.string.saturday)
+                            setTextColor(context?.resources!!.getColor(R.color.rosso_1))
+                        }
+                        if (daysOfWeek[index].name == DaysOfWeek.SUNDAY.name) {
+                            setText(R.string.sunday)
+                            setTextColor(context?.resources!!.getColor(R.color.rosso_1))
+                        }
+                    }
+                }
             }
         }
 

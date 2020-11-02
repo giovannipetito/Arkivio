@@ -36,7 +36,7 @@ internal const val NO_INDEX = -1
 internal val CoroutineScope.job: Job
     get() = requireNotNull(coroutineContext[Job])
 
-fun daysOfWeekFromLocale(): Array<DayOfWeek> {
+fun getDaysOfWeek(): Array<DayOfWeek> {
     val firstDayOfWeek = WeekFields.of(Locale.getDefault()).firstDayOfWeek
     var daysOfWeek = DayOfWeek.values()
     // Order daysOfWeek array so that firstDayOfWeek is at index 0.

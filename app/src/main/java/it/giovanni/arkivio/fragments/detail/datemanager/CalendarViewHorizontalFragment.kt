@@ -6,11 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.children
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.customview.calendarview.daysOfWeekFromLocale
-import it.giovanni.arkivio.customview.calendarview.model.Day
-import it.giovanni.arkivio.customview.calendarview.model.DayOwner
-import it.giovanni.arkivio.customview.calendarview.model.Month
+import it.giovanni.arkivio.customview.TextViewCustom
+import it.giovanni.arkivio.customview.calendarview.getDaysOfWeek
+import it.giovanni.arkivio.customview.calendarview.model.*
 import it.giovanni.arkivio.customview.calendarview.ui.DayBinder
 import it.giovanni.arkivio.customview.calendarview.ui.MonthHeaderFooterBinder
 import it.giovanni.arkivio.customview.calendarview.ui.ViewContainer
@@ -76,11 +76,40 @@ class CalendarViewHorizontalFragment : DetailFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val daysOfWeek = daysOfWeekFromLocale()
+        val daysOfWeek = getDaysOfWeek()
+
+        calendarview_horizontal_legend?.children?.forEachIndexed { index, mView ->
+            (mView as TextViewCustom).apply {
+                // text = daysOfWeek[index].name.first().toString()
+                if (daysOfWeek[index].name == DaysOfWeek.MONDAY.name) {
+                    setText(R.string.monday)
+                }
+                if (daysOfWeek[index].name == DaysOfWeek.TUESDAY.name) {
+                    setText(R.string.tuesday)
+                }
+                if (daysOfWeek[index].name == DaysOfWeek.WEDNESDAY.name) {
+                    setText(R.string.wednesday)
+                }
+                if (daysOfWeek[index].name == DaysOfWeek.THURSDAY.name) {
+                    setText(R.string.thursday)
+                }
+                if (daysOfWeek[index].name == DaysOfWeek.FRIDAY.name) {
+                    setText(R.string.friday)
+                }
+                if (daysOfWeek[index].name == DaysOfWeek.SATURDAY.name) {
+                    setText(R.string.saturday)
+                    setTextColor(context?.resources!!.getColor(R.color.rosso_1))
+                }
+                if (daysOfWeek[index].name == DaysOfWeek.SUNDAY.name) {
+                    setText(R.string.sunday)
+                    setTextColor(context?.resources!!.getColor(R.color.rosso_1))
+                }
+            }
+        }
 
         val currentMonth = YearMonth.now()
-        val startMonth = currentMonth.minusMonths(3)
-        val endMonth = currentMonth.plusMonths(3)
+        val startMonth = currentMonth.minusMonths(2)
+        val endMonth = currentMonth.plusMonths(2)
 
         calendarview_horizontal.setup(startMonth, endMonth, daysOfWeek.first())
         calendarview_horizontal.scrollToMonth(currentMonth)

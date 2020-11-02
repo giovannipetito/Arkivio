@@ -1,5 +1,15 @@
 package it.giovanni.arkivio.customview.calendarview.model
 
+enum class DaysOfWeek {
+    MONDAY,
+    TUESDAY,
+    WEDNESDAY,
+    THURSDAY,
+    FRIDAY,
+    SATURDAY,
+    SUNDAY
+}
+
 /**
  * Describes the month to which a [Day] belongs.
  */

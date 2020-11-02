@@ -12,10 +12,10 @@ class SharedPreferencesManager {
 
     companion object {
 
+        private var preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(App.context)
+
         private val DARK_MODE = "DARK_MODE"
         private val SELECTED_DATE: String = "SELECTED_DATE"
-
-        private var preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(App.context)
 
         fun saveDarkModeStateToPreferences(isDarkMode: Boolean) {
             // preferences = PreferenceManager.getDefaultSharedPreferences(App.context)
