@@ -29,7 +29,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_centerInParent="true"
-                android:text="@string/popup_button_confirm"
+                android:text="@string/button_confirm"
                 android:enabled="false"
                 style="@style/CustomButton" />
 

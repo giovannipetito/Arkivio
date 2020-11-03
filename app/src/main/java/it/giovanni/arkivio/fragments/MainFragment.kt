@@ -265,12 +265,12 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
             customPopup.setMessage("Vuoi comprimere il background all'apertura del menu laterale?")
 
             customPopup.setButtons(
-                resources.getString(R.string.popup_button_yes), {
+                resources.getString(R.string.button_yes), {
                     compress = true
                     saveStateToPreferences()
                     customPopup.dismiss()
                 },
-                resources.getString(R.string.popup_button_no), {
+                resources.getString(R.string.button_no), {
                     compress = false
                     saveStateToPreferences()
                     customPopup.dismiss()

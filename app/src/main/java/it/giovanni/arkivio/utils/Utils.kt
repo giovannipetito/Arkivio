@@ -49,7 +49,7 @@ class Utils {
             var string = ""
             for (i in list.indices) {
                 string = if (i < list.size - 1)
-                    string + list[i] + " "
+                    string + list[i] + ", "
                 else
                     string + list[i]
             }

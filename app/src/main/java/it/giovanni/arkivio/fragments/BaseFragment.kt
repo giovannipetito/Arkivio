@@ -41,7 +41,7 @@ abstract class BaseFragment(private var sectionType: SectionType) : Fragment() {
         popupError!!.setCancelable(false)
         popupError!!.setTitle("")
         popupError!!.setMessage(msg)
-        popupError!!.setButtons(resources.getString(R.string.popup_button_ok)
+        popupError!!.setButtons(resources.getString(R.string.button_ok)
         ) {
             popupError!!.dismiss()
         }
@@ -53,7 +53,7 @@ abstract class BaseFragment(private var sectionType: SectionType) : Fragment() {
         popupError!!.setCancelable(false)
         popupError!!.setTitle("")
         popupError!!.setMessage(msg)
-        popupError!!.setButtons(resources.getString(R.string.popup_button_ok), clickListener)
+        popupError!!.setButtons(resources.getString(R.string.button_ok), clickListener)
         popupError!!.show()
     }
 

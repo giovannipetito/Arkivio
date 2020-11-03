@@ -163,17 +163,17 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
             customPopup.setMessage("")
 
             customPopup.setButtons(
-                resources.getString(R.string.popup_button_cancel), {
+                resources.getString(R.string.button_cancel), {
                     customPopup.dismiss()
                 },
-                resources.getString(R.string.popup_button_send), {
+                resources.getString(R.string.button_send), {
                     customPopup.dismiss()
                     action =
                         Action.SEND
                     askPDFPermission()
                     downloadPDF()
                 },
-                resources.getString(R.string.popup_button_open), {
+                resources.getString(R.string.button_open), {
                     customPopup.dismiss()
                     action =
                         Action.OPEN
@@ -247,7 +247,7 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
         )
 
         customPopup.setButtons(
-            resources.getString(R.string.popup_button_close)
+            resources.getString(R.string.button_close)
         ) {
             customPopup.dismiss()
         }

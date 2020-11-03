@@ -11,7 +11,6 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
-import android.view.View
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
@@ -145,13 +144,13 @@ open class GPSActivity : BaseActivity(), IProgressLoader, GoogleApiClient.Connec
         customPopup.setType(CustomDialogPopup.TYPE_INFO)
         customPopup.setMessage(resources.getString(R.string.popup_message_enable_gps))
         customPopup.setButtons(
-            resources.getString(R.string.popup_button_ok),
+            resources.getString(R.string.button_ok),
             {
                 val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
                 startActivity(intent)
                 customPopup.dismiss()
             },
-            resources.getString(R.string.popup_button_cancel),
+            resources.getString(R.string.button_cancel),
             { customPopup.dismiss() }
         )
         customPopup.show()

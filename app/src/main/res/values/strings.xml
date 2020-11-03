@@ -4,19 +4,19 @@
     <string name="app_name">Arkivio</string>
 
     <!-- BUTTONS -->
-    <string name="button_login">ACCEDI</string>
-    <string name="popup_button_ok">OK</string>
-    <string name="popup_button_yes">SÌ</string>
-    <string name="popup_button_no">NO</string>
-    <string name="popup_button_cancel">ANNULLA</string>
-    <string name="popup_button_confirm">CONFERMA</string>
-    <string name="popup_button_try_again">RIPROVA</string>
-    <string name="popup_button_send">INVIA</string>
-    <string name="popup_button_open">APRI</string>
-    <string name="popup_button_register">REGISTRA</string>
-    <string name="popup_button_close">CHIUDI</string>
-    <string name="button_advertise">ADVERTISE</string>
-    <string name="button_discover">DISCOVER</string>
+    <string name="button_ok">OK</string>
+    <string name="button_no">No</string>
+    <string name="button_yes">Sì</string>
+    <string name="button_open">Apri</string>
+    <string name="button_send">Invia</string>
+    <string name="button_close">Chiudi</string>
+    <string name="button_login">Accedi</string>
+    <string name="button_cancel">Annulla</string>
+    <string name="button_confirm">Conferma</string>
+    <string name="button_discover">Discover</string>
+    <string name="button_register">Registra</string>
+    <string name="button_try_again">Riprova</string>
+    <string name="button_advertise">Advertise</string>
 
     <!-- LOGIN -->
     <string name="dominio_gmail">\@gmail.com</string>

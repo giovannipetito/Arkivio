@@ -85,7 +85,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:gravity="center"
-                        android:text="@string/popup_button_cancel"
+                        android:text="@string/button_cancel"
                         android:background="@color/white"
                         android:textColor="@color/grey_2"
                         style="?android:attr/borderlessButtonStyle" />
@@ -103,7 +103,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:gravity="center"
-                        android:text="@string/popup_button_try_again"
+                        android:text="@string/button_try_again"
                         android:background="@color/white"
                         android:textColor="@color/grey_2"
                         style="?android:attr/borderlessButtonStyle" />
@@ -115,7 +115,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:gravity="center"
-                    android:text="@string/popup_button_confirm"
+                    android:text="@string/button_confirm"
                     android:background="@color/white"
                     android:textColor="@color/grey_2"
                     android:textStyle="bold"

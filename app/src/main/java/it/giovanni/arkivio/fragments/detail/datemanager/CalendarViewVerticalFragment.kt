@@ -1,10 +1,10 @@
 package it.giovanni.arkivio.fragments.detail.datemanager
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.children
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
@@ -43,7 +43,9 @@ class CalendarViewVerticalFragment : DetailFragment() {
     private val selectedDates = mutableSetOf<LocalDate>()
     private val today = LocalDate.now()
     private var badges: Map<LocalDate, List<Badge>>? = null
-    private var list: ArrayList<SelectedDay>? = null
+    private var items: ArrayList<SelectedDay>? = null
+    private var selectedItems: ArrayList<SelectedDay>? = null
+    private var deselectedItems: ArrayList<SelectedDay>? = null
 
     override fun getLayout(): Int {
         return R.layout.calendarview_vertical_layout
@@ -102,10 +104,10 @@ class CalendarViewVerticalFragment : DetailFragment() {
         calendarview.scrollToMonth(currentMonth)
 
         val response = loadSelectedDateFromPreferences()
-        list = response?.selectedDays
+        items = response?.selectedDays
 
-        if (list != null && list?.isNotEmpty()!!)
-            badges = generateBadges(list!!).groupBy { it.time.toLocalDate() }
+        if (items != null && items?.isNotEmpty()!!)
+            badges = generateBadges(items!!).groupBy { it.time.toLocalDate() }
 
         class DayViewContainer(view: View) : ViewContainer(view) {
             lateinit var day: Day // Will be set when this container is bound.
@@ -124,8 +126,11 @@ class CalendarViewVerticalFragment : DetailFragment() {
             }
         }
 
-        if (list == null || list?.isEmpty()!!)
-            list = ArrayList()
+        if (items == null || items?.isEmpty()!!)
+            items = ArrayList()
+
+        selectedItems = ArrayList()
+        deselectedItems = ArrayList()
 
         calendarview.dayBinder = object : DayBinder<DayViewContainer> {
 
@@ -164,7 +169,9 @@ class CalendarViewVerticalFragment : DetailFragment() {
                                 verticalItem.setBackgroundResource(R.drawable.calendarview_selected_item)
                                 horizontalLabel.setTextColor(context?.resources?.getColor(R.color.verde_3)!!)
 
-                                list?.add(SelectedDay(year, month, dayOfMonth))
+                                items?.add(SelectedDay(year, month, dayOfMonth))
+                                selectedItems?.add(SelectedDay(year, month, dayOfMonth))
+                                calendarview_button.isEnabled = true
                             }
 
                             if (badge.isVisible) {
@@ -174,14 +181,16 @@ class CalendarViewVerticalFragment : DetailFragment() {
                                 // horizontalLabel.setTextColor(context?.resources?.getColor(R.color.white)!!)
                                 // verticalItem.background = null
 
-                                for (item in list!!) {
+                                for (item in items!!) {
                                     if (item.year == day.date.year.toString() &&
                                         item.month == day.date.monthValue.toString() &&
                                         item.dayOfMonth == day.date.dayOfMonth.toString()) {
-                                        list?.remove(item)
+                                        items?.remove(item)
+                                        deselectedItems?.add(item)
                                         break
                                     }
                                 }
+                                calendarview_button.isEnabled = true
                             }
                         }
                         today == day.date -> {
@@ -192,14 +201,14 @@ class CalendarViewVerticalFragment : DetailFragment() {
                             horizontalLabel.setTextColor(context?.resources?.getColor(R.color.white)!!)
                             verticalItem.background = null
 
-                            for (item in list!!) {
-                                if (item.year == day.date.year.toString() &&
-                                    item.month == day.date.monthValue.toString() &&
-                                    item.dayOfMonth == day.date.dayOfMonth.toString()) {
-                                    list?.remove(item)
-                                    break
-                                }
-                            }
+//                            for (item in items!!) {
+//                                if (item.year == day.date.year.toString() &&
+//                                    item.month == day.date.monthValue.toString() &&
+//                                    item.dayOfMonth == day.date.dayOfMonth.toString()) {
+//                                    items?.remove(item)
+//                                    break
+//                                }
+//                            }
                         }
                     }
 
@@ -274,18 +283,48 @@ class CalendarViewVerticalFragment : DetailFragment() {
             }
         }
 
-        save_state_button.setOnClickListener {
-            if (list != null) {
+        calendarview_button.setOnClickListener {
+            if (items != null) {
                 val selectedDaysResponse = SelectedDaysResponse()
-                selectedDaysResponse.selectedDays = list
+                selectedDaysResponse.selectedDays = items
                 saveSelectedDateToPreferences(selectedDaysResponse)
 
-                val listString: ArrayList<String>?= ArrayList()
-                for (item in list!!) {
-                    listString?.add(item.dayOfMonth + " " + item.month + " " + item.year)
+                val arrayItems: ArrayList<String>? = ArrayList()
+                for (item in items!!) {
+                    arrayItems?.add(item.dayOfMonth + "/" + item.month + "/" + item.year)
                 }
-                val items = Utils.turnArrayListToString(listString!!)
-                Toast.makeText(context, "" + items, Toast.LENGTH_LONG).show()
+                val mItems = Utils.turnArrayListToString(arrayItems!!)
+
+                val arraySelectedItems: ArrayList<String>? = ArrayList()
+                for (item in selectedItems!!) {
+                    arraySelectedItems?.add(item.dayOfMonth + "/" + item.month + "/" + item.year)
+                }
+                val mSelectedItems = Utils.turnArrayListToString(arraySelectedItems!!)
+
+                val arrayDeselectedItems: ArrayList<String>? = ArrayList()
+                for (item in deselectedItems!!) {
+                    arrayDeselectedItems?.add(item.dayOfMonth + "/" + item.month + "/" + item.year)
+                }
+                val mDeselectedItems = Utils.turnArrayListToString(arrayDeselectedItems!!)
+
+                Log.i("TAG_ITEMS", "mItems: $mItems\nmSelectedItems: $mSelectedItems\nmDeselectedItems: $mDeselectedItems")
+
+                if (arrayItems.isNotEmpty() && arraySelectedItems.isEmpty() && arrayDeselectedItems.isEmpty())
+                    Log.i("TAG_ITEMS", "Non mando alcuna segnalazione.")
+
+                if (arrayItems.isNotEmpty() && arraySelectedItems.isNotEmpty() && arrayDeselectedItems.isEmpty())
+                    Log.i("TAG_ITEMS", "Vengo questi giorni: mItems")
+
+                if (arrayItems.isNotEmpty() && arraySelectedItems.isNotEmpty() && arrayDeselectedItems.isNotEmpty())
+                    Log.i("TAG_ITEMS", "Vengo questi giorni: mItems e non vengo questi giorni: mDeselectedItems")
+
+                if (arrayItems.isNotEmpty() && arraySelectedItems.isEmpty() && arrayDeselectedItems.isNotEmpty())
+                    Log.i("TAG_ITEMS", "Vengo questi giorni: mItems e non vengo questi giorni: mDeselectedItems")
+
+                if (arrayItems.isEmpty() && arraySelectedItems.isEmpty() && arrayDeselectedItems.isNotEmpty())
+                    Log.i("TAG_ITEMS", "Non vengo questi giorni: mDeselectedItems")
+
+                currentActivity.onBackPressed()
             }
         }
     }

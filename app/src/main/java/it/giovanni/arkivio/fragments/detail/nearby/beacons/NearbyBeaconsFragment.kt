@@ -273,7 +273,7 @@ class NearbyBeaconsFragment: DetailFragment(),
             return
         }
         Snackbar.make(nearby_messages_container!!, R.string.permission_required, Snackbar.LENGTH_INDEFINITE)
-            .setAction(R.string.popup_button_ok) {
+            .setAction(R.string.button_ok) {
             // Request permission.
             ActivityCompat.requestPermissions(
                 currentActivity,
