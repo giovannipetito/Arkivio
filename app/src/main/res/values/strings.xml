@@ -120,13 +120,6 @@
     <string name="send_email">Invia Con</string>
     <string name="no_pdf_reader">Non ci sono applicazioni disponibili ad aprire il PDF.</string>
 
-    <!-- OAUTH 2.0 -->
-    <string name="oauth_2_title">OAuth 2.0</string>
-    <string name="logout">LOGOUT</string>
-    <string name="welcome_text">Welcome</string>
-    <string name="call_graph">Call Microsoft Graph</string>
-    <string name="graph_data">Getting data from Graph</string>
-
     <!-- POPUP GPS -->
     <string name="popup_message_enable_gps">Abilitando il GPS potrai vedere i cinema più vicini a te. Vuoi abilitarlo?</string>
 

@@ -18,7 +18,6 @@ class Globals {
         var WEB_VIEW = "WEB_VIEW"
         var GC3_WEB_VIEW = "GC3_WEB_VIEW"
         var PERMISSIONS = "PERMISSIONS"
-        var OAUTH_2 = "OAUTH_2"
         var LAYOUT_MANAGER = "LAYOUT_MANAGER"
         var DIALOG_FLOW = "DIALOG_FLOW"
         var PREFERENCE = "PREFERENCE"

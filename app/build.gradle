@@ -29,11 +29,6 @@ android {
         }
     }
 
-//    compileOptions {
-//        sourceCompatibility = '1.8'
-//        targetCompatibility = '1.8'
-//    }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -68,7 +63,8 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation "androidx.biometric:biometric:1.0.1"
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
     // Room
     kapt 'androidx.room:room-compiler:2.2.5'
@@ -84,21 +80,21 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:17.1.0' // Google GPS
     implementation 'com.google.android.gms:play-services-nearby:17.0.0' // Nearby
     implementation 'com.google.android.gms:play-services-plus:17.0.0'
-    implementation 'com.google.android.gms:play-services-auth:18.1.0'
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.android.gms:play-services-gcm:17.0.0'
 
     // Add the Firebase SDK for Google Analytics
-    implementation 'com.google.firebase:firebase-analytics-ktx:17.6.0' // Kotlin
+    implementation 'com.google.firebase:firebase-analytics-ktx:18.0.0' // Kotlin
 
     // Add the SDK for Firebase Cloud Messaging
-    implementation 'com.google.firebase:firebase-messaging:20.3.0'
-    implementation 'com.google.firebase:firebase-messaging-directboot:20.3.0'
+    implementation 'com.google.firebase:firebase-messaging:21.0.0'
+    implementation 'com.google.firebase:firebase-messaging-directboot:21.0.0'
 
     implementation 'com.google.firebase:firebase-database:19.5.1'
 
     // Add the Firebase Crashlytics SDK.
-    implementation 'com.google.firebase:firebase-crashlytics:17.2.2'
+    implementation 'com.google.firebase:firebase-crashlytics:17.3.0'
 
     // GSON
     implementation 'com.google.code.gson:gson:2.8.6'
@@ -143,11 +139,8 @@ dependencies {
     implementation 'com.google.api-client:google-api-client-gson:1.30.11'
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
 
-    // OAuth 2.0
+    // Volley
     implementation 'com.android.volley:volley:1.1.1'
-    implementation('com.microsoft.aad:adal:1.16.3') {
-        exclude group: 'com.android.support'
-    }
 
     // Machine Learning
     implementation 'com.google.mlkit:face-detection:16.0.2'

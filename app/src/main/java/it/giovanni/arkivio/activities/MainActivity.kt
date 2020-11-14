@@ -55,7 +55,6 @@ import it.giovanni.arkivio.fragments.detail.nearby.chat.NearbyChatFragment
 import it.giovanni.arkivio.fragments.detail.nearby.game.NearbyGameFragment
 import it.giovanni.arkivio.fragments.detail.nearby.search.NearbySearchFragment
 import it.giovanni.arkivio.fragments.detail.notification.NotificationFragment
-import it.giovanni.arkivio.fragments.detail.oauth.OAuthFragment
 import it.giovanni.arkivio.fragments.detail.permissions.PermissionsFragment
 import it.giovanni.arkivio.fragments.detail.stickyheader.StickyHeaderFragment
 import it.giovanni.arkivio.fragments.detail.youtube.YouTubeFragment
@@ -369,10 +368,6 @@ class MainActivity : GPSActivity(), IProgressLoader {
             Globals.PERMISSIONS -> {
                 baseFragment =
                     PermissionsFragment()
-            }
-            Globals.OAUTH_2 -> {
-                baseFragment =
-                    OAuthFragment()
             }
             Globals.LAYOUT_MANAGER -> {
                 baseFragment =
