@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.airbnb.paris.extensions.style
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -128,7 +129,8 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
             bar.translationX = newVal.toFloat()
         }
 
-        icon_1.background = resources.getDrawable(R.drawable.giovanni)
+        // icon_1.background = resources.getDrawable(R.drawable.giovanni)
+        icon_1.setBackgroundDrawable(ContextCompat.getDrawable(context!!, R.drawable.giovanni))
 
         Glide.with(context!!)
             .load(R.drawable.giovanni)
@@ -224,13 +226,13 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
         if (selectedValue.isEmpty())
             return
 
+        /*
         var index = -1
         for (i in list.indices) {
             if (list[i].equals(selectedValue, ignoreCase = true)) {
                 index = i
             }
         }
-        /*
         if (index > -1) {
             topUpViewModel.pickedTopUpValue.postValue(topUpViewModel.creditCardPrices.value?.get(index))
         }

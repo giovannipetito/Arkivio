@@ -18,14 +18,14 @@ class YouTubePlayerFragmentActivity : YouTubeBaseActivity(), YouTubePlayer.OnIni
 
     companion object {
         var VIDEO_ID = ""
-        val PLAYLIST_ID = "PLP7qPet500dfglA7FFTxBmB_snxCaMHDJ"
+        // val PLAYLIST_ID = "PLP7qPet500dfglA7FFTxBmB_snxCaMHDJ"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.youtube_player_fragment_activity)
 
-        VIDEO_ID = intent.getStringExtra("VIDEO_ID")
+        VIDEO_ID = intent?.getStringExtra("VIDEO_ID")!!
 
         val youTubePlayerFragment = fragmentManager.findFragmentById(R.id.youtube_player_fragment) as YouTubePlayerFragment
         youTubePlayerFragment.initialize(YoutubeConnector.API_KEY, this)

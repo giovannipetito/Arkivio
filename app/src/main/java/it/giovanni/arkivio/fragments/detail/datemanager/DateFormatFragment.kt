@@ -190,7 +190,7 @@ class DateFormatFragment : DetailFragment() {
         timeDate?.setTimeDate(currentHours, currentMinutes)
         time_date?.text = getSimpleDate4(timeDate!!.getFormatDate())
 
-        scroll_container.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+        scroll_container.setOnScrollChangeListener { _, _, scrollY, _, _ ->
             swipeRefreshLayout!!.isEnabled = scrollY == 0
         }
 

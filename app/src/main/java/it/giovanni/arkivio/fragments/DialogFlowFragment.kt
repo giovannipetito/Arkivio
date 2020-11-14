@@ -55,7 +55,7 @@ class DialogFlowFragment : BaseFragment(SectionType.DIALOG_FLOW) {
         when (requestCode) {
             REQUEST_CODE -> if (resultCode == RESULT_OK && data != null) {
                 val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-                speech_text!!.text = result[0]
+                speech_text!!.text = result!![0]
 
                 speech_container.visibility = View.VISIBLE
                 suggestions_container.visibility = View.GONE

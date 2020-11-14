@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import it.giovanni.arkivio.activities.PermissionActivity
@@ -12,9 +13,10 @@ class PermissionManager {
 
     companion object {
 
+        private val TAG = PermissionManager::class.java.simpleName
         private var listener: PermissionListener? = null
         private var permissions: Array<String>? = null
-        private val MY_PERMISSION_REQUEST_CODE = 16
+        private const val PERMISSION_REQUEST_CODE = 16
 
         fun checkSelfPermission(context: Context, permission: String): Boolean {
             return ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED
@@ -47,6 +49,8 @@ class PermissionManager {
             val intent = Intent(context, PermissionActivity::class.java)
             // intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent)
+
+            Log.i(TAG, "" + explanationRequired + explanationMsgResId + showNeverAskAgainExplanationDialog + neverAskAgainMsgResId)
         }
 
         fun requestPermission(
@@ -62,7 +66,7 @@ class PermissionManager {
         }
 
         fun onActivityCreated(callBackActivity: Activity) {
-            ActivityCompat.requestPermissions(callBackActivity, permissions!!, MY_PERMISSION_REQUEST_CODE)
+            ActivityCompat.requestPermissions(callBackActivity, permissions!!, PERMISSION_REQUEST_CODE)
             return
         }
 
@@ -75,6 +79,8 @@ class PermissionManager {
             if (listener != null)
                 listener!!.onPermissionResult(permissions, grantResults)
             callBackActivity.finish()
+
+            Log.i(TAG, "" + requestCode)
         }
     }
 

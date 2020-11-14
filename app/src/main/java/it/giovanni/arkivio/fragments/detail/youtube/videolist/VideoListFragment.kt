@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package it.giovanni.arkivio.fragments.detail.youtube.videolist
 
 import android.app.ListFragment

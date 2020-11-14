@@ -9,9 +9,9 @@ import it.giovanni.arkivio.deeplink.DeepLinkDescriptor
 class DeepLinkActivity : AppCompatActivity() {
 
     companion object {
-        val DEEP_LINK = "DEEP_LINK"
-        val DEEP_LINK_URI = "DEEP_LINK_URI"
-        val TAG = "DeepLinkActivity"
+        val TAG = DeepLinkActivity::class.java.simpleName
+        const val DEEP_LINK = "DEEP_LINK"
+        const val DEEP_LINK_URI = "DEEP_LINK_URI"
     }
 
     private var broadcastManager: LocalBroadcastManager? = null

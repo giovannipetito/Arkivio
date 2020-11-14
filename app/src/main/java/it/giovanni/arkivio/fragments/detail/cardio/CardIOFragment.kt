@@ -25,8 +25,8 @@ import java.text.DecimalFormat
 class CardIOFragment : DetailFragment(), AppCompatSpinnerCustom.OnSpinnerEventsListener {
 
     companion object {
-        private val REQUEST_SCAN = 100
-        private val REQUEST_AUTOTEST = 200
+        private const val REQUEST_SCAN = 100
+        private const val REQUEST_AUTOTEST = 200
     }
 
     private var viewFragment: View? = null
@@ -203,7 +203,7 @@ class CardIOFragment : DetailFragment(), AppCompatSpinnerCustom.OnSpinnerEventsL
         }
 
         // TODO) Potrei passare all'adapter anche l'Array arraylanguages invece dell'ArrayList languages.
-        var arraylanguages: Array<String> = arrayOf("de", "en", "es", "fr", "it", "pt", "ru")
+        // var arraylanguages: Array<String> = arrayOf("de", "en", "es", "fr", "it", "pt", "ru")
 
         val adapter = ArrayAdapter(context!!, R.layout.spinner_dropdown_item, languages) // arraylanguages
 

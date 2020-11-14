@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package it.giovanni.arkivio.activities
 
 import android.Manifest
@@ -25,16 +27,16 @@ import it.giovanni.arkivio.utils.Globals
 
 open class GPSActivity : BaseActivity(), IProgressLoader, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
 
-    override fun sendFCMToken(token: String?) {}
-
     private var locationManager: LocationManager? = null
     private var googleApiClient: GoogleApiClient? = null
+    private val requestCodeGpsPermission = 1000
     private var lastLocation: Location? = null
-    private val REQUEST_CHECK_SETTINGS_GPS = 0x1
+    private val requestCheckSettingsGps = 0x1
     private var myLocation: Location? = null
-    private val GPS_DISTANCE = 5
-    private val GPS_INTERVAL = 2000
-    private val REQUEST_CODE_GPS_PERMISSION = 1000
+    private val gpsInterval = 2000
+    private val gpsDistance = 5
+
+    override fun sendFCMToken(token: String?) {}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,9 +72,9 @@ open class GPSActivity : BaseActivity(), IProgressLoader, GoogleApiClient.Connec
         super.onDestroy()
     }
 
-    fun openGc3() {
-        openDetail(Globals.GC3_WEB_VIEW, null)
-    }
+//    fun openGc3() {
+//        openDetail(Globals.GC3_WEB_VIEW, null)
+//    }
 
     private fun coordinates(lat: Double?, lon: Double?) {
         val params = Bundle()
@@ -99,7 +101,7 @@ open class GPSActivity : BaseActivity(), IProgressLoader, GoogleApiClient.Connec
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
-            REQUEST_CODE_GPS_PERMISSION -> {
+            requestCodeGpsPermission -> {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     waiting = true
                     if (!locationManager!!.isProviderEnabled(LocationManager.NETWORK_PROVIDER) &&
@@ -107,8 +109,8 @@ open class GPSActivity : BaseActivity(), IProgressLoader, GoogleApiClient.Connec
                         showGpsSettingsPopup()
                     } else {
                         // locationManager!!.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0f, locationListener)
-                        locationManager!!.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, GPS_INTERVAL.toLong(), GPS_DISTANCE.toFloat(), locationListenerNetwork)
-                        locationManager!!.requestLocationUpdates(LocationManager.GPS_PROVIDER, GPS_INTERVAL.toLong(), GPS_DISTANCE.toFloat(), locationListener)
+                        locationManager!!.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, gpsInterval.toLong(), gpsDistance.toFloat(), locationListenerNetwork)
+                        locationManager!!.requestLocationUpdates(LocationManager.GPS_PROVIDER, gpsInterval.toLong(), gpsDistance.toFloat(), locationListener)
                         showProgressDialog()
                         getMyLocation()
                         // openGc3()
@@ -124,7 +126,7 @@ open class GPSActivity : BaseActivity(), IProgressLoader, GoogleApiClient.Connec
 
     fun requestGPSPermission() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_CODE_GPS_PERMISSION)
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), requestCodeGpsPermission)
         } else {
             if (!locationManager!!.isProviderEnabled(LocationManager.NETWORK_PROVIDER) &&
                 !locationManager!!.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
@@ -219,7 +221,7 @@ open class GPSActivity : BaseActivity(), IProgressLoader, GoogleApiClient.Connec
                                 // Show the dialog by calling startResolutionForResult(), and check the result in onActivityResult().
                                 // Ask to turn on GPS automatically
                                 status.startResolutionForResult(this,
-                                    REQUEST_CHECK_SETTINGS_GPS)
+                                    requestCheckSettingsGps)
                             } catch (e: IntentSender.SendIntentException) {
                                 // Ignore the error.
                             }

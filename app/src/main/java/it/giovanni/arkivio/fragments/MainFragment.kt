@@ -86,11 +86,11 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        var view = super.onCreateView(inflater, container, savedInstanceState)
+        // var view = super.onCreateView(inflater, container, savedInstanceState)
 
         // ----- DATA BINDING ----- //
         binding = DataBindingUtil.inflate(inflater, R.layout.main_layout, container, false)
-        view = binding?.root
+        val view: View? = binding?.root
         presenter = DarkModePresenter(this, context!!)
         model = DarkModeModel(context!!)
         binding?.temp = model
@@ -756,7 +756,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
 
     override fun onSetLayout(model: DarkModeModel?) {
 
-        var mModel: DarkModeModel? = model
+        val mModel: DarkModeModel?
         isDarkMode = !isDarkMode
         saveStateToPreferences(isDarkMode)
 

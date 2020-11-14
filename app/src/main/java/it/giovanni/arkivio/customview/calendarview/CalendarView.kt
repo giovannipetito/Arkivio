@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package it.giovanni.arkivio.customview.calendarview
 
 import android.content.Context

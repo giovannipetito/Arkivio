@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package it.giovanni.arkivio.biometric
 
 import android.security.keystore.KeyPermanentlyInvalidatedException

@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package it.giovanni.arkivio.fragments.detail.nearby.beacons
 
 import android.Manifest
@@ -38,7 +40,7 @@ class NearbyBeaconsFragment: DetailFragment(),
     OnConnectionFailedListener,
     OnSharedPreferenceChangeListener {
 
-    private val TAG = "NearbyBeaconsFragment"
+    private val TAG = NearbyBeaconsFragment::class.java.simpleName
     private var viewFragment: View? = null
 
     private var subscribed = false

@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package it.giovanni.arkivio.fragments.detail.nearby.search
 
 import android.content.Context
@@ -257,7 +259,7 @@ class NearbySearchFragment: DetailFragment(), ConnectionCallbacks, OnConnectionF
     // Logs a message and shows a Snackbar using the String text that is used in the Log message and the SnackBar.
     private fun logAndShowSnackbar(text: String) {
         Log.i(TAG, text)
-        val container: View = viewFragment!!.findViewById<View>(R.id.nearby_search_container)
+        val container: View = viewFragment!!.findViewById(R.id.nearby_search_container)
         Snackbar.make(container, text, Snackbar.LENGTH_LONG).show()
     }
 }

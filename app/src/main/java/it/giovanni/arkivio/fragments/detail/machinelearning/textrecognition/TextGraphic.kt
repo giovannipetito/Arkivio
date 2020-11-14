@@ -41,12 +41,12 @@ class TextGraphic internal constructor(overlay: GraphicOverlay?, private val ele
 
     init {
         rectPaint = Paint()
-        rectPaint.color = TextGraphic.Companion.TEXT_COLOR
+        rectPaint.color = TEXT_COLOR
         rectPaint.style = Paint.Style.STROKE
-        rectPaint.strokeWidth = TextGraphic.Companion.STROKE_WIDTH
+        rectPaint.strokeWidth = STROKE_WIDTH
         textPaint = Paint()
-        textPaint.color = TextGraphic.Companion.TEXT_COLOR
-        textPaint.textSize = TextGraphic.Companion.TEXT_SIZE
+        textPaint.color = TEXT_COLOR
+        textPaint.textSize = TEXT_SIZE
         // Redraw the overlay, as this graphic has been added.
         postInvalidate()
     }

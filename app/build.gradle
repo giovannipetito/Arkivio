@@ -119,9 +119,9 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
 
     // Airbnb
-    implementation 'com.airbnb.android:lottie:3.4.4' // Lottie
-    implementation 'com.airbnb.android:paris:1.7.1' // Paris
-    kapt 'com.airbnb.android:paris-processor:1.7.1' // If you're using Paris annotations.
+    implementation 'com.airbnb.android:lottie:3.5.0' // Lottie
+    implementation 'com.airbnb.android:paris:1.7.2' // Paris
+    kapt 'com.airbnb.android:paris-processor:1.7.2' // If you're using Paris annotations.
 
     // card.io
     implementation 'io.card:android-sdk:5.5.1'
@@ -134,9 +134,9 @@ dependencies {
 
     // YouTube
     implementation 'com.google.apis:google-api-services-youtube:v3-rev99-1.17.0-rc'
-    implementation 'com.google.http-client:google-http-client-android:1.37.0'
-    implementation 'com.google.api-client:google-api-client-android:1.30.11'
-    implementation 'com.google.api-client:google-api-client-gson:1.30.11'
+    implementation 'com.google.http-client:google-http-client-android:1.38.0'
+    implementation 'com.google.api-client:google-api-client-android:1.31.0'
+    implementation 'com.google.api-client:google-api-client-gson:1.31.0'
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
 
     // Volley
@@ -149,7 +149,7 @@ dependencies {
     // Core
     def core_version = "1.3.2"
     implementation "androidx.core:core-ktx:$core_version"
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1'
     implementation "androidx.core:core-role:1.1.0-alpha01"
 }
 

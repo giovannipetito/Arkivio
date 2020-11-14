@@ -20,8 +20,8 @@ class Persona : Serializable, Cloneable {
     var tipo: Int? = null
 
     companion object {
-        val HEADER_TYPE = 0
-        val ITEM_TYPE = 1
+        const val HEADER_TYPE = 0
+        const val ITEM_TYPE = 1
     }
 
     constructor()

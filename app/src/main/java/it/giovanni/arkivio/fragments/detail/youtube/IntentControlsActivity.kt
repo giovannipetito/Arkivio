@@ -104,7 +104,7 @@ class IntentControlsActivity : Activity(), View.OnClickListener {
 
     private fun canResolveIntent(intent: Intent): Boolean {
         val resolveInfo = packageManager.queryIntentActivities(intent, 0)
-        return resolveInfo != null && resolveInfo.isNotEmpty()
+        return resolveInfo.isNotEmpty()
     }
 
     private fun parseInt(text: String, defaultValue: Int): Int {
