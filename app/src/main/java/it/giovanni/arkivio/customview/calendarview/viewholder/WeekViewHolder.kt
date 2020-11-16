@@ -4,7 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.view.isGone
-import it.giovanni.arkivio.customview.calendarview.model.Day
+import it.giovanni.arkivio.customview.calendarview.model.CalendarDay
 
 internal class WeekViewHolder(private val dayViewHolders: List<DayViewHolder>) {
 
@@ -25,7 +25,7 @@ internal class WeekViewHolder(private val dayViewHolders: List<DayViewHolder>) {
         return container
     }
 
-    fun bindWeekView(daysOfWeek: List<Day>) {
+    fun bindWeekView(daysOfWeek: List<CalendarDay>) {
         container.isGone = daysOfWeek.isEmpty()
         dayViewHolders.forEachIndexed { index, holder ->
             // Indices can be null if OutDateStyle is NONE. We set the
@@ -34,5 +34,5 @@ internal class WeekViewHolder(private val dayViewHolders: List<DayViewHolder>) {
         }
     }
 
-    fun reloadDay(day: Day): Boolean = dayViewHolders.any { it.reloadViewIfNecessary(day) }
+    fun reloadDay(day: CalendarDay): Boolean = dayViewHolders.any { it.reloadViewIfNecessary(day) }
 }

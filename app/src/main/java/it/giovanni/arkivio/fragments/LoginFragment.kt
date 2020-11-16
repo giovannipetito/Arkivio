@@ -2,7 +2,6 @@ package it.giovanni.arkivio.fragments
 
 import android.Manifest
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -12,12 +11,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.biometric.BiometricCallback
 import it.giovanni.arkivio.biometric.BiometricManager
 import it.giovanni.arkivio.customview.popup.CustomDialogPopup
 import it.giovanni.arkivio.utils.PermissionManager
+import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadRememberMeFromPreferences
+import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.saveRememberMeToPreferences
 import it.giovanni.arkivio.utils.Utils.Companion.isOnline
 import kotlinx.android.synthetic.main.login_layout.*
 
@@ -42,6 +42,7 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
 
+        currentActivity.setStatusBarTransparent()
         loginButton = view?.findViewById(R.id.login_button) as Button
 
         return view
@@ -50,10 +51,9 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        currentActivity.window.statusBarColor = ContextCompat.getColor(context!!, R.color.blueWave)
         action = Action.NONE
 
-        checkbox_remember_me.isChecked = currentActivity.preferences.getBoolean("REMEMBER_ME", false)
+        checkbox_remember_me.isChecked = loadRememberMeFromPreferences()
 
         username.getInputText().setOnKeyListener { _, _, _ ->
             loginButton.isEnabled = username.getText().trim().isNotEmpty() && password.getText().trim().isNotEmpty()
@@ -109,7 +109,7 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
 
         checkbox_remember_me.setOnCheckedChangeListener { _, isChecked ->
             rememberMe = isChecked
-            saveStateToPreferences()
+            saveRememberMeToPreferences(rememberMe)
         }
 
         val apiVersion = Build.VERSION.SDK_INT
@@ -207,11 +207,5 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
 
     override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
         Toast.makeText(context, errString, Toast.LENGTH_LONG).show()
-    }
-
-    private fun saveStateToPreferences() {
-        val editor: SharedPreferences.Editor = currentActivity.preferences.edit()
-        editor.putBoolean("REMEMBER_ME", rememberMe)
-        editor.apply()
     }
 }

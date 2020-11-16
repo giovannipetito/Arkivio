@@ -4,10 +4,9 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:orientation="vertical"
         android:clickable="true"
-        android:focusable="true"
-        android:orientation="vertical">
+        android:focusable="true">
 
     <LinearLayout
             android:id="@+id/calendarview_horizontal_legend"
@@ -86,9 +85,9 @@
             android:id="@+id/calendarview_horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:month_header="@layout/calendarview_horizontal_header"
-            app:day_item="@layout/calendarview_horizontal_item"
-            app:orientation="horizontal"
-            app:scroll_mode="paged" />
+            app:cv_month_header="@layout/calendarview_horizontal_header"
+            app:cv_day_item="@layout/calendarview_horizontal_item"
+            app:cv_orientation="horizontal"
+            app:cv_scroll_mode="paged" />
 
 </LinearLayout>

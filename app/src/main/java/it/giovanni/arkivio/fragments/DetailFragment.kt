@@ -6,14 +6,20 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
 import it.giovanni.arkivio.viewinterfaces.IDetailFragment
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.databinding.DetailLayoutBinding
+import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.presenter.DarkModePresenter
+import it.giovanni.arkivio.viewinterfaces.IDarkMode
 import kotlinx.android.synthetic.main.detail_layout.*
 
-abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragment {
+abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragment, IDarkMode.View {
 
     abstract fun getLayout(): Int
     abstract fun searchAction(): Boolean
@@ -33,10 +39,30 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
         return Intent()
     }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+        // ----- DATA BINDING ----- //
+        val binding: DetailLayoutBinding? = DataBindingUtil.inflate(inflater, R.layout.detail_layout, container, false)
+        val view = binding?.root
+
+        val darkModePresenter: DarkModePresenter? = DarkModePresenter(this, context!!)
+        val model: DarkModeModel? = DarkModeModel(context!!)
+        binding?.temp = model
+        binding?.presenter = darkModePresenter
+
+        if (getLayout() == NO_LAYOUT)
+            binding?.frameLayout?.addView(onCreateBindingView(inflater, binding.frameLayout, savedInstanceState))
+        // ------------------------ //
+
+        return view
+    }
+
+    abstract fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // manage arguments
+        // Manage arguments
 
         if (backAction())
             arrow_go_back.visibility = View.VISIBLE
@@ -74,7 +100,7 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
             detail_title.text = getString(getTitle())
         }
 
-        if (getLayout() != -1) {
+        if (getLayout() != NO_LAYOUT) {
             val customLayout = LayoutInflater.from(context).inflate(getLayout(), null, false)
             frame_layout.addView(customLayout)
         }
@@ -148,7 +174,7 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
         if (search_input_text.visibility == View.GONE) {
             openSearch()
         } else {
-            //search!
+            // Search!
             onActionSearch(search_input_text.text.toString())
         }
     }
@@ -212,4 +238,8 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
             swipeRefreshLayout.isEnabled = isEnabled
         }
     }
+
+    override fun onShowDataModel(model: DarkModeModel?) {}
+
+    override fun onSetLayout(model: DarkModeModel?) {}
 }

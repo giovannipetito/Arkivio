@@ -1,138 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+                name="temp"
+                type="it.giovanni.arkivio.model.DarkModeModel" />
+
+        <variable
+                name="presenter"
+                type="it.giovanni.arkivio.presenter.DarkModePresenter" />
+    </data>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <RelativeLayout
+                android:id="@+id/top_bar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_82dp"
+                android:background="@drawable/background_light_mode">
+
+            <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/bg_detail_top1" />
+
+            <ImageView
+                    android:id="@+id/arrow_go_back"
+                    android:layout_width="@dimen/dimen_24dp"
+                    android:layout_height="@dimen/dimen_24dp"
+                    android:layout_marginStart="@dimen/dimen_16dp"
+                    android:layout_marginBottom="@dimen/dimen_12dp"
+                    android:layout_alignParentBottom="true"
+                    android:src="@drawable/ico_back_rvd"
+                    android:contentDescription="@string/app_name" />
+
+            <TextView
+                    android:id="@+id/detail_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_18dp"
+                    android:layout_marginBottom="@dimen/dimen_12dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toEndOf="@id/arrow_go_back"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="20sp" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/search_input_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_18dp"
+                    android:layout_marginEnd="@dimen/dimen_56dp"
+                    android:layout_marginBottom="@dimen/dimen_12dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toEndOf="@id/arrow_go_back"
+                    android:hint="@string/edit_search"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/grey_1"
+                    android:textColorLink="@color/white"
+                    android:textColorHighlight="@color/white"
+                    android:textSize="20sp"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:visibility="gone"
+                    style="@style/EditText3" />
+
+            <ImageView
+                    android:id="@+id/detail_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dimen_16dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginBottom="@dimen/dimen_12dp"
+                    android:layout_alignParentBottom="true"
+                    android:src="@drawable/ico_search_rvd"
+                    android:contentDescription="@string/app_name" />
+
+            <ImageView
+                    android:id="@+id/detail_trash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dimen_16dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginBottom="@dimen/dimen_12dp"
+                    android:layout_alignParentBottom="true"
+                    android:src="@drawable/ico_trash_rvd"
+                    android:visibility="gone"
+                    android:contentDescription="@string/app_name" />
+
+            <ImageView
+                    android:id="@+id/edit_icon"
+                    android:layout_width="@dimen/dimen_24dp"
+                    android:layout_height="@dimen/dimen_24dp"
+                    android:layout_marginEnd="@dimen/dimen_50dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginBottom="@dimen/dimen_12dp"
+                    android:layout_alignParentBottom="true"
+                    android:src="@drawable/ico_modify_rvd"
+                    android:contentDescription="@string/app_name"
+                    android:visibility="gone" />
+
+            <ImageView
+                    android:id="@+id/rubrica_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dimen_16dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginBottom="@dimen/dimen_12dp"
+                    android:layout_alignParentBottom="true"
+                    android:src="@drawable/ico_rubrica"
+                    android:visibility="gone"
+                    android:contentDescription="@string/app_name" />
+
+            <TextView
+                    android:id="@+id/action_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dimen_16dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginBottom="@dimen/dimen_12dp"
+                    android:layout_alignParentBottom="true"
+                    android:enabled="false"
+                    android:visibility="gone"
+                    style="@style/ActionLabel" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:layout_below="@+id/top_bar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorAccent">
+                android:background="@{temp.backgroundColor}"
+                tools:background="@color/black">
 
-    <RelativeLayout
-            android:id="@+id/top_bar"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_56dp"
-            android:background="@drawable/background_empty"
-            android:elevation="0dp">
+            <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/bg_detail_top2" />
 
-        <ImageView
-                android:id="@+id/arrow_go_back"
-                android:layout_width="@dimen/dimen_24dp"
-                android:layout_height="@dimen/dimen_24dp"
-                android:layout_marginStart="@dimen/dimen_16dp"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ico_back_rvd"
-                android:contentDescription="@string/app_name" />
-
-        <TextView
-                android:id="@+id/detail_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@id/arrow_go_back"
-                android:singleLine="true"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textColor="@color/white"
-                android:layout_marginStart="@dimen/dimen_18dp"
-                android:textStyle="bold"
-                android:textSize="20sp" />
-
-        <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/search_input_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen_18dp"
-                android:layout_marginEnd="@dimen/dimen_56dp"
-                android:layout_toEndOf="@id/arrow_go_back"
-                android:hint="Cerca..."
-                android:textColor="@color/white"
-                android:textColorHint="@color/grey_1"
-                android:textColorLink="@color/white"
-                android:textColorHighlight="@color/white"
-                android:textSize="20sp"
-                android:singleLine="true"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:visibility="gone"
-                style="@style/EditText3" />
-
-        <ImageView
-                android:id="@+id/detail_search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/dimen_16dp"
-                android:src="@drawable/ico_search_rvd"
-                android:contentDescription="@string/app_name" />
-
-        <ImageView
-                android:id="@+id/detail_trash"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/dimen_16dp"
-                android:src="@drawable/ico_trash_rvd"
-                android:visibility="gone"
-                android:contentDescription="@string/app_name" />
-
-        <ImageView
-                android:id="@+id/edit_icon"
-                android:layout_width="@dimen/dimen_24dp"
-                android:layout_height="@dimen/dimen_24dp"
-                android:layout_marginEnd="@dimen/dimen_50dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ico_modify_rvd"
-                android:contentDescription="@string/app_name"
-                android:visibility="gone" />
-
-        <ImageView
-                android:id="@+id/rubrica_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/dimen_16dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ico_rubrica"
-                android:visibility="gone"
-                android:contentDescription="@string/app_name" />
-
-        <TextView
-                android:id="@+id/action_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/dimen_16dp"
-                android:enabled="false"
-                android:visibility="gone"
-                style="@style/ActionLabel" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-            android:layout_below="@+id/top_bar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorAccent">
-
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="16dp"
-                android:background="@drawable/shadow_bottom"
-                android:elevation="2dp" />
-
-        <it.giovanni.arkivio.customview.MultiSwipeRefreshLayout
-                android:id="@+id/swipeRefreshLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            <FrameLayout
-                    android:id="@+id/frame_layout"
+            <View
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="16dp"
+                    android:background="@drawable/shadow_bottom"
+                    android:elevation="2dp" />
 
-        </it.giovanni.arkivio.customview.MultiSwipeRefreshLayout>
+            <it.giovanni.arkivio.customview.MultiSwipeRefreshLayout
+                    android:id="@+id/swipeRefreshLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <FrameLayout
+                        android:id="@+id/frame_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+            </it.giovanni.arkivio.customview.MultiSwipeRefreshLayout>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
-</RelativeLayout>
+</layout>

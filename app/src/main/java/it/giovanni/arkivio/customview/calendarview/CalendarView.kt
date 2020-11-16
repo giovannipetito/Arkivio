@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.customview.calendarview.model.*
-import it.giovanni.arkivio.customview.calendarview.model.MonthConfig
+import it.giovanni.arkivio.customview.calendarview.model.CalendarMonthConfig
 import it.giovanni.arkivio.customview.calendarview.ui.*
 import it.giovanni.arkivio.customview.calendarview.ui.CalendarAdapter
 import it.giovanni.arkivio.customview.calendarview.ui.CalendarLayoutManager
@@ -111,7 +111,6 @@ class CalendarView : RecyclerView {
         }
 
     /**
-     * A [ViewGroup] which is instantiated and used as the background for each month.
      * This class must have a constructor which takes only a [Context]. You should
      * exclude the name and constructor of this class from code obfuscation if enabled.
      */
@@ -261,17 +260,17 @@ class CalendarView : RecyclerView {
         if (isInEditMode) return
         setHasFixedSize(true)
         context!!.withStyledAttributes(attributeSet, R.styleable.CalendarView, defStyleAttr, defStyleRes) {
-            month = getString(R.styleable.CalendarView_month)
-            inMonth = getBoolean(R.styleable.CalendarView_in_month, inMonth)
-            dayItem = getResourceId(R.styleable.CalendarView_day_item, dayItem)
-            scrollMode = ScrollMode.values()[getInt(R.styleable.CalendarView_scroll_mode, scrollMode.ordinal)]
-            monthHeader = getResourceId(R.styleable.CalendarView_month_header, monthHeader)
-            monthFooter = getResourceId(R.styleable.CalendarView_month_footer, monthFooter)
-            maxRowCount = getInt(R.styleable.CalendarView_max_row_count, maxRowCount)
-            orientation = getInt(R.styleable.CalendarView_orientation, orientation)
-            inDateStyle = InDate.values()[getInt(R.styleable.CalendarView_in_date_style, inDateStyle.ordinal)]
-            outDateStyle = OutDate.values()[getInt(R.styleable.CalendarView_out_date_style, outDateStyle.ordinal)]
-            animationDuration = getInt(R.styleable.CalendarView_animation_duration, animationDuration)
+            month = getString(R.styleable.CalendarView_cv_month)
+            inMonth = getBoolean(R.styleable.CalendarView_cv_in_month, inMonth)
+            dayItem = getResourceId(R.styleable.CalendarView_cv_day_item, dayItem)
+            scrollMode = ScrollMode.values()[getInt(R.styleable.CalendarView_cv_scroll_mode, scrollMode.ordinal)]
+            monthHeader = getResourceId(R.styleable.CalendarView_cv_month_header, monthHeader)
+            monthFooter = getResourceId(R.styleable.CalendarView_cv_month_footer, monthFooter)
+            maxRowCount = getInt(R.styleable.CalendarView_cv_max_row_count, maxRowCount)
+            orientation = getInt(R.styleable.CalendarView_cv_orientation, orientation)
+            inDateStyle = InDate.values()[getInt(R.styleable.CalendarView_cv_in_date_style, inDateStyle.ordinal)]
+            outDateStyle = OutDate.values()[getInt(R.styleable.CalendarView_cv_out_date_style, outDateStyle.ordinal)]
+            animationDuration = getInt(R.styleable.CalendarView_cv_animation_duration, animationDuration)
         }
     }
 
@@ -464,11 +463,11 @@ class CalendarView : RecyclerView {
         post { calendarAdapter.notifyMonthScrollListenerIfNeeded() }
     }
 
-    private fun updateAdapterMonthConfig(config: MonthConfig? = null) {
+    private fun updateAdapterMonthConfig(config: CalendarMonthConfig? = null) {
         if (internalConfigUpdate)
             return
         if (adapter != null) {
-            calendarAdapter.monthConfig = config ?: MonthConfig(
+            calendarAdapter.monthConfig = config ?: CalendarMonthConfig(
                 outDateStyle,
                 inDateStyle,
                 maxRowCount,
@@ -548,26 +547,26 @@ class CalendarView : RecyclerView {
     }
 
     /**
-     * Scroll to a specific [Day]. This brings the date cell view's top to the top of the CalendarVew
+     * Scroll to a specific [CalendarDay]. This brings the date cell view's top to the top of the CalendarVew
      * in vertical mode or the cell view's left edge to the left edge of the CalendarVew in horizontal
      * mode. No animation is performed. For a smooth scrolling effect, use [smoothScrollToDay].
      */
-    fun scrollToDay(day: Day) {
+    fun scrollToDay(day: CalendarDay) {
         calendarLayoutManager.scrollToDay(day)
     }
 
     /**
-     * Scroll to a specific [Day] using a smooth scrolling animation. Just like [scrollToDay], but with a smooth scrolling animation.
+     * Scroll to a specific [CalendarDay] using a smooth scrolling animation. Just like [scrollToDay], but with a smooth scrolling animation.
      */
-    fun smoothScrollToDay(day: Day) {
+    fun smoothScrollToDay(day: CalendarDay) {
         calendarLayoutManager.smoothScrollToDay(day)
     }
 
     /**
-     * Notify the CalendarView to reload the cell for this [Day]. This causes [DayBinder.bind] to be
+     * Notify the CalendarView to reload the cell for this [CalendarDay]. This causes [DayBinder.bind] to be
      * called with the [ViewContainer] at this position. Use this to reload a date cell on the Calendar.
      */
-    fun notifyDayChanged(day: Day) {
+    fun notifyDayChanged(day: CalendarDay) {
         calendarAdapter.reloadDay(day)
     }
 
@@ -576,7 +575,7 @@ class CalendarView : RecyclerView {
      */
     @JvmOverloads
     fun notifyDateChanged(date: LocalDate, owner: DayOwner = DayOwner.THIS_MONTH) {
-        notifyDayChanged(Day(date, owner))
+        notifyDayChanged(CalendarDay(date, owner))
     }
 
     private val scrollListenerInternal = object : RecyclerView.OnScrollListener() {
@@ -606,7 +605,7 @@ class CalendarView : RecyclerView {
             this.startMonth = startMonth
             this.endMonth = endMonth
             this.firstDayOfWeek = firstDayOfWeek
-            finishSetup(MonthConfig(outDateStyle, inDateStyle, maxRowCount, startMonth, endMonth, firstDayOfWeek, inMonth, Job()))
+            finishSetup(CalendarMonthConfig(outDateStyle, inDateStyle, maxRowCount, startMonth, endMonth, firstDayOfWeek, inMonth, Job()))
         }
     }
 
@@ -639,7 +638,7 @@ class CalendarView : RecyclerView {
             this.endMonth = endMonth
             this.firstDayOfWeek = firstDayOfWeek
             configJob = GlobalScope.launch {
-                val monthConfig = MonthConfig(outDateStyle, inDateStyle, maxRowCount, startMonth, endMonth, firstDayOfWeek, inMonth, job)
+                val monthConfig = CalendarMonthConfig(outDateStyle, inDateStyle, maxRowCount, startMonth, endMonth, firstDayOfWeek, inMonth, job)
                 withContext(Main) {
                     finishSetup(monthConfig)
                     completion?.invoke()
@@ -648,7 +647,7 @@ class CalendarView : RecyclerView {
         }
     }
 
-    private fun finishSetup(monthConfig: MonthConfig) {
+    private fun finishSetup(monthConfig: CalendarMonthConfig) {
         removeOnScrollListener(scrollListenerInternal)
         addOnScrollListener(scrollListenerInternal)
         layoutManager = CalendarLayoutManager(this, orientation)
@@ -711,13 +710,13 @@ class CalendarView : RecyclerView {
         }
     }
 
-    private fun getMonthUpdateData(job: Job): Pair<MonthConfig, DiffUtil.DiffResult> {
+    private fun getMonthUpdateData(job: Job): Pair<CalendarMonthConfig, DiffUtil.DiffResult> {
         val monthConfig = generateMonthConfig(job)
         val diffResult = DiffUtil.calculateDiff(MonthRangeDiffCallback(calendarAdapter.monthConfig.months, monthConfig.months), false)
         return Pair(monthConfig, diffResult)
     }
 
-    private fun finishUpdateMonthRange(newConfig: MonthConfig, diffResult: DiffUtil.DiffResult) {
+    private fun finishUpdateMonthRange(newConfig: CalendarMonthConfig, diffResult: DiffUtil.DiffResult) {
         calendarAdapter.monthConfig = newConfig
         diffResult.dispatchUpdatesTo(calendarAdapter)
     }
@@ -727,7 +726,7 @@ class CalendarView : RecyclerView {
         configJob?.cancel()
     }
 
-    private class MonthRangeDiffCallback(private val oldItems: List<Month>, private val newItems: List<Month>) : DiffUtil.Callback() {
+    private class MonthRangeDiffCallback(private val oldItems: List<CalendarMonth>, private val newItems: List<CalendarMonth>) : DiffUtil.Callback() {
 
         override fun getOldListSize() = oldItems.size
         override fun getNewListSize() = newItems.size
@@ -735,8 +734,8 @@ class CalendarView : RecyclerView {
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) = areItemsTheSame(oldItemPosition, newItemPosition)
     }
 
-    private fun generateMonthConfig(job: Job): MonthConfig {
-        return MonthConfig(
+    private fun generateMonthConfig(job: Job): CalendarMonthConfig {
+        return CalendarMonthConfig(
             outDateStyle,
             inDateStyle,
             maxRowCount,

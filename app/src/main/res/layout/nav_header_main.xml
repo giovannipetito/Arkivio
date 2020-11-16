@@ -62,7 +62,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="@string/name_surname_title"
-                        android:textColor="@{temp2.colore}"
+                        android:textColor="@{temp2.labelColor}"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         tools:textColor="@color/colorPrimary" />
@@ -83,7 +83,7 @@
                     android:layout_width="@dimen/dimen_24dp"
                     android:layout_height="@dimen/dimen_24dp"
                     android:layout_toStartOf="@+id/switch_mode"
-                    android:src="@{temp2.icoDarkMode}"
+                    android:src="@{temp2.icoDark}"
                     android:contentDescription="@string/app_name"
                     tools:src="@drawable/ico_dark_mode_light" />
 
@@ -101,17 +101,31 @@
                     android:layout_width="@dimen/dimen_24dp"
                     android:layout_height="@dimen/dimen_24dp"
                     android:layout_toEndOf="@+id/switch_mode"
-                    android:src="@{temp2.icoLightMode}"
+                    android:src="@{temp2.icoLight}"
                     android:contentDescription="@string/app_name"
                     tools:src="@drawable/ico_light_mode_light" />
 
         </RelativeLayout>
 
+        <it.giovanni.arkivio.customview.TextViewCustom
+                android:id="@+id/label_dark_mode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="4dp"
+                android:layout_below="@id/switch_mode_container"
+                android:text="@{temp2.label}"
+                android:textColor="@{temp2.labelColor}"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:text="Dark mode"
+                tools:textColor="@color/white" />
+
         <ScrollView android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="160dp"
-                android:layout_below="@+id/switch_mode_container">
+                android:layout_below="@+id/label_dark_mode">
 
             <LinearLayout
                     android:id="@+id/nav_header_container"
@@ -141,7 +155,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Versione app: "
+                        android:text="@string/app_version"
                         android:textColor="@color/white" />
 
                 <TextView
@@ -149,15 +163,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="5dp"
-                        android:text="App Version: 0.1"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        tools:text="App Version: 0.1" />
 
                 <TextView
                         android:id="@+id/version_code"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="(Version Code)"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        tools:text="(Version Code)" />
 
             </LinearLayout>
 
@@ -199,7 +213,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginStart="20dp"
                             android:layout_toEndOf="@id/menu_ico_configuration"
-                            android:text="Impostazioni"
+                            android:text="@string/settings"
                             android:textColor="@color/colorPrimary"
                             android:textSize="16sp" />
 
@@ -225,7 +239,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginStart="20dp"
                             android:layout_toEndOf="@id/menu_ico_link"
-                            android:text="Feedback"
+                            android:text="@string/feedback"
                             android:textColor="@color/colorPrimary"
                             android:textSize="16sp" />
 
@@ -253,9 +267,10 @@
                             android:layout_centerVertical="true"
                             android:layout_marginStart="20dp"
                             android:layout_toEndOf="@id/menu_ico_exit"
-                            android:text="LOGOUT"
+                            android:text="@string/label_logout"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            android:textAllCaps="true" />
 
                 </RelativeLayout>
 

@@ -4,19 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.databinding.WorkingAreaLayoutBinding
 import it.giovanni.arkivio.fragments.HomeFragment
 import it.giovanni.arkivio.fragments.MainFragment
+import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.Globals
 import kotlinx.android.synthetic.main.working_area_layout.*
-
 
 class WorkingAreaFragment : HomeFragment() {
 
     private var viewFragment: View? = null
 
     override fun getLayout(): Int {
-        return R.layout.working_area_layout
+        return NO_LAYOUT
     }
 
     override fun getTitle(): Int {
@@ -31,8 +34,15 @@ class WorkingAreaFragment : HomeFragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val binding: WorkingAreaLayoutBinding? = DataBindingUtil.inflate(inflater, R.layout.working_area_layout, container, false)
+        viewFragment = binding?.root
+
+        val darkModePresenter: DarkModePresenter? = DarkModePresenter(this, context!!)
+        val model: DarkModeModel? = DarkModeModel(context!!)
+        binding?.temp = model
+        binding?.presenter = darkModePresenter
+
         return viewFragment
     }
 

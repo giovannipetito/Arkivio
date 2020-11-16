@@ -52,7 +52,7 @@
                 android:drawableTop="@drawable/ico_nearby_rock"
                 android:drawableTint="@color/blueWave"
                 android:text="@string/rock"
-                style="@style/CustomButton" />
+                style="@style/DarkModeButton" />
 
         <Button
                 android:id="@+id/button_paper"
@@ -64,7 +64,7 @@
                 android:drawableTop="@drawable/ico_nearby_paper"
                 android:drawableTint="@color/blueWave"
                 android:text="@string/paper"
-                style="@style/CustomButton" />
+                style="@style/DarkModeButton" />
 
         <Button
                 android:id="@+id/button_scissors"
@@ -75,7 +75,7 @@
                 android:drawableTop="@drawable/ico_nearby_scissors"
                 android:drawableTint="@color/blueWave"
                 android:text="@string/scissors"
-                style="@style/CustomButton" />
+                style="@style/DarkModeButton" />
 
     </LinearLayout>
 

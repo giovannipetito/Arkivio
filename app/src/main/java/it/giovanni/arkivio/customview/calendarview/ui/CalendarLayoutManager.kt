@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import it.giovanni.arkivio.customview.calendarview.CalendarView
 import it.giovanni.arkivio.customview.calendarview.NO_INDEX
-import it.giovanni.arkivio.customview.calendarview.model.Day
+import it.giovanni.arkivio.customview.calendarview.model.CalendarDay
 import it.giovanni.arkivio.customview.calendarview.model.ScrollMode
 import it.giovanni.arkivio.customview.calendarview.viewholder.MonthViewHolder
 import java.time.YearMonth
@@ -38,7 +38,7 @@ internal class CalendarLayoutManager(private val calView: CalendarView, @Recycle
         startSmoothScroll(CalendarSmoothScroller(position, null))
     }
 
-    fun smoothScrollToDay(day: Day) {
+    fun smoothScrollToDay(day: CalendarDay) {
 
         val monthPosition = adapter.getAdapterPosition(day)
         if (monthPosition == NO_INDEX) return
@@ -47,7 +47,7 @@ internal class CalendarLayoutManager(private val calView: CalendarView, @Recycle
         startSmoothScroll(CalendarSmoothScroller(monthPosition, if (isPaged) null else day))
     }
 
-    fun scrollToDay(day: Day) {
+    fun scrollToDay(day: CalendarDay) {
 
         val monthPosition = adapter.getAdapterPosition(day)
         if (monthPosition == NO_INDEX) return
@@ -66,7 +66,7 @@ internal class CalendarLayoutManager(private val calView: CalendarView, @Recycle
         }
     }
 
-    private fun calculateDayViewOffsetInParent(day: Day, itemView: View): Int {
+    private fun calculateDayViewOffsetInParent(day: CalendarDay, itemView: View): Int {
 
         val dayView = itemView.findViewWithTag<View>(day.date.hashCode()) ?: return 0
         val rect = Rect()
@@ -75,7 +75,7 @@ internal class CalendarLayoutManager(private val calView: CalendarView, @Recycle
         return if (calView.isVertical) rect.top + calView.monthMarginTop else rect.left + calView.monthMarginStart
     }
 
-    private inner class CalendarSmoothScroller(position: Int, val day: Day?) : LinearSmoothScroller(context) {
+    private inner class CalendarSmoothScroller(position: Int, val day: CalendarDay?) : LinearSmoothScroller(context) {
 
         init {
             targetPosition = position

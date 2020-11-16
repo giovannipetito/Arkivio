@@ -1,251 +1,265 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <ScrollView android:layout_width="match_parent"
+    <data>
+        <variable
+                name="temp"
+                type="it.giovanni.arkivio.model.DarkModeModel" />
+
+        <variable
+                name="presenter"
+                type="it.giovanni.arkivio.presenter.DarkModePresenter" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <ScrollView android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-        <LinearLayout android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:orientation="vertical">
-
             <LinearLayout android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:orientation="horizontal"
-                          android:baselineAligned="false">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                <RelativeLayout android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="0.5">
+                <LinearLayout android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:baselineAligned="false">
 
-                    <NumberPicker
-                            android:id="@+id/number_picker_1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dimen_10dp"
-                            android:layout_marginBottom="@dimen/dimen_10dp"
-                            android:layout_centerHorizontal="true" />
+                    <RelativeLayout android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5">
 
-                    <it.giovanni.arkivio.customview.MultiSpinnerView
-                            android:id="@+id/multi_spinner_view"
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
-                            app:thickStrokeWidth="16dp"
-                            app:thinStrokeWidth="2dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_below="@+id/number_picker_1" />
+                        <NumberPicker
+                                android:id="@+id/number_picker_1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dimen_10dp"
+                                android:layout_marginBottom="@dimen/dimen_10dp"
+                                android:layout_centerHorizontal="true" />
 
-                </RelativeLayout>
-
-                <RelativeLayout android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="0.5">
-
-                    <NumberPicker
-                            android:id="@+id/number_picker_2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dimen_10dp"
-                            android:layout_marginBottom="@dimen/dimen_10dp"
-                            android:layout_centerHorizontal="true" />
-
-                    <RelativeLayout
-                            android:id="@+id/progress_bar_viewgroup"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/dimen_16dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_below="@+id/number_picker_2">
-
-                        <include android:id="@+id/progress_bar_content"
-                                 android:layout_width="match_parent"
-                                 android:layout_height="wrap_content"
-                                 layout="@layout/progress_bar_layout" />
+                        <it.giovanni.arkivio.customview.MultiSpinnerView
+                                android:id="@+id/multi_spinner_view"
+                                android:layout_width="120dp"
+                                android:layout_height="120dp"
+                                app:thickStrokeWidth="16dp"
+                                app:thinStrokeWidth="2dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_below="@+id/number_picker_1" />
 
                     </RelativeLayout>
 
-                </RelativeLayout>
+                    <RelativeLayout android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5">
 
-            </LinearLayout>
-
-            <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                    <it.giovanni.arkivio.customview.TimelineView
-                            android:id="@+id/bar_tagli"
-                            android:layout_width="match_parent"
-                            android:layout_height="100dp"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginEnd="20dp"
-                            android:paddingStart="30dp"
-                            android:paddingEnd="40dp"
-                            android:paddingTop="20dp"
-                            android:paddingBottom="8dp"
-                            app:padding_start="30dp"
-                            app:padding_end="0dp"
-                            app:text_size="14dp"
-                            app:text_selected_size="16dp"
-                            app:text_font="fira_sans_regular"
-                            app:text_selected_font="fira_sans_medium"
-                            app:text_color="@color/colorPrimary"
-                            app:text_selected_color="@color/verde_3"
-                            app:progress_line_size="6dp"
-                            app:background_line_size="5dp"
-                            app:progress_line_color="@color/verde_3"
-                            app:background_line_color="@color/grey_1"
-                            app:icon_progress="@drawable/ico_euro"
-                            app:indicator_circle_radius="20dp"
-                            app:indicator_shadow_color="@color/grey_5"
-                            app:indicator_background_color="@color/azzurro_2" />
-
-                    <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="30dp"
-                            android:layout_marginEnd="30dp">
-
-                        <ImageView
-                                android:id="@+id/button_minus"
+                        <NumberPicker
+                                android:id="@+id/number_picker_2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="10dp"
-                                android:layout_alignParentStart="true"
-                                android:background="@android:color/transparent"
-                                android:src="@drawable/ico_minus"
-                                android:contentDescription="@string/app_name"
-                                app:tint="@color/colorPrimary" />
+                                android:layout_marginTop="@dimen/dimen_10dp"
+                                android:layout_marginBottom="@dimen/dimen_10dp"
+                                android:layout_centerHorizontal="true" />
 
-                        <ImageView
-                                android:id="@+id/button_plus"
-                                android:layout_width="wrap_content"
+                        <RelativeLayout
+                                android:id="@+id/progress_bar_viewgroup"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginEnd="10dp"
-                                android:layout_alignParentEnd="true"
-                                android:background="@android:color/transparent"
-                                android:src="@drawable/ico_plus"
-                                android:contentDescription="@string/app_name"
-                                app:tint="@color/colorPrimary" />
+                                android:layout_margin="@dimen/dimen_16dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_below="@+id/number_picker_2">
+
+                            <include android:id="@+id/progress_bar_content"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    layout="@layout/progress_bar_layout" />
+
+                        </RelativeLayout>
 
                     </RelativeLayout>
 
                 </LinearLayout>
 
-            </RelativeLayout>
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-            <LinearLayout android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:layout_marginTop="@dimen/dimen_20dp"
-                          android:orientation="horizontal">
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
 
-                <RelativeLayout android:layout_width="0dp"
+                        <it.giovanni.arkivio.customview.TimelineView
+                                android:id="@+id/bar_tagli"
+                                android:layout_width="match_parent"
+                                android:layout_height="100dp"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="20dp"
+                                android:paddingStart="30dp"
+                                android:paddingEnd="40dp"
+                                android:paddingTop="20dp"
+                                android:paddingBottom="8dp"
+                                app:padding_start="30dp"
+                                app:padding_end="0dp"
+                                app:text_size="14dp"
+                                app:text_selected_size="16dp"
+                                app:text_font="fira_sans_regular"
+                                app:text_selected_font="fira_sans_medium"
+                                app:text_color="@color/colorPrimary"
+                                app:text_selected_color="@color/verde_3"
+                                app:progress_line_size="6dp"
+                                app:background_line_size="5dp"
+                                app:progress_line_color="@color/verde_3"
+                                app:background_line_color="@color/grey_1"
+                                app:icon_progress="@drawable/ico_euro"
+                                app:indicator_circle_radius="20dp"
+                                app:indicator_shadow_color="@color/grey_5"
+                                app:indicator_background_color="@color/azzurro_2" />
+
+                        <RelativeLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="0.2">
+                                android:layout_marginStart="30dp"
+                                android:layout_marginEnd="30dp">
 
-                    <ImageView
-                            android:id="@+id/icon_1"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:layout_centerHorizontal="true"
-                            android:contentDescription="@string/app_name" />
+                            <ImageView
+                                    android:id="@+id/button_minus"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_alignParentStart="true"
+                                    android:background="@android:color/transparent"
+                                    android:src="@drawable/ico_minus"
+                                    android:contentDescription="@string/app_name"
+                                    app:tint="@color/colorPrimary" />
+
+                            <ImageView
+                                    android:id="@+id/button_plus"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="10dp"
+                                    android:layout_alignParentEnd="true"
+                                    android:background="@android:color/transparent"
+                                    android:src="@drawable/ico_plus"
+                                    android:contentDescription="@string/app_name"
+                                    app:tint="@color/colorPrimary" />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
 
                 </RelativeLayout>
 
-                <RelativeLayout android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="0.2">
+                <LinearLayout android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_20dp"
+                        android:orientation="horizontal">
 
-                    <ImageView
-                            android:id="@+id/icon_2"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:layout_centerHorizontal="true"
-                            android:contentDescription="@string/app_name" />
+                    <RelativeLayout android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2">
+
+                        <ImageView
+                                android:id="@+id/icon_1"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_centerHorizontal="true"
+                                android:contentDescription="@string/app_name" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2">
+
+                        <ImageView
+                                android:id="@+id/icon_2"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_centerHorizontal="true"
+                                android:contentDescription="@string/app_name" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2">
+
+                        <ImageView
+                                android:id="@+id/icon_3"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_centerHorizontal="true"
+                                android:contentDescription="@string/app_name" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2">
+
+                        <ImageView
+                                android:id="@+id/icon_4"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_centerHorizontal="true"
+                                android:contentDescription="@string/app_name" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2">
+
+                        <ImageView
+                                android:id="@+id/icon_5"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_centerHorizontal="true"
+                                android:contentDescription="@string/app_name" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_margin="24dp"
+                        android:background="@drawable/round_corner_2">
+
+                    <EditText
+                            android:id="@+id/edit_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp"
+                            android:hint="Inserisci la tua Email..."
+                            android:gravity="top"
+                            android:background="@drawable/edittext_background"
+                            android:inputType="textEmailAddress"
+                            android:autofillHints="@string/app_name" />
 
                 </RelativeLayout>
 
-                <RelativeLayout android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="0.2">
-
-                    <ImageView
-                            android:id="@+id/icon_3"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:layout_centerHorizontal="true"
-                            android:contentDescription="@string/app_name" />
-
-                </RelativeLayout>
-
-                <RelativeLayout android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="0.2">
-
-                    <ImageView
-                            android:id="@+id/icon_4"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:layout_centerHorizontal="true"
-                            android:contentDescription="@string/app_name" />
-
-                </RelativeLayout>
-
-                <RelativeLayout android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="0.2">
-
-                    <ImageView
-                            android:id="@+id/icon_5"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:layout_centerHorizontal="true"
-                            android:contentDescription="@string/app_name" />
-
-                </RelativeLayout>
+                <Button
+                        android:id="@+id/button_change_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="24dp"
+                        android:text="@string/change_style"
+                        tools:style="@style/CustomButton" />
 
             </LinearLayout>
 
-            <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_margin="24dp"
-                    android:background="@drawable/rounded_corner_2">
+        </ScrollView>
 
-                <EditText
-                        android:id="@+id/edit_email"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginBottom="4dp"
-                        android:hint="Inserisci la tua Email..."
-                        android:gravity="top"
-                        android:background="@drawable/edittext_background"
-                        android:inputType="textEmailAddress"
-                        android:autofillHints="@string/app_name" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </RelativeLayout>
-
-            <Button
-                    android:id="@+id/button_change_style"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="24dp"
-                    android:text="@string/change_style"
-                    tools:style="@style/CustomButton" />
-
-        </LinearLayout>
-
-    </ScrollView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

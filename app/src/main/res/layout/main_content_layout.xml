@@ -1,120 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/background_empty">
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+                name="temp2"
+                type="it.giovanni.arkivio.model.DarkModeModel" />
+
+        <variable
+                name="presenter"
+                type="it.giovanni.arkivio.presenter.DarkModePresenter" />
+    </data>
 
     <RelativeLayout
-            android:id="@+id/header_bar"
+            android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="48dp">
+            android:layout_height="match_parent">
 
-        <ImageView
-                android:id="@+id/voice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ico_voice_rvd"
-                android:contentDescription="@string/app_name" />
-
-        <ImageView
-                android:id="@+id/logo_app"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/logo_audioslave"
-                android:contentDescription="@string/app_name" />
-
-        <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="12dp"
-                android:src="@drawable/ico_help_rvd"
-                android:contentDescription="@string/app_name" />
-
-        <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="20dp"
-                android:visibility="gone"
-                android:src="@drawable/ico_notify_rvd"
-                android:contentDescription="@string/app_name" />
-
-    </RelativeLayout>
-
-    <androidx.viewpager.widget.ViewPager
-            android:id="@+id/view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/header_bar" />
-
-    <!-- BOOTTOM BAR -->
-    <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="69dp"
-            android:layout_alignParentBottom="true"
-            android:clipChildren="false"
-            app:layout_anchor="@+id/view_pager"
-            app:layout_anchorGravity="bottom|center">
-
-        <ImageView
-                android:id="@+id/background_bottom_bar"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerHorizontal="true"
-                android:adjustViewBounds="true"
-                android:scaleType="center"
-                android:src="@drawable/bottom_bar"
-                android:contentDescription="@string/app_name" />
-
-        <LinearLayout
+        <RelativeLayout
+                android:id="@+id/header_bar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
-                android:orientation="horizontal">
+                android:layout_height="@dimen/dimen_82dp"
+                android:background="@{temp2.backgroundTabColor}"
+                tools:background="@drawable/background_dark_mode">
 
             <ImageView
-                    android:id="@+id/tab_home"
-                    android:layout_width="34dp"
-                    android:layout_height="34dp"
-                    android:layout_weight=".25"
-                    android:src="@drawable/ico_bottom_home"
+                    android:id="@+id/voice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ico_voice_rvd"
                     android:contentDescription="@string/app_name" />
 
             <ImageView
-                    android:id="@+id/tab_working_area"
-                    android:layout_width="34dp"
-                    android:layout_height="34dp"
-                    android:layout_weight=".25"
-                    android:src="@drawable/ico_bottom_working_area"
+                    android:id="@+id/logo_app"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/logo_audioslave"
                     android:contentDescription="@string/app_name" />
 
             <ImageView
-                    android:id="@+id/tab_administrative"
-                    android:layout_width="34dp"
-                    android:layout_height="34dp"
-                    android:layout_weight=".25"
-                    android:src="@drawable/ico_bottom_administrative_area"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="12dp"
+                    android:src="@drawable/ico_help_rvd"
                     android:contentDescription="@string/app_name" />
 
             <ImageView
-                    android:id="@+id/tab_menu"
-                    android:layout_width="34dp"
-                    android:layout_height="34dp"
-                    android:layout_weight=".25"
-                    android:src="@drawable/ico_bottom_menu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="20dp"
+                    android:visibility="gone"
+                    android:src="@drawable/ico_notify_rvd"
                     android:contentDescription="@string/app_name" />
 
-        </LinearLayout>
+        </RelativeLayout>
+
+        <androidx.viewpager.widget.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/header_bar" />
+
+        <!-- BOOTTOM BAR -->
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="69dp"
+                android:layout_alignParentBottom="true"
+                android:clipChildren="false"
+                app:layout_anchor="@+id/view_pager"
+                app:layout_anchorGravity="bottom|center">
+
+            <ImageView
+                    android:id="@+id/background_bottom_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:adjustViewBounds="true"
+                    android:scaleType="center"
+                    android:src="@drawable/bottom_bar"
+                    android:contentDescription="@string/app_name" />
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="22dp"
+                    android:orientation="horizontal">
+
+                <ImageView
+                        android:id="@+id/tab_home"
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:layout_weight=".25"
+                        android:src="@drawable/ico_bottom_home"
+                        android:contentDescription="@string/app_name" />
+
+                <ImageView
+                        android:id="@+id/tab_working_area"
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:layout_weight=".25"
+                        android:src="@drawable/ico_bottom_working_area"
+                        android:contentDescription="@string/app_name" />
+
+                <ImageView
+                        android:id="@+id/tab_administrative"
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:layout_weight=".25"
+                        android:src="@drawable/ico_bottom_administrative_area"
+                        android:contentDescription="@string/app_name" />
+
+                <ImageView
+                        android:id="@+id/tab_menu"
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:layout_weight=".25"
+                        android:src="@drawable/ico_bottom_menu"
+                        android:contentDescription="@string/app_name" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
-</RelativeLayout>
+</layout>

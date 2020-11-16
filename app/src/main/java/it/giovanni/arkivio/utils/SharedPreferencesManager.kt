@@ -15,21 +15,41 @@ class SharedPreferencesManager {
         private var preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(App.context)
 
         private const val DARK_MODE = "DARK_MODE"
+        private const val REMEMBER_ME = "REMEMBER_ME"
+        private const val COMPRESS = "COMPRESS"
         private const val SELECTED_DATE = "SELECTED_DATE"
 
         fun saveDarkModeStateToPreferences(isDarkMode: Boolean) {
-            // preferences = PreferenceManager.getDefaultSharedPreferences(App.context)
-            val editor = preferences.edit()
+            val editor: SharedPreferences.Editor = preferences.edit()
             editor.putBoolean(DARK_MODE, isDarkMode)
             editor.apply()
         }
 
         fun loadDarkModeStateFromPreferences(): Boolean {
-            // preferences = PreferenceManager.getDefaultSharedPreferences(App.context)
             return preferences.getBoolean(DARK_MODE, false)
         }
 
-        fun saveSelectedDateToPreferences(selectedDaysResponse: SelectedDaysResponse?) {
+        fun saveRememberMeToPreferences(rememberMe: Boolean) {
+            val editor = preferences.edit()
+            editor.putBoolean(REMEMBER_ME, rememberMe)
+            editor.apply()
+        }
+
+        fun loadRememberMeFromPreferences(): Boolean {
+            return preferences.getBoolean(REMEMBER_ME, false)
+        }
+
+        fun saveCompressStateToPreferences(compress: Boolean) {
+            val editor = preferences.edit()
+            editor.putBoolean(COMPRESS, compress)
+            editor.apply()
+        }
+
+        fun loadCompressStateFromPreferences(): Boolean {
+            return preferences.getBoolean(COMPRESS, false)
+        }
+
+        fun saveSelectedDaysToPreferences(selectedDaysResponse: SelectedDaysResponse?) {
             val editor: SharedPreferences.Editor = preferences.edit()
             val builder = GsonBuilder()
             val gson = builder.serializeNulls().create()
@@ -38,7 +58,7 @@ class SharedPreferencesManager {
             editor.apply()
         }
 
-        fun loadSelectedDateFromPreferences(): SelectedDaysResponse? {
+        fun loadSelectedDaysFromPreferences(): SelectedDaysResponse? {
             val responseString = preferences.getString(SELECTED_DATE, null)
             var selectedDaysResponse: SelectedDaysResponse? = null
             if (responseString != null && responseString != "") {

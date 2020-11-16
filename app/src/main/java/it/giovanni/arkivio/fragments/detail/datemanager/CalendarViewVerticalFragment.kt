@@ -15,10 +15,10 @@ import it.giovanni.arkivio.bean.SelectedDaysResponse
 import it.giovanni.arkivio.customview.TextViewCustom
 import it.giovanni.arkivio.customview.calendarview.getDaysOfWeek
 import it.giovanni.arkivio.customview.calendarview.generateBadges
-import it.giovanni.arkivio.customview.calendarview.model.Day
+import it.giovanni.arkivio.customview.calendarview.model.CalendarDay
 import it.giovanni.arkivio.customview.calendarview.model.DayOwner
 import it.giovanni.arkivio.customview.calendarview.model.DaysOfWeek
-import it.giovanni.arkivio.customview.calendarview.model.Month
+import it.giovanni.arkivio.customview.calendarview.model.CalendarMonth
 import it.giovanni.arkivio.customview.calendarview.ui.Badge
 import it.giovanni.arkivio.customview.calendarview.ui.DayBinder
 import it.giovanni.arkivio.customview.calendarview.ui.MonthHeaderFooterBinder
@@ -26,8 +26,8 @@ import it.giovanni.arkivio.customview.calendarview.ui.ViewContainer
 import it.giovanni.arkivio.databinding.CalendarviewVerticalHeaderBinding
 import it.giovanni.arkivio.databinding.CalendarviewVerticalItemBinding
 import it.giovanni.arkivio.fragments.DetailFragment
-import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadSelectedDateFromPreferences
-import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.saveSelectedDateToPreferences
+import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadSelectedDaysFromPreferences
+import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.saveSelectedDaysToPreferences
 import it.giovanni.arkivio.utils.Utils
 import kotlinx.android.synthetic.main.calendarview_vertical_layout.*
 import java.time.LocalDate
@@ -90,6 +90,10 @@ class CalendarViewVerticalFragment : DetailFragment() {
         return viewFragment
     }
 
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View? {
+        TODO("Not yet implemented")
+    }
+
     @Suppress("DEPRECATION")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -103,14 +107,14 @@ class CalendarViewVerticalFragment : DetailFragment() {
         calendarview.setup(startMonth, endMonth, daysOfWeek.first())
         calendarview.scrollToMonth(currentMonth)
 
-        val response = loadSelectedDateFromPreferences()
+        val response = loadSelectedDaysFromPreferences()
         items = response?.selectedDays
 
         if (items != null && items?.isNotEmpty()!!)
             badges = generateBadges(items!!).groupBy { it.time.toLocalDate() }
 
         class DayViewContainer(view: View) : ViewContainer(view) {
-            lateinit var day: Day // Will be set when this container is bound.
+            lateinit var day: CalendarDay // Will be set when this container is bound.
             val binding = CalendarviewVerticalItemBinding.bind(view)
             init {
                 view.setOnClickListener {
@@ -135,7 +139,7 @@ class CalendarViewVerticalFragment : DetailFragment() {
         calendarview.dayBinder = object : DayBinder<DayViewContainer> {
 
             override fun create(view: View) = DayViewContainer(view)
-            override fun bind(container: DayViewContainer, day: Day) {
+            override fun bind(container: DayViewContainer, day: CalendarDay) {
                 container.day = day
 
                 val verticalItem = container.binding.verticalItem
@@ -238,7 +242,7 @@ class CalendarViewVerticalFragment : DetailFragment() {
 
             override fun create(view: View) = MonthViewContainer(view)
 
-            override fun bind(container: MonthViewContainer, month: Month) {
+            override fun bind(container: MonthViewContainer, month: CalendarMonth) {
 
                 val currentDate = DateTimeFormatter.ofPattern("MMMM").format(month.yearMonth.month) + " | " + month.year
                 val headerDate = currentDate.toUpperCase(Locale.getDefault())
@@ -287,7 +291,7 @@ class CalendarViewVerticalFragment : DetailFragment() {
             if (items != null) {
                 val selectedDaysResponse = SelectedDaysResponse()
                 selectedDaysResponse.selectedDays = items
-                saveSelectedDateToPreferences(selectedDaysResponse)
+                saveSelectedDaysToPreferences(selectedDaysResponse)
 
                 val arrayItems: ArrayList<String>? = ArrayList()
                 for (item in items!!) {

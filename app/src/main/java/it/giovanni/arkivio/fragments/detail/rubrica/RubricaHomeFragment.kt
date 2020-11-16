@@ -2,7 +2,9 @@ package it.giovanni.arkivio.fragments.detail.rubrica
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.bean.Persona
 import it.giovanni.arkivio.customview.Brick
@@ -14,6 +16,7 @@ import kotlin.math.roundToInt
 
 class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback {
 
+    private var viewFragment: View? = null
     private var contacts: ArrayList<Persona>? = null
 
     override fun getLayout(): Int {
@@ -52,6 +55,15 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback {
     }
 
     override fun onActionSearch(search_string: String) {
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
+        return viewFragment
+    }
+
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View? {
+        TODO("Not yet implemented")
     }
 
     @Suppress("DEPRECATION")

@@ -2,7 +2,9 @@ package it.giovanni.arkivio.fragments.detail.preference
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.interfaces.IPreference
@@ -15,6 +17,7 @@ import kotlinx.android.synthetic.main.preference_layout.*
 
 class PreferenceFragment: DetailFragment(), IPreference.UpdatesView {
 
+    private var viewFragment: View? = null
     var presenter: IPreference.UserEvents? = null
 
     override fun getLayout(): Int {
@@ -53,6 +56,15 @@ class PreferenceFragment: DetailFragment(), IPreference.UpdatesView {
     }
 
     override fun onActionSearch(search_string: String) {
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
+        return viewFragment
+    }
+
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View? {
+        TODO("Not yet implemented")
     }
 
     @Suppress("DEPRECATION")

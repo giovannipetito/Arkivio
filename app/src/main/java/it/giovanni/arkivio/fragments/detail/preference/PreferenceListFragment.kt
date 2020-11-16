@@ -20,7 +20,7 @@ import kotlin.collections.ArrayList
 
 class PreferenceListFragment: DetailFragment(), PreferenceListAdapter.OnItemViewClicked {
 
-    var THRESHOLD = 3
+    private var THRESHOLD = 3
     private var viewFragment: View? = null
     private var button: Button? = null
     private var checkedList: ArrayList<Persona>? = null
@@ -70,6 +70,10 @@ class PreferenceListFragment: DetailFragment(), PreferenceListAdapter.OnItemView
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewFragment = super.onCreateView(inflater, container, savedInstanceState)
         return viewFragment
+    }
+
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View? {
+        TODO("Not yet implemented")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

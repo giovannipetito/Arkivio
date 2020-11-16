@@ -5,10 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.databinding.LinkAreaLayoutBinding
 import it.giovanni.arkivio.fragments.HomeFragment
 import it.giovanni.arkivio.fragments.MainFragment
 import it.giovanni.arkivio.fragments.detail.webview.WebViewActivity
+import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.Globals
 import it.giovanni.arkivio.utils.Utils
 import kotlinx.android.synthetic.main.link_area_layout.*
@@ -23,7 +27,7 @@ class LinkAreaFragment : HomeFragment() {
     private var bundleHtml: Bundle = Bundle()
 
     override fun getLayout(): Int {
-        return R.layout.link_area_layout
+        return NO_LAYOUT
     }
 
     override fun getTitle(): Int {
@@ -57,8 +61,15 @@ class LinkAreaFragment : HomeFragment() {
         bundleHtml.putString("url_html", resources.getString(R.string.url_html))
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val binding: LinkAreaLayoutBinding? = DataBindingUtil.inflate(inflater, R.layout.link_area_layout, container, false)
+        viewFragment = binding?.root
+
+        val darkModePresenter: DarkModePresenter? = DarkModePresenter(this, context!!)
+        val model: DarkModeModel? = DarkModeModel(context!!)
+        binding?.temp = model
+        binding?.presenter = darkModePresenter
+
         return viewFragment
     }
 

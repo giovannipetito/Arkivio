@@ -2,7 +2,9 @@ package it.giovanni.arkivio.fragments.detail.datemanager
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.utils.DateManager
@@ -15,7 +17,7 @@ import it.giovanni.arkivio.utils.DateManager.Companion.getSimpleDate2
 import it.giovanni.arkivio.utils.DateManager.Companion.getSimpleDate3
 import it.giovanni.arkivio.utils.DateManager.Companion.getSimpleDate4
 import it.giovanni.arkivio.utils.DateManager.Companion.getSimpleDay
-import it.giovanni.arkivio.utils.DateManager.Companion.getSimpleMonth
+import it.giovanni.arkivio.utils.DateManager.Companion.getSimpleMonth1
 import it.giovanni.arkivio.utils.DateManager.Companion.getSimpleName
 import it.giovanni.arkivio.utils.DateManager.Companion.getSimpleTime
 import it.giovanni.arkivio.utils.DateManager.Companion.getSimpleYear
@@ -34,6 +36,8 @@ import java.util.*
 
 @Suppress("DEPRECATION")
 class DateFormatFragment : DetailFragment() {
+
+    private var viewFragment: View? = null
 
     private var calendar : Calendar? = null
 
@@ -97,6 +101,15 @@ class DateFormatFragment : DetailFragment() {
         stopSwipeRefresh()
     }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
+        return viewFragment
+    }
+
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View? {
+        TODO("Not yet implemented")
+    }
+
     @SuppressLint("SimpleDateFormat")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -158,7 +171,7 @@ class DateFormatFragment : DetailFragment() {
         simple_time?.text = getSimpleTime(startCurrentDate!!.getFormatDate())
         simple_name?.text = getSimpleName(startCurrentDate!!.getFormatDate())
         simple_day?.text = getSimpleDay(startCurrentDate!!.getFormatDate())
-        simple_month?.text = getSimpleMonth(startCurrentDate!!.getFormatDate())
+        simple_month?.text = getSimpleMonth1(startCurrentDate!!.getFormatDate())
         simple_year?.text = getSimpleYear(startCurrentDate!!.getFormatDate())
 
         upper_simple_name_1?.text = getUpperSimpleName1("1988/02/06")

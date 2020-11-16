@@ -8,20 +8,18 @@ import android.app.Dialog
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.AnimationDrawable
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
-import android.preference.PreferenceManager
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import it.giovanni.arkivio.*
 import it.giovanni.arkivio.App.Companion.context
@@ -64,6 +62,8 @@ import it.giovanni.arkivio.utils.Utils
 import it.giovanni.arkivio.utils.Utils.Companion.isOnline
 import it.giovanni.arkivio.viewinterfaces.IProgressLoader
 import it.giovanni.arkivio.fragments.detail.youtube.search.SearchVideoFragment
+import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadDarkModeStateFromPreferences
+import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadRememberMeFromPreferences
 import java.util.*
 
 class MainActivity : GPSActivity(), IProgressLoader {
@@ -83,7 +83,6 @@ class MainActivity : GPSActivity(), IProgressLoader {
     private var pushBundle: Bundle? = null
     private var deepLinkEvent: DeepLinkDescriptor? = null
 
-    lateinit var preferences: SharedPreferences
     private var rememberMe: Boolean = false
 
     companion object {
@@ -96,8 +95,7 @@ class MainActivity : GPSActivity(), IProgressLoader {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        preferences = PreferenceManager.getDefaultSharedPreferences(context)
-        rememberMe = preferences.getBoolean("REMEMBER_ME", false)
+        rememberMe = loadRememberMeFromPreferences()
 
         progressDialog = Dialog(this, R.style.DialogTheme)
         progressDialog?.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -330,6 +328,8 @@ class MainActivity : GPSActivity(), IProgressLoader {
 
     override fun openDetail(detailType: String, extraParams: Bundle?, caller: Fragment?, requestCode: Int?) {
 
+        setStatusBarTransparent()
+
         var baseFragment: BaseFragment? = null
 
         when (detailType) {
@@ -352,6 +352,9 @@ class MainActivity : GPSActivity(), IProgressLoader {
             }
             Globals.CALENDARVIEW_VERTICAL -> {
                 baseFragment = CalendarViewVerticalFragment()
+            }
+            Globals.SMARTWORKING -> {
+                baseFragment = SmartworkingFragment()
             }
             Globals.RUBRICA_HOME -> {
                 baseFragment = RubricaHomeFragment()
@@ -488,6 +491,7 @@ class MainActivity : GPSActivity(), IProgressLoader {
     }
 
     override fun onBackPressed() {
+        setDarkModeStatusBarTransparent()
         val frameLayout: FrameLayout = findViewById(R.id.frame_container)
         val baseFragment: BaseFragment = (supportFragmentManager.findFragmentById(frameLayout.id) as BaseFragment)
         if (supportFragmentManager.findFragmentById(frameLayout.id) is DetailFragment) {
@@ -505,7 +509,6 @@ class MainActivity : GPSActivity(), IProgressLoader {
         } else if (supportFragmentManager.findFragmentById(frameLayout.id) is BaseFragment &&
             baseFragment.getSectionType() == BaseFragment.SectionType.DIALOG_FLOW) {
             dialogFlowFragmentTransition(baseFragment)
-            setStatusBarColor()
         } else
             super.onBackPressed()
     }
@@ -541,6 +544,20 @@ class MainActivity : GPSActivity(), IProgressLoader {
         transaction.remove(baseFragmentView).commit()
     }
 
+    fun setStatusBarTransparent() {
+        window.statusBarColor = Color.TRANSPARENT // Oppure: ContextCompat.getColor(App.context, android.R.color.transparent)
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+    }
+
+    fun setDarkModeStatusBarTransparent() {
+        window.statusBarColor = Color.TRANSPARENT
+        val isDarkMode = loadDarkModeStateFromPreferences()
+        if (isDarkMode)
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE // Set text light.
+        else
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR // Set text dark.
+    }
+
     override fun onResume() {
         super.onResume()
         val currentFragment = supportFragmentManager.findFragmentById(R.id.frame_container)
@@ -565,11 +582,6 @@ class MainActivity : GPSActivity(), IProgressLoader {
                 }
             }
         }
-    }
-
-    private fun setStatusBarColor() {
-        window.statusBarColor = ContextCompat.getColor(context, android.R.color.transparent)
-        window.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.background_empty))
     }
 
     fun checkDeepLinkEvent(): Boolean {

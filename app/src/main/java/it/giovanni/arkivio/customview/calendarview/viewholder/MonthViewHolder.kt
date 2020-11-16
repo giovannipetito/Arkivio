@@ -3,8 +3,8 @@ package it.giovanni.arkivio.customview.calendarview.viewholder
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import it.giovanni.arkivio.customview.calendarview.model.Day
-import it.giovanni.arkivio.customview.calendarview.model.Month
+import it.giovanni.arkivio.customview.calendarview.model.CalendarDay
+import it.giovanni.arkivio.customview.calendarview.model.CalendarMonth
 import it.giovanni.arkivio.customview.calendarview.ui.CalendarAdapter
 import it.giovanni.arkivio.customview.calendarview.ui.MonthHeaderFooterBinder
 import it.giovanni.arkivio.customview.calendarview.ui.ViewContainer
@@ -23,9 +23,9 @@ internal class MonthViewHolder constructor(
     private var headerContainer: ViewContainer? = null
     private var footerContainer: ViewContainer? = null
 
-    lateinit var month: Month
+    lateinit var month: CalendarMonth
 
-    fun bindMonth(month: Month) {
+    fun bindMonth(month: CalendarMonth) {
         this.month = month
         headerView?.let { view ->
             val headerContainer = headerContainer ?: monthHeaderBinder!!.create(view).also {
@@ -44,7 +44,7 @@ internal class MonthViewHolder constructor(
         }
     }
 
-    fun reloadDay(day: Day) {
+    fun reloadDay(day: CalendarDay) {
         weekViewHolders.find { it.reloadDay(day) }
     }
 }

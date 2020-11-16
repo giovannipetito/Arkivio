@@ -19,23 +19,33 @@
     <string name="button_advertise">Advertise</string>
 
     <!-- LOGIN -->
+    <style name="password">Password</style>
+    <string name="username">Username</string>
+    <string name="input_type_text">text</string>
     <string name="dominio_gmail">\@gmail.com</string>
+    <string name="login_remember_me">Ricordami</string>
     <string name="login_your_mail">LA TUA MAIL</string>
     <string name="login_your_password">PASSWORD</string>
-    <string name="username">Username</string>
-    <style name="password">Password</style>
+    <string name="input_type_password">password</string>
     <string name="login_hint_username"><font size="14">nome.cognome</font></string>
     <string name="login_hint_password"><font size="14">Password del dominio</font></string>
     <string name="login_lost_password">Hai dimenticato la password?\nEffettua il reset</string>
-    <string name="input_type_text">text</string>
-    <string name="input_type_password">password</string>
-    <string name="login_remember_me">Ricordami</string>
     <string name="api_version">Your device is running Android API version <xliff:g id="current_version">%1$s</xliff:g>.</string>
 
+    <!-- SIDE BAR -->
+    <string name="feedback">Feedback</string>
+    <string name="label_logout">Logout</string>
+    <string name="settings">Impostazioni</string>
+    <string name="app_version">Versione app:</string>
+    <string name="label_dark_mode">Dark mode</string>
+    <string name="label_light_mode">Light mode</string>
+    <string name="switch_mode_message">Per apportare le modifiche è necessario uscire dall\'app.</string>
+    <string name="settings_message">Vuoi comprimere il background all\'apertura del menu laterale?</string>
+
     <!-- HOME PAGE -->
-    <string name="good_moorning_title">Buongiorno</string>
-    <string name="good_evening_title">Buonasera</string>
     <string name="name_title">Giovanni</string>
+    <string name="good_evening_title">Buonasera</string>
+    <string name="good_moorning_title">Buongiorno</string>
     <string name="name_surname_title">Giovanni Petito</string>
 
     <!-- WORKING AREA -->
@@ -55,6 +65,9 @@
     <string name="webview_video_player_title">WebView Video Player</string>
     <string name="webview_text_title">WebView Text</string>
     <string name="webview_html_title">WebView HTML</string>
+
+    <!-- DETAIL LAYOUT -->
+    <string name="edit_search">Cerca…</string>
 
     <!-- LOGCAT PROJECTS -->
     <string name="logcat_projects_title">Logcat projects</string>
@@ -78,6 +91,18 @@
     <string name="friday">VEN</string>
     <string name="saturday">SAB</string>
     <string name="sunday">DOM</string>
+
+    <!-- SMARTWORKING -->
+    <string name="smartworking_title">Smartworking</string>
+    <string name="smartworking_message_success">La comunicazione di Smartworking è stata inviata correttamente.</string>
+    <string name="smartworking_message_failure">Si è verificato un errore nella comunicazione di Smartworking. Riprova più tardi.</string>
+    <string name="smartworking_message_modify">Sei sicuro di voler modificare le giornate di Smartworking?</string>
+    <string name="smartworking_message_abort">Vuoi annullare la modifica dei giorni di Smartworking? Le modifiche non saranno salvate.</string>
+    <string name="smartworking_subject_mail">Lavoro in regime agile %1$s</string>
+    <string name="smartworking_content_mail">Buon giorno,\nvi informo che in accordo con il mio responsabile %1$s, %2$s lavorerò in regime agile.\n\nGrazie\n%3$s</string>
+    <string name="smartworking_revision_subject_mail">Lavoro in regime agile - Rettifica %1$s</string>
+    <string name="smartworking_revision_1_content_mail">Buon giorno,\nvi informo che, a differenza di quanto precedentemente comunicato, %1$s lavorerò presso la sede.\n\nGrazie\n%2$s</string>
+    <string name="smartworking_revision_2_content_mail">Buon giorno,\nvi informo che, a differenza di quanto precedentemente comunicato, %1$s lavorerò presso la sede.\n\nIn accordo con il mio responsabile %2$s, lavorerò in regime agile %3$s.\n\nGrazie\n%4$s</string>
 
     <!-- RUBRICA -->
     <string name="rubrica_title">Rubrica</string>
@@ -134,38 +159,37 @@
     <string name="sticky_header_title">Sticky Header</string>
 
     <!-- CARD.IO -->
-    <string name="card_io_title">card.io</string>
-    <string name="expiry">Scadenza</string>
-    <string name="scan_expiry">Scansiona scadenza</string>
     <string name="cvv">CVV</string>
+    <string name="expiry">Scadenza</string>
+    <string name="card_io_title">card.io</string>
     <string name="postal_code">Codice Postale</string>
+    <string name="scan_expiry">Scansiona scadenza</string>
+    <string name="unblurred_digits">Cifre non sfocate:</string>
     <string name="use_card_io_logo">Usa il logo card.io</string>
     <string name="cardholder_name">Titolare della carta</string>
-    <string name="suppress_confirmation">Sopprimi la conferma</string>
     <string name="bypass_the_scan">Bypassa la scansione</string>
+    <string name="select_language">Seleziona la lingua:</string>
+    <string name="suppress_confirmation">Sopprimi la conferma</string>
+    <string name="scan_credit_card">Scansiona la carta di credito</string>
     <string name="keep_application_theme">Mantieni l\'application theme</string>
     <string name="suppress_keyboard_icon">Sopprimi l\'icona della tastiera</string>
     <string name="suppress_scan_info">Sopprimi le informazioni di scansione</string>
     <string name="postal_code_numeric">Limita il codice postale solo ai numeri</string>
     <string name="show_paypal_action_bar_icon">Mostra l\'icona di PayPal nella action bar</string>
-    <string name="select_language">Seleziona la lingua:</string>
-    <string name="unblurred_digits">Cifre non sfocate:</string>
-
-    <string name="scan_credit_card">Scansiona la carta di credito</string>
 
     <!-- BIOMETRIC -->
     <string name="biometric_title">Login</string>
-    <string name="biometric_subtitle">Accedi al tuo account</string>
-    <string name="biometric_description">Posiziona il dito sul pulsante Home del dispositivo per verificare la tua identità</string>
     <string name="biometric_cancel_button">Annulla</string>
+    <string name="biometric_failure">Accesso fallito</string>
+    <string name="biometric_success">Accesso riuscito</string>
+    <string name="biometric_subtitle">Accedi al tuo account</string>
     <string name="biometric_error_sdk">Versione SDK non supportata</string>
+    <string name="biometric_failed">Impronta digitale non riconosciuta</string>
+    <string name="biometric_cancelled">Autenticazione annullata dall\'utente</string>
     <string name="biometric_error_permission">L\'autorizzazione non è concessa dall\'utente</string>
     <string name="biometric_error_hardware">Il dispositivo non supporta l\'autenticazione biometrica</string>
     <string name="biometric_error_fingerprint">L\'impronta digitale non è registrata sul tuo dispositivo</string>
-    <string name="biometric_success">Accesso riuscito</string>
-    <string name="biometric_failure">Accesso fallito</string>
-    <string name="biometric_failed">Impronta digitale non riconosciuta</string>
-    <string name="biometric_cancelled">Autenticazione annullata dall\'utente</string>
+    <string name="biometric_description">Posiziona il dito sul pulsante Home del dispositivo per verificare la tua identità</string>
 
     <!-- YOUTUBE -->
     <string name="youtube_title">YouTube</string>
@@ -173,7 +197,6 @@
     <string name="youtube_not_installed">YouTube is not installed on this device.</string>
 
     <string name="search_title">Search\nYouTubePlayerView\nYouTubePlayerFragment</string>
-    <string name="edit_search">Cerca</string>
     <string name="player_title">Titolo: </string>
     <string name="player_video_id">Video ID: </string>
     <string name="player_description">Descrizione: </string>
@@ -273,7 +296,6 @@
     <!-- NEARBY BEACONS -->
     <string name="permission_required">Location permission is required when scanning for beacons with Nearby.</string>
     <string name="permission_denied">Permission to use Nearby is denied, but is needed. Cannot subscribe. Go to Settings.</string>
-    <string name="settings">Settings</string>
     <string name="scanning">Scanning for beacons&#8230;</string>
     <string name="one_message">Scanning. Found 1 message</string>
     <string name="many_messages">Scanning. Found %1$d messages</string>

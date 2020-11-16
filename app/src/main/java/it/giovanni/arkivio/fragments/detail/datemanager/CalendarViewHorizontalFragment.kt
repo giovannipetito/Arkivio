@@ -72,6 +72,10 @@ class CalendarViewHorizontalFragment : DetailFragment() {
         return viewFragment
     }
 
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View? {
+        TODO("Not yet implemented")
+    }
+
     @Suppress("DEPRECATION")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -117,7 +121,7 @@ class CalendarViewHorizontalFragment : DetailFragment() {
         class DayViewContainer(view: View) : ViewContainer(view) {
 
             // Will be set when this container is bound. See the dayBinder.
-            lateinit var day: Day
+            lateinit var day: CalendarDay
             val horizontalLabel = CalendarviewHorizontalItemBinding.bind(view).horizontalLabel
 
             init {
@@ -140,7 +144,7 @@ class CalendarViewHorizontalFragment : DetailFragment() {
         calendarview_horizontal.dayBinder = object : DayBinder<DayViewContainer> {
 
             override fun create(view: View) = DayViewContainer(view)
-            override fun bind(container: DayViewContainer, day: Day) {
+            override fun bind(container: DayViewContainer, day: CalendarDay) {
                 container.day = day
                 val horizontalLabel = container.horizontalLabel
                 horizontalLabel.text = day.date.dayOfMonth.toString()
@@ -177,7 +181,7 @@ class CalendarViewHorizontalFragment : DetailFragment() {
 
         calendarview_horizontal.monthHeaderBinder = object : MonthHeaderFooterBinder<MonthViewContainer> {
             override fun create(view: View) = MonthViewContainer(view)
-            override fun bind(container: MonthViewContainer, month: Month) {
+            override fun bind(container: MonthViewContainer, month: CalendarMonth) {
                 @SuppressLint("SetTextI18n")
                 container.textView.text = "${month.yearMonth.month.name.toLowerCase(Locale.getDefault()).capitalize(Locale.getDefault())} ${month.year}"
             }

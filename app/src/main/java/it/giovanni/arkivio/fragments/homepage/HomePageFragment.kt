@@ -13,11 +13,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import it.giovanni.arkivio.BuildConfig
 import it.giovanni.arkivio.fragments.HomeFragment
 import it.giovanni.arkivio.fragments.MainFragment
 import it.giovanni.arkivio.utils.Utils.Companion.getRoundBitmap
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.bean.SelectedDay
+import it.giovanni.arkivio.databinding.HomePageLayoutBinding
+import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.DateManager
 import it.giovanni.arkivio.utils.Utils.Companion.convertDpToPixel
 import it.giovanni.arkivio.utils.Utils.Companion.getHashKey
@@ -25,6 +30,7 @@ import it.giovanni.arkivio.utils.Utils.Companion.getVersionNameLong
 import it.giovanni.arkivio.utils.Utils.Companion.turnArrayListToString
 import it.giovanni.arkivio.utils.Utils.Companion.turnArrayToString
 import kotlinx.android.synthetic.main.home_page_layout.*
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -61,7 +67,7 @@ class HomePageFragment : HomeFragment() {
     private var array: Array<String>? = null
 
     override fun getLayout(): Int {
-        return R.layout.home_page_layout
+        return NO_LAYOUT
     }
 
     override fun getTitle(): Int {
@@ -76,8 +82,14 @@ class HomePageFragment : HomeFragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val binding: HomePageLayoutBinding? = DataBindingUtil.inflate(inflater, R.layout.home_page_layout, container, false)
+        viewFragment = binding?.root
+
+        val darkModePresenter: DarkModePresenter? = DarkModePresenter(this, context!!)
+        val model: DarkModeModel? = DarkModeModel(context!!)
+        binding?.temp = model
+        binding?.presenter = darkModePresenter
 
         val intro = MediaPlayer.create(context, R.raw.intro)
         intro.start()
@@ -112,6 +124,69 @@ class HomePageFragment : HomeFragment() {
         array?.set(1, "come")
         array?.set(2, "stai?")
 
+        val list: ArrayList<String> = ArrayList()
+        list.add("Ciao")
+        list.add("mi")
+        list.add("mi")
+        list.add("chiamo")
+        list.add("Ciao")
+        list.add("Giovanni")
+        list.add("mi")
+        list.add("e")
+        list.add("ho")
+        list.add("32")
+        list.add("anni")
+        list.add("anni")
+
+        // Dato un ArrayList di String, il codice seguente restituisce un ArrayList di String senza occorrenze.
+        val newList: ArrayList<String> = ArrayList()
+        for (i in 0 until list.size) { // NOTA: posso anche scrivere: for (i in list.indices) {}
+            var present = false
+            for (j in 0 until newList.size) {
+                if (newList[j] == list[i]) {
+                    present = true
+                    break
+                }
+            }
+            if (!present) {
+                newList.add(list[i])
+            }
+        }
+        Log.i(TAG, "newList: " + turnArrayListToString(newList))
+
+        // ----------- START SORT ---------- //
+        // Dato un ArrayList di Date (o anche di SelectedDay come in questo caso), restituisco un
+        // ArrayList di Date ordinato.
+        val items: ArrayList<SelectedDay>? = ArrayList()
+        items?.add(SelectedDay("2020", "11", "10"))
+        items?.add(SelectedDay("2020", "11", "02"))
+        items?.add(SelectedDay("2021", "02", "04"))
+        items?.add(SelectedDay("2021", "01", "05"))
+        items?.add(SelectedDay("2020", "10", "16"))
+        items?.add(SelectedDay("2020", "11", "01"))
+        items?.add(SelectedDay("2020", "12", "24"))
+        items?.add(SelectedDay("2020", "12", "25"))
+        items?.add(SelectedDay("2021", "01", "05"))
+        items?.add(SelectedDay("2020", "11", "30"))
+        items?.add(SelectedDay("2020", "11", "16"))
+        items?.add(SelectedDay("2021", "02", "06"))
+
+        val dateItems = ArrayList<Date>()
+        val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        for (item in items!!) {
+            dateItems.add(sdf.parse(item.dayOfMonth + "/" + item.month + "/" + item.year)!!)
+        }
+
+        try {
+            dateItems.sort()
+            for (date in dateItems) {
+                Log.i(TAG, sdf.format(date))
+            }
+        } catch (ex: ParseException) {
+            ex.printStackTrace()
+        }
+        // ------------ END SORT ----------- //
+
         val date = Date()
 
         val dayOfWeek = SimpleDateFormat("EEEE").format(date).capitalize(Locale.getDefault())
@@ -137,13 +212,13 @@ class HomePageFragment : HomeFragment() {
         }
 
         val pixel = convertDpToPixel(context!!, 24F)
-        Log.i("HOMEPAGETAG", "pixel: $pixel")
+        Log.i(TAG, "pixel: $pixel")
 
         val versionName = BuildConfig.VERSION_NAME
-        Log.i("HOMEPAGETAG", "versionName: " + getVersionNameLong(versionName))
+        Log.i(TAG, "versionName: " + getVersionNameLong(versionName))
 
         val hashKey = getHashKey(context!!)
-        Log.i("HOMEPAGETAG", "Hash Key: $hashKey")
+        Log.i(TAG, "Hash Key: $hashKey")
 
         if (currentHours in 5..17) {
             lottie_sun.visibility = View.VISIBLE

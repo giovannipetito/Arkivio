@@ -69,7 +69,7 @@ fun generateBadges(list: ArrayList<SelectedDay>): List<Badge> {
 
     val badges = mutableListOf<Badge>()
     for (item in list) {
-        val selectedDate: LocalDate = LocalDate.of(item.year.toInt(), item.month.toInt(), item.dayOfMonth.toInt())
+        val selectedDate: LocalDate = LocalDate.of(item.year!!.toInt(), item.month!!.toInt(), item.dayOfMonth!!.toInt())
         badges.add(Badge(selectedDate.atTime(9, 0), R.color.verde_3))
     }
     return badges

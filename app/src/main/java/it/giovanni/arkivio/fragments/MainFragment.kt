@@ -7,7 +7,6 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
@@ -27,7 +26,6 @@ import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager.widget.ViewPager
-import it.giovanni.arkivio.App
 import it.giovanni.arkivio.BuildConfig
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.activities.MainActivity
@@ -39,6 +37,9 @@ import it.giovanni.arkivio.databinding.MainLayoutBinding
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.Globals
+import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadCompressStateFromPreferences
+import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.saveCompressStateToPreferences
+import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.saveDarkModeStateToPreferences
 import it.giovanni.arkivio.utils.UserFactory
 import it.giovanni.arkivio.utils.Utils.Companion.getRoundBitmap
 import it.giovanni.arkivio.utils.Utils.Companion.setBitmapFromUrl
@@ -57,7 +58,6 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
         var TAB_INDEX_ADMINISTRATIVE: Int = 3
     }
 
-    private var currentPosition: Int = 0
     private var defaultX: Float = 0f
     private var TRANSITION_TIME: Long = 100
     var animationFinish = true
@@ -77,7 +77,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
 
     // DATA BINDING
     private var binding: MainLayoutBinding? = null
-    private var presenter: DarkModePresenter? = null
+    private var darkModePresenter: DarkModePresenter? = null
     private var model: DarkModeModel? = null
 
     override fun getTitle(): Int {
@@ -86,18 +86,18 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        // var view = super.onCreateView(inflater, container, savedInstanceState)
+        var view = super.onCreateView(inflater, container, savedInstanceState)
 
         // ----- DATA BINDING ----- //
         binding = DataBindingUtil.inflate(inflater, R.layout.main_layout, container, false)
-        val view: View? = binding?.root
-        presenter = DarkModePresenter(this, context!!)
+        view = binding?.root
+        darkModePresenter = DarkModePresenter(this, context!!)
         model = DarkModeModel(context!!)
         binding?.temp = model
-        binding?.presenter = presenter
+        binding?.presenter = darkModePresenter
         // ------------------------ //
 
-        setStatusBarColor()
+        currentActivity.setDarkModeStatusBarTransparent()
 
         hideProgressDialog() // TODO: Questo l'ho messo io qui.
 
@@ -121,8 +121,28 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
         nav_header_avatar.setImageBitmap(roundAvatar)
 
         switch_mode.isChecked = !isDarkMode
+
         switch_mode.setOnClickListener {
-            onSetLayout(model)
+
+            val customPopup = CustomDialogPopup(currentActivity, R.style.PopupTheme)
+            customPopup.setCancelable(false)
+            customPopup.setTitle("", "")
+            customPopup.setMessage(resources.getString(R.string.switch_mode_message))
+
+            customPopup.setButtons(
+                resources.getString(R.string.button_confirm),
+                {
+                    customPopup.dismiss()
+                    onSetLayout(model)
+                    (activity as MainActivity).logout()
+                },
+                resources.getString(R.string.button_cancel),
+                {
+                    customPopup.dismiss()
+                    switch_mode.isChecked = !isDarkMode
+                }
+            )
+            customPopup.show()
         }
     }
 
@@ -164,6 +184,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
     }
 
     private fun attachViewPager() {
+
         fragmentAdapter = HomeFragmentAdapter(childFragmentManager, 3, this)
 
         view_pager.adapter = fragmentAdapter
@@ -191,15 +212,12 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
                     when (position) {
                         0 -> {
                             voice.visibility = View.VISIBLE
-                            currentPosition = 0
                         }
                         1 -> {
                             voice.visibility = View.GONE
-                            currentPosition = 1
                         }
                         2 -> {
                             voice.visibility = View.GONE
-                            currentPosition = 2
                         }
                     }
                 }
@@ -214,7 +232,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
         drawer_layout.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
 
-                if (currentActivity.preferences.getBoolean("COMPRESS", false)) {
+                if (loadCompressStateFromPreferences()) {
                     // Scale the View based on current slide offset
                     val diffScaledOffset = slideOffset * (1 - END_SCALE)
                     val offsetScale = 1 - diffScaledOffset
@@ -239,14 +257,9 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
                     val xTranslation = xOffset - xOffsetDiff
                     container.translationX = -xTranslation
                 }
-                currentActivity.window.statusBarColor = ContextCompat.getColor(
-                    context!!,
-                    R.color.blueWave
-                )
             }
 
             override fun onDrawerClosed(drawerView: View) {
-                setStatusBarColor()
                 tab_menu.setImageDrawable(
                     ContextCompat.getDrawable(
                         context!!,
@@ -261,18 +274,18 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
         settings.setOnClickListener {
             customPopup = CustomDialogPopup(currentActivity, R.style.PopupTheme)
             customPopup.setCancelable(false)
-            customPopup.setTitle("IMPOSTAZIONI", "")
-            customPopup.setMessage("Vuoi comprimere il background all'apertura del menu laterale?")
+            customPopup.setTitle(context?.resources?.getString(R.string.settings)!!, "")
+            customPopup.setMessage(context?.resources?.getString(R.string.settings_message)!!)
 
             customPopup.setButtons(
                 resources.getString(R.string.button_yes), {
                     compress = true
-                    saveStateToPreferences()
+                    saveCompressStateToPreferences(compress)
                     customPopup.dismiss()
                 },
                 resources.getString(R.string.button_no), {
                     compress = false
-                    saveStateToPreferences()
+                    saveCompressStateToPreferences(compress)
                     customPopup.dismiss()
                 }
             )
@@ -369,6 +382,11 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
             val labelName: TextView = rowView.findViewById(R.id.label_name)
             labelName.text = item.name
 
+            if (isDarkMode)
+                labelName.setTextColor(context!!.resources.getColor(R.color.colorPrimary))
+            else
+                labelName.setTextColor(context!!.resources.getColor(R.color.colorPrimaryDark))
+
             nav_header_container.addView(rowView)
 
             labelName.setOnClickListener {
@@ -414,7 +432,6 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
                 R.drawable.ico_bottom_home_rvd
             )
         )
-        // tab_home.setColorFilter(ContextCompat.getColor(context!!, R.color.blueWave), android.graphics.PorterDuff.Mode.SRC_IN)
         defaultX = (tab_home.width).toFloat()
     }
 
@@ -605,21 +622,6 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
         }
     }
 
-    private fun setStatusBarColor() {
-        // currentActivity.window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        currentActivity.window.statusBarColor = ContextCompat.getColor(
-            App.context,
-            android.R.color.transparent
-        )
-        // currentActivity.window.navigationBarColor = currentActivity.resources.getColor(android.R.color.transparent)
-        currentActivity.window.setBackgroundDrawable(
-            ContextCompat.getDrawable(
-                App.context,
-                R.drawable.background_empty
-            )
-        )
-    }
-
     private fun getGPSCoordinates() {
         showProgressDialog()
         currentActivity.requestGPSPermission()
@@ -758,29 +760,15 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
 
         val mModel: DarkModeModel?
         isDarkMode = !isDarkMode
-        saveStateToPreferences(isDarkMode)
+        saveDarkModeStateToPreferences(isDarkMode)
+
+        if (isDarkMode)
+            currentActivity.setTheme(R.style.AppTheme)
+        else
+            currentActivity.setTheme(R.style.AppThemeLight)
 
         mModel = DarkModeModel(context!!)
         binding?.temp = mModel
-        binding?.presenter = presenter
-
-        /*
-        if (isDarkMode)
-            currentActivity.setTheme(R.style.AppThemeDark)
-        else
-            currentActivity.setTheme(R.style.AppTheme)
-        */
-    }
-
-    private fun saveStateToPreferences(isDarkMode: Boolean) {
-        val editor = currentActivity.preferences.edit()
-        editor.putBoolean("DARK_MODE", isDarkMode)
-        editor.apply()
-    }
-
-    private fun saveStateToPreferences() {
-        val editor: SharedPreferences.Editor = currentActivity.preferences.edit()
-        editor.putBoolean("COMPRESS", compress)
-        editor.apply()
+        binding?.presenter = darkModePresenter
     }
 }

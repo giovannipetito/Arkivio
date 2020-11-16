@@ -3,7 +3,9 @@ package it.giovanni.arkivio.fragments.detail.logcat
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
@@ -17,6 +19,7 @@ import java.util.*
 
 class LogcatFragment : DetailFragment() {
 
+    private var viewFragment: View? = null
     var adapter: LogcatViewPager? = null
     private val MILLISECONDSINWEEK = 604800000
 
@@ -56,6 +59,15 @@ class LogcatFragment : DetailFragment() {
     }
 
     override fun onActionSearch(search_string: String) {
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
+        return viewFragment
+    }
+
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View? {
+        TODO("Not yet implemented")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

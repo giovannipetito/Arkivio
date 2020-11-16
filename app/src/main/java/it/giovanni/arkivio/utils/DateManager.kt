@@ -107,9 +107,15 @@ class DateManager {
         }
 
         // MMMM
-        fun getSimpleMonth(date: String): StringBuilder {
+        fun getSimpleMonth1(date: String): StringBuilder {
             val formattedDate = SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.UK).parse(date)
             return StringBuilder().append(SimpleDateFormat("MMMM", Locale.ITALY).format(formattedDate!!))
+        }
+
+        // MMMM
+        fun getSimpleMonth2(date: String): String {
+            val formattedDate = SimpleDateFormat("MM", Locale.getDefault()).parse(date)
+            return StringBuilder().append(SimpleDateFormat("MMMM", Locale.getDefault()).format(formattedDate!!)).toString().capitalize(Locale.getDefault())
         }
 
         // yyyy
@@ -144,6 +150,14 @@ class DateManager {
             val data = SimpleDateFormat("dd/MM/yyyy", Locale.UK).parse(date)
             val stringBuilder = StringBuilder().append(SimpleDateFormat("dd MMM yyyy", Locale.ITALY).format(data!!))
             return stringBuilder.substring(0, 3) + stringBuilder.substring(3, 4).toUpperCase(Locale.ITALY) + stringBuilder.substring(4, stringBuilder.length)
+        }
+
+
+        // Febbraio
+        fun getUpperSimpleDate3(date: String): String {
+            val data = SimpleDateFormat("MM", Locale.UK).parse(date)
+            val stringBuilder = StringBuilder().append(SimpleDateFormat("MMMM", Locale.getDefault()).format(data!!))
+            return stringBuilder.toString().toUpperCase(Locale.getDefault())
         }
 
         // HH : mm

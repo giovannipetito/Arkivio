@@ -11,7 +11,9 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.bean.Persona
@@ -27,6 +29,7 @@ import java.io.ByteArrayOutputStream
 
 class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
 
+    private var viewFragment: View? = null
     val LABEL_EDIT = "Aggiungi a contatto esistente"
     val LABEL_INSERT = "Crea nuovo contatto"
     val LABEL_OPEN = "Apri lista contatti"
@@ -87,6 +90,16 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
     }
 
     override fun onActionSearch(search_string: String) {
+    }
+
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
+        return viewFragment
+    }
+
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View? {
+        TODO("Not yet implemented")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -10,6 +10,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.Window
 import android.widget.DatePicker
 import android.widget.NumberPicker
@@ -30,6 +31,8 @@ import java.util.*
 
 @Suppress("DEPRECATION")
 class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener {
+
+    private var viewFragment: View? = null
 
     private var calendar : Calendar? = null
 
@@ -97,6 +100,15 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
 
     override fun isRefreshEnabled(): Boolean {
         return true
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
+        return viewFragment
+    }
+
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View? {
+        TODO("Not yet implemented")
     }
 
     @SuppressLint("SimpleDateFormat")

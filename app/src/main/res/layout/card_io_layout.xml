@@ -289,7 +289,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:text="@string/scan_credit_card"
-                    style="@style/CustomButton" />
+                    style="@style/DarkModeButton" />
 
             <LinearLayout
                     android:layout_width="match_parent"

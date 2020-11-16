@@ -3,11 +3,11 @@ package it.giovanni.arkivio.customview.calendarview.model
 import java.io.Serializable
 import java.time.YearMonth
 
-data class Month(
+data class CalendarMonth(
     val yearMonth: YearMonth,
-    val weekDays: List<List<Day>>,
+    val weekDays: List<List<CalendarDay>>,
     internal val indexInSameMonth: Int,
-    internal val numberOfSameMonth: Int) : Comparable<Month>, Serializable {
+    internal val numberOfSameMonth: Int) : Comparable<CalendarMonth>, Serializable {
 
     val year: Int = yearMonth.year
     val month: Int = yearMonth.monthValue
@@ -16,13 +16,13 @@ data class Month(
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        (other as Month)
+        (other as CalendarMonth)
         return yearMonth == other.yearMonth &&
                 weekDays.first().first() == other.weekDays.first().first() &&
                 weekDays.last().last() == other.weekDays.last().last()
     }
 
-    override fun compareTo(other: Month): Int {
+    override fun compareTo(other: CalendarMonth): Int {
         val monthResult = yearMonth.compareTo(other.yearMonth)
         if (monthResult == 0) { // Same yearMonth
             return indexInSameMonth.compareTo(other.indexInSameMonth)

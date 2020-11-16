@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import it.giovanni.arkivio.customview.calendarview.CalendarView
 import it.giovanni.arkivio.customview.calendarview.NO_INDEX
 import it.giovanni.arkivio.customview.calendarview.inflate
-import it.giovanni.arkivio.customview.calendarview.model.Day
-import it.giovanni.arkivio.customview.calendarview.model.Month
-import it.giovanni.arkivio.customview.calendarview.model.MonthConfig
+import it.giovanni.arkivio.customview.calendarview.model.CalendarDay
+import it.giovanni.arkivio.customview.calendarview.model.CalendarMonth
+import it.giovanni.arkivio.customview.calendarview.model.CalendarMonthConfig
 import it.giovanni.arkivio.customview.calendarview.model.ScrollMode
 import it.giovanni.arkivio.customview.calendarview.orZero
 import it.giovanni.arkivio.customview.calendarview.viewholder.DayViewHolder
@@ -25,10 +25,10 @@ import java.time.YearMonth
 internal class CalendarAdapter(
     private val calView: CalendarView,
     internal var viewConfig: ViewConfig,
-    internal var monthConfig: MonthConfig
+    internal var monthConfig: CalendarMonthConfig
 ) : RecyclerView.Adapter<MonthViewHolder>() {
 
-    private var visibleMonth: Month? = null
+    private var visibleMonth: CalendarMonth? = null
     private var calWrapsHeight: Boolean? = null
     private var initialLayout = true
 
@@ -36,7 +36,7 @@ internal class CalendarAdapter(
     var headerViewId = ViewCompat.generateViewId()
     var footerViewId = ViewCompat.generateViewId()
 
-    private val months: List<Month>
+    private val months: List<CalendarMonth>
         get() = monthConfig.months
 
     private val isAttached: Boolean
@@ -55,7 +55,7 @@ internal class CalendarAdapter(
         calView.post { notifyMonthScrollListenerIfNeeded() }
     }
 
-    private fun getItem(position: Int): Month = months[position]
+    private fun getItem(position: Int): CalendarMonth = months[position]
 
     override fun getItemId(position: Int): Long = getItem(position).hashCode().toLong()
 
@@ -140,7 +140,7 @@ internal class CalendarAdapter(
             super.onBindViewHolder(holder, position, payloads)
         } else {
             payloads.forEach {
-                holder.reloadDay(it as Day)
+                holder.reloadDay(it as CalendarDay)
             }
         }
     }
@@ -149,7 +149,7 @@ internal class CalendarAdapter(
         holder.bindMonth(getItem(position))
     }
 
-    fun reloadDay(day: Day) {
+    fun reloadDay(day: CalendarDay) {
         val position = getAdapterPosition(day)
         if (position != NO_INDEX) {
             notifyItemChanged(position, day)
@@ -228,7 +228,7 @@ internal class CalendarAdapter(
         return months.indexOfFirst { it.yearMonth == month }
     }
 
-    internal fun getAdapterPosition(day: Day): Int {
+    internal fun getAdapterPosition(day: CalendarDay): Int {
         return if (monthConfig.hasBoundaries) {
 
             val firstMonthIndex = getAdapterPosition(day.positionYearMonth)

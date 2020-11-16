@@ -11,7 +11,7 @@ enum class DaysOfWeek {
 }
 
 /**
- * Describes the month to which a [Day] belongs.
+ * Describes the month to which a [CalendarDay] belongs.
  */
 enum class DayOwner {
     PREVIOUS_MONTH, // Belongs to the previous month on the calendar. Such days are referred to as inDates.

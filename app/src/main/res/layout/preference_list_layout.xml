@@ -31,7 +31,7 @@
                 android:layout_centerInParent="true"
                 android:text="@string/button_confirm"
                 android:enabled="false"
-                style="@style/CustomButton" />
+                style="@style/DarkModeButton" />
 
     </RelativeLayout>
 

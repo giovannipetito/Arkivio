@@ -155,6 +155,10 @@ class RubricaListFragment: DetailFragment(), ContactsListAdapter.OnItemViewClick
         return viewFragment
     }
 
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View? {
+        TODO("Not yet implemented")
+    }
+
     @Suppress("UNCHECKED_CAST")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

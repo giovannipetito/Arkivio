@@ -1,150 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="24dp"
-        android:background="@drawable/background_home">
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
+        <data>
+        <variable
+                name="temp"
+                type="it.giovanni.arkivio.model.DarkModeModel" />
+
+        <variable
+                name="presenter"
+                type="it.giovanni.arkivio.presenter.DarkModePresenter" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingTop="24dp"
+            android:background="@drawable/background_home">
 
         <RelativeLayout
-                android:id="@+id/header"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp">
+                android:layout_height="match_parent">
 
-            <LinearLayout
-                    android:id="@+id/avatar_container"
-                    android:layout_width="wrap_content"
+            <RelativeLayout
+                    android:id="@+id/header"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:orientation="vertical">
+                    android:layout_marginTop="12dp">
 
-                <it.giovanni.arkivio.customview.AvatarImageView
-                        android:id="@+id/ico_avatar"
+                <LinearLayout
+                        android:id="@+id/avatar_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:orientation="vertical">
+
+                    <it.giovanni.arkivio.customview.AvatarImageView
+                            android:id="@+id/ico_avatar"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:padding="6dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ico_avatar" />
+
+                    <TextView
+                            android:id="@+id/label_greeting"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="21sp"
+                            tools:text="@string/good_moorning_title" />
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/name_title"
+                            android:textColor="@color/white"
+                            android:textSize="21sp"
+                            android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/lottie_sun"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_centerVertical="true"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"
+                        app:lottie_imageAssetsFolder="images"
+                        app:lottie_fileName="sun.json"
+                        android:layout_toEndOf="@+id/avatar_container"
+                        android:visibility="visible" />
+
+                <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/lottie_moon"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:padding="6dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ico_avatar" />
+                        android:layout_marginStart="12dp"
+                        android:layout_centerVertical="true"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"
+                        app:lottie_imageAssetsFolder="images"
+                        app:lottie_fileName="moon.json"
+                        android:layout_toEndOf="@+id/avatar_container"
+                        android:visibility="gone" />
 
-                <TextView
-                        android:id="@+id/label_greeting"
+            </RelativeLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/header"
+                    android:orientation="vertical">
+
+                <View android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginStart="48dp"
+                        android:layout_marginEnd="48dp"
+                        android:background="@color/grey_3"
+                        android:layout_gravity="center"
+                        android:alpha=".4" />
+
+                <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:textColor="@color/white"
-                        android:textSize="21sp"
-                        tools:text="@string/good_moorning_title" />
+                        android:orientation="horizontal"
+                        android:layout_gravity="center">
 
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/name_title"
-                        android:textColor="@color/white"
-                        android:textSize="21sp"
-                        android:textStyle="bold" />
+                    <TextView
+                            android:id="@+id/label_day"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/grey_3"
+                            android:textSize="14sp"
+                            tools:text="Sabato" />
+
+                    <TextView
+                            android:id="@+id/label_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:textColor="@color/grey_3"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            tools:text="06 Febbraio" />
+
+                    <TextView
+                            android:id="@+id/label_year"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:textColor="@color/grey_3"
+                            android:textSize="14sp"
+                            tools:text="1988" />
+
+                    <TextView
+                            android:id="@+id/label_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:textColor="@color/grey_3"
+                            android:textSize="24sp"
+                            tools:text="12:00" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/lottie_sun"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_centerVertical="true"
-                    app:lottie_autoPlay="true"
-                    app:lottie_loop="true"
-                    app:lottie_imageAssetsFolder="images"
-                    app:lottie_fileName="sun.json"
-                    android:layout_toEndOf="@+id/avatar_container"
-                    android:visibility="visible" />
-
-            <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/lottie_moon"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_centerVertical="true"
-                    app:lottie_autoPlay="true"
-                    app:lottie_loop="true"
-                    app:lottie_imageAssetsFolder="images"
-                    app:lottie_fileName="moon.json"
-                    android:layout_toEndOf="@+id/avatar_container"
+            <include
+                    layout="@layout/message_error_layout"
                     android:visibility="gone" />
 
         </RelativeLayout>
 
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/header"
-                android:orientation="vertical">
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <View android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginStart="48dp"
-                    android:layout_marginEnd="48dp"
-                    android:background="@color/grey_3"
-                    android:layout_gravity="center"
-                    android:alpha=".4" />
-
-            <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center">
-
-                <TextView
-                        android:id="@+id/label_day"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/grey_3"
-                        android:textSize="14sp"
-                        tools:text="Sabato" />
-
-                <TextView
-                        android:id="@+id/label_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:textColor="@color/grey_3"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        tools:text="06 Febbraio" />
-
-                <TextView
-                        android:id="@+id/label_year"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:textColor="@color/grey_3"
-                        android:textSize="14sp"
-                        tools:text="1988" />
-
-                <TextView
-                        android:id="@+id/label_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:textColor="@color/grey_3"
-                        android:textSize="24sp"
-                        tools:text="12:00" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <include
-                layout="@layout/message_error_layout"
-                android:visibility="gone" />
-
-    </RelativeLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

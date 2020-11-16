@@ -11,14 +11,19 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
 import com.airbnb.paris.extensions.style
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import it.giovanni.arkivio.App
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.customview.TimelineView
+import it.giovanni.arkivio.databinding.LayoutManagerLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
+import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.Utils.Companion.checkEmail
 import kotlinx.android.synthetic.main.layout_manager_layout.*
 
@@ -32,7 +37,7 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
     private lateinit var list: List<String>
 
     override fun getLayout(): Int {
-        return R.layout.layout_manager_layout
+        return NO_LAYOUT
     }
 
     override fun getTitle(): Int {
@@ -69,8 +74,15 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
     override fun onActionSearch(search_string: String) {
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val binding: LayoutManagerLayoutBinding? = DataBindingUtil.inflate(inflater, R.layout.layout_manager_layout, container, false)
+        viewFragment = binding?.root
+
+        val darkModePresenter: DarkModePresenter? = DarkModePresenter(this, context!!)
+        val model: DarkModeModel? = DarkModeModel(context!!)
+        binding?.temp = model
+        binding?.presenter = darkModePresenter
+
         return viewFragment
     }
 
@@ -200,10 +212,10 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
             override fun afterTextChanged(p0: Editable?) {}
         })
 
-        button_change_style.style(R.style.CustomButton)
+        button_change_style.style(R.style.DarkModeButton)
         button_change_style.setOnClickListener {
             style = if (style) {
-                button_change_style.style(R.style.CustomButton)
+                button_change_style.style(R.style.DarkModeButton)
                 false
             } else {
                 button_change_style.style(R.style.CustomLoginButton)
@@ -261,5 +273,20 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
             }
         }
         return list[0]
+    }
+
+    private fun setStatusBarColor() {
+        // currentActivity.window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        currentActivity.window.statusBarColor = ContextCompat.getColor(
+            App.context,
+            android.R.color.transparent
+        )
+        // currentActivity.window.navigationBarColor = currentActivity.resources.getColor(android.R.color.transparent)
+        currentActivity.window.setBackgroundDrawable(
+            ContextCompat.getDrawable(
+                App.context,
+                R.drawable.background_dark_mode
+            )
+        )
     }
 }

@@ -6,7 +6,7 @@ import androidx.core.view.*
 import androidx.core.view.MarginLayoutParamsCompat.getMarginEnd
 import androidx.core.view.MarginLayoutParamsCompat.getMarginStart
 import it.giovanni.arkivio.customview.calendarview.inflate
-import it.giovanni.arkivio.customview.calendarview.model.Day
+import it.giovanni.arkivio.customview.calendarview.model.CalendarDay
 import it.giovanni.arkivio.customview.calendarview.ui.DayConfig
 import it.giovanni.arkivio.customview.calendarview.ui.ViewContainer
 
@@ -14,7 +14,7 @@ internal class DayViewHolder(private val config: DayConfig) {
 
     private lateinit var dateView: View
     private lateinit var viewContainer: ViewContainer
-    private var day: Day? = null
+    private var day: CalendarDay? = null
 
     fun inflateDayView(parent: LinearLayout): View {
         dateView = parent.inflate(config.dayViewRes).apply {
@@ -30,7 +30,7 @@ internal class DayViewHolder(private val config: DayConfig) {
         return dateView
     }
 
-    fun bindDayView(currentDay: Day?) {
+    fun bindDayView(currentDay: CalendarDay?) {
         this.day = currentDay
         if (!::viewContainer.isInitialized) {
             viewContainer = config.viewBinder.create(dateView)
@@ -51,7 +51,7 @@ internal class DayViewHolder(private val config: DayConfig) {
         }
     }
 
-    fun reloadViewIfNecessary(day: Day): Boolean {
+    fun reloadViewIfNecessary(day: CalendarDay): Boolean {
         return if (day == this.day) {
             bindDayView(this.day)
             true

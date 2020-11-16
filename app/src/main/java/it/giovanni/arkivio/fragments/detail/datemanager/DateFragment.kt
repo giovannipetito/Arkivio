@@ -56,6 +56,10 @@ class DateFragment : DetailFragment() {
         return viewFragment
     }
 
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View? {
+        TODO("Not yet implemented")
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -70,6 +74,9 @@ class DateFragment : DetailFragment() {
         }
         label_calendarview_vertical.setOnClickListener {
             currentActivity.openDetail(Globals.CALENDARVIEW_VERTICAL, null)
+        }
+        label_smartworking.setOnClickListener {
+            currentActivity.openDetail(Globals.SMARTWORKING, null)
         }
     }
 }

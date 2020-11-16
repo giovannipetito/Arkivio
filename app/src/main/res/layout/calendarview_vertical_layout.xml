@@ -3,7 +3,6 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black"
         android:clickable="true"
         android:focusable="true"
         android:orientation="vertical">
@@ -13,10 +12,10 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            app:month_header="@layout/calendarview_vertical_header"
-            app:day_item="@layout/calendarview_vertical_item"
-            app:orientation="vertical"
-            app:scroll_mode="continuous" />
+            app:cv_month_header="@layout/calendarview_vertical_header"
+            app:cv_day_item="@layout/calendarview_vertical_item"
+            app:cv_orientation="vertical"
+            app:cv_scroll_mode="continuous" />
 
     <RelativeLayout
             android:id="@+id/calendarview_button_container"
@@ -33,7 +32,7 @@
                 android:layout_marginEnd="24dp"
                 android:text="@string/button_confirm"
                 android:enabled="false"
-                style="@style/CustomButton" />
+                style="@style/DarkModeButton" />
 
     </RelativeLayout>
 

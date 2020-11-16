@@ -11,6 +11,7 @@ import it.giovanni.arkivio.customview.popup.CustomDialogPopup
 import it.giovanni.arkivio.viewinterfaces.IProgressLoader
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.activities.MainActivity
+import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadDarkModeStateFromPreferences
 
 abstract class BaseFragment(private var sectionType: SectionType) : Fragment() {
 
@@ -19,13 +20,13 @@ abstract class BaseFragment(private var sectionType: SectionType) : Fragment() {
     var isDarkMode = false
 
     companion object {
-        var NO_LAYOUT : Int = -1
-        var NO_TITLE : Int = -1
+        var NO_LAYOUT: Int = -1
+        var NO_TITLE: Int = -1
     }
 
     abstract fun getTitle(): Int
 
-    // define layout
+    // Define layout
     enum class SectionType {
         SPLASH,
         LOGIN,
@@ -57,9 +58,20 @@ abstract class BaseFragment(private var sectionType: SectionType) : Fragment() {
         popupError!!.show()
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        currentActivity = activity as MainActivity
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        isDarkMode = currentActivity.preferences.getBoolean("DARK_MODE", false)
+        isDarkMode = loadDarkModeStateFromPreferences()
+
+        if (isDarkMode)
+            currentActivity.setTheme(R.style.AppTheme)
+        else
+            currentActivity.setTheme(R.style.AppThemeLight)
 
         val view: View?
         when (sectionType) {
@@ -86,11 +98,6 @@ abstract class BaseFragment(private var sectionType: SectionType) : Fragment() {
             }
         }
         return view
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        currentActivity = activity as MainActivity
     }
 
     // Used to define fragment type {Home, Detail, ...}

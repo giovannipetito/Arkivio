@@ -7,7 +7,7 @@ import java.io.Serializable
 import java.time.LocalDate
 import java.time.YearMonth
 
-data class Day internal constructor(val date: LocalDate, val owner: DayOwner) : Comparable<Day>, Serializable {
+data class CalendarDay internal constructor(val date: LocalDate, val owner: DayOwner) : Comparable<CalendarDay>, Serializable {
 
     val day = date.dayOfMonth
 
@@ -24,11 +24,11 @@ data class Day internal constructor(val date: LocalDate, val owner: DayOwner) : 
             return true
         if (javaClass != other?.javaClass)
             return false
-        other as Day
+        other as CalendarDay
         return date == other.date && owner == other.owner
     }
 
-    override fun compareTo(other: Day): Int {
+    override fun compareTo(other: CalendarDay): Int {
         throw UnsupportedOperationException("Compare using the date parameter. Out and In dates can have the same date values as CalendarDay in another month.")
     }
 
