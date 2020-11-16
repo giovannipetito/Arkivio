@@ -4,6 +4,7 @@ package it.giovanni.arkivio.utils
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageInfo
@@ -24,6 +25,7 @@ import android.util.Base64
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.FragmentActivity
@@ -206,12 +208,29 @@ class Utils {
         }
 
         fun sendEmail(context: Context, email: String) {
-
             val intent = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:$email"))
             intent.putExtra(Intent.EXTRA_SUBJECT, "")
             intent.putExtra(Intent.EXTRA_TEXT, "")
             // intent.putExtra(Intent.EXTRA_HTML_TEXT, "") // If you are using HTML in your body text
             context.startActivity(Intent.createChooser(intent, ""))
+        }
+
+        private fun sendEmail(context: Context) {
+            val to = arrayOf("")
+            val cc = arrayOf("")
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.data = Uri.parse("mailto:")
+            intent.type = "text/plain"
+            intent.putExtra(Intent.EXTRA_EMAIL, to)
+            intent.putExtra(Intent.EXTRA_CC, cc)
+            intent.putExtra(Intent.EXTRA_SUBJECT, "") // Email subject.
+            intent.putExtra(Intent.EXTRA_TEXT, "") // Email message.
+            try {
+                context.startActivity(Intent.createChooser(intent, "Send mail..."))
+                // currentActivity.finish()
+            } catch (ex: ActivityNotFoundException) {
+                Toast.makeText(context, "There is no email client installed.", Toast.LENGTH_LONG).show()
+            }
         }
 
         fun checkEmail(email: String): Boolean {

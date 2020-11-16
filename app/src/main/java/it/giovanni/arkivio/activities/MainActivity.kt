@@ -20,6 +20,8 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import it.giovanni.arkivio.*
 import it.giovanni.arkivio.App.Companion.context
@@ -509,7 +511,17 @@ class MainActivity : GPSActivity(), IProgressLoader {
         } else if (supportFragmentManager.findFragmentById(frameLayout.id) is BaseFragment &&
             baseFragment.getSectionType() == BaseFragment.SectionType.DIALOG_FLOW) {
             dialogFlowFragmentTransition(baseFragment)
-        } else
+
+        } else if (supportFragmentManager.findFragmentById(frameLayout.id) is MainFragment) {
+            val layout = findViewById<View>(R.id.drawer_layout) as DrawerLayout
+            if (layout.isDrawerOpen(GravityCompat.END)) {
+                layout.closeDrawer(GravityCompat.END)
+                // NOTA: GravityCompat.START se il menu laterale fosse a sinistra.
+            } else {
+                super.onBackPressed()
+            }
+        }
+        else
             super.onBackPressed()
     }
 
