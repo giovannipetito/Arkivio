@@ -33,7 +33,6 @@ import com.squareup.picasso.Picasso
 import it.giovanni.arkivio.App.Companion.context
 import it.giovanni.arkivio.BuildConfig
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.activities.MainActivity
 import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
@@ -233,8 +232,7 @@ class Utils {
             }
         }
 
-        fun sendGmailMail(currentActivity: MainActivity, to: Array<String>, cc: Array<String>, subject: String, text: String) {
-            currentActivity.showProgressDialog()
+        fun sendGmailMail(context: Context, to: Array<String>, cc: Array<String>, subject: String, text: String) {
             val gmailIntent = Intent(Intent.ACTION_SEND)
                 .setType("plain/text") // .setType("text/plain")
                 .setPackage("com.google.android.gm")
@@ -243,11 +241,10 @@ class Utils {
                 .putExtra(Intent.EXTRA_SUBJECT, subject)
                 .putExtra(Intent.EXTRA_TEXT, text)
             try {
-                currentActivity.hideProgressDialog()
-                currentActivity.startActivity(gmailIntent)
+                context.startActivity(gmailIntent)
             } catch (ex: ActivityNotFoundException) {
                 // There is no Gmail client installed.
-                Toast.makeText(currentActivity, "There is no Gmail client installed.", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "There is no Gmail client installed.", Toast.LENGTH_LONG).show()
                 val intent = Intent(Intent.ACTION_SENDTO)
                 intent.data = Uri.parse("mailto:")
                 intent.putExtra(Intent.EXTRA_EMAIL, to)
@@ -255,17 +252,14 @@ class Utils {
                 intent.putExtra(Intent.EXTRA_SUBJECT, subject)
                 intent.putExtra(Intent.EXTRA_TEXT, text)
                 try {
-                    currentActivity.hideProgressDialog()
-                    currentActivity.startActivity(Intent.createChooser(intent, "Send mail..."))
+                    context.startActivity(Intent.createChooser(intent, "Send mail..."))
                 } catch (ex: ActivityNotFoundException) {
-                    currentActivity.hideProgressDialog()
-                    Toast.makeText(currentActivity, "There is no email client installed.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "There is no email client installed.", Toast.LENGTH_LONG).show()
                 }
             }
         }
 
-        fun sendOutlookMail(currentActivity: MainActivity, to: Array<String>, cc: Array<String>, subject: String, text: String) {
-            currentActivity.showProgressDialog()
+        fun sendOutlookMail(context: Context, to: Array<String>, cc: Array<String>, subject: String, text: String) {
             val outlookIntent = Intent(Intent.ACTION_SEND)
                 .setType("plain/text") // .setType("text/plain")
                 .setPackage("com.microsoft.office.outlook")
@@ -274,11 +268,10 @@ class Utils {
                 .putExtra(Intent.EXTRA_SUBJECT, subject)
                 .putExtra(Intent.EXTRA_TEXT, text)
             try {
-                currentActivity.hideProgressDialog()
-                currentActivity.startActivity(outlookIntent)
+                context.startActivity(outlookIntent)
             } catch (ex: ActivityNotFoundException) {
                 // There is no Outlook client installed.
-                Toast.makeText(currentActivity, "There is no Outlook client installed.", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "There is no Outlook client installed.", Toast.LENGTH_LONG).show()
                 val intent = Intent(Intent.ACTION_SENDTO)
                 intent.data = Uri.parse("mailto:")
                 intent.putExtra(Intent.EXTRA_EMAIL, to)
@@ -286,11 +279,9 @@ class Utils {
                 intent.putExtra(Intent.EXTRA_SUBJECT, subject)
                 intent.putExtra(Intent.EXTRA_TEXT, text)
                 try {
-                    currentActivity.hideProgressDialog()
-                    currentActivity.startActivity(Intent.createChooser(intent, "Send mail..."))
+                    context.startActivity(Intent.createChooser(intent, "Send mail..."))
                 } catch (ex: ActivityNotFoundException) {
-                    currentActivity.hideProgressDialog()
-                    Toast.makeText(currentActivity, "There is no email client installed.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "There is no email client installed.", Toast.LENGTH_LONG).show()
                 }
             }
         }

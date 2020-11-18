@@ -576,6 +576,7 @@ class MainActivity : GPSActivity(), IProgressLoader {
 
     override fun onResume() {
         super.onResume()
+        hideProgressDialog()
         val currentFragment = supportFragmentManager.findFragmentById(R.id.frame_container)
         if (currentFragment !is LoginFragment) {
             // presenter!!.checkKeepAlive()

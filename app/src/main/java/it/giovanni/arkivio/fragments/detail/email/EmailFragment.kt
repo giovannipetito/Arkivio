@@ -78,11 +78,13 @@ class EmailFragment: DetailFragment() {
         }
 
         label_gmail_mail.setOnClickListener {
-            sendGmailMail(currentActivity, to, cc, "Subject", "Text")
+            showProgressDialog()
+            sendGmailMail(context!!, to, cc, "Subject", "Text")
         }
 
         label_outlook_mail.setOnClickListener {
-            sendOutlookMail(currentActivity, to, cc, "Subject", "Text")
+            showProgressDialog()
+            sendOutlookMail(context!!, to, cc, "Subject", "Text")
         }
     }
 }
