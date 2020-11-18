@@ -70,6 +70,9 @@ class WorkingAreaFragment : HomeFragment() {
         label_date.setOnClickListener {
             currentActivity.openDetail(Globals.DATE, null)
         }
+        label_email.setOnClickListener {
+            currentActivity.openDetail(Globals.EMAIL, null)
+        }
         label_rubrica.setOnClickListener {
             currentActivity.openDetail(Globals.RUBRICA_HOME, null)
         }

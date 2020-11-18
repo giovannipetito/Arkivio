@@ -29,6 +29,7 @@ import it.giovanni.arkivio.deeplink.DeepLinkDescriptor
 import it.giovanni.arkivio.fragments.*
 import it.giovanni.arkivio.fragments.detail.cardio.CardIOFragment
 import it.giovanni.arkivio.fragments.detail.datemanager.*
+import it.giovanni.arkivio.fragments.detail.email.EmailFragment
 import it.giovanni.arkivio.fragments.detail.fonts.FontsFragment
 import it.giovanni.arkivio.fragments.detail.layoutmanager.LayoutManagerFragment
 import it.giovanni.arkivio.fragments.detail.logcat.LogcatFragment
@@ -357,6 +358,9 @@ class MainActivity : GPSActivity(), IProgressLoader {
             }
             Globals.SMARTWORKING -> {
                 baseFragment = SmartworkingFragment()
+            }
+            Globals.EMAIL -> {
+                baseFragment = EmailFragment()
             }
             Globals.RUBRICA_HOME -> {
                 baseFragment = RubricaHomeFragment()

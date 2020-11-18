@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.machinelearning.automlvisionedge
+package it.giovanni.arkivio.fragments.detail.email
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,17 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.fragments.DetailFragment
+import it.giovanni.arkivio.utils.Utils.Companion.sendFilledOutMail
+import it.giovanni.arkivio.utils.Utils.Companion.sendGmailMail
+import it.giovanni.arkivio.utils.Utils.Companion.sendOutlookMail
+import it.giovanni.arkivio.utils.Utils.Companion.sendSimpleMail
+import kotlinx.android.synthetic.main.email_layout.*
 
-class AutoMLVisionEdgeFragment : DetailFragment() {
+class EmailFragment: DetailFragment() {
 
     private var viewFragment: View? = null
 
     override fun getLayout(): Int {
-        return R.layout.ml_automl_vision_edge_layout
+        return R.layout.email_layout
     }
 
     override fun getTitle(): Int {
-        return R.string.automl_vision_edge_title
+        return R.string.email_title
     }
 
     override fun getActionTitle(): Int {
@@ -60,5 +65,24 @@ class AutoMLVisionEdgeFragment : DetailFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val to = arrayOf("raf@gmail.com", "gio@gmail.com")
+        val cc = arrayOf("raf@outlook.it", "gio@outlook.it")
+
+        label_simple_mail.setOnClickListener {
+            sendSimpleMail(context!!, "raf@gmail.com")
+        }
+
+        label_filled_out_mail.setOnClickListener {
+            sendFilledOutMail(context!!, to, cc, "Subject", "Text")
+        }
+
+        label_gmail_mail.setOnClickListener {
+            sendGmailMail(context!!, to, cc, "Subject", "Text")
+        }
+
+        label_outlook_mail.setOnClickListener {
+            sendOutlookMail(context!!, to, cc, "Subject", "Text")
+        }
     }
 }

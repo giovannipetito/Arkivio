@@ -72,7 +72,7 @@ class SearchVideoFragment: DetailFragment(), SearchVideoAdapter.OnItemViewClicke
         return viewFragment
     }
 
-    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View? {
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         TODO("Not yet implemented")
     }
 

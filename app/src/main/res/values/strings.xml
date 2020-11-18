@@ -104,6 +104,13 @@
     <string name="smartworking_revision_1_content_mail">Buon giorno,\nvi informo che, a differenza di quanto precedentemente comunicato, %1$s lavorerò presso la sede.\n\nGrazie\n%2$s</string>
     <string name="smartworking_revision_2_content_mail">Buon giorno,\nvi informo che, a differenza di quanto precedentemente comunicato, %1$s lavorerò presso la sede.\n\nIn accordo con il mio responsabile %2$s, lavorerò in regime agile %3$s.\n\nGrazie\n%4$s</string>
 
+    <!-- EMAIL -->
+    <string name="email_title">Email</string>
+    <string name="simple_mail_title">Send Simple Mail</string>
+    <string name="filled_out_mail_title">Send Filled Out Mail</string>
+    <string name="gmail_mail_title">Send Gmail Mail</string>
+    <string name="outlook_mail_title">Send Outlook Mail</string>
+
     <!-- RUBRICA -->
     <string name="rubrica_title">Rubrica</string>
     <string name="rubrica_home_title">Home Rubrica</string>

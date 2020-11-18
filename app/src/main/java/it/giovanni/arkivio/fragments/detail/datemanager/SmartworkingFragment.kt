@@ -152,6 +152,10 @@ class SmartworkingFragment: DetailFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        UserFactory.getInstance().givenName = "Giovanni"
+        UserFactory.getInstance().surname = "Petito"
+        UserFactory.getInstance().lineManagerDisplayName = "Simone Ludovico"
+
         currentDate = DateManager(Date())
         val currentDay = currentDate?.getCustomFormatDate("yyyy-MM-dd")
 
@@ -369,9 +373,9 @@ class SmartworkingFragment: DetailFragment() {
                                 itemLayout.isClickable = false
                                 itemLayout.isFocusable = false
                                 if (isDarkMode)
-                                    itemText.setTextColor(context?.resources?.getColor(R.color.dark)!!)
+                                    itemText.setTextColor(context?.resources?.getColor(R.color.arancio)!!)
                                 else
-                                    itemText.setTextColor(context?.resources?.getColor(R.color.grey_3)!!)
+                                    itemText.setTextColor(context?.resources?.getColor(R.color.arancio)!!)
                             } else {
                                 if (badge.isVisible)
                                     itemText.setTextColor(context?.resources?.getColor(R.color.colorPrimary)!!)
@@ -711,8 +715,17 @@ class SmartworkingFragment: DetailFragment() {
         saveSelectedDaysToPreferences(selectedDaysResponse)
 
         currentActivity.runOnUiThread {
-            onSuccess = true
-            currentActivity.onBackPressed()
+
+            val customPopup = CustomDialogPopup(currentActivity, R.style.PopupTheme)
+            customPopup.setCancelable(false)
+            customPopup.setTitle("", "")
+            customPopup.setMessage(resources.getString(R.string.smartworking_message_success))
+            customPopup.setButtons(resources.getString(R.string.button_ok)) {
+                customPopup.dismiss()
+                onSuccess = true
+                currentActivity.onBackPressed()
+            }
+            customPopup.show()
         }
     }
 }

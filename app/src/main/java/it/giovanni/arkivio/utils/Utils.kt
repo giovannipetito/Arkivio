@@ -207,29 +207,82 @@ class Utils {
             } catch (e: Exception) {}
         }
 
-        fun sendEmail(context: Context, email: String) {
+        fun sendSimpleMail(context: Context, email: String) {
             val intent = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:$email"))
-            intent.putExtra(Intent.EXTRA_SUBJECT, "")
-            intent.putExtra(Intent.EXTRA_TEXT, "")
-            // intent.putExtra(Intent.EXTRA_HTML_TEXT, "") // If you are using HTML in your body text
-            context.startActivity(Intent.createChooser(intent, ""))
+            try {
+                context.startActivity(Intent.createChooser(intent, "Send mail..."))
+            } catch (ex: ActivityNotFoundException) {
+                Toast.makeText(context, "There is no email client installed.", Toast.LENGTH_LONG).show()
+            }
         }
 
-        private fun sendEmail(context: Context) {
-            val to = arrayOf("")
-            val cc = arrayOf("")
-            val intent = Intent(Intent.ACTION_SEND)
+        fun sendFilledOutMail(context: Context, to: Array<String>, cc: Array<String>, subject: String, text: String) {
+            val intent = Intent(Intent.ACTION_SENDTO)
             intent.data = Uri.parse("mailto:")
-            intent.type = "text/plain"
             intent.putExtra(Intent.EXTRA_EMAIL, to)
             intent.putExtra(Intent.EXTRA_CC, cc)
-            intent.putExtra(Intent.EXTRA_SUBJECT, "") // Email subject.
-            intent.putExtra(Intent.EXTRA_TEXT, "") // Email message.
+            intent.putExtra(Intent.EXTRA_SUBJECT, subject) // Email subject.
+            intent.putExtra(Intent.EXTRA_TEXT, text) // Email text.
+            // intent.putExtra(Intent.EXTRA_HTML_TEXT, text) // If you are using HTML in your body text.
             try {
                 context.startActivity(Intent.createChooser(intent, "Send mail..."))
                 // currentActivity.finish()
             } catch (ex: ActivityNotFoundException) {
                 Toast.makeText(context, "There is no email client installed.", Toast.LENGTH_LONG).show()
+            }
+        }
+
+        fun sendGmailMail(context: Context, to: Array<String>, cc: Array<String>, subject: String, text: String) {
+            val gmailIntent = Intent(Intent.ACTION_SEND)
+                .setType("plain/text") // .setType("text/plain")
+                .setPackage("com.google.android.gm")
+                .putExtra(Intent.EXTRA_EMAIL, to)
+                .putExtra(Intent.EXTRA_CC, cc)
+                .putExtra(Intent.EXTRA_SUBJECT, subject)
+                .putExtra(Intent.EXTRA_TEXT, text)
+            try {
+                context.startActivity(gmailIntent)
+            } catch (ex: ActivityNotFoundException) {
+                // There is no Gmail client installed.
+                Toast.makeText(context, "There is no Gmail client installed.", Toast.LENGTH_LONG).show()
+                val intent = Intent(Intent.ACTION_SENDTO)
+                intent.data = Uri.parse("mailto:")
+                intent.putExtra(Intent.EXTRA_EMAIL, to)
+                intent.putExtra(Intent.EXTRA_CC, cc)
+                intent.putExtra(Intent.EXTRA_SUBJECT, subject)
+                intent.putExtra(Intent.EXTRA_TEXT, text)
+                try {
+                    context.startActivity(Intent.createChooser(intent, "Send mail..."))
+                } catch (ex: ActivityNotFoundException) {
+                    Toast.makeText(context, "There is no email client installed.", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+
+        fun sendOutlookMail(context: Context, to: Array<String>, cc: Array<String>, subject: String, text: String) {
+            val outlookIntent = Intent(Intent.ACTION_SEND)
+                .setType("plain/text") // .setType("text/plain")
+                .setPackage("com.microsoft.office.outlook")
+                .putExtra(Intent.EXTRA_EMAIL, to)
+                .putExtra(Intent.EXTRA_CC, cc)
+                .putExtra(Intent.EXTRA_SUBJECT, subject)
+                .putExtra(Intent.EXTRA_TEXT, text)
+            try {
+                context.startActivity(outlookIntent)
+            } catch (ex: ActivityNotFoundException) {
+                // There is no Outlook client installed.
+                Toast.makeText(context, "There is no Outlook client installed.", Toast.LENGTH_LONG).show()
+                val intent = Intent(Intent.ACTION_SENDTO)
+                intent.data = Uri.parse("mailto:")
+                intent.putExtra(Intent.EXTRA_EMAIL, to)
+                intent.putExtra(Intent.EXTRA_CC, cc)
+                intent.putExtra(Intent.EXTRA_SUBJECT, subject)
+                intent.putExtra(Intent.EXTRA_TEXT, text)
+                try {
+                    context.startActivity(Intent.createChooser(intent, "Send mail..."))
+                } catch (ex: ActivityNotFoundException) {
+                    Toast.makeText(context, "There is no email client installed.", Toast.LENGTH_LONG).show()
+                }
             }
         }
 

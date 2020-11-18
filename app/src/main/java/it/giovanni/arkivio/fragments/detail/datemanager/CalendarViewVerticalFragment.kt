@@ -90,7 +90,7 @@ class CalendarViewVerticalFragment : DetailFragment() {
         return viewFragment
     }
 
-    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View? {
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         TODO("Not yet implemented")
     }
 

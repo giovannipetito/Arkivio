@@ -21,7 +21,7 @@ import it.giovanni.arkivio.customview.popup.ListDialogPopup
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.utils.Utils
 import it.giovanni.arkivio.utils.Utils.Companion.callContact
-import it.giovanni.arkivio.utils.Utils.Companion.sendEmail
+import it.giovanni.arkivio.utils.Utils.Companion.sendSimpleMail
 import kotlinx.android.synthetic.main.bottom_sheet_layout.*
 import kotlinx.android.synthetic.main.detail_layout.*
 import kotlinx.android.synthetic.main.rubrica_detail_layout.*
@@ -92,13 +92,12 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
     override fun onActionSearch(search_string: String) {
     }
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewFragment = super.onCreateView(inflater, container, savedInstanceState)
         return viewFragment
     }
 
-    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View? {
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         TODO("Not yet implemented")
     }
 
@@ -142,7 +141,7 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
         }
 
         email_container.setOnClickListener {
-            sendEmail(context!!, value_mail.text.toString())
+            sendSimpleMail(context!!, value_mail.text.toString())
         }
 
         rubrica_icon.visibility = View.VISIBLE
