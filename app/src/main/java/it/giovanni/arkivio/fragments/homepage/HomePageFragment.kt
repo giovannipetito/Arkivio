@@ -56,10 +56,10 @@ class HomePageFragment : HomeFragment() {
     Valid until: mercoledì 13 febbraio 2047
     */
 
-    private val TAG = HomePageFragment::class.java.simpleName
+    private val mTag = HomePageFragment::class.java.simpleName
 
-    private val GALLERY_CODE = 201
-    private val DELAY_TIME: Long = 3000
+    private val galleryCode = 201
+    private val delayTime: Long = 3000
     private var viewFragment: View? = null
     private val currentHours = Date().hours
 
@@ -86,8 +86,8 @@ class HomePageFragment : HomeFragment() {
         val binding: HomePageLayoutBinding? = DataBindingUtil.inflate(inflater, R.layout.home_page_layout, container, false)
         viewFragment = binding?.root
 
-        val darkModePresenter: DarkModePresenter? = DarkModePresenter(this, context!!)
-        val model: DarkModeModel? = DarkModeModel(context!!)
+        val darkModePresenter = DarkModePresenter(this, context!!)
+        val model = DarkModeModel(context!!)
         binding?.temp = model
         binding?.presenter = darkModePresenter
 
@@ -112,11 +112,11 @@ class HomePageFragment : HomeFragment() {
 
         // Come convertire un array di stringhe in una stringa:
         val message1 = turnArrayToString(array!!)
-        Log.i(TAG, message1)
+        Log.i(mTag, message1)
 
         // Come convertire una lista di stringhe in una stringa:
         val message2 = turnArrayListToString(list!!)
-        Log.i(TAG, message2)
+        Log.i(mTag, message2)
 
         // Se ho bisogno di un'array di stringhe di cui conosco la dimensione, posso inizializzarlo nel modo seguente:
         array = arrayOf("", "", "")
@@ -152,35 +152,35 @@ class HomePageFragment : HomeFragment() {
                 newList.add(list[i])
             }
         }
-        Log.i(TAG, "newList: " + turnArrayListToString(newList))
+        Log.i(mTag, "newList: " + turnArrayListToString(newList))
 
         // ----------- START SORT ---------- //
         // Dato un ArrayList di Date (o anche di SelectedDay come in questo caso), restituisco un
         // ArrayList di Date ordinato.
-        val items: ArrayList<SelectedDay>? = ArrayList()
-        items?.add(SelectedDay("2020", "11", "10"))
-        items?.add(SelectedDay("2020", "11", "02"))
-        items?.add(SelectedDay("2021", "02", "04"))
-        items?.add(SelectedDay("2021", "01", "05"))
-        items?.add(SelectedDay("2020", "10", "16"))
-        items?.add(SelectedDay("2020", "11", "01"))
-        items?.add(SelectedDay("2020", "12", "24"))
-        items?.add(SelectedDay("2020", "12", "25"))
-        items?.add(SelectedDay("2021", "01", "05"))
-        items?.add(SelectedDay("2020", "11", "30"))
-        items?.add(SelectedDay("2020", "11", "16"))
-        items?.add(SelectedDay("2021", "02", "06"))
+        val items: ArrayList<SelectedDay> = ArrayList()
+        items.add(SelectedDay("2020", "11", "10"))
+        items.add(SelectedDay("2020", "11", "02"))
+        items.add(SelectedDay("2021", "02", "04"))
+        items.add(SelectedDay("2021", "01", "05"))
+        items.add(SelectedDay("2020", "10", "16"))
+        items.add(SelectedDay("2020", "11", "01"))
+        items.add(SelectedDay("2020", "12", "24"))
+        items.add(SelectedDay("2020", "12", "25"))
+        items.add(SelectedDay("2021", "01", "05"))
+        items.add(SelectedDay("2020", "11", "30"))
+        items.add(SelectedDay("2020", "11", "16"))
+        items.add(SelectedDay("2021", "02", "06"))
 
         val dateItems = ArrayList<Date>()
         val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-        for (item in items!!) {
+        for (item in items) {
             dateItems.add(sdf.parse(item.dayOfMonth + "/" + item.month + "/" + item.year)!!)
         }
 
         try {
             dateItems.sort()
             for (date in dateItems) {
-                Log.i(TAG, sdf.format(date))
+                Log.i(mTag, sdf.format(date))
             }
         } catch (ex: ParseException) {
             ex.printStackTrace()
@@ -192,12 +192,10 @@ class HomePageFragment : HomeFragment() {
         val dayOfWeek = SimpleDateFormat("EEEE").format(date).capitalize(Locale.getDefault())
         label_day.text = dayOfWeek
 
-        val currentMonth = SimpleDateFormat("dd MMMM").format(date).substring(0, 3) +
-                SimpleDateFormat("dd MMMM").format(date).substring(3, 4).toUpperCase(Locale.ITALY) +
-                SimpleDateFormat("dd MMMM").format(date).substring(4, SimpleDateFormat("dd MMMM").format(date).length)
+        val currentMonth = SimpleDateFormat("dd MMMM yyyy").format(date).substring(0, 3) +
+                SimpleDateFormat("dd MMMM yyyy").format(date).substring(3, 4).toUpperCase(Locale.ITALY) +
+                SimpleDateFormat("dd MMMM yyyy").format(date).substring(4, SimpleDateFormat("dd MMMM yyyy").format(date).length)
         label_date.text = currentMonth
-
-        label_year.text = SimpleDateFormat("yyyy").format(date)
 
         label_time.text = DateManager(Date()).getFormatTime()
 
@@ -205,20 +203,20 @@ class HomePageFragment : HomeFragment() {
             val avatar: Bitmap = BitmapFactory.decodeResource(context!!.resources, R.drawable.giovanni)
             val roundAvatar: Bitmap = getRoundBitmap(avatar, avatar.width)
             ico_avatar.setImageBitmap(roundAvatar)
-        }, DELAY_TIME)
+        }, delayTime)
 
         ico_avatar.setOnClickListener {
             pickFromGallery()
         }
 
         val pixel = convertDpToPixel(context!!, 24F)
-        Log.i(TAG, "pixel: $pixel")
+        Log.i(mTag, "pixel: $pixel")
 
         val versionName = BuildConfig.VERSION_NAME
-        Log.i(TAG, "versionName: " + getVersionNameLong(versionName))
+        Log.i(mTag, "versionName: " + getVersionNameLong(versionName))
 
         val hashKey = getHashKey(context!!)
-        Log.i(TAG, "Hash Key: $hashKey")
+        Log.i(mTag, "Hash Key: $hashKey")
 
         if (currentHours in 5..17) {
             lottie_sun.visibility = View.VISIBLE
@@ -233,12 +231,12 @@ class HomePageFragment : HomeFragment() {
 
     private fun pickFromGallery() {
         val i = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(i, GALLERY_CODE)
+        startActivityForResult(i, galleryCode)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == GALLERY_CODE && resultCode == RESULT_OK && null != data) run {
+        if (requestCode == galleryCode && resultCode == RESULT_OK && null != data) run {
             try {
                 if (data.data != null) {
                     val avatar: Bitmap = MediaStore.Images.Media.getBitmap(context!!.contentResolver, data.data)

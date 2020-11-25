@@ -45,8 +45,8 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
         val binding: DetailLayoutBinding? = DataBindingUtil.inflate(inflater, R.layout.detail_layout, container, false)
         val view = binding?.root
 
-        val darkModePresenter: DarkModePresenter? = DarkModePresenter(this, context!!)
-        val model: DarkModeModel? = DarkModeModel(context!!)
+        val darkModePresenter = DarkModePresenter(this, context!!)
+        val model = DarkModeModel(context!!)
         binding?.temp = model
         binding?.presenter = darkModePresenter
 
@@ -61,6 +61,8 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        currentActivity.setStatusBarTransparent()
 
         // Manage arguments
 

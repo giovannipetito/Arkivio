@@ -1,10 +1,9 @@
-@file:Suppress("DEPRECATION")
-
 package it.giovanni.arkivio.model
 
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.view.View
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import it.giovanni.arkivio.BR
@@ -35,28 +34,28 @@ class DarkModeModel : BaseObservable {
     constructor(context: Context) {
         val isDarkMode = loadDarkModeStateFromPreferences()
         if (isDarkMode) {
-            viewColor = context.resources.getColor(R.color.grey_3)
-            labelColor = context.resources.getColor(R.color.white)
-            bottomBarColor = context.resources.getColor(R.color.white)
+            viewColor = ResourcesCompat.getColor(context.resources, R.color.grey_3, null)
+            labelColor = ResourcesCompat.getColor(context.resources, R.color.white, null)
+            bottomBarColor = ResourcesCompat.getColor(context.resources, R.color.white, null)
             label = context.resources.getString(R.string.label_dark_mode)
-            icoDark = context.resources.getDrawable(R.drawable.ico_dark_mode_light)
-            icoLight = context.resources.getDrawable(R.drawable.ico_light_mode_light)
-            sideNavBar = context.resources.getDrawable(R.drawable.side_nav_bar_dark)
-            roundCorner = context.resources.getDrawable(R.drawable.round_corner_4)
-            backgroundTabColor = context.resources.getDrawable(R.drawable.background_dark_mode)
-            backgroundColor = context.resources.getColor(R.color.black)
+            icoDark = ResourcesCompat.getDrawable(context.resources, R.drawable.ico_dark_mode_light, null)
+            icoLight = ResourcesCompat.getDrawable(context.resources, R.drawable.ico_light_mode_light, null)
+            sideNavBar = ResourcesCompat.getDrawable(context.resources, R.drawable.side_nav_bar_dark, null)
+            roundCorner = ResourcesCompat.getDrawable(context.resources, R.drawable.round_corner_4, null)
+            backgroundTabColor = ResourcesCompat.getDrawable(context.resources, R.drawable.background_dark_mode, null)
+            backgroundColor = ResourcesCompat.getColor(context.resources, R.color.black, null)
             viewVisibility = View.GONE
         } else {
-            viewColor = context.resources.getColor(R.color.dark)
-            labelColor = context.resources.getColor(R.color.dark)
-            bottomBarColor = context.resources.getColor(R.color.black)
+            viewColor = ResourcesCompat.getColor(context.resources, R.color.dark, null)
+            labelColor = ResourcesCompat.getColor(context.resources, R.color.dark, null)
+            bottomBarColor = ResourcesCompat.getColor(context.resources, R.color.black, null)
             label = context.resources.getString(R.string.label_light_mode)
-            icoDark = context.resources.getDrawable(R.drawable.ico_dark_mode_dark)
-            icoLight = context.resources.getDrawable(R.drawable.ico_light_mode_dark)
-            sideNavBar = context.resources.getDrawable(R.drawable.side_nav_bar_light)
-            roundCorner = context.resources.getDrawable(R.drawable.round_corner_1)
-            backgroundTabColor = context.resources.getDrawable(R.drawable.background_light_mode)
-            backgroundColor = context.resources.getColor(R.color.white)
+            icoDark = ResourcesCompat.getDrawable(context.resources, R.drawable.ico_dark_mode_dark, null)
+            icoLight = ResourcesCompat.getDrawable(context.resources, R.drawable.ico_light_mode_dark, null)
+            sideNavBar = ResourcesCompat.getDrawable(context.resources, R.drawable.side_nav_bar_light, null)
+            roundCorner = ResourcesCompat.getDrawable(context.resources, R.drawable.round_corner_1, null)
+            backgroundTabColor = ResourcesCompat.getDrawable(context.resources, R.drawable.background_light_mode, null)
+            backgroundColor = ResourcesCompat.getColor(context.resources, R.color.white, null)
             viewVisibility = View.VISIBLE
         }
     }

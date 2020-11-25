@@ -434,7 +434,7 @@ class Utils {
             return result
         }
 
-        fun getDeviceLanguage(): String? {
+        fun getDeviceLanguage(): String {
             return Locale.getDefault().toString()
         }
 

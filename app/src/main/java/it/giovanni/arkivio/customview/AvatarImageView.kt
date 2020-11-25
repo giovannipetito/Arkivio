@@ -11,25 +11,30 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import it.giovanni.arkivio.utils.Utils
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadDarkModeStateFromPreferences
 
 class AvatarImageView(context: Context, attrs: AttributeSet) : AppCompatImageView(context, attrs) {
 
     private val drawPaint: Paint
-    private var size: Float = 0.toFloat()
-    private var sWidth: Float = 0.toFloat()
-    private var center: Float = 0.toFloat()
+    private var size: Float = 0F
+    private var sWidth: Float = 0F
+    private var center: Float = 0F
 
     init {
         sWidth = Utils.dpToPixel(2)
         drawPaint = Paint()
-        drawPaint.color = ContextCompat.getColor(context, R.color.white)
         drawPaint.strokeWidth = Utils.dpToPixel(2)
         drawPaint.style = Paint.Style.STROKE
         drawPaint.isAntiAlias = true
         drawPaint.alpha = 204
 
-        val vto = viewTreeObserver
-        vto.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+        val isDarkMode = loadDarkModeStateFromPreferences()
+        if (isDarkMode)
+            drawPaint.color = ContextCompat.getColor(context, R.color.white)
+        else
+            drawPaint.color = ContextCompat.getColor(context, R.color.blueWave)
+
+        viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 removeOnGlobalLayoutListener(this)
                 center = (measuredWidth / 2.0F)

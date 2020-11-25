@@ -50,7 +50,7 @@ import kotlin.collections.ArrayList
 
 class SmartworkingFragment: DetailFragment() {
 
-    var TAG: String = SmartworkingFragment::class.java.simpleName
+    private var mTag: String = SmartworkingFragment::class.java.simpleName
     private var viewFragment: View? = null
     private var currentDate: DateManager? = null
     private var selectedDate: LocalDate? = null
@@ -140,8 +140,8 @@ class SmartworkingFragment: DetailFragment() {
         )
         viewFragment = binding?.root
 
-        val darkModePresenter: DarkModePresenter? = DarkModePresenter(this, context!!)
-        val model: DarkModeModel? = DarkModeModel(context!!)
+        val darkModePresenter = DarkModePresenter(this, context!!)
+        val model = DarkModeModel(context!!)
         binding?.temp = model
         binding?.presenter = darkModePresenter
 
@@ -492,19 +492,19 @@ class SmartworkingFragment: DetailFragment() {
         smartworking_button.setOnClickListener {
             if (items != null) {
 
-                val sortedDates: ArrayList<Date>? = sortItems(items)
+                val sortedDates: ArrayList<Date> = sortItems(items)
                 var sortedItems: ArrayList<String>? = turnDatesToStrings(sortedDates)
                 sortedItems = showLastDayOfMonth(sortedItems)
                 // val contiguousItems = groupContiguousItems(sortedItems)
                 // val mSortedItems = turnArrayListToString(sortedItems!!)
 
-                val sortedSelectedDates: ArrayList<Date>? = sortItems(selectedItems)
+                val sortedSelectedDates: ArrayList<Date> = sortItems(selectedItems)
                 var sortedSelectedItems: ArrayList<String>? = turnDatesToStrings(sortedSelectedDates)
                 sortedSelectedItems = showLastDayOfMonth(sortedSelectedItems)
                 val contiguousSelectedItems = groupContiguousItems(sortedSelectedItems)
                 // val mSortedSelectedItems = turnArrayListToString(sortedSelectedItems!!)
 
-                val sortedDeselectedDates: ArrayList<Date>? = sortItems(deselectedItems)
+                val sortedDeselectedDates: ArrayList<Date> = sortItems(deselectedItems)
                 var sortedDeselectedItems: ArrayList<String>? = turnDatesToStrings(sortedDeselectedDates)
                 sortedDeselectedItems = showLastDayOfMonth(sortedDeselectedItems)
                 val contiguousDeselectedItems = groupContiguousItems(sortedDeselectedItems)
@@ -513,11 +513,11 @@ class SmartworkingFragment: DetailFragment() {
                 // Log.i(TAG, "contiguousItems: $contiguousItems\ncontiguousSelectedItems: $contiguousSelectedItems\ncontiguousDeselectedItems: $contiguousDeselectedItems")
                 // Log.i(TAG, "mSortedItems: $mSortedItems\nmSortedSelectedItems: $mSortedSelectedItems\nmSortedDeselectedItems: $mSortedDeselectedItems")
 
-                if (sortedItems?.isNotEmpty()!! && sortedSelectedItems?.isEmpty()!! && sortedDeselectedItems?.isEmpty()!!) {
-                    Log.i(TAG, "Non mando alcuna segnalazione.")
+                if (sortedItems.isNotEmpty() && sortedSelectedItems.isEmpty() && sortedDeselectedItems.isEmpty()) {
+                    Log.i(mTag, "Non mando alcuna segnalazione.")
                 }
 
-                if (sortedItems.isNotEmpty() && sortedSelectedItems?.isNotEmpty()!! && sortedDeselectedItems?.isEmpty()!!) {
+                if (sortedItems.isNotEmpty() && sortedSelectedItems.isNotEmpty() && sortedDeselectedItems.isEmpty()) {
                     UserFactory.getInstance().smartworkingSubjectMail = resources.getString(
                         R.string.smartworking_subject_mail,
                         UserFactory.getInstance().surname
@@ -528,10 +528,10 @@ class SmartworkingFragment: DetailFragment() {
                         contiguousSelectedItems,
                         UserFactory.getInstance().givenName
                     )
-                    Log.i(TAG, UserFactory.getInstance().smartworkingSubjectMail + "\n" + UserFactory.getInstance().smartworkingContentMail)
+                    Log.i(mTag, UserFactory.getInstance().smartworkingSubjectMail + "\n" + UserFactory.getInstance().smartworkingContentMail)
                 }
 
-                if (sortedItems.isNotEmpty() && sortedSelectedItems?.isEmpty()!! && sortedDeselectedItems?.isNotEmpty()!!) {
+                if (sortedItems.isNotEmpty() && sortedSelectedItems.isEmpty() && sortedDeselectedItems.isNotEmpty()) {
                     UserFactory.getInstance().smartworkingSubjectMail = resources.getString(
                         R.string.smartworking_revision_subject_mail,
                         UserFactory.getInstance().surname
@@ -541,11 +541,11 @@ class SmartworkingFragment: DetailFragment() {
                         contiguousDeselectedItems,
                         UserFactory.getInstance().givenName
                     )
-                    Log.i(TAG,
+                    Log.i(mTag,
                         UserFactory.getInstance().smartworkingSubjectMail + "\n" + UserFactory.getInstance().smartworkingContentMail)
                 }
 
-                if (sortedItems.isEmpty() && sortedSelectedItems?.isEmpty()!! && sortedDeselectedItems?.isNotEmpty()!!) {
+                if (sortedItems.isEmpty() && sortedSelectedItems.isEmpty() && sortedDeselectedItems.isNotEmpty()) {
                     UserFactory.getInstance().smartworkingSubjectMail = resources.getString(
                         R.string.smartworking_revision_subject_mail,
                         UserFactory.getInstance().surname
@@ -555,10 +555,10 @@ class SmartworkingFragment: DetailFragment() {
                         contiguousDeselectedItems,
                         UserFactory.getInstance().givenName
                     )
-                    Log.i(TAG, UserFactory.getInstance().smartworkingSubjectMail + "\n" + UserFactory.getInstance().smartworkingContentMail)
+                    Log.i(mTag, UserFactory.getInstance().smartworkingSubjectMail + "\n" + UserFactory.getInstance().smartworkingContentMail)
                 }
 
-                if (sortedItems.isNotEmpty() && sortedSelectedItems?.isNotEmpty()!! && sortedDeselectedItems?.isNotEmpty()!!) {
+                if (sortedItems.isNotEmpty() && sortedSelectedItems.isNotEmpty() && sortedDeselectedItems.isNotEmpty()) {
                     UserFactory.getInstance().smartworkingSubjectMail = resources.getString(
                         R.string.smartworking_revision_subject_mail,
                         UserFactory.getInstance().surname
@@ -570,7 +570,7 @@ class SmartworkingFragment: DetailFragment() {
                         contiguousSelectedItems,
                         UserFactory.getInstance().givenName
                     )
-                    Log.i(TAG, UserFactory.getInstance().smartworkingSubjectMail + "\n" + UserFactory.getInstance().smartworkingContentMail)
+                    Log.i(mTag, UserFactory.getInstance().smartworkingSubjectMail + "\n" + UserFactory.getInstance().smartworkingContentMail)
                 }
 
                 sendSmartworkingCommunication()
@@ -597,17 +597,19 @@ class SmartworkingFragment: DetailFragment() {
     }
 
     private fun checkItemsStatus() {
-        if (items?.size != oldItems?.size)
-            smartworking_button_container.visibility = View.VISIBLE
+        if (items?.size != oldItems?.size) {
+            smartworking_button_container.animate().translationY(4F).alpha(1.0f).duration = 500
+        }
         else {
-            if (selectedItems?.isEmpty()!! && deselectedItems?.isEmpty()!!)
-                smartworking_button_container.visibility = View.GONE
+            if (selectedItems?.isEmpty()!! && deselectedItems?.isEmpty()!!) {
+                smartworking_button_container.animate().translationY(smartworking_button_container.height.toFloat()).alpha(0.0f).duration = 500
+            }
             else {
                 for (i in 0 until items?.size!!) {
                     if (items!![i].year == oldItems!![i].year && items!![i].month == oldItems!![i].month && items!![i].dayOfMonth == oldItems!![i].dayOfMonth) {
-                        smartworking_button_container.visibility = View.GONE
+                        smartworking_button_container.animate().translationY(smartworking_button_container.height.toFloat()).alpha(0.0f).duration = 500
                     } else {
-                        smartworking_button_container.visibility = View.VISIBLE
+                        smartworking_button_container.animate().translationY(4F).alpha(1.0f).duration = 500
                         break
                     }
                 }
@@ -615,7 +617,7 @@ class SmartworkingFragment: DetailFragment() {
         }
     }
 
-    private fun sortItems(items: ArrayList<SelectedDay>?): ArrayList<Date>? {
+    private fun sortItems(items: ArrayList<SelectedDay>?): ArrayList<Date> {
         val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         val sortedDates = ArrayList<Date>()
         for (item in items!!) {
@@ -629,16 +631,16 @@ class SmartworkingFragment: DetailFragment() {
         return sortedDates
     }
 
-    private fun turnDatesToStrings(sortedDates: ArrayList<Date>?): ArrayList<String>? {
+    private fun turnDatesToStrings(sortedDates: ArrayList<Date>?): ArrayList<String> {
         val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-        val sortedItems: ArrayList<String>? = ArrayList()
+        val sortedItems: ArrayList<String> = ArrayList()
         for (date in sortedDates!!) {
-            sortedItems?.add(sdf.format(date))
+            sortedItems.add(sdf.format(date))
         }
         return sortedItems
     }
 
-    private fun showLastDayOfMonth(sortedItems: ArrayList<String>?): ArrayList<String>? {
+    private fun showLastDayOfMonth(sortedItems: ArrayList<String>?): ArrayList<String> {
         if (sortedItems?.isNotEmpty()!!) {
             for (i in 0 until sortedItems.size - 1) {
                 if (sortedItems[i] > sortedItems[i+1]) {
@@ -650,10 +652,10 @@ class SmartworkingFragment: DetailFragment() {
         return sortedItems
     }
 
-    private fun groupContiguousItems(sortedItems: ArrayList<String>?): String? {
+    private fun groupContiguousItems(sortedItems: ArrayList<String>?): String {
 
         val sdf = SimpleDateFormat("MM", Locale.getDefault())
-        val contiguousItems: ArrayList<String>? = ArrayList()
+        val contiguousItems: ArrayList<String> = ArrayList()
         var firstDay: String
         var lastDay: String
         var lastDate: String
@@ -673,11 +675,11 @@ class SmartworkingFragment: DetailFragment() {
                             if (sortedItems[i].substring(0, 2) != lastDayTester) {
 
                                 if (!sortedItems[i].contains("LastDayOfMonth")) {
-                                    contiguousItems?.add("il giorno " + sortedItems[i].substring(0, 2))
+                                    contiguousItems.add("il giorno " + sortedItems[i].substring(0, 2))
                                 } else {
                                     val month = sdf.parse(sortedItems[i].substring(3, 5))
                                     val currentMonth = getSimpleMonth2(sdf.format(month!!))
-                                    contiguousItems?.add("il giorno " + sortedItems[i].substring(0, 2) + " del mese di " + currentMonth)
+                                    contiguousItems.add("il giorno " + sortedItems[i].substring(0, 2) + " del mese di " + currentMonth)
                                 }
                             }
                         }
@@ -686,11 +688,11 @@ class SmartworkingFragment: DetailFragment() {
                 }
                 if (lastDay != "" && lastDay != lastDayTester) {
                     if (!lastDate.contains("LastDayOfMonth")) {
-                        contiguousItems?.add("i giorni dal $firstDay al $lastDay")
+                        contiguousItems.add("i giorni dal $firstDay al $lastDay")
                     } else {
                         val month = sdf.parse(lastDate.substring(3, 5))
                         val currentMonth = getSimpleMonth2(sdf.format(month!!))
-                        contiguousItems?.add("i giorni dal $firstDay al $lastDay del mese di $currentMonth")
+                        contiguousItems.add("i giorni dal $firstDay al $lastDay del mese di $currentMonth")
                     }
                     lastDayTester = lastDay
                 }
@@ -698,10 +700,10 @@ class SmartworkingFragment: DetailFragment() {
             if (sortedItems[sortedItems.size - 1].substring(0, 2) != lastDayTester) {
                 val month = sdf.parse(sortedItems[sortedItems.size - 1].substring(3, 5))
                 val currentMonth = getSimpleMonth2(sdf.format(month!!))
-                contiguousItems?.add("il giorno " + sortedItems[sortedItems.size - 1].substring(0, 2) + " del mese di " + currentMonth)
+                contiguousItems.add("il giorno " + sortedItems[sortedItems.size - 1].substring(0, 2) + " del mese di " + currentMonth)
             }
         }
-        return turnArrayListToString(contiguousItems!!)
+        return turnArrayListToString(contiguousItems)
     }
 
     private fun sendSmartworkingCommunication() {

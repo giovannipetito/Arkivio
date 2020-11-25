@@ -33,10 +33,10 @@
         <LinearLayout
                 android:id="@+id/smartworking_button_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="110dp"
                 android:layout_alignParentBottom="true"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:translationY="110dp">
 
             <View
                     android:layout_width="match_parent"

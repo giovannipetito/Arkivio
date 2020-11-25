@@ -331,8 +331,6 @@ class MainActivity : GPSActivity(), IProgressLoader {
 
     override fun openDetail(detailType: String, extraParams: Bundle?, caller: Fragment?, requestCode: Int?) {
 
-        setStatusBarTransparent()
-
         var baseFragment: BaseFragment? = null
 
         when (detailType) {

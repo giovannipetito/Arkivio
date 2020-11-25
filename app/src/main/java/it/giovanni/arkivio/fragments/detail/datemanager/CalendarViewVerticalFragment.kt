@@ -293,23 +293,23 @@ class CalendarViewVerticalFragment : DetailFragment() {
                 selectedDaysResponse.selectedDays = items
                 saveSelectedDaysToPreferences(selectedDaysResponse)
 
-                val arrayItems: ArrayList<String>? = ArrayList()
+                val arrayItems: ArrayList<String> = ArrayList()
                 for (item in items!!) {
-                    arrayItems?.add(item.dayOfMonth + "/" + item.month + "/" + item.year)
+                    arrayItems.add(item.dayOfMonth + "/" + item.month + "/" + item.year)
                 }
-                val mItems = Utils.turnArrayListToString(arrayItems!!)
+                val mItems = Utils.turnArrayListToString(arrayItems)
 
-                val arraySelectedItems: ArrayList<String>? = ArrayList()
+                val arraySelectedItems: ArrayList<String> = ArrayList()
                 for (item in selectedItems!!) {
-                    arraySelectedItems?.add(item.dayOfMonth + "/" + item.month + "/" + item.year)
+                    arraySelectedItems.add(item.dayOfMonth + "/" + item.month + "/" + item.year)
                 }
-                val mSelectedItems = Utils.turnArrayListToString(arraySelectedItems!!)
+                val mSelectedItems = Utils.turnArrayListToString(arraySelectedItems)
 
-                val arrayDeselectedItems: ArrayList<String>? = ArrayList()
+                val arrayDeselectedItems: ArrayList<String> = ArrayList()
                 for (item in deselectedItems!!) {
-                    arrayDeselectedItems?.add(item.dayOfMonth + "/" + item.month + "/" + item.year)
+                    arrayDeselectedItems.add(item.dayOfMonth + "/" + item.month + "/" + item.year)
                 }
-                val mDeselectedItems = Utils.turnArrayListToString(arrayDeselectedItems!!)
+                val mDeselectedItems = Utils.turnArrayListToString(arrayDeselectedItems)
 
                 Log.i("TAG_ITEMS", "mItems: $mItems\nmSelectedItems: $mSelectedItems\nmDeselectedItems: $mDeselectedItems")
 
