@@ -12,7 +12,7 @@
             android:layout_marginStart="18dp"
             android:layout_marginBottom="8dp"
             android:text="@string/login_your_mail"
-            android:textColor="@color/white"
+            android:textColor="@color/white_1"
             android:textSize="16sp"
             android:textStyle="normal" />
 
@@ -57,10 +57,10 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginEnd="16dp"
                 android:text="@string/dominio_gmail"
-                android:textColor="@color/black"
+                android:textColor="@color/black_1"
                 android:textStyle="normal"
                 android:textSize="14sp"
-                android:background="@color/white"
+                android:background="@color/white_1"
                 android:visibility="gone" />
 
         <ImageView

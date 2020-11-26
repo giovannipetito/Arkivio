@@ -8,7 +8,7 @@
         <shape android:shape="oval">
             <size android:width="30dp"
                   android:height="30dp" />
-            <solid android:color="@color/black" />
+            <solid android:color="@color/black_1" />
         </shape>
     </item>
 
@@ -19,7 +19,7 @@
         <shape android:shape="oval">
             <size android:width="30dp"
                   android:height="30dp" />
-            <solid android:color="@color/black" />
+            <solid android:color="@color/black_1" />
         </shape>
     </item>
 
@@ -30,7 +30,7 @@
         <shape android:shape="rectangle">
             <size android:width="20dp"
                   android:height="100dp" />
-            <solid android:color="@color/white" />
+            <solid android:color="@color/white_1" />
         </shape>
     </item>
 

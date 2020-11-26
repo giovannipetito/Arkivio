@@ -11,7 +11,7 @@
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_50dp"
-            android:background="@color/blueWave">
+            android:background="@color/azzurro_4">
 
         <TextView
                 android:layout_width="wrap_content"
@@ -19,7 +19,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_centerVertical="true"
                 android:text="@string/activate_the_search"
-                android:textColor="@color/white"
+                android:textColor="@color/white_1"
                 android:textSize="16sp" />
 
         <RelativeLayout
@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:background="@color/white"
+                android:background="@color/white_1"
                 android:visibility="gone">
 
             <EditText
@@ -39,7 +39,7 @@
                     android:layout_centerVertical="true"
                     android:hint="@string/search_by_name_or_msisdn"
                     android:textSize="16sp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/black_1"
                     android:textColorHint="@color/grey_2"
                     android:maxLines="1"
                     android:ellipsize="end"

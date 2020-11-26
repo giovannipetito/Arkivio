@@ -47,7 +47,7 @@
                         android:textColor="@{temp.labelColor}"
                         android:textSize="21sp"
                         tools:text="@string/good_moorning_title"
-                        tools:textColor="@color/white" />
+                        tools:textColor="@color/white_1" />
 
                 <TextView
                         android:layout_width="wrap_content"
@@ -57,7 +57,7 @@
                         android:textColor="@{temp.labelColor}"
                         android:textSize="28sp"
                         android:textStyle="bold"
-                        tools:textColor="@color/white" />
+                        tools:textColor="@color/white_1" />
 
             </LinearLayout>
 
@@ -94,7 +94,7 @@
                             android:layout_gravity="center"
                             android:textSize="21sp"
                             tools:text="Sabato"
-                            tools:textColor="@color/white" />
+                            tools:textColor="@color/white_1" />
 
                     <TextView
                             android:id="@+id/label_date"
@@ -104,7 +104,7 @@
                             android:layout_gravity="center"
                             android:textSize="14sp"
                             tools:text="06 Febbraio 1988"
-                            tools:textColor="@color/white" />
+                            tools:textColor="@color/white_1" />
 
                     <TextView
                             android:id="@+id/label_time"
@@ -114,7 +114,7 @@
                             android:layout_gravity="center"
                             android:textSize="28sp"
                             tools:text="12:00"
-                            tools:textColor="@color/white" />
+                            tools:textColor="@color/white_1" />
 
                 </LinearLayout>
 

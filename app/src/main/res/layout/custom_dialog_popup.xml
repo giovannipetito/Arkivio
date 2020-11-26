@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:background="@color/white"
+                android:background="@color/white_1"
                 android:orientation="horizontal">
 
             <RelativeLayout
@@ -86,7 +86,7 @@
                         android:layout_height="40dp"
                         android:gravity="center"
                         android:text="@string/button_cancel"
-                        android:background="@color/white"
+                        android:background="@color/white_1"
                         android:textColor="@color/grey_2"
                         style="?android:attr/borderlessButtonStyle" />
 
@@ -104,7 +104,7 @@
                         android:layout_height="40dp"
                         android:gravity="center"
                         android:text="@string/button_try_again"
-                        android:background="@color/white"
+                        android:background="@color/white_1"
                         android:textColor="@color/grey_2"
                         style="?android:attr/borderlessButtonStyle" />
 
@@ -116,7 +116,7 @@
                     android:layout_height="40dp"
                     android:gravity="center"
                     android:text="@string/button_confirm"
-                    android:background="@color/white"
+                    android:background="@color/white_1"
                     android:textColor="@color/grey_2"
                     android:textStyle="bold"
                     style="?android:attr/borderlessButtonStyle" />

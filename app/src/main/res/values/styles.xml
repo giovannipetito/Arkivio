@@ -81,7 +81,7 @@
     </style>
 
     <style name="CustomLoginCheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox">
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/white_1</item>
     </style>
 
     <style name="EditText1" parent="android:Widget.EditText">
@@ -99,10 +99,10 @@
 
     <style name="EditText3" parent="Base.V7.Widget.AppCompat.EditText">
         <item name="colorControlNormal">#c5c5c5</item>
-        <item name="colorControlActivated">@color/white</item>
-        <item name="colorControlHighlight">@color/white</item>
-        <item name="android:colorAccent">@color/white</item>
-        <item name="android:colorPrimary">@color/white</item>
+        <item name="colorControlActivated">@color/white_1</item>
+        <item name="colorControlHighlight">@color/white_1</item>
+        <item name="android:colorAccent">@color/white_1</item>
+        <item name="android:colorPrimary">@color/white_1</item>
     </style>
 
     <style name="DialogTheme" parent="Base.V7.Theme.AppCompat.Light.Dialog">

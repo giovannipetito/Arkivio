@@ -4,8 +4,10 @@
     <color name="colorPrimary">#33B989</color>
     <color name="colorPrimaryDark">#273B44</color>
     <color name="colorAccent">#FAFAFA</color>
-    <color name="white">#FFFFFF</color>
-    <color name="black">#000000</color>
+    <color name="white_1">#FFFFFF</color>
+    <color name="white_2">#FAFAFA</color>
+    <color name="black_1">#000000</color>
+    <color name="black_2">#111111</color>
     <color name="white_transparent">#99FFFFFF</color>
     <color name="black_transparent_1">#CC050505</color>
     <color name="black_transparent_2">#22000000</color>
@@ -37,13 +39,12 @@
     <color name="azzurro_1">#E0FFFF</color>
     <color name="azzurro_2">#ABCDEF</color>
     <color name="azzurro_3">#00B8DE</color>
-    <color name="azzurro_4">#007FFF</color>
-    <color name="azzurro_5">#4169E1</color>
-    <color name="azzurro_6">#2A52BE</color>
-    <color name="azzurro_7">#2D32AA</color>
+    <color name="azzurro_4">#678AC5</color>
+    <color name="azzurro_5">#007FFF</color>
+    <color name="azzurro_6">#4169E1</color>
+    <color name="azzurro_7">#2A52BE</color>
+    <color name="azzurro_8">#2D32AA</color>
     <color name="viola">#603668 </color>
-
-    <color name="blueWave">#678AC5</color>
 
     <color name="red_50">#FFEBEE</color>
     <color name="red_100">#FFCDD2</color>

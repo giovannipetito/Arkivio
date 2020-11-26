@@ -199,10 +199,10 @@ class CalendarViewVerticalFragment : DetailFragment() {
                         }
                         today == day.date -> {
                             verticalItem.setBackgroundResource(R.drawable.calendarview_today_item)
-                            horizontalLabel.setTextColor(context?.resources?.getColor(R.color.azzurro_6)!!)
+                            horizontalLabel.setTextColor(context?.resources?.getColor(R.color.azzurro_7)!!)
                         }
                         else -> {
-                            horizontalLabel.setTextColor(context?.resources?.getColor(R.color.white)!!)
+                            horizontalLabel.setTextColor(context?.resources?.getColor(R.color.white_1)!!)
                             verticalItem.background = null
 
 //                            for (item in items!!) {

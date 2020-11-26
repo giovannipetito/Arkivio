@@ -163,7 +163,7 @@ class CalendarViewHorizontalFragment : DetailFragment() {
                             horizontalLabel.background = null
                         }
                         else -> {
-                            horizontalLabel.setTextColor(context?.resources?.getColor(R.color.black)!!)
+                            horizontalLabel.setTextColor(context?.resources?.getColor(R.color.black_1)!!)
                             horizontalLabel.background = null
                         }
                     }

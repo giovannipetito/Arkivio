@@ -27,7 +27,7 @@
                 android:layout_marginTop="20dp"
                 android:text="Oops!"
                 android:textAlignment="center"
-                android:textColor="@color/white"
+                android:textColor="@color/white_1"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
@@ -38,7 +38,7 @@
                 android:layout_centerHorizontal="true"
                 android:text="Sembra che ci sia qualche problema, tappa per aggiornare."
                 android:textAlignment="center"
-                android:textColor="@color/white"
+                android:textColor="@color/white_1"
                 android:textSize="14sp" />
 
     </RelativeLayout>

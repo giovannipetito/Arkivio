@@ -30,9 +30,9 @@ class AvatarImageView(context: Context, attrs: AttributeSet) : AppCompatImageVie
 
         val isDarkMode = loadDarkModeStateFromPreferences()
         if (isDarkMode)
-            drawPaint.color = ContextCompat.getColor(context, R.color.white)
+            drawPaint.color = ContextCompat.getColor(context, R.color.white_1)
         else
-            drawPaint.color = ContextCompat.getColor(context, R.color.blueWave)
+            drawPaint.color = ContextCompat.getColor(context, R.color.azzurro_4)
 
         viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {

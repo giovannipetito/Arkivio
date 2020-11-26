@@ -49,7 +49,7 @@
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:textColor="@color/white"
+                    android:textColor="@color/white_1"
                     android:textStyle="bold"
                     android:textSize="20sp" />
 
@@ -63,10 +63,10 @@
                     android:layout_alignParentBottom="true"
                     android:layout_toEndOf="@id/arrow_go_back"
                     android:hint="@string/edit_search"
-                    android:textColor="@color/white"
+                    android:textColor="@color/white_1"
                     android:textColorHint="@color/grey_1"
-                    android:textColorLink="@color/white"
-                    android:textColorHighlight="@color/white"
+                    android:textColorLink="@color/white_1"
+                    android:textColorHighlight="@color/white_1"
                     android:textSize="20sp"
                     android:singleLine="true"
                     android:ellipsize="end"
@@ -140,7 +140,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@{temp.backgroundColor}"
-                tools:background="@color/black">
+                tools:background="@color/black_1">
 
             <RelativeLayout
                     android:layout_width="wrap_content"
