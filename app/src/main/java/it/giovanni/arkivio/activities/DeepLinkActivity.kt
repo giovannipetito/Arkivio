@@ -9,7 +9,7 @@ import it.giovanni.arkivio.deeplink.DeepLinkDescriptor
 class DeepLinkActivity : AppCompatActivity() {
 
     companion object {
-        val TAG = DeepLinkActivity::class.java.simpleName
+        // val TAG = DeepLinkActivity::class.java.simpleName
         const val DEEP_LINK = "DEEP_LINK"
         const val DEEP_LINK_URI = "DEEP_LINK_URI"
     }

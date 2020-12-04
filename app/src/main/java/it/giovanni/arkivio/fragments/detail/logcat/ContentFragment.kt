@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package it.giovanni.arkivio.fragments.detail.logcat
 
 import android.os.Bundle
@@ -78,7 +80,6 @@ class ContentFragment : BaseFragment(SectionType.TAB_DETAIL) {
         loadSmileCryData()
     }
 
-    @Suppress("DEPRECATION")
     fun stopSwipeRefresh() {
         swipeRefreshLayout.isRefreshing = false
         swipeRefreshLayout.destroyDrawingCache()

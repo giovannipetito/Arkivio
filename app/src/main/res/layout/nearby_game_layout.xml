@@ -34,7 +34,7 @@
             android:layout_marginBottom="16dp"
             android:gravity="center"
             android:textSize="48sp"
-            android:textColor="@color/azzurro_4" />
+            android:textColor="@color/azzurro" />
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -50,7 +50,7 @@
                 android:layout_weight="0.33"
                 android:layout_marginEnd="8dp"
                 android:drawableTop="@drawable/ico_nearby_rock"
-                android:drawableTint="@color/azzurro_4"
+                android:drawableTint="@color/azzurro"
                 android:text="@string/rock"
                 style="@style/DarkModeButton" />
 
@@ -62,7 +62,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:drawableTop="@drawable/ico_nearby_paper"
-                android:drawableTint="@color/azzurro_4"
+                android:drawableTint="@color/azzurro"
                 android:text="@string/paper"
                 style="@style/DarkModeButton" />
 
@@ -73,7 +73,7 @@
                 android:layout_weight="0.33"
                 android:layout_marginStart="8dp"
                 android:drawableTop="@drawable/ico_nearby_scissors"
-                android:drawableTint="@color/azzurro_4"
+                android:drawableTint="@color/azzurro"
                 android:text="@string/scissors"
                 style="@style/DarkModeButton" />
 

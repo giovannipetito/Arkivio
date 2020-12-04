@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.customview.TextViewCustom
@@ -76,7 +77,6 @@ class CalendarViewHorizontalFragment : DetailFragment() {
         TODO("Not yet implemented")
     }
 
-    @Suppress("DEPRECATION")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -102,11 +102,11 @@ class CalendarViewHorizontalFragment : DetailFragment() {
                 }
                 if (daysOfWeek[index].name == DaysOfWeek.SATURDAY.name) {
                     setText(R.string.saturday)
-                    setTextColor(context?.resources!!.getColor(R.color.rosso_1))
+                    setTextColor(ContextCompat.getColor(context, R.color.rosso))
                 }
                 if (daysOfWeek[index].name == DaysOfWeek.SUNDAY.name) {
                     setText(R.string.sunday)
-                    setTextColor(context?.resources!!.getColor(R.color.rosso_1))
+                    setTextColor(ContextCompat.getColor(context, R.color.rosso))
                 }
             }
         }
@@ -152,23 +152,23 @@ class CalendarViewHorizontalFragment : DetailFragment() {
                 if (day.owner == DayOwner.THIS_MONTH) {
                     when (day.date) {
                         selectedDate -> {
-                            horizontalLabel.setTextColor(context?.resources?.getColor(R.color.verde_3)!!)
+                            horizontalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.verde))
                             horizontalLabel.setBackgroundResource(R.drawable.calendarview_selected_item)
 
                             val text = DateTimeFormatter.ofPattern("d MMMM yyyy").format(selectedDate)
                             Toast.makeText(context, "" + text, Toast.LENGTH_SHORT).show()
                         }
                         today -> {
-                            horizontalLabel.setTextColor(context?.resources?.getColor(R.color.rosso_1)!!)
+                            horizontalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.rosso))
                             horizontalLabel.background = null
                         }
                         else -> {
-                            horizontalLabel.setTextColor(context?.resources?.getColor(R.color.black_1)!!)
+                            horizontalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.black_1))
                             horizontalLabel.background = null
                         }
                     }
                 } else {
-                    horizontalLabel.setTextColor(context?.resources?.getColor(R.color.grey_2)!!)
+                    horizontalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.grey_2))
                     horizontalLabel.background = null
                     // horizontalLabel.visibility = View.INVISIBLE
                 }

@@ -9,7 +9,7 @@
             android:id="@+id/working_area_tabs"
             android:layout_width="match_parent"
             android:layout_height="44dp"
-            android:background="@color/azzurro_4"
+            android:background="@color/azzurro"
             app:tabSelectedTextColor="@android:color/white"
             app:tabTextAppearance="@style/TabTextStyle"
             app:tabTextColor="@color/white_transparent"

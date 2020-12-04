@@ -18,7 +18,6 @@ import javax.crypto.SecretKey
 import androidx.core.os.CancellationSignal
 import java.util.UUID
 
-@Suppress("DEPRECATION")
 open class BiometricManagerV23 {
 
     companion object {

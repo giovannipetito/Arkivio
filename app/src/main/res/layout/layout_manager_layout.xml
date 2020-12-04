@@ -109,15 +109,15 @@
                                 app:text_font="fira_sans_regular"
                                 app:text_selected_font="fira_sans_medium"
                                 app:text_color="@color/colorPrimary"
-                                app:text_selected_color="@color/verde_3"
+                                app:text_selected_color="@color/verde"
                                 app:progress_line_size="6dp"
                                 app:background_line_size="5dp"
-                                app:progress_line_color="@color/verde_3"
+                                app:progress_line_color="@color/verde"
                                 app:background_line_color="@color/grey_1"
                                 app:icon_progress="@drawable/ico_euro"
                                 app:indicator_circle_radius="20dp"
-                                app:indicator_shadow_color="@color/grey_5"
-                                app:indicator_background_color="@color/azzurro_2" />
+                                app:indicator_shadow_color="@color/grey_3"
+                                app:indicator_background_color="@color/azzurro" />
 
                         <RelativeLayout
                                 android:layout_width="match_parent"

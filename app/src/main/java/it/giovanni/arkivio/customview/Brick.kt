@@ -20,8 +20,8 @@ class Brick : RelativeLayout {
     private var callback: IFlexBoxCallback? = null
     private var mode: ModeType = ModeType.VIEW
     private var mInflater: LayoutInflater? = null
-    private var employeeName: TextView? = null
-    private var employeeEmail: TextView? = null
+    private var userName: TextView? = null
+    private var userEmail: TextView? = null
     private var container: RelativeLayout? = null
     private var icon: ImageView? = null
     private var isSelected: Boolean? = null
@@ -46,8 +46,8 @@ class Brick : RelativeLayout {
     private fun init() {
         val view = mInflater?.inflate(R.layout.brick, this, true)
         if (view != null) {
-            employeeName = view.findViewById(R.id.partecipante) as TextView
-            employeeEmail = view.findViewById(R.id.emailPartecipante) as TextView
+            userName = view.findViewById(R.id.partecipante) as TextView
+            userEmail = view.findViewById(R.id.emailPartecipante) as TextView
             container = view.findViewById(R.id.container) as RelativeLayout
             icon = view.findViewById(R.id.icon) as ImageView
         }
@@ -69,7 +69,7 @@ class Brick : RelativeLayout {
                 if (!isSelected!!) {
                     isSelected = true
                     // change color
-                    container!!.setBackgroundColor(ContextCompat.getColor(context, R.color.rosso_1))
+                    container!!.setBackgroundColor(ContextCompat.getColor(context, R.color.rosso))
                     icon!!.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ico_close_rvd))
                 } else {
                     // remove it!
@@ -87,18 +87,18 @@ class Brick : RelativeLayout {
     }
 
     fun setName(name: String) {
-        employeeName?.text = name
+        userName?.text = name
     }
 
     fun setEmail(email: String) {
-        employeeEmail?.text = email
+        userEmail?.text = email
     }
 
     fun getName(): String {
-        return employeeName?.text.toString()
+        return userName?.text.toString()
     }
 
     fun getEmail(): String {
-        return employeeEmail?.text.toString()
+        return userEmail?.text.toString()
     }
 }

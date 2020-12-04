@@ -11,7 +11,7 @@
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_50dp"
-            android:background="@color/azzurro_4">
+            android:background="@color/azzurro">
 
         <TextView
                 android:layout_width="wrap_content"
@@ -19,7 +19,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_centerVertical="true"
                 android:text="@string/activate_the_search"
-                android:textColor="@color/white_1"
+                android:textColor="@color/white"
                 android:textSize="16sp" />
 
         <RelativeLayout
@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:background="@color/white_1"
+                android:background="@color/white"
                 android:visibility="gone">
 
             <EditText
@@ -87,7 +87,7 @@
                 android:layout_height="wrap_content">
 
             <com.google.android.flexbox.FlexboxLayout
-                    android:id="@+id/partecipanti_flex_search_box"
+                    android:id="@+id/flexbox_users"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:alignContent="flex_start"
@@ -104,7 +104,7 @@
           android:background="@color/grey_1" />
 
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview_contacts"
+            android:id="@+id/recyclerview_users"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingBottom="@dimen/dimen_50dp"

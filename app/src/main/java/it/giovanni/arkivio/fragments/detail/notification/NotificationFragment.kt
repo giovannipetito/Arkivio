@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package it.giovanni.arkivio.fragments.detail.notification
 
 import android.annotation.SuppressLint
@@ -195,7 +197,7 @@ class NotificationFragment: DetailFragment() {
 
     private fun startNotificationService2() {
         val notificationService = NotificationService2()
-        val intentService: Intent? = Intent(context, notificationService::class.java)
+        val intentService = Intent(context, notificationService::class.java)
         if (!isServiceRunning(notificationService::class.java)) {
             currentActivity.startService(intentService)
         }
@@ -203,7 +205,7 @@ class NotificationFragment: DetailFragment() {
 
     private fun startNotificationService3() {
         val notificationService = NotificationService3()
-        val intentService: Intent? = Intent(context, notificationService::class.java)
+        val intentService = Intent(context, notificationService::class.java)
         if (!isServiceRunning(notificationService::class.java)) {
             currentActivity.startService(intentService)
         }
@@ -211,13 +213,12 @@ class NotificationFragment: DetailFragment() {
 
     private fun startNotificationService4() {
         val notificationService = NotificationService4()
-        val intentService: Intent? = Intent(context, notificationService::class.java)
+        val intentService = Intent(context, notificationService::class.java)
         if (!isServiceRunning(notificationService::class.java)) {
             currentActivity.startService(intentService)
         }
     }
 
-    @Suppress("DEPRECATION")
     private fun isServiceRunning(serviceClass: Class<*>): Boolean {
         val manager = currentActivity.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         for (service in manager.getRunningServices(Int.MAX_VALUE)) {

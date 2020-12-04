@@ -21,7 +21,7 @@ class PlayerGenerator {
             "Player 10"
         )
 
-        fun generate(): String? {
+        fun generate(): String {
             return PLAYERS[generator.nextInt(PLAYERS.size)]
         }
     }

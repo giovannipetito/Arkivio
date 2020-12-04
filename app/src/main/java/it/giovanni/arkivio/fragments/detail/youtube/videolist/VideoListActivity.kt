@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package it.giovanni.arkivio.fragments.detail.youtube.videolist
 
 import android.animation.Animator
@@ -15,7 +17,6 @@ import com.google.android.youtube.player.*
 import com.google.android.youtube.player.YouTubePlayer.OnFullscreenListener
 import it.giovanni.arkivio.R
 
-@Suppress("DEPRECATION")
 @TargetApi(13)
 class VideoListActivity : Activity(), OnFullscreenListener {
 
@@ -44,7 +45,7 @@ class VideoListActivity : Activity(), OnFullscreenListener {
                 animate()?.
                 translationYBy(videoBox?.height?.toFloat()!!)?.
                 setDuration(ANIMATION_DURATION_MILLIS.toLong())!!
-            runOnAnimationEnd(animator, Runnable { videoBox!!.visibility = View.INVISIBLE })
+            runOnAnimationEnd(animator) { videoBox!!.visibility = View.INVISIBLE }
         }
     }
 

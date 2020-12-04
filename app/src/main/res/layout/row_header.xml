@@ -3,14 +3,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dimen_10dp"
-                android:background="@color/azzurro_4">
+                android:background="@color/azzurro">
 
     <TextView
             android:id="@+id/text_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:textColor="@color/white_1"
+            android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold" />
 

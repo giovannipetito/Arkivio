@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.bean.Persona
+import it.giovanni.arkivio.bean.user.User
 import it.giovanni.arkivio.customview.Brick
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.viewinterfaces.IFlexBoxCallback
@@ -17,7 +17,7 @@ import kotlin.math.roundToInt
 class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback {
 
     private var viewFragment: View? = null
-    private var contacts: ArrayList<Persona>? = null
+    private var users: ArrayList<User>? = null
 
     override fun getLayout(): Int {
         return R.layout.rubrica_home_layout
@@ -66,42 +66,41 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback {
         TODO("Not yet implemented")
     }
 
-    @Suppress("DEPRECATION")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        contacts = ArrayList()
+        users = ArrayList()
 
         final_step_users.setOnClickListener {
 
-            val contactsBundle = Bundle()
-            val contacts = ArrayList<Persona>()
-            val count = partecipanti_flex_box.childCount
+            val usersBundle = Bundle()
+            val list = ArrayList<User>()
+            val count = flexbox_layout_users.childCount
             if (count > 0) {
                 for (index in 1..count) {
-                    val eb = (partecipanti_flex_box.getChildAt(index - 1) as Brick)
-                    val contact = Persona(eb.getName(), eb.getName(), "", "", "", "", "", true)
-                    contacts.add(contact)
+                    val brick = (flexbox_layout_users.getChildAt(index - 1) as Brick)
+                    val user = User(brick.getName(), brick.getName(), "", "", ArrayList(), "", "", true)
+                    list.add(user)
                 }
             }
-            contactsBundle.putSerializable(RubricaListFragment.KEY_EMPLOYEES, contacts)
-            currentActivity.openDetail(Globals.RUBRICA_LIST, contactsBundle, this@RubricaHomeFragment, Globals.REQUEST_CODE_EVENT_EMPLOYEE_SEARCH)
+            usersBundle.putSerializable(RubricaListFragment.KEY_USERS, list)
+            currentActivity.openDetail(Globals.RUBRICA_LIST, usersBundle, this@RubricaHomeFragment, Globals.REQUEST_CODE_EVENT_USER_SEARCH)
         }
 
-        partecipanti_flex_box.setOnClickListener {
+        flexbox_layout_users.setOnClickListener {
 
-            val contactsBundle = Bundle()
-            val contacts = ArrayList<Persona>()
-            val count = partecipanti_flex_box.childCount
+            val usersBundle = Bundle()
+            val list = ArrayList<User>()
+            val count = flexbox_layout_users.childCount
             if (count > 0) {
                 for (index in 1..count) {
-                    val eb = (partecipanti_flex_box.getChildAt(index - 1) as Brick)
-                    val contact = Persona(eb.getName(), eb.getName(), "", "", "", "", "", true)
-                    contacts.add(contact)
+                    val brick = (flexbox_layout_users.getChildAt(index - 1) as Brick)
+                    val user = User(brick.getName(), brick.getName(), "", "", ArrayList(), "", "", true)
+                    list.add(user)
                 }
             }
-            contactsBundle.putSerializable(RubricaListFragment.KEY_EMPLOYEES, contacts)
-            currentActivity.openDetail(Globals.RUBRICA_LIST, contactsBundle, this@RubricaHomeFragment, Globals.REQUEST_CODE_EVENT_EMPLOYEE_SEARCH)
+            usersBundle.putSerializable(RubricaListFragment.KEY_USERS, list)
+            currentActivity.openDetail(Globals.RUBRICA_LIST, usersBundle, this@RubricaHomeFragment, Globals.REQUEST_CODE_EVENT_USER_SEARCH)
         }
     }
 
@@ -109,20 +108,20 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == Globals.REQUEST_CODE_EVENT_EMPLOYEE_SEARCH && data != null && data.hasExtra(Globals.BACK_PARAM_KEY_EMPLOYEE_SEARCH)) {
+        if (requestCode == Globals.REQUEST_CODE_EVENT_USER_SEARCH && data != null && data.hasExtra(Globals.BACK_PARAM_KEY_USER_SEARCH)) {
 
-            contacts = data.getSerializableExtra(Globals.BACK_PARAM_KEY_EMPLOYEE_SEARCH) as ArrayList<Persona>
+            users = data.getSerializableExtra(Globals.BACK_PARAM_KEY_USER_SEARCH) as ArrayList<User>
 
-            if (contacts != null) {
-                partecipanti_flex_box.removeAllViews()
-                for (contact in contacts!!) {
-                    val employeeBrick = Brick(context!!)
-                    employeeBrick.mode(Brick.ModeType.VIEW)
-                    employeeBrick.setName(contact.nome!!)
-                    employeeBrick.callback(this)
-                    partecipanti_flex_box.addView(employeeBrick)
+            if (users != null) {
+                flexbox_layout_users.removeAllViews()
+                for (user in users!!) {
+                    val brick = Brick(context!!)
+                    brick.mode(Brick.ModeType.VIEW)
+                    brick.setName(user.nome!!)
+                    brick.callback(this)
+                    flexbox_layout_users.addView(brick)
                 }
-                setFlexBoxHeight(partecipanti_flex_box.childCount)
+                setFlexBoxHeight(flexbox_layout_users.childCount)
             }
         }
     }
@@ -130,11 +129,11 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback {
     private fun setFlexBoxHeight(brickCount: Int) {
         val density = resources.displayMetrics.density
         if (brickCount == 0) {
-            partecipanti_flex_box.visibility = View.GONE
+            flexbox_layout_users.visibility = View.GONE
             users_text.visibility = View.VISIBLE
             flexboxlayout_container.layoutParams.height = (50.toFloat() * density).roundToInt()
         } else {
-            partecipanti_flex_box.visibility = View.VISIBLE
+            flexbox_layout_users.visibility = View.VISIBLE
             users_text.visibility = View.GONE
             if (brickCount == 1)
                 flexboxlayout_container.layoutParams.height = (50.toFloat() * density).roundToInt()
@@ -146,4 +145,26 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback {
     }
 
     override fun flexBoxRemoved(position: Int) {}
+
+    private fun init(): ArrayList<User> {
+
+        val list = ArrayList<User>()
+        list.add(User("Giovanni", "Petito", "", "3331582355", arrayListOf("giovanni.petito88@gmail.com", "gi.petito@gmail.com"), "Via Casoretto 60, Milano (MI)", "Android Developer", false))
+        list.add(User("Raffaele", "Petito", "0818183301", "3802689011", arrayListOf("raffaele.petito@gmail.com"), "Via Santa Maria a Cubito 19, Giugliano in Campania (NA)", "Fotografo", false))
+        list.add(User("Teresa", "Petito", "", "3343540536", arrayListOf("teresa_petito@yahoo.it"), "Via Raffaele Carelli 8, Giugliano in Campania (NA)", "Commercialista", false))
+        list.add(User("Salvatore", "Pragliola", "", "3384672609", arrayListOf("salvatore.pragliola@gmail.com"), "Via Raffaele Carelli 8, Giugliano in Campania (NA)", "Marmista", false))
+        list.add(User("Angelina", "Basile", "0818183301", "3334392578", arrayListOf("basile.angela59@gmail.com"), "Via Santa Maria a Cubito 19, Giugliano in Campania (NA)", "Casalinga", false))
+        list.add(User("Vincenzo", "Petito", "0818183301", "3666872262", arrayListOf("vincenzo.petito@gmail.com"), "Via Santa Maria a Cubito 19, Giugliano in Campania (NA)", "Impiegato", false))
+        list.add(User("Giovanni", "Basile", "0818188619", "3884723340", arrayListOf("giovanni.basile@gmail.com"), "Via Santa Maria a Cubito 21, Giugliano in Campania (NA)", "Studente", false))
+        list.add(User("Marco", "Basile", "0818188619", "3892148853", arrayListOf("marco.basile@gmail.com"), "Via Santa Maria a Cubito 21, Giugliano in Campania (NA)", "Studente", false))
+        list.add(User("Antonio", "D'Ascia", "", "3315605694", arrayListOf("antonio.dascia@gmail.com"), "Corsico (MI)", "Impiegato", false))
+        list.add(User("Giovanni", "D'Ascia", "024404881", "3331711437", arrayListOf("giovanni.dascia@gmail.com"), "Via 4 Novembre 19, Corsico (MI)", "Impiegato", false))
+        list.add(User("Mariano", "Pinto", "", "3397016728", arrayListOf("mar.pinto3@gmail.com"), "", "Impiegato", false))
+        list.add(User("Pasquale", "Amato", "", "3665917760", arrayListOf("pasquale.amato@gmail.com"), "", "Impiegato", false))
+        list.add(User("Francesco", "Mongiello", "", "3299376402", arrayListOf("francesco.mongiello@gmail.com"), "", "Sacerdote", false))
+        list.add(User("Gianluigi", "Santillo", "", "3386124867", arrayListOf("gianluigi.santillo@gmail.com"), "Via Conte Rosso 11, Milano (MI)", "Project Manager", false))
+        list.add(User("Daniele", "Musacchia", "", "3494977374", arrayListOf("danielemusacchia@hotmail.it"), "Monza (MB)", "Impiegato", false))
+
+        return list
+    }
 }

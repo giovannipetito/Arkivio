@@ -3,7 +3,7 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:background="@color/white_1">
+              android:background="@color/white">
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -23,7 +23,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginStart="37dp"
                     android:text="Dalle"
-                    android:textColor="@color/white_1"
+                    android:textColor="@color/white"
                     android:textSize="18sp" />
 
             <TextView
@@ -33,7 +33,7 @@
                     android:layout_marginTop="24dp"
                     android:layout_marginStart="34dp"
                     android:text="12:00"
-                    android:textColor="@color/white_1"
+                    android:textColor="@color/white"
                     android:textSize="50sp" />
 
             <TextView
@@ -45,14 +45,14 @@
                     android:layout_marginBottom="12dp"
                     android:text="INIZIO"
                     android:textSize="12sp"
-                    android:textColor="@color/white_1"
+                    android:textColor="@color/white"
                     android:textStyle="bold" />
 
             <RelativeLayout
                     android:id="@+id/start_tab_indicator"
                     android:layout_width="match_parent"
                     android:layout_height="4dp"
-                    android:background="@color/white_1"
+                    android:background="@color/white"
                     android:layout_alignParentBottom="true">
 
             </RelativeLayout>
@@ -79,7 +79,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginStart="37dp"
                     android:text="Alle"
-                    android:textColor="@color/white_1"
+                    android:textColor="@color/white"
                     android:textSize="18sp" />
 
             <TextView
@@ -89,7 +89,7 @@
                     android:layout_marginTop="24dp"
                     android:layout_marginStart="34dp"
                     android:text="13:00"
-                    android:textColor="@color/white_1"
+                    android:textColor="@color/white"
                     android:textSize="50sp" />
 
             <TextView
@@ -101,7 +101,7 @@
                     android:layout_marginBottom="12dp"
                     android:text="FINE"
                     android:textSize="12sp"
-                    android:textColor="@color/white_1"
+                    android:textColor="@color/white"
                     android:textStyle="bold"
                     android:alpha="0.4" />
 
@@ -109,7 +109,7 @@
                     android:id="@+id/end_tab_indicator"
                     android:layout_width="match_parent"
                     android:layout_height="4dp"
-                    android:background="@color/white_1"
+                    android:background="@color/white"
                     android:layout_alignParentBottom="true"
                     android:visibility="gone">
 

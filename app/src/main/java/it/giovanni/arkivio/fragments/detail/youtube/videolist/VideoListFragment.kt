@@ -14,7 +14,6 @@ import java.util.*
  * A fragment that shows a static list of videos.
  */
 
-@Suppress("DEPRECATION")
 class VideoListFragment : ListFragment() {
 
     companion object {

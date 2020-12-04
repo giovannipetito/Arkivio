@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package it.giovanni.arkivio.fragments.homepage
 
 import android.annotation.SuppressLint
@@ -35,14 +37,13 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-@Suppress("DEPRECATION")
 class HomePageFragment : HomeFragment() {
 
     /*
     - Click on Gradle (from right side panel)
     - Click on your project
     - Click on Tasks
-    - Click on Android
+    - Click on android
     - Double click on signingReport
     You will get SHA1 and MD5 in Run Tab:
 

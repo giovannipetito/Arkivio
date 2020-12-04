@@ -33,7 +33,7 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
 
     // Once the devices are connected, they can send messages to each other.
 
-    private val TAG = "NearbyChatFragment"
+    private val mTag = NearbyChatFragment::class.java.simpleName
     private var viewFragment: View? = null
 
     /**
@@ -42,8 +42,8 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
      *
      * To set advertising or discovery to run indefinitely, use 0L where timeouts are required.
      */
-    private val TIMEOUT_ADVERTISE = 1000L * 30L
-    private val TIMEOUT_DISCOVER = 1000L * 30L
+    private val timeoutAdvertise = 1000L * 30L
+    private val timeoutDiscover = 1000L * 30L
 
     /**
      * Possible states for this application:
@@ -178,13 +178,13 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
 
     override fun onStart() {
         super.onStart()
-        Log.i(TAG, "onStart")
+        Log.i(mTag, "onStart")
         googleApiClient!!.connect()
     }
 
     override fun onStop() {
         super.onStop()
-        Log.i(TAG, "onStop")
+        Log.i(mTag, "onStop")
 
         // Disconnect the Google API client and stop any ongoing discovery or advertising. When the
         // GoogleAPIClient is disconnected, any connected peers will get an onDisconnected callback.
@@ -219,10 +219,10 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
             googleApiClient,
             name,
             appMetadata,
-            TIMEOUT_ADVERTISE,
+            timeoutAdvertise,
             connectionRequestListener
         ).setResultCallback { result: StartAdvertisingResult ->
-            Log.i(TAG, "startAdvertising:onResult: $result")
+            Log.i(mTag, "startAdvertising:onResult: $result")
             if (result.status.isSuccess) {
                 debugLog("startAdvertising:onResult: SUCCESS")
                 updateViewVisibility(STATE_ADVERTISING)
@@ -258,7 +258,7 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
         Nearby.Connections.startDiscovery(
             googleApiClient,
             serviceId,
-            TIMEOUT_DISCOVER,
+            timeoutDiscover,
             endpointDiscoveryListener
         ).setResultCallback { status: Status ->
             if (status.isSuccess) {
@@ -311,7 +311,7 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
         val myName = "Giovanni"
         Nearby.Connections.sendConnectionRequest(
             googleApiClient, myName, endpointId, null, { endpointId1: String, status: Status, _: ByteArray? ->
-                Log.i(TAG, "onConnectionResponse: $endpointId1: $status")
+                Log.i(mTag, "onConnectionResponse: $endpointId1: $status")
                 if (status.isSuccess) {
                     debugLog("onConnectionResponse: $endpointName SUCCESS")
                     Toast.makeText(context, "Connected to $endpointName", Toast.LENGTH_SHORT).show()
@@ -361,7 +361,7 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
 
     fun onEndpointFound(endpointId: String, endpointName: String) {
 
-        Log.i(TAG, "onEndpointFound:$endpointId:$endpointName")
+        Log.i(mTag, "onEndpointFound:$endpointId:$endpointName")
 
         // This device is discovering endpoints and has located an advertiser. Display a dialog to
         // the user asking if they want to connect, and send a connection request if they do.
@@ -375,12 +375,12 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
                 }
 
             // Create the MyListDialog with a listener
-            nearbyDialog = NearbyDialog(context!!, builder, DialogInterface.OnClickListener { _: DialogInterface?, which: Int ->
+            nearbyDialog = NearbyDialog(context!!, builder) { _: DialogInterface?, which: Int ->
                 val selectedEndpointName = nearbyDialog!!.getItemKey(which)
                 val selectedEndpointId = nearbyDialog!!.getItemValue(which)
                 this@NearbyChatFragment.connectTo(selectedEndpointId!!, selectedEndpointName)
                 nearbyDialog!!.dismiss()
-            })
+            }
         }
         nearbyDialog?.addItem(endpointName, endpointId)
         nearbyDialog?.show()
@@ -457,7 +457,7 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
      * @param message the message to print and display.
      */
     private fun debugLog(message: String) {
-        Log.i(TAG, message)
+        Log.i(mTag, message)
         debugText!!.append("""$message """.trimIndent()) // In Java: debugText.append("\n" + message);
     }
 }

@@ -1,13 +1,9 @@
 package it.giovanni.arkivio.bean
 
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 class Persona : Serializable, Cloneable {
 
-    @SerializedName("nome")
-    @Expose
     var nome: String? = null
     var cognome: String? = null
     var fisso: String? = null
@@ -15,9 +11,9 @@ class Persona : Serializable, Cloneable {
     var email: String? = null
     var indirizzo: String? = null
     var occupazione: String? = null
-    var checked: Boolean? = null
     var isVisible: Boolean? = null
     var tipo: Int? = null
+    private var checked: Boolean? = null
 
     companion object {
         const val HEADER_TYPE = 0
@@ -39,26 +35,7 @@ class Persona : Serializable, Cloneable {
         this.checked = checked
     }
 
-    constructor(nome: String,
-                cognome: String,
-                fisso: String,
-                cellulare: String,
-                email: String,
-                indirizzo: String,
-                occupazione: String,
-                isVisible: Boolean) {
-
-        this.nome = nome
-        this.cognome = cognome
-        this.fisso = fisso
-        this.cellulare = cellulare
-        this.email = email
-        this.indirizzo = indirizzo
-        this.occupazione = occupazione
-        this.isVisible = isVisible
-    }
-
-    fun cloneList(): Persona { // Su W3B, studiare le classi Servizi e Phx.
+    fun cloneObject(): Persona { // Su W3B, studiare le classi Servizi e Phx.
 
         val persona = Persona()
 

@@ -78,15 +78,14 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
         val binding: LayoutManagerLayoutBinding? = DataBindingUtil.inflate(inflater, R.layout.layout_manager_layout, container, false)
         viewFragment = binding?.root
 
-        val darkModePresenter: DarkModePresenter? = DarkModePresenter(this, context!!)
-        val model: DarkModeModel? = DarkModeModel(context!!)
+        val darkModePresenter = DarkModePresenter(this, context!!)
+        val model = DarkModeModel(context!!)
         binding?.temp = model
         binding?.presenter = darkModePresenter
 
         return viewFragment
     }
 
-    @Suppress("DEPRECATION")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -104,9 +103,9 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
 
         val drawableBar = GradientDrawable(
             GradientDrawable.Orientation.LEFT_RIGHT,
-            intArrayOf(resources.getColor(R.color.rosso_1),
-                resources.getColor(R.color.giallo_1),
-                resources.getColor(R.color.azzurro_5))
+            intArrayOf(resources.getColor(R.color.rosso),
+                resources.getColor(R.color.giallo),
+                resources.getColor(R.color.blu))
         )
 
         drawableBar.cornerRadius = 50f

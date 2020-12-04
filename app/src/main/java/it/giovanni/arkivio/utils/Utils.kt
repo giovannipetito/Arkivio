@@ -107,7 +107,6 @@ class Utils {
             return ThumbnailUtils.extractThumbnail(bitmap, dimension, dimension)
         }
 
-        @Suppress("DEPRECATION")
         fun setBitmapFromUrl(imageUrl: String, imageView: ImageView, activity: FragmentActivity) {
             try {
                 Executors.newSingleThreadExecutor().execute {
@@ -151,7 +150,7 @@ class Utils {
                         val bitmap: Bitmap = (defaultImage.drawable as BitmapDrawable).bitmap
                         activity.runOnUiThread {
                             imageView.setImageBitmap(bitmap)
-                            imageView.setColorFilter(context.resources.getColor(R.color.dark))
+                            imageView.setColorFilter(ContextCompat.getColor(context, R.color.dark))
                         }
                     }
                 }
@@ -175,7 +174,6 @@ class Utils {
 
         // Su W3B questo metodo viene utilizzato nella classe NotificationDetailFragment per
         // trasformare in stringa un testo Html.
-        @Suppress("DEPRECATION")
         @SuppressLint("ObsoleteSdkInt")
         fun fromHtml(htmlMessage: String?): Spanned {
             var html = htmlMessage
@@ -336,7 +334,6 @@ class Utils {
             }
         }
 
-        @Suppress("DEPRECATION")
         @SuppressLint("PackageManagerGetSignatures")
         fun getHashKey(context: Context): String? {
 
@@ -394,7 +391,6 @@ class Utils {
         }
         */
 
-        @Suppress("DEPRECATION")
         fun isOnline(): Boolean {
             var status = false
             val manager: ConnectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -410,14 +406,12 @@ class Utils {
          * Check if the device is connected (or connecting) to a WiFi network.
          * @return true if connected or connecting, false otherwise.
          */
-        @Suppress("DEPRECATION")
         fun isOnWiFiConnection(): Boolean {
             val manager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val networkInfo = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
             return networkInfo != null && networkInfo.isConnectedOrConnecting
         }
 
-        @Suppress("DEPRECATION")
         fun isOnMobileConnection(): Boolean {
             var result = false
             val manager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -555,7 +549,6 @@ class Utils {
             }
         }
 
-        @Suppress("DEPRECATION")
         fun setTextWebview(webview: WebView, body: String, context: Context) {
 
             val head = "<head><style>@font-face {font-family: 'Fira';src: url('file:///android_asset/fonts/fira_medium.ttf');}body {font-family: 'Fira';}</style></head>"
@@ -590,8 +583,24 @@ class Utils {
             }
             */
             webview.setPadding(0, 0, 0, 0)
-            webview.setBackgroundColor(context.resources.getColor(R.color.colorAccent))
+            webview.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent))
             webview.loadDataWithBaseURL("", text, "text/html", "utf-8", "")
+        }
+
+        fun getJsonFromAssets(context: Context, fileName: String): String? {
+            val jsonString: String
+            jsonString = try {
+                val inputStream: InputStream = context.assets.open(fileName)
+                val size: Int = inputStream.available()
+                val buffer = ByteArray(size)
+                inputStream.read(buffer)
+                inputStream.close()
+                String(buffer, charset("UTF-8"))
+            } catch (e: IOException) {
+                e.printStackTrace()
+                return null
+            }
+            return jsonString
         }
     }
 }

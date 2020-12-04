@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package it.giovanni.arkivio.fragments.detail.nearby.beacons
 
 import android.app.IntentService
@@ -24,7 +26,6 @@ class NearbyBeaconsService : IntentService("BackgroundSubscribeIntentService") {
         updateNotification()
     }
 
-    @Suppress("DEPRECATION")
     override fun onHandleIntent(intent: Intent?) {
 
         if (intent != null) {
@@ -42,7 +43,6 @@ class NearbyBeaconsService : IntentService("BackgroundSubscribeIntentService") {
         }
     }
 
-    @Suppress("DEPRECATION")
     private fun updateNotification() {
         val messages = NearbyBeaconsUtils.getCachedMessages(applicationContext)
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

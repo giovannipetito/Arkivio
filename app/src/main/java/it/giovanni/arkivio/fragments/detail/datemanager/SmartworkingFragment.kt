@@ -5,12 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import com.airbnb.paris.extensions.style
-import it.giovanni.arkivio.App
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.bean.SelectedDay
 import it.giovanni.arkivio.bean.SelectedDaysResponse
@@ -148,7 +148,6 @@ class SmartworkingFragment: DetailFragment() {
         return viewFragment
     }
 
-    @Suppress("DEPRECATION")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -285,7 +284,7 @@ class SmartworkingFragment: DetailFragment() {
                         val mBadges = badges!![day.date]
                         if (mBadges != null) {
                             badge.visibility = View.VISIBLE
-                            badge.setColorFilter(App.context.resources.getColor(mBadges[0].color))
+                            badge.setColorFilter(ContextCompat.getColor(context!!, mBadges[0].color))
                         }
                     }
 
@@ -298,7 +297,7 @@ class SmartworkingFragment: DetailFragment() {
 
                             if (badge.isInvisible) {
                                 itemLayout.setBackgroundResource(R.drawable.calendarview_selected_item)
-                                itemText.setTextColor(context?.resources?.getColor(R.color.colorPrimary)!!)
+                                itemText.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
                             }
 
                             if (badge.isVisible) {
@@ -318,15 +317,13 @@ class SmartworkingFragment: DetailFragment() {
                                             badge.visibility = View.INVISIBLE
                                             if (currentDay.toString() == day.date.toString()) {
                                                 itemLayout.setBackgroundResource(R.drawable.calendarview_today_item)
-                                                itemText.setTextColor(context?.resources?.getColor(R.color.azzurro_7)!!)
+                                                itemText.setTextColor(ContextCompat.getColor(context!!, R.color.blu))
                                             } else {
                                                 itemLayout.background = null
                                                 if (isDarkMode)
-                                                    itemText.setTextColor(context?.resources?.getColor(
-                                                        R.color.white_1)!!)
+                                                    itemText.setTextColor(ContextCompat.getColor(context!!, R.color.white))
                                                 else
-                                                    itemText.setTextColor(context?.resources?.getColor(
-                                                        R.color.dark)!!)
+                                                    itemText.setTextColor(ContextCompat.getColor(context!!, R.color.dark))
                                             }
                                             checkItemsStatus()
                                         },
@@ -350,13 +347,13 @@ class SmartworkingFragment: DetailFragment() {
                                     badge.visibility = View.INVISIBLE
                                     if (currentDay.toString() == day.date.toString()) {
                                         itemLayout.setBackgroundResource(R.drawable.calendarview_today_item)
-                                        itemText.setTextColor(context?.resources?.getColor(R.color.azzurro_7)!!)
+                                        itemText.setTextColor(ContextCompat.getColor(context!!, R.color.blu))
                                     } else {
                                         itemLayout.background = null
                                         if (isDarkMode)
-                                            itemText.setTextColor(context?.resources?.getColor(R.color.white_1)!!)
+                                            itemText.setTextColor(ContextCompat.getColor(context!!, R.color.white))
                                         else
-                                            itemText.setTextColor(context?.resources?.getColor(R.color.dark)!!)
+                                            itemText.setTextColor(ContextCompat.getColor(context!!, R.color.dark))
                                     }
                                     checkItemsStatus()
                                 }
@@ -364,7 +361,7 @@ class SmartworkingFragment: DetailFragment() {
                         }
                         currentDay.toString() == day.date.toString() -> {
                             itemLayout.setBackgroundResource(R.drawable.calendarview_today_item)
-                            itemText.setTextColor(context?.resources?.getColor(R.color.azzurro_7)!!)
+                            itemText.setTextColor(ContextCompat.getColor(context!!, R.color.blu))
                         }
                         else -> {
                             itemLayout.background = null
@@ -373,24 +370,24 @@ class SmartworkingFragment: DetailFragment() {
                                 itemLayout.isClickable = false
                                 itemLayout.isFocusable = false
                                 if (isDarkMode)
-                                    itemText.setTextColor(context?.resources?.getColor(R.color.arancio)!!)
+                                    itemText.setTextColor(ContextCompat.getColor(context!!, R.color.arancio))
                                 else
-                                    itemText.setTextColor(context?.resources?.getColor(R.color.arancio)!!)
+                                    itemText.setTextColor(ContextCompat.getColor(context!!, R.color.arancio))
                             } else {
                                 if (badge.isVisible)
-                                    itemText.setTextColor(context?.resources?.getColor(R.color.colorPrimary)!!)
+                                    itemText.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
                                 else {
                                     if (isDarkMode)
-                                        itemText.setTextColor(context?.resources?.getColor(R.color.white_1)!!)
+                                        itemText.setTextColor(ContextCompat.getColor(context!!, R.color.white))
                                     else
-                                        itemText.setTextColor(context?.resources?.getColor(R.color.dark)!!)
+                                        itemText.setTextColor(ContextCompat.getColor(context!!, R.color.dark))
                                 }
                             }
                         }
                     }
 
                     if (6 == day.date.dayOfWeek.value || 7 == day.date.dayOfWeek.value) {
-                        itemText.setTextColor(context?.resources?.getColor(R.color.rosso_1)!!)
+                        itemText.setTextColor(ContextCompat.getColor(context!!, R.color.rosso))
                         itemLayout.isClickable = false
                         itemLayout.isFocusable = false
                         if (currentDay.toString() == day.date.toString())
@@ -399,15 +396,15 @@ class SmartworkingFragment: DetailFragment() {
                     }
                 } else {
                     if (isDarkMode)
-                        itemText.setTextColor(context?.resources?.getColor(R.color.dark)!!)
+                        itemText.setTextColor(ContextCompat.getColor(context!!, R.color.dark))
                     else
-                        itemText.setTextColor(context?.resources?.getColor(R.color.grey_3)!!)
+                        itemText.setTextColor(ContextCompat.getColor(context!!, R.color.grey_3))
 
                     if (6 == day.date.dayOfWeek.value || 7 == day.date.dayOfWeek.value) {
                         if (isDarkMode)
-                            itemText.setTextColor(context?.resources?.getColor(R.color.red_transparent_1)!!)
+                            itemText.setTextColor(ContextCompat.getColor(context!!, R.color.red_transparent_1))
                         else
-                            itemText.setTextColor(context?.resources?.getColor(R.color.red_transparent_2)!!)
+                            itemText.setTextColor(ContextCompat.getColor(context!!, R.color.red_transparent_2))
                     }
                     itemLayout.background = null
                 }
@@ -427,15 +424,15 @@ class SmartworkingFragment: DetailFragment() {
             override fun bind(container: MonthViewContainer, month: CalendarMonth) {
 
                 if (isDarkMode) {
-                    container.monthHeader.setTextColor(context?.resources?.getColor(R.color.white_1)!!)
-                    container.yearHeader.setTextColor(context?.resources?.getColor(R.color.white_1)!!)
-                    container.pipe.setTextColor(context?.resources?.getColor(R.color.white_1)!!)
-                    container.separator.setBackgroundColor(context?.resources?.getColor(R.color.dark)!!)
+                    container.monthHeader.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                    container.yearHeader.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                    container.pipe.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                    container.separator.setBackgroundColor(ContextCompat.getColor(context!!, R.color.dark))
                 } else {
-                    container.monthHeader.setTextColor(context?.resources?.getColor(R.color.dark)!!)
-                    container.yearHeader.setTextColor(context?.resources?.getColor(R.color.dark)!!)
-                    container.pipe.setTextColor(context?.resources?.getColor(R.color.dark)!!)
-                    container.separator.setBackgroundColor(context?.resources?.getColor(R.color.grey_3)!!)
+                    container.monthHeader.setTextColor(ContextCompat.getColor(context!!, R.color.dark))
+                    container.yearHeader.setTextColor(ContextCompat.getColor(context!!, R.color.dark))
+                    container.pipe.setTextColor(ContextCompat.getColor(context!!, R.color.dark))
+                    container.separator.setBackgroundColor(ContextCompat.getColor(context!!, R.color.grey_3))
                 }
 
                 container.monthHeader.text = getUpperSimpleDate3(month.yearMonth.monthValue.toString())
@@ -445,36 +442,36 @@ class SmartworkingFragment: DetailFragment() {
                     (mView as TextViewCustom).apply {
                         if (daysOfWeek[index].name == DaysOfWeek.MONDAY.name) {
                             setText(R.string.monday)
-                            if (isDarkMode) setTextColor(context?.resources?.getColor(R.color.white_1)!!)
-                            else setTextColor(context?.resources?.getColor(R.color.dark)!!)
+                            if (isDarkMode) setTextColor(ContextCompat.getColor(context, R.color.white))
+                            else setTextColor(ContextCompat.getColor(context, R.color.dark))
                         }
                         if (daysOfWeek[index].name == DaysOfWeek.TUESDAY.name) {
                             setText(R.string.tuesday)
-                            if (isDarkMode) setTextColor(context?.resources?.getColor(R.color.white_1)!!)
-                            else setTextColor(context?.resources?.getColor(R.color.dark)!!)
+                            if (isDarkMode) setTextColor(ContextCompat.getColor(context, R.color.white))
+                            else setTextColor(ContextCompat.getColor(context, R.color.dark))
                         }
                         if (daysOfWeek[index].name == DaysOfWeek.WEDNESDAY.name) {
                             setText(R.string.wednesday)
-                            if (isDarkMode) setTextColor(context?.resources?.getColor(R.color.white_1)!!)
-                            else setTextColor(context?.resources?.getColor(R.color.dark)!!)
+                            if (isDarkMode) setTextColor(ContextCompat.getColor(context, R.color.white))
+                            else setTextColor(ContextCompat.getColor(context, R.color.dark))
                         }
                         if (daysOfWeek[index].name == DaysOfWeek.THURSDAY.name) {
                             setText(R.string.thursday)
-                            if (isDarkMode) setTextColor(context?.resources?.getColor(R.color.white_1)!!)
-                            else setTextColor(context?.resources?.getColor(R.color.dark)!!)
+                            if (isDarkMode) setTextColor(ContextCompat.getColor(context, R.color.white))
+                            else setTextColor(ContextCompat.getColor(context, R.color.dark))
                         }
                         if (daysOfWeek[index].name == DaysOfWeek.FRIDAY.name) {
                             setText(R.string.friday)
-                            if (isDarkMode) setTextColor(context?.resources?.getColor(R.color.white_1)!!)
-                            else setTextColor(context?.resources?.getColor(R.color.dark)!!)
+                            if (isDarkMode) setTextColor(ContextCompat.getColor(context, R.color.white))
+                            else setTextColor(ContextCompat.getColor(context, R.color.dark))
                         }
                         if (daysOfWeek[index].name == DaysOfWeek.SATURDAY.name) {
                             setText(R.string.saturday)
-                            setTextColor(context?.resources!!.getColor(R.color.rosso_1))
+                            setTextColor(ContextCompat.getColor(context, R.color.rosso))
                         }
                         if (daysOfWeek[index].name == DaysOfWeek.SUNDAY.name) {
                             setText(R.string.sunday)
-                            setTextColor(context?.resources!!.getColor(R.color.rosso_1))
+                            setTextColor(ContextCompat.getColor(context, R.color.rosso))
                         }
                     }
                 }

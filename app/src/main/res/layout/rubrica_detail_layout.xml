@@ -27,13 +27,13 @@
                     android:layout_marginStart="24dp">
 
                 <TextView
-                        android:id="@+id/contact_name"
+                        android:id="@+id/user_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:textSize="24sp"
                         android:textColor="@color/dark"
-                        android:text="Giovanni Petito"
+                        android:text="@string/name_surname_title"
                         android:ellipsize="end"
                         android:maxLines="1" />
 
@@ -276,7 +276,7 @@
                             android:layout_marginTop="16dp"
                             android:layout_gravity="center"
                             android:text="Mostra i contatti della rubrica"
-                            android:textColor="@color/verde_3"
+                            android:textColor="@color/verde"
                             android:textSize="16sp" />
 
                 </LinearLayout>

@@ -16,7 +16,7 @@
             android:layout_marginEnd="16dp">
 
         <RelativeLayout
-                android:id="@+id/final_step_people_container"
+                android:id="@+id/final_step_users_container"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp">
 
@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:minHeight="50dp"
                 android:layout_marginStart="18dp"
-                android:layout_toEndOf="@+id/final_step_people_container">
+                android:layout_toEndOf="@+id/final_step_users_container">
 
             <ScrollView
                     android:layout_width="match_parent"
@@ -46,7 +46,7 @@
                     android:focusable="true">
 
                 <com.google.android.flexbox.FlexboxLayout
-                        android:id="@+id/partecipanti_flex_box"
+                        android:id="@+id/flexbox_layout_users"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:alignItems="flex_start"
@@ -64,7 +64,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="6dp"
                     android:ellipsize="end"
-                    android:hint="Aggiungi contatti"
+                    android:hint="Aggiungi utenti"
                     android:maxLines="1"
                     android:textColor="@color/dark"
                     android:textColorHint="@color/grey_2"

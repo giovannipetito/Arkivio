@@ -40,12 +40,12 @@ class NearbyBeaconsFragment: DetailFragment(),
     OnConnectionFailedListener,
     OnSharedPreferenceChangeListener {
 
-    private val TAG = NearbyBeaconsFragment::class.java.simpleName
+    private val mTag = NearbyBeaconsFragment::class.java.simpleName
     private var viewFragment: View? = null
 
     private var subscribed = false
-    private val PERMISSIONS_REQUEST_CODE = 1
-    private val KEY_SUBSCRIBED = "subscribed"
+    private val permissionsRequestCode = 1
+    private val keySubscribed = "subscribed"
     private var googleApiClient: GoogleApiClient? = null // The entry point to Google Play Services.
     private val messagesList: MutableList<String> = ArrayList()
     private var adapter: ArrayAdapter<String>? = null // Adapter for working with messages from nearby beacons.
@@ -101,7 +101,7 @@ class NearbyBeaconsFragment: DetailFragment(),
         super.onViewCreated(view, savedInstanceState)
 
         if (savedInstanceState != null)
-            subscribed = savedInstanceState.getBoolean(KEY_SUBSCRIBED, false)
+            subscribed = savedInstanceState.getBoolean(keySubscribed, false)
 
         val cachedMessages = NearbyBeaconsUtils.getCachedMessages(context!!)
         messagesList.addAll(cachedMessages)
@@ -111,7 +111,7 @@ class NearbyBeaconsFragment: DetailFragment(),
         listView.adapter = adapter
 
         if (!havePermissions()) {
-            Log.i(TAG, "Requesting permissions needed for this app.")
+            Log.i(mTag, "Requesting permissions needed for this app.")
             requestPermissions()
         }
     }
@@ -130,7 +130,7 @@ class NearbyBeaconsFragment: DetailFragment(),
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        if (requestCode != PERMISSIONS_REQUEST_CODE) {
+        if (requestCode != permissionsRequestCode) {
             return
         }
         for (i in permissions.indices) {
@@ -144,20 +144,19 @@ class NearbyBeaconsFragment: DetailFragment(),
                 // the user. The user may still want to authorize location and use the app, and we present a
                 // Snackbar that directs them to go to Settings where they can grant the location permission.
                 if (shouldShowRequestPermissionRationale(permission)) {
-                    Log.i(TAG,"Permission denied without 'NEVER ASK AGAIN': $permission")
+                    Log.i(mTag,"Permission denied without 'NEVER ASK AGAIN': $permission")
                     showRequestPermissionsSnackbar()
                 } else {
-                    Log.i(TAG,"Permission denied with 'NEVER ASK AGAIN': $permission")
+                    Log.i(mTag,"Permission denied with 'NEVER ASK AGAIN': $permission")
                     showLinkToSettingsSnackbar()
                 }
             } else {
-                Log.i(TAG,"Permission granted, building GoogleApiClient")
+                Log.i(mTag,"Permission granted, building GoogleApiClient")
                 buildGoogleApiClient()
             }
         }
     }
 
-    @Suppress("DEPRECATION")
     @Synchronized
     private fun buildGoogleApiClient() {
         if (googleApiClient == null) {
@@ -180,7 +179,7 @@ class NearbyBeaconsFragment: DetailFragment(),
     }
 
     override fun onConnected(p0: Bundle?) {
-        Log.i(TAG, "GoogleApiClient connected")
+        Log.i(mTag, "GoogleApiClient connected")
         // Nearby.Messages.subscribe(...) requires a connected GoogleApiClient. For that reason,
         // we subscribe only once we have confirmation that GoogleApiClient is connected.
         // Nearby.Messages.subscribe(...) requires a connected GoogleApiClient. For that reason,
@@ -189,7 +188,7 @@ class NearbyBeaconsFragment: DetailFragment(),
     }
 
     override fun onConnectionSuspended(p0: Int) {
-        Log.i(TAG, "Connection suspended. Error code: $p0")
+        Log.i(mTag, "Connection suspended. Error code: $p0")
     }
 
     override fun onConnectionFailed(p0: ConnectionResult) {
@@ -212,7 +211,7 @@ class NearbyBeaconsFragment: DetailFragment(),
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putBoolean(KEY_SUBSCRIBED, subscribed)
+        outState.putBoolean(keySubscribed, subscribed)
     }
 
     private fun havePermissions(): Boolean {
@@ -223,24 +222,23 @@ class NearbyBeaconsFragment: DetailFragment(),
         ActivityCompat.requestPermissions(
             currentActivity,
             arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-            PERMISSIONS_REQUEST_CODE
+            permissionsRequestCode
         )
     }
 
-    @Suppress("DEPRECATION")
     private fun subscribe() {
         // In this sample, we subscribe when the activity is launched, but not on device orientation change.
         if (subscribed) {
-            Log.i(TAG, "Already subscribed.")
+            Log.i(mTag, "Already subscribed.")
             return
         }
         val options = SubscribeOptions.Builder().setStrategy(Strategy.BLE_ONLY).build()
         Nearby.Messages.subscribe(googleApiClient, getPendingIntent(), options).setResultCallback { status: Status ->
             if (status.isSuccess) {
-                Log.i(TAG, "Subscribed successfully.")
+                Log.i(mTag, "Subscribed successfully.")
                 currentActivity.startService(getBackgroundSubscribeServiceIntent())
             } else {
-                Log.i(TAG,"Operation failed. Error: " + NearbyMessagesStatusCodes.getStatusCodeString(status.statusCode))
+                Log.i(mTag,"Operation failed. Error: " + NearbyMessagesStatusCodes.getStatusCodeString(status.statusCode))
             }
         }
     }
@@ -249,12 +247,12 @@ class NearbyBeaconsFragment: DetailFragment(),
         return PendingIntent.getService(
             context,
             0,
-            getBackgroundSubscribeServiceIntent()!!,
+            getBackgroundSubscribeServiceIntent(),
             PendingIntent.FLAG_UPDATE_CURRENT
         )
     }
 
-    private fun getBackgroundSubscribeServiceIntent(): Intent? {
+    private fun getBackgroundSubscribeServiceIntent(): Intent {
         return Intent(context, NearbyBeaconsService::class.java)
     }
 
@@ -284,7 +282,7 @@ class NearbyBeaconsFragment: DetailFragment(),
             ActivityCompat.requestPermissions(
                 currentActivity,
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                PERMISSIONS_REQUEST_CODE
+                permissionsRequestCode
             )
         }.show()
     }

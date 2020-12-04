@@ -143,7 +143,7 @@ open class CustomDialogPopup : AlertDialog.Builder {
             TYPE_ERROR -> {
                 leftButton.setTextColor(ContextCompat.getColor(context, R.color.grey_3))
                 centerButton.setTextColor(ContextCompat.getColor(context, R.color.grey_3))
-                rightButton.setTextColor(ContextCompat.getColor(context, R.color.rosso_1))
+                rightButton.setTextColor(ContextCompat.getColor(context, R.color.rosso))
             }
         }
 

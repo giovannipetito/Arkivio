@@ -63,7 +63,7 @@ class DialogFlowFragment : BaseFragment(SectionType.DIALOG_FLOW) {
                     currentActivity.openDetail(Globals.RUBRICA_HOME, null)
                 } else if (result[0].contains("Giovanni")) {
                     val contact = Bundle()
-                    contact.putString(RubricaListFragment.KEY_SPEECH_EMPLOYEES, result[0])
+                    contact.putString(RubricaListFragment.KEY_SPEECH_USERS, result[0])
                     currentActivity.openDetail(Globals.RUBRICA_LIST, contact)
                 }
             }

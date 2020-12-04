@@ -20,7 +20,7 @@ import kotlin.collections.ArrayList
 
 class PreferenceListFragment: DetailFragment(), PreferenceListAdapter.OnItemViewClicked {
 
-    private var THRESHOLD = 3
+    private var threshold = 3
     private var viewFragment: View? = null
     private var button: Button? = null
     private var checkedList: ArrayList<Persona>? = null
@@ -101,22 +101,22 @@ class PreferenceListFragment: DetailFragment(), PreferenceListAdapter.OnItemView
 
         // Attraverso il metodo cloneListaPersone() e la logica presente nella classe Persona, gli elementi della lista
         // clonedList clonata da list non punteranno alla stessa area di memoria degli elementi della lista list.
-        clonedList = cloneListaPersone(list)
+        clonedList = cloneList(list)
     }
 
     override fun onItemClicked(persona: Persona, isChecked: Boolean): Boolean {
 
-        if (isChecked && checkedList?.size!! < THRESHOLD) {
+        if (isChecked && checkedList?.size!! < threshold) {
             checkedList?.add(persona)
             checkedContacts?.add(persona.nome!!)
-            button?.isEnabled = checkedList?.size!! in 1..THRESHOLD
+            button?.isEnabled = checkedList?.size!! in 1..threshold
             return true
         } else if (!isChecked) {
             checkedList?.remove(persona)
             checkedContacts?.remove(persona.nome!!)
-            button?.isEnabled = checkedList?.size!! in 1..THRESHOLD
+            button?.isEnabled = checkedList?.size!! in 1..threshold
             return true
-        } else if (checkedList?.size!! == THRESHOLD) {
+        } else if (checkedList?.size!! == threshold) {
             Toast.makeText(context, "Seleziona al massimo 3 elementi.", Toast.LENGTH_SHORT).show()
             return false
         }
@@ -134,11 +134,11 @@ class PreferenceListFragment: DetailFragment(), PreferenceListAdapter.OnItemView
         return backIntent
     }
 
-    private fun cloneListaPersone(list: ArrayList<Persona>?): ArrayList<Persona>? {
+    private fun cloneList(list: ArrayList<Persona>?): ArrayList<Persona>? {
         return if (list != null) {
             val clonedList = ArrayList<Persona>()
             for (i in list.indices) {
-                clonedList.add(list[i].cloneList())
+                clonedList.add(list[i].cloneObject())
             }
             clonedList
         } else null

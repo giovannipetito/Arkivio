@@ -29,18 +29,17 @@ import it.giovanni.arkivio.fragments.detail.nearby.search.DeviceMessage.Companio
 import it.giovanni.arkivio.fragments.detail.nearby.search.DeviceMessage.Companion.newNearbyMessage
 import java.util.*
 
-@Suppress("DEPRECATION")
 class NearbySearchFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFailedListener {
 
-    private val TAG = "NearbySearchFragment"
+    private val mTag = NearbySearchFragment::class.java.simpleName
     private var viewFragment: View? = null
 
-    private val TTL_IN_SECONDS = 3 * 60 // Three minutes.
+    private val ttlSeconds = 3 * 60 // Three minutes.
 
-    private val KEY_UUID = "key_uuid" // Key used in writing to and reading from SharedPreferences.
+    private val keyUUID = "key_uuid" // Key used in writing to and reading from SharedPreferences.
 
     // Sets the time in seconds for a published message or a subscription to live.
-    private val PUB_SUB_STRATEGY = Strategy.Builder().setTtlSeconds(TTL_IN_SECONDS).build()
+    private val pubSubStrategy = Strategy.Builder().setTtlSeconds(ttlSeconds).build()
 
     // The entry point to Google Play Services.
     private var googleApiClient: GoogleApiClient? = null
@@ -61,10 +60,10 @@ class NearbySearchFragment: DetailFragment(), ConnectionCallbacks, OnConnectionF
     // message to avoid it being undelivered due to de-duplication.
     private fun getUUID(sharedPreferences: SharedPreferences): String? {
 
-        var uuid = sharedPreferences.getString(KEY_UUID, "")
+        var uuid = sharedPreferences.getString(keyUUID, "")
         if (TextUtils.isEmpty(uuid)) {
             uuid = UUID.randomUUID().toString()
-            sharedPreferences.edit().putString(KEY_UUID, uuid).apply()
+            sharedPreferences.edit().putString(keyUUID, uuid).apply()
         }
         return uuid
     }
@@ -167,7 +166,6 @@ class NearbySearchFragment: DetailFragment(), ConnectionCallbacks, OnConnectionF
         buildGoogleApiClient()
     }
 
-    @Suppress("DEPRECATION")
     private fun buildGoogleApiClient() {
         if (googleApiClient != null) {
             return
@@ -180,7 +178,7 @@ class NearbySearchFragment: DetailFragment(), ConnectionCallbacks, OnConnectionF
     }
 
     override fun onConnected(bundle: Bundle?) {
-        Log.i(TAG, "GoogleApiClient connected")
+        Log.i(mTag, "GoogleApiClient connected")
         // We use the Switch buttons in the UI to track whether we were previously doing pub/sub.
         // Since the GoogleApiClient disconnects when the activity is destroyed, foreground pubs/subs
         // do not survive device rotation. Once this activity is re-created and GoogleApiClient connects,
@@ -201,22 +199,22 @@ class NearbySearchFragment: DetailFragment(), ConnectionCallbacks, OnConnectionF
 
     // Subscribes to messages from nearby devices and updates the UI if the subscription either fails or TTLs.
     private fun subscribe() {
-        Log.i(TAG, "Subscribing")
+        Log.i(mTag, "Subscribing")
         nearbyDevicesAdapter!!.clear()
 
         val options = SubscribeOptions.Builder()
-            .setStrategy(PUB_SUB_STRATEGY)
+            .setStrategy(pubSubStrategy)
             .setCallback(object : SubscribeCallback() {
                 override fun onExpired() {
                     super.onExpired()
-                    Log.i(TAG, "No longer subscribing")
+                    Log.i(mTag, "No longer subscribing")
                     currentActivity.runOnUiThread { subscribeSwitch!!.isChecked = false }
                 }
             }).build()
 
         Nearby.Messages.subscribe(googleApiClient, messageListener, options).setResultCallback { status: Status ->
                 if (status.isSuccess) {
-                    Log.i(TAG, "Subscribed successfully.")
+                    Log.i(mTag, "Subscribed successfully.")
                 } else {
                     logAndShowSnackbar("Could not subscribe, status = $status")
                     subscribeSwitch!!.isChecked = false
@@ -226,21 +224,21 @@ class NearbySearchFragment: DetailFragment(), ConnectionCallbacks, OnConnectionF
 
     // Publishes a message to nearby devices and updates the UI if the publication either fails or TTLs.
     private fun publish() {
-        Log.i(TAG, "Publishing")
+        Log.i(mTag, "Publishing")
 
         val options = PublishOptions.Builder()
-            .setStrategy(PUB_SUB_STRATEGY)
+            .setStrategy(pubSubStrategy)
             .setCallback(object : PublishCallback() {
                 override fun onExpired() {
                     super.onExpired()
-                    Log.i(TAG, "No longer publishing")
+                    Log.i(mTag, "No longer publishing")
                     currentActivity.runOnUiThread { publishSwitch!!.isChecked = false }
                 }
             }).build()
 
         Nearby.Messages.publish(googleApiClient, message, options).setResultCallback { status: Status ->
                 if (status.isSuccess) {
-                    Log.i(TAG, "Published successfully.")
+                    Log.i(mTag, "Published successfully.")
                 } else {
                     logAndShowSnackbar("Could not publish, status = $status")
                     publishSwitch!!.isChecked = false
@@ -250,19 +248,19 @@ class NearbySearchFragment: DetailFragment(), ConnectionCallbacks, OnConnectionF
 
     // Stops subscribing to messages from nearby devices.
     private fun unsubscribe() {
-        Log.i(TAG, "Unsubscribing.")
+        Log.i(mTag, "Unsubscribing.")
         Nearby.Messages.unsubscribe(googleApiClient, messageListener)
     }
 
     // Stops publishing message to nearby devices.
     private fun unpublish() {
-        Log.i(TAG, "Unpublishing.")
+        Log.i(mTag, "Unpublishing.")
         Nearby.Messages.unpublish(googleApiClient, message)
     }
 
     // Logs a message and shows a Snackbar using the String text that is used in the Log message and the SnackBar.
     private fun logAndShowSnackbar(text: String) {
-        Log.i(TAG, text)
+        Log.i(mTag, text)
         val container: View = viewFragment!!.findViewById(R.id.nearby_search_container)
         Snackbar.make(container, text, Snackbar.LENGTH_LONG).show()
     }

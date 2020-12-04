@@ -3,7 +3,7 @@
         android:id="@+id/progress_bar_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_24dp"
-        android:background="@color/white_1" >
+        android:background="@color/white" >
 
     <RelativeLayout
             android:id="@+id/progress_bar"

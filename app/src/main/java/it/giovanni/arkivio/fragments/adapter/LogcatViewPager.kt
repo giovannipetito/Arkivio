@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package it.giovanni.arkivio.fragments.adapter
 
 import android.os.Bundle
@@ -6,7 +8,6 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import it.giovanni.arkivio.fragments.detail.logcat.ContentFragment
 
-@Suppress("DEPRECATION")
 class LogcatViewPager(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
 
     private var fragmentList: ArrayList<ContentFragment> = ArrayList()

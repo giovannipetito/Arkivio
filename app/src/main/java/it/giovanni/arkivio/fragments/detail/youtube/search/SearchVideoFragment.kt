@@ -20,7 +20,6 @@ import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.fragments.detail.youtube.YoutubeConnector
 import kotlinx.android.synthetic.main.search_video_layout.*
 
-@Suppress("DEPRECATION")
 class SearchVideoFragment: DetailFragment(), SearchVideoAdapter.OnItemViewClicked {
 
     private var viewFragment: View? = null

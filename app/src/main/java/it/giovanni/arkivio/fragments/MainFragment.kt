@@ -59,17 +59,17 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
     }
 
     private var defaultX: Float = 0f
-    private var TRANSITION_TIME: Long = 100
+    private var transitionTime: Long = 100
     var animationFinish = true
     private var previousTab: Int = TAB_INDEX_HOME
     private lateinit var fragmentAdapter: HomeFragmentAdapter
-    private val END_SCALE = 0.9f
+    private val endScale = 0.9f
     private var listLink: ArrayList<Link>? = null
     private var listLinkSide: ArrayList<LinkSide>? = null
-    private val WEBVIEW_TYPE = "webview"
-    private val APPLINK_TYPE = "inAppLink"
-    private val APP_TYPE = "app"
-    private val EXT_TYPE = "ext"
+    private val webviewType = "webview"
+    private val appLinkType = "inAppLink"
+    private val appType = "app"
+    private val extType = "ext"
     private var bundleDeepLink: Bundle = Bundle()
 
     private lateinit var customPopup: CustomDialogPopup
@@ -234,7 +234,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
 
                 if (loadCompressStateFromPreferences()) {
                     // Scale the View based on current slide offset
-                    val diffScaledOffset = slideOffset * (1 - END_SCALE)
+                    val diffScaledOffset = slideOffset * (1 - endScale)
                     val offsetScale = 1 - diffScaledOffset
                     container.scaleX = offsetScale
                     container.scaleY = offsetScale
@@ -246,7 +246,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
                     container.translationX = -xTranslation
                 } else {
                     // Scale the View based on current slide offset
-                    val diffScaledOffset = slideOffset * (1 - END_SCALE)
+                    val diffScaledOffset = slideOffset * (1 - endScale)
                     val offsetScale = 1.0f
                     container.scaleX = offsetScale
                     container.scaleY = offsetScale
@@ -338,12 +338,12 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
 
             linkItem.setOnClickListener {
                 when (item.type) {
-                    WEBVIEW_TYPE -> {
+                    webviewType -> {
                         bundleDeepLink.putString("link_deeplink", item.name)
                         bundleDeepLink.putString("url_deeplink", item.link)
                         currentActivity.openDetail(Globals.WEB_VIEW, bundleDeepLink)
                     }
-                    APPLINK_TYPE -> {
+                    appLinkType -> {
                         if (item.link == "waw3://cinema") {
                             // gAnalytics.sendEvent(Mapping.GAnalyticsKey.CATEGORY_EXTERNAL_LINK, "Click", "GrandeCinema3", null)
                             getGPSCoordinates()
@@ -351,13 +351,13 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
                             currentActivity.openDetail(Globals.RUBRICA_HOME, null)
                         }
                     }
-                    APP_TYPE -> {
+                    appType -> {
                         // val params = Bundle()
                         // params.putString(Mapping.WAW3Key.WAW3_LINK, item.analyticsLabel)
                         // trackEvent(params)
                         currentActivity.openApp(item.appLinkAndroid)
                     }
-                    EXT_TYPE -> {
+                    extType -> {
                         currentActivity.openBrowser(item.link)
                     }
                 }
@@ -392,19 +392,19 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
             labelName.setOnClickListener {
                 closeSideMenu()
                 when (item.type) {
-                    WEBVIEW_TYPE -> {
+                    webviewType -> {
                         bundleDeepLink.putString("link_deeplink", item.name)
                         bundleDeepLink.putString("url_deeplink", item.link)
                         currentActivity.openDetail(Globals.WEB_VIEW, bundleDeepLink)
                     }
-                    APPLINK_TYPE -> {
+                    appLinkType -> {
                         currentActivity.openDetail(Globals.RUBRICA_HOME, null)
                     }
-                    APP_TYPE -> {
+                    appType -> {
                         currentActivity.openApp(item.appLinkAndroid)
                     }
 
-                    EXT_TYPE -> {
+                    extType -> {
                         currentActivity.openBrowser(item.link)
                     }
                 }
@@ -561,7 +561,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
                 "translationX",
                 offset
             ).apply {
-                duration = TRANSITION_TIME
+                duration = transitionTime
             }
 
             valueAnimator.addListener(object : AnimatorListenerAdapter() {
@@ -589,7 +589,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
 
         // your image view here - backgroundImageView
         imageView.setImageDrawable(transitionDrawable)
-        transitionDrawable.startTransition(TRANSITION_TIME.toInt())
+        transitionDrawable.startTransition(transitionTime.toInt())
         transitionDrawable.isCrossFadeEnabled = false // call public methods
     }
 

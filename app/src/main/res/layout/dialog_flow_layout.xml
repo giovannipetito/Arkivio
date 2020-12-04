@@ -48,7 +48,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="6dp"
                     android:text="Ciao,\ncome posso aiutarti?"
-                    android:textColor="@color/white_1"
+                    android:textColor="@color/white"
                     android:textSize="24sp" />
 
             <ScrollView android:layout_width="match_parent"
@@ -84,7 +84,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="6dp"
                     android:text="Ecco alcuni esempi di quello che puoi chiedermi:"
-                    android:textColor="@color/white_1"
+                    android:textColor="@color/white"
                     android:textSize="24sp" />
 
             <ScrollView android:layout_width="match_parent"
@@ -130,7 +130,7 @@
                                 android:layout_marginStart="18dp"
                                 android:layout_marginEnd="6dp"
                                 android:text='\"Apri la rubrica\"'
-                                android:textColor="@color/white_1"
+                                android:textColor="@color/white"
                                 android:textSize="16sp"
                                 android:ellipsize="end"
                                 android:maxLines="1"
@@ -170,7 +170,7 @@
                                 android:layout_marginStart="18dp"
                                 android:layout_marginEnd="6dp"
                                 android:text='\"Cerca Giovanni in rubrica\"'
-                                android:textColor="@color/white_1"
+                                android:textColor="@color/white"
                                 android:textSize="16sp"
                                 android:ellipsize="end"
                                 android:maxLines="1"
@@ -210,7 +210,7 @@
                                 android:layout_marginStart="18dp"
                                 android:layout_marginEnd="6dp"
                                 android:text='\"Di chi è il numero 3331582355?\"'
-                                android:textColor="@color/white_1"
+                                android:textColor="@color/white"
                                 android:textSize="16sp"
                                 android:ellipsize="end"
                                 android:maxLines="1"

@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package it.giovanni.arkivio.fragments.detail.youtube.search
 
 import android.os.Bundle
@@ -11,7 +13,6 @@ import it.giovanni.arkivio.R
 import it.giovanni.arkivio.fragments.detail.youtube.YoutubeConnector
 import kotlinx.android.synthetic.main.youtube_player_fragment_activity.*
 
-@Suppress("DEPRECATION")
 class YouTubePlayerFragmentActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener {
 
     private var youTubePlayer: YouTubePlayer? = null

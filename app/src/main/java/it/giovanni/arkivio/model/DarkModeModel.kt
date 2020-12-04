@@ -34,9 +34,9 @@ class DarkModeModel : BaseObservable {
     constructor(context: Context) {
         val isDarkMode = loadDarkModeStateFromPreferences()
         if (isDarkMode) {
-            viewColor = ResourcesCompat.getColor(context.resources, R.color.grey_3, null)
-            labelColor = ResourcesCompat.getColor(context.resources, R.color.white_1, null)
-            bottomBarColor = ResourcesCompat.getColor(context.resources, R.color.white_1, null)
+            viewColor = ResourcesCompat.getColor(context.resources, R.color.colorPrimary, null)
+            labelColor = ResourcesCompat.getColor(context.resources, R.color.colorPrimary, null)
+            bottomBarColor = ResourcesCompat.getColor(context.resources, R.color.white, null)
             label = context.resources.getString(R.string.label_dark_mode)
             icoDark = ResourcesCompat.getDrawable(context.resources, R.drawable.ico_dark_mode_light, null)
             icoLight = ResourcesCompat.getDrawable(context.resources, R.drawable.ico_light_mode_light, null)
@@ -46,8 +46,8 @@ class DarkModeModel : BaseObservable {
             backgroundColor = ResourcesCompat.getColor(context.resources, R.color.black_1, null)
             viewVisibility = View.GONE
         } else {
-            viewColor = ResourcesCompat.getColor(context.resources, R.color.dark, null)
-            labelColor = ResourcesCompat.getColor(context.resources, R.color.dark, null)
+            viewColor = ResourcesCompat.getColor(context.resources, R.color.azzurro, null)
+            labelColor = ResourcesCompat.getColor(context.resources, R.color.colorPrimaryDark, null)
             bottomBarColor = ResourcesCompat.getColor(context.resources, R.color.black_1, null)
             label = context.resources.getString(R.string.label_light_mode)
             icoDark = ResourcesCompat.getDrawable(context.resources, R.drawable.ico_dark_mode_dark, null)
@@ -55,7 +55,7 @@ class DarkModeModel : BaseObservable {
             sideNavBar = ResourcesCompat.getDrawable(context.resources, R.drawable.side_nav_bar_light, null)
             roundCorner = ResourcesCompat.getDrawable(context.resources, R.drawable.round_corner_1, null)
             backgroundTabColor = ResourcesCompat.getDrawable(context.resources, R.drawable.background_light_mode, null)
-            backgroundColor = ResourcesCompat.getColor(context.resources, R.color.white_1, null)
+            backgroundColor = ResourcesCompat.getColor(context.resources, R.color.white, null)
             viewVisibility = View.VISIBLE
         }
     }

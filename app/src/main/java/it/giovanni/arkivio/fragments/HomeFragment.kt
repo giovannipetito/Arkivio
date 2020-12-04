@@ -22,8 +22,8 @@ abstract class HomeFragment : BaseFragment(SectionType.HOME), IDarkMode.View {
         val binding: HomeLayoutBinding? = DataBindingUtil.inflate(inflater, R.layout.home_layout, container, false)
         val view = binding?.root
 
-        val darkModePresenter: DarkModePresenter? = DarkModePresenter(this, context!!)
-        val model: DarkModeModel? = DarkModeModel(context!!)
+        val darkModePresenter = DarkModePresenter(this, context!!)
+        val model = DarkModeModel(context!!)
         binding?.temp = model
         binding?.presenter = darkModePresenter
 

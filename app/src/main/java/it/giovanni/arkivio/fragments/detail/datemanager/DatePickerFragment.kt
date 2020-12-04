@@ -281,7 +281,7 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
         if (dialog.window != null) {
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
             dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialog.window!!.setBackgroundDrawableResource(R.color.white_1)
+            dialog.window!!.setBackgroundDrawableResource(R.color.white)
             // dialog.window!!.addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND) // TODO: NON FUNZIONA
         }
 
@@ -316,7 +316,7 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
         if (dialog.window != null) {
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
             dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialog.window!!.setBackgroundDrawableResource(R.color.white_1)
+            dialog.window!!.setBackgroundDrawableResource(R.color.white)
         }
 
         calendar = Calendar.getInstance()
@@ -350,7 +350,7 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
         if (dialog.window != null) {
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
             dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialog.window!!.setBackgroundDrawableResource(R.color.white_1)
+            dialog.window!!.setBackgroundDrawableResource(R.color.white)
         }
 
         calendar = Calendar.getInstance()
@@ -448,7 +448,7 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
         if (dialog.window != null) {
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
             dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialog.window!!.setBackgroundDrawableResource(R.color.white_1)
+            dialog.window!!.setBackgroundDrawableResource(R.color.white)
         }
 
         calendar = Calendar.getInstance()

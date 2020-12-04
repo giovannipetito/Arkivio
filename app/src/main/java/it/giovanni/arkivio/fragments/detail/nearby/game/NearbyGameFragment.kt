@@ -21,13 +21,13 @@ import java.nio.charset.StandardCharsets
 
 class NearbyGameFragment: DetailFragment() {
 
-    private val TAG = "NearbyGameFragment"
+    private val mTag = NearbyGameFragment::class.java.simpleName
     private var viewFragment: View? = null
 
-    private val REQUEST_CODE_REQUIRED_PERMISSIONS = 1
-    private val STRATEGY = Strategy.P2P_STAR
+    private val requestCodeRequiredPermissions = 1
+    private val strategy = Strategy.P2P_STAR
 
-    private val REQUIRED_PERMISSIONS: Array<String> = arrayOf(
+    private val requiredPermissions: Array<String> = arrayOf(
         Manifest.permission.BLUETOOTH,
         Manifest.permission.BLUETOOTH_ADMIN,
         Manifest.permission.ACCESS_WIFI_STATE,
@@ -78,7 +78,7 @@ class NearbyGameFragment: DetailFragment() {
     private val connectionLifecycleCallback: ConnectionLifecycleCallback = object : ConnectionLifecycleCallback() {
 
         override fun onConnectionInitiated(endpointId: String, connectionInfo: ConnectionInfo) {
-            Log.i(TAG, "Accepting connection")
+            Log.i(mTag, "Accepting connection")
             connectionsClient.acceptConnection(endpointId, payloadCallback)
             opponent = connectionInfo.endpointName
         }
@@ -86,7 +86,7 @@ class NearbyGameFragment: DetailFragment() {
         override fun onConnectionResult(endpointId: String, result: ConnectionResolution) {
             if (result.status.isSuccess) {
                 hideProgressDialog()
-                Log.i(TAG, "Connection successful")
+                Log.i(mTag, "Connection successful")
                 connectionsClient.stopDiscovery()
                 connectionsClient.stopAdvertising()
                 opponentEndpointId = endpointId
@@ -94,12 +94,12 @@ class NearbyGameFragment: DetailFragment() {
                 setStatusText(getString(R.string.status_connected))
                 setButtonState(true)
             } else {
-                    Log.i(TAG, "Connection failed")
+                    Log.i(mTag, "Connection failed")
             }
         }
 
         override fun onDisconnected(endpointId: String) {
-            Log.i(TAG, "Disconnected from the opponent")
+            Log.i(mTag, "Disconnected from the opponent")
             resetGame()
         }
     }
@@ -108,7 +108,7 @@ class NearbyGameFragment: DetailFragment() {
     private val endpointDiscoveryCallback: EndpointDiscoveryCallback = object : EndpointDiscoveryCallback() {
 
         override fun onEndpointFound(endpointId: String, info: DiscoveredEndpointInfo) {
-            Log.i(TAG, "Endpoint found, connecting")
+            Log.i(mTag, "Endpoint found, connecting")
             if (player != null)
                 connectionsClient.requestConnection(player, endpointId, connectionLifecycleCallback)
         }
@@ -188,8 +188,8 @@ class NearbyGameFragment: DetailFragment() {
 
     override fun onStart() {
         super.onStart()
-        if (!hasPermissions(context!!, REQUIRED_PERMISSIONS)) {
-            requestPermissions(REQUIRED_PERMISSIONS, REQUEST_CODE_REQUIRED_PERMISSIONS)
+        if (!hasPermissions(context!!, requiredPermissions)) {
+            requestPermissions(requiredPermissions, requestCodeRequiredPermissions)
         }
     }
 
@@ -215,7 +215,7 @@ class NearbyGameFragment: DetailFragment() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String?>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        if (requestCode != REQUEST_CODE_REQUIRED_PERMISSIONS) {
+        if (requestCode != requestCodeRequiredPermissions) {
             return
         }
         for (grantResult in grantResults) {
@@ -249,7 +249,7 @@ class NearbyGameFragment: DetailFragment() {
         connectionsClient.startDiscovery(
             currentActivity.packageName,
             endpointDiscoveryCallback,
-            DiscoveryOptions.Builder().setStrategy(STRATEGY).build()
+            DiscoveryOptions.Builder().setStrategy(strategy).build()
         )
     }
 
@@ -260,7 +260,7 @@ class NearbyGameFragment: DetailFragment() {
             player!!,
             currentActivity.packageName,
             connectionLifecycleCallback,
-            AdvertisingOptions.Builder().setStrategy(STRATEGY).build()
+            AdvertisingOptions.Builder().setStrategy(strategy).build()
         )
     }
 

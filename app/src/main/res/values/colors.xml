@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#33B989</color>
-    <color name="colorPrimaryDark">#273B44</color>
+    <color name="colorPrimary">#b4dff5</color>
+    <color name="colorPrimaryDark">#0f2056</color>
     <color name="colorAccent">#FAFAFA</color>
-    <color name="white_1">#FFFFFF</color>
-    <color name="white_2">#FAFAFA</color>
+    <color name="white">#FFFFFF</color>
     <color name="black_1">#000000</color>
     <color name="black_2">#111111</color>
     <color name="white_transparent">#99FFFFFF</color>
@@ -13,38 +12,25 @@
     <color name="black_transparent_2">#22000000</color>
     <color name="transparent_1">#00000000</color>
     <color name="transparent_2">#00FFFFFF</color>
-    <color name="grey_0">#F0F0F0</color>
     <color name="grey_1">#E2E3E4</color>
     <color name="grey_2">#9EA4A8</color>
     <color name="grey_3">#485861</color>
-    <color name="grey_4">#5E5F60 </color>
-    <color name="grey_5">#4A4A4A</color>
     <color name="dark">#273B44</color>
-    <color name="dark_2">#23353d</color>
-    <color name="dark_3">#1f2f36</color>
-    <color name="magenta">#F9423A</color>
-    <color name="rosso_1">#F13C27</color>
-    <color name="rosso_2">#FF0000</color>
-    <color name="rosso_transparent">#99F13C27</color>
+    <color name="rosso">#F13C27</color>
     <color name="red_transparent_1">#80040A</color>
     <color name="red_transparent_2">#EC999D</color>
     <color name="arancio">#FFA500</color>
-    <color name="giallo_1">#FFFF00</color>
-    <color name="giallo_2">#FFFF66</color>
-    <color name="giallo_3">#FEDC00</color>
-    <color name="avorio">#FFFFF0</color>
-    <color name="verde_1">#5CC7A1</color>
-    <color name="verde_2">#33B989</color>
-    <color name="verde_3">#00A86B</color>
-    <color name="azzurro_1">#E0FFFF</color>
-    <color name="azzurro_2">#ABCDEF</color>
-    <color name="azzurro_3">#00B8DE</color>
-    <color name="azzurro_4">#678AC5</color>
-    <color name="azzurro_5">#007FFF</color>
-    <color name="azzurro_6">#4169E1</color>
-    <color name="azzurro_7">#2A52BE</color>
-    <color name="azzurro_8">#2D32AA</color>
-    <color name="viola">#603668 </color>
+    <color name="giallo">#FFFF00</color>
+    <color name="verde">#00A86B</color>
+    <color name="azzurro">#678AC5</color>
+    <color name="blu">#2A52BE</color>
+    <color name="zaffiro_1">#0f2056</color>
+    <color name="zaffiro_2">#121b45</color>
+    <color name="zaffiro_3">#121635</color>
+    <color name="celeste_1">#b4dff5</color>
+    <color name="celeste_2">#9fd7f3</color>
+    <color name="celeste_3">#89cff0</color>
+    <color name="viola">#603668</color>
 
     <color name="red_50">#FFEBEE</color>
     <color name="red_100">#FFCDD2</color>

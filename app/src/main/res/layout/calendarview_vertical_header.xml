@@ -11,7 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textColor="@color/white_1"
+            android:textColor="@color/white"
             android:textSize="16sp"
             tools:text="Febbraio | 2020" />
 
@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="@color/white_1"
+                android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 tools:text="LUN" />
@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="@color/white_1"
+                android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 tools:text="MAR" />
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="@color/white_1"
+                android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 tools:text="MER" />
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="@color/white_1"
+                android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 tools:text="GIO" />
@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="@color/white_1"
+                android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 tools:text="VEN" />
@@ -77,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="@color/white_1"
+                android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 tools:text="SAB" />
@@ -87,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="@color/white_1"
+                android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 tools:text="DOM" />
@@ -100,6 +100,6 @@
             android:layout_marginTop="24dp"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
-            android:background="@color/grey_4" />
+            android:background="@color/grey_3" />
 
 </LinearLayout>

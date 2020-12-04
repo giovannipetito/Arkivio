@@ -14,9 +14,10 @@ import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.bean.Persona
+import it.giovanni.arkivio.bean.user.User
 import it.giovanni.arkivio.customview.popup.ListDialogPopup
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.utils.Utils
@@ -30,10 +31,10 @@ import java.io.ByteArrayOutputStream
 class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
 
     private var viewFragment: View? = null
-    val LABEL_EDIT = "Aggiungi a contatto esistente"
-    val LABEL_INSERT = "Crea nuovo contatto"
-    val LABEL_OPEN = "Apri lista contatti"
-    val LABEL_DELETE = "Annulla"
+    private val labelEdit = "Aggiungi a contatto esistente"
+    private val labelInsert = "Crea nuovo contatto"
+    private val labelOpen = "Apri lista contatti"
+    private val labelDelete = "Annulla"
 
     private var avatar: Bitmap? = null
 
@@ -42,16 +43,17 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
     private lateinit var contacts: ArrayList<String>
     private lateinit var label: String
 
-    private val REQUEST_CODE_CONTACTS_PERMISSION = 1000
+    private val requestCodeContactsPermission = 1000
     private lateinit var lookupKey: String
     var id: Long = 0
     private var name: String? = null
     private lateinit var selectedContactUri: Uri
 
-    private lateinit var persona: Persona
+    private lateinit var user: User
 
     companion object {
         var KEY_RUBRICA = "KEY_RUBRICA"
+        var KEY_COLOR = "KEY_COLOR"
     }
 
     override fun getLayout(): Int {
@@ -105,31 +107,34 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         if (arguments != null) {
-            persona = arguments!!.getSerializable(KEY_RUBRICA) as Persona
+            user = arguments!!.getSerializable(KEY_RUBRICA) as User
 
-            val contact = persona.nome + " " + persona.cognome
-            contact_name.text = contact
+            val contact = user.nome + " " + user.cognome
+            user_name.text = contact
 
-            if (persona.fisso != "") value_numero_fisso.text = persona.fisso
+            if (user.fisso != "") value_numero_fisso.text = user.fisso
             else numero_fisso_container.visibility = View.GONE
 
-            if (persona.cellulare != "") value_cellulare.text = persona.cellulare
+            if (user.cellulare != "") value_cellulare.text = user.cellulare
             else cellulare_container.visibility = View.GONE
 
-            if (persona.email != "") value_mail.text = persona.email
+            if (user.emails!![0] != "") value_mail.text = Utils.turnArrayListToString(user.emails!!)
             else email_container.visibility = View.GONE
 
-            if (persona.indirizzo != "") value_indirizzo.text = persona.indirizzo
+            if (user.indirizzo != "") value_indirizzo.text = user.indirizzo
             else indirizzo_container.visibility = View.GONE
 
-            if (persona.occupazione != "") value_occupazione.text = persona.occupazione
+            if (user.occupazione != "") value_occupazione.text = user.occupazione
             else occupazione_container.visibility = View.GONE
         }
 
-        if (persona.nome == "Giovanni" && persona.cognome == "Petito") {
+        if (user.nome == "Giovanni" && user.cognome == "Petito") {
             avatar = BitmapFactory.decodeResource(context!!.resources, R.drawable.giovanni)
             val roundAvatar : Bitmap = Utils.getRoundBitmap(avatar!!, avatar?.width!!)
             ico_profile.setImageBitmap(roundAvatar)
+        } else {
+            val color = arguments!!.getInt(KEY_COLOR)
+            ico_profile.setColorFilter(ResourcesCompat.getColor(context?.resources!!, color, null))
         }
 
         numero_fisso_container.setOnClickListener {
@@ -160,7 +165,7 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
         if (context?.checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED ||
             context?.checkSelfPermission(Manifest.permission.WRITE_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
 
-            requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS), REQUEST_CODE_CONTACTS_PERMISSION)
+            requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS), requestCodeContactsPermission)
         } else {
             handleContact()
         }
@@ -170,7 +175,7 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
         if (context?.checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED ||
             context?.checkSelfPermission(Manifest.permission.WRITE_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
 
-            requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS), REQUEST_CODE_CONTACTS_PERMISSION)
+            requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS), requestCodeContactsPermission)
         } else {
             showContactsDialog()
         }
@@ -180,7 +185,7 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
-            REQUEST_CODE_CONTACTS_PERMISSION -> {
+            requestCodeContactsPermission -> {
                 if (grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                     handleContact()
                 }
@@ -196,7 +201,7 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
         val cursor = contentResolver?.query(
             ContactsContract.Contacts.CONTENT_URI,
             null,
-            "lower(" + ContactsContract.Contacts.DISPLAY_NAME + ") = lower('" + contact_name.text.toString().replace("'", "''") + "')",
+            "lower(" + ContactsContract.Contacts.DISPLAY_NAME + ") = lower('" + user_name.text.toString().replace("'", "''") + "')",
             null,
             null
         )
@@ -268,7 +273,7 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
 
     private fun showContactsDialog() {
         contacts = getContacts()
-        contacts.add(LABEL_DELETE)
+        contacts.add(labelDelete)
 
         listDialogPopup = ListDialogPopup(currentActivity, R.style.PopupTheme)
         listDialogPopup.setCancelable(false)
@@ -282,8 +287,8 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
     private fun showInsertContactDialog() {
 
         labels = ArrayList()
-        labels.add(LABEL_INSERT)
-        labels.add(LABEL_DELETE)
+        labels.add(labelInsert)
+        labels.add(labelDelete)
 
         listDialogPopup = ListDialogPopup(currentActivity, R.style.PopupTheme)
         listDialogPopup.setCancelable(false)
@@ -297,10 +302,10 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
     private fun showInsertEditContactDialog() {
 
         labels = ArrayList()
-        labels.add(LABEL_EDIT)
-        labels.add(LABEL_INSERT)
-        labels.add(LABEL_OPEN)
-        labels.add(LABEL_DELETE)
+        labels.add(labelEdit)
+        labels.add(labelInsert)
+        labels.add(labelOpen)
+        labels.add(labelDelete)
 
         listDialogPopup = ListDialogPopup(currentActivity, R.style.PopupTheme)
         listDialogPopup.setCancelable(false)
@@ -317,17 +322,17 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
         listDialogPopup.dismiss()
 
         when (label) {
-            LABEL_EDIT -> {
+            labelEdit -> {
                 editContact(selectedContactUri)
             }
-            LABEL_INSERT -> {
+            labelInsert -> {
                 insertContact()
             }
-            LABEL_OPEN -> {
+            labelOpen -> {
                 insertEditContact(selectedContactUri)
             }
             else -> {
-                if (label != LABEL_DELETE) {
+                if (label != labelDelete) {
                     callContact(context!!, label)
                 }
             }
@@ -376,7 +381,7 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
     private fun fillContactFields(intent : Intent) {
 
         intent.apply {
-            putExtra(ContactsContract.Intents.Insert.NAME, contact_name.text.toString())
+            putExtra(ContactsContract.Intents.Insert.NAME, user_name.text.toString())
 
             putExtra(ContactsContract.Intents.Insert.PHONE, value_numero_fisso.text.toString())
             putExtra(ContactsContract.Intents.Insert.PHONE_TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_HOME)

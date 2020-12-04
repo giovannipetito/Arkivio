@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package it.giovanni.arkivio.activities
 
 import android.annotation.SuppressLint
@@ -71,16 +69,15 @@ import java.util.*
 
 class MainActivity : GPSActivity(), IProgressLoader {
 
-    private val SPLASH_DISPLAY_TIME: Long = 3000
-    private val DELAY_TIME: Long = 3000
+    private val delayTime: Long = 3000
     private var progressDialog: Dialog? = null
     private var spinnerLogo: ImageView? = null
     private var spinnerAnimation: AnimationDrawable? = null
 
-    private var SPLASH_FRAGMENT: String = "SPLASH_FRAGMENT"
-    private var LOGIN_FRAGMENT: String = "LOGIN_FRAGMENT"
-    private var MAIN_FRAGMENT: String = "MAIN_FRAGMENT"
-    private var DIALOG_FLOW_FRAGMENT: String = "DIALOG_FLOW_FRAGMENT"
+    private var mSplashFragment: String = "SPLASH_FRAGMENT"
+    private var mLoginFragment: String = "LOGIN_FRAGMENT"
+    private var mMainFragment: String = "MAIN_FRAGMENT"
+    private var mDialogFlowFragment: String = "DIALOG_FLOW_FRAGMENT"
 
     private var mainFragment: MainFragment? = null
     private var pushBundle: Bundle? = null
@@ -92,7 +89,6 @@ class MainActivity : GPSActivity(), IProgressLoader {
         var running = false
     }
 
-    @Suppress("DEPRECATION")
     @SuppressLint("InflateParams")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -112,7 +108,7 @@ class MainActivity : GPSActivity(), IProgressLoader {
         if (savedInstanceState == null) {
             supportFragmentManager
                 .beginTransaction()
-                .add(R.id.frame_container, SplashFragment(), SPLASH_FRAGMENT)
+                .add(R.id.frame_container, SplashFragment(), mSplashFragment)
                 .commit()
 
             if (!rememberMe) {
@@ -120,19 +116,19 @@ class MainActivity : GPSActivity(), IProgressLoader {
                     supportFragmentManager
                         .beginTransaction()
                         .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-                        .replace(R.id.frame_container, LoginFragment(), LOGIN_FRAGMENT
+                        .replace(R.id.frame_container, LoginFragment(), mLoginFragment
                         ).commit()
-                }, SPLASH_DISPLAY_TIME)
+                }, delayTime)
             } else {
                 if (isOnline()) {
                     Handler().postDelayed({
                         supportFragmentManager
                             .beginTransaction()
                             .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-                            .replace(R.id.frame_container, MainFragment(), MAIN_FRAGMENT)
+                            .replace(R.id.frame_container, MainFragment(), mMainFragment)
                             .commitAllowingStateLoss()
                             // .commit()
-                    }, SPLASH_DISPLAY_TIME)
+                    }, delayTime)
                 } else
                     Toast.makeText(context,"Errore di connessione", Toast.LENGTH_LONG).show()
             }
@@ -145,11 +141,11 @@ class MainActivity : GPSActivity(), IProgressLoader {
             val params = intent.extras
 
             if (params != null && params.containsKey(DeepLinkDescriptor.DEEP_LINK)) {
-                Log.i(TAG, "DeepLink trovato..")
+                Log.i(mTag, "DeepLink trovato..")
                 val bundle = params.getBundle(DeepLinkActivity.DEEP_LINK)
                 val uri = bundle!!.getParcelable<Uri>(DeepLinkActivity.DEEP_LINK_URI)
                 if (uri != null)
-                    Log.i(TAG, "HOST:" + uri.host + "| path" + uri.path)
+                    Log.i(mTag, "HOST:" + uri.host + "| path" + uri.path)
                 deepLinkEvent = DeepLinkDescriptor()
                 deepLinkEvent!!.deeplink = uri
             }
@@ -288,7 +284,7 @@ class MainActivity : GPSActivity(), IProgressLoader {
                     spinnerAnimation?.stop()
             } catch (e: Exception) {
             }
-        }, DELAY_TIME)
+        }, delayTime)
     }
 
     fun openMainFragment() {
@@ -296,7 +292,7 @@ class MainActivity : GPSActivity(), IProgressLoader {
         supportFragmentManager
             .beginTransaction()
             .setCustomAnimations(R.anim.right_to_left, R.anim.left_to_right)
-            .add(R.id.frame_container, MainFragment(), MAIN_FRAGMENT)
+            .add(R.id.frame_container, MainFragment(), mMainFragment)
             .commit()
     }
 
@@ -321,7 +317,7 @@ class MainActivity : GPSActivity(), IProgressLoader {
         supportFragmentManager
             .beginTransaction()
             .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-            .replace(R.id.frame_container, loginFragment, LOGIN_FRAGMENT)
+            .replace(R.id.frame_container, loginFragment, this.mLoginFragment)
             .commit()
     }
 
@@ -490,7 +486,7 @@ class MainActivity : GPSActivity(), IProgressLoader {
     override fun openDialogDetail(detailType: String, extraParams: Bundle?, caller: Fragment?, requestCode: Int?) {
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.frame_container, DialogFlowFragment(), DIALOG_FLOW_FRAGMENT)
+            .add(R.id.frame_container, DialogFlowFragment(), mDialogFlowFragment)
             .commit()
     }
 

@@ -5,10 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
-import it.giovanni.arkivio.App
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.bean.SelectedDay
 import it.giovanni.arkivio.bean.SelectedDaysResponse
@@ -94,7 +94,6 @@ class CalendarViewVerticalFragment : DetailFragment() {
         TODO("Not yet implemented")
     }
 
-    @Suppress("DEPRECATION")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -154,7 +153,7 @@ class CalendarViewVerticalFragment : DetailFragment() {
                         val mBadges = badges!![day.date]
                         if (mBadges != null) {
                             badge.visibility = View.VISIBLE
-                            badge.setColorFilter(App.context.resources.getColor(mBadges[0].color))
+                            badge.setColorFilter(ContextCompat.getColor(context!!, mBadges[0].color))
                         }
                     }
 
@@ -171,7 +170,7 @@ class CalendarViewVerticalFragment : DetailFragment() {
 
                             if (badge.isInvisible) {
                                 verticalItem.setBackgroundResource(R.drawable.calendarview_selected_item)
-                                horizontalLabel.setTextColor(context?.resources?.getColor(R.color.verde_3)!!)
+                                horizontalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.verde))
 
                                 items?.add(SelectedDay(year, month, dayOfMonth))
                                 selectedItems?.add(SelectedDay(year, month, dayOfMonth))
@@ -180,9 +179,9 @@ class CalendarViewVerticalFragment : DetailFragment() {
 
                             if (badge.isVisible) {
                                 badge.visibility = View.INVISIBLE
-                                horizontalLabel.setTextColor(context?.resources?.getColor(R.color.rosso_1)!!)
+                                horizontalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.rosso))
                                 verticalItem.setBackgroundResource(R.drawable.calendarview_deselected_item)
-                                // horizontalLabel.setTextColor(context?.resources?.getColor(R.color.white)!!)
+                                // horizontalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.white))
                                 // verticalItem.background = null
 
                                 for (item in items!!) {
@@ -199,10 +198,10 @@ class CalendarViewVerticalFragment : DetailFragment() {
                         }
                         today == day.date -> {
                             verticalItem.setBackgroundResource(R.drawable.calendarview_today_item)
-                            horizontalLabel.setTextColor(context?.resources?.getColor(R.color.azzurro_7)!!)
+                            horizontalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.blu))
                         }
                         else -> {
-                            horizontalLabel.setTextColor(context?.resources?.getColor(R.color.white_1)!!)
+                            horizontalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.white))
                             verticalItem.background = null
 
 //                            for (item in items!!) {
@@ -217,7 +216,7 @@ class CalendarViewVerticalFragment : DetailFragment() {
                     }
 
                     if (6 == day.date.dayOfWeek.value || 7 == day.date.dayOfWeek.value) {
-                        horizontalLabel.setTextColor(context?.resources?.getColor(R.color.rosso_1)!!)
+                        horizontalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.rosso))
                         verticalItem.isClickable = false
                         verticalItem.isFocusable = false
                         if (today == day.date)
@@ -225,9 +224,9 @@ class CalendarViewVerticalFragment : DetailFragment() {
                         else verticalItem.background = null
                     }
                 } else {
-                    horizontalLabel.setTextColor(context?.resources?.getColor(R.color.grey_4)!!)
+                    horizontalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.grey_3))
                     if (6 == day.date.dayOfWeek.value || 7 == day.date.dayOfWeek.value)
-                        horizontalLabel.setTextColor(context?.resources?.getColor(R.color.rosso_transparent)!!)
+                        horizontalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.red_transparent_1))
                     verticalItem.background = null
                 }
             }
@@ -268,11 +267,11 @@ class CalendarViewVerticalFragment : DetailFragment() {
                         }
                         if (daysOfWeek[index].name == DaysOfWeek.SATURDAY.name) {
                             setText(R.string.saturday)
-                            setTextColor(context?.resources!!.getColor(R.color.rosso_1))
+                            setTextColor(ContextCompat.getColor(context, R.color.rosso))
                         }
                         if (daysOfWeek[index].name == DaysOfWeek.SUNDAY.name) {
                             setText(R.string.sunday)
-                            setTextColor(context?.resources!!.getColor(R.color.rosso_1))
+                            setTextColor(ContextCompat.getColor(context, R.color.rosso))
                         }
                     }
                 }

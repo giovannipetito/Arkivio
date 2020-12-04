@@ -27,11 +27,11 @@ import kotlin.math.min
 class VideoWallActivity : Activity(), FlippingView.Listener,
     YouTubePlayer.OnInitializedListener, YouTubeThumbnailView.OnInitializedListener {
 
+    private lateinit var flippingView: FlippingView
+    private lateinit var thumbnailView: YouTubeThumbnailView
+    private lateinit var playerFragment: YouTubePlayerFragment
     lateinit var imageWallView: ImageWallView
     lateinit var flipDelayHandler: Handler
-    lateinit var flippingView: FlippingView
-    lateinit var thumbnailView: YouTubeThumbnailView
-    lateinit var playerFragment: YouTubePlayerFragment
     lateinit var playerView: View
     private var thumbnailLoader: YouTubeThumbnailLoader? = null
     private var player: YouTubePlayer? = null
@@ -53,6 +53,21 @@ class VideoWallActivity : Activity(), FlippingView.Listener,
         VIDEO_FLIPPED_OUT,
         LOADING_THUMBNAILS,
         VIDEO_BEING_FLIPPED_OUT
+    }
+
+    companion object {
+        private const val RECOVERY_DIALOG_REQUEST = 1
+        /** The player view cannot be smaller than 110 pixels high.  */
+        private const val PLAYER_VIEW_MINIMUM_HEIGHT_DP = 110f
+        private const val MAX_NUMBER_OF_ROWS_WANTED = 4
+        // Example playlist from which videos are displayed on the video wall
+        private const val PLAYLIST_ID = "ECAE6B03CA849AD332"
+        private const val INTER_IMAGE_PADDING_DP = 5
+        // YouTube thumbnails have a 16 / 9 aspect ratio
+        private const val THUMBNAIL_ASPECT_RATIO = 16 / 9.0
+        private const val INITIAL_FLIP_DURATION_MILLIS = 100
+        private const val FLIP_DURATION_MILLIS = 500
+        private const val FLIP_PERIOD_MILLIS = 2000
     }
 
     public override fun onCreate(savedInstanceState: Bundle?) {
@@ -291,20 +306,5 @@ class VideoWallActivity : Activity(), FlippingView.Listener,
         override fun onVideoStarted() {}
         override fun onAdStarted() {}
         override fun onLoading() {}
-    }
-
-    companion object {
-        private const val RECOVERY_DIALOG_REQUEST = 1
-        /** The player view cannot be smaller than 110 pixels high.  */
-        private const val PLAYER_VIEW_MINIMUM_HEIGHT_DP = 110f
-        private const val MAX_NUMBER_OF_ROWS_WANTED = 4
-        // Example playlist from which videos are displayed on the video wall
-        private const val PLAYLIST_ID = "ECAE6B03CA849AD332"
-        private const val INTER_IMAGE_PADDING_DP = 5
-        // YouTube thumbnails have a 16 / 9 aspect ratio
-        private const val THUMBNAIL_ASPECT_RATIO = 16 / 9.0
-        private const val INITIAL_FLIP_DURATION_MILLIS = 100
-        private const val FLIP_DURATION_MILLIS = 500
-        private const val FLIP_PERIOD_MILLIS = 2000
     }
 }

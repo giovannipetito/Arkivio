@@ -158,7 +158,6 @@ open class GPSActivity : BaseActivity(), IProgressLoader, GoogleApiClient.Connec
         customPopup.show()
     }
 
-    @Suppress("DEPRECATION")
     @SuppressLint("MissingPermission")
     override fun onConnected(p0: Bundle?) {
         try {
@@ -183,7 +182,6 @@ open class GPSActivity : BaseActivity(), IProgressLoader, GoogleApiClient.Connec
 
     override fun onConnectionSuspended(p0: Int) {}
 
-    @Suppress("DEPRECATION")
     @SuppressLint("MissingPermission", "RestrictedApi")
     private fun getMyLocation() {
         if (googleApiClient != null) {
@@ -252,7 +250,6 @@ open class GPSActivity : BaseActivity(), IProgressLoader, GoogleApiClient.Connec
         googleApiClient!!.connect()
     }
 
-    @Suppress("DEPRECATION")
     @SuppressLint("MissingPermission")
     override fun onLocationChanged(p0: Location?) {
         try {

@@ -65,8 +65,8 @@ class LinkAreaFragment : HomeFragment() {
         val binding: LinkAreaLayoutBinding? = DataBindingUtil.inflate(inflater, R.layout.link_area_layout, container, false)
         viewFragment = binding?.root
 
-        val darkModePresenter: DarkModePresenter? = DarkModePresenter(this, context!!)
-        val model: DarkModeModel? = DarkModeModel(context!!)
+        val darkModePresenter = DarkModePresenter(this, context!!)
+        val model = DarkModeModel(context!!)
         binding?.temp = model
         binding?.presenter = darkModePresenter
 

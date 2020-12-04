@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package it.giovanni.arkivio.fragments.detail.cardio
 
 import android.content.Intent
@@ -86,14 +88,13 @@ class CardIOFragment : DetailFragment(), AppCompatSpinnerCustom.OnSpinnerEventsL
         TODO("Not yet implemented")
     }
 
-    @Suppress("DEPRECATION")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val spinnerContainer = viewFragment?.findViewById(R.id.spinner_container) as RelativeLayout
         val drawableBar = GradientDrawable(
             GradientDrawable.Orientation.LEFT_RIGHT,
-            intArrayOf(resources.getColor(R.color.verde_1), resources.getColor(R.color.verde_3))
+            intArrayOf(ContextCompat.getColor(context!!, R.color.verde), ContextCompat.getColor(context!!, R.color.verde))
         )
         drawableBar.cornerRadius = 100f
         spinnerContainer.setBackgroundDrawable(drawableBar)
@@ -122,14 +123,13 @@ class CardIOFragment : DetailFragment(), AppCompatSpinnerCustom.OnSpinnerEventsL
         build_date.text = buildDate
     }
 
-    @Suppress("DEPRECATION")
     private fun enableScanExpiry() {
         if (expiry.isChecked) {
             scan_expiry.isEnabled = true
-            scan_expiry.setTextColor(context?.resources!!.getColor(R.color.grey_3))
+            scan_expiry.setTextColor(ContextCompat.getColor(context!!, R.color.grey_3))
         } else {
             scan_expiry.isEnabled = false
-            scan_expiry.setTextColor(context?.resources!!.getColor(R.color.grey_2))
+            scan_expiry.setTextColor(ContextCompat.getColor(context!!, R.color.grey_2))
         }
     }
 

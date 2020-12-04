@@ -5,7 +5,7 @@
         <bitmap
                 android:gravity="bottom|fill_horizontal"
                 android:src="@drawable/blue_wave_bottom"
-                android:tint="@color/azzurro_7" />
+                android:tint="@color/azzurro" />
     </item>
 
 </layer-list>

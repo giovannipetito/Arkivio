@@ -5,9 +5,9 @@
         <shape android:shape="rectangle">
             <gradient
                     android:angle="0"
-                    android:startColor="@color/dark"
-                    android:centerColor="@color/dark_2"
-                    android:endColor="@color/dark_3"
+                    android:startColor="@color/zaffiro_1"
+                    android:centerColor="@color/zaffiro_2"
+                    android:endColor="@color/zaffiro_3"
                     android:type="linear" />
         </shape>
     </item>
@@ -16,7 +16,7 @@
         <bitmap
                 android:gravity="top|fill_horizontal"
                 android:src="@drawable/blue_wave_top"
-                android:tint="@color/azzurro_7" />
+                android:tint="@color/azzurro" />
     </item>
 
 </layer-list>
