@@ -48,6 +48,6 @@
             android:layout_margin="12dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            style="@style/DarkModeButton" />
+            style="@style/ButtonNormalDarkMode" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

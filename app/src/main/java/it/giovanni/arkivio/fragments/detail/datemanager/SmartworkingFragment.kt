@@ -578,9 +578,9 @@ class SmartworkingFragment: DetailFragment() {
     private fun setViewStyle() {
         isDarkMode = loadDarkModeStateFromPreferences()
         if (isDarkMode)
-            smartworking_button.style(R.style.DarkModeButton)
+            smartworking_button.style(R.style.ButtonNormalDarkMode)
         else
-            smartworking_button.style(R.style.CustomLoginButton)
+            smartworking_button.style(R.style.ButtonNormalLightMode)
     }
 
     private fun cloneItems(list: ArrayList<SelectedDay>?): ArrayList<SelectedDay>? {

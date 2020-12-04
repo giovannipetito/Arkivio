@@ -11,7 +11,7 @@
           android:layout_height="wrap_content"
           android:layout_marginBottom="6dp"
           android:text="@string/play_video"
-          style="@style/DarkModeButton" />
+          style="@style/ButtonNormalDarkMode" />
 
   <Button
           android:id="@+id/start_playlist_button"
@@ -20,7 +20,7 @@
           android:layout_marginTop="6dp"
           android:layout_marginBottom="6dp"
           android:text="@string/play_playlist"
-          style="@style/DarkModeButton" />
+          style="@style/ButtonNormalDarkMode" />
 
   <Button
           android:id="@+id/start_video_list_button"
@@ -29,7 +29,7 @@
           android:layout_marginTop="6dp"
           android:layout_marginBottom="6dp"
           android:text="@string/play_video_list"
-          style="@style/DarkModeButton" />
+          style="@style/ButtonNormalDarkMode" />
 
   <EditText
           android:id="@+id/choose_index_edit"

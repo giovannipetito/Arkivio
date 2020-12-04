@@ -54,7 +54,7 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
     private var isOpen = false
 
     companion object {
-        var KEY_USERS: String = "KEY_USERS"
+        var KEY_BRICKS: String = "KEY_BRICKS"
         var KEY_SPEECH_USERS: String = "KEY_SPEECH_USERS"
     }
 
@@ -178,12 +178,12 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
         }
 
         if (arguments != null) {
-            var users: ArrayList<User> = ArrayList()
-            if (arguments!!.getSerializable(KEY_USERS) != null)
-                users = arguments!!.getSerializable(KEY_USERS) as ArrayList<User>
-            if (users.size > 0) {
+            var brickUsers: ArrayList<User> = ArrayList()
+            if (arguments!!.getSerializable(KEY_BRICKS) != null)
+                brickUsers = arguments!!.getSerializable(KEY_BRICKS) as ArrayList<User>
+            if (brickUsers.size > 0) {
                 flexbox_users.removeAllViews()
-                for ((i, user) in users.withIndex()) {
+                for ((i, user) in brickUsers.withIndex()) {
                     val brick = Brick(context!!)
                     brick.mode(Brick.ModeType.EDIT)
                     brick.setName(user.nome!!)

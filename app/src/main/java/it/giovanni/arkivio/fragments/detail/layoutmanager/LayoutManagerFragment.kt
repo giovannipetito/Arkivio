@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package it.giovanni.arkivio.fragments.detail.layoutmanager
 
 import android.graphics.drawable.GradientDrawable
@@ -12,7 +14,6 @@ import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import com.airbnb.paris.extensions.style
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -32,7 +33,6 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
     private var viewFragment: View? = null
     private var viewParent: View? = null
     private var progressBarContainer: RelativeLayout? = null
-    private var style = false
 
     private lateinit var list: List<String>
 
@@ -103,9 +103,9 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
 
         val drawableBar = GradientDrawable(
             GradientDrawable.Orientation.LEFT_RIGHT,
-            intArrayOf(resources.getColor(R.color.rosso),
-                resources.getColor(R.color.giallo),
-                resources.getColor(R.color.blu))
+            intArrayOf(ContextCompat.getColor(context!!, R.color.rosso),
+                ContextCompat.getColor(context!!, R.color.giallo),
+                ContextCompat.getColor(context!!, R.color.blu))
         )
 
         drawableBar.cornerRadius = 50f
@@ -210,17 +210,6 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
 
             override fun afterTextChanged(p0: Editable?) {}
         })
-
-        button_change_style.style(R.style.DarkModeButton)
-        button_change_style.setOnClickListener {
-            style = if (style) {
-                button_change_style.style(R.style.DarkModeButton)
-                false
-            } else {
-                button_change_style.style(R.style.CustomLoginButton)
-                true
-            }
-        }
     }
 
     override fun onFinishDragging(var1: Int, var2: String) {

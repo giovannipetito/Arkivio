@@ -52,7 +52,7 @@
                 android:drawableTop="@drawable/ico_nearby_rock"
                 android:drawableTint="@color/azzurro"
                 android:text="@string/rock"
-                style="@style/DarkModeButton" />
+                style="@style/ButtonNormalDarkMode" />
 
         <Button
                 android:id="@+id/button_paper"
@@ -64,7 +64,7 @@
                 android:drawableTop="@drawable/ico_nearby_paper"
                 android:drawableTint="@color/azzurro"
                 android:text="@string/paper"
-                style="@style/DarkModeButton" />
+                style="@style/ButtonNormalDarkMode" />
 
         <Button
                 android:id="@+id/button_scissors"
@@ -75,7 +75,7 @@
                 android:drawableTop="@drawable/ico_nearby_scissors"
                 android:drawableTint="@color/azzurro"
                 android:text="@string/scissors"
-                style="@style/DarkModeButton" />
+                style="@style/ButtonNormalDarkMode" />
 
     </LinearLayout>
 
@@ -85,13 +85,13 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:text="@string/find_opponent"
-            style="@style/CustomLoginButton" />
+            style="@style/ButtonNormalDarkMode" />
 
     <Button
             android:id="@+id/button_disconnect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/disconnect"
-            style="@style/CustomLoginButton" />
+            style="@style/ButtonNormalDarkMode" />
 
 </LinearLayout>

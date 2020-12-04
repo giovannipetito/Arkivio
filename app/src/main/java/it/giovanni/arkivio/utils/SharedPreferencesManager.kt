@@ -68,5 +68,11 @@ class SharedPreferencesManager {
             }
             return selectedDaysResponse
         }
+
+        fun resetSelectedDays() {
+            val editor = preferences.edit()
+            editor.putString(SELECTED_DATE, "")
+            editor.apply()
+        }
     }
 }

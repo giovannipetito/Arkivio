@@ -73,34 +73,34 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback {
 
         final_step_users.setOnClickListener {
 
-            val usersBundle = Bundle()
-            val list = ArrayList<User>()
+            val bundle = Bundle()
+            val brickUsers = ArrayList<User>()
             val count = flexbox_layout_users.childCount
             if (count > 0) {
                 for (index in 1..count) {
                     val brick = (flexbox_layout_users.getChildAt(index - 1) as Brick)
-                    val user = User(brick.getName(), brick.getName(), "", "", ArrayList(), "", "", true)
-                    list.add(user)
+                    val brickUser = User(brick.getName(), brick.getName(), "", "", ArrayList(), "", "", true)
+                    brickUsers.add(brickUser)
                 }
             }
-            usersBundle.putSerializable(RubricaListFragment.KEY_USERS, list)
-            currentActivity.openDetail(Globals.RUBRICA_LIST, usersBundle, this@RubricaHomeFragment, Globals.REQUEST_CODE_EVENT_USER_SEARCH)
+            bundle.putSerializable(RubricaListFragment.KEY_BRICKS, brickUsers)
+            currentActivity.openDetail(Globals.RUBRICA_LIST, bundle, this@RubricaHomeFragment, Globals.REQUEST_CODE_EVENT_USER_SEARCH)
         }
 
         flexbox_layout_users.setOnClickListener {
 
-            val usersBundle = Bundle()
-            val list = ArrayList<User>()
+            val bundle = Bundle()
+            val brickUsers = ArrayList<User>()
             val count = flexbox_layout_users.childCount
             if (count > 0) {
                 for (index in 1..count) {
                     val brick = (flexbox_layout_users.getChildAt(index - 1) as Brick)
-                    val user = User(brick.getName(), brick.getName(), "", "", ArrayList(), "", "", true)
-                    list.add(user)
+                    val brickUser = User(brick.getName(), brick.getName(), "", "", ArrayList(), "", "", true)
+                    brickUsers.add(brickUser)
                 }
             }
-            usersBundle.putSerializable(RubricaListFragment.KEY_USERS, list)
-            currentActivity.openDetail(Globals.RUBRICA_LIST, usersBundle, this@RubricaHomeFragment, Globals.REQUEST_CODE_EVENT_USER_SEARCH)
+            bundle.putSerializable(RubricaListFragment.KEY_BRICKS, brickUsers)
+            currentActivity.openDetail(Globals.RUBRICA_LIST, bundle, this@RubricaHomeFragment, Globals.REQUEST_CODE_EVENT_USER_SEARCH)
         }
     }
 

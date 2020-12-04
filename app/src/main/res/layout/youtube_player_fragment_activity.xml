@@ -23,7 +23,7 @@
                 android:layout_marginBottom="16dp"
                 android:text="@string/full_screen_view"
                 android:layout_alignParentBottom="true"
-                style="@style/DarkModeButton" />
+                style="@style/ButtonNormalDarkMode" />
 
     </RelativeLayout>
 

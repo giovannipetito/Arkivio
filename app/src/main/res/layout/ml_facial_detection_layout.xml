@@ -48,6 +48,6 @@
             android:text="@string/find_face_contour"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            style="@style/DarkModeButton" />
+            style="@style/ButtonNormalDarkMode" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

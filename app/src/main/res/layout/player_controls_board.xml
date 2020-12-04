@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
             android:text="@string/play"
-            style="@style/DarkModeButton" />
+            style="@style/ButtonNormalDarkMode" />
 
     <Button
             android:id="@+id/pause_button"
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
             android:text="@string/pause"
-            style="@style/DarkModeButton" />
+            style="@style/ButtonNormalDarkMode" />
 
   </LinearLayout>
 

@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/button_send"
-                style="@style/DarkModeButton" />
+                style="@style/ButtonNormalDarkMode" />
 
     </LinearLayout>
 
@@ -66,7 +66,7 @@
                 android:layout_weight="0.5"
                 android:layout_marginEnd="8dp"
                 android:text="@string/button_advertise"
-                style="@style/DarkModeButton" />
+                style="@style/ButtonNormalDarkMode" />
 
         <Button
                 android:id="@+id/button_discover"
@@ -75,7 +75,7 @@
                 android:layout_weight="0.5"
                 android:layout_marginStart="8dp"
                 android:text="@string/button_discover"
-                style="@style/DarkModeButton" />
+                style="@style/ButtonNormalDarkMode" />
 
     </LinearLayout>
 

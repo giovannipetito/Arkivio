@@ -59,7 +59,7 @@
                     android:text="@string/button_login"
                     android:textSize="16dp"
                     android:enabled="false"
-                    style="@style/CustomLoginButton" />
+                    style="@style/ButtonNormalDarkMode" />
 
             <RelativeLayout
                     android:layout_width="match_parent"

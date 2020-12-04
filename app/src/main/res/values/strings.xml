@@ -94,6 +94,7 @@
 
     <!-- SMARTWORKING -->
     <string name="smartworking_title">Smartworking</string>
+    <string name="switch_selected_days">Reset selected days</string>
     <string name="smartworking_message_success">La comunicazione di Smartworking è stata inviata correttamente.</string>
     <string name="smartworking_message_failure">Si è verificato un errore nella comunicazione di Smartworking. Riprova più tardi.</string>
     <string name="smartworking_message_modify">Sei sicuro di voler modificare le giornate di Smartworking?</string>
@@ -116,6 +117,7 @@
     <string name="rubrica_home_title">Home Rubrica</string>
     <string name="rubrica_list_title">Lista Rubrica</string>
     <string name="rubrica_detail_title">Dettaglio Rubrica</string>
+    <string name="add_users">Aggiungi utenti</string>
     <string name="rubrica_message_dialog">Vuoi aggiungere il contatto in rubrica?</string>
     <string name="rubrica_list_action_label">Fatto</string>
     <string name="activate_the_search">Attiva la ricerca</string>

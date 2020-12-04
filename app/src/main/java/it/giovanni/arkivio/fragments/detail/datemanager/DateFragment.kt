@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.utils.Globals
+import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.resetSelectedDays
 import kotlinx.android.synthetic.main.date_layout.*
 
 class DateFragment : DetailFragment() {
@@ -77,6 +78,9 @@ class DateFragment : DetailFragment() {
         }
         label_smartworking.setOnClickListener {
             currentActivity.openDetail(Globals.SMARTWORKING, null)
+        }
+        reset_selected_days.setOnClickListener {
+            resetSelectedDays()
         }
     }
 }
