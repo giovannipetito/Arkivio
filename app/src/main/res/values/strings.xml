@@ -118,6 +118,9 @@
     <string name="rubrica_list_title">Lista Rubrica</string>
     <string name="rubrica_detail_title">Dettaglio Rubrica</string>
     <string name="add_users">Aggiungi utenti</string>
+    <string name="get_init_users">Get users from init() method</string>
+    <string name="get_json_users">Get users from json file</string>
+    <string name="get_realtime_users">Get users from Realtime database</string>
     <string name="rubrica_message_dialog">Vuoi aggiungere il contatto in rubrica?</string>
     <string name="rubrica_list_action_label">Fatto</string>
     <string name="activate_the_search">Attiva la ricerca</string>

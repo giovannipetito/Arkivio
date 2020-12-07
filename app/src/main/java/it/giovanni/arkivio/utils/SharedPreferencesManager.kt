@@ -7,6 +7,7 @@ import android.preference.PreferenceManager
 import com.google.gson.GsonBuilder
 import it.giovanni.arkivio.App
 import it.giovanni.arkivio.bean.SelectedDaysResponse
+import it.giovanni.arkivio.bean.user.UserResponse
 
 class SharedPreferencesManager {
 
@@ -18,6 +19,7 @@ class SharedPreferencesManager {
         private const val REMEMBER_ME = "REMEMBER_ME"
         private const val COMPRESS = "COMPRESS"
         private const val SELECTED_DATE = "SELECTED_DATE"
+        private const val USERS = "USERS"
 
         fun saveDarkModeStateToPreferences(isDarkMode: Boolean) {
             val editor: SharedPreferences.Editor = preferences.edit()
@@ -49,30 +51,50 @@ class SharedPreferencesManager {
             return preferences.getBoolean(COMPRESS, false)
         }
 
-        fun saveSelectedDaysToPreferences(selectedDaysResponse: SelectedDaysResponse?) {
+        fun saveSelectedDaysToPreferences(response: SelectedDaysResponse?) {
             val editor: SharedPreferences.Editor = preferences.edit()
             val builder = GsonBuilder()
             val gson = builder.serializeNulls().create()
-            val responseString = gson.toJson(selectedDaysResponse)
+            val responseString = gson.toJson(response)
             editor.putString(SELECTED_DATE, responseString)
             editor.apply()
         }
 
         fun loadSelectedDaysFromPreferences(): SelectedDaysResponse? {
             val responseString = preferences.getString(SELECTED_DATE, null)
-            var selectedDaysResponse: SelectedDaysResponse? = null
+            var response: SelectedDaysResponse? = null
             if (responseString != null && responseString != "") {
                 val builder = GsonBuilder()
                 val gson = builder.serializeNulls().create()
-                selectedDaysResponse = gson.fromJson(responseString, SelectedDaysResponse::class.java)
+                response = gson.fromJson(responseString, SelectedDaysResponse::class.java)
             }
-            return selectedDaysResponse
+            return response
         }
 
         fun resetSelectedDays() {
             val editor = preferences.edit()
             editor.putString(SELECTED_DATE, "")
             editor.apply()
+        }
+
+        fun saveUsersToPreferences(response: UserResponse?) {
+            val editor: SharedPreferences.Editor = preferences.edit()
+            val builder = GsonBuilder()
+            val gson = builder.serializeNulls().create()
+            val responseString = gson.toJson(response)
+            editor.putString(USERS, responseString)
+            editor.apply()
+        }
+
+        fun loadUsersFromPreferences(): UserResponse? {
+            val responseString = preferences.getString(USERS, null)
+            var response: UserResponse? = null
+            if (responseString != null && responseString != "") {
+                val builder = GsonBuilder()
+                val gson = builder.serializeNulls().create()
+                response = gson.fromJson(responseString, UserResponse::class.java)
+            }
+            return response
         }
     }
 }

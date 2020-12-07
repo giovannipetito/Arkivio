@@ -5,18 +5,28 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import com.airbnb.paris.extensions.style
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.bean.user.User
+import it.giovanni.arkivio.bean.user.UserResponse
 import it.giovanni.arkivio.customview.Brick
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.viewinterfaces.IFlexBoxCallback
 import it.giovanni.arkivio.utils.Globals
+import it.giovanni.arkivio.utils.SharedPreferencesManager
+import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadUsersFromPreferences
+import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.saveUsersToPreferences
+import it.giovanni.arkivio.utils.Utils
 import kotlinx.android.synthetic.main.rubrica_home_layout.*
 import kotlin.math.roundToInt
 
 class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback {
 
     private var viewFragment: View? = null
+    private var userResponse: UserResponse? = null
     private var users: ArrayList<User>? = null
 
     override fun getLayout(): Int {
@@ -69,9 +79,26 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setViewStyle()
+
+        userResponse = UserResponse()
         users = ArrayList()
 
-        final_step_users.setOnClickListener {
+        init_button.setOnClickListener {
+            userResponse?.users = initUsers()
+            saveUsersToPreferences(userResponse)
+        }
+
+        json_button.setOnClickListener {
+            userResponse?.users = getUsersFromJson()
+            saveUsersToPreferences(userResponse)
+        }
+
+        realtime_button.setOnClickListener {
+
+        }
+
+        users_container.setOnClickListener {
 
             val bundle = Bundle()
             val brickUsers = ArrayList<User>()
@@ -84,7 +111,11 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback {
                 }
             }
             bundle.putSerializable(RubricaListFragment.KEY_BRICKS, brickUsers)
-            currentActivity.openDetail(Globals.RUBRICA_LIST, bundle, this@RubricaHomeFragment, Globals.REQUEST_CODE_EVENT_USER_SEARCH)
+
+            if (loadUsersFromPreferences()?.users != null)
+                currentActivity.openDetail(Globals.RUBRICA_LIST, bundle, this@RubricaHomeFragment, Globals.REQUEST_CODE_EVENT_USER_SEARCH)
+            else
+                Toast.makeText(context, "Inizializza la lista di utenti.", Toast.LENGTH_LONG).show()
         }
 
         flexbox_layout_users.setOnClickListener {
@@ -146,7 +177,7 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback {
 
     override fun flexBoxRemoved(position: Int) {}
 
-    private fun init(): ArrayList<User> {
+    private fun initUsers(): ArrayList<User> {
 
         val list = ArrayList<User>()
         list.add(User("Giovanni", "Petito", "", "3331582355", arrayListOf("giovanni.petito88@gmail.com", "gi.petito@gmail.com"), "Via Casoretto 60, Milano (MI)", "Android Developer", false))
@@ -166,5 +197,28 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback {
         list.add(User("Daniele", "Musacchia", "", "3494977374", arrayListOf("danielemusacchia@hotmail.it"), "Monza (MB)", "Impiegato", false))
 
         return list
+    }
+
+    private fun getUsersFromJson(): ArrayList<User> {
+
+        val jsonObject: String? = Utils.getJsonFromAssets(context!!, "user.json")
+        val gson: Gson? = GsonBuilder().serializeNulls().create()
+        val response: UserResponse? = gson?.fromJson(jsonObject, UserResponse::class.java)
+
+        return response?.users!!
+    }
+
+    private fun setViewStyle() {
+        isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
+        if (isDarkMode) {
+            init_button.style(R.style.ButtonEmptyDarkMode)
+            json_button.style(R.style.ButtonEmptyDarkMode)
+            realtime_button.style(R.style.ButtonEmptyDarkMode)
+        }
+        else {
+            init_button.style(R.style.ButtonEmptyLightMode)
+            json_button.style(R.style.ButtonEmptyLightMode)
+            realtime_button.style(R.style.ButtonEmptyLightMode)
+        }
     }
 }

@@ -16,17 +16,15 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.bean.user.User
-import it.giovanni.arkivio.bean.user.UserResponse
 import it.giovanni.arkivio.customview.Brick
 import it.giovanni.arkivio.customview.popup.CustomDialogPopup
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.fragments.adapter.UsersAdapter
 import it.giovanni.arkivio.viewinterfaces.IFlexBoxCallback
 import it.giovanni.arkivio.utils.Globals
+import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadUsersFromPreferences
 import it.giovanni.arkivio.utils.Utils
 import kotlinx.android.synthetic.main.rubrica_list_layout.*
 import kotlinx.android.synthetic.main.detail_layout.*
@@ -151,7 +149,8 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewFragment = super.onCreateView(inflater, container, savedInstanceState)
 
-        list = init()
+        val response = loadUsersFromPreferences()
+        list = response?.users
         adapter = UsersAdapter(this)
 
         return viewFragment
@@ -409,7 +408,7 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
     }
 
     private fun resetList() {
-        list = init()
+        list = loadUsersFromPreferences()?.users
         adapter.setList(list)
         adapter.notifyDataSetChanged()
         no_result.visibility = View.GONE
@@ -453,14 +452,5 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
 
             isOpen = false
         }
-    }
-
-    private fun init(): ArrayList<User> {
-
-        val jsonObject: String? = Utils.getJsonFromAssets(context!!, "user.json")
-        val gson: Gson? = GsonBuilder().serializeNulls().create()
-        val response: UserResponse? = gson?.fromJson(jsonObject, UserResponse::class.java)
-
-        return response?.users!!
     }
 }

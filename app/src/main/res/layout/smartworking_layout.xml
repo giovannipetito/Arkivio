@@ -65,7 +65,7 @@
                         android:layout_centerInParent="true"
                         android:text="@string/button_confirm"
                         android:textStyle="bold"
-                        tools:style="@style/CustomButton" />
+                        tools:style="@style/ButtonNormalDarkMode" />
 
             </RelativeLayout>
 

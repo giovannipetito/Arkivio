@@ -12,7 +12,7 @@
             android:orientation="vertical">
 
         <RelativeLayout
-                android:id="@+id/final_step_users"
+                android:id="@+id/users_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="50dp"
@@ -20,7 +20,7 @@
                 android:layout_marginEnd="16dp">
 
             <RelativeLayout
-                    android:id="@+id/final_step_users_container"
+                    android:id="@+id/ico_users"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp">
 
@@ -40,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:minHeight="50dp"
                     android:layout_marginStart="18dp"
-                    android:layout_toEndOf="@+id/final_step_users_container">
+                    android:layout_toEndOf="@+id/ico_users">
 
                 <ScrollView
                         android:layout_width="match_parent"
@@ -95,33 +95,33 @@
     </LinearLayout>
 
     <Button
-            android:id="@+id/first_button"
-            android:layout_width="290dp"
+            android:id="@+id/init_button"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:text="@string/find_opponent"
-            android:layout_above="@+id/second_button"
+            android:layout_margin="16dp"
+            android:text="@string/get_init_users"
+            android:layout_above="@+id/json_button"
             android:layout_centerHorizontal="true"
             style="@style/ButtonEmptyDarkMode" />
 
     <Button
-            android:id="@+id/second_button"
-            android:layout_width="290dp"
+            android:id="@+id/json_button"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:text="@string/find_opponent"
+            android:layout_margin="16dp"
+            android:text="@string/get_json_users"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             style="@style/ButtonEmptyDarkMode" />
 
     <it.giovanni.arkivio.customview.ButtonCustom
-            android:id="@+id/third_button"
-            android:layout_width="290dp"
+            android:id="@+id/realtime_button"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:text="@string/find_opponent"
+            android:layout_margin="16dp"
+            android:text="@string/get_realtime_users"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/second_button"
+            android:layout_below="@+id/json_button"
             style="@style/ButtonEmptyDarkMode" />
 
 </RelativeLayout>

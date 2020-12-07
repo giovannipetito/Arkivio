@@ -27,7 +27,7 @@ class NotificationService4 : Service() {
 
     private var timer: Timer? = null
     private var counter = 0
-    private val REQUEST_CODE = 3 // NOTIFICATION ID
+    private val requestCode = 3 // NOTIFICATION ID
 
     private var builder: NotificationCompat.Builder? = null
 
@@ -49,8 +49,8 @@ class NotificationService4 : Service() {
                 if (bluetoothName != null) {
                     Log.i("TAG_NOTIFY", bluetoothName + " ===> " + rssi + "dBm")
                     val notification: Notification? = builder?.build()
-                    notificationManager?.notify(REQUEST_CODE, notification!!)
-                    startForeground(REQUEST_CODE, notification)
+                    notificationManager?.notify(requestCode, notification!!)
+                    startForeground(requestCode, notification)
                 }
             }
         }
@@ -82,12 +82,13 @@ class NotificationService4 : Service() {
                     startNotificationService()
                 }
                 else
-                    startForeground(REQUEST_CODE, Notification())
+                    startForeground(requestCode, Notification())
             }
         }
         timer!!.schedule(timerTask, 2000, 2000)
     }
 
+    @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     @SuppressLint("ObsoleteSdkInt")
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -108,11 +109,11 @@ class NotificationService4 : Service() {
         // Bluetooth
         registerReceiver(receiver, IntentFilter(BluetoothDevice.ACTION_FOUND))
 
-        val pendingIntent = PendingIntent.getActivity(this, REQUEST_CODE, Intent(this, MainActivity::class.java), 0)
+        val pendingIntent = PendingIntent.getActivity(this, requestCode, Intent(this, MainActivity::class.java), 0)
 
         val logo : Bitmap = BitmapFactory.decodeResource(
             App.context.resources,
-            R.mipmap.logo_audioslave_light_blue
+            R.mipmap.logo_audioslave_blue
         )
         val safetyDistance : Bitmap = BitmapFactory.decodeResource(
             App.context.resources,
@@ -125,7 +126,7 @@ class NotificationService4 : Service() {
         builder = NotificationCompat.Builder(this, channelId)
             .setContentTitle("Covid-19 Alert!")
             .setContentText("Sei troppo vicino al tuo collega, allontanati!")
-            .setSmallIcon(R.mipmap.logo_audioslave_light_blue)
+            .setSmallIcon(R.mipmap.logo_audioslave_blue)
             .setLargeIcon(logo)
             .setStyle(NotificationCompat.BigPictureStyle().bigPicture(safetyDistance))
             .setPriority(NotificationCompat.PRIORITY_MAX) // Set the intent that will fire when the user taps the notification
