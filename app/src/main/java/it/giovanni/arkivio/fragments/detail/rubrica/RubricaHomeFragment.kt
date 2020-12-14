@@ -10,10 +10,13 @@ import com.airbnb.paris.extensions.style
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.bean.user.Response
 import it.giovanni.arkivio.bean.user.User
 import it.giovanni.arkivio.bean.user.UserResponse
 import it.giovanni.arkivio.customview.Brick
 import it.giovanni.arkivio.fragments.DetailFragment
+import it.giovanni.arkivio.realtime.IRealtimeCallback
+import it.giovanni.arkivio.realtime.RealtimeClient.Companion.callRealtimeDatabase
 import it.giovanni.arkivio.viewinterfaces.IFlexBoxCallback
 import it.giovanni.arkivio.utils.Globals
 import it.giovanni.arkivio.utils.SharedPreferencesManager
@@ -23,10 +26,10 @@ import it.giovanni.arkivio.utils.Utils
 import kotlinx.android.synthetic.main.rubrica_home_layout.*
 import kotlin.math.roundToInt
 
-class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback {
+class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback, IRealtimeCallback {
 
     private var viewFragment: View? = null
-    private var userResponse: UserResponse? = null
+    private var mResponse: Response? = null
     private var users: ArrayList<User>? = null
 
     override fun getLayout(): Int {
@@ -81,21 +84,22 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback {
 
         setViewStyle()
 
-        userResponse = UserResponse()
+        mResponse = Response()
         users = ArrayList()
 
         init_button.setOnClickListener {
-            userResponse?.users = initUsers()
-            saveUsersToPreferences(userResponse)
+            mResponse?.users = initUsers()
+            saveUsersToPreferences(mResponse)
         }
 
         json_button.setOnClickListener {
-            userResponse?.users = getUsersFromJson()
-            saveUsersToPreferences(userResponse)
+            mResponse?.users = getUsersFromJson()
+            saveUsersToPreferences(mResponse)
         }
 
         realtime_button.setOnClickListener {
-
+            showProgressDialog()
+            callRealtimeDatabase(this)
         }
 
         users_container.setOnClickListener {
@@ -112,7 +116,7 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback {
             }
             bundle.putSerializable(RubricaListFragment.KEY_BRICKS, brickUsers)
 
-            if (loadUsersFromPreferences()?.users != null)
+            if (loadUsersFromPreferences() != null)
                 currentActivity.openDetail(Globals.RUBRICA_LIST, bundle, this@RubricaHomeFragment, Globals.REQUEST_CODE_EVENT_USER_SEARCH)
             else
                 Toast.makeText(context, "Inizializza la lista di utenti.", Toast.LENGTH_LONG).show()
@@ -180,7 +184,7 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback {
     private fun initUsers(): ArrayList<User> {
 
         val list = ArrayList<User>()
-        list.add(User("Giovanni", "Petito", "", "3331582355", arrayListOf("giovanni.petito88@gmail.com", "gi.petito@gmail.com"), "Via Casoretto 60, Milano (MI)", "Android Developer", false))
+        list.add(User("Giovanni", "Petito (initUsers())", "", "3331582355", arrayListOf("giovanni.petito88@gmail.com", "gi.petito@gmail.com"), "Via Casoretto 60, Milano (MI)", "Android Developer", false))
         list.add(User("Raffaele", "Petito", "0818183301", "3802689011", arrayListOf("raffaele.petito@gmail.com"), "Via Santa Maria a Cubito 19, Giugliano in Campania (NA)", "Fotografo", false))
         list.add(User("Teresa", "Petito", "", "3343540536", arrayListOf("teresa_petito@yahoo.it"), "Via Raffaele Carelli 8, Giugliano in Campania (NA)", "Commercialista", false))
         list.add(User("Salvatore", "Pragliola", "", "3384672609", arrayListOf("salvatore.pragliola@gmail.com"), "Via Raffaele Carelli 8, Giugliano in Campania (NA)", "Marmista", false))
@@ -203,9 +207,25 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback {
 
         val jsonObject: String? = Utils.getJsonFromAssets(context!!, "user.json")
         val gson: Gson? = GsonBuilder().serializeNulls().create()
-        val response: UserResponse? = gson?.fromJson(jsonObject, UserResponse::class.java)
+        val userResponse: UserResponse? = gson?.fromJson(jsonObject, UserResponse::class.java)
 
-        return response?.users!!
+        return userResponse?.response?.users!!
+    }
+
+    override fun onRealtimeCallbackSuccess(message: String?, response: Response?) {
+        hideProgressDialog()
+        mResponse = Response()
+        mResponse?.users = response?.users
+        saveUsersToPreferences(mResponse)
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun onRealtimeCallbackFailure(message: String?) {
+        hideProgressDialog()
+        mResponse = Response()
+        mResponse?.users = getUsersFromJson()
+        saveUsersToPreferences(mResponse)
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 
     private fun setViewStyle() {

@@ -7,7 +7,7 @@ import android.preference.PreferenceManager
 import com.google.gson.GsonBuilder
 import it.giovanni.arkivio.App
 import it.giovanni.arkivio.bean.SelectedDaysResponse
-import it.giovanni.arkivio.bean.user.UserResponse
+import it.giovanni.arkivio.bean.user.Response
 
 class SharedPreferencesManager {
 
@@ -77,7 +77,7 @@ class SharedPreferencesManager {
             editor.apply()
         }
 
-        fun saveUsersToPreferences(response: UserResponse?) {
+        fun saveUsersToPreferences(response: Response?) {
             val editor: SharedPreferences.Editor = preferences.edit()
             val builder = GsonBuilder()
             val gson = builder.serializeNulls().create()
@@ -86,13 +86,13 @@ class SharedPreferencesManager {
             editor.apply()
         }
 
-        fun loadUsersFromPreferences(): UserResponse? {
+        fun loadUsersFromPreferences(): Response? {
             val responseString = preferences.getString(USERS, null)
-            var response: UserResponse? = null
+            var response: Response? = null
             if (responseString != null && responseString != "") {
                 val builder = GsonBuilder()
                 val gson = builder.serializeNulls().create()
-                response = gson.fromJson(responseString, UserResponse::class.java)
+                response = gson.fromJson(responseString, Response::class.java)
             }
             return response
         }

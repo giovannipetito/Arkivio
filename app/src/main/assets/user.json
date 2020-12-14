@@ -1,186 +1,189 @@
 {
-	"users":
-	[
-		{
-		"nome": "Giovanni",
-		"cognome": "Petito",
-		"fisso": "",
-		"cellulare": "3331582355",
-		"emails": [
-			"giovanni.petito88@gmail.com",
-			"gi.petito@gmail.com"
-		],
-		"indirizzo": "Via Casoretto 60, Milano (MI)",
-		"occupazione": "Android Developer",
-		"isVisible": false
-		},
-		{
-			"nome": "Raffaele",
-			"cognome": "Petito",
-			"fisso": "0818183301",
-			"cellulare": "3802689011",
-			"emails": [
-				"raffaele.petito@gmail.com"
-			],
-			"indirizzo": "Via Santa Maria a Cubito 19, Giugliano in Campania (NA)",
-			"occupazione": "Fotografo",
-			"isVisible": false
-		},
-		{
-			"nome": "Teresa",
-			"cognome": "Petito",
-			"fisso": "",
-			"cellulare": "3343540536",
-			"emails": [
-				"teresa_petito@yahoo.it"
-			],
-			"indirizzo": "Via Raffaele Carelli 8, Giugliano in Campania (NA)",
-			"occupazione": "Commercialista",
-			"isVisible": false
-		},
-		{
-			"nome": "Salvatore",
-			"cognome": "Pragliola",
-			"fisso": "",
-			"cellulare": "3384672609",
-			"emails": [
-				"salvatore.pragliola@gmail.com"
-			],
-			"indirizzo": "Via Raffaele Carelli 8, Giugliano in Campania (NA)",
-			"occupazione": "Marmista",
-			"isVisible": false
-		},
-		{
-			"nome": "Angelina",
-			"cognome": "Basile",
-			"fisso": "0818183301",
-			"cellulare": "3334392578",
-			"emails": [
-				"basile.angela59@gmail.com"
-			],
-			"indirizzo": "Via Santa Maria a Cubito 19, Giugliano in Campania (NA)",
-			"occupazione": "Casalinga",
-			"isVisible": false
-		},
-		{
-			"nome": "Vincenzo",
-			"cognome": "Petito",
-			"fisso": "0818183301",
-			"cellulare": "3666872262",
-			"emails": [
-				"vincenzo.petito@gmail.com"
-			],
-			"indirizzo": "Via Santa Maria a Cubito 19, Giugliano in Campania (NA)",
-			"occupazione": "Impiegato",
-			"isVisible": false
-		},
-		{
-			"nome": "Giovanni",
-			"cognome": "Basile",
-			"fisso": "0818188619",
-			"cellulare": "3884723340",
-			"emails": [
-				"giovanni.basile@gmail.com"
-			],
-			"indirizzo": "Via Santa Maria a Cubito 21, Giugliano in Campania (NA)",
-			"occupazione": "Studente",
-			"isVisible": false
-		},
-		{
-			"nome": "Marco",
-			"cognome": "Basile",
-			"fisso": "0818188619",
-			"cellulare": "3892148853",
-			"emails": [
-				"marco.basile@gmail.com"
-			],
-			"indirizzo": "Via Santa Maria a Cubito 21, Giugliano in Campania (NA)",
-			"occupazione": "Studente",
-			"isVisible": false
-		},
-		{
-			"nome": "Antonio",
-			"cognome": "D'Ascia",
-			"fisso": "",
-			"cellulare": "3315605694",
-			"emails": [
-				"antonio.dascia@gmail.com"
-			],
-			"indirizzo": "Corsico (MI)",
-			"occupazione": "Impiegato",
-			"isVisible": false
-		},
-		{
-			"nome": "Giovanni",
-			"cognome": "D'Ascia",
-			"fisso": "024404881",
-			"cellulare": "3331711437",
-			"emails": [
-				"giovanni.dascia@gmail.com"
-			],
-			"indirizzo": "Via 4 Novembre 19, Corsico (MI)",
-			"occupazione": "Impiegato",
-			"isVisible": false
-		},
-		{
-			"nome": "Mariano",
-			"cognome": "Pinto",
-			"fisso": "",
-			"cellulare": "3397016728",
-			"emails": [
-				"mar.pinto3@gmail.com"
-			],
-			"indirizzo": "",
-			"occupazione": "Impiegato",
-			"isVisible": false
-		},
-		{
-			"nome": "Pasquale",
-			"cognome": "Amato",
-			"fisso": "",
-			"cellulare": "3665917760",
-			"emails": [
-				"pasquale.amato@gmail.com"
-			],
-			"indirizzo": "",
-			"occupazione": "Impiegato",
-			"isVisible": false
-		},
-		{
-			"nome": "Francesco",
-			"cognome": "Mongiello",
-			"fisso": "",
-			"cellulare": "3299376402",
-			"emails": [
-				"francesco.mongiello@gmail.com"
-			],
-			"indirizzo": "",
-			"occupazione": "Sacerdote",
-			"isVisible": false
-		},
-		{
-			"nome": "Gianluigi",
-			"cognome": "Santillo",
-			"fisso": "",
-			"cellulare": "3386124867",
-			"emails": [
-				"gianluigi.santillo@gmail.com"
-			],
-			"indirizzo": "Via Conte Rosso 11, Milano (MI)",
-			"occupazione": "Project Manager",
-			"isVisible": false
-		},
-		{
-			"nome": "Daniele",
-			"cognome": "Musacchia",
-			"fisso": "",
-			"cellulare": "3494977374",
-			"emails": [
-				"danielemusacchia@hotmail.it"
-			],
-			"indirizzo": "Monza (MB)",
-			"occupazione": "Impiegato",
-			"isVisible": false
-		}
-	]
+	"response":
+	{
+		"users":
+		[
+			{
+				"nome": "Giovanni",
+				"cognome": "Petito (user.json)",
+				"fisso": "",
+				"cellulare": "3331582355",
+				"emails": [
+					"giovanni.petito88@gmail.com",
+					"gi.petito@gmail.com"
+				],
+				"indirizzo": "Via Casoretto 60, Milano (MI)",
+				"occupazione": "Android Developer",
+				"isVisible": false
+			},
+			{
+				"nome": "Raffaele",
+				"cognome": "Petito",
+				"fisso": "0818183301",
+				"cellulare": "3802689011",
+				"emails": [
+					"raffaele.petito@gmail.com"
+				],
+				"indirizzo": "Via Santa Maria a Cubito 19, Giugliano in Campania (NA)",
+				"occupazione": "Fotografo",
+				"isVisible": false
+			},
+			{
+				"nome": "Teresa",
+				"cognome": "Petito",
+				"fisso": "",
+				"cellulare": "3343540536",
+				"emails": [
+					"teresa_petito@yahoo.it"
+				],
+				"indirizzo": "Via Raffaele Carelli 8, Giugliano in Campania (NA)",
+				"occupazione": "Commercialista",
+				"isVisible": false
+			},
+			{
+				"nome": "Salvatore",
+				"cognome": "Pragliola",
+				"fisso": "",
+				"cellulare": "3384672609",
+				"emails": [
+					"salvatore.pragliola@gmail.com"
+				],
+				"indirizzo": "Via Raffaele Carelli 8, Giugliano in Campania (NA)",
+				"occupazione": "Marmista",
+				"isVisible": false
+			},
+			{
+				"nome": "Angelina",
+				"cognome": "Basile",
+				"fisso": "0818183301",
+				"cellulare": "3334392578",
+				"emails": [
+					"basile.angela59@gmail.com"
+				],
+				"indirizzo": "Via Santa Maria a Cubito 19, Giugliano in Campania (NA)",
+				"occupazione": "Casalinga",
+				"isVisible": false
+			},
+			{
+				"nome": "Vincenzo",
+				"cognome": "Petito",
+				"fisso": "0818183301",
+				"cellulare": "3666872262",
+				"emails": [
+					"vincenzo.petito@gmail.com"
+				],
+				"indirizzo": "Via Santa Maria a Cubito 19, Giugliano in Campania (NA)",
+				"occupazione": "Impiegato",
+				"isVisible": false
+			},
+			{
+				"nome": "Giovanni",
+				"cognome": "Basile",
+				"fisso": "0818188619",
+				"cellulare": "3884723340",
+				"emails": [
+					"giovanni.basile@gmail.com"
+				],
+				"indirizzo": "Via Santa Maria a Cubito 21, Giugliano in Campania (NA)",
+				"occupazione": "Studente",
+				"isVisible": false
+			},
+			{
+				"nome": "Marco",
+				"cognome": "Basile",
+				"fisso": "0818188619",
+				"cellulare": "3892148853",
+				"emails": [
+					"marco.basile@gmail.com"
+				],
+				"indirizzo": "Via Santa Maria a Cubito 21, Giugliano in Campania (NA)",
+				"occupazione": "Studente",
+				"isVisible": false
+			},
+			{
+				"nome": "Antonio",
+				"cognome": "D'Ascia",
+				"fisso": "",
+				"cellulare": "3315605694",
+				"emails": [
+					"antonio.dascia@gmail.com"
+				],
+				"indirizzo": "Corsico (MI)",
+				"occupazione": "Impiegato",
+				"isVisible": false
+			},
+			{
+				"nome": "Giovanni",
+				"cognome": "D'Ascia",
+				"fisso": "024404881",
+				"cellulare": "3331711437",
+				"emails": [
+					"giovanni.dascia@gmail.com"
+				],
+				"indirizzo": "Via 4 Novembre 19, Corsico (MI)",
+				"occupazione": "Impiegato",
+				"isVisible": false
+			},
+			{
+				"nome": "Mariano",
+				"cognome": "Pinto",
+				"fisso": "",
+				"cellulare": "3397016728",
+				"emails": [
+					"mar.pinto3@gmail.com"
+				],
+				"indirizzo": "",
+				"occupazione": "Impiegato",
+				"isVisible": false
+			},
+			{
+				"nome": "Pasquale",
+				"cognome": "Amato",
+				"fisso": "",
+				"cellulare": "3665917760",
+				"emails": [
+					"pasquale.amato@gmail.com"
+				],
+				"indirizzo": "",
+				"occupazione": "Impiegato",
+				"isVisible": false
+			},
+			{
+				"nome": "Francesco",
+				"cognome": "Mongiello",
+				"fisso": "",
+				"cellulare": "3299376402",
+				"emails": [
+					"francesco.mongiello@gmail.com"
+				],
+				"indirizzo": "",
+				"occupazione": "Sacerdote",
+				"isVisible": false
+			},
+			{
+				"nome": "Gianluigi",
+				"cognome": "Santillo",
+				"fisso": "",
+				"cellulare": "3386124867",
+				"emails": [
+					"gianluigi.santillo@gmail.com"
+				],
+				"indirizzo": "Via Conte Rosso 11, Milano (MI)",
+				"occupazione": "Project Manager",
+				"isVisible": false
+			},
+			{
+				"nome": "Daniele",
+				"cognome": "Musacchia",
+				"fisso": "",
+				"cellulare": "3494977374",
+				"emails": [
+					"danielemusacchia@hotmail.it"
+				],
+				"indirizzo": "Monza (MB)",
+				"occupazione": "Impiegato",
+				"isVisible": false
+			}
+		]
+	}
 }

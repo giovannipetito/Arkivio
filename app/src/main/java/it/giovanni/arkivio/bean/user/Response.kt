@@ -4,9 +4,9 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-class UserResponse: Serializable {
+class Response: Serializable {
 
-    @SerializedName("response")
+    @SerializedName("users")
     @Expose
-    var response : Response? = null
+    var users : ArrayList<User>? = null
 }
