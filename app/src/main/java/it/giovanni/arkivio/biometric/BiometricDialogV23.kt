@@ -52,7 +52,7 @@ class BiometricDialogV23 internal constructor(@NonNull context: Context, private
     }
 
     internal fun setButtonText(cancel: String) {
-        buttonCancel!!.setText(cancel)
+        buttonCancel!!.text = cancel
     }
 
     override fun onClick(view: View) {

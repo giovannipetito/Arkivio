@@ -20,7 +20,7 @@ import java.util.*
 
 open class CustomDialogPopup : AlertDialog.Builder {
 
-    private val DIALOG_INTERFACE_KEY = 1258932039
+    private val dialogInterfaceKey = 1258932039
     private lateinit var elementList: LinearLayout
     protected lateinit var labelList: LinearLayout
     protected lateinit var titleDialog: TextViewCustom
@@ -232,7 +232,7 @@ open class CustomDialogPopup : AlertDialog.Builder {
 
                     rightButton.visibility = View.VISIBLE
                     rightButton.text = rightText
-                    rightButton.setTag(DIALOG_INTERFACE_KEY, dialog) // Used for dismiss on callback.
+                    rightButton.setTag(dialogInterfaceKey, dialog) // Used for dismiss on callback.
                     rightButton.setOnClickListener(rightAction)
                 }
 
@@ -243,12 +243,12 @@ open class CustomDialogPopup : AlertDialog.Builder {
 
                     containerCenterButton.visibility = View.VISIBLE
                     centerButton.text = centerText
-                    centerButton.setTag(DIALOG_INTERFACE_KEY, dialog) // Used for dismiss on callback.
+                    centerButton.setTag(dialogInterfaceKey, dialog) // Used for dismiss on callback.
                     centerButton.setOnClickListener(centerAction)
 
                     rightButton.visibility = View.VISIBLE
                     rightButton.text = rightText
-                    rightButton.setTag(DIALOG_INTERFACE_KEY, dialog) // Used for dismiss on callback.
+                    rightButton.setTag(dialogInterfaceKey, dialog) // Used for dismiss on callback.
                     rightButton.setOnClickListener(rightAction)
                 }
 
@@ -257,17 +257,17 @@ open class CustomDialogPopup : AlertDialog.Builder {
 
                     containerLeftButton.visibility = View.VISIBLE
                     leftButton.text = leftText
-                    leftButton.setTag(DIALOG_INTERFACE_KEY, dialog) // Used for dismiss on callback.
+                    leftButton.setTag(dialogInterfaceKey, dialog) // Used for dismiss on callback.
                     leftButton.setOnClickListener(leftAction)
 
                     containerCenterButton.visibility = View.VISIBLE
                     centerButton.text = centerText
-                    centerButton.setTag(DIALOG_INTERFACE_KEY, dialog) // Used for dismiss on callback.
+                    centerButton.setTag(dialogInterfaceKey, dialog) // Used for dismiss on callback.
                     centerButton.setOnClickListener(centerAction)
 
                     rightButton.visibility = View.VISIBLE
                     rightButton.text = rightText
-                    rightButton.setTag(DIALOG_INTERFACE_KEY, dialog) // Used for dismiss on callback.
+                    rightButton.setTag(dialogInterfaceKey, dialog) // Used for dismiss on callback.
                     rightButton.setOnClickListener(rightAction)
                 }
             }

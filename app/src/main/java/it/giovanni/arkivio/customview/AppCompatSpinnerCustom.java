@@ -8,7 +8,7 @@ import androidx.appcompat.widget.AppCompatSpinner;
 
 public class AppCompatSpinnerCustom extends AppCompatSpinner {
 
-    private static final String TAG = "CUSTOM_SPINNER_TAG";
+    private static final String TAG = AppCompatSpinnerCustom.class.getSimpleName();
     private OnSpinnerEventsListener listener;
     private boolean openInitiated = false;
 

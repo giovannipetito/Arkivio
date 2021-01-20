@@ -1,6 +1,5 @@
 package it.giovanni.arkivio.biometric
 
-import android.content.DialogInterface
 import android.hardware.biometrics.BiometricPrompt
 import android.os.Build
 import android.annotation.TargetApi
@@ -89,7 +88,7 @@ class BiometricManager private constructor(biometricBuilder: BiometricBuilder) :
             .setSubtitle(subtitle!!)
             .setDescription(description!!)
             .setNegativeButton(cancel!!, context!!.mainExecutor,
-                DialogInterface.OnClickListener { _, _ -> biometricCallback.onAuthenticationCancelled() })
+                { _, _ -> biometricCallback.onAuthenticationCancelled() })
             .build()
             .authenticate(
                 mCancellationSignal,
