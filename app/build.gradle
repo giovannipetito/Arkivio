@@ -109,7 +109,7 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-database:19.6.0' // Add the SDK for Firebase Database
 
-    implementation "com.loopj.android:android-async-http:1.4.9" // Firebase Realtime Database
+    implementation "com.loopj.android:android-async-http:1.4.11" // Firebase Realtime Database
 
     // GSON
     implementation 'com.google.code.gson:gson:2.8.6'
@@ -148,7 +148,7 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
 
     // Airbnb
-    implementation 'com.airbnb.android:lottie:3.5.0' // Lottie
+    implementation 'com.airbnb.android:lottie:3.6.0' // Lottie
     implementation 'com.airbnb.android:paris:1.7.2' // Paris
     kapt 'com.airbnb.android:paris-processor:1.7.2' // If you're using Paris annotations.
 
@@ -167,7 +167,7 @@ dependencies {
 
     // YouTube
     implementation 'com.google.apis:google-api-services-youtube:v3-rev99-1.17.0-rc'
-    implementation 'com.google.http-client:google-http-client-android:1.38.0'
+    implementation 'com.google.http-client:google-http-client-android:1.38.1'
     implementation 'com.google.api-client:google-api-client-android:1.31.1'
     implementation 'com.google.api-client:google-api-client-gson:1.31.1'
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
