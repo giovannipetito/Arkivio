@@ -38,9 +38,9 @@ class ContentFragment : BaseFragment(SectionType.TAB_DETAIL) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (arguments != null) {
-            position = arguments!!.getInt(POSITION)
-            tabDateFrom = arguments?.getString(DATE_FROM)!!
-            tabDateTo = arguments?.getString(DATE_TO)!!
+            position = requireArguments().getInt(POSITION)
+            tabDateFrom = requireArguments().getString(DATE_FROM)!!
+            tabDateTo = requireArguments().getString(DATE_TO)!!
             tabDateTo = "$tabDateTo 23:59:59"
         }
 
@@ -80,7 +80,7 @@ class ContentFragment : BaseFragment(SectionType.TAB_DETAIL) {
         loadSmileCryData()
     }
 
-    fun stopSwipeRefresh() {
+    private fun stopSwipeRefresh() {
         swipeRefreshLayout.isRefreshing = false
         swipeRefreshLayout.destroyDrawingCache()
         swipeRefreshLayout.clearAnimation()

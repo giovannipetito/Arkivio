@@ -178,7 +178,7 @@ class NotificationFragment: DetailFragment() {
         val triggerTime = SystemClock.elapsedRealtime() + selectedInterval
 
         // Get an instance of NotificationManager.
-        val notificationManager = ContextCompat.getSystemService(context!!, NotificationManager::class.java) as NotificationManager
+        val notificationManager = ContextCompat.getSystemService(requireContext(), NotificationManager::class.java) as NotificationManager
         notificationManager.cancelNotifications()
 
         val alarmManager = currentActivity.getSystemService(Context.ALARM_SERVICE) as AlarmManager

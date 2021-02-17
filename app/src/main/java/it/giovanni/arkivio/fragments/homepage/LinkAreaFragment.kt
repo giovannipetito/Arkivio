@@ -65,8 +65,8 @@ class LinkAreaFragment : HomeFragment() {
         val binding: LinkAreaLayoutBinding? = DataBindingUtil.inflate(inflater, R.layout.link_area_layout, container, false)
         viewFragment = binding?.root
 
-        val darkModePresenter = DarkModePresenter(this, context!!)
-        val model = DarkModeModel(context!!)
+        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val model = DarkModeModel(requireContext())
         binding?.temp = model
         binding?.presenter = darkModePresenter
 
@@ -81,12 +81,12 @@ class LinkAreaFragment : HomeFragment() {
         }
 
         label_link_drive_waw3.setOnClickListener {
-            Utils.openBrowser(context!!, context!!.getString(R.string.url_drive_waw3))
+            Utils.openBrowser(requireContext(), requireContext().getString(R.string.url_drive_waw3))
             // currentActivity.openDetail(Globals.WEB_VIEW, bundleWAW3)
         }
 
         label_browser_github.setOnClickListener {
-            Utils.openBrowser(context!!, context!!.getString(R.string.url_github))
+            Utils.openBrowser(requireContext(), requireContext().getString(R.string.url_github))
         }
 
         label_webview_github.setOnClickListener {
@@ -94,11 +94,11 @@ class LinkAreaFragment : HomeFragment() {
         }
 
         label_link_app.setOnClickListener {
-            Utils.openApp(context!!, context!!.resources.getString(R.string.url_gympass))
+            Utils.openApp(requireContext(), requireContext().resources.getString(R.string.url_gympass))
         }
 
         label_link_test.setOnClickListener {
-            Utils.openBrowser(context!!, context!!.getString(R.string.test_url))
+            Utils.openBrowser(requireContext(), requireContext().getString(R.string.test_url))
         }
 
         label_webview_video_player.setOnClickListener {

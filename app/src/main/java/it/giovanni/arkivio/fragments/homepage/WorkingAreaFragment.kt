@@ -38,8 +38,8 @@ class WorkingAreaFragment : HomeFragment() {
         val binding: WorkingAreaLayoutBinding? = DataBindingUtil.inflate(inflater, R.layout.working_area_layout, container, false)
         viewFragment = binding?.root
 
-        val darkModePresenter = DarkModePresenter(this, context!!)
-        val model = DarkModeModel(context!!)
+        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val model = DarkModeModel(requireContext())
         binding?.temp = model
         binding?.presenter = darkModePresenter
 

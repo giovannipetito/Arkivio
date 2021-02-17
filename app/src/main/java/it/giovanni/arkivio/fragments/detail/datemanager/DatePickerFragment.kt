@@ -171,7 +171,7 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
 
     private val datePickerDialogMinDateClickListener = View.OnClickListener {
 
-        val datePickerDialog = DatePickerDialog(context!!, R.style.PickerDialogTheme, this, calendar?.get(Calendar.YEAR)!!, calendar?.get(Calendar.MONTH)!!, calendar?.get(Calendar.DAY_OF_MONTH)!!)
+        val datePickerDialog = DatePickerDialog(requireContext(), R.style.PickerDialogTheme, this, calendar?.get(Calendar.YEAR)!!, calendar?.get(Calendar.MONTH)!!, calendar?.get(Calendar.DAY_OF_MONTH)!!)
 
         val maxDate: Calendar = Calendar.getInstance()
         maxDate.set(Calendar.getInstance().get(Calendar.YEAR), 11, 31, 23, 59, 59)
@@ -190,7 +190,7 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
 
     private val datePickerDialogMaxDateClickListener = View.OnClickListener {
 
-        val datePickerDialog = DatePickerDialog(context!!, R.style.PickerDialogTheme, this, calendar?.get(Calendar.YEAR)!!, calendar?.get(Calendar.MONTH)!!, calendar?.get(Calendar.DAY_OF_MONTH)!!)
+        val datePickerDialog = DatePickerDialog(requireContext(), R.style.PickerDialogTheme, this, calendar?.get(Calendar.YEAR)!!, calendar?.get(Calendar.MONTH)!!, calendar?.get(Calendar.DAY_OF_MONTH)!!)
 
         val minDate: Calendar = Calendar.getInstance()
         minDate.set(Calendar.getInstance().get(Calendar.YEAR), 0, 1, 0, 0, 0)
@@ -272,9 +272,9 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
     @SuppressLint("InflateParams")
     private fun showDatePicker() {
 
-        val builder = AlertDialog.Builder(context!!)
+        val builder = AlertDialog.Builder(requireContext())
         builder.setCancelable(false)
-        val inflater = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val inflater = requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val view = inflater.inflate(R.layout.datepicker_single_date, null)
         builder.setView(view)
         val dialog = builder.create()
@@ -307,9 +307,9 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
     @SuppressLint("InflateParams")
     private fun showSingleTimePicker() {
 
-        val builder = AlertDialog.Builder(context!!)
+        val builder = AlertDialog.Builder(requireContext())
         builder.setCancelable(false)
-        val inflater = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val inflater = requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val view = inflater.inflate(R.layout.timepicker_single_time, null)
         builder.setView(view)
         val dialog = builder.create()
@@ -341,9 +341,9 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
     @SuppressLint("InflateParams")
     private fun showRangeTimePicker1() {
 
-        val builder = AlertDialog.Builder(context!!)
+        val builder = AlertDialog.Builder(requireContext())
         builder.setCancelable(false)
-        val inflater = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val inflater = requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val view = inflater.inflate(R.layout.timepicker_range_time, null)
         builder.setView(view)
         val dialog = builder.create()
@@ -439,9 +439,9 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
     @SuppressLint("InflateParams")
     private fun showRangeTimePicker2() {
 
-        val builder = AlertDialog.Builder(context!!)
+        val builder = AlertDialog.Builder(requireContext())
         builder.setCancelable(false)
-        val inflater = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val inflater = requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val view = inflater.inflate(R.layout.timepicker_range_time, null)
         builder.setView(view)
         val dialog = builder.create()

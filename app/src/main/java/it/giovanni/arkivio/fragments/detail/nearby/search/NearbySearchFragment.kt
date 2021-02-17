@@ -160,7 +160,7 @@ class NearbySearchFragment: DetailFragment(), ConnectionCallbacks, OnConnectionF
         }
 
         val nearbyDevicesArrayList: List<String> = ArrayList()
-        nearbyDevicesAdapter = ArrayAdapter(context!!, android.R.layout.simple_list_item_1, nearbyDevicesArrayList)
+        nearbyDevicesAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, nearbyDevicesArrayList)
         val nearbyDevicesListView: ListView = viewFragment!!.findViewById(R.id.nearby_devices_listview)
         nearbyDevicesListView.adapter = nearbyDevicesAdapter
         buildGoogleApiClient()
@@ -170,7 +170,7 @@ class NearbySearchFragment: DetailFragment(), ConnectionCallbacks, OnConnectionF
         if (googleApiClient != null) {
             return
         }
-        googleApiClient = GoogleApiClient.Builder(context!!)
+        googleApiClient = GoogleApiClient.Builder(requireContext())
             .addApi(Nearby.MESSAGES_API)
             .addConnectionCallbacks(this)
             .enableAutoManage(currentActivity, this)

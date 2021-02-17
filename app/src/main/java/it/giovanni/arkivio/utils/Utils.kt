@@ -4,9 +4,7 @@ package it.giovanni.arkivio.utils
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.ActivityNotFoundException
-import android.content.Context
-import android.content.Intent
+import android.content.*
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.res.Resources
@@ -16,6 +14,7 @@ import android.media.ThumbnailUtils
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.net.Uri
+import android.os.BatteryManager
 import android.os.Build
 import android.os.Bundle
 import android.telephony.TelephonyManager
@@ -179,13 +178,11 @@ class Utils {
             var html = htmlMessage
             if (html == null)
                 html = ""
-            val result : Spanned
-            result = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY)
             } else {
                 Html.fromHtml(html)
             }
-            return result
         }
 
         fun getVersionNameLong(versionName: String): Long {
@@ -355,8 +352,7 @@ class Utils {
             var encodedUrl = ""
             try {
                 val baos = ByteArrayOutputStream()
-                val oos: ObjectOutputStream
-                oos = ObjectOutputStream(baos)
+                val oos = ObjectOutputStream(baos)
                 oos.writeObject(decodedUrl)
                 oos.close()
                 encodedUrl = Base64.encodeToString(baos.toByteArray(), Base64.URL_SAFE)
@@ -370,8 +366,7 @@ class Utils {
             var decodedUrl = ""
             try {
                 val data: ByteArray? = Base64.decode(encodedUrl, Base64.URL_SAFE)
-                val ois: ObjectInputStream
-                ois = ObjectInputStream(ByteArrayInputStream(data))
+                val ois = ObjectInputStream(ByteArrayInputStream(data))
                 decodedUrl = ois.readObject() as String
                 ois.close()
             } catch (e: Exception) {
@@ -588,8 +583,7 @@ class Utils {
         }
 
         fun getJsonFromAssets(context: Context, fileName: String): String? {
-            val jsonString: String
-            jsonString = try {
+            return try {
                 val inputStream: InputStream = context.assets.open(fileName)
                 val size: Int = inputStream.available()
                 val buffer = ByteArray(size)
@@ -600,7 +594,16 @@ class Utils {
                 e.printStackTrace()
                 return null
             }
-            return jsonString
+        }
+
+        fun getBatteryLevel(context: Context): Int {
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                val batteryManager = context.getSystemService(Context.BATTERY_SERVICE) as BatteryManager
+                batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)
+            } else {
+                val intent = ContextWrapper(context).registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+                intent!!.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) * 100 / intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
+            }
         }
     }
 }

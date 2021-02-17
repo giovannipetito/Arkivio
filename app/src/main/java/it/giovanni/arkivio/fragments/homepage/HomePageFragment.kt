@@ -27,6 +27,7 @@ import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.DateManager
 import it.giovanni.arkivio.utils.Utils.Companion.convertDpToPixel
+import it.giovanni.arkivio.utils.Utils.Companion.getBatteryLevel
 import it.giovanni.arkivio.utils.Utils.Companion.getHashKey
 import it.giovanni.arkivio.utils.Utils.Companion.getVersionNameLong
 import it.giovanni.arkivio.utils.Utils.Companion.turnArrayListToString
@@ -87,8 +88,8 @@ class HomePageFragment : HomeFragment() {
         val binding: HomePageLayoutBinding? = DataBindingUtil.inflate(inflater, R.layout.home_page_layout, container, false)
         viewFragment = binding?.root
 
-        val darkModePresenter = DarkModePresenter(this, context!!)
-        val model = DarkModeModel(context!!)
+        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val model = DarkModeModel(requireContext())
         binding?.temp = model
         binding?.presenter = darkModePresenter
 
@@ -201,7 +202,7 @@ class HomePageFragment : HomeFragment() {
         label_time.text = DateManager(Date()).getFormatTime()
 
         Handler().postDelayed({
-            val avatar: Bitmap = BitmapFactory.decodeResource(context!!.resources, R.drawable.giovanni)
+            val avatar: Bitmap = BitmapFactory.decodeResource(requireContext().resources, R.drawable.giovanni)
             val roundAvatar: Bitmap = getRoundBitmap(avatar, avatar.width)
             ico_avatar.setImageBitmap(roundAvatar)
         }, delayTime)
@@ -210,13 +211,13 @@ class HomePageFragment : HomeFragment() {
             pickFromGallery()
         }
 
-        val pixel = convertDpToPixel(context!!, 24F)
+        val pixel = convertDpToPixel(requireContext(), 24F)
         Log.i(mTag, "pixel: $pixel")
 
         val versionName = BuildConfig.VERSION_NAME
         Log.i(mTag, "versionName: " + getVersionNameLong(versionName))
 
-        val hashKey = getHashKey(context!!)
+        val hashKey = getHashKey(requireContext())
         Log.i(mTag, "Hash Key: $hashKey")
 
         if (currentHours in 5..17) {
@@ -228,6 +229,9 @@ class HomePageFragment : HomeFragment() {
             lottie_moon.visibility = View.VISIBLE
             label_greeting.setText(R.string.good_evening_title)
         }
+
+        val batteryLevel = "Livello della batteria: " + getBatteryLevel(requireContext()) + " %"
+        label_battery_level.text = batteryLevel
     }
 
     private fun pickFromGallery() {
@@ -240,7 +244,7 @@ class HomePageFragment : HomeFragment() {
         if (requestCode == galleryCode && resultCode == RESULT_OK && null != data) run {
             try {
                 if (data.data != null) {
-                    val avatar: Bitmap = MediaStore.Images.Media.getBitmap(context!!.contentResolver, data.data)
+                    val avatar: Bitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, data.data)
                     val roundAvatar: Bitmap = getRoundBitmap(avatar, avatar.width)
                     ico_avatar.setImageBitmap(roundAvatar)
                 }

@@ -78,8 +78,8 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
         val binding: LayoutManagerLayoutBinding? = DataBindingUtil.inflate(inflater, R.layout.layout_manager_layout, container, false)
         viewFragment = binding?.root
 
-        val darkModePresenter = DarkModePresenter(this, context!!)
-        val model = DarkModeModel(context!!)
+        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val model = DarkModeModel(requireContext())
         binding?.temp = model
         binding?.presenter = darkModePresenter
 
@@ -103,9 +103,9 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
 
         val drawableBar = GradientDrawable(
             GradientDrawable.Orientation.LEFT_RIGHT,
-            intArrayOf(ContextCompat.getColor(context!!, R.color.rosso),
-                ContextCompat.getColor(context!!, R.color.giallo),
-                ContextCompat.getColor(context!!, R.color.blu))
+            intArrayOf(ContextCompat.getColor(requireContext(), R.color.rosso),
+                ContextCompat.getColor(requireContext(), R.color.giallo),
+                ContextCompat.getColor(requireContext(), R.color.blu))
         )
 
         drawableBar.cornerRadius = 50f
@@ -141,14 +141,14 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
         }
 
         // icon_1.background = resources.getDrawable(R.drawable.giovanni)
-        icon_1.setBackgroundDrawable(ContextCompat.getDrawable(context!!, R.drawable.giovanni))
+        icon_1.setBackgroundDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.giovanni))
 
-        Glide.with(context!!)
+        Glide.with(requireContext())
             .load(R.drawable.giovanni)
             .apply(RequestOptions.bitmapTransform(RoundedCorners(28)))
             .into(icon_2)
 
-        Glide.with(context!!)
+        Glide.with(requireContext())
             .load(R.drawable.giovanni)
             .placeholder(R.mipmap.ic_launcher)
             .error(R.mipmap.ic_launcher)
@@ -156,14 +156,14 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
             .apply(RequestOptions.bitmapTransform(RoundedCorners(54)))
             .into(icon_3)
 
-        Glide.with(context!!)
+        Glide.with(requireContext())
             .load(R.drawable.giovanni)
             .apply(RequestOptions()
                 .circleCrop()
                 .placeholder(R.mipmap.ic_launcher))
             .into(icon_4)
 
-        Glide.with(context!!)                            // Passing context.
+        Glide.with(requireContext())                     // Passing context.
             .load(R.drawable.giovanni)                   // Passing your url to load image.
             .placeholder(R.mipmap.ic_launcher)           // The default image. It would be loaded at initial time and it will replace with your loaded image once Glide successfully load image using url.
             .error(R.mipmap.ic_launcher)                 // In case of any Glide exception or not able to download then this image will be appear.

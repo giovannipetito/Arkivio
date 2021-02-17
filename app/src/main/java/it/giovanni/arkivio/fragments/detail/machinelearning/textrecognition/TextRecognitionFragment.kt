@@ -83,7 +83,7 @@ class TextRecognitionFragment : DetailFragment(), OnItemSelectedListener {
 
         val spinner: Spinner = viewFragment?.findViewById(R.id.ml_spinner)!!
         val items = arrayOf("Test Text")
-        val adapter: ArrayAdapter<String> = ArrayAdapter(context!!, android.R.layout.simple_spinner_dropdown_item, items)
+        val adapter: ArrayAdapter<String> = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, items)
         spinner.adapter = adapter
         spinner.onItemSelectedListener = this
 
@@ -164,7 +164,7 @@ class TextRecognitionFragment : DetailFragment(), OnItemSelectedListener {
     override fun onItemSelected(parent: AdapterView<*>?, v: View?, position: Int, id: Long) {
         graphicOverlay!!.clear()
         when (position) {
-            0 -> selectedImage = Utils.getBitmapFromAsset(context!!, "grass_text.jpg")
+            0 -> selectedImage = Utils.getBitmapFromAsset(requireContext(), "grass_text.jpg")
         }
         if (selectedImage != null) {
             // Get the dimensions of the View

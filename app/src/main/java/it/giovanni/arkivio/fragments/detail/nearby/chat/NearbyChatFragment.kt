@@ -157,7 +157,7 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
         // Debug text view
         debugText!!.movementMethod = ScrollingMovementMethod()
 
-        googleApiClient = GoogleApiClient.Builder(context!!)
+        googleApiClient = GoogleApiClient.Builder(requireContext())
             .addConnectionCallbacks(this)
             .addOnConnectionFailedListener(this)
             .addApi(Nearby.CONNECTIONS_API)
@@ -330,7 +330,7 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
 
         // This device is advertising and has received a connection request. Show a dialog asking
         // the user if they would like to connect and accept or reject the request accordingly.
-        val mConnectionRequestDialog = AlertDialog.Builder(context!!)
+        val mConnectionRequestDialog = AlertDialog.Builder(requireContext())
             .setTitle("Connection Request")
             .setMessage("Do you want to connect to $endpointName?")
             .setCancelable(false)
@@ -367,7 +367,7 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
         // the user asking if they want to connect, and send a connection request if they do.
         if (nearbyDialog == null) {
             // Configure the AlertDialog that the MyListDialog wraps
-            val builder = AlertDialog.Builder(context!!)
+            val builder = AlertDialog.Builder(requireContext())
                 .setTitle("Endpoint(s) Found")
                 .setCancelable(true)
                 .setNegativeButton("Cancel") { _: DialogInterface?, _: Int ->
@@ -375,7 +375,7 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
                 }
 
             // Create the MyListDialog with a listener
-            nearbyDialog = NearbyDialog(context!!, builder) { _: DialogInterface?, which: Int ->
+            nearbyDialog = NearbyDialog(requireContext(), builder) { _: DialogInterface?, which: Int ->
                 val selectedEndpointName = nearbyDialog!!.getItemKey(which)
                 val selectedEndpointId = nearbyDialog!!.getItemValue(which)
                 this@NearbyChatFragment.connectTo(selectedEndpointId!!, selectedEndpointName)

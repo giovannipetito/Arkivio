@@ -32,11 +32,11 @@ class WebViewFragment : DetailFragment() {
 
     override fun getTitle(): Int {
 
-        val linkGitHub = arguments!!.getInt("link_github")
-        val linkDriveW3B = arguments!!.getInt("link_drive_w3b")
-        val linkDriveWAW3 = arguments!!.getInt("link_drive_waw3")
-        val linkHtml = arguments!!.getInt("link_html")
-        val linkWebCam = arguments!!.getInt("link_webcam")
+        val linkGitHub = requireArguments().getInt("link_github")
+        val linkDriveW3B = requireArguments().getInt("link_drive_w3b")
+        val linkDriveWAW3 = requireArguments().getInt("link_drive_waw3")
+        val linkHtml = requireArguments().getInt("link_html")
+        val linkWebCam = requireArguments().getInt("link_webcam")
 
         val noTitle = 0
 
@@ -185,9 +185,9 @@ class WebViewFragment : DetailFragment() {
 
             urlHtml = getUrl("url_html")
 
-            message = arguments!!.getString("TEXT_KEY")
+            message = requireArguments().getString("TEXT_KEY")
             if (message != null && message!!.isNotEmpty())
-                setTextWebview(webview, message!!, context!!)
+                setTextWebview(webview, message!!, requireContext())
         }
 
         if (message == null) {
@@ -213,7 +213,7 @@ class WebViewFragment : DetailFragment() {
     }
 
     private fun getUrl(key: String): String {
-        return if (arguments!!.containsKey(key) && arguments!!.getString(key) != null) {
+        return if (requireArguments().containsKey(key) && requireArguments().getString(key) != null) {
             arguments?.getString(key)!!
         } else ""
     }

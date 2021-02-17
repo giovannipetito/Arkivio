@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.youtube_player_view_activity.*
 
 class YouTubePlayerViewActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener {
 
-    private val RECOVERY_DIALOG_REQUEST = 1
+    private val recoveryDialogRequest = 1
 
     override fun onCreate(bundle: Bundle?) {
         super.onCreate(bundle)
@@ -35,7 +35,7 @@ class YouTubePlayerViewActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitial
     override fun onInitializationFailure(provider: YouTubePlayer.Provider, result: YouTubeInitializationResult) {
 
         if (result.isUserRecoverableError)
-            result.getErrorDialog(this, RECOVERY_DIALOG_REQUEST).show()
+            result.getErrorDialog(this, recoveryDialogRequest).show()
         else {
             val errorMessage = String.format(getString(R.string.error_player), result.toString())
             Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
@@ -43,13 +43,13 @@ class YouTubePlayerViewActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitial
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == RECOVERY_DIALOG_REQUEST) {
+        if (requestCode == recoveryDialogRequest) {
             // Retry initialization if user performed a recovery action,
-            getYouTubePlayerProvider()?.initialize(YoutubeConnector.API_KEY, this)
+            getYouTubePlayerProvider().initialize(YoutubeConnector.API_KEY, this)
         }
     }
 
-    private fun getYouTubePlayerProvider(): YouTubePlayer.Provider? {
+    private fun getYouTubePlayerProvider(): YouTubePlayer.Provider {
         return findViewById<View>(R.id.youtube_player_view) as YouTubePlayerView
     }
 }

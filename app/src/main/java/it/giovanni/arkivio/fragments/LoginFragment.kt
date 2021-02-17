@@ -39,7 +39,7 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
         return NO_TITLE
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view = super.onCreateView(inflater, container, savedInstanceState)
 
         currentActivity.setStatusBarTransparent()
@@ -96,7 +96,7 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
         }
 
         image_fingerprint.setOnClickListener {
-            biometricManager = BiometricManager.BiometricBuilder(context!!)
+            biometricManager = BiometricManager.BiometricBuilder(requireContext())
                 .setTitle(getString(R.string.biometric_title))
                 .setSubtitle(getString(R.string.biometric_subtitle))
                 .setDescription(getString(R.string.biometric_description))
@@ -151,7 +151,7 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
     }
 
     private fun checkPermission() {
-        hasPermission = PermissionManager.checkSelfPermission(context!!, Manifest.permission.USE_BIOMETRIC)
+        hasPermission = PermissionManager.checkSelfPermission(requireContext(), Manifest.permission.USE_BIOMETRIC)
     }
 
     override fun onPermissionResult(permissions: Array<String>, grantResults: IntArray) {

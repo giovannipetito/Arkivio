@@ -70,21 +70,21 @@ class EmailFragment: DetailFragment() {
         val cc = arrayOf("raf@outlook.it", "gio@outlook.it")
 
         label_simple_mail.setOnClickListener {
-            sendSimpleMail(context!!, "raf@gmail.com")
+            sendSimpleMail(requireContext(), "raf@gmail.com")
         }
 
         label_filled_out_mail.setOnClickListener {
-            sendFilledOutMail(context!!, to, cc, "Subject", "Text")
+            sendFilledOutMail(requireContext(), to, cc, "Subject", "Text")
         }
 
         label_gmail_mail.setOnClickListener {
             showProgressDialog()
-            sendGmailMail(context!!, to, cc, "Subject", "Text")
+            sendGmailMail(requireContext(), to, cc, "Subject", "Text")
         }
 
         label_outlook_mail.setOnClickListener {
             showProgressDialog()
-            sendOutlookMail(context!!, to, cc, "Subject", "Text")
+            sendOutlookMail(requireContext(), to, cc, "Subject", "Text")
         }
     }
 }

@@ -47,8 +47,8 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
         val binding: DetailLayoutBinding? = DataBindingUtil.inflate(inflater, R.layout.detail_layout, container, false)
         val view = binding?.root
 
-        val darkModePresenter = DarkModePresenter(this, context!!)
-        val model = DarkModeModel(context!!)
+        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val model = DarkModeModel(requireContext())
         binding?.temp = model
         binding?.presenter = darkModePresenter
 
@@ -93,13 +93,13 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
 
         if (closeAction()) {
             arrow_go_back.visibility = View.VISIBLE
-            arrow_go_back.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ico_close_rvd))
+            arrow_go_back.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ico_close_rvd))
         }
 
         arrow_go_back.setOnClickListener(arrowGoBackClickListener)
 
-        if (arguments != null && arguments!!.containsKey("link_deeplink")) {
-            detail_title.text = arguments!!.getString("link_deeplink")
+        if (arguments != null && requireArguments().containsKey("link_deeplink")) {
+            detail_title.text = requireArguments().getString("link_deeplink")
         } else if (getTitle() != NO_TITLE) {
             detail_title.text = getString(getTitle())
         }

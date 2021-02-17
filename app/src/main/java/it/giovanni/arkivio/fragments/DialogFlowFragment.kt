@@ -14,8 +14,8 @@ import java.util.*
 
 class DialogFlowFragment : BaseFragment(SectionType.DIALOG_FLOW) {
 
-    private val DELAY_TIME: Long = 5000
-    private var REQUEST_CODE: Int = 10
+    private val delayTime: Long = 5000
+    private var requestCode: Int = 10
 
     override fun getTitle(): Int {
         return NO_TITLE
@@ -33,7 +33,7 @@ class DialogFlowFragment : BaseFragment(SectionType.DIALOG_FLOW) {
                 speech_container.visibility = View.GONE
                 suggestions_container.visibility = View.VISIBLE
             }
-        }, DELAY_TIME)
+        }, delayTime)
 
         button_voice_container.setOnClickListener {
 
@@ -43,7 +43,7 @@ class DialogFlowFragment : BaseFragment(SectionType.DIALOG_FLOW) {
             // intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Ciao, come posso aiutarti?")
 
             if (intent.resolveActivity(currentActivity.packageManager) != null)
-                startActivityForResult(intent, REQUEST_CODE)
+                startActivityForResult(intent, requestCode)
             else
                 Toast.makeText(context, "Your Device Don't Support Speech Input", Toast.LENGTH_SHORT).show()
         }
@@ -53,7 +53,7 @@ class DialogFlowFragment : BaseFragment(SectionType.DIALOG_FLOW) {
         super.onActivityResult(requestCode, resultCode, data)
 
         when (requestCode) {
-            REQUEST_CODE -> if (resultCode == RESULT_OK && data != null) {
+            this.requestCode -> if (resultCode == RESULT_OK && data != null) {
                 val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                 speech_text!!.text = result!![0]
 

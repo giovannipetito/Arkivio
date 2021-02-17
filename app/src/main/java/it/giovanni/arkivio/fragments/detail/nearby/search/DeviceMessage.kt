@@ -19,7 +19,7 @@ class DeviceMessage {
 
         private val gson = Gson()
 
-        fun newNearbyMessage(instanceId: String?, messageBody: String?): Message? {
+        fun newNearbyMessage(instanceId: String?, messageBody: String?): Message {
             val deviceMessage = DeviceMessage(instanceId!!, messageBody!!)
             return Message(gson.toJson(deviceMessage).toByteArray(StandardCharsets.UTF_8))
         }

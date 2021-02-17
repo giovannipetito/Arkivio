@@ -84,15 +84,15 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
         return NO_TITLE
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         var view = super.onCreateView(inflater, container, savedInstanceState)
 
         // ----- DATA BINDING ----- //
         binding = DataBindingUtil.inflate(inflater, R.layout.main_layout, container, false)
         view = binding?.root
-        darkModePresenter = DarkModePresenter(this, context!!)
-        model = DarkModeModel(context!!)
+        darkModePresenter = DarkModePresenter(this, requireContext())
+        model = DarkModeModel(requireContext())
         binding?.temp = model
         binding?.presenter = darkModePresenter
         // ------------------------ //
@@ -116,7 +116,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val avatar : Bitmap = BitmapFactory.decodeResource(context!!.resources, R.drawable.giovanni)
+        val avatar : Bitmap = BitmapFactory.decodeResource(requireContext().resources, R.drawable.giovanni)
         val roundAvatar : Bitmap = getRoundBitmap(avatar, avatar.width)
         nav_header_avatar.setImageBitmap(roundAvatar)
 
@@ -173,7 +173,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
         voice.setOnClickListener {
             currentActivity.openDialogDetail(Globals.DIALOG_FLOW, Bundle())
             currentActivity.window.statusBarColor = ContextCompat.getColor(
-                context!!,
+                requireContext(),
                 R.color.black_transparent_1
             )
         }
@@ -262,7 +262,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
             override fun onDrawerClosed(drawerView: View) {
                 tab_menu.setImageDrawable(
                     ContextCompat.getDrawable(
-                        context!!,
+                        requireContext(),
                         R.drawable.ico_bottom_menu
                     )
                 )
@@ -328,7 +328,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
             val labelName: TextView = rowView.findViewById(R.id.link_name)
             val labelIcon: ImageView = rowView.findViewById(R.id.link_icon)
 
-            setBitmapFromUrl(item.image, labelIcon, activity!!)
+            setBitmapFromUrl(item.image, labelIcon, requireActivity())
 
             val linkItem: RelativeLayout = rowView.findViewById(R.id.link_item)
 
@@ -383,9 +383,9 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
             labelName.text = item.name
 
             if (isDarkMode)
-                labelName.setTextColor(context!!.resources.getColor(R.color.colorPrimary))
+                labelName.setTextColor(requireContext().resources.getColor(R.color.colorPrimary))
             else
-                labelName.setTextColor(context!!.resources.getColor(R.color.colorPrimaryDark))
+                labelName.setTextColor(requireContext().resources.getColor(R.color.colorPrimaryDark))
 
             nav_header_container.addView(rowView)
 
@@ -428,7 +428,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
         background_bottom_bar.x = -(delta * 2)
         tab_home.setImageDrawable(
             ContextCompat.getDrawable(
-                context!!,
+                requireContext(),
                 R.drawable.ico_bottom_home_rvd
             )
         )
@@ -448,33 +448,33 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
         when (position) {
             1 -> {
                 return if (!rvdType)
-                    ContextCompat.getDrawable(context!!, R.drawable.ico_bottom_home)!!
+                    ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_home)!!
                 else
-                    ContextCompat.getDrawable(context!!, R.drawable.ico_bottom_home_rvd)!!
+                    ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_home_rvd)!!
             }
             2 -> {
                 return if (!rvdType)
-                    ContextCompat.getDrawable(context!!, R.drawable.ico_bottom_working_area)!!
+                    ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_working_area)!!
                 else
-                    ContextCompat.getDrawable(context!!, R.drawable.ico_bottom_working_area_rvd)!!
+                    ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_working_area_rvd)!!
             }
             3 -> {
                 return if (!rvdType)
                     ContextCompat.getDrawable(
-                        context!!,
+                        requireContext(),
                         R.drawable.ico_bottom_administrative_area
                     )!!
                 else
                     ContextCompat.getDrawable(
-                        context!!,
+                        requireContext(),
                         R.drawable.ico_bottom_administrative_area_rvd
                     )!!
             }
             else -> {
                 return if (!rvdType)
-                    ContextCompat.getDrawable(context!!, R.drawable.ico_bottom_home)!!
+                    ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_home)!!
                 else
-                    ContextCompat.getDrawable(context!!, R.drawable.ico_bottom_home_rvd)!!
+                    ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_home_rvd)!!
             }
         }
     }
@@ -483,8 +483,8 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
         translateAnimation(
             TAB_INDEX_HOME,
             tab_home,
-            ContextCompat.getDrawable(context!!, R.drawable.ico_bottom_home)!!,
-            ContextCompat.getDrawable(context!!, R.drawable.ico_bottom_home_rvd)!!
+            ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_home)!!,
+            ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_home_rvd)!!
         )
         view_pager.currentItem = TAB_INDEX_HOME - 1
     }
@@ -493,8 +493,8 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
         translateAnimation(
             TAB_INDEX_WORKING_AREA,
             tab_working_area,
-            ContextCompat.getDrawable(context!!, R.drawable.ico_bottom_working_area)!!,
-            ContextCompat.getDrawable(context!!, R.drawable.ico_bottom_working_area_rvd)!!
+            ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_working_area)!!,
+            ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_working_area_rvd)!!
         )
         view_pager.currentItem = TAB_INDEX_WORKING_AREA - 1
     }
@@ -503,8 +503,8 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
         translateAnimation(
             TAB_INDEX_ADMINISTRATIVE,
             tab_administrative,
-            ContextCompat.getDrawable(context!!, R.drawable.ico_bottom_administrative_area)!!,
-            ContextCompat.getDrawable(context!!, R.drawable.ico_bottom_administrative_area_rvd)!!
+            ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_administrative_area)!!,
+            ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_administrative_area_rvd)!!
         )
         view_pager.currentItem = TAB_INDEX_ADMINISTRATIVE - 1
     }
@@ -518,7 +518,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
             drawer_layout.closeDrawer(GravityCompat.END)
             tab_menu.setImageDrawable(
                 ContextCompat.getDrawable(
-                    context!!,
+                    requireContext(),
                     R.drawable.ico_bottom_menu
                 )
             )
@@ -531,7 +531,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
             drawer_layout.closeDrawer(GravityCompat.END)
             tab_menu.setImageDrawable(
                 ContextCompat.getDrawable(
-                    context!!,
+                    requireContext(),
                     R.drawable.ico_bottom_menu
                 )
             )
@@ -539,7 +539,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
             drawer_layout.openDrawer(GravityCompat.END)
             tab_menu.setImageDrawable(
                 ContextCompat.getDrawable(
-                    context!!,
+                    requireContext(),
                     R.drawable.ico_close_menu
                 )
             )
@@ -594,16 +594,16 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
     }
 
     private fun resetAllImages() {
-        tab_home.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ico_bottom_home))
+        tab_home.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_home))
         tab_working_area.setImageDrawable(
             ContextCompat.getDrawable(
-                context!!,
+                requireContext(),
                 R.drawable.ico_bottom_working_area
             )
         )
         tab_administrative.setImageDrawable(
             ContextCompat.getDrawable(
-                context!!,
+                requireContext(),
                 R.drawable.ico_bottom_administrative_area
             )
         )
@@ -767,7 +767,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
         else
             currentActivity.setTheme(R.style.AppThemeLight)
 
-        mModel = DarkModeModel(context!!)
+        mModel = DarkModeModel(requireContext())
         binding?.temp = mModel
         binding?.presenter = darkModePresenter
     }

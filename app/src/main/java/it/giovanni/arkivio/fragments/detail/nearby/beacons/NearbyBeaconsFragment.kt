@@ -103,11 +103,11 @@ class NearbyBeaconsFragment: DetailFragment(),
         if (savedInstanceState != null)
             subscribed = savedInstanceState.getBoolean(keySubscribed, false)
 
-        val cachedMessages = NearbyBeaconsUtils.getCachedMessages(context!!)
+        val cachedMessages = NearbyBeaconsUtils.getCachedMessages(requireContext())
         messagesList.addAll(cachedMessages)
 
         val listView: ListView = viewFragment!!.findViewById(R.id.nearby_messages_listview)
-        adapter = ArrayAdapter(context!!, android.R.layout.simple_list_item_1, messagesList)
+        adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, messagesList)
         listView.adapter = adapter
 
         if (!havePermissions()) {
@@ -160,7 +160,7 @@ class NearbyBeaconsFragment: DetailFragment(),
     @Synchronized
     private fun buildGoogleApiClient() {
         if (googleApiClient == null) {
-            googleApiClient = GoogleApiClient.Builder(context!!)
+            googleApiClient = GoogleApiClient.Builder(requireContext())
                 .addApi(
                     Nearby.MESSAGES_API, MessagesOptions.Builder()
                         .setPermissions(NearbyPermissions.BLE)
@@ -204,7 +204,7 @@ class NearbyBeaconsFragment: DetailFragment(),
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
         if (TextUtils.equals(key, NearbyBeaconsUtils.KEY_CACHED_MESSAGES)) {
             messagesList.clear()
-            messagesList.addAll(NearbyBeaconsUtils.getCachedMessages(context!!))
+            messagesList.addAll(NearbyBeaconsUtils.getCachedMessages(requireContext()))
             adapter!!.notifyDataSetChanged()
         }
     }
@@ -215,7 +215,7 @@ class NearbyBeaconsFragment: DetailFragment(),
     }
 
     private fun havePermissions(): Boolean {
-        return (ContextCompat.checkSelfPermission(context!!, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+        return (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
     }
 
     private fun requestPermissions() {

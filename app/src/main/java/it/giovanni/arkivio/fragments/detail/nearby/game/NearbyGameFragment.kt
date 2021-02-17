@@ -188,7 +188,7 @@ class NearbyGameFragment: DetailFragment() {
 
     override fun onStart() {
         super.onStart()
-        if (!hasPermissions(context!!, requiredPermissions)) {
+        if (!hasPermissions(requireContext(), requiredPermissions)) {
             requestPermissions(requiredPermissions, requestCodeRequiredPermissions)
         }
     }
@@ -257,7 +257,7 @@ class NearbyGameFragment: DetailFragment() {
     private fun startAdvertising() {
         // Note: Advertising may fail. To keep this demo simple, we don't handle failures.
         connectionsClient.startAdvertising(
-            player!!,
+            player,
             currentActivity.packageName,
             connectionLifecycleCallback,
             AdvertisingOptions.Builder().setStrategy(strategy).build()

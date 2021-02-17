@@ -170,7 +170,7 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
         adapter.setList(list)
         adapter.notifyDataSetChanged()
 
-        arrow_go_back.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ico_back_rvd))
+        arrow_go_back.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ico_back_rvd))
 
         flexbox_users?.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
             scrollview_flexbox?.scrollTo(0, flexbox_users.height)
@@ -178,12 +178,12 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
 
         if (arguments != null) {
             var brickUsers: ArrayList<User> = ArrayList()
-            if (arguments!!.getSerializable(KEY_BRICKS) != null)
-                brickUsers = arguments!!.getSerializable(KEY_BRICKS) as ArrayList<User>
+            if (requireArguments().getSerializable(KEY_BRICKS) != null)
+                brickUsers = requireArguments().getSerializable(KEY_BRICKS) as ArrayList<User>
             if (brickUsers.size > 0) {
                 flexbox_users.removeAllViews()
                 for ((i, user) in brickUsers.withIndex()) {
-                    val brick = Brick(context!!)
+                    val brick = Brick(requireContext())
                     brick.mode(Brick.ModeType.EDIT)
                     brick.setName(user.nome!!)
                     if (user.emails!!.isEmpty())
@@ -197,7 +197,7 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
                 actionLabelState(true)
             }
 
-            sentence = arguments!!.getString(KEY_SPEECH_USERS)
+            sentence = requireArguments().getString(KEY_SPEECH_USERS)
             if (sentence != null) {
                 edit_search.setText(sentence)
                 edit_search.requestFocus()
@@ -297,7 +297,7 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
 
     private fun addBrick(name: String, email: String) {
         if (!isAdded(email)) {
-            val brick = Brick(context!!)
+            val brick = Brick(requireContext())
             brick.mode(Brick.ModeType.EDIT)
             brick.setName(name)
             brick.setEmail(email)

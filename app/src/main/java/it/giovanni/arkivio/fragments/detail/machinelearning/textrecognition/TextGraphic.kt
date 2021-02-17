@@ -14,14 +14,14 @@ import it.giovanni.arkivio.customview.GraphicOverlay
  */
 class TextGraphic internal constructor(overlay: GraphicOverlay?, private val element: Text.Element?) : GraphicOverlay.Graphic(overlay!!) {
 
-    private val rectPaint: Paint
+    private val rectPaint: Paint = Paint()
     private val textPaint: Paint
 
     /**
      * Draws the text block annotations for position, size, and raw value on the supplied canvas.
      */
     override fun draw(canvas: Canvas?) {
-        Log.d(TextGraphic.Companion.TAG, "on draw text graphic")
+        Log.d(TAG, "on draw text graphic")
         checkNotNull(element) { "Attempting to draw a null text." }
 
         // Draws the bounding box around the TextBlock.
@@ -40,7 +40,6 @@ class TextGraphic internal constructor(overlay: GraphicOverlay?, private val ele
     }
 
     init {
-        rectPaint = Paint()
         rectPaint.color = TEXT_COLOR
         rectPaint.style = Paint.Style.STROKE
         rectPaint.strokeWidth = STROKE_WIDTH

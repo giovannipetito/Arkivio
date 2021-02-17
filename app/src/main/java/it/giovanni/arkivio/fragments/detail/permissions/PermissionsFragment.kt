@@ -196,24 +196,24 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
             webcam_separator.visibility = View.VISIBLE
             return
         }
-        PermissionManager.requestPermission(context!!, this, arrayOf(Manifest.permission.MODIFY_AUDIO_SETTINGS, Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA))
+        PermissionManager.requestPermission(requireContext(), this, arrayOf(Manifest.permission.MODIFY_AUDIO_SETTINGS, Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA))
     }
 
     private fun checkPermissions() {
-        hasPermissions = PermissionManager.checkSelfPermission(context!!, Manifest.permission.MODIFY_AUDIO_SETTINGS) &&
-                PermissionManager.checkSelfPermission(context!!, Manifest.permission.RECORD_AUDIO) &&
-                PermissionManager.checkSelfPermission(context!!, Manifest.permission.CAMERA)
+        hasPermissions = PermissionManager.checkSelfPermission(requireContext(), Manifest.permission.MODIFY_AUDIO_SETTINGS) &&
+                PermissionManager.checkSelfPermission(requireContext(), Manifest.permission.RECORD_AUDIO) &&
+                PermissionManager.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
     }
 
     private fun askPhonePermission() {
         checkPhonePermission()
         if (hasPhonePermission)
             return
-        PermissionManager.requestPermission(context!!, this, arrayOf(Manifest.permission.READ_PHONE_STATE))
+        PermissionManager.requestPermission(requireContext(), this, arrayOf(Manifest.permission.READ_PHONE_STATE))
     }
 
     private fun checkPhonePermission() {
-        hasPhonePermission = PermissionManager.checkSelfPermission(context!!, Manifest.permission.READ_PHONE_STATE)
+        hasPhonePermission = PermissionManager.checkSelfPermission(requireContext(), Manifest.permission.READ_PHONE_STATE)
     }
 
     private fun showPhoneState() {
@@ -263,7 +263,7 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
         if (hasPDFPermission)
             return
         PermissionManager.requestPermission(
-            context!!,
+            requireContext(),
             this,
             arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
             true,
@@ -274,7 +274,7 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
     }
 
     private fun checkPDFPermission() {
-        hasPDFPermission = PermissionManager.checkSelfPermission(context!!, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        hasPDFPermission = PermissionManager.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
     }
 
     override fun onPermissionResult(permissions: Array<String>, grantResults: IntArray) {
@@ -305,7 +305,7 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
 
         showProgressDialog()
 
-        if (isPDFSupported(context!!)) {
+        if (isPDFSupported(requireContext())) {
 
             // The name of the downloaded file.
             fileName = when {
@@ -362,7 +362,7 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
         intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(""))
         intent.putExtra(Intent.EXTRA_CC, arrayOf(""))
         val uris = ArrayList<Uri>()
-        uris.add(Utils.getFileUri(File(filePath, fileName), context!!))
+        uris.add(Utils.getFileUri(File(filePath, fileName), requireContext()))
         intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris)
         startActivity(Intent.createChooser(intent, resources.getString(R.string.send_email)))
     }
@@ -373,8 +373,8 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
         viewIntent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
 
         val apkURI = FileProvider.getUriForFile(
-            context!!,
-            context!!.applicationContext.packageName + ".provider",
+            requireContext(),
+            requireContext().applicationContext.packageName + ".provider",
             File(filePath, fileName)
         )
         viewIntent.setDataAndType(apkURI, "application/pdf")

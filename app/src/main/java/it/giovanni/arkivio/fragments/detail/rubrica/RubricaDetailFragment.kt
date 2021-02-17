@@ -107,7 +107,7 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         if (arguments != null) {
-            user = arguments!!.getSerializable(KEY_RUBRICA) as User
+            user = requireArguments().getSerializable(KEY_RUBRICA) as User
 
             val contact = user.nome + " " + user.cognome
             user_name.text = contact
@@ -129,24 +129,24 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
         }
 
         if (user.nome == "Giovanni" && user.cognome == "Petito") {
-            avatar = BitmapFactory.decodeResource(context!!.resources, R.drawable.giovanni)
+            avatar = BitmapFactory.decodeResource(requireContext().resources, R.drawable.giovanni)
             val roundAvatar : Bitmap = Utils.getRoundBitmap(avatar!!, avatar?.width!!)
             ico_profile.setImageBitmap(roundAvatar)
         } else {
-            val color = arguments!!.getInt(KEY_COLOR)
+            val color = requireArguments().getInt(KEY_COLOR)
             ico_profile.setColorFilter(ResourcesCompat.getColor(context?.resources!!, color, null))
         }
 
         numero_fisso_container.setOnClickListener {
-            callContact(context!!, value_numero_fisso.text.toString())
+            callContact(requireContext(), value_numero_fisso.text.toString())
         }
 
         cellulare_container.setOnClickListener {
-            callContact(context!!, value_cellulare.text.toString())
+            callContact(requireContext(), value_cellulare.text.toString())
         }
 
         email_container.setOnClickListener {
-            sendSimpleMail(context!!, value_mail.text.toString())
+            sendSimpleMail(requireContext(), value_mail.text.toString())
         }
 
         rubrica_icon.visibility = View.VISIBLE
@@ -318,7 +318,7 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
 
     override fun onClick(view: View?) {
 
-        label = view!!.tag as String
+        label = requireView().tag as String
         listDialogPopup.dismiss()
 
         when (label) {
@@ -333,7 +333,7 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
             }
             else -> {
                 if (label != labelDelete) {
-                    callContact(context!!, label)
+                    callContact(requireContext(), label)
                 }
             }
         }

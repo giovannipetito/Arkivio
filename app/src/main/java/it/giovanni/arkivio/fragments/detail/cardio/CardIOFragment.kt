@@ -94,7 +94,7 @@ class CardIOFragment : DetailFragment(), AppCompatSpinnerCustom.OnSpinnerEventsL
         val spinnerContainer = viewFragment?.findViewById(R.id.spinner_container) as RelativeLayout
         val drawableBar = GradientDrawable(
             GradientDrawable.Orientation.LEFT_RIGHT,
-            intArrayOf(ContextCompat.getColor(context!!, R.color.verde), ContextCompat.getColor(context!!, R.color.verde))
+            intArrayOf(ContextCompat.getColor(requireContext(), R.color.verde), ContextCompat.getColor(requireContext(), R.color.verde))
         )
         drawableBar.cornerRadius = 100f
         spinnerContainer.setBackgroundDrawable(drawableBar)
@@ -126,10 +126,10 @@ class CardIOFragment : DetailFragment(), AppCompatSpinnerCustom.OnSpinnerEventsL
     private fun enableScanExpiry() {
         if (expiry.isChecked) {
             scan_expiry.isEnabled = true
-            scan_expiry.setTextColor(ContextCompat.getColor(context!!, R.color.grey_3))
+            scan_expiry.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey_3))
         } else {
             scan_expiry.isEnabled = false
-            scan_expiry.setTextColor(ContextCompat.getColor(context!!, R.color.grey_2))
+            scan_expiry.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey_2))
         }
     }
 
@@ -209,7 +209,7 @@ class CardIOFragment : DetailFragment(), AppCompatSpinnerCustom.OnSpinnerEventsL
         // TODO) Potrei passare all'adapter anche l'Array arraylanguages invece dell'ArrayList languages.
         // var arraylanguages: Array<String> = arrayOf("de", "en", "es", "fr", "it", "pt", "ru")
 
-        val adapter = ArrayAdapter(context!!, R.layout.spinner_dropdown_item, languages) // arraylanguages
+        val adapter = ArrayAdapter(requireContext(), R.layout.spinner_dropdown_item, languages) // arraylanguages
 
         // TODO) Nota: Per l'adapter ho definito un item custom (spinner_dropdown_item), ma avrei anche potuto utilizzare un item nativo di Android (simple_dropdown_item_1line):
         // val adapter = ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, languages)

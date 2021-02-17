@@ -150,7 +150,7 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback, IRealtimeCallback
             if (users != null) {
                 flexbox_layout_users.removeAllViews()
                 for (user in users!!) {
-                    val brick = Brick(context!!)
+                    val brick = Brick(requireContext())
                     brick.mode(Brick.ModeType.VIEW)
                     brick.setName(user.nome!!)
                     brick.callback(this)
@@ -205,7 +205,7 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback, IRealtimeCallback
 
     private fun getUsersFromJson(): ArrayList<User> {
 
-        val jsonObject: String? = Utils.getJsonFromAssets(context!!, "user.json")
+        val jsonObject: String? = Utils.getJsonFromAssets(requireContext(), "user.json")
         val gson: Gson? = GsonBuilder().serializeNulls().create()
         val userResponse: UserResponse? = gson?.fromJson(jsonObject, UserResponse::class.java)
 

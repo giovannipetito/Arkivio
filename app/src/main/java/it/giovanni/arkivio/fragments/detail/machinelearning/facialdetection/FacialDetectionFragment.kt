@@ -84,7 +84,7 @@ class FacialDetectionFragment : DetailFragment(), OnItemSelectedListener {
 
         val spinner: Spinner = viewFragment?.findViewById(R.id.ml_spinner)!!
         val items = arrayOf("Gio & Tara 1", "Gio & Tara 2", "Gio & Tara 3")
-        val adapter: ArrayAdapter<String> = ArrayAdapter(context!!, android.R.layout.simple_spinner_dropdown_item, items)
+        val adapter: ArrayAdapter<String> = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, items)
         spinner.adapter = adapter
         spinner.onItemSelectedListener = this
 
@@ -164,9 +164,9 @@ class FacialDetectionFragment : DetailFragment(), OnItemSelectedListener {
     override fun onItemSelected(parent: AdapterView<*>?, v: View?, position: Int, id: Long) {
         graphicOverlay!!.clear()
         when (position) {
-            0 -> selectedImage = Utils.getBitmapFromAsset(context!!, "gio_tara_1.jpg")
-            1 -> selectedImage = Utils.getBitmapFromAsset(context!!, "gio_tara_2.jpg")
-            2 -> selectedImage = Utils.getBitmapFromAsset(context!!, "gio_tara_3.jpg")
+            0 -> selectedImage = Utils.getBitmapFromAsset(requireContext(), "gio_tara_1.jpg")
+            1 -> selectedImage = Utils.getBitmapFromAsset(requireContext(), "gio_tara_2.jpg")
+            2 -> selectedImage = Utils.getBitmapFromAsset(requireContext(), "gio_tara_3.jpg")
         }
         if (selectedImage != null) {
             // Get the dimensions of the View

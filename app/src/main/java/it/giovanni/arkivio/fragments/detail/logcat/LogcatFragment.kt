@@ -21,7 +21,7 @@ class LogcatFragment : DetailFragment() {
 
     private var viewFragment: View? = null
     var adapter: LogcatViewPager? = null
-    private val MILLISECONDSINWEEK = 604800000
+    private val millisecondsInWeek = 604800000
 
     override fun getLayout(): Int {
         return R.layout.logcat_layout
@@ -129,11 +129,11 @@ class LogcatFragment : DetailFragment() {
 
         adapter!!.addFragment(
             SimpleDateFormat("yyyy-MM-dd 23:59:59").format(sunday.time),
-            SimpleDateFormat("yyyy-MM-dd").format(friday.timeInMillis + MILLISECONDSINWEEK),
+            SimpleDateFormat("yyyy-MM-dd").format(friday.timeInMillis + millisecondsInWeek),
             resources.getString(R.string.next_week))
 
         adapter!!.addFragment(
-            SimpleDateFormat("yyyy-MM-dd 23:59:59").format(sunday.timeInMillis + MILLISECONDSINWEEK),
+            SimpleDateFormat("yyyy-MM-dd 23:59:59").format(sunday.timeInMillis + millisecondsInWeek),
             SimpleDateFormat("yyyy-MM-dd").format(nextTime.timeInMillis),
             resources.getString(R.string.future_events))
 
@@ -156,15 +156,15 @@ class LogcatFragment : DetailFragment() {
 
         adapter!!.addFragment(
             SimpleDateFormat("yyyy-MM-dd HH:00:00").format(currentTime.timeInMillis),
-            SimpleDateFormat("yyyy-MM-dd").format(nextTime.timeInMillis + MILLISECONDSINWEEK),
+            SimpleDateFormat("yyyy-MM-dd").format(nextTime.timeInMillis + millisecondsInWeek),
             resources.getString(R.string.current_week))
 
         adapter!!.addFragment(
-            SimpleDateFormat("yyyy-MM-dd 00:00:00").format(currentTime.timeInMillis + MILLISECONDSINWEEK),
-            SimpleDateFormat("yyyy-MM-dd").format(nextTime.timeInMillis + MILLISECONDSINWEEK + MILLISECONDSINWEEK),
+            SimpleDateFormat("yyyy-MM-dd 00:00:00").format(currentTime.timeInMillis + millisecondsInWeek),
+            SimpleDateFormat("yyyy-MM-dd").format(nextTime.timeInMillis + millisecondsInWeek + millisecondsInWeek),
             resources.getString(R.string.next_week))
 
-        val thirdWeek = nextTime.timeInMillis + MILLISECONDSINWEEK + MILLISECONDSINWEEK
+        val thirdWeek = nextTime.timeInMillis + millisecondsInWeek + millisecondsInWeek
         currentTime.add(Calendar.MONTH, 3)
         nextTime.add(Calendar.MONTH, 3)
         nextTime.set(Calendar.DAY_OF_MONTH, nextTime.getActualMaximum(Calendar.DAY_OF_MONTH))
