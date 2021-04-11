@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_50dp"
         android:orientation="vertical">
@@ -31,10 +31,10 @@
                     android:layout_height="match_parent"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="Giovanni"
                     android:textColor="@color/black_1"
                     android:textSize="18sp"
-                    android:gravity="start|center_vertical" />
+                    android:gravity="start|center_vertical"
+                    tools:text="Giovanni" />
 
             <TextView
                     android:id="@+id/text_cognome_checkbox"
@@ -44,10 +44,10 @@
                     android:layout_toEndOf="@+id/text_nome_checkbox"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="Petito"
                     android:textColor="@color/black_1"
                     android:textSize="18sp"
-                    android:gravity="start|center_vertical" />
+                    android:gravity="start|center_vertical"
+                    tools:text="Petito" />
 
         </RelativeLayout>
 
@@ -60,10 +60,10 @@
                 android:paddingEnd="5dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="3331582355"
                 android:textColor="@color/grey_3"
                 android:textSize="18sp"
-                android:gravity="start|center_vertical" />
+                android:gravity="start|center_vertical"
+                tools:text="3331582355" />
 
     </LinearLayout>
 

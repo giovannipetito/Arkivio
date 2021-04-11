@@ -427,7 +427,7 @@ class Utils {
             return Locale.getDefault().toString()
         }
 
-        fun getDeviceSoftwareVersion(): String {
+        fun getDeviceSoftwareVersion(): String? {
             return if (PermissionManager.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE)) {
                 // Permission Granted
                 val manager: TelephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager

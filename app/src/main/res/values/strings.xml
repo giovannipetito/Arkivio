@@ -113,7 +113,7 @@
     <string name="outlook_mail_title">Send Outlook Mail</string>
 
     <!-- RUBRICA -->
-    <string name="rubrica_title">Rubrica</string>
+    <string name="rubrica_title">Rubrica (Realtime Client)</string>
     <string name="rubrica_home_title">Home Rubrica</string>
     <string name="rubrica_list_title">Lista Rubrica</string>
     <string name="rubrica_detail_title">Dettaglio Rubrica</string>
@@ -127,6 +127,15 @@
     <string name="search_by_name_or_msisdn">Cerca per nome o msisdn</string>
     <string name="no_result_by_search">Nessun risultato con questa stringa di ricerca.</string>
     <string name="no_list">Nessuna lista presente.</string>
+
+    <!-- RETROFIT CLIENT -->
+    <string name="retrofit_title">Retrofit Client</string>
+
+    <!-- ASYNC HTTP CLIENT -->
+    <string name="async_http_title">Async Http Client</string>
+
+    <!-- VOLLEY CLIENT -->
+    <string name="volley_title">Volley Client</string>
 
     <!-- LINK -->
     <string name="link_drive_w3b">Drive W3B</string>

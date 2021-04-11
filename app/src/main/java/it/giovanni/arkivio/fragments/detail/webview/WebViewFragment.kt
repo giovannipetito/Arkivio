@@ -207,7 +207,7 @@ class WebViewFragment : DetailFragment() {
                     webview.loadUrl(pathHtml + urlHtml)
                 }
 
-                genericUrl != null -> webview.loadUrl(genericUrl)
+                genericUrl != null -> webview.loadUrl(genericUrl!!)
             }
         }
     }

@@ -36,7 +36,7 @@ class WebViewActivity: AppCompatActivity() {
 
         when {
             urlVideo != "" -> {
-                webview.loadUrl(urlVideo)
+                webview.loadUrl(urlVideo!!)
             }
         }
 

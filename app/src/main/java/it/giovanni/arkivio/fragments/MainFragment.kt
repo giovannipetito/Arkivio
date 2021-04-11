@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package it.giovanni.arkivio.fragments
 
 import android.animation.Animator
@@ -86,7 +84,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
-        var view = super.onCreateView(inflater, container, savedInstanceState)
+        var view = super.onCreateView(inflater, container, savedInstanceState) // Non rimuovere.
 
         // ----- DATA BINDING ----- //
         binding = DataBindingUtil.inflate(inflater, R.layout.main_layout, container, false)
@@ -146,6 +144,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
         }
     }
 
+    @Suppress("DEPRECATION")
     private fun draw() {
 
         val displayMetrics = DisplayMetrics()
@@ -348,7 +347,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
                             // gAnalytics.sendEvent(Mapping.GAnalyticsKey.CATEGORY_EXTERNAL_LINK, "Click", "GrandeCinema3", null)
                             getGPSCoordinates()
                         } else if (item.link == "waw3://contacts") {
-                            currentActivity.openDetail(Globals.RUBRICA_HOME, null)
+                            currentActivity.openDetail(Globals.RUBRICA_REALTIME, null)
                         }
                     }
                     appType -> {
@@ -383,9 +382,9 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
             labelName.text = item.name
 
             if (isDarkMode)
-                labelName.setTextColor(requireContext().resources.getColor(R.color.colorPrimary))
+                labelName.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
             else
-                labelName.setTextColor(requireContext().resources.getColor(R.color.colorPrimaryDark))
+                labelName.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
 
             nav_header_container.addView(rowView)
 
@@ -398,7 +397,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
                         currentActivity.openDetail(Globals.WEB_VIEW, bundleDeepLink)
                     }
                     appLinkType -> {
-                        currentActivity.openDetail(Globals.RUBRICA_HOME, null)
+                        currentActivity.openDetail(Globals.RUBRICA_REALTIME, null)
                     }
                     appType -> {
                         currentActivity.openApp(item.appLinkAndroid)

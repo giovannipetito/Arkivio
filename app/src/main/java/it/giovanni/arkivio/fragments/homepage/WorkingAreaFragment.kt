@@ -73,8 +73,17 @@ class WorkingAreaFragment : HomeFragment() {
         label_email.setOnClickListener {
             currentActivity.openDetail(Globals.EMAIL, null)
         }
+        label_retrofit.setOnClickListener {
+            currentActivity.openDetail(Globals.RETROFIT, null)
+        }
+        label_async_http.setOnClickListener {
+            currentActivity.openDetail(Globals.ASYNC_HTTP, null)
+        }
+        label_volley.setOnClickListener {
+            currentActivity.openDetail(Globals.VOLLEY, null)
+        }
         label_rubrica.setOnClickListener {
-            currentActivity.openDetail(Globals.RUBRICA_HOME, null)
+            currentActivity.openDetail(Globals.RUBRICA_REALTIME, null)
         }
         label_permissions.setOnClickListener {
             currentActivity.openDetail(Globals.PERMISSIONS, null)

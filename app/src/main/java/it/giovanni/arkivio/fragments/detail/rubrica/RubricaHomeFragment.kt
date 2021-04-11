@@ -15,8 +15,8 @@ import it.giovanni.arkivio.bean.user.User
 import it.giovanni.arkivio.bean.user.UserResponse
 import it.giovanni.arkivio.customview.Brick
 import it.giovanni.arkivio.fragments.DetailFragment
-import it.giovanni.arkivio.realtime.IRealtimeCallback
-import it.giovanni.arkivio.realtime.RealtimeClient.Companion.callRealtimeDatabase
+import it.giovanni.arkivio.restclient.realtime.IRealtime
+import it.giovanni.arkivio.restclient.realtime.MyRealtimeClient.Companion.callRealtimeDatabase
 import it.giovanni.arkivio.viewinterfaces.IFlexBoxCallback
 import it.giovanni.arkivio.utils.Globals
 import it.giovanni.arkivio.utils.SharedPreferencesManager
@@ -26,7 +26,7 @@ import it.giovanni.arkivio.utils.Utils
 import kotlinx.android.synthetic.main.rubrica_home_layout.*
 import kotlin.math.roundToInt
 
-class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback, IRealtimeCallback {
+class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback, IRealtime {
 
     private var viewFragment: View? = null
     private var mResponse: Response? = null
@@ -212,7 +212,7 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback, IRealtimeCallback
         return userResponse?.response?.users!!
     }
 
-    override fun onRealtimeCallbackSuccess(message: String?, response: Response?) {
+    override fun onRealtimeSuccess(message: String?, response: Response?) {
         hideProgressDialog()
         mResponse = Response()
         mResponse?.users = response?.users
@@ -220,7 +220,7 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback, IRealtimeCallback
         Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 
-    override fun onRealtimeCallbackFailure(message: String?) {
+    override fun onRealtimeFailure(message: String?) {
         hideProgressDialog()
         mResponse = Response()
         mResponse?.users = getUsersFromJson()

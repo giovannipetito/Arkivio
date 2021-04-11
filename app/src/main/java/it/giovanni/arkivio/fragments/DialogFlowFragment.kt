@@ -60,7 +60,7 @@ class DialogFlowFragment : BaseFragment(SectionType.DIALOG_FLOW) {
                 speech_container.visibility = View.VISIBLE
                 suggestions_container.visibility = View.GONE
                 if (result[0].contains("rubrica")) {
-                    currentActivity.openDetail(Globals.RUBRICA_HOME, null)
+                    currentActivity.openDetail(Globals.RUBRICA_REALTIME, null)
                 } else if (result[0].contains("Giovanni")) {
                     val contact = Bundle()
                     contact.putString(RubricaListFragment.KEY_SPEECH_USERS, result[0])

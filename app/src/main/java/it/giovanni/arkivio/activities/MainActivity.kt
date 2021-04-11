@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package it.giovanni.arkivio.activities
 
 import android.annotation.SuppressLint
@@ -26,6 +28,9 @@ import it.giovanni.arkivio.App.Companion.context
 import it.giovanni.arkivio.deeplink.DeepLinkDescriptor
 import it.giovanni.arkivio.fragments.*
 import it.giovanni.arkivio.fragments.detail.cardio.CardIOFragment
+import it.giovanni.arkivio.fragments.detail.client.AsyncHttpFragment
+import it.giovanni.arkivio.fragments.detail.client.RetrofitFragment
+import it.giovanni.arkivio.fragments.detail.client.VolleyFragment
 import it.giovanni.arkivio.fragments.detail.datemanager.*
 import it.giovanni.arkivio.fragments.detail.email.EmailFragment
 import it.giovanni.arkivio.fragments.detail.fonts.FontsFragment
@@ -175,7 +180,7 @@ class MainActivity : GPSActivity(), IProgressLoader {
                 requestGPSPermission()
             }
             DeepLinkDescriptor.URI_CONTACTS -> {
-                openDetail(Globals.RUBRICA_HOME, null)
+                openDetail(Globals.RUBRICA_REALTIME, null)
             }
             DeepLinkDescriptor.URI_OPENAPP -> {
                 if (uri.pathSegments != null && uri.pathSegments.size > 0)
@@ -356,7 +361,16 @@ class MainActivity : GPSActivity(), IProgressLoader {
             Globals.EMAIL -> {
                 baseFragment = EmailFragment()
             }
-            Globals.RUBRICA_HOME -> {
+            Globals.RETROFIT -> {
+                baseFragment = RetrofitFragment()
+            }
+            Globals.ASYNC_HTTP -> {
+                baseFragment = AsyncHttpFragment()
+            }
+            Globals.VOLLEY -> {
+                baseFragment = VolleyFragment()
+            }
+            Globals.RUBRICA_REALTIME -> {
                 baseFragment = RubricaHomeFragment()
             }
             Globals.RUBRICA_LIST -> {

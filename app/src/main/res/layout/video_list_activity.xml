@@ -11,18 +11,19 @@
           android:layout_height="match_parent" />
 
   <LinearLayout
-      android:id="@+id/video_box"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="bottom"
-      android:orientation="vertical">
+          android:id="@+id/video_box"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="bottom"
+          android:orientation="vertical">
 
     <ImageButton
-        android:id="@+id/close_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:src="@android:drawable/btn_dialog" />
+            android:id="@+id/close_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:src="@android:drawable/btn_dialog"
+            android:contentDescription="@string/app_name" />
 
     <fragment
             class="it.giovanni.arkivio.fragments.detail.youtube.videolist.VideoFragment"

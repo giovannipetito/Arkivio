@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:clickable="true"
+        android:focusable="true">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <EditText
+                android:id="@+id/edit_volley_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:hint="Inserisci il titolo"
+                android:textSize="16sp"
+                android:textColor="@color/black_1"
+                android:textColorHint="@color/grey_2"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:theme="@style/EditText1"
+                android:autofillHints="@string/app_name"
+                android:inputType="textPersonName"
+                style="@style/EditText2" />
+
+        <EditText
+                android:id="@+id/edit_volley_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:hint="Inserisci il testo"
+                android:textSize="16sp"
+                android:textColor="@color/black_1"
+                android:textColorHint="@color/grey_2"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:theme="@style/EditText1"
+                android:autofillHints="@string/app_name"
+                android:inputType="textPersonName"
+                style="@style/EditText2" />
+
+        <Button
+                android:id="@+id/button_volley_send"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:text="@string/button_send"
+                style="@style/ButtonNormalDarkMode" />
+
+    </LinearLayout>
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <LinearLayout
+                android:id="@+id/volley_users_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+    </ScrollView>
+
+</LinearLayout>

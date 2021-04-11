@@ -11,6 +11,8 @@
 /build
 /captures
 .externalNativeBuild
+.cxx
+local.properties
 
 # Built application files
 *.apk
@@ -51,7 +53,6 @@ proguard/
 captures/
 
 # Intellij
-*.iml
 .idea
 .idea/
 .idea/*
@@ -64,14 +65,10 @@ captures/
 .idea/dictionaries
 .idea/libraries
 
-# External native build folder generated in Android Studio 2.2 and later
-.externalNativeBuild
-
 # Freeline
 freeline.py
 freeline/
 freeline_project_description.json
 
 # SO Generated Files
-.DS_Store
 Thumbs.db

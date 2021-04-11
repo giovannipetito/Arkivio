@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.realtime
+package it.giovanni.arkivio.restclient.realtime
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -8,11 +8,10 @@ import com.loopj.android.http.RequestParams
 import cz.msebera.android.httpclient.Header
 import it.giovanni.arkivio.bean.user.Response
 import it.giovanni.arkivio.bean.user.SignInResponse
-import it.giovanni.arkivio.bean.user.UserResponse
 import org.json.JSONObject
 import java.lang.Exception
 
-class RealtimeClient {
+class MyRealtimeClient {
 
     companion object {
 
@@ -32,11 +31,11 @@ class RealtimeClient {
             return baseUrl + relativeUrl
         }
 
-        fun callRealtimeDatabase(callback: IRealtimeCallback) {
+        fun callRealtimeDatabase(callback: IRealtime) {
             getIdToken(callback)
         }
 
-        private fun getIdToken(callback: IRealtimeCallback) {
+        private fun getIdToken(callback: IRealtime) {
 
             val params = RequestParams()
             params.put("email", "giovanni.petito88@gmail.com")
@@ -59,16 +58,16 @@ class RealtimeClient {
                             ex.printStackTrace()
                         }
                     } else
-                        callback.onRealtimeCallbackFailure("onSuccess: Caricamento fallito")
+                        callback.onRealtimeFailure("onSuccess: Caricamento fallito")
                 }
 
                 override fun onFailure(statusCode: Int, headers: Array<out Header>?, responseBody: ByteArray?, error: Throwable?) {
-                    callback.onRealtimeCallbackFailure("onFailure: Caricamento fallito")
+                    callback.onRealtimeFailure("onFailure: Caricamento fallito")
                 }
             })
         }
 
-        private fun getDatabase(idToken: String?, callback: IRealtimeCallback) {
+        private fun getDatabase(idToken: String?, callback: IRealtime) {
 
             get("response/.json?auth=$idToken", null, object : AsyncHttpResponseHandler() {
 
@@ -80,18 +79,18 @@ class RealtimeClient {
                             val gson: Gson? = GsonBuilder().serializeNulls().create()
                             val response: Response? = gson?.fromJson(jSONObject, Response::class.java)
 
-                            callback.onRealtimeCallbackSuccess("onSuccess: Caricamento completato", response!!)
+                            callback.onRealtimeSuccess("onSuccess: Caricamento completato", response!!)
 
                         } catch (ex: Exception) {
-                            callback.onRealtimeCallbackFailure("Exception: Caricamento fallito")
+                            callback.onRealtimeFailure("Exception: Caricamento fallito")
                             ex.printStackTrace()
                         }
                     } else
-                        callback.onRealtimeCallbackFailure("statusCode != 200: Caricamento fallito")
+                        callback.onRealtimeFailure("statusCode != 200: Caricamento fallito")
                 }
 
                 override fun onFailure(statusCode: Int, headers: Array<Header>, responseBody: ByteArray, error: Throwable) {
-                    callback.onRealtimeCallbackFailure("onFailure: Caricamento fallito")
+                    callback.onRealtimeFailure("onFailure: Caricamento fallito")
                 }
             })
         }
