@@ -1,9 +1,7 @@
-@file:Suppress("DEPRECATION")
-
 package it.giovanni.arkivio.utils
 
 import android.content.SharedPreferences
-import android.preference.PreferenceManager
+import androidx.preference.PreferenceManager
 import com.google.gson.GsonBuilder
 import it.giovanni.arkivio.App
 import it.giovanni.arkivio.bean.SelectedDaysResponse
