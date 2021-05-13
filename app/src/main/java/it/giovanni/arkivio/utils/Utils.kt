@@ -342,7 +342,8 @@ class Utils {
                     md.update(signature.toByteArray())
                     hashKey = String(Base64.encode(md.digest(), Base64.DEFAULT))
                 }
-            } catch (e: NoSuchAlgorithmException) {}
+            }
+            catch (e: NoSuchAlgorithmException) {}
             catch (e: Exception) {}
 
             return hashKey
@@ -596,14 +597,22 @@ class Utils {
             }
         }
 
-        fun getBatteryLevel(context: Context): Int {
-            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                val batteryManager = context.getSystemService(Context.BATTERY_SERVICE) as BatteryManager
-                batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)
-            } else {
-                val intent = ContextWrapper(context).registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
-                intent!!.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) * 100 / intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
+        fun getBatteryCapacity(context: Context): Int {
+            val batteryManager = context.getSystemService(Context.BATTERY_SERVICE) as BatteryManager
+            return batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)
+        }
+
+        fun clearCache(context: Context?) {
+            /*
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+                context?.dataDir?.deleteRecursively()
+                context?.dataDir?.delete()
             }
+            */
+            context?.dataDir?.deleteRecursively()
+            context?.dataDir?.delete()
+            context?.cacheDir?.deleteRecursively()
+            context?.cacheDir?.delete()
         }
     }
 }

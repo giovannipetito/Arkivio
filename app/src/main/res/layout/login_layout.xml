@@ -87,6 +87,17 @@
 
             </RelativeLayout>
 
+            <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/clear_cache"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_24dp"
+                    android:text="@string/clear_cache"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center"
+                    android:theme="@style/SwitchCompatTheme"
+                    app:switchPadding="@dimen/dimen_16dp" />
+
         </LinearLayout>
 
     </RelativeLayout>

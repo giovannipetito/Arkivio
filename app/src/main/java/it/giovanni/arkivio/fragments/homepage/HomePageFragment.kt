@@ -27,7 +27,7 @@ import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.DateManager
 import it.giovanni.arkivio.utils.Utils.Companion.convertDpToPixel
-import it.giovanni.arkivio.utils.Utils.Companion.getBatteryLevel
+import it.giovanni.arkivio.utils.Utils.Companion.getBatteryCapacity
 import it.giovanni.arkivio.utils.Utils.Companion.getHashKey
 import it.giovanni.arkivio.utils.Utils.Companion.getVersionNameLong
 import it.giovanni.arkivio.utils.Utils.Companion.turnArrayListToString
@@ -230,7 +230,7 @@ class HomePageFragment : HomeFragment() {
             label_greeting.setText(R.string.good_evening_title)
         }
 
-        val batteryLevel = "Livello della batteria: " + getBatteryLevel(requireContext()) + " %"
+        val batteryLevel = "Livello della batteria: " + getBatteryCapacity(requireContext()) + " %"
         label_battery_level.text = batteryLevel
     }
 

@@ -18,6 +18,7 @@ import it.giovanni.arkivio.customview.popup.CustomDialogPopup
 import it.giovanni.arkivio.utils.PermissionManager
 import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadRememberMeFromPreferences
 import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.saveRememberMeToPreferences
+import it.giovanni.arkivio.utils.Utils.Companion.clearCache
 import it.giovanni.arkivio.utils.Utils.Companion.isOnline
 import kotlinx.android.synthetic.main.login_layout.*
 
@@ -110,6 +111,10 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
         checkbox_remember_me.setOnCheckedChangeListener { _, isChecked ->
             rememberMe = isChecked
             saveRememberMeToPreferences(rememberMe)
+        }
+
+        clear_cache.setOnClickListener {
+            clearCache(context)
         }
 
         val apiVersion = Build.VERSION.SDK_INT

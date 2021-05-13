@@ -63,7 +63,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'org.jetbrains.kotlin:kotlin-reflect:1.4.32'
     testImplementation 'junit:junit:4.13.2' // libreria che gestisce gli unit test
-    testImplementation 'org.hamcrest:hamcrest-library:1.3' // libreria che pianifica una strategia di test molto più estesa degli unit test.
+    testImplementation 'org.hamcrest:hamcrest-library:2.2'
+    // hamcrest: libreria che pianifica una strategia di test molto più estesa degli unit test.
 
     // androidx
     implementation 'androidx.multidex:multidex:2.0.1'
@@ -84,22 +85,22 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3-native-mt'
 
     // Room
-    kapt 'androidx.room:room-compiler:2.2.6'
-    implementation 'androidx.room:room-guava:2.2.6'
-    implementation 'androidx.room:room-runtime:2.2.6'
-    implementation 'androidx.room:room-rxjava2:2.2.6'
-    annotationProcessor 'androidx.room:room-compiler:2.2.6'
+    kapt 'androidx.room:room-compiler:2.3.0'
+    implementation 'androidx.room:room-guava:2.3.0'
+    implementation 'androidx.room:room-runtime:2.3.0'
+    implementation 'androidx.room:room-rxjava2:2.3.0'
+    annotationProcessor 'androidx.room:room-compiler:2.3.0'
 
     // Material
     implementation 'com.google.android.material:material:1.3.0'
 
     // Google Mobile Services
     implementation 'com.google.android.gms:play-services-analytics:17.0.0'
-    implementation 'com.google.android.gms:play-services-location:18.0.0' // Google GPS
-    implementation 'com.google.android.gms:play-services-nearby:17.0.0' // Nearby
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
+    implementation 'com.google.android.gms:play-services-nearby:17.0.0'
     implementation 'com.google.android.gms:play-services-plus:17.0.0'
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
-    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
     implementation 'com.google.android.gms:play-services-gcm:17.0.0'
 
     // Firebase
@@ -112,7 +113,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:21.1.0'
     implementation 'com.google.firebase:firebase-messaging-directboot:21.1.0'
 
-    implementation 'com.google.firebase:firebase-database:19.7.0' // Add the SDK for Firebase Database
+    implementation 'com.google.firebase:firebase-database:20.0.0' // Add the SDK for Firebase Database
 
     implementation "com.loopj.android:android-async-http:1.4.11" // Firebase Realtime Database
 
@@ -145,8 +146,8 @@ dependencies {
 
     // Airbnb
     implementation 'com.airbnb.android:lottie:3.7.0' // Lottie
-    implementation 'com.airbnb.android:paris:1.7.2' // Paris
-    kapt 'com.airbnb.android:paris-processor:1.7.2' // If you're using Paris annotations.
+    implementation 'com.airbnb.android:paris:1.7.3' // Paris
+    kapt 'com.airbnb.android:paris-processor:1.7.3' // If you're using Paris annotations.
 
     // card.io
     implementation 'io.card:android-sdk:5.5.1'

@@ -24,6 +24,7 @@
     <string name="input_type_text">text</string>
     <string name="dominio_gmail">\@gmail.com</string>
     <string name="login_remember_me">Ricordami</string>
+    <string name="clear_cache">Cancella la Cache</string>
     <string name="login_your_mail">LA TUA MAIL</string>
     <string name="login_your_password">PASSWORD</string>
     <string name="input_type_password">password</string>

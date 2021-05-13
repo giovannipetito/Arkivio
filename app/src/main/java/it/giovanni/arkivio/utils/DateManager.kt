@@ -286,7 +286,7 @@ class DateManager {
 
             if (dataInizio == dataFine && totaleOre < 8) {
 
-                val totOre: String? = if (totaleOre < 1) "" else decimalFormatConverter(totaleOre)
+                val totOre: String = if (totaleOre < 1) "" else decimalFormatConverter(totaleOre)
                 var day = SimpleDateFormat("E", Locale.ITALY).format(startDate!!)
                 var month = SimpleDateFormat("MMM", Locale.ITALY).format(startDate)
                 day = day.capitalize(Locale.getDefault())
@@ -371,7 +371,6 @@ class DateManager {
         dataString = sdf.format(date)
         data = date
     }
-
 
     constructor(dateString: String) {
         dataString = dateString
