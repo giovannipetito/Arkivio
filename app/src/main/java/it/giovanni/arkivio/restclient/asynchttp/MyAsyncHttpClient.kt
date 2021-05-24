@@ -39,9 +39,11 @@ class MyAsyncHttpClient {
             // params.put("more", "data")
 
             client[url, params, object : TextHttpResponseHandler() {
+                /*
                 override fun onStart() {
                     super.onStart()
                 }
+                */
 
                 override fun onSuccess(statusCode: Int, headers: Array<Header?>?, jsonResponse: String?) {
                     // called when response HTTP status is: 200

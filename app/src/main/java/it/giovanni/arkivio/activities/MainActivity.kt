@@ -99,6 +99,9 @@ class MainActivity : GPSActivity(), IProgressLoader {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Room: Load user preferences.
+        App.getRepository()!!.loadPreferences()
+
         rememberMe = loadRememberMeFromPreferences()
 
         progressDialog = Dialog(this, R.style.DialogTheme)
@@ -138,9 +141,6 @@ class MainActivity : GPSActivity(), IProgressLoader {
                     Toast.makeText(context,"Errore di connessione", Toast.LENGTH_LONG).show()
             }
         }
-
-        // load user preferences
-        App.getRepository()!!.loadPreferences()
 
         if (intent != null && intent.extras != null) {
             val params = intent.extras

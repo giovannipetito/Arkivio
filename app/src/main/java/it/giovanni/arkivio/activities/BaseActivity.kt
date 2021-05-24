@@ -11,6 +11,4 @@ abstract class BaseActivity : BaseView() {
     open fun openDetail(detailType: String, extraParams: Bundle?, caller: Fragment?, requestCode: Int?) {}
     open fun openDialogDetail(detailType: String, extraParams: Bundle?) {}
     open fun openDialogDetail(detailType: String, extraParams: Bundle?, caller: Fragment?, requestCode: Int?) {}
-
-    abstract fun sendFCMToken(token: String?)
 }
