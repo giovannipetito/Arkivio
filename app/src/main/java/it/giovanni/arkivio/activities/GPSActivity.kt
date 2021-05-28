@@ -36,8 +36,6 @@ open class GPSActivity : BaseActivity(), IProgressLoader, GoogleApiClient.Connec
     private val gpsInterval = 2000
     private val gpsDistance = 5
 
-    override fun sendFCMToken(token: String?) {}
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         locationManager = applicationContext.getSystemService(Context.LOCATION_SERVICE) as LocationManager?

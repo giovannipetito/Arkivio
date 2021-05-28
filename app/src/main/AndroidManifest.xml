@@ -44,7 +44,9 @@
             android:supportsRtl="true"
             android:name="it.giovanni.arkivio.App"
             android:theme="@style/AppTheme"
-            tools:ignore="GoogleAppIndexingWarning"
+            android:networkSecurityConfig="@xml/network_security_config"
+            android:requestLegacyExternalStorage="true"
+            android:usesCleartextTraffic="true"
             android:fullBackupContent="@xml/backup_descriptor">
 
         <meta-data
@@ -60,7 +62,6 @@
             <!-- android:windowSoftInputMode="adjustNothing" permette alla keyBoard di sovrapporsi alla View. -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
 
