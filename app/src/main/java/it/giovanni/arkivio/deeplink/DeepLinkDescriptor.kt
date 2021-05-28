@@ -10,9 +10,7 @@ class DeepLinkDescriptor {
         const val DEEP_LINK_ACTION = "DEEP_LINK_ACTION"
         const val DEEP_LINK_URI = "DEEP_LINK_URI"
 
-        var URI_GC3 = "gc3" // waw3://gc3
-        var URI_CINEMA = "cinema" // waw3://cinema
-        var URI_CONTACTS = "contacts" // waw3://cinema
+        var URI_CONTACTS = "contacts" // waw3://contacts
         var URI_OPENAPP = "openapp" // waw3://openapp/{xyz}
         var URI_VIEW = "view" // waw3://openapp/{xyz}
         var URI_LOGOUT = "logout" // waw3://logout

@@ -343,10 +343,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
                         currentActivity.openDetail(Globals.WEB_VIEW, bundleDeepLink)
                     }
                     appLinkType -> {
-                        if (item.link == "waw3://cinema") {
-                            // gAnalytics.sendEvent(Mapping.GAnalyticsKey.CATEGORY_EXTERNAL_LINK, "Click", "GrandeCinema3", null)
-                            getGPSCoordinates()
-                        } else if (item.link == "waw3://contacts") {
+                        if (item.link == "waw3://contacts") {
                             currentActivity.openDetail(Globals.RUBRICA_REALTIME, null)
                         }
                     }
@@ -619,11 +616,6 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
                 (fragmentAdapter.getItem(1) as IDataRefresh).refresh()
             }
         }
-    }
-
-    private fun getGPSCoordinates() {
-        showProgressDialog()
-        currentActivity.requestGPSPermission()
     }
 
     private fun init(): ArrayList<Link> {

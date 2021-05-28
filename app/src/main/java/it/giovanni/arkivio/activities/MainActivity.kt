@@ -5,8 +5,6 @@ package it.giovanni.arkivio.activities
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
-import android.content.BroadcastReceiver
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.AnimationDrawable
@@ -72,7 +70,7 @@ import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadDarkMode
 import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadRememberMeFromPreferences
 import java.util.*
 
-class MainActivity : GPSActivity(), IProgressLoader {
+class MainActivity : BaseActivity(), IProgressLoader {
 
     private val delayTime: Long = 3000
     private var progressDialog: Dialog? = null
@@ -157,28 +155,10 @@ class MainActivity : GPSActivity(), IProgressLoader {
         }
     }
 
-    // deeplink broadcast receiver
-    private var deepLinkReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(contxt: Context?, intent: Intent?) {
-            if (intent != null) {
-                if (intent.action == DeepLinkDescriptor.DEEP_LINK_ACTION) {
-                    deepLinkEvent = DeepLinkDescriptor()
-                    deepLinkEvent!!.deeplink = intent.extras!!.getParcelable(DeepLinkDescriptor.DEEP_LINK_URI)
-                }
-            }
-        }
-    }
-
     private fun openDeepLink(uri: Uri) {
 
         val host = uri.host
         when (host?.toLowerCase(Locale.ITALIAN)) {
-            DeepLinkDescriptor.URI_GC3 -> {
-                requestGPSPermission()
-            }
-            DeepLinkDescriptor.URI_CINEMA -> {
-                requestGPSPermission()
-            }
             DeepLinkDescriptor.URI_CONTACTS -> {
                 openDetail(Globals.RUBRICA_REALTIME, null)
             }
@@ -585,10 +565,6 @@ class MainActivity : GPSActivity(), IProgressLoader {
     override fun onResume() {
         super.onResume()
         hideProgressDialog()
-        val currentFragment = supportFragmentManager.findFragmentById(R.id.frame_container)
-        if (currentFragment !is LoginFragment) {
-            // presenter!!.checkKeepAlive()
-        }
 
         // check if is resumed by a push
         if (pushBundle != null) {
@@ -609,16 +585,8 @@ class MainActivity : GPSActivity(), IProgressLoader {
         }
     }
 
-    fun checkDeepLinkEvent(): Boolean {
-        return deepLinkEvent != null
-    }
-
     private fun clearDeepLinkEvent() {
         deepLinkEvent = null
-    }
-
-    fun getDeepLinkEvent(): DeepLinkDescriptor? {
-        return deepLinkEvent
     }
 
     fun openApp(packageName: String) {
