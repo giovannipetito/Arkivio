@@ -1,6 +1,5 @@
 package it.giovanni.arkivio.fragments.detail.datemanager
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -34,7 +33,6 @@ import kotlinx.android.synthetic.main.detail_layout.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-@Suppress("DEPRECATION")
 class DateFormatFragment : DetailFragment() {
 
     private var viewFragment: View? = null
@@ -97,7 +95,7 @@ class DateFormatFragment : DetailFragment() {
 
     override fun refresh() {
         startCurrentDate = DateManager(Date())
-        getdate_1?.text = DateManager(startCurrentDate!!.getFormatDate()).getDate().toString()
+        getdate_1?.text = DateManager(startCurrentDate?.getFormatDate()!!).getDate().toString()
         stopSwipeRefresh()
     }
 
@@ -110,7 +108,6 @@ class DateFormatFragment : DetailFragment() {
         TODO("Not yet implemented")
     }
 
-    @SuppressLint("SimpleDateFormat")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -122,12 +119,12 @@ class DateFormatFragment : DetailFragment() {
         current_hours?.text = currentHours.toString()
         current_minutes?.text = currentMinutes.toString()
 
-        getdate_1?.text = DateManager(startCurrentDate!!.getFormatDate()).getDate().toString()
-        getdate_2?.text = DateManager(startCurrentDate!!.getFormatDate()).getDate().time.toString()
+        getdate_1?.text = DateManager(startCurrentDate?.getFormatDate()!!).getDate().toString()
+        getdate_2?.text = DateManager(startCurrentDate?.getFormatDate()!!).getDate().time.toString()
 
         getdate_3.text = Date().time.toString() // In Java: new Date().getTime()
         getdate_4.text = System.currentTimeMillis().toString()
-        val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
+        val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.ITALY)
         getdate_5.text = sdf.format(Date()) // epoch
         getdate_6.text = sdf.format(Date().time) // epoch
 
@@ -145,7 +142,7 @@ class DateFormatFragment : DetailFragment() {
 
         val dataInizio = "06/02/1988 06:00:00"
         val dataFine = "06/02/1988 12:30:00"
-        val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.ITALY)
         startDate = DateManager(dateFormat.parse(dataInizio)!!)
         endDate = DateManager(dateFormat.parse(dataFine)!!)
 
@@ -155,24 +152,24 @@ class DateFormatFragment : DetailFragment() {
         response_start_date?.text = startDate?.getFormatDate4()
         response_end_date?.text = endDate?.getFormatDate4()
 
-        current_range_time?.text = getRangeTime(startCurrentDate!!.getFormatDate(), endCurrentDate!!.getFormatDate())
-        response_range_time?.text = getRangeTime(startDate!!.getFormatDate(), endDate!!.getFormatDate())
+        current_range_time?.text = getRangeTime(startCurrentDate?.getFormatDate()!!, endCurrentDate?.getFormatDate()!!)
+        response_range_time?.text = getRangeTime(startDate?.getFormatDate()!!, endDate?.getFormatDate()!!)
 
-        current_range_date_1?.text = getRangeDate1(startCurrentDate!!.getFormatDate(), endCurrentDate!!.getFormatDate())
-        response_range_date_1?.text = getRangeDate1(startDate!!.getFormatDate(), endDate!!.getFormatDate())
+        current_range_date_1?.text = getRangeDate1(startCurrentDate?.getFormatDate()!!, endCurrentDate?.getFormatDate()!!)
+        response_range_date_1?.text = getRangeDate1(startDate?.getFormatDate()!!, endDate?.getFormatDate()!!)
 
-        current_range_date_2?.text = getRangeDate2(startCurrentDate!!.getFormatDate(), endCurrentDate!!.getFormatDate())
+        current_range_date_2?.text = getRangeDate2(startCurrentDate?.getFormatDate()!!, endCurrentDate?.getFormatDate()!!)
 
-        simple_date_1?.text = getSimpleDate1(startCurrentDate!!.getFormatDate())
-        simple_date_2?.text = getSimpleDate2(startCurrentDate!!.getFormatDate())
+        simple_date_1?.text = getSimpleDate1(startCurrentDate?.getFormatDate()!!)
+        simple_date_2?.text = getSimpleDate2(startCurrentDate?.getFormatDate()!!)
         simple_date_3?.text = getSimpleDate3("06 feb 1988") // dd MMM yyyy
-        simple_date_4?.text = getSimpleDate4(startCurrentDate!!.getFormatDate())
+        simple_date_4?.text = getSimpleDate4(startCurrentDate?.getFormatDate()!!)
 
-        simple_time?.text = getSimpleTime(startCurrentDate!!.getFormatDate())
-        simple_name?.text = getSimpleName(startCurrentDate!!.getFormatDate())
-        simple_day?.text = getSimpleDay(startCurrentDate!!.getFormatDate())
-        simple_month?.text = getSimpleMonth1(startCurrentDate!!.getFormatDate())
-        simple_year?.text = getSimpleYear(startCurrentDate!!.getFormatDate())
+        simple_time?.text = getSimpleTime(startCurrentDate?.getFormatDate()!!)
+        simple_name?.text = getSimpleName(startCurrentDate?.getFormatDate()!!)
+        simple_day?.text = getSimpleDay(startCurrentDate?.getFormatDate()!!)
+        simple_month?.text = getSimpleMonth1(startCurrentDate?.getFormatDate()!!)
+        simple_year?.text = getSimpleYear(startCurrentDate?.getFormatDate()!!)
 
         upper_simple_name_1?.text = getUpperSimpleName1("1988/02/06")
         upper_simple_name_2?.text = getUpperSimpleName2("06/02/1988")
@@ -201,13 +198,13 @@ class DateFormatFragment : DetailFragment() {
 
         timeDate = DateManager(dateFormat.parse(dataInizio)!!)
         timeDate?.setTimeDate(currentHours, currentMinutes)
-        time_date?.text = getSimpleDate4(timeDate!!.getFormatDate())
+        time_date?.text = getSimpleDate4(timeDate?.getFormatDate()!!)
 
         scroll_container.setOnScrollChangeListener { _, _, scrollY, _, _ ->
-            swipeRefreshLayout!!.isEnabled = scrollY == 0
+            swipeRefreshLayout.isEnabled = scrollY == 0
         }
 
-        swipeRefreshLayout!!.setOnRefreshListener {
+        swipeRefreshLayout.setOnRefreshListener {
             refresh()
         }
     }

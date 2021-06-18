@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package it.giovanni.arkivio.fragments.adapter
 
 import android.os.Bundle

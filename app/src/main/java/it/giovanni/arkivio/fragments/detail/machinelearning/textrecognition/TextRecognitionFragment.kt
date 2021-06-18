@@ -87,7 +87,7 @@ class TextRecognitionFragment : DetailFragment(), OnItemSelectedListener {
         spinner.adapter = adapter
         spinner.onItemSelectedListener = this
 
-        mlButton!!.setOnClickListener {
+        mlButton?.setOnClickListener {
             runTextRecognition()
         }
     }
@@ -95,12 +95,12 @@ class TextRecognitionFragment : DetailFragment(), OnItemSelectedListener {
     private fun runTextRecognition() {
         val image = InputImage.fromBitmap(selectedImage!!, 0)
         val recognizer = TextRecognition.getClient()
-        mlButton!!.isEnabled = false
+        mlButton?.isEnabled = false
         recognizer.process(image).addOnSuccessListener { texts ->
-            mlButton!!.isEnabled = true
+            mlButton?.isEnabled = true
             processTextRecognitionResult(texts)
         }.addOnFailureListener { e -> // Task failed with an exception
-            mlButton!!.isEnabled = true
+            mlButton?.isEnabled = true
             e.printStackTrace()
         }
     }
@@ -111,14 +111,14 @@ class TextRecognitionFragment : DetailFragment(), OnItemSelectedListener {
             Toast.makeText(context, "No text found", Toast.LENGTH_SHORT).show()
             return
         }
-        graphicOverlay!!.clear()
+        graphicOverlay?.clear()
         for (i in blocks.indices) {
             val lines = blocks[i].lines
             for (j in lines.indices) {
                 val elements = lines[j].elements
                 for (k in elements.indices) {
                     val textGraphic: GraphicOverlay.Graphic = TextGraphic(graphicOverlay, elements[k])
-                    graphicOverlay!!.add(textGraphic)
+                    graphicOverlay?.add(textGraphic)
                 }
             }
         }
@@ -131,7 +131,7 @@ class TextRecognitionFragment : DetailFragment(), OnItemSelectedListener {
         if (imageMaxWidth == null) {
             // Calculate the max width in portrait mode. This is done lazily since we need to wait for
             // a UI layout pass to get the right values. So delay it to first time image rendering time.
-            imageMaxWidth = mlImageView!!.width
+            imageMaxWidth = mlImageView?.width
         }
         return imageMaxWidth
     }
@@ -141,7 +141,7 @@ class TextRecognitionFragment : DetailFragment(), OnItemSelectedListener {
         if (imageMaxHeight == null) {
             // Calculate the max width in portrait mode. This is done lazily since we need to wait for
             // a UI layout pass to get the right values. So delay it to first time image rendering time.
-            imageMaxHeight = mlImageView!!.height
+            imageMaxHeight = mlImageView?.height
         }
         return imageMaxHeight
     }
@@ -162,7 +162,7 @@ class TextRecognitionFragment : DetailFragment(), OnItemSelectedListener {
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, v: View?, position: Int, id: Long) {
-        graphicOverlay!!.clear()
+        graphicOverlay?.clear()
         when (position) {
             0 -> selectedImage = Utils.getBitmapFromAsset(requireContext(), "grass_text.jpg")
         }
@@ -174,8 +174,8 @@ class TextRecognitionFragment : DetailFragment(), OnItemSelectedListener {
 
             // Determine how much to scale down the image
             val scaleFactor = max(
-                selectedImage?.width!!.toFloat() / targetWidth!!.toFloat(),
-                selectedImage?.height!!.toFloat() / maxHeight!!.toFloat()
+                selectedImage?.width?.toFloat()!! / targetWidth?.toFloat()!!,
+                selectedImage?.height?.toFloat()!! / maxHeight?.toFloat()!!
             )
             val resizedBitmap = Bitmap.createScaledBitmap(
                 selectedImage!!,
@@ -183,7 +183,7 @@ class TextRecognitionFragment : DetailFragment(), OnItemSelectedListener {
                 (selectedImage?.height!! / scaleFactor).toInt(),
                 true
             )
-            mlImageView!!.setImageBitmap(resizedBitmap)
+            mlImageView?.setImageBitmap(resizedBitmap)
             selectedImage = resizedBitmap
         }
     }

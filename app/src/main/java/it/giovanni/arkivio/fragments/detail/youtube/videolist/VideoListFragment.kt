@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package it.giovanni.arkivio.fragments.detail.youtube.videolist
 
 import android.app.ListFragment
@@ -54,20 +52,20 @@ class VideoListFragment : ListFragment() {
         val videoFragment = fragmentManager.findFragmentById(R.id.video_fragment_container) as VideoFragment
         videoFragment.setVideoId(videoId)
         // The videoBox is INVISIBLE if no video was previously selected, so we need to show it now.
-        if (videoBox!!.visibility != View.VISIBLE) {
+        if (videoBox?.visibility != View.VISIBLE) {
             if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                videoBox!!.translationY = videoBox!!.height.toFloat()
+                videoBox?.translationY = videoBox?.height?.toFloat()!!
             }
-            videoBox!!.visibility = View.VISIBLE
+            videoBox?.visibility = View.VISIBLE
         }
         // If the fragment is off the screen, we animate it in.
-        if (videoBox!!.translationY > 0) {
-            videoBox!!.animate().translationY(0f).duration = VideoListActivity.ANIMATION_DURATION_MILLIS.toLong()
+        if (videoBox?.translationY!! > 0) {
+            videoBox?.animate()?.translationY(0f)?.duration = VideoListActivity.ANIMATION_DURATION_MILLIS.toLong()
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        adapter!!.releaseLoaders()
+        adapter?.releaseLoaders()
     }
 }

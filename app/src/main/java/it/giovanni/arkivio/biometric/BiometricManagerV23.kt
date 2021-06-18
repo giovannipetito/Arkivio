@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package it.giovanni.arkivio.biometric
 
 import android.security.keystore.KeyPermanentlyInvalidatedException
@@ -65,7 +63,7 @@ open class BiometricManagerV23 {
 
                     override fun onAuthenticationFailed() {
                         super.onAuthenticationFailed()
-                        updateStatus(context!!.getString(R.string.biometric_failed))
+                        updateStatus(context?.getString(R.string.biometric_failed)!!)
                         biometricCallback.onAuthenticationFailed()
                     }
                 }, null)
@@ -76,27 +74,25 @@ open class BiometricManagerV23 {
 
     private fun displayBiometricDialog(biometricCallback:BiometricCallback) {
         biometricDialogV23 = BiometricDialogV23(context!!, biometricCallback)
-        biometricDialogV23!!.setTitle(title)
-        biometricDialogV23!!.setSubtitle(subtitle!!)
-        biometricDialogV23!!.setDescription(description!!)
-        biometricDialogV23!!.setButtonText(cancel!!)
-        biometricDialogV23!!.show()
+        biometricDialogV23?.setTitle(title)
+        biometricDialogV23?.setSubtitle(subtitle!!)
+        biometricDialogV23?.setDescription(description!!)
+        biometricDialogV23?.setButtonText(cancel!!)
+        biometricDialogV23?.show()
     }
 
     private fun dismissDialog() {
-        if (biometricDialogV23 != null)
-            biometricDialogV23!!.dismiss()
+        biometricDialogV23?.dismiss()
     }
 
     private fun updateStatus(status:String) {
-        if (biometricDialogV23 != null)
-            biometricDialogV23!!.updateStatus(status)
+        biometricDialogV23?.updateStatus(status)
     }
 
     private fun generateKey() {
         try {
             keyStore = KeyStore.getInstance("AndroidKeyStore")
-            keyStore!!.load(null)
+            keyStore?.load(null)
 
             val keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore")
 
@@ -140,9 +136,9 @@ open class BiometricManagerV23 {
         }
 
         try {
-            keyStore!!.load(null)
-            val key = keyStore!!.getKey(KEY_NAME, null) as SecretKey
-            cipher!!.init(Cipher.ENCRYPT_MODE, key)
+            keyStore?.load(null)
+            val key = keyStore?.getKey(KEY_NAME, null) as SecretKey
+            cipher?.init(Cipher.ENCRYPT_MODE, key)
             return true
         }
         catch (e:KeyPermanentlyInvalidatedException) {

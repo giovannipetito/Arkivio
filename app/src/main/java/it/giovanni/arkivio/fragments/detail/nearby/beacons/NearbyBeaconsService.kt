@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package it.giovanni.arkivio.fragments.detail.nearby.beacons
 
 import android.app.IntentService

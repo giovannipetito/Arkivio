@@ -87,12 +87,12 @@ class BiometricManager private constructor(biometricBuilder: BiometricBuilder) :
             .setTitle(title!!)
             .setSubtitle(subtitle!!)
             .setDescription(description!!)
-            .setNegativeButton(cancel!!, context!!.mainExecutor,
+            .setNegativeButton(cancel!!, context?.mainExecutor!!,
                 { _, _ -> biometricCallback.onAuthenticationCancelled() })
             .build()
             .authenticate(
                 mCancellationSignal,
-                context!!.mainExecutor,
+                context?.mainExecutor!!,
                 BiometricCallbackV28(biometricCallback)
             )
     }

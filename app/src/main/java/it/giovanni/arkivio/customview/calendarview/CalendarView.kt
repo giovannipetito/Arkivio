@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package it.giovanni.arkivio.customview.calendarview
 
 import android.content.Context
@@ -78,7 +76,7 @@ class CalendarView : RecyclerView {
     /**
      * The xml resource that is inflated and used as the day cell view. This must be provided.
      */
-    var dayItem = 0
+    private var dayItem = 0
         set(value) {
             if (field != value) {
                 if (value == 0)
@@ -91,7 +89,7 @@ class CalendarView : RecyclerView {
     /**
      * The xml resource that is inflated and used as a header for every month. Set zero to disable.
      */
-    var monthHeader = 0
+    private var monthHeader = 0
         set(value) {
             if (field != value) {
                 field = value
@@ -102,7 +100,7 @@ class CalendarView : RecyclerView {
     /**
      * The xml resource that is inflated and used as a footer for every month. Set zero to disable.
      */
-    var monthFooter = 0
+    private var monthFooter = 0
         set(value) {
             if (field != value) {
                 field = value
@@ -155,7 +153,7 @@ class CalendarView : RecyclerView {
      * Note: This causes calendar data to be regenerated, consider using [updateMonthConfiguration]
      * if updating this property alongside [outDateStyle], [maxRowCount] or [inMonth].
      */
-    var inDateStyle = InDate.ALL_MONTHS
+    private var inDateStyle = InDate.ALL_MONTHS
         set(value) {
             if (field != value) {
                 field = value
@@ -175,7 +173,7 @@ class CalendarView : RecyclerView {
      * Note: This causes calendar data to be regenerated, consider using [updateMonthConfiguration]
      * if updating this value property [inDateStyle], [maxRowCount] or [inMonth].
      */
-    var outDateStyle = OutDate.END_OF_ROW
+    private var outDateStyle = OutDate.END_OF_ROW
         set(value) {
             if (field != value) {
                 field = value
@@ -192,7 +190,7 @@ class CalendarView : RecyclerView {
      * Note: This causes calendar data to be regenerated, consider using [updateMonthConfiguration]
      * if updating this property alongside [inDateStyle], [outDateStyle] or [inMonth].
      */
-    var maxRowCount = 6
+    private var maxRowCount = 6
         set(value) {
             if (!(1..6).contains(value)) throw IllegalArgumentException("'maxRowCount' should be between 1 to 6")
             if (field != value) {
@@ -214,7 +212,7 @@ class CalendarView : RecyclerView {
      * Note: This causes calendar data to be regenerated, consider using [updateMonthConfiguration]
      * if updating this property alongside [inDateStyle], [outDateStyle] or [maxRowCount].
      */
-    var inMonth = true
+    private var inMonth = true
         set(value) {
             if (field != value) {
                 field = value
@@ -259,7 +257,7 @@ class CalendarView : RecyclerView {
     private fun init(attributeSet: AttributeSet, defStyleAttr: Int, defStyleRes: Int) {
         if (isInEditMode) return
         setHasFixedSize(true)
-        context!!.withStyledAttributes(attributeSet, R.styleable.CalendarView, defStyleAttr, defStyleRes) {
+        context.withStyledAttributes(attributeSet, R.styleable.CalendarView, defStyleAttr, defStyleRes) {
             month = getString(R.styleable.CalendarView_cv_month)
             inMonth = getBoolean(R.styleable.CalendarView_cv_in_month, inMonth)
             dayItem = getResourceId(R.styleable.CalendarView_cv_day_item, dayItem)
@@ -486,7 +484,7 @@ class CalendarView : RecyclerView {
      * without generating the underlying calendar data multiple times.
      * See [updateMonthConfigurationAsync] if you wish to do this asynchronously.
      */
-    fun updateMonthConfiguration(
+    private fun updateMonthConfiguration(
         inDate: InDate = this.inDateStyle,
         outDate: OutDate = this.outDateStyle,
         maxRowCount: Int = this.maxRowCount,
@@ -507,7 +505,7 @@ class CalendarView : RecyclerView {
      * underlying calendar data multiple times. Useful if your [startMonth] and [endMonth] values are many years apart.
      * See [updateMonthConfiguration] if you wish to do this synchronously.
      */
-    fun updateMonthConfigurationAsync(
+    private fun updateMonthConfigurationAsync(
         inDate: InDate = this.inDateStyle,
         outDate: OutDate = this.outDateStyle,
         maxRowCount: Int = this.maxRowCount,
@@ -542,7 +540,7 @@ class CalendarView : RecyclerView {
      * Scroll to a specific month on the calendar using a smooth scrolling animation.
      * Just like [scrollToMonth], but with a smooth scrolling animation.
      */
-    fun smoothScrollToMonth(month: YearMonth) {
+    private fun smoothScrollToMonth(month: YearMonth) {
         calendarLayoutManager.smoothScrollToMonth(month)
     }
 
@@ -551,14 +549,14 @@ class CalendarView : RecyclerView {
      * in vertical mode or the cell view's left edge to the left edge of the CalendarVew in horizontal
      * mode. No animation is performed. For a smooth scrolling effect, use [smoothScrollToDay].
      */
-    fun scrollToDay(day: CalendarDay) {
+    private fun scrollToDay(day: CalendarDay) {
         calendarLayoutManager.scrollToDay(day)
     }
 
     /**
      * Scroll to a specific [CalendarDay] using a smooth scrolling animation. Just like [scrollToDay], but with a smooth scrolling animation.
      */
-    fun smoothScrollToDay(day: CalendarDay) {
+    private fun smoothScrollToDay(day: CalendarDay) {
         calendarLayoutManager.smoothScrollToDay(day)
     }
 

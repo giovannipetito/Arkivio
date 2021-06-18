@@ -2,7 +2,6 @@ package it.giovanni.arkivio.biometric
 
 import android.hardware.biometrics.BiometricPrompt
 
-
 class BiometricCallbackV28 internal constructor(private val biometricCallback: BiometricCallback) :
     BiometricPrompt.AuthenticationCallback() {
 

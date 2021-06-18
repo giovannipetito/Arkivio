@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package it.giovanni.arkivio.fragments.detail.youtube.search
 
 import android.os.Bundle
@@ -32,7 +30,7 @@ class YouTubePlayerFragmentActivity : YouTubeBaseActivity(), YouTubePlayer.OnIni
         youTubePlayerFragment.initialize(YoutubeConnector.API_KEY, this)
 
         full_screen_button.setOnClickListener {
-            youTubePlayer!!.setFullscreen(true)
+            youTubePlayer?.setFullscreen(true)
         }
     }
 

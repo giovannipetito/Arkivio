@@ -1,8 +1,5 @@
-@file:Suppress("DEPRECATION")
-
 package it.giovanni.arkivio.fragments.homepage
 
-import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.Bitmap
@@ -99,7 +96,6 @@ class HomePageFragment : HomeFragment() {
         return viewFragment
     }
 
-    @SuppressLint("SimpleDateFormat")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -191,12 +187,12 @@ class HomePageFragment : HomeFragment() {
 
         val date = Date()
 
-        val dayOfWeek = SimpleDateFormat("EEEE").format(date).capitalize(Locale.getDefault())
+        val dayOfWeek = SimpleDateFormat("EEEE", Locale.ITALY).format(date).capitalize(Locale.getDefault())
         label_day.text = dayOfWeek
 
-        val currentMonth = SimpleDateFormat("dd MMMM yyyy").format(date).substring(0, 3) +
-                SimpleDateFormat("dd MMMM yyyy").format(date).substring(3, 4).toUpperCase(Locale.ITALY) +
-                SimpleDateFormat("dd MMMM yyyy").format(date).substring(4, SimpleDateFormat("dd MMMM yyyy").format(date).length)
+        val currentMonth = SimpleDateFormat("dd MMMM yyyy", Locale.ITALY).format(date).substring(0, 3) +
+                SimpleDateFormat("dd MMMM yyyy", Locale.ITALY).format(date).substring(3, 4).toUpperCase(Locale.ITALY) +
+                SimpleDateFormat("dd MMMM yyyy", Locale.ITALY).format(date).substring(4, SimpleDateFormat("dd MMMM yyyy", Locale.ITALY).format(date).length)
         label_date.text = currentMonth
 
         label_time.text = DateManager(Date()).getFormatTime()

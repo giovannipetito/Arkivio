@@ -1,6 +1,5 @@
 package it.giovanni.arkivio.fragments.detail.datemanager
 
-import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Context
@@ -29,7 +28,6 @@ import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-@Suppress("DEPRECATION")
 class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener {
 
     private var viewFragment: View? = null
@@ -111,7 +109,6 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
         TODO("Not yet implemented")
     }
 
-    @SuppressLint("SimpleDateFormat")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -122,7 +119,7 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
 
         val dataInizio = "06/02/1988 06:00:00"
         val dataFine = "06/02/1988 12:30:00"
-        val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.ITALY)
         startDate = DateManager(dateFormat.parse(dataInizio)!!)
         endDate = DateManager(dateFormat.parse(dataFine)!!)
 
@@ -161,10 +158,10 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
         }
 
         scroll_container.setOnScrollChangeListener { _, _, scrollY, _, _ ->
-            swipeRefreshLayout!!.isEnabled = scrollY == 0
+            swipeRefreshLayout.isEnabled = scrollY == 0
         }
 
-        swipeRefreshLayout!!.setOnRefreshListener {
+        swipeRefreshLayout.setOnRefreshListener {
             refresh()
         }
     }
@@ -176,7 +173,7 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
         val maxDate: Calendar = Calendar.getInstance()
         maxDate.set(Calendar.getInstance().get(Calendar.YEAR), 11, 31, 23, 59, 59)
 
-        datePickerDialog.datePicker.minDate = calendar!!.timeInMillis // minDate è il giorno corrente.
+        datePickerDialog.datePicker.minDate = calendar?.timeInMillis!! // minDate è il giorno corrente.
         datePickerDialog.datePicker.maxDate = maxDate.timeInMillis // maxDate è il 31 dicembre dell'anno corrente.
         isMinDate = true
 
@@ -196,7 +193,7 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
         minDate.set(Calendar.getInstance().get(Calendar.YEAR), 0, 1, 0, 0, 0)
 
         datePickerDialog.datePicker.minDate = minDate.timeInMillis // minDate è il 1 gennaio dell'anno corrente.
-        datePickerDialog.datePicker.maxDate = calendar!!.timeInMillis // maxDate è il giorno corrente.
+        datePickerDialog.datePicker.maxDate = calendar?.timeInMillis!! // maxDate è il giorno corrente.
         isMinDate = false
 
         datePickerDialog.setCancelable(false)
@@ -213,9 +210,9 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
 
         pickerData = String.format("%02d/%02d/%04d", day, month + 1, year) // "dd/MM/yyyy"
         if (isMinDate!!)
-            datepickerdialog_mindate!!.text = pickerData
+            datepickerdialog_mindate.text = pickerData
         else
-            datepickerdialog_maxdate!!.text = pickerData
+            datepickerdialog_maxdate.text = pickerData
     }
 
     private val currentTimePickerDialogClickListener = View.OnClickListener {
@@ -223,8 +220,8 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
         val timePickerDialog = TimePickerDialog(context, R.style.PickerDialogTheme, { _, hourOfDay, minute ->
 
             startTime = String.format("%02d:%02d", hourOfDay, minute) + ":00"
-            current_time_picker_label!!.text = startTime
-        }, calendar!!.get(Calendar.HOUR_OF_DAY), calendar!!.get(Calendar.MINUTE), true)
+            current_time_picker_label.text = startTime
+        }, calendar?.get(Calendar.HOUR_OF_DAY)!!, calendar?.get(Calendar.MINUTE)!!, true)
 
         timePickerDialog.setCancelable(false)
         timePickerDialog.show()
@@ -239,7 +236,7 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
         val timePickerDialog = TimePickerDialog(context, R.style.PickerDialogTheme, { _, hourOfDay, minute ->
 
             startTime = String.format("%02d:%02d", hourOfDay, minute) + ":00"
-            start_time_picker_label!!.text = startTime
+            start_time_picker_label.text = startTime
         }, 9, 0, true)
 
         timePickerDialog.setCancelable(false)
@@ -256,7 +253,7 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
 
                 endTime = String.format("%02d:%02d", endHourOfDay, endMinute) + ":00"
                 rangeTime = "Dalle $startTime alle $endTime"
-                range_time_picker_label!!.text = rangeTime
+                range_time_picker_label.text = rangeTime
 
             }, 18, 0, true)
 
@@ -269,7 +266,6 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
         startTimePickerDialog.show()
     }
 
-    @SuppressLint("InflateParams")
     private fun showDatePicker() {
 
         val builder = AlertDialog.Builder(requireContext())
@@ -280,13 +276,13 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
         val dialog = builder.create()
         if (dialog.window != null) {
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialog.window!!.setBackgroundDrawableResource(R.color.white)
-            // dialog.window!!.addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND) // TODO: NON FUNZIONA
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.window?.setBackgroundDrawableResource(R.color.white)
+            // dialog.window?.addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND) // TODO: NON FUNZIONA
         }
 
-        // view.date.maxDate = calendar!!.timeInMillis
-        // view.date.minDate = calendar!!.timeInMillis
+        // view.date.maxDate = calendar?.timeInMillis
+        // view.date.minDate = calendar?.timeInMillis
 
         view.date_picker.setOnDateChangedListener { _, year, monthOfYear, dayOfMonth ->
             giorno = dayOfMonth
@@ -304,7 +300,6 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
         dialog.show()
     }
 
-    @SuppressLint("InflateParams")
     private fun showSingleTimePicker() {
 
         val builder = AlertDialog.Builder(requireContext())
@@ -315,8 +310,8 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
         val dialog = builder.create()
         if (dialog.window != null) {
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialog.window!!.setBackgroundDrawableResource(R.color.white)
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.window?.setBackgroundDrawableResource(R.color.white)
         }
 
         calendar = Calendar.getInstance()
@@ -338,7 +333,6 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
         dialog.show()
     }
 
-    @SuppressLint("InflateParams")
     private fun showRangeTimePicker1() {
 
         val builder = AlertDialog.Builder(requireContext())
@@ -349,8 +343,8 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
         val dialog = builder.create()
         if (dialog.window != null) {
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialog.window!!.setBackgroundDrawableResource(R.color.white)
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.window?.setBackgroundDrawableResource(R.color.white)
         }
 
         calendar = Calendar.getInstance()
@@ -404,12 +398,12 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
             if (startHour!! > endHour!! || (startHour == endHour && startMinute!! > endMinute!!)) {
 
                 showPopupError("L'ora di fine non può essere precedente a quella di inizio.") {
-                    popupError!!.dismiss()
+                    popupError?.dismiss()
                 }
             } else if (startHour!! > endHour!! || (startHour == endHour && startMinute!! == endMinute!!)) {
 
                 showPopupError("L'ora di inizio non può coincidere con quella di fine.") {
-                    popupError!!.dismiss()
+                    popupError?.dismiss()
                 }
             } else {
                 range_time_picker_1.text = rangeTime
@@ -436,7 +430,6 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
         dialog.show()
     }
 
-    @SuppressLint("InflateParams")
     private fun showRangeTimePicker2() {
 
         val builder = AlertDialog.Builder(requireContext())
@@ -447,8 +440,8 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
         val dialog = builder.create()
         if (dialog.window != null) {
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialog.window!!.setBackgroundDrawableResource(R.color.white)
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.window?.setBackgroundDrawableResource(R.color.white)
         }
 
         calendar = Calendar.getInstance()
@@ -465,13 +458,13 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
         view.end_time_value.text = endDate?.getFormatTime()
 
         view.start_time_picker.setIs24HourView(true)
-        view.start_time_picker.hour = startDate!!.getDatePickerHour()
-        view.start_time_picker.minute = startDate!!.getDatePickerMinute()/15
+        view.start_time_picker.hour = startDate?.getDatePickerHour()!!
+        view.start_time_picker.minute = startDate?.getDatePickerMinute()!!/15
         setTimePickerInterval(view.start_time_picker)
 
         view.end_time_picker.setIs24HourView(true)
-        view.end_time_picker.hour = endDate!!.getDatePickerHour()
-        view.end_time_picker.minute = endDate!!.getDatePickerMinute()/15
+        view.end_time_picker.hour = endDate?.getDatePickerHour()!!
+        view.end_time_picker.minute = endDate?.getDatePickerMinute()!!/15
         setTimePickerInterval(view.end_time_picker)
 
         view.start_time_picker.setOnTimeChangedListener { _, hourOfDay, minute ->
@@ -490,39 +483,41 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
         view.range_time_ok.setOnClickListener {
 
             if (startDate?.getFormatDate3() == startCurrentDate?.getFormatDate3()) {
+
                 /*
-                if (startDate!!.getDatePickerHour() < startCurrentDate!!.getDatePickerHour() ||
-                    endDate!!.getDatePickerHour() < startCurrentDate!!.getDatePickerHour() ||
-                    endDate!!.getDatePickerHour() < startDate!!.getDatePickerHour() ||
-                    (startDate!!.getDatePickerHour() == startCurrentDate!!.getDatePickerHour() &&
-                            startDate!!.getDatePickerMinute() <= startCurrentDate!!.getDatePickerMinute()) ||
-                    (startDate!!.getDatePickerHour() == endDate!!.getDatePickerHour() &&
-                            startDate!!.getDatePickerMinute() >= endDate!!.getDatePickerMinute())) {
+                if (startDate?.getDatePickerHour()!! < startCurrentDate?.getDatePickerHour()!! ||
+                    endDate?.getDatePickerHour()!! < startCurrentDate?.getDatePickerHour()!! ||
+                    endDate?.getDatePickerHour()!! < startDate?.getDatePickerHour()!! ||
+                    (startDate?.getDatePickerHour()!! == startCurrentDate?.getDatePickerHour()!! &&
+                            startDate?.getDatePickerMinute()!! <= startCurrentDate?.getDatePickerMinute()!!) ||
+                    (startDate?.getDatePickerHour() == endDate?.getDatePickerHour() &&
+                            startDate?.getDatePickerMinute()!! >= endDate?.getDatePickerMinute()!!)) {
 
                     initDate()
 
-                    showPopupError("Intervallo di tempo non valido.", View.OnClickListener {
-                        popupError!!.dismiss()
-                    })
+                    showPopupError("Intervallo di tempo non valido.") {
+                        popupError?.dismiss()
+                    }
                 } else {
                     val result = "Dalle " + startDate?.getFormatTime() + " alle " + endDate?.getFormatTime()
                     range_time_picker_2.text = result
                 }
                 */
-                if (startDate!!.getDatePickerHour() < startCurrentDate!!.getDatePickerHour() ||
-                    (startDate!!.getDatePickerHour() == startCurrentDate!!.getDatePickerHour() &&
-                            startDate!!.getDatePickerMinute() < startCurrentDate!!.getDatePickerMinute())) {
+
+                if (startDate?.getDatePickerHour()!! < startCurrentDate?.getDatePickerHour()!! ||
+                    (startDate?.getDatePickerHour() == startCurrentDate?.getDatePickerHour() &&
+                            startDate?.getDatePickerMinute()!! < startCurrentDate?.getDatePickerMinute()!!)) {
 
                     wrongTimeInterval("L'ora di inizio non può essere precedente a quella attuale.")
                 }
-                else if (startDate!!.getDatePickerHour() > endDate!!.getDatePickerHour() ||
-                    (startDate!!.getDatePickerHour() == endDate!!.getDatePickerHour() &&
-                            startDate!!.getDatePickerMinute() > endDate!!.getDatePickerMinute())) {
+                else if (startDate?.getDatePickerHour()!! > endDate?.getDatePickerHour()!! ||
+                    (startDate?.getDatePickerHour() == endDate?.getDatePickerHour() &&
+                            startDate?.getDatePickerMinute()!! > endDate?.getDatePickerMinute()!!)) {
 
                     wrongTimeInterval("L'ora di fine non può essere precedente a quella di inizio.")
                 }
-                else if (startDate!!.getDatePickerHour() == endDate!!.getDatePickerHour() &&
-                    startDate!!.getDatePickerMinute() == endDate!!.getDatePickerMinute()) {
+                else if (startDate?.getDatePickerHour() == endDate?.getDatePickerHour() &&
+                    startDate?.getDatePickerMinute() == endDate?.getDatePickerMinute()) {
 
                     wrongTimeInterval("L'ora di inizio non può coincidere con quella di fine.")
                 }
@@ -533,14 +528,14 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
 
             } else {
 
-                if (startDate!!.getDatePickerHour() > endDate!!.getDatePickerHour() ||
-                    (startDate!!.getDatePickerHour() == endDate!!.getDatePickerHour() &&
-                            startDate!!.getDatePickerMinute() > endDate!!.getDatePickerMinute())) {
+                if (startDate?.getDatePickerHour()!! > endDate?.getDatePickerHour()!! ||
+                    (startDate?.getDatePickerHour() == endDate?.getDatePickerHour() &&
+                            startDate?.getDatePickerMinute()!! > endDate?.getDatePickerMinute()!!)) {
 
                     wrongTimeInterval("L'ora di fine non può essere precedente a quella di inizio.")
                 }
-                else if (startDate!!.getDatePickerHour() == endDate!!.getDatePickerHour() &&
-                    startDate!!.getDatePickerMinute() == endDate!!.getDatePickerMinute()) {
+                else if (startDate?.getDatePickerHour() == endDate?.getDatePickerHour() &&
+                    startDate?.getDatePickerMinute() == endDate?.getDatePickerMinute()) {
 
                     wrongTimeInterval("L'ora di inizio non può coincidere con quella di fine.")
                 }
@@ -548,16 +543,17 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
                     val result = "Dalle " + startDate?.getFormatTime() + " alle " + endDate?.getFormatTime()
                     range_time_picker_2.text = result
                 }
+
                 /*
-                if (endDate!!.getDatePickerHour() < startDate!!.getDatePickerHour() ||
-                    (startDate!!.getDatePickerHour() == endDate!!.getDatePickerHour() &&
-                            startDate!!.getDatePickerMinute() >= endDate!!.getDatePickerMinute())) {
+                if (endDate?.getDatePickerHour()!! < startDate?.getDatePickerHour()!! ||
+                    (startDate?.getDatePickerHour() == endDate?.getDatePickerHour() &&
+                            startDate?.getDatePickerMinute()!! >= endDate?.getDatePickerMinute()!!)) {
 
                     initDate()
 
-                    showPopupError("Intervallo di tempo non valido.", View.OnClickListener {
-                        popupError!!.dismiss()
-                    })
+                    showPopupError("Intervallo di tempo non valido.") {
+                        popupError?.dismiss()
+                    }
                 } else {
                     val result = "Dalle " + startDate?.getFormatTime() + " alle " + endDate?.getFormatTime()
                     range_time_picker_2.text = result
@@ -589,7 +585,7 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
     private fun wrongTimeInterval(message: String) {
         initDate()
         showPopupError(message) {
-            popupError!!.dismiss()
+            popupError?.dismiss()
         }
     }
 
@@ -608,9 +604,9 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
         val minute = picker.findViewById<View>(Resources.getSystem().getIdentifier("minute", "id", "android"))
         if (minute != null && minute is NumberPicker) {
             minutePicker = minute
-            minutePicker!!.minValue = 0
-            minutePicker!!.maxValue = numValues - 1
-            minutePicker!!.displayedValues = displayedValues
+            minutePicker?.minValue = 0
+            minutePicker?.maxValue = numValues - 1
+            minutePicker?.displayedValues = displayedValues
         }
     }
 }

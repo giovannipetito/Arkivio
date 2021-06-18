@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package it.giovanni.arkivio.fragments.detail.youtube.videolist
 
 import android.os.Bundle
@@ -19,22 +17,19 @@ class VideoFragment : YouTubePlayerFragment(), YouTubePlayer.OnInitializedListen
     }
 
     override fun onDestroy() {
-        if (player != null)
-            player!!.release()
+        player?.release()
         super.onDestroy()
     }
 
     fun setVideoId(videoId: String?) {
         if (videoId != null && videoId != this.videoId) {
             this.videoId = videoId
-            if (player != null)
-                player!!.cueVideo(videoId)
+            player?.cueVideo(videoId)
         }
     }
 
     fun pause() {
-        if (player != null)
-            player!!.pause()
+        player?.pause()
     }
 
     override fun onInitializationSuccess(provider: YouTubePlayer.Provider, player: YouTubePlayer, restored: Boolean) {

@@ -1,6 +1,5 @@
 package it.giovanni.arkivio.fragments.detail.youtube.intents
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -17,7 +16,6 @@ class YouTubeIntentsAdapter internal constructor(
 ) :
     ArrayAdapter<YouTubeIntentsAdapter.ListViewItem?>(context, textViewResourceId, objects!!) {
 
-    @SuppressLint("InflateParams", "ViewHolder")
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
 
         val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater

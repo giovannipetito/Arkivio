@@ -28,16 +28,16 @@ internal class MonthViewHolder constructor(
     fun bindMonth(month: CalendarMonth) {
         this.month = month
         headerView?.let { view ->
-            val headerContainer = headerContainer ?: monthHeaderBinder!!.create(view).also {
+            val headerContainer = headerContainer ?: monthHeaderBinder?.create(view).also {
                 headerContainer = it
             }
-            monthHeaderBinder?.bind(headerContainer, month)
+            monthHeaderBinder?.bind(headerContainer!!, month)
         }
         footerView?.let { view ->
-            val footerContainer = footerContainer ?: monthFooterBinder!!.create(view).also {
+            val footerContainer = footerContainer ?: monthFooterBinder?.create(view).also {
                 footerContainer = it
             }
-            monthFooterBinder?.bind(footerContainer, month)
+            monthFooterBinder?.bind(footerContainer!!, month)
         }
         weekViewHolders.forEachIndexed { index, week ->
             week.bindWeekView(month.weekDays.getOrNull(index).orEmpty())

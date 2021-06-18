@@ -23,12 +23,12 @@ class DeepLinkActivity : AppCompatActivity() {
         if (data != null) {
 
             if (MainActivity.running) {
-                // send broadcast
+                // Send broadcast
                 val intentBroadcast = Intent(DeepLinkDescriptor.DEEP_LINK_ACTION)
                 intentBroadcast.putExtra(DeepLinkDescriptor.DEEP_LINK_URI, intent.data)
-                broadcastManager!!.sendBroadcast(intentBroadcast)
+                broadcastManager?.sendBroadcast(intentBroadcast)
             } else {
-                // open activity
+                // Open activity
                 val intent = Intent(this@DeepLinkActivity, MainActivity::class.java)
                 val extras = Bundle()
                 extras.putString("action", DeepLinkDescriptor.DEEP_LINK_ACTION)

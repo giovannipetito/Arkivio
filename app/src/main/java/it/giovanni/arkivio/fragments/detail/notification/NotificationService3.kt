@@ -1,6 +1,5 @@
 package it.giovanni.arkivio.fragments.detail.notification
 
-import android.annotation.SuppressLint
 import android.app.*
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
@@ -35,7 +34,6 @@ class NotificationService3 : Service() {
         private const val REQUEST_CODE = 3 // NOTIFICATION ID
     }
 
-    @SuppressLint("ObsoleteSdkInt")
     override fun onCreate() {
         super.onCreate()
 
@@ -87,7 +85,6 @@ class NotificationService3 : Service() {
         }
     }
 
-    @SuppressLint("ObsoleteSdkInt")
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationChannel = NotificationChannel(
@@ -171,7 +168,7 @@ class NotificationService3 : Service() {
         given time, you can use the same ID for all your notifications.
         */
 
-        val notification: Notification? = builder.build()
+        val notification: Notification = builder.build()
         notify(REQUEST_CODE, notification)
         startForeground(REQUEST_CODE, notification)
     }

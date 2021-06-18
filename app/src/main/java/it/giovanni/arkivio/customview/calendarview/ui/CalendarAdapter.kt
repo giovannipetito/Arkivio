@@ -78,7 +78,7 @@ internal class CalendarAdapter(
             rootLayout.addView(monthHeaderView)
         }
 
-        @Suppress("UNCHECKED_CAST") val dayConfig = DayConfig(
+        val dayConfig = DayConfig(
             calView.daySize, viewConfig.dayViewRes,
             calView.dayBinder as DayBinder<ViewContainer>
         )
@@ -123,7 +123,6 @@ internal class CalendarAdapter(
             }
         } ?: rootLayout.apply { setupRoot(this) }
 
-        @Suppress("UNCHECKED_CAST")
         return MonthViewHolder(
             this,
             userRoot,

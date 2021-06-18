@@ -65,29 +65,29 @@ class MultiSpinnerView : View {
         val colorPrimary = Color.parseColor("#00B8DE")
 
         track = Paint(Paint.ANTI_ALIAS_FLAG)
-        track!!.style = Paint.Style.STROKE
-        track!!.color = -0x50506
+        track?.style = Paint.Style.STROKE
+        track?.color = -0x50506
 
         p1 = Paint(Paint.ANTI_ALIAS_FLAG)
         p2 = Paint(Paint.ANTI_ALIAS_FLAG)
         p3 = Paint(Paint.ANTI_ALIAS_FLAG)
         p4 = Paint(Paint.ANTI_ALIAS_FLAG)
 
-        p1!!.style = Paint.Style.STROKE
-        p2!!.style = Paint.Style.STROKE
-        p3!!.style = Paint.Style.STROKE
-        p4!!.style = Paint.Style.STROKE
+        p1?.style = Paint.Style.STROKE
+        p2?.style = Paint.Style.STROKE
+        p3?.style = Paint.Style.STROKE
+        p4?.style = Paint.Style.STROKE
 
-        p1!!.color = -0xd7c3bb
-        p2!!.color = colorPrimary
-        p3!!.color = -0x615b58
-        p4!!.color = -0x1d1c1c
+        p1?.color = -0xd7c3bb
+        p2?.color = colorPrimary
+        p3?.color = -0x615b58
+        p4?.color = -0x1d1c1c
 
-        track!!.strokeWidth = thickStrokeWidth
-        p1!!.strokeWidth = thinStrokeWidth
-        p2!!.strokeWidth = thickStrokeWidth
-        p3!!.strokeWidth = thickStrokeWidth
-        p4!!.strokeWidth = thickStrokeWidth
+        track?.strokeWidth = thickStrokeWidth
+        p1?.strokeWidth = thinStrokeWidth
+        p2?.strokeWidth = thickStrokeWidth
+        p3?.strokeWidth = thickStrokeWidth
+        p4?.strokeWidth = thickStrokeWidth
     }
 
     private fun applyAttributes(attrs: AttributeSet) {
@@ -114,7 +114,6 @@ class MultiSpinnerView : View {
         invalidate()
     }
 
-    @Suppress("CAST_NEVER_SUCCEEDS")
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
 
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)

@@ -1,6 +1,5 @@
 package it.giovanni.arkivio.utils.typekit;
 
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
@@ -43,16 +42,13 @@ public class TypekitLayoutInflater extends LayoutInflater {
         return new TypekitLayoutInflater(this, newContext, true);
     }
 
-    @SuppressLint("ObsoleteSdkInt")
     private void initLayoutFactories(boolean cloned) {
         if (cloned) return;
 
         // If we are HC+ we get and set Factory2 otherwise we just wrap Factory1
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            if (getFactory2() != null && !(getFactory2() instanceof WrapperFactory2)) {
-                // Sets both Factory/Factory2
-                setFactory2(getFactory2());
-            }
+        if (getFactory2() != null && !(getFactory2() instanceof WrapperFactory2)) {
+            // Sets both Factory/Factory2
+            setFactory2(getFactory2());
         }
         // We can do this as setFactory2 is used for both methods.
         if (getFactory() != null && !(getFactory() instanceof WrapperFactory)) {
@@ -154,17 +150,8 @@ public class TypekitLayoutInflater extends LayoutInflater {
             this.mTypekitFactory = typekitFactory;
         }
 
-        @SuppressLint("ObsoleteSdkInt")
         @Override
         public View onCreateView(String name, Context context, AttributeSet attrs) {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-                return mTypekitFactory.onViewCreated(
-                        mInflater.createCustomViewInternal(
-                                null, mFactory.onCreateView(name, context, attrs), name, context, attrs
-                        ),
-                        context, attrs
-                );
-            }
             return mTypekitFactory.onViewCreated(
                     mFactory.onCreateView(name, context, attrs),
                     name, null, context, attrs

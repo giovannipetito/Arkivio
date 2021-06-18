@@ -34,11 +34,14 @@ import kotlin.math.hypot
 import kotlin.math.max
 import kotlin.math.roundToInt
 
-@Suppress("PrivatePropertyName")
 class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFlexBoxCallback {
 
-    private var TRANSITION_TIME: Long = 275
-    private var FLEXBOX_CONTAINER_HEIGHT: Int? = 80
+    companion object {
+        private var TRANSITION_TIME: Long = 275
+        private var FLEXBOX_CONTAINER_HEIGHT: Int? = 80
+        var KEY_BRICKS: String = "KEY_BRICKS"
+        var KEY_SPEECH_USERS: String = "KEY_SPEECH_USERS"
+    }
 
     private var viewFragment: View? = null
     private lateinit var adapter: UsersAdapter
@@ -50,11 +53,6 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
     private var labelIsClicked: Boolean = false
     private var sentence: String? = null
     private var isOpen = false
-
-    companion object {
-        var KEY_BRICKS: String = "KEY_BRICKS"
-        var KEY_SPEECH_USERS: String = "KEY_SPEECH_USERS"
-    }
 
     override fun getLayout(): Int {
         return R.layout.rubrica_list_layout
@@ -134,7 +132,7 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
                         val brick: Brick = (flexbox_users.getChildAt(index - 1) as Brick)
                         if (brick.isVisible()) {
                             val user = User(brick.getName(), brick.getEmail(), "", "", ArrayList(), "", "", true)
-                            list!!.add(user)
+                            list?.add(user)
                         }
                     }
                 }
@@ -160,7 +158,6 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
         TODO("Not yet implemented")
     }
 
-    @Suppress("UNCHECKED_CAST")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -186,7 +183,7 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
                     val brick = Brick(requireContext())
                     brick.mode(Brick.ModeType.EDIT)
                     brick.setName(user.nome!!)
-                    if (user.emails!!.isEmpty())
+                    if (user.emails?.isEmpty()!!)
                         brick.setEmail("")
                     else
                         brick.setEmail(user.emails!![0])
@@ -234,7 +231,7 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
                     filter()
 
                     if (edit_search.text.endsWith(",") || edit_search.text.endsWith(" ")) {
-                        var email: String = edit_search.text.toString().toLowerCase(Locale.ITALIAN)
+                        var email: String = edit_search.text.toString().toLowerCase(Locale.ITALY)
                         email = email.substring(0, email.length - 1)
                         addBrick(email, email)
                         edit_search.setText("")
@@ -271,7 +268,7 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
 
         edit_search.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                var email: String = edit_search.text.toString().toLowerCase(Locale.ITALIAN)
+                var email: String = edit_search.text.toString().toLowerCase(Locale.ITALY)
                 email = email.substring(0, email.length)
                 if (Utils.checkEmail(email)) {
                     if (list?.size != 0) {
@@ -331,7 +328,7 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
         if (list != null) {
             for (notChosen in list) {
                 if (notChosen.emails!![0] != user.emails!![0])
-                    updatedList!!.add(notChosen)
+                    updatedList?.add(notChosen)
             }
         }
 
@@ -381,11 +378,11 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
             return
         }
         for (user in list!!) {
-            if (user.nome!!.toLowerCase(Locale.ITALIAN).contains(sentence?.toLowerCase(Locale.ITALIAN)!!) ||
-                user.cognome!!.toLowerCase(Locale.ITALIAN).contains(sentence?.toLowerCase(Locale.ITALIAN)!!) ||
-                (user.nome!!.toLowerCase(Locale.ITALIAN) + " " + user.cognome!!.toLowerCase(Locale.ITALIAN))
-                    .contains(sentence?.toLowerCase(Locale.ITALIAN)!!) ||
-                user.cellulare!!.toLowerCase(Locale.ITALIAN).contains(sentence?.toLowerCase(Locale.ITALIAN)!!))
+            if (user.nome?.toLowerCase(Locale.ITALY)?.contains(sentence?.toLowerCase(Locale.ITALY)!!)!! ||
+                user.cognome?.toLowerCase(Locale.ITALY)?.contains(sentence?.toLowerCase(Locale.ITALY)!!)!! ||
+                (user.nome?.toLowerCase(Locale.ITALY) + " " + user.cognome?.toLowerCase(Locale.ITALY))
+                    .contains(sentence?.toLowerCase(Locale.ITALY)!!) ||
+                user.cellulare?.toLowerCase(Locale.ITALY)?.contains(sentence?.toLowerCase(Locale.ITALY)!!)!!)
 
                 filtered?.add(user)
         }

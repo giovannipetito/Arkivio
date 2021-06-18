@@ -1,6 +1,5 @@
 package it.giovanni.arkivio.customview;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Paint;
@@ -45,7 +44,7 @@ public class TextViewCustom extends AppCompatTextView {
             setTypeface(customFont);
             setPaintFlags(getPaintFlags() | Paint.ANTI_ALIAS_FLAG | Paint.DEV_KERN_TEXT_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
 
-            @SuppressLint("CustomViewStyleable") TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.textViewCustom);
+            TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.textViewCustom);
             boolean isUnderline = typedArray.getBoolean(R.styleable.textViewCustom_underlineText, false);
 
             if (isUnderline)

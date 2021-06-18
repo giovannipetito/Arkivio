@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package it.giovanni.arkivio.fragments.detail.cardio
 
 import android.content.Intent
@@ -135,21 +133,21 @@ class CardIOFragment : DetailFragment(), AppCompatSpinnerCustom.OnSpinnerEventsL
 
     private fun scanCreditCard() {
         val intent = Intent(context, CardIOActivity::class.java)
-            .putExtra(CardIOActivity.EXTRA_REQUIRE_EXPIRY, expiry!!.isChecked)
-            .putExtra(CardIOActivity.EXTRA_SCAN_EXPIRY, scan_expiry!!.isChecked)
-            .putExtra(CardIOActivity.EXTRA_REQUIRE_CVV, cvv!!.isChecked)
-            .putExtra(CardIOActivity.EXTRA_REQUIRE_POSTAL_CODE, postal_code!!.isChecked)
-            .putExtra(CardIOActivity.EXTRA_USE_CARDIO_LOGO, use_card_io_logo!!.isChecked)
-            .putExtra(CardIOActivity.EXTRA_REQUIRE_CARDHOLDER_NAME, cardholder_name!!.isChecked)
-            .putExtra(CardIOActivity.EXTRA_SUPPRESS_CONFIRMATION, suppress_confirmation!!.isChecked)
-            .putExtra(CardIOActivity.EXTRA_NO_CAMERA, bypass_the_scan!!.isChecked)
-            .putExtra(CardIOActivity.EXTRA_KEEP_APPLICATION_THEME, keep_application_theme!!.isChecked)
-            .putExtra(CardIOActivity.EXTRA_SUPPRESS_MANUAL_ENTRY, suppress_keyboard_icon!!.isChecked)
-            .putExtra(CardIOActivity.EXTRA_SUPPRESS_SCAN, suppress_scan_info!!.isChecked)
-            .putExtra(CardIOActivity.EXTRA_RESTRICT_POSTAL_CODE_TO_NUMERIC_ONLY, postal_code_numeric!!.isChecked)
-            .putExtra(CardIOActivity.EXTRA_USE_PAYPAL_ACTIONBAR_ICON, show_paypal_action_bar_icon!!.isChecked)
+            .putExtra(CardIOActivity.EXTRA_REQUIRE_EXPIRY, expiry.isChecked)
+            .putExtra(CardIOActivity.EXTRA_SCAN_EXPIRY, scan_expiry.isChecked)
+            .putExtra(CardIOActivity.EXTRA_REQUIRE_CVV, cvv.isChecked)
+            .putExtra(CardIOActivity.EXTRA_REQUIRE_POSTAL_CODE, postal_code.isChecked)
+            .putExtra(CardIOActivity.EXTRA_USE_CARDIO_LOGO, use_card_io_logo.isChecked)
+            .putExtra(CardIOActivity.EXTRA_REQUIRE_CARDHOLDER_NAME, cardholder_name.isChecked)
+            .putExtra(CardIOActivity.EXTRA_SUPPRESS_CONFIRMATION, suppress_confirmation.isChecked)
+            .putExtra(CardIOActivity.EXTRA_NO_CAMERA, bypass_the_scan.isChecked)
+            .putExtra(CardIOActivity.EXTRA_KEEP_APPLICATION_THEME, keep_application_theme.isChecked)
+            .putExtra(CardIOActivity.EXTRA_SUPPRESS_MANUAL_ENTRY, suppress_keyboard_icon.isChecked)
+            .putExtra(CardIOActivity.EXTRA_SUPPRESS_SCAN, suppress_scan_info.isChecked)
+            .putExtra(CardIOActivity.EXTRA_RESTRICT_POSTAL_CODE_TO_NUMERIC_ONLY, postal_code_numeric.isChecked)
+            .putExtra(CardIOActivity.EXTRA_USE_PAYPAL_ACTIONBAR_ICON, show_paypal_action_bar_icon.isChecked)
             .putExtra(CardIOActivity.EXTRA_GUIDE_COLOR, ContextCompat.getColor(App.context, R.color.colorPrimary)) // Color.BLUE (import android.graphics.Color)
-            .putExtra(CardIOActivity.EXTRA_LANGUAGE_OR_LOCALE, language_spinner!!.selectedItem as String)
+            .putExtra(CardIOActivity.EXTRA_LANGUAGE_OR_LOCALE, language_spinner.selectedItem as String)
             .putExtra(CardIOActivity.EXTRA_RETURN_CARD_IMAGE, true)
         try {
             intent.putExtra(CardIOActivity.EXTRA_UNBLUR_DIGITS, unblurredDigits)
@@ -172,25 +170,25 @@ class CardIOFragment : DetailFragment(), AppCompatSpinnerCustom.OnSpinnerEventsL
             cardInfo = "Card number: " + creditCard?.redactedCardNumber + "\n" +
                     "Card type: " + cardType.toString() + "\n" + "Display name: " + cardType?.getDisplayName(null) + "\n"
 
-            if (expiry!!.isChecked)
+            if (expiry.isChecked)
                 cardInfo += "Expiry: " + creditCard?.expiryMonth + "/" + creditCard?.expiryYear + "\n"
 
-            if (cvv!!.isChecked)
+            if (cvv.isChecked)
                 cardInfo += "CVV: " + creditCard?.cvv + "\n"
 
-            if (postal_code!!.isChecked)
+            if (postal_code.isChecked)
                 cardInfo += "Postal Code: " + creditCard?.postalCode + "\n"
 
-            if (cardholder_name!!.isChecked)
+            if (cardholder_name.isChecked)
                 cardInfo += "Cardholder Name: " + creditCard?.cardholderName + "\n"
         }
 
-        card_type_image!!.setImageBitmap(cardTypeImage)
+        card_type_image.setImageBitmap(cardTypeImage)
 
-        card_info!!.text = cardInfo
+        card_info.text = cardInfo
 
         val card = CardIOActivity.getCapturedCardImage(data)
-        card_image!!.setImageBitmap(card)
+        card_image.setImageBitmap(card)
     }
 
     private fun setupLanguageList() {
@@ -214,8 +212,8 @@ class CardIOFragment : DetailFragment(), AppCompatSpinnerCustom.OnSpinnerEventsL
         // TODO) Nota: Per l'adapter ho definito un item custom (spinner_dropdown_item), ma avrei anche potuto utilizzare un item nativo di Android (simple_dropdown_item_1line):
         // val adapter = ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, languages)
 
-        language_spinner!!.adapter = adapter
-        language_spinner!!.setSelection(adapter.getPosition("it"))
+        language_spinner.adapter = adapter
+        language_spinner.setSelection(adapter.getPosition("it"))
         language_spinner.setSpinnerEventsListener(this)
 
         /*
@@ -247,14 +245,14 @@ class CardIOFragment : DetailFragment(), AppCompatSpinnerCustom.OnSpinnerEventsL
         }
 
         picker_unblurred_digits.value = 0
-        picker_unblurred_digits!!.minValue = 0
-        picker_unblurred_digits!!.maxValue = numValues - 1
-        picker_unblurred_digits!!.displayedValues = displayedValues
+        picker_unblurred_digits.minValue = 0
+        picker_unblurred_digits.maxValue = numValues - 1
+        picker_unblurred_digits.displayedValues = displayedValues
     }
 
     override fun onStop() {
         super.onStop()
-        card_info!!.text = ""
+        card_info.text = ""
     }
 
     override fun onSpinnerOpened(spin: AppCompatSpinner?) {

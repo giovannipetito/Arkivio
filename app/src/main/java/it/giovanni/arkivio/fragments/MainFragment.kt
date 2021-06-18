@@ -101,12 +101,12 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
 
         val drawListener = object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
-                view!!.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                view?.viewTreeObserver?.removeOnGlobalLayoutListener(this)
                 draw()
             }
         }
 
-        view!!.viewTreeObserver.addOnGlobalLayoutListener(drawListener)
+        view?.viewTreeObserver?.addOnGlobalLayoutListener(drawListener)!!
 
         return view
     }
@@ -144,7 +144,6 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
         }
     }
 
-    @Suppress("DEPRECATION")
     private fun draw() {
 
         val displayMetrics = DisplayMetrics()

@@ -9,10 +9,10 @@ class PreferenceModel: BaseModel(), IPreference.UpdateModel {
     }
 
     override fun getUserPreference(keyPreference: String): String {
-        return App.getRepository()!!.getPreference(keyPreference)
+        return App.getRepository()?.getPreference(keyPreference)!!
     }
 
     override fun setUserPreference(keyPreference: String, value: String) {
-        App.getRepository()!!.setPreference(keyPreference, value)
+        App.getRepository()?.setPreference(keyPreference, value)
     }
 }

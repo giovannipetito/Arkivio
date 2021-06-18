@@ -1,6 +1,5 @@
 package it.giovanni.arkivio.fragments.detail.notification
 
-import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -9,7 +8,6 @@ import androidx.annotation.NonNull
 
 class NotificationReceiver2: BroadcastReceiver() {
 
-    @SuppressLint("ObsoleteSdkInt")
     override fun onReceive(@NonNull context: Context?, @NonNull intent: Intent?) {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)

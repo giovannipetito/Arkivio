@@ -10,7 +10,6 @@ import com.google.android.youtube.player.YouTubePlayer.OnFullscreenListener
 import com.google.android.youtube.player.YouTubePlayerFragment
 import it.giovanni.arkivio.R
 
-@Suppress("DEPRECATION")
 class ActionBarActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener, OnFullscreenListener {
 
     private var playerFragment: YouTubePlayerFragment? = null
@@ -20,7 +19,7 @@ class ActionBarActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedList
         setContentView(R.layout.youtube_player_fragment_activity)
 
         playerFragment = fragmentManager.findFragmentById(R.id.youtube_player_fragment) as YouTubePlayerFragment
-        playerFragment!!.initialize(YoutubeConnector.API_KEY, this)
+        playerFragment?.initialize(YoutubeConnector.API_KEY, this)
 
         actionBar?.setBackgroundDrawable(ColorDrawable(-0x56000000))
     }

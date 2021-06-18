@@ -56,7 +56,7 @@ class StickyHeaderAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemCount(): Int {
         return if (list == null) 0
-        else list!!.size
+        else list?.size!!
     }
 
     inner class HeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

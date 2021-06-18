@@ -1,6 +1,5 @@
 package it.giovanni.arkivio.fragments.detail.webview
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -13,7 +12,6 @@ import it.giovanni.arkivio.R
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.utils.Utils.Companion.setTextWebview
 import kotlinx.android.synthetic.main.webview_layout.*
-
 
 class WebViewFragment : DetailFragment() {
 
@@ -102,8 +100,6 @@ class WebViewFragment : DetailFragment() {
         TODO("Not yet implemented")
     }
 
-    @Suppress("DEPRECATION")
-    @SuppressLint("SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -186,7 +182,7 @@ class WebViewFragment : DetailFragment() {
             urlHtml = getUrl("url_html")
 
             message = requireArguments().getString("TEXT_KEY")
-            if (message != null && message!!.isNotEmpty())
+            if (message != null && message?.isNotEmpty()!!)
                 setTextWebview(webview, message!!, requireContext())
         }
 

@@ -1,6 +1,5 @@
 package it.giovanni.arkivio.fragments.detail.logcat
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -104,7 +103,6 @@ class LogcatFragment : DetailFragment() {
         })
     }
 
-    @SuppressLint("SimpleDateFormat")
     private fun createTabs1() {
 
         working_area_tabs.removeAllTabs()
@@ -122,19 +120,19 @@ class LogcatFragment : DetailFragment() {
         val sunday = Calendar.getInstance()
         sunday.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
 
-        adapter!!.addFragment(
-            SimpleDateFormat("yyyy-MM-dd HH:00:00").format(currentTime.timeInMillis),
-            SimpleDateFormat("yyyy-MM-dd").format(friday.time),
+        adapter?.addFragment(
+            SimpleDateFormat("yyyy-MM-dd HH:00:00", Locale.UK).format(currentTime.timeInMillis),
+            SimpleDateFormat("yyyy-MM-dd", Locale.UK).format(friday.time),
             resources.getString(R.string.current_week))
 
-        adapter!!.addFragment(
-            SimpleDateFormat("yyyy-MM-dd 23:59:59").format(sunday.time),
-            SimpleDateFormat("yyyy-MM-dd").format(friday.timeInMillis + millisecondsInWeek),
+        adapter?.addFragment(
+            SimpleDateFormat("yyyy-MM-dd 23:59:59", Locale.UK).format(sunday.time),
+            SimpleDateFormat("yyyy-MM-dd", Locale.UK).format(friday.timeInMillis + millisecondsInWeek),
             resources.getString(R.string.next_week))
 
-        adapter!!.addFragment(
-            SimpleDateFormat("yyyy-MM-dd 23:59:59").format(sunday.timeInMillis + millisecondsInWeek),
-            SimpleDateFormat("yyyy-MM-dd").format(nextTime.timeInMillis),
+        adapter?.addFragment(
+            SimpleDateFormat("yyyy-MM-dd 23:59:59", Locale.UK).format(sunday.timeInMillis + millisecondsInWeek),
+            SimpleDateFormat("yyyy-MM-dd", Locale.UK).format(nextTime.timeInMillis),
             resources.getString(R.string.future_events))
 
         working_area_viewpager.adapter = adapter
@@ -145,7 +143,6 @@ class LogcatFragment : DetailFragment() {
         working_area_viewpager.currentItem = 0
     }
 
-    @SuppressLint("SimpleDateFormat")
     private fun createTabs2() {
 
         working_area_tabs.removeAllTabs()
@@ -154,14 +151,14 @@ class LogcatFragment : DetailFragment() {
         val currentTime = Calendar.getInstance()
         val nextTime = Calendar.getInstance()
 
-        adapter!!.addFragment(
-            SimpleDateFormat("yyyy-MM-dd HH:00:00").format(currentTime.timeInMillis),
-            SimpleDateFormat("yyyy-MM-dd").format(nextTime.timeInMillis + millisecondsInWeek),
+        adapter?.addFragment(
+            SimpleDateFormat("yyyy-MM-dd HH:00:00", Locale.UK).format(currentTime.timeInMillis),
+            SimpleDateFormat("yyyy-MM-dd", Locale.UK).format(nextTime.timeInMillis + millisecondsInWeek),
             resources.getString(R.string.current_week))
 
-        adapter!!.addFragment(
-            SimpleDateFormat("yyyy-MM-dd 00:00:00").format(currentTime.timeInMillis + millisecondsInWeek),
-            SimpleDateFormat("yyyy-MM-dd").format(nextTime.timeInMillis + millisecondsInWeek + millisecondsInWeek),
+        adapter?.addFragment(
+            SimpleDateFormat("yyyy-MM-dd 00:00:00", Locale.UK).format(currentTime.timeInMillis + millisecondsInWeek),
+            SimpleDateFormat("yyyy-MM-dd", Locale.UK).format(nextTime.timeInMillis + millisecondsInWeek + millisecondsInWeek),
             resources.getString(R.string.next_week))
 
         val thirdWeek = nextTime.timeInMillis + millisecondsInWeek + millisecondsInWeek
@@ -169,9 +166,9 @@ class LogcatFragment : DetailFragment() {
         nextTime.add(Calendar.MONTH, 3)
         nextTime.set(Calendar.DAY_OF_MONTH, nextTime.getActualMaximum(Calendar.DAY_OF_MONTH))
 
-        adapter!!.addFragment(
-            SimpleDateFormat("yyyy-MM-dd 00:00:00").format(thirdWeek),
-            SimpleDateFormat("yyyy-MM-dd").format(nextTime.timeInMillis),
+        adapter?.addFragment(
+            SimpleDateFormat("yyyy-MM-dd 00:00:00", Locale.UK).format(thirdWeek),
+            SimpleDateFormat("yyyy-MM-dd", Locale.UK).format(nextTime.timeInMillis),
             resources.getString(R.string.future_events))
 
         working_area_viewpager.adapter = adapter
@@ -182,13 +179,12 @@ class LogcatFragment : DetailFragment() {
         working_area_viewpager.currentItem = 0
     }
 
-    @SuppressLint("SimpleDateFormat")
     private fun createTabs3() {
 
         working_area_tabs.removeAllTabs()
         adapter = LogcatViewPager(childFragmentManager)
 
-        val sdf = SimpleDateFormat("dd/MM/yyyy")
+        val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.ITALY)
 
         val firstDayOfCurrentYear = Calendar.getInstance()
         firstDayOfCurrentYear.set(Calendar.DATE, 1)
@@ -234,25 +230,25 @@ class LogcatFragment : DetailFragment() {
         lastDayOf3YearsAgo.set(Calendar.MONTH, 11)
         Log.i("YEARTAG", "df.format(lastDayOf3YearsAgo.time): " + sdf.format(lastDayOf3YearsAgo.time))
 
-        adapter!!.addFragment(
+        adapter?.addFragment(
             sdf.format(firstDayOfCurrentYear.time),
             sdf.format(currentDay.time),
             resources.getString(R.string.current_year))
 
-        adapter!!.addFragment(
+        adapter?.addFragment(
             sdf.format(firstDayOf1YearAgo.time),
             sdf.format(lastDayOf1YearAgo.time),
-            SimpleDateFormat("yyyy").format(firstDayOf1YearAgo.time))
+            SimpleDateFormat("yyyy", Locale.ITALY).format(firstDayOf1YearAgo.time))
 
-        adapter!!.addFragment(
+        adapter?.addFragment(
             sdf.format(firstDayOf2YearsAgo.time),
             sdf.format(lastDayOf2YearsAgo.time),
-            SimpleDateFormat("yyyy").format(firstDayOf2YearsAgo.time))
+            SimpleDateFormat("yyyy", Locale.ITALY).format(firstDayOf2YearsAgo.time))
 
-        adapter!!.addFragment(
+        adapter?.addFragment(
             sdf.format(firstDayOf3YearsAgo.time),
             sdf.format(lastDayOf3YearsAgo.time),
-            SimpleDateFormat("yyyy").format(firstDayOf3YearsAgo.time))
+            SimpleDateFormat("yyyy", Locale.ITALY).format(firstDayOf3YearsAgo.time))
 
         working_area_viewpager.adapter = adapter
         working_area_tabs.setupWithViewPager(working_area_viewpager)

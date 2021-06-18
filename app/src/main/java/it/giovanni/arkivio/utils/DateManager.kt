@@ -185,7 +185,7 @@ class DateManager {
                 val startDate = SimpleDateFormat("yyyy/MM/dd", Locale.UK).parse(dataInizio)
                 val endDate = SimpleDateFormat("yyyy/MM/dd", Locale.UK).parse(dataFine)
 
-                val difference = ((endDate!!.time - startDate!!.time) / (60 * 60 * 24 * 1000)).toInt()
+                val difference = ((endDate?.time!! - startDate?.time!!) / (60 * 60 * 24 * 1000)).toInt()
                 val sb = StringBuilder()
                     .append(difference)
                     .append(if (difference > 1) " giorni" else " giorno")
@@ -319,7 +319,7 @@ class DateManager {
 
             } else {
                 val endDate = SimpleDateFormat("yyyy/MM/dd", Locale.UK).parse(dataFine)
-                val difference = ((endDate!!.time - startDate!!.time) / (60 * 60 * 24 * 1000)).toInt() + 1
+                val difference = ((endDate?.time!! - startDate?.time!!) / (60 * 60 * 24 * 1000)).toInt() + 1
 
                 var startDay = SimpleDateFormat("E", Locale.ITALY).format(startDate)
                 var startMonth = SimpleDateFormat("dd MMM yyyy", Locale.ITALY).format(startDate)

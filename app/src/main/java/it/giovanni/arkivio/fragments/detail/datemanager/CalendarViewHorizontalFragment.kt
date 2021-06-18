@@ -1,6 +1,5 @@
 package it.giovanni.arkivio.fragments.detail.datemanager
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -182,7 +181,6 @@ class CalendarViewHorizontalFragment : DetailFragment() {
         calendarview_horizontal.monthHeaderBinder = object : MonthHeaderFooterBinder<MonthViewContainer> {
             override fun create(view: View) = MonthViewContainer(view)
             override fun bind(container: MonthViewContainer, month: CalendarMonth) {
-                @SuppressLint("SetTextI18n")
                 container.textView.text = "${month.yearMonth.month.name.toLowerCase(Locale.getDefault()).capitalize(Locale.getDefault())} ${month.year}"
             }
         }

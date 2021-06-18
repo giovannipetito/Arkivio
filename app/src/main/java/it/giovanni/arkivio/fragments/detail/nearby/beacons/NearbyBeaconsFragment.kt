@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package it.giovanni.arkivio.fragments.detail.nearby.beacons
 
 import android.Manifest
@@ -106,7 +104,7 @@ class NearbyBeaconsFragment: DetailFragment(),
         val cachedMessages = NearbyBeaconsUtils.getCachedMessages(requireContext())
         messagesList.addAll(cachedMessages)
 
-        val listView: ListView = viewFragment!!.findViewById(R.id.nearby_messages_listview)
+        val listView: ListView = viewFragment?.findViewById(R.id.nearby_messages_listview)!!
         adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, messagesList)
         listView.adapter = adapter
 
@@ -205,7 +203,7 @@ class NearbyBeaconsFragment: DetailFragment(),
         if (TextUtils.equals(key, NearbyBeaconsUtils.KEY_CACHED_MESSAGES)) {
             messagesList.clear()
             messagesList.addAll(NearbyBeaconsUtils.getCachedMessages(requireContext()))
-            adapter!!.notifyDataSetChanged()
+            adapter?.notifyDataSetChanged()
         }
     }
 
@@ -233,7 +231,7 @@ class NearbyBeaconsFragment: DetailFragment(),
             return
         }
         val options = SubscribeOptions.Builder().setStrategy(Strategy.BLE_ONLY).build()
-        Nearby.Messages.subscribe(googleApiClient, getPendingIntent(), options).setResultCallback { status: Status ->
+        Nearby.Messages.subscribe(googleApiClient!!, getPendingIntent()!!, options).setResultCallback { status: Status ->
             if (status.isSuccess) {
                 Log.i(mTag, "Subscribed successfully.")
                 currentActivity.startService(getBackgroundSubscribeServiceIntent())

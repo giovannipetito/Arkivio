@@ -1,8 +1,5 @@
-@file:Suppress("DEPRECATION")
-
 package it.giovanni.arkivio.activities
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
@@ -92,18 +89,17 @@ class MainActivity : BaseActivity(), IProgressLoader {
         var running = false
     }
 
-    @SuppressLint("InflateParams")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         // Room: Load user preferences.
-        App.getRepository()!!.loadPreferences()
+        App.getRepository()?.loadPreferences()
 
         rememberMe = loadRememberMeFromPreferences()
 
         progressDialog = Dialog(this, R.style.DialogTheme)
-        progressDialog?.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        progressDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         val view = LayoutInflater.from(applicationContext).inflate(R.layout.progress_dialog_custom, null)
 
@@ -146,11 +142,11 @@ class MainActivity : BaseActivity(), IProgressLoader {
             if (params != null && params.containsKey(DeepLinkDescriptor.DEEP_LINK)) {
                 Log.i(mTag, "DeepLink trovato..")
                 val bundle = params.getBundle(DeepLinkActivity.DEEP_LINK)
-                val uri = bundle!!.getParcelable<Uri>(DeepLinkActivity.DEEP_LINK_URI)
+                val uri = bundle?.getParcelable<Uri>(DeepLinkActivity.DEEP_LINK_URI)
                 if (uri != null)
                     Log.i(mTag, "HOST:" + uri.host + "| path" + uri.path)
                 deepLinkEvent = DeepLinkDescriptor()
-                deepLinkEvent!!.deeplink = uri
+                deepLinkEvent?.deeplink = uri
             }
         }
     }
@@ -158,7 +154,7 @@ class MainActivity : BaseActivity(), IProgressLoader {
     private fun openDeepLink(uri: Uri) {
 
         val host = uri.host
-        when (host?.toLowerCase(Locale.ITALIAN)) {
+        when (host?.toLowerCase(Locale.ITALY)) {
             DeepLinkDescriptor.URI_CONTACTS -> {
                 openDetail(Globals.RUBRICA_REALTIME, null)
             }
@@ -169,8 +165,8 @@ class MainActivity : BaseActivity(), IProgressLoader {
             // WebView
             DeepLinkDescriptor.URI_VIEW -> {
                 if (uri.query != null) {
-                    val list = uri.query!!.split("url=")
-                    if (list.isNotEmpty()) {
+                    val list = uri.query?.split("url=")
+                    if (list?.isNotEmpty()!!) {
                         val url = list[1]
                         val bundle = Bundle()
                         var query = "num=" + UserFactory.getInstance().matricola
@@ -183,8 +179,8 @@ class MainActivity : BaseActivity(), IProgressLoader {
             // WebView
             DeepLinkDescriptor.URI_CALL -> {
                 if (uri.query != null) {
-                    val list = uri.query!!.split("url=")
-                    if (list.isNotEmpty()) {
+                    val list = uri.query?.split("url=")
+                    if (list?.isNotEmpty()!!) {
                         val url = list[1]
                         val bundle = Bundle()
                         bundle.putString("GENERIC_URL", url)
@@ -199,21 +195,21 @@ class MainActivity : BaseActivity(), IProgressLoader {
                 removeAllFragmentsToMainFragment()
                 Handler().postDelayed({
                     if (mainFragment != null)
-                        mainFragment!!.goToHomePosition(1)
+                        mainFragment?.goToHomePosition(1)
                 }, 1000)
             }
             DeepLinkDescriptor.URI_HOME_WORK_PAGE -> {
                 removeAllFragmentsToMainFragment()
                 Handler().postDelayed({
                     if (mainFragment != null)
-                        mainFragment!!.goToHomePosition(2)
+                        mainFragment?.goToHomePosition(2)
                 }, 1000)
             }
             DeepLinkDescriptor.URI_HOME_ADMIN_PAGE -> {
                 removeAllFragmentsToMainFragment()
                 Handler().postDelayed({
                     if (mainFragment != null)
-                        mainFragment!!.goToHomePosition(3)
+                        mainFragment?.goToHomePosition(3)
                 }, 1000)
             }
         }
@@ -237,12 +233,12 @@ class MainActivity : BaseActivity(), IProgressLoader {
     }
 
     override fun showProgressDialog() {
-        if (!progressDialog!!.isShowing) {
+        if (!progressDialog?.isShowing!!) {
             progressDialog?.show()
             spinnerAnimation = (spinnerLogo?.background as AnimationDrawable)
             spinnerLogo?.post {
                 try {
-                    spinnerAnimation!!.start()
+                    spinnerAnimation?.start()
                 } catch (e: Exception) {
                 }
             }
@@ -519,7 +515,7 @@ class MainActivity : BaseActivity(), IProgressLoader {
 
     private fun fragmentsTransition(baseFragmentView: DetailFragment) {
         if (baseFragmentView.targetFragment != null) {
-            baseFragmentView.targetFragment!!.onActivityResult(
+            baseFragmentView.targetFragment?.onActivityResult(
                 baseFragmentView.targetRequestCode,
                 Activity.RESULT_OK,
                 baseFragmentView.getResultBack()
@@ -536,7 +532,7 @@ class MainActivity : BaseActivity(), IProgressLoader {
 
     private fun dialogFlowFragmentTransition(baseFragmentView: BaseFragment) {
         if (baseFragmentView.targetFragment != null) {
-            baseFragmentView.targetFragment!!.onActivityResult(
+            baseFragmentView.targetFragment?.onActivityResult(
                 baseFragmentView.targetRequestCode,
                 Activity.RESULT_OK,
                 Intent()
@@ -569,7 +565,7 @@ class MainActivity : BaseActivity(), IProgressLoader {
         // check if is resumed by a push
         if (pushBundle != null) {
             /*
-            if (pushBundle!!.containsKey(EmployeeFirebaseMessagingService.KEY_CAMPAIGN_ID)) {
+            if (pushBundle?.containsKey(EmployeeFirebaseMessagingService.KEY_CAMPAIGN_ID)) {
                 openDetail(Globals.FRAGMENT_GREEN_GRASS_DETAIL, pushBundle, mainFragment, Globals.REQUEST_CODE_GREEN_GRASS_DETAIL)
             }
             */
@@ -577,8 +573,8 @@ class MainActivity : BaseActivity(), IProgressLoader {
         } else {
             if (UserFactory.getInstance().isLogged) {
                 // manage deeplink
-                if (deepLinkEvent != null && deepLinkEvent!!.deeplink != null) {
-                    openDeepLink(deepLinkEvent!!.deeplink!!)
+                if (deepLinkEvent != null && deepLinkEvent?.deeplink != null) {
+                    openDeepLink(deepLinkEvent?.deeplink!!)
                     clearDeepLinkEvent()
                 }
             }

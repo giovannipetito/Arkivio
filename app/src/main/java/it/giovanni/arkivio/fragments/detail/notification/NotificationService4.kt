@@ -1,6 +1,5 @@
 package it.giovanni.arkivio.fragments.detail.notification
 
-import android.annotation.SuppressLint
 import android.app.*
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
@@ -74,7 +73,6 @@ class NotificationService4 : Service() {
     private fun startTimer() {
         timer = Timer()
         val timerTask: TimerTask = object : TimerTask() {
-            @SuppressLint("ObsoleteSdkInt")
             override fun run() {
                 Log.i("TAG_NOTIFY", "========== " + counter++ + " ==========")
                 if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O) {
@@ -85,11 +83,9 @@ class NotificationService4 : Service() {
                     startForeground(requestCode, Notification())
             }
         }
-        timer!!.schedule(timerTask, 2000, 2000)
+        timer?.schedule(timerTask, 2000, 2000)
     }
 
-    @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-    @SuppressLint("ObsoleteSdkInt")
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channelId = getString(R.string.notification_channel_id)
@@ -157,7 +153,7 @@ class NotificationService4 : Service() {
 
     private fun stopTimertask() {
         if (timer != null) {
-            timer!!.cancel()
+            timer?.cancel()
             timer = null
         }
     }

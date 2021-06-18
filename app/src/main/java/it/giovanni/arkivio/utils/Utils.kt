@@ -1,9 +1,6 @@
-@file:Suppress("DEPRECATION")
-
 package it.giovanni.arkivio.utils
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.*
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
@@ -173,7 +170,6 @@ class Utils {
 
         // Su W3B questo metodo viene utilizzato nella classe NotificationDetailFragment per
         // trasformare in stringa un testo Html.
-        @SuppressLint("ObsoleteSdkInt")
         fun fromHtml(htmlMessage: String?): Spanned {
             var html = htmlMessage
             if (html == null)
@@ -331,12 +327,11 @@ class Utils {
             }
         }
 
-        @SuppressLint("PackageManagerGetSignatures")
         fun getHashKey(context: Context): String? {
 
             var hashKey: String? = null
             try {
-                val info : PackageInfo = context.packageManager!!.getPackageInfo(context.packageName, PackageManager.GET_SIGNATURES)
+                val info : PackageInfo = context.packageManager.getPackageInfo(context.packageName, PackageManager.GET_SIGNATURES)
                 for (signature in info.signatures) {
                     val md = MessageDigest.getInstance("SHA")
                     md.update(signature.toByteArray())
@@ -477,7 +472,6 @@ class Utils {
             }
         }
 
-        @SuppressLint("HardwareIds")
         fun getLine1Number(): String {
             return if (PermissionManager.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE)) {
                 val manager: TelephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
@@ -489,7 +483,6 @@ class Utils {
             }
         }
 
-        @SuppressLint("HardwareIds")
         fun getSimSerialNumber(): String {
             return if (PermissionManager.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE)) {
                 val manager: TelephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager

@@ -1,6 +1,5 @@
 package it.giovanni.arkivio.fragments.detail.webview
 
-import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
@@ -16,8 +15,6 @@ class WebViewActivity: AppCompatActivity() {
     private var titleVideo: String? = null
     private var urlVideo: String? = null
 
-    @Suppress("DEPRECATION")
-    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.webview_video_layout)

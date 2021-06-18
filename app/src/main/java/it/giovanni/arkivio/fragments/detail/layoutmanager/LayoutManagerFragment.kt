@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package it.giovanni.arkivio.fragments.detail.layoutmanager
 
 import android.graphics.drawable.GradientDrawable
@@ -127,7 +125,7 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
         number_picker_1.minValue = 104
         number_picker_1.maxValue = 167
         number_picker_1.value = 104
-        // number_picker_1.setBackgroundColor(context?.resources!!.getColor(R.color.colorPrimary))
+        // number_picker_1.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
         number_picker_1.setOnValueChangedListener { _, _, newVal ->
 
             multi_spinner_view.setValues(newVal.toFloat(), 140F, 104F, 20F)
@@ -136,7 +134,6 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
         number_picker_2.minValue = 0
         number_picker_2.maxValue = 350
         number_picker_2.setOnValueChangedListener { _, _, newVal ->
-
             bar.translationX = newVal.toFloat()
         }
 

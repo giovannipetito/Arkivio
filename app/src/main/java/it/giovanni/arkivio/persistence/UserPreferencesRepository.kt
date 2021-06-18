@@ -25,10 +25,9 @@ class UserPreferencesRepository(context: Context) {
 
     @SuppressLint("CheckResult")
     fun loadPreferences() {
-        appRoomDatabase!!.userPreferencesDao()
-            .getPreferences()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {setPreferences(it)}
+        appRoomDatabase?.userPreferencesDao()?.getPreferences()?.observeOn(AndroidSchedulers.mainThread())?.subscribe {
+            setPreferences(it)
+        }
     }
 
     fun getPreference(key: String): String {
@@ -48,7 +47,7 @@ class UserPreferencesRepository(context: Context) {
 
         object : AsyncTask<Void, Void, Void>() {
             override fun doInBackground(vararg voids: Void): Void? {
-                appRoomDatabase!!.userPreferencesDao().insertPreference(userPreference)
+                appRoomDatabase?.userPreferencesDao()?.insertPreference(userPreference)
                 return null
             }
         }.execute()

@@ -88,7 +88,7 @@ class FacialDetectionFragment : DetailFragment(), OnItemSelectedListener {
         spinner.adapter = adapter
         spinner.onItemSelectedListener = this
 
-        mlButton!!.setOnClickListener {
+        mlButton?.setOnClickListener {
             runFaceContourDetection()
         }
     }
@@ -99,13 +99,13 @@ class FacialDetectionFragment : DetailFragment(), OnItemSelectedListener {
             .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_FAST)
             .setContourMode(FaceDetectorOptions.CONTOUR_MODE_ALL)
             .build()
-        mlButton!!.isEnabled = false
+        mlButton?.isEnabled = false
         val detector = FaceDetection.getClient(options)
         detector.process(image).addOnSuccessListener { faces ->
-            mlButton!!.isEnabled = true
+            mlButton?.isEnabled = true
             processFaceContourDetectionResult(faces)
         }.addOnFailureListener { e -> // Task failed with an exception
-            mlButton!!.isEnabled = true
+            mlButton?.isEnabled = true
             e.printStackTrace()
         }
     }
@@ -116,11 +116,11 @@ class FacialDetectionFragment : DetailFragment(), OnItemSelectedListener {
             Toast.makeText(context, "No face found", Toast.LENGTH_SHORT).show()
             return
         }
-        graphicOverlay!!.clear()
+        graphicOverlay?.clear()
         for (i in faces.indices) {
             val face = faces[i]
             val faceGraphic = FaceContourGraphic(graphicOverlay)
-            graphicOverlay!!.add(faceGraphic)
+            graphicOverlay?.add(faceGraphic)
             faceGraphic.updateFace(face)
         }
     }
@@ -131,7 +131,7 @@ class FacialDetectionFragment : DetailFragment(), OnItemSelectedListener {
         if (imageMaxWidth == null) {
             // Calculate the max width in portrait mode. This is done lazily since we need to wait for
             // a UI layout pass to get the right values. So delay it to first time image rendering time.
-            imageMaxWidth = mlImageView!!.width
+            imageMaxWidth = mlImageView?.width
         }
         return imageMaxWidth
     }
@@ -141,7 +141,7 @@ class FacialDetectionFragment : DetailFragment(), OnItemSelectedListener {
         if (imageMaxHeight == null) {
             // Calculate the max width in portrait mode. This is done lazily since we need to wait for
             // a UI layout pass to get the right values. So delay it to first time image rendering time.
-            imageMaxHeight = mlImageView!!.height
+            imageMaxHeight = mlImageView?.height
         }
         return imageMaxHeight
     }
@@ -162,7 +162,7 @@ class FacialDetectionFragment : DetailFragment(), OnItemSelectedListener {
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, v: View?, position: Int, id: Long) {
-        graphicOverlay!!.clear()
+        graphicOverlay?.clear()
         when (position) {
             0 -> selectedImage = Utils.getBitmapFromAsset(requireContext(), "gio_tara_1.jpg")
             1 -> selectedImage = Utils.getBitmapFromAsset(requireContext(), "gio_tara_2.jpg")
@@ -176,8 +176,8 @@ class FacialDetectionFragment : DetailFragment(), OnItemSelectedListener {
 
             // Determine how much to scale down the image
             val scaleFactor = max(
-                selectedImage?.width!!.toFloat() / targetWidth.toFloat(),
-                selectedImage?.height!!.toFloat() / maxHeight.toFloat()
+                selectedImage?.width?.toFloat()!! / targetWidth.toFloat(),
+                selectedImage?.height?.toFloat()!! / maxHeight.toFloat()
             )
             val resizedBitmap = Bitmap.createScaledBitmap(
                 selectedImage!!,
@@ -185,7 +185,7 @@ class FacialDetectionFragment : DetailFragment(), OnItemSelectedListener {
                 (selectedImage?.height!! / scaleFactor).toInt(),
                 true
             )
-            mlImageView!!.setImageBitmap(resizedBitmap)
+            mlImageView?.setImageBitmap(resizedBitmap)
             selectedImage = resizedBitmap
         }
     }

@@ -1,6 +1,5 @@
 package it.giovanni.arkivio.fragments.detail.notification
 
-import android.annotation.SuppressLint
 import android.app.*
 import android.content.Context
 import android.content.Intent
@@ -28,7 +27,6 @@ class NotificationService2 : Service() {
         private const val REQUEST_CODE = 2 // NOTIFICATION ID
     }
 
-    @SuppressLint("ObsoleteSdkInt")
     override fun onCreate() {
         super.onCreate()
 
@@ -52,7 +50,6 @@ class NotificationService2 : Service() {
         }
     }
 
-    @SuppressLint("ObsoleteSdkInt")
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationChannel = NotificationChannel(
@@ -136,7 +133,7 @@ class NotificationService2 : Service() {
         given time, you can use the same ID for all your notifications.
         */
 
-        val notification: Notification? = builder.build()
+        val notification: Notification = builder.build()
         notify(REQUEST_CODE, notification)
         startForeground(REQUEST_CODE, notification)
     }

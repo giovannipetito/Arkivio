@@ -65,16 +65,16 @@ class Brick : RelativeLayout {
     fun mode(type: ModeType) {
         this.mode = type
         if (mode == ModeType.EDIT) {
-            container!!.setOnClickListener {
+            container?.setOnClickListener {
                 if (!isSelected!!) {
                     isSelected = true
-                    // change color
-                    container!!.setBackgroundColor(ContextCompat.getColor(context, R.color.rosso))
-                    icon!!.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ico_close_rvd))
+                    // Change color
+                    container?.setBackgroundColor(ContextCompat.getColor(context, R.color.rosso))
+                    icon?.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ico_close_rvd))
                 } else {
-                    // remove it!
+                    // Remove it
                     if (position != -1 && callback != null) {
-                        callback!!.flexBoxRemoved(position)
+                        callback?.flexBoxRemoved(position)
                         visible = false
                     }
                 }

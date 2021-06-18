@@ -105,7 +105,7 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
                 .build()
 
             // Start authentication
-            biometricManager!!.authenticate(this)
+            biometricManager?.authenticate(this)
         }
 
         checkbox_remember_me.setOnCheckedChangeListener { _, isChecked ->
@@ -132,21 +132,21 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
     override fun onBiometricAuthenticationNotAvailable() {
 
         customPopup = CustomDialogPopup(currentActivity, R.style.PopupTheme)
-        customPopup!!.setCancelable(false)
-        customPopup!!.setTitle("")
-        customPopup!!.setMessage(getString(R.string.biometric_error_fingerprint))
+        customPopup?.setCancelable(false)
+        customPopup?.setTitle("")
+        customPopup?.setMessage(getString(R.string.biometric_error_fingerprint))
 
-        customPopup!!.setButtons(
+        customPopup?.setButtons(
             resources.getString(R.string.button_register), {
                 action = Action.REGISTER
                 askPermission()
-                customPopup!!.dismiss()
+                customPopup?.dismiss()
             },
             resources.getString(R.string.button_cancel), {
-                customPopup!!.dismiss()
+                customPopup?.dismiss()
             }
         )
-        customPopup!!.show()
+        customPopup?.show()
     }
 
     private fun askPermission() {
@@ -196,7 +196,7 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
 
     override fun onAuthenticationCancelled() {
         Toast.makeText(context, getString(R.string.biometric_cancelled), Toast.LENGTH_LONG).show()
-        biometricManager!!.cancelAuthentication()
+        biometricManager?.cancelAuthentication()
     }
 
     override fun onAuthenticationSuccessful() {

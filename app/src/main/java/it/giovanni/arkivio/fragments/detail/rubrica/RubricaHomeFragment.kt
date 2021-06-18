@@ -139,7 +139,6 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback, IRealtime {
         }
     }
 
-    @Suppress("UNCHECKED_CAST")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 

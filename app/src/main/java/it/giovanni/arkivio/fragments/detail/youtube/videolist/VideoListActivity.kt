@@ -1,15 +1,9 @@
-@file:Suppress("DEPRECATION")
-
 package it.giovanni.arkivio.fragments.detail.youtube.videolist
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.app.Activity
 import android.content.Intent
 import android.content.res.Configuration
-import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.widget.*
@@ -45,7 +39,7 @@ class VideoListActivity : Activity(), OnFullscreenListener {
                 animate()?.
                 translationYBy(videoBox?.height?.toFloat()!!)?.
                 setDuration(ANIMATION_DURATION_MILLIS.toLong())!!
-            runOnAnimationEnd(animator) { videoBox!!.visibility = View.INVISIBLE }
+            runOnAnimationEnd(animator) { videoBox?.visibility = View.INVISIBLE }
         }
     }
 
@@ -77,10 +71,10 @@ class VideoListActivity : Activity(), OnFullscreenListener {
 
     private fun layout() {
         val isPortrait = resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
-        closeButton!!.visibility = if (isPortrait) View.VISIBLE else View.GONE
+        closeButton?.visibility = if (isPortrait) View.VISIBLE else View.GONE
         when {
             isFullscreen -> {
-                videoBox!!.translationY = 0f // Reset any translation that was applied in portrait.
+                videoBox?.translationY = 0f // Reset any translation that was applied in portrait.
                 setLayoutSize(
                     videoFragment?.view!!,
                     ViewGroup.LayoutParams.MATCH_PARENT,
@@ -112,7 +106,7 @@ class VideoListActivity : Activity(), OnFullscreenListener {
                 )
             }
             else -> {
-                videoBox!!.translationY = 0f // Reset any translation that was applied in portrait.
+                videoBox?.translationY = 0f // Reset any translation that was applied in portrait.
                 val screenWidth = dpToPx(resources.configuration.screenWidthDp)
                 setLayoutSize(
                     listFragment?.view!!,
@@ -134,18 +128,9 @@ class VideoListActivity : Activity(), OnFullscreenListener {
         }
     }
 
-    @SuppressLint("ObsoleteSdkInt")
     @TargetApi(16)
     private fun runOnAnimationEnd(animator: ViewPropertyAnimator, runnable: Runnable) {
-        if (Build.VERSION.SDK_INT >= 16) {
-            animator.withEndAction(runnable)
-        } else {
-            animator.setListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator) {
-                    runnable.run()
-                }
-            })
-        }
+        animator.withEndAction(runnable)
     }
 
     class VideoEntry internal constructor(val text: String, val videoId: String)
@@ -171,7 +156,7 @@ class VideoListActivity : Activity(), OnFullscreenListener {
 
         private fun setLayoutSizeAndGravity(view: View?, width: Int, height: Int, gravity: Int) {
 
-            val params = view!!.layoutParams as FrameLayout.LayoutParams
+            val params = view?.layoutParams as FrameLayout.LayoutParams
             params.width = width
             params.height = height
             params.gravity = gravity

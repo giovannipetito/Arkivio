@@ -1,6 +1,5 @@
 package it.giovanni.arkivio
 
-import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import it.giovanni.arkivio.persistence.UserPreferencesRepository
@@ -11,7 +10,6 @@ class App : Application() {
     companion object {
         private var userPreferencesRepository: UserPreferencesRepository? = null
 
-        @SuppressLint("StaticFieldLeak")
         lateinit var context: Context
 
         fun getInstance(): Companion {

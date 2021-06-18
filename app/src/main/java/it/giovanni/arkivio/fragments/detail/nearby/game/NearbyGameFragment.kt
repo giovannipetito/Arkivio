@@ -289,15 +289,15 @@ class NearbyGameFragment: DetailFragment() {
     private fun finishRound() {
 
         when {
-            playerChoice!!.beats(opponentChoice!!) -> {
-                setStatusText(getString(R.string.win_message, playerChoice!!.name, opponentChoice!!.name))
+            playerChoice?.beats(opponentChoice!!)!! -> {
+                setStatusText(getString(R.string.win_message, playerChoice?.name, opponentChoice?.name))
                 playerScore++
             }
             playerChoice == opponentChoice -> {
-                setStatusText(getString(R.string.tie_message, playerChoice!!.name))
+                setStatusText(getString(R.string.tie_message, playerChoice?.name))
             }
             else -> {
-                setStatusText(getString(R.string.loss_message, playerChoice!!.name, opponentChoice!!.name))
+                setStatusText(getString(R.string.loss_message, playerChoice?.name, opponentChoice?.name))
                 opponentScore++
             }
         }

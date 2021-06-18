@@ -1,8 +1,5 @@
-@file:Suppress("DEPRECATION")
-
 package it.giovanni.arkivio.fragments.detail.notification
 
-import android.annotation.SuppressLint
 import android.app.*
 import android.bluetooth.BluetoothAdapter
 import android.content.Context
@@ -152,7 +149,6 @@ class NotificationFragment: DetailFragment() {
         }
     }
 
-    @SuppressLint("ObsoleteSdkInt")
     private fun createChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationChannel = NotificationChannel(

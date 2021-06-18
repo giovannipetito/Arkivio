@@ -67,12 +67,11 @@ class PreferenceFragment: DetailFragment(), IPreference.UpdatesView {
         TODO("Not yet implemented")
     }
 
-    @Suppress("DEPRECATION")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         presenter = PreferencePresenter(this, PreferenceModel())
-        contacts_text.text = presenter!!.getUserPreference(UserPreferencesRepository.KEY_PREFERENCE_CONTACT)
+        contacts_text.text = presenter?.getUserPreference(UserPreferencesRepository.KEY_PREFERENCE_CONTACT)
         contacts_container.setOnClickListener {
             currentActivity.openDetail(Globals.PREFERENCE_LIST, null, this@PreferenceFragment, Globals.REQUEST_CODE_USER_PREFERENCE)
         }
@@ -80,13 +79,12 @@ class PreferenceFragment: DetailFragment(), IPreference.UpdatesView {
         user_contacts_text.text = UserFactory.getInstance().contacts
     }
 
-    @Suppress("UNCHECKED_CAST")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == Globals.REQUEST_CODE_USER_PREFERENCE && data != null && data.hasExtra(Globals.BACK_PARAM_KEY_USER_PREFERENCE)) {
             contacts_text.text = data.getStringExtra(Globals.BACK_PARAM_KEY_USER_PREFERENCE) as String
-            presenter!!.setUserPreference(UserPreferencesRepository.KEY_PREFERENCE_CONTACT, contacts_text.text.toString())
+            presenter?.setUserPreference(UserPreferencesRepository.KEY_PREFERENCE_CONTACT, contacts_text.text.toString())
 
             UserFactory.getInstance().contacts = contacts_text.text.toString()
             user_contacts_text.text = UserFactory.getInstance().contacts

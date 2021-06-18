@@ -1,6 +1,5 @@
 package it.giovanni.arkivio.customview.popup
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
@@ -21,7 +20,6 @@ class ListDialogPopup(activity: Activity, @StyleRes themeResId: Int) : CustomDia
         prepare()
     }
 
-    @SuppressLint("InflateParams")
     fun setLabels(mList: ArrayList<String>, callback: View.OnClickListener) {
         labels = mList
         labelList.visibility = View.VISIBLE

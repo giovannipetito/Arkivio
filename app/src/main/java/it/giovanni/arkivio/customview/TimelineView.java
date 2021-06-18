@@ -1,6 +1,5 @@
 package it.giovanni.arkivio.customview;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -264,7 +263,6 @@ public class TimelineView extends View {
         return bitmap;
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     public boolean onTouchEvent(MotionEvent event) {
         boolean isTrackTouched;
         float dx = 0.0F;

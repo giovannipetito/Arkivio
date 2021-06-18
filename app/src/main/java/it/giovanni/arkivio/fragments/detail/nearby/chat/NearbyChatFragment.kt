@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package it.giovanni.arkivio.fragments.detail.nearby.chat
 
 import android.content.DialogInterface
@@ -155,7 +153,7 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
         debugText = viewFragment?.findViewById(R.id.debug_text)
 
         // Debug text view
-        debugText!!.movementMethod = ScrollingMovementMethod()
+        debugText?.movementMethod = ScrollingMovementMethod()
 
         googleApiClient = GoogleApiClient.Builder(requireContext())
             .addConnectionCallbacks(this)
@@ -179,7 +177,7 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
     override fun onStart() {
         super.onStart()
         Log.i(mTag, "onStart")
-        googleApiClient!!.connect()
+        googleApiClient?.connect()
     }
 
     override fun onStop() {
@@ -188,9 +186,7 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
 
         // Disconnect the Google API client and stop any ongoing discovery or advertising. When the
         // GoogleAPIClient is disconnected, any connected peers will get an onDisconnected callback.
-        if (googleApiClient != null) {
-            googleApiClient!!.disconnect()
-        }
+        googleApiClient?.disconnect()
     }
 
     /**
@@ -216,8 +212,8 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
         // will construct a default name based on device model such as 'LGE Nexus 5'.
         val name: String? = null
         Nearby.Connections.startAdvertising(
-            googleApiClient,
-            name,
+            googleApiClient!!,
+            name!!,
             appMetadata,
             timeoutAdvertise,
             connectionRequestListener
@@ -256,7 +252,7 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
         // Discover nearby apps that are advertising with the required service ID.
         val serviceId = getString(R.string.service_id)
         Nearby.Connections.startDiscovery(
-            googleApiClient,
+            googleApiClient!!,
             serviceId,
             timeoutDiscover,
             endpointDiscoveryListener
@@ -289,9 +285,9 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
         // be used for high-frequency messages where guaranteed delivery is not required, such as
         // showing one player's cursor location to another. Unreliable messages are often delivered
         // faster than reliable messages.
-        val message = editMessage!!.text.toString()
-        Nearby.Connections.sendReliableMessage(googleApiClient, otherEndpointId, message.toByteArray())
-        editMessage!!.text = null
+        val message = editMessage?.text.toString()
+        Nearby.Connections.sendReliableMessage(googleApiClient!!, otherEndpointId!!, message.toByteArray())
+        editMessage?.text = null
     }
 
     /**
@@ -310,7 +306,7 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
         // such as 'LGE Nexus 5'.
         val myName = "Giovanni"
         Nearby.Connections.sendConnectionRequest(
-            googleApiClient, myName, endpointId, null, { endpointId1: String, status: Status, _: ByteArray? ->
+            googleApiClient!!, myName, endpointId, "".toByteArray(), { endpointId1: String, status: Status, _: ByteArray? ->
                 Log.i(mTag, "onConnectionResponse: $endpointId1: $status")
                 if (status.isSuccess) {
                     debugLog("onConnectionResponse: $endpointName SUCCESS")
@@ -336,9 +332,9 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
             .setCancelable(false)
             .setPositiveButton("Connect") { _: DialogInterface?, _: Int ->
                 Nearby.Connections.acceptConnectionRequest(
-                    googleApiClient,
+                    googleApiClient!!,
                     endpointId,
-                    null,
+                    "".toByteArray(),
                     this@NearbyChatFragment
                 ).setResultCallback { status: Status ->
                     if (status.isSuccess) {
@@ -351,7 +347,7 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
                 }
             }.setNegativeButton("No") { _: DialogInterface?, _: Int ->
                 Nearby.Connections.rejectConnectionRequest(
-                    googleApiClient,
+                    googleApiClient!!,
                     endpointId
                 )
             }.create()
@@ -371,15 +367,15 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
                 .setTitle("Endpoint(s) Found")
                 .setCancelable(true)
                 .setNegativeButton("Cancel") { _: DialogInterface?, _: Int ->
-                    nearbyDialog!!.dismiss()
+                    nearbyDialog?.dismiss()
                 }
 
             // Create the MyListDialog with a listener
             nearbyDialog = NearbyDialog(requireContext(), builder) { _: DialogInterface?, which: Int ->
-                val selectedEndpointName = nearbyDialog!!.getItemKey(which)
-                val selectedEndpointId = nearbyDialog!!.getItemValue(which)
-                this@NearbyChatFragment.connectTo(selectedEndpointId!!, selectedEndpointName)
-                nearbyDialog!!.dismiss()
+                val selectedEndpointName = nearbyDialog?.getItemKey(which)
+                val selectedEndpointId = nearbyDialog?.getItemValue(which)
+                this@NearbyChatFragment.connectTo(selectedEndpointId!!, selectedEndpointName!!)
+                nearbyDialog?.dismiss()
             }
         }
         nearbyDialog?.addItem(endpointName, endpointId)
@@ -391,9 +387,7 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
 
         // An endpoint that was previously available for connection is no longer. It may have stopped advertising,
         // gone out of range, or lost connectivity. Dismiss any dialog that  was offering a connection.
-        if (nearbyDialog != null) {
-            nearbyDialog!!.removeItemByValue(endpointId)
-        }
+        nearbyDialog?.removeItemByValue(endpointId)
     }
 
     override fun onConnected(p0: Bundle?) {
@@ -406,7 +400,7 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
         updateViewVisibility(STATE_IDLE)
 
         // Try to re-connect
-        googleApiClient!!.reconnect()
+        googleApiClient?.reconnect()
     }
 
     override fun onConnectionFailed(connectionResult: ConnectionResult) {
@@ -414,12 +408,12 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
         updateViewVisibility(STATE_IDLE)
     }
 
-    override fun onMessageReceived(endpointId: String?, payload: ByteArray?, isReliable: Boolean) {
+    override fun onMessageReceived(endpointId: String, payload: ByteArray, isReliable: Boolean) {
         // A message has been received from a remote endpoint.
-        debugLog("onMessageReceived: " + endpointId + ": " + String(payload!!))
+        debugLog("onMessageReceived: " + endpointId + ": " + String(payload))
     }
 
-    override fun onDisconnected(endpointId: String?) {
+    override fun onDisconnected(endpointId: String) {
         debugLog("onDisconnected: $endpointId")
         updateViewVisibility(STATE_READY)
     }
@@ -458,6 +452,6 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
      */
     private fun debugLog(message: String) {
         Log.i(mTag, message)
-        debugText!!.append("""$message """.trimIndent()) // In Java: debugText.append("\n" + message);
+        debugText?.append("""$message """.trimIndent()) // In Java: debugText.append("\n" + message);
     }
 }

@@ -72,7 +72,7 @@ class FullScreenActivity : YouTubeBaseActivity(),
 
     override fun onCheckedChanged(buttonView: CompoundButton, isChecked: Boolean) {
 
-        var controlFlags = player!!.fullscreenControlFlags
+        var controlFlags = player?.fullscreenControlFlags!!
         if (isChecked) {
             requestedOrientation = PORTRAIT_ORIENTATION
             controlFlags = controlFlags or YouTubePlayer.FULLSCREEN_FLAG_ALWAYS_FULLSCREEN_IN_LANDSCAPE
@@ -84,7 +84,7 @@ class FullScreenActivity : YouTubeBaseActivity(),
     }
 
     private fun layoutHandling() {
-        val playerParams = playerView!!.layoutParams as LinearLayout.LayoutParams
+        val playerParams = playerView?.layoutParams as LinearLayout.LayoutParams
         if (fullscreen) {
             playerParams.width = LinearLayout.LayoutParams.MATCH_PARENT
             playerParams.height = LinearLayout.LayoutParams.MATCH_PARENT
@@ -112,8 +112,8 @@ class FullScreenActivity : YouTubeBaseActivity(),
     }
 
     private fun setControlsEnabled() {
-        checkbox!!.isEnabled = player != null && resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
-        fullscreenButton!!.isEnabled = player != null
+        checkbox?.isEnabled = player != null && resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
+        fullscreenButton?.isEnabled = player != null
     }
 
     override fun onFullscreen(isFullscreen: Boolean) {

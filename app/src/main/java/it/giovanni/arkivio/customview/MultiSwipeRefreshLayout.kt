@@ -19,7 +19,7 @@ class MultiSwipeRefreshLayout(context: Context, attrs: AttributeSet?) : SwipeRef
     }
 
     override fun canChildScrollUp(): Boolean {
-        if (swipeableChildren != null && swipeableChildren!!.isNotEmpty()) {
+        if (swipeableChildren != null && swipeableChildren?.isNotEmpty()!!) {
             // Iterate through the scrollable children and check if any of them can not scroll up.
             for (view in swipeableChildren!!) {
                 if (view != null && view.isShown && !canViewScrollUp(view)) {

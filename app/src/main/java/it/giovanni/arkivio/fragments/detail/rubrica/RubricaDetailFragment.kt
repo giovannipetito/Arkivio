@@ -1,7 +1,6 @@
 package it.giovanni.arkivio.fragments.detail.rubrica
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.ContentValues
 import android.content.Intent
@@ -181,7 +180,6 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
         }
     }
 
-    @SuppressLint("MissingPermission")
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
@@ -193,7 +191,6 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
         }
     }
 
-    @SuppressLint("Recycle")
     private fun handleContact() {
 
         val contentResolver = context?.contentResolver

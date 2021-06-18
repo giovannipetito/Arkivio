@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package it.giovanni.arkivio.fragments
 
 import android.app.Activity
@@ -111,13 +109,13 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
 
         if (isRefreshEnabled()) {
             swipeRefreshLayout.setSwipeableChildren(R.id.frame_layout)
-            swipeRefreshLayout!!.setOnRefreshListener {
+            swipeRefreshLayout.setOnRefreshListener {
                 refresh()
             }
         }
 
         if (swipeRefreshLayout != null) {
-            swipeRefreshLayout!!.setColorSchemeResources(android.R.color.black)
+            swipeRefreshLayout.setColorSchemeResources(android.R.color.black)
         }
 
         if (getActionTitle() != NO_TITLE) {
@@ -221,15 +219,15 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
 
     fun stopSwipeRefresh() {
         if (swipeRefreshLayout != null) {
-            swipeRefreshLayout!!.isRefreshing = false
-            swipeRefreshLayout!!.destroyDrawingCache()
-            swipeRefreshLayout!!.clearAnimation()
+            swipeRefreshLayout.isRefreshing = false
+            swipeRefreshLayout.destroyDrawingCache()
+            swipeRefreshLayout.clearAnimation()
         }
     }
 
     protected fun startSwipeRefresh() {
-        if (swipeRefreshLayout != null && !swipeRefreshLayout!!.isRefreshing)
-            swipeRefreshLayout!!.isRefreshing = true
+        if (swipeRefreshLayout != null && !swipeRefreshLayout.isRefreshing)
+            swipeRefreshLayout.isRefreshing = true
     }
 
     override fun hidePullToRefresh() {

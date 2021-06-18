@@ -37,23 +37,23 @@ abstract class BaseFragment(private var sectionType: SectionType) : Fragment() {
 
     fun showPopupError(msg: String) {
         popupError = CustomDialogPopup(currentActivity, R.style.PopupTheme)
-        popupError!!.setCancelable(false)
-        popupError!!.setTitle("")
-        popupError!!.setMessage(msg)
-        popupError!!.setButtons(resources.getString(R.string.button_ok)
+        popupError?.setCancelable(false)
+        popupError?.setTitle("")
+        popupError?.setMessage(msg)
+        popupError?.setButtons(resources.getString(R.string.button_ok)
         ) {
-            popupError!!.dismiss()
+            popupError?.dismiss()
         }
-        popupError!!.show()
+        popupError?.show()
     }
 
     fun showPopupError(msg: String, clickListener: View.OnClickListener) {
         popupError = CustomDialogPopup(currentActivity, R.style.PopupTheme)
-        popupError!!.setCancelable(false)
-        popupError!!.setTitle("")
-        popupError!!.setMessage(msg)
-        popupError!!.setButtons(resources.getString(R.string.button_ok), clickListener)
-        popupError!!.show()
+        popupError?.setCancelable(false)
+        popupError?.setTitle("")
+        popupError?.setMessage(msg)
+        popupError?.setButtons(resources.getString(R.string.button_ok), clickListener)
+        popupError?.show()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

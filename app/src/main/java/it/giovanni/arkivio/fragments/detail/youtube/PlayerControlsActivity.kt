@@ -79,9 +79,9 @@ class PlayerControlsActivity : YouTubeBaseActivity(),
             if (selectedEntry.id != selectedId && player != null) {
                 selectedId = selectedEntry.id
                 if (selectedEntry.isPlaylist)
-                    player!!.cuePlaylist(selectedEntry.id)
+                    player?.cuePlaylist(selectedEntry.id)
                 else
-                    player!!.cueVideo(selectedEntry.id)
+                    player?.cueVideo(selectedEntry.id)
             }
         }
     }
@@ -95,15 +95,15 @@ class PlayerControlsActivity : YouTubeBaseActivity(),
 
     override fun onClick(v: View) {
         if (v === play_button)
-            player!!.play()
+            player?.play()
         else if (v === pause_button)
-            player!!.pause()
+            player?.pause()
     }
 
     override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
         if (v === skip_to_text) {
             val skipToSecs = parseInt(skip_to_text.text.toString(), 0)
-            player!!.seekToMillis(skipToSecs * 1000)
+            player?.seekToMillis(skipToSecs * 1000)
             hideSoftKeyboard()
             return true
         }
@@ -118,9 +118,9 @@ class PlayerControlsActivity : YouTubeBaseActivity(),
     override fun onCheckedChanged(buttonView: CompoundButton, isChecked: Boolean) {
         if (isChecked && player != null) {
             when (buttonView.id) {
-                R.id.style_default -> player!!.setPlayerStyle(PlayerStyle.DEFAULT)
-                R.id.style_minimal -> player!!.setPlayerStyle(PlayerStyle.MINIMAL)
-                R.id.style_chromeless -> player!!.setPlayerStyle(PlayerStyle.CHROMELESS)
+                R.id.style_default -> player?.setPlayerStyle(PlayerStyle.DEFAULT)
+                R.id.style_minimal -> player?.setPlayerStyle(PlayerStyle.MINIMAL)
+                R.id.style_chromeless -> player?.setPlayerStyle(PlayerStyle.CHROMELESS)
             }
         }
     }
@@ -167,9 +167,9 @@ class PlayerControlsActivity : YouTubeBaseActivity(),
 
     private val timesText: String
         get() {
-            val currentTimeMillis = player!!.currentTimeMillis
-            val durationMillis = player!!.durationMillis
-            return String.format("(%s/%s)", formatTime(currentTimeMillis), formatTime(durationMillis))
+            val currentTimeMillis = player?.currentTimeMillis
+            val durationMillis = player?.durationMillis
+            return String.format("(%s/%s)", formatTime(currentTimeMillis!!), formatTime(durationMillis!!))
         }
 
     inner class MyPlaylistEventListener : PlaylistEventListener {
@@ -216,7 +216,7 @@ class PlayerControlsActivity : YouTubeBaseActivity(),
         }
 
         override fun onSeekTo(endPositionMillis: Int) {
-            log(String.format("\tSEEKTO: (%s/%s)", formatTime(endPositionMillis), formatTime(player!!.durationMillis)))
+            log(String.format("\tSEEKTO: (%s/%s)", formatTime(endPositionMillis), formatTime(player?.durationMillis!!)))
         }
     }
 

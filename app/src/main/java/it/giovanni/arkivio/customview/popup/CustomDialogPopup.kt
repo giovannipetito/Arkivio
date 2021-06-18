@@ -1,6 +1,5 @@
 package it.giovanni.arkivio.customview.popup
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
@@ -68,7 +67,6 @@ open class CustomDialogPopup : AlertDialog.Builder {
         prepare()
     }
 
-    @SuppressLint("InflateParams")
     protected fun prepare() {
         val inflater = activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         dialogView = inflater.inflate(R.layout.custom_dialog_popup, null)

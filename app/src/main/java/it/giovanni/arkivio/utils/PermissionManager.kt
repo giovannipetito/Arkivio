@@ -76,8 +76,7 @@ class PermissionManager {
             permissions: Array<String>,
             grantResults: IntArray
         ) {
-            if (listener != null)
-                listener!!.onPermissionResult(permissions, grantResults)
+            listener?.onPermissionResult(permissions, grantResults)
             callBackActivity.finish()
 
             Log.i(TAG, "" + requestCode)

@@ -63,17 +63,17 @@ class ImageWallView(context: Context,
             for (row in 0 until numberOfRows) {
                 val x = (col - 1) * (imageWidth + interImagePadding) + row * (imageWidth / numberOfRows)
                 val y = row * (imageHeight + interImagePadding)
-                images[col * numberOfRows + row]!!.layout(x, y, x + imageWidth, y + imageHeight)
+                images[col * numberOfRows + row]?.layout(x, y, x + imageWidth, y + imageHeight)
             }
         }
     }
 
     fun getXPosition(col: Int, row: Int): Int {
-        return images[getElementIdx(col, row)]!!.left
+        return images[getElementIdx(col, row)]?.left!!
     }
 
     fun getYPosition(col: Int, row: Int): Int {
-        return images[getElementIdx(col, row)]!!.top
+        return images[getElementIdx(col, row)]?.top!!
     }
 
     private fun getElementIdx(col: Int, row: Int): Int {
@@ -81,23 +81,23 @@ class ImageWallView(context: Context,
     }
 
     fun hideImage(col: Int, row: Int) {
-        images[getElementIdx(col, row)]!!.visibility = View.INVISIBLE
+        images[getElementIdx(col, row)]?.visibility = View.INVISIBLE
     }
 
     fun showImage(col: Int, row: Int) {
-        images[getElementIdx(col, row)]!!.visibility = View.VISIBLE
+        images[getElementIdx(col, row)]?.visibility = View.VISIBLE
     }
 
     fun setImageDrawable(col: Int, row: Int, drawable: Drawable?) {
         val elementIdx = getElementIdx(col, row)
         // manually boxing elementIdx to avoid calling List.remove(int position) method overload
         unInitializedImages.remove(Integer.valueOf(elementIdx))
-        images[elementIdx]!!.setImageDrawable(drawable)
+        images[elementIdx]?.setImageDrawable(drawable)
     }
 
     fun getImageDrawable(col: Int?, row: Int?): Drawable? {
         val elementIdx = getElementIdx(col!!, row!!)
-        return images[elementIdx]!!.drawable
+        return images[elementIdx]?.drawable
     }
 
     // Don't choose the first or last columns (since they are partly hidden)
@@ -111,7 +111,7 @@ class ImageWallView(context: Context,
                     } else {
                         unInitializedImages[random.nextInt(unInitializedImages.size)]
                     }
-            } while (images[nextElement]!!.visibility != View.VISIBLE)
+            } while (images[nextElement]?.visibility != View.VISIBLE)
             val col = nextElement / numberOfRows
             val row = nextElement % numberOfRows
             return Pair(col, row)

@@ -46,7 +46,7 @@ class SearchVideoAdapter(
     }
 
     override fun getItemCount(): Int {
-        return if (list == null) 0 else list!!.size
+        return if (list == null) 0 else list?.size!!
     }
 
     inner class SearchVideoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
