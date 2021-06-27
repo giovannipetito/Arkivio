@@ -1,10 +1,12 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'realm-android'
-apply plugin: 'com.google.gms.google-services'
-apply plugin: 'com.google.firebase.crashlytics'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+    id 'realm-android'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
+}
 
 android {
     compileSdkVersion 30
@@ -16,7 +18,6 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -27,9 +28,13 @@ android {
         debug {
             buildConfigField "String", "MW_URL", ENV_DEV
             buildConfigField "String", "CREDITS_PREFIX", "\"DEBUG\""
+            debuggable true
+            minifyEnabled false
+            testCoverageEnabled true
         }
         release {
-            minifyEnabled false
+            debuggable false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -62,31 +67,27 @@ repositories {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'org.jetbrains.kotlin:kotlin-reflect:1.4.32'
-    testImplementation 'junit:junit:4.13.2' // libreria che gestisce gli unit test
-    testImplementation 'org.hamcrest:hamcrest-library:2.2'
-    // hamcrest: libreria che pianifica una strategia di test molto più estesa degli unit test.
 
     // androidx
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'androidx.work:work-runtime:2.5.0'
     implementation 'androidx.appcompat:appcompat:1.3.0'
     implementation 'androidx.biometric:biometric:1.1.0'
+    implementation 'androidx.work:work-runtime-ktx:2.5.0'
     implementation 'androidx.preference:preference-ktx:1.1.1'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    kapt 'androidx.lifecycle:lifecycle-common-java8:2.3.1'
 
     // Core
-    def core_version = "1.5.0"
-    implementation "androidx.core:core-ktx:$core_version"
-    implementation "androidx.core:core-role:1.1.0-alpha01"
+    implementation 'androidx.core:core-ktx:1.5.0'
+    implementation 'androidx.core:core-role:1.1.0-alpha01'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3-native-mt'
 
     // Room
     kapt 'androidx.room:room-compiler:2.3.0'
-    implementation 'androidx.room:room-guava:2.3.0'
+    implementation 'androidx.room:room-ktx:2.3.0'
     implementation 'androidx.room:room-runtime:2.3.0'
     implementation 'androidx.room:room-rxjava2:2.3.0'
     annotationProcessor 'androidx.room:room-compiler:2.3.0'
@@ -94,14 +95,23 @@ dependencies {
     // Material
     implementation 'com.google.android.material:material:1.3.0'
 
+    // Dagger
+    implementation 'com.google.dagger:dagger:2.25.2'
+    kapt 'com.google.dagger:dagger-compiler:2.25.2'
+    kapt 'com.google.dagger:dagger-android-processor:2.25.2'
+
+    // Navigation
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
+
     // Google Mobile Services
-    implementation 'com.google.android.gms:play-services-analytics:17.0.0'
-    implementation 'com.google.android.gms:play-services-location:18.0.0'
-    implementation 'com.google.android.gms:play-services-nearby:18.0.0'
-    implementation 'com.google.android.gms:play-services-plus:17.0.0'
-    implementation 'com.google.android.gms:play-services-auth:19.0.0'
-    implementation 'com.google.android.gms:play-services-maps:17.0.1'
     implementation 'com.google.android.gms:play-services-gcm:17.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+    implementation 'com.google.android.gms:play-services-plus:17.0.0'
+    implementation 'com.google.android.gms:play-services-nearby:18.0.0'
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
+    implementation 'com.google.android.gms:play-services-analytics:17.0.0'
 
     // Import the BoM for the Firebase platform. When using the BoM, you don't specify versions in
     // Firebase library dependencies
@@ -158,9 +168,15 @@ dependencies {
     implementation 'com.google.android.gms:play-services-mlkit-text-recognition:16.2.0'
 
     // YouTube
-    implementation 'com.google.apis:google-api-services-youtube:v3-rev99-1.17.0-rc'
-    implementation 'com.google.http-client:google-http-client-android:1.39.1'
-    implementation 'com.google.api-client:google-api-client-android:1.31.3'
-    implementation 'com.google.api-client:google-api-client-gson:1.31.1'
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
+    implementation 'com.google.api-client:google-api-client-gson:1.31.1'
+    implementation 'com.google.api-client:google-api-client-android:1.31.3'
+    implementation 'com.google.http-client:google-http-client-android:1.39.1'
+    implementation 'com.google.apis:google-api-services-youtube:v3-rev99-1.17.0-rc'
+
+    // Test
+    testImplementation 'junit:junit:4.13.2' // libreria che gestisce gli unit test
+    testImplementation 'org.hamcrest:hamcrest-library:2.2' // libreria che pianifica una strategia di test molto più estesa degli unit test.
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
