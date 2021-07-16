@@ -167,11 +167,9 @@
     <string name="send_email">Invia Con</string>
     <string name="no_pdf_reader">Non ci sono applicazioni disponibili ad aprire il PDF.</string>
 
-    <!-- POPUP GPS -->
-    <string name="popup_message_enable_gps">Abilitando il GPS potrai vedere i cinema più vicini a te. Vuoi abilitarlo?</string>
-
-    <!-- MANAGE LAYOUT -->
+    <!-- LAYOUT MANAGER -->
     <string name="layout_manager_title">Layout Manager</string>
+    <string name="insert_email">Inserisci la tua Email</string>
     <string name="change_style">Change Style</string>
 
     <!-- PREFERENCE -->

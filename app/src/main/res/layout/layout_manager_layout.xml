@@ -25,6 +25,27 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_margin="24dp"
+                        android:background="@drawable/round_corner_2">
+
+                    <EditText
+                            android:id="@+id/edit_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp"
+                            android:hint="@string/insert_email"
+                            android:gravity="top"
+                            android:background="@drawable/edittext_background"
+                            android:inputType="textEmailAddress"
+                            android:autofillHints="@string/app_name" />
+
+                </RelativeLayout>
+
                 <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -95,7 +116,8 @@
                     <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:baselineAligned="false">
 
                         <it.giovanni.arkivio.customview.TimelineView
                                 android:id="@+id/bar_tagli"
@@ -162,7 +184,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dimen_20dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:baselineAligned="false">
 
                     <RelativeLayout
                             android:layout_width="0dp"
@@ -235,27 +258,6 @@
                     </RelativeLayout>
 
                 </LinearLayout>
-
-                <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        android:layout_margin="24dp"
-                        android:background="@drawable/round_corner_2">
-
-                    <EditText
-                            android:id="@+id/edit_email"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentTop="true"
-                            android:layout_marginTop="4dp"
-                            android:layout_marginBottom="4dp"
-                            android:hint="Inserisci la tua Email..."
-                            android:gravity="top"
-                            android:background="@drawable/edittext_background"
-                            android:inputType="textEmailAddress"
-                            android:autofillHints="@string/app_name" />
-
-                </RelativeLayout>
 
             </LinearLayout>
 
