@@ -33,7 +33,6 @@ import kotlinx.android.synthetic.main.calendarview_vertical_layout.*
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
-import java.util.*
 import kotlin.collections.ArrayList
 
 class CalendarViewVerticalFragment : DetailFragment() {
@@ -244,9 +243,9 @@ class CalendarViewVerticalFragment : DetailFragment() {
             override fun bind(container: MonthViewContainer, month: CalendarMonth) {
 
                 val currentDate = DateTimeFormatter.ofPattern("MMMM").format(month.yearMonth.month) + " | " + month.year
-                val headerDate = currentDate.toUpperCase(Locale.getDefault())
+                val headerDate = currentDate.uppercase()
                 container.header.text = headerDate
-                // container.header.text = "${month.yearMonth.month.name.toUpperCase(Locale.getDefault()).capitalize(Locale.getDefault())} ${"|"} ${month.year}"
+                // container.header.text = "${month.yearMonth.month.name.uppercase().capitalize(Locale.getDefault())} ${"|"} ${month.year}"
 
                 container.legend.children.forEachIndexed { index, mView ->
                     (mView as TextViewCustom).apply {

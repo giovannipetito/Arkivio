@@ -15,7 +15,6 @@ import androidx.core.content.ContextCompat
 import it.giovanni.arkivio.utils.Utils
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.customview.TextViewCustom
-import java.util.*
 
 open class CustomDialogPopup : AlertDialog.Builder {
 
@@ -156,7 +155,7 @@ open class CustomDialogPopup : AlertDialog.Builder {
         buttonNumber = 1
 
         if (text != null)
-            rightText = text.toString().toUpperCase(Locale.ITALY)
+            rightText = text.toString().uppercase()
 
         leftAction = null
         centerAction = null

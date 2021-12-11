@@ -28,7 +28,6 @@ import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadUsersFro
 import it.giovanni.arkivio.utils.Utils
 import kotlinx.android.synthetic.main.rubrica_list_layout.*
 import kotlinx.android.synthetic.main.detail_layout.*
-import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.math.hypot
 import kotlin.math.max
@@ -231,7 +230,7 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
                     filter()
 
                     if (edit_search.text.endsWith(",") || edit_search.text.endsWith(" ")) {
-                        var email: String = edit_search.text.toString().toLowerCase(Locale.ITALY)
+                        var email: String = edit_search.text.toString().lowercase()
                         email = email.substring(0, email.length - 1)
                         addBrick(email, email)
                         edit_search.setText("")
@@ -268,7 +267,7 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
 
         edit_search.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                var email: String = edit_search.text.toString().toLowerCase(Locale.ITALY)
+                var email: String = edit_search.text.toString().lowercase()
                 email = email.substring(0, email.length)
                 if (Utils.checkEmail(email)) {
                     if (list?.size != 0) {
@@ -378,11 +377,11 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
             return
         }
         for (user in list!!) {
-            if (user.nome?.toLowerCase(Locale.ITALY)?.contains(sentence?.toLowerCase(Locale.ITALY)!!)!! ||
-                user.cognome?.toLowerCase(Locale.ITALY)?.contains(sentence?.toLowerCase(Locale.ITALY)!!)!! ||
-                (user.nome?.toLowerCase(Locale.ITALY) + " " + user.cognome?.toLowerCase(Locale.ITALY))
-                    .contains(sentence?.toLowerCase(Locale.ITALY)!!) ||
-                user.cellulare?.toLowerCase(Locale.ITALY)?.contains(sentence?.toLowerCase(Locale.ITALY)!!)!!)
+            if (user.nome?.lowercase()?.contains(sentence?.lowercase()!!)!! ||
+                user.cognome?.lowercase()?.contains(sentence?.lowercase()!!)!! ||
+                (user.nome?.lowercase() + " " + user.cognome?.lowercase())
+                    .contains(sentence?.lowercase()!!) ||
+                user.cellulare?.lowercase()?.contains(sentence?.lowercase()!!)!!)
 
                 filtered?.add(user)
         }

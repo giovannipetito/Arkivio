@@ -1,5 +1,6 @@
 package it.giovanni.arkivio.fragments.detail.cardio
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.GradientDrawable
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.RelativeLayout
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.AppCompatSpinner
 import androidx.core.content.ContextCompat
 import io.card.payment.CardIOActivity
@@ -24,10 +26,11 @@ import java.text.DecimalFormat
 
 class CardIOFragment : DetailFragment(), AppCompatSpinnerCustom.OnSpinnerEventsListener {
 
+    /*
     companion object {
         private const val REQUEST_SCAN = 100
-        private const val REQUEST_AUTOTEST = 200
     }
+    */
 
     private var viewFragment: View? = null
     private var creditCard: CreditCard? = null
@@ -95,7 +98,7 @@ class CardIOFragment : DetailFragment(), AppCompatSpinnerCustom.OnSpinnerEventsL
             intArrayOf(ContextCompat.getColor(requireContext(), R.color.verde), ContextCompat.getColor(requireContext(), R.color.verde))
         )
         drawableBar.cornerRadius = 100f
-        spinnerContainer.setBackgroundDrawable(drawableBar)
+        spinnerContainer.background = drawableBar
 
         unblurredDigits = 0
         setPickerInterval()
@@ -153,15 +156,15 @@ class CardIOFragment : DetailFragment(), AppCompatSpinnerCustom.OnSpinnerEventsL
             intent.putExtra(CardIOActivity.EXTRA_UNBLUR_DIGITS, unblurredDigits)
         } catch (ignored: NumberFormatException) {}
 
-        startActivityForResult(intent,
-            REQUEST_SCAN
-        )
+        // startActivityForResult(intent, REQUEST_SCAN)
+        launcher.launch(intent)
     }
 
-    override fun onActivityResult(requestCode:Int, resultCode:Int, data:Intent?) {
+    /*
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (((requestCode == REQUEST_SCAN || requestCode == REQUEST_AUTOTEST) && data != null && data.hasExtra(CardIOActivity.EXTRA_SCAN_RESULT))) {
+        if ((requestCode == REQUEST_SCAN && data != null && data.hasExtra(CardIOActivity.EXTRA_SCAN_RESULT))) {
 
             creditCard = data.getParcelableExtra(CardIOActivity.EXTRA_SCAN_RESULT)
             cardType = creditCard?.cardType
@@ -184,11 +187,45 @@ class CardIOFragment : DetailFragment(), AppCompatSpinnerCustom.OnSpinnerEventsL
         }
 
         card_type_image.setImageBitmap(cardTypeImage)
-
         card_info.text = cardInfo
 
         val card = CardIOActivity.getCapturedCardImage(data)
         card_image.setImageBitmap(card)
+    }
+    */
+
+    private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val data: Intent? = result.data
+
+            if ((data != null && data.hasExtra(CardIOActivity.EXTRA_SCAN_RESULT))) {
+
+                creditCard = data.getParcelableExtra(CardIOActivity.EXTRA_SCAN_RESULT)
+                cardType = creditCard?.cardType
+                cardTypeImage = cardType?.imageBitmap(context)
+
+                cardInfo = "Card number: " + creditCard?.redactedCardNumber + "\n" +
+                        "Card type: " + cardType.toString() + "\n" + "Display name: " + cardType?.getDisplayName(null) + "\n"
+
+                if (expiry.isChecked)
+                    cardInfo += "Expiry: " + creditCard?.expiryMonth + "/" + creditCard?.expiryYear + "\n"
+
+                if (cvv.isChecked)
+                    cardInfo += "CVV: " + creditCard?.cvv + "\n"
+
+                if (postal_code.isChecked)
+                    cardInfo += "Postal Code: " + creditCard?.postalCode + "\n"
+
+                if (cardholder_name.isChecked)
+                    cardInfo += "Cardholder Name: " + creditCard?.cardholderName + "\n"
+            }
+
+            card_type_image.setImageBitmap(cardTypeImage)
+            card_info.text = cardInfo
+
+            val card = CardIOActivity.getCapturedCardImage(data)
+            card_image.setImageBitmap(card)
+        }
     }
 
     private fun setupLanguageList() {

@@ -4,6 +4,7 @@ import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -86,7 +87,7 @@ class SearchVideoFragment: DetailFragment(), SearchVideoAdapter.OnItemViewClicke
         recyclerView?.setHasFixedSize(true)
         recyclerView?.layoutManager = LinearLayoutManager(context)
 
-        handler = Handler()
+        handler = Handler(Looper.getMainLooper())
 
         searchInput.setOnEditorActionListener { v: TextView, actionId: Int, _: KeyEvent? ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {

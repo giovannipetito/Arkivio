@@ -181,7 +181,7 @@ class CalendarViewHorizontalFragment : DetailFragment() {
         calendarview_horizontal.monthHeaderBinder = object : MonthHeaderFooterBinder<MonthViewContainer> {
             override fun create(view: View) = MonthViewContainer(view)
             override fun bind(container: MonthViewContainer, month: CalendarMonth) {
-                container.textView.text = "${month.yearMonth.month.name.toLowerCase(Locale.getDefault()).capitalize(Locale.getDefault())} ${month.year}"
+                container.textView.text = "${month.yearMonth.month.name.lowercase().capitalize(Locale.getDefault())} ${month.year}"
             }
         }
     }

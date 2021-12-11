@@ -7,11 +7,13 @@ import android.graphics.BitmapFactory
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import it.giovanni.arkivio.BuildConfig
 import it.giovanni.arkivio.fragments.HomeFragment
@@ -37,27 +39,9 @@ import kotlin.collections.ArrayList
 
 class HomePageFragment : HomeFragment() {
 
-    /*
-    - Click on Gradle (from right side panel)
-    - Click on your project
-    - Click on Tasks
-    - Click on android
-    - Double click on signingReport
-    You will get SHA1 and MD5 in Run Tab:
-
-    Variant: debug
-    Config: debug
-    Store: /Users/Giovanni/.android/debug.keystore
-    Alias: AndroidDebugKey
-    MD5: C3:9B:CE:AC:C2:C5:4B:4C:6C:24:56:F3:17:73:37:C1
-    SHA1: 03:29:32:E7:87:94:51:CA:67:F5:33:0E:53:50:BD:69:66:2F:F0:B0
-    SHA-256: ED:C1:9D:E9:CD:57:86:E6:1B:83:B0:28:39:99:32:0C:FF:A1:C0:25:68:DA:E4:95:3A:CD:94:DA:65:73:D8:37
-    Valid until: mercoledì 13 febbraio 2047
-    */
-
     private val mTag = HomePageFragment::class.java.simpleName
 
-    private val galleryCode = 201
+    // private val galleryCode = 201
     private val delayTime: Long = 3000
     private var viewFragment: View? = null
     private val currentHours = Date().hours
@@ -191,13 +175,13 @@ class HomePageFragment : HomeFragment() {
         label_day.text = dayOfWeek
 
         val currentMonth = SimpleDateFormat("dd MMMM yyyy", Locale.ITALY).format(date).substring(0, 3) +
-                SimpleDateFormat("dd MMMM yyyy", Locale.ITALY).format(date).substring(3, 4).toUpperCase(Locale.ITALY) +
+                SimpleDateFormat("dd MMMM yyyy", Locale.ITALY).format(date).substring(3, 4).uppercase() +
                 SimpleDateFormat("dd MMMM yyyy", Locale.ITALY).format(date).substring(4, SimpleDateFormat("dd MMMM yyyy", Locale.ITALY).format(date).length)
         label_date.text = currentMonth
 
         label_time.text = DateManager(Date()).getFormatTime()
 
-        Handler().postDelayed({
+        Handler(Looper.getMainLooper()).postDelayed({
             val avatar: Bitmap = BitmapFactory.decodeResource(requireContext().resources, R.drawable.giovanni)
             val roundAvatar: Bitmap = getRoundBitmap(avatar, avatar.width)
             ico_avatar.setImageBitmap(roundAvatar)
@@ -231,10 +215,12 @@ class HomePageFragment : HomeFragment() {
     }
 
     private fun pickFromGallery() {
-        val i = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(i, galleryCode)
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        // startActivityForResult(intent, galleryCode)
+        launcher.launch(intent)
     }
 
+    /*
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == galleryCode && resultCode == RESULT_OK && null != data) run {
@@ -246,6 +232,25 @@ class HomePageFragment : HomeFragment() {
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
+            }
+        }
+    }
+    */
+
+    private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            val data: Intent? = result.data
+
+            if (null != data) run {
+                try {
+                    if (data.data != null) {
+                        val avatar: Bitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, data.data)
+                        val roundAvatar: Bitmap = getRoundBitmap(avatar, avatar.width)
+                        ico_avatar.setImageBitmap(roundAvatar)
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
         }
     }

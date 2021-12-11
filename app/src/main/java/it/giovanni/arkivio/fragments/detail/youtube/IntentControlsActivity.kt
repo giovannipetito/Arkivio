@@ -9,13 +9,15 @@ import android.widget.Toast
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubeStandalonePlayer
 import it.giovanni.arkivio.R
-import kotlinx.android.synthetic.main.intent_controls_activity.*
+import it.giovanni.arkivio.databinding.IntentControlsActivityBinding
 import java.util.*
 
-class IntentControlsActivity : Activity(), View.OnClickListener {
+class IntentControlsActivity: Activity(), View.OnClickListener {
+
+    private lateinit var binding: IntentControlsActivityBinding
+    private lateinit var view: View
 
     companion object {
-
         private const val REQ_START_STANDALONE_PLAYER = 1
         private const val REQ_RESOLVE_SERVICE_MISSING = 2
         private const val VIDEO_ID = "BRSpqZOPEas"
@@ -25,23 +27,26 @@ class IntentControlsActivity : Activity(), View.OnClickListener {
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.intent_controls_activity)
+        // setContentView(R.layout.intent_controls_activity)
+        binding = IntentControlsActivityBinding.inflate(layoutInflater)
+        view = binding.root
+        setContentView(view)
 
-        play_video_button.setOnClickListener(this)
-        start_playlist_button.setOnClickListener(this)
-        start_video_list_button.setOnClickListener(this)
+        binding.playVideoButton.setOnClickListener(this)
+        binding.startPlaylistButton.setOnClickListener(this)
+        binding.startVideoListButton.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
 
-        val chooseIndex = parseInt(choose_index_edit.text.toString(), 0)
-        val startTimeMillis = parseInt(choose_start_time_edit.text.toString(), 0) * 1000
-        val autoplay = autoplay_checkbox.isChecked
-        val boxMode = box_checkbox.isChecked
+        val chooseIndex = parseInt(binding.chooseIndexEdit.text.toString(), 0)
+        val startTimeMillis = parseInt(binding.chooseStartTimeEdit.text.toString(), 0) * 1000
+        val autoplay = binding.autoplayCheckbox.isChecked
+        val boxMode = binding.boxCheckbox.isChecked
         var intent: Intent? = null
 
         when {
-            v === play_video_button -> {
+            v === binding.playVideoButton -> {
                 intent = YouTubeStandalonePlayer.createVideoIntent(
                     this,
                     YoutubeConnector.API_KEY,
@@ -51,7 +56,7 @@ class IntentControlsActivity : Activity(), View.OnClickListener {
                     boxMode
                 )
             }
-            v === start_playlist_button -> {
+            v === binding.startPlaylistButton -> {
                 intent = YouTubeStandalonePlayer.createPlaylistIntent(
                     this,
                     YoutubeConnector.API_KEY,
@@ -62,7 +67,7 @@ class IntentControlsActivity : Activity(), View.OnClickListener {
                     boxMode
                 )
             }
-            v === start_video_list_button -> {
+            v === binding.startVideoListButton -> {
                 intent = YouTubeStandalonePlayer.createVideosIntent(
                     this,
                     YoutubeConnector.API_KEY,
@@ -76,9 +81,7 @@ class IntentControlsActivity : Activity(), View.OnClickListener {
         }
         if (intent != null) {
             if (canResolveIntent(intent)) {
-                startActivityForResult(intent,
-                    REQ_START_STANDALONE_PLAYER
-                )
+                startActivityForResult(intent, REQ_START_STANDALONE_PLAYER)
             } else {
                 // Could not resolve the intent - must need to install or update the YouTube API service.
                 YouTubeInitializationResult.SERVICE_MISSING.getErrorDialog(this,

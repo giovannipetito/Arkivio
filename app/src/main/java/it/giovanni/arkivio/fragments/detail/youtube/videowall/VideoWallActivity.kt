@@ -6,6 +6,7 @@ import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.os.Message
 import android.view.View
 import android.view.ViewGroup
@@ -246,7 +247,7 @@ class VideoWallActivity : Activity(), FlippingView.Listener,
     /**
      * A handler that periodically flips an element on the video wall.
      */
-    private inner class FlipDelayHandler : Handler() {
+    private inner class FlipDelayHandler : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
             flipNext()
             sendEmptyMessageDelayed(0, FLIP_PERIOD_MILLIS.toLong())

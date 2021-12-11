@@ -11,6 +11,7 @@ import android.widget.AdapterView.OnItemSelectedListener
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
+import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.customview.GraphicOverlay
 import it.giovanni.arkivio.fragments.DetailFragment
@@ -94,7 +95,7 @@ class TextRecognitionFragment : DetailFragment(), OnItemSelectedListener {
 
     private fun runTextRecognition() {
         val image = InputImage.fromBitmap(selectedImage!!, 0)
-        val recognizer = TextRecognition.getClient()
+        val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
         mlButton?.isEnabled = false
         recognizer.process(image).addOnSuccessListener { texts ->
             mlButton?.isEnabled = true

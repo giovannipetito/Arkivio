@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -65,7 +66,6 @@ import it.giovanni.arkivio.viewinterfaces.IProgressLoader
 import it.giovanni.arkivio.fragments.detail.youtube.search.SearchVideoFragment
 import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadDarkModeStateFromPreferences
 import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadRememberMeFromPreferences
-import java.util.*
 
 class MainActivity : BaseActivity(), IProgressLoader {
 
@@ -114,7 +114,7 @@ class MainActivity : BaseActivity(), IProgressLoader {
                 .commit()
 
             if (!rememberMe) {
-                Handler().postDelayed({
+                Handler(Looper.getMainLooper()).postDelayed({
                     supportFragmentManager
                         .beginTransaction()
                         .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
@@ -123,7 +123,7 @@ class MainActivity : BaseActivity(), IProgressLoader {
                 }, delayTime)
             } else {
                 if (isOnline()) {
-                    Handler().postDelayed({
+                    Handler(mainLooper).postDelayed({
                         supportFragmentManager
                             .beginTransaction()
                             .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
@@ -154,7 +154,7 @@ class MainActivity : BaseActivity(), IProgressLoader {
     private fun openDeepLink(uri: Uri) {
 
         val host = uri.host
-        when (host?.toLowerCase(Locale.ITALY)) {
+        when (host?.lowercase()) {
             DeepLinkDescriptor.URI_CONTACTS -> {
                 openDetail(Globals.RUBRICA_REALTIME, null)
             }
@@ -193,21 +193,21 @@ class MainActivity : BaseActivity(), IProgressLoader {
             }
             DeepLinkDescriptor.URI_HOME_PAGE -> {
                 removeAllFragmentsToMainFragment()
-                Handler().postDelayed({
+                Handler(Looper.getMainLooper()).postDelayed({
                     if (mainFragment != null)
                         mainFragment?.goToHomePosition(1)
                 }, 1000)
             }
             DeepLinkDescriptor.URI_HOME_WORK_PAGE -> {
                 removeAllFragmentsToMainFragment()
-                Handler().postDelayed({
+                Handler(Looper.getMainLooper()).postDelayed({
                     if (mainFragment != null)
                         mainFragment?.goToHomePosition(2)
                 }, 1000)
             }
             DeepLinkDescriptor.URI_HOME_ADMIN_PAGE -> {
                 removeAllFragmentsToMainFragment()
-                Handler().postDelayed({
+                Handler(Looper.getMainLooper()).postDelayed({
                     if (mainFragment != null)
                         mainFragment?.goToHomePosition(3)
                 }, 1000)
@@ -258,7 +258,7 @@ class MainActivity : BaseActivity(), IProgressLoader {
     */
 
     override fun hideProgressDialog() {
-        Handler().postDelayed({
+        Handler(Looper.getMainLooper()).postDelayed({
             try {
                 progressDialog?.dismiss()
                 if (spinnerAnimation != null)

@@ -8,7 +8,6 @@ import androidx.annotation.StyleRes
 import androidx.core.content.ContextCompat
 import it.giovanni.arkivio.R
 import kotlinx.android.synthetic.main.popup_labels_element.view.*
-import java.util.*
 import kotlin.collections.ArrayList
 
 class ListDialogPopup(activity: Activity, @StyleRes themeResId: Int) : CustomDialogPopup(activity, themeResId) {
@@ -34,7 +33,7 @@ class ListDialogPopup(activity: Activity, @StyleRes themeResId: Int) : CustomDia
                 val element: String = i.next()
                 val inflater = activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
                 val view = inflater.inflate(R.layout.popup_labels_element, null)
-                view.label.text = element.toUpperCase(Locale.getDefault())
+                view.label.text = element.uppercase()
                 if (element == labelDelete) {
                     view.label.setTextColor(ContextCompat.getColor(context, R.color.grey_2))
                 }
