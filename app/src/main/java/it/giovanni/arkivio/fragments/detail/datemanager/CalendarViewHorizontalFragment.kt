@@ -21,7 +21,6 @@ import kotlinx.android.synthetic.main.calendarview_horizontal_layout.*
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
-import java.util.*
 
 class CalendarViewHorizontalFragment : DetailFragment() {
 
@@ -181,7 +180,10 @@ class CalendarViewHorizontalFragment : DetailFragment() {
         calendarview_horizontal.monthHeaderBinder = object : MonthHeaderFooterBinder<MonthViewContainer> {
             override fun create(view: View) = MonthViewContainer(view)
             override fun bind(container: MonthViewContainer, month: CalendarMonth) {
-                container.textView.text = "${month.yearMonth.month.name.lowercase().capitalize(Locale.getDefault())} ${month.year}"
+                var monthName = month.yearMonth.month.name.lowercase()
+                monthName = monthName.substring(0, 1).uppercase() + monthName.substring(1)
+                val date = "$monthName ${month.year}"
+                container.textView.text = date
             }
         }
     }

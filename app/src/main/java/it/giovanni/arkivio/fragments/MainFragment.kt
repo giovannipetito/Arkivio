@@ -4,7 +4,6 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
@@ -42,7 +41,6 @@ import it.giovanni.arkivio.utils.UserFactory
 import it.giovanni.arkivio.utils.Utils.Companion.getRoundBitmap
 import it.giovanni.arkivio.utils.Utils.Companion.setBitmapFromUrl
 import it.giovanni.arkivio.viewinterfaces.IDarkMode
-import it.giovanni.arkivio.viewinterfaces.IDataRefresh
 import kotlinx.android.synthetic.main.link_area_layout.*
 import kotlinx.android.synthetic.main.main_content_layout.*
 import kotlinx.android.synthetic.main.main_layout.*
@@ -622,6 +620,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
         )
     }
 
+    /*
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == Globals.REQUEST_CODE_EVENT_WORKING_AREA) {
@@ -634,6 +633,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
             }
         }
     }
+    */
 
     private fun init(): ArrayList<Link> {
 

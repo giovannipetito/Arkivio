@@ -171,7 +171,8 @@ class HomePageFragment : HomeFragment() {
 
         val date = Date()
 
-        val dayOfWeek = SimpleDateFormat("EEEE", Locale.ITALY).format(date).capitalize(Locale.getDefault())
+        var dayOfWeek = SimpleDateFormat("EEEE", Locale.ITALY).format(date)
+        dayOfWeek = dayOfWeek.substring(0, 1).uppercase() + dayOfWeek.substring(1)
         label_day.text = dayOfWeek
 
         val currentMonth = SimpleDateFormat("dd MMMM yyyy", Locale.ITALY).format(date).substring(0, 3) +

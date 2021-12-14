@@ -46,7 +46,7 @@ class DateManager {
 
             var day = SimpleDateFormat("E", Locale.ITALY).format(startDate!!)
             var month = SimpleDateFormat("MMM", Locale.ITALY).format(startDate)
-            day = day.capitalize(Locale.getDefault())
+            day = day.substring(0, 1).uppercase() + day.substring(1)
             month = month.substring(0, 1).uppercase() + month.substring(1)
 
             return StringBuilder()
@@ -77,8 +77,8 @@ class DateManager {
 
         // yyyy/MM/dd
         fun getSimpleDate3(date: String): String {
-            val data = SimpleDateFormat("dd MMM yyyy", Locale.ITALY).parse(date)
-            val stringBuilder = StringBuilder().append(SimpleDateFormat("yyyy/MM/dd", Locale.ITALY).format(data!!))
+            val formattedDate = SimpleDateFormat("dd MMM yyyy", Locale.ITALY).parse(date)
+            val stringBuilder = StringBuilder().append(SimpleDateFormat("yyyy/MM/dd", Locale.ITALY).format(formattedDate!!))
             return stringBuilder.toString()
         }
 
@@ -115,7 +115,9 @@ class DateManager {
         // MMMM
         fun getSimpleMonth2(date: String): String {
             val formattedDate = SimpleDateFormat("MM", Locale.getDefault()).parse(date)
-            return StringBuilder().append(SimpleDateFormat("MMMM", Locale.getDefault()).format(formattedDate!!)).toString().capitalize(Locale.getDefault())
+            var month = StringBuilder().append(SimpleDateFormat("MMMM", Locale.getDefault()).format(formattedDate!!)).toString()
+            month = month.substring(0, 1).uppercase() + month.substring(1)
+            return month
         }
 
         // yyyy
@@ -126,37 +128,39 @@ class DateManager {
 
         // Sabato
         fun getUpperSimpleName1(date: String): String {
-            val data = SimpleDateFormat("yyyy/MM/dd", Locale.UK).parse(date)
-            val stringBuilder = StringBuilder().append(SimpleDateFormat("EEEE", Locale.ITALY).format(data!!))
-            return stringBuilder.toString().capitalize(Locale.getDefault())
+            val formattedDate = SimpleDateFormat("yyyy/MM/dd", Locale.UK).parse(date)
+            var name = StringBuilder().append(SimpleDateFormat("EEEE", Locale.ITALY).format(formattedDate!!)).toString()
+            name = name.substring(0, 1).uppercase() + name.substring(1)
+            return name
         }
 
         // Sabato
         fun getUpperSimpleName2(date: String): String {
-            val data = SimpleDateFormat("dd/MM/yyyy", Locale.UK).parse(date)
-            val stringBuilder = StringBuilder().append(SimpleDateFormat("EEEE", Locale.ITALY).format(data!!))
-            return stringBuilder.toString().capitalize(Locale.getDefault())
+            val formattedDate = SimpleDateFormat("dd/MM/yyyy", Locale.UK).parse(date)
+            var name = StringBuilder().append(SimpleDateFormat("EEEE", Locale.ITALY).format(formattedDate!!)).toString()
+            name = name.substring(0, 1).uppercase() + name.substring(1)
+            return name
         }
 
         // 06 Feb 1988
         fun getUpperSimpleDate1(dataPicker: String): String {
-            val data = SimpleDateFormat("yyyy/MM/dd", Locale.UK).parse(dataPicker)
-            val stringBuilder = StringBuilder().append(SimpleDateFormat("dd MMM yyyy", Locale.ITALY).format(data!!))
+            val formattedDate = SimpleDateFormat("yyyy/MM/dd", Locale.UK).parse(dataPicker)
+            val stringBuilder = StringBuilder().append(SimpleDateFormat("dd MMM yyyy", Locale.ITALY).format(formattedDate!!))
             return stringBuilder.substring(0, 3) + stringBuilder.substring(3, 4).uppercase() + stringBuilder.substring(4, stringBuilder.length)
         }
 
         // 06 Feb 1988
         fun getUpperSimpleDate2(date: String): String {
-            val data = SimpleDateFormat("dd/MM/yyyy", Locale.UK).parse(date)
-            val stringBuilder = StringBuilder().append(SimpleDateFormat("dd MMM yyyy", Locale.ITALY).format(data!!))
+            val formattedDate = SimpleDateFormat("dd/MM/yyyy", Locale.UK).parse(date)
+            val stringBuilder = StringBuilder().append(SimpleDateFormat("dd MMM yyyy", Locale.ITALY).format(formattedDate!!))
             return stringBuilder.substring(0, 3) + stringBuilder.substring(3, 4).uppercase() + stringBuilder.substring(4, stringBuilder.length)
         }
 
 
         // Febbraio
         fun getUpperSimpleDate3(date: String): String {
-            val data = SimpleDateFormat("MM", Locale.UK).parse(date)
-            val stringBuilder = StringBuilder().append(SimpleDateFormat("MMMM", Locale.getDefault()).format(data!!))
+            val formattedDate = SimpleDateFormat("MM", Locale.UK).parse(date)
+            val stringBuilder = StringBuilder().append(SimpleDateFormat("MMMM", Locale.getDefault()).format(formattedDate!!))
             return stringBuilder.toString().uppercase()
         }
 
@@ -202,7 +206,7 @@ class DateManager {
 
             if (dataInizio == dataFine) {
                 var month = SimpleDateFormat("MMMM", Locale.ITALY).format(startDate!!)
-                month = month.capitalize(Locale.getDefault())
+                month = month.substring(0, 1).uppercase() + month.substring(1)
 
                 val sb = StringBuilder()
                     .append(SimpleDateFormat("dd", Locale.ITALY).format(startDate))
@@ -237,8 +241,8 @@ class DateManager {
             if (dataInizio == dataFine) {
                 var day = SimpleDateFormat("E", Locale.ITALY).format(startDate!!)
                 var month = SimpleDateFormat("MMM", Locale.ITALY).format(startDate)
-                day = day.capitalize(Locale.getDefault())
-                month = month.capitalize(Locale.getDefault())
+                day = day.substring(0, 1).uppercase() + day.substring(1)
+                month = month.substring(0, 1).uppercase() + month.substring(1)
 
                 val sb = StringBuilder()
                     .append(day)
@@ -249,18 +253,17 @@ class DateManager {
                     .append(" ")
                     .append(SimpleDateFormat("yyyy", Locale.ITALY).format(startDate))
                 return sb.toString()
-
             } else {
                 val endDate = SimpleDateFormat("yyyy/MM/dd", Locale.UK).parse(dataFine)
 
                 var startDay = SimpleDateFormat("E", Locale.ITALY).format(startDate!!)
                 var startMonth = SimpleDateFormat("dd MMM yyyy", Locale.ITALY).format(startDate)
-                startDay = startDay.capitalize(Locale.getDefault())
+                startDay = startDay.substring(0, 1).uppercase() + startDay.substring(1)
                 startMonth = startMonth.substring(0, 3) + startMonth.substring(3, 4).uppercase() + startMonth.substring(4, startMonth.length)
 
                 var endDay = SimpleDateFormat("E", Locale.ITALY).format(endDate!!)
                 var endMonth = SimpleDateFormat("dd MMM yyyy", Locale.ITALY).format(endDate)
-                endDay = endDay.capitalize(Locale.getDefault())
+                endDay = endDay.substring(0, 1).uppercase() + endDay.substring(1)
                 endMonth = endMonth.substring(0, 3).uppercase() + endMonth.substring(3, 4).uppercase() + endMonth.substring(4, endMonth.length)
 
                 val sb = StringBuilder()
@@ -289,8 +292,8 @@ class DateManager {
                 val totOre: String = if (totaleOre < 1) "" else decimalFormatConverter(totaleOre)
                 var day = SimpleDateFormat("E", Locale.ITALY).format(startDate!!)
                 var month = SimpleDateFormat("MMM", Locale.ITALY).format(startDate)
-                day = day.capitalize(Locale.getDefault())
-                month = month.capitalize(Locale.getDefault())
+                day = day.substring(0, 1).uppercase() + day.substring(1)
+                month = month.substring(0, 1).uppercase() + month.substring(1)
 
                 val sb: StringBuilder
                 if (totOre != "") {
@@ -323,12 +326,12 @@ class DateManager {
 
                 var startDay = SimpleDateFormat("E", Locale.ITALY).format(startDate)
                 var startMonth = SimpleDateFormat("dd MMM yyyy", Locale.ITALY).format(startDate)
-                startDay = startDay.capitalize(Locale.getDefault())
+                startDay = startDay.substring(0, 1).uppercase() + startDay.substring(1)
                 startMonth = startMonth.substring(0, 3) + startMonth.substring(3, 4).uppercase() + startMonth.substring(4, startMonth.length)
 
                 var endDay = SimpleDateFormat("E", Locale.ITALY).format(endDate)
                 var endMonth = SimpleDateFormat("dd MMM yyyy", Locale.ITALY).format(endDate)
-                endDay = endDay.capitalize(Locale.getDefault())
+                endDay = endDay.substring(0, 1).uppercase() + endDay.substring(1)
                 endMonth = endMonth.substring(0, 3).uppercase() + endMonth.substring(3, 4).uppercase() + endMonth.substring(4, endMonth.length)
 
                 val sb = StringBuilder()
@@ -420,8 +423,8 @@ class DateManager {
 
         var day = SimpleDateFormat("E", Locale.ITALY).format(formattedDate!!)
         var month = SimpleDateFormat("MMM", Locale.ITALY).format(formattedDate)
-        day = day.capitalize(Locale.getDefault())
-        month = month.capitalize(Locale.getDefault())
+        day = day.substring(0, 1).uppercase() + day.substring(1)
+        month = month.substring(0, 1).uppercase() + month.substring(1)
 
         val sb = StringBuilder()
             .append(day)
