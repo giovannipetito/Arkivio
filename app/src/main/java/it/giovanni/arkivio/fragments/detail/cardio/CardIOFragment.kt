@@ -156,43 +156,8 @@ class CardIOFragment : DetailFragment(), AppCompatSpinnerCustom.OnSpinnerEventsL
             intent.putExtra(CardIOActivity.EXTRA_UNBLUR_DIGITS, unblurredDigits)
         } catch (ignored: NumberFormatException) {}
 
-        // startActivityForResult(intent, REQUEST_SCAN)
         launcher.launch(intent)
     }
-
-    /*
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if ((requestCode == REQUEST_SCAN && data != null && data.hasExtra(CardIOActivity.EXTRA_SCAN_RESULT))) {
-
-            creditCard = data.getParcelableExtra(CardIOActivity.EXTRA_SCAN_RESULT)
-            cardType = creditCard?.cardType
-            cardTypeImage = cardType?.imageBitmap(context)
-
-            cardInfo = "Card number: " + creditCard?.redactedCardNumber + "\n" +
-                    "Card type: " + cardType.toString() + "\n" + "Display name: " + cardType?.getDisplayName(null) + "\n"
-
-            if (expiry.isChecked)
-                cardInfo += "Expiry: " + creditCard?.expiryMonth + "/" + creditCard?.expiryYear + "\n"
-
-            if (cvv.isChecked)
-                cardInfo += "CVV: " + creditCard?.cvv + "\n"
-
-            if (postal_code.isChecked)
-                cardInfo += "Postal Code: " + creditCard?.postalCode + "\n"
-
-            if (cardholder_name.isChecked)
-                cardInfo += "Cardholder Name: " + creditCard?.cardholderName + "\n"
-        }
-
-        card_type_image.setImageBitmap(cardTypeImage)
-        card_info.text = cardInfo
-
-        val card = CardIOActivity.getCapturedCardImage(data)
-        card_image.setImageBitmap(card)
-    }
-    */
 
     private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {

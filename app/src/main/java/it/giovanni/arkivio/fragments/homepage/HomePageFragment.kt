@@ -4,6 +4,7 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.ImageDecoder
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
@@ -41,7 +42,6 @@ class HomePageFragment : HomeFragment() {
 
     private val mTag = HomePageFragment::class.java.simpleName
 
-    // private val galleryCode = 201
     private val delayTime: Long = 3000
     private var viewFragment: View? = null
     private val currentHours = Date().hours
@@ -217,35 +217,17 @@ class HomePageFragment : HomeFragment() {
 
     private fun pickFromGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        // startActivityForResult(intent, galleryCode)
         launcher.launch(intent)
     }
-
-    /*
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == galleryCode && resultCode == RESULT_OK && null != data) run {
-            try {
-                if (data.data != null) {
-                    val avatar: Bitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, data.data)
-                    val roundAvatar: Bitmap = getRoundBitmap(avatar, avatar.width)
-                    ico_avatar.setImageBitmap(roundAvatar)
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-    }
-    */
 
     private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
             val data: Intent? = result.data
-
             if (null != data) run {
                 try {
                     if (data.data != null) {
-                        val avatar: Bitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, data.data)
+                        val source: ImageDecoder.Source = ImageDecoder.createSource(requireContext().contentResolver, data.data!!)
+                        val avatar: Bitmap = ImageDecoder.decodeBitmap(source)
                         val roundAvatar: Bitmap = getRoundBitmap(avatar, avatar.width)
                         ico_avatar.setImageBitmap(roundAvatar)
                     }

@@ -166,11 +166,7 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
 
     private fun open() {
 
-        val action = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            android.provider.Settings.ACTION_FINGERPRINT_ENROLL
-        } else {
-            android.provider.Settings.ACTION_SECURITY_SETTINGS
-        }
+        val action = android.provider.Settings.ACTION_BIOMETRIC_ENROLL
 
         val intent = Intent(action)
         /*
@@ -179,7 +175,6 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
         intent.action = action
         */
         startActivity(intent)
-        // startActivityForResult(intent, 0)
     }
 
     override fun onBiometricAuthenticationPermissionNotGranted() {

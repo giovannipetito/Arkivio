@@ -5,7 +5,6 @@ import android.bluetooth.BluetoothAdapter
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
 import android.util.Log
@@ -13,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.app.AlarmManagerCompat
 import androidx.core.content.ContextCompat
@@ -102,8 +102,10 @@ class NotificationFragment: DetailFragment() {
         val serviceSwitch4 = notificationItem4.findViewById(R.id.service_switch) as SwitchCompat
 
         val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
-        if (bluetoothAdapter != null && !bluetoothAdapter.isEnabled)
+        if (bluetoothAdapter != null && !bluetoothAdapter.isEnabled) {
+            // launcher.launch(Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)) // todo: da testare.
             startActivityForResult(Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE),1)
+        }
 
         serviceSwitch1.setOnClickListener {
             if (serviceSwitch1.isChecked) {
@@ -150,21 +152,20 @@ class NotificationFragment: DetailFragment() {
     }
 
     private fun createChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val notificationChannel = NotificationChannel(
-                getString(R.string.egg_time_channel_id_1),
-                getString(R.string.egg_time_channel_name_1),
-                NotificationManager.IMPORTANCE_HIGH
-            )
-            notificationChannel.setShowBadge(true)
-            notificationChannel.lightColor = Color.BLUE
-            notificationChannel.enableLights(true)
-            notificationChannel.enableVibration(true)
-            notificationChannel.description = "Time for breakfast"
 
-            val notificationManager = currentActivity.getSystemService(NotificationManager::class.java)
-            notificationManager?.createNotificationChannel(notificationChannel)
-        }
+        val notificationChannel = NotificationChannel(
+            getString(R.string.egg_time_channel_id_1),
+            getString(R.string.egg_time_channel_name_1),
+            NotificationManager.IMPORTANCE_HIGH)
+
+        notificationChannel.setShowBadge(true)
+        notificationChannel.lightColor = Color.BLUE
+        notificationChannel.enableLights(true)
+        notificationChannel.enableVibration(true)
+        notificationChannel.description = "Time for breakfast"
+
+        val notificationManager = currentActivity.getSystemService(NotificationManager::class.java)
+        notificationManager?.createNotificationChannel(notificationChannel)
     }
 
     // Creates a new alarm, notification and timer.
@@ -225,5 +226,13 @@ class NotificationFragment: DetailFragment() {
         }
         Log.i("Service status", "Not running")
         return false
+    }
+
+    private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        /*
+        if (result.resultCode == Activity.RESULT_OK) {
+            val data: Intent? = result.data
+        }
+        */
     }
 }

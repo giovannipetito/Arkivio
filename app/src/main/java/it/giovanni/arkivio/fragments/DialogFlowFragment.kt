@@ -17,7 +17,6 @@ import java.util.*
 class DialogFlowFragment : BaseFragment(SectionType.DIALOG_FLOW) {
 
     private val delayTime: Long = 5000
-    // private var requestCode: Int = 10
 
     override fun getTitle(): Int {
         return NO_TITLE
@@ -45,37 +44,12 @@ class DialogFlowFragment : BaseFragment(SectionType.DIALOG_FLOW) {
             // intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Ciao, come posso aiutarti?")
 
             if (intent.resolveActivity(currentActivity.packageManager) != null) {
-                // startActivityForResult(intent, requestCode)
                 launcher.launch(intent)
             }
             else
                 Toast.makeText(context, "Your Device Don't Support Speech Input", Toast.LENGTH_SHORT).show()
         }
     }
-
-    /*
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        when (requestCode) {
-            this.requestCode -> if (resultCode == RESULT_OK && data != null) {
-                val array = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-                speech_text.text = array!![0]
-
-                speech_container.visibility = View.VISIBLE
-                suggestions_container.visibility = View.GONE
-
-                if (array[0].contains("rubrica")) {
-                    currentActivity.openDetail(Globals.RUBRICA_REALTIME, null)
-                } else if (array[0].contains("Giovanni")) {
-                    val contact = Bundle()
-                    contact.putString(RubricaListFragment.KEY_SPEECH_USERS, array[0])
-                    currentActivity.openDetail(Globals.RUBRICA_LIST, contact)
-                }
-            }
-        }
-    }
-    */
 
     private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {

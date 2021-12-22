@@ -1,5 +1,6 @@
 package it.giovanni.arkivio.fragments.detail.notification
 
+import android.Manifest
 import android.app.*
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
@@ -7,14 +8,15 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.media.RingtoneManager
-import android.os.Build
 import android.os.IBinder
 import android.util.Log
 import androidx.annotation.NonNull
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import it.giovanni.arkivio.App
@@ -75,30 +77,24 @@ class NotificationService4 : Service() {
         val timerTask: TimerTask = object : TimerTask() {
             override fun run() {
                 Log.i("TAG_NOTIFY", "========== " + counter++ + " ==========")
-                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O) {
-                    createNotificationChannel()
-                    startNotificationService()
-                }
-                else
-                    startForeground(requestCode, Notification())
+                createNotificationChannel()
+                startNotificationService()
             }
         }
         timer?.schedule(timerTask, 2000, 2000)
     }
 
     private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channelId = getString(R.string.notification_channel_id)
-            val name: CharSequence = getString(R.string.notification_channel_name)
-            val importance = NotificationManager.IMPORTANCE_HIGH
-            val channel = NotificationChannel(channelId, name, importance)
-            channel.setShowBadge(true)
-            channel.lightColor = Color.BLUE
-            channel.enableLights(true)
-            channel.enableVibration(true)
-            channel.description = getString(R.string.notification_channel_description)
-            getSystemService(NotificationManager::class.java).createNotificationChannel(channel)
-        }
+        val channelId = getString(R.string.notification_channel_id)
+        val name: CharSequence = getString(R.string.notification_channel_name)
+        val importance = NotificationManager.IMPORTANCE_HIGH
+        val channel = NotificationChannel(channelId, name, importance)
+        channel.setShowBadge(true)
+        channel.lightColor = Color.BLUE
+        channel.enableLights(true)
+        channel.enableVibration(true)
+        channel.description = getString(R.string.notification_channel_description)
+        getSystemService(NotificationManager::class.java).createNotificationChannel(channel)
     }
 
     private fun startNotificationService() {
@@ -132,6 +128,22 @@ class NotificationService4 : Service() {
             .setAutoCancel(true)
 
         notificationManager = NotificationManagerCompat.from(this)
+        searchForBluetooth()
+    }
+
+    private fun searchForBluetooth() {
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return
+        }
         bluetoothAdapter.startDiscovery()
     }
 
