@@ -26,12 +26,6 @@ import java.text.DecimalFormat
 
 class CardIOFragment : DetailFragment(), AppCompatSpinnerCustom.OnSpinnerEventsListener {
 
-    /*
-    companion object {
-        private const val REQUEST_SCAN = 100
-    }
-    */
-
     private var viewFragment: View? = null
     private var creditCard: CreditCard? = null
     private var cardType : CardType? = null

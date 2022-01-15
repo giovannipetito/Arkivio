@@ -1,39 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true"
-        android:focusable="true"
-        android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <it.giovanni.arkivio.customview.calendarview.CalendarView
-            android:id="@+id/calendarview"
+    <data>
+        <variable
+                name="temp"
+                type="it.giovanni.arkivio.model.DarkModeModel" />
+
+        <variable
+                name="presenter"
+                type="it.giovanni.arkivio.presenter.DarkModePresenter" />
+    </data>
+
+    <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            app:cv_month_header="@layout/calendarview_vertical_header"
-            app:cv_day_item="@layout/calendarview_vertical_item"
-            app:cv_orientation="vertical"
-            app:cv_scroll_mode="continuous" />
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical">
 
-    <RelativeLayout
-            android:id="@+id/calendarview_button_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        <it.giovanni.arkivio.customview.ButtonCustom
-                android:id="@+id/calendarview_button"
+        <it.giovanni.arkivio.customview.calendarview.CalendarView
+                android:id="@+id/calendarview"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="48dp"
-                android:layout_marginBottom="24dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:text="@string/button_confirm"
-                android:enabled="false"
-                style="@style/ButtonNormalDarkMode" />
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:cv_month_header="@layout/calendarview_vertical_header"
+                app:cv_day_item="@layout/calendarview_vertical_item"
+                app:cv_orientation="vertical"
+                app:cv_scroll_mode="continuous" />
 
-    </RelativeLayout>
+        <RelativeLayout
+                android:id="@+id/calendarview_button_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-</LinearLayout>
+            <it.giovanni.arkivio.customview.ButtonCustom
+                    android:id="@+id/calendarview_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="48dp"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:text="@string/button_confirm"
+                    android:enabled="false"
+                    style="@style/ButtonNormalDarkMode" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</layout>

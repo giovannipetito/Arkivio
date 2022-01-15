@@ -127,17 +127,8 @@ class SmartworkingFragment: DetailFragment() {
         return true
     }
 
-    override fun onCreateBindingView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val binding: SmartworkingLayoutBinding? = DataBindingUtil.inflate(
-            inflater,
-            R.layout.smartworking_layout,
-            container,
-            false
-        )
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val binding: SmartworkingLayoutBinding? = DataBindingUtil.inflate(inflater, R.layout.smartworking_layout, container, false)
         viewFragment = binding?.root
 
         val darkModePresenter = DarkModePresenter(this, requireContext())

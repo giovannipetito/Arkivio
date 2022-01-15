@@ -1,22 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/progress_bar_container"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_24dp"
-        android:background="@color/white" >
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+                name="temp"
+                type="it.giovanni.arkivio.model.DarkModeModel" />
+
+        <variable
+                name="presenter"
+                type="it.giovanni.arkivio.presenter.DarkModePresenter" />
+    </data>
 
     <RelativeLayout
-            android:id="@+id/progress_bar"
+            android:id="@+id/progress_bar_container"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:layout_centerInParent="true" />
+            android:layout_height="@dimen/dimen_24dp"
+            android:background="@color/white" >
 
-    <ImageView
-            android:id="@+id/bar"
-            android:layout_width="wrap_content"
-            android:layout_height="24dp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/bar"
-            android:contentDescription="@string/app_name" />
+        <RelativeLayout
+                android:id="@+id/progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_centerInParent="true" />
 
-</RelativeLayout>
+        <ImageView
+                android:id="@+id/bar"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/bar"
+                android:contentDescription="@string/app_name" />
+
+    </RelativeLayout>
+
+</layout>

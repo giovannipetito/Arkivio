@@ -40,7 +40,7 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
         return NO_TITLE
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
 
         currentActivity.setStatusBarTransparent()

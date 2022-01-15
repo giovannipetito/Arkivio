@@ -1,84 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:background="@color/white">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <RelativeLayout
+  <data>
+    <variable
+            name="temp"
+            type="it.giovanni.arkivio.model.DarkModeModel" />
+
+    <variable
+            name="presenter"
+            type="it.giovanni.arkivio.presenter.DarkModePresenter" />
+  </data>
+
+  <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_margin="6dp"
-          android:padding="6dp"
-          android:background="@drawable/round_corner_1">
+          android:orientation="vertical"
+          android:gravity="center_horizontal"
+          android:background="@color/white">
 
-    <Spinner
-            android:id="@+id/spinner_video"
+    <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorPrimary"
-            android:layout_centerInParent="true" />
+            android:layout_margin="6dp"
+            android:padding="6dp"
+            android:background="@drawable/round_corner_1">
 
-  </RelativeLayout>
+      <Spinner
+              android:id="@+id/spinner_video"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:backgroundTint="@color/colorPrimary"
+              android:layout_centerInParent="true" />
 
-  <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal"
-          android:gravity="center">
+    </RelativeLayout>
 
-    <Button
-            android:id="@+id/play_button"
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+      <Button
+              android:id="@+id/play_button"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_margin="6dp"
+              android:text="@string/play"
+              style="@style/ButtonNormalDarkMode" />
+
+      <Button
+              android:id="@+id/pause_button"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_margin="6dp"
+              android:text="@string/pause"
+              style="@style/ButtonNormalDarkMode" />
+
+    </LinearLayout>
+
+    <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            android:text="@string/play"
-            style="@style/ButtonNormalDarkMode" />
+            android:layout_margin="8dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="@drawable/round_corner_2">
 
-    <Button
-            android:id="@+id/pause_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            android:text="@string/pause"
-            style="@style/ButtonNormalDarkMode" />
+      <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:padding="6dp"
+              android:text="@string/skip_to"
+              android:textColor="@color/colorPrimary" />
+
+      <EditText
+              android:id="@+id/skip_to_text"
+              android:layout_width="48dp"
+              android:layout_height="wrap_content"
+              android:layout_margin="6dp"
+              android:hint=""
+              android:inputType="number"
+              android:textAlignment="center"
+              android:autofillHints="@string/app_name"
+              style="@style/EditText3" />
+
+      <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:padding="6dp"
+              android:text="@string/seconds"
+              android:textColor="@color/colorPrimary" />
+
+    </LinearLayout>
 
   </LinearLayout>
 
-  <LinearLayout
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_margin="8dp"
-          android:orientation="horizontal"
-          android:gravity="center"
-          android:background="@drawable/round_corner_2">
-
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="6dp"
-            android:text="@string/skip_to"
-            android:textColor="@color/colorPrimary" />
-
-    <EditText
-            android:id="@+id/skip_to_text"
-            android:layout_width="48dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            android:hint=""
-            android:inputType="number"
-            android:textAlignment="center"
-            android:autofillHints="@string/app_name"
-            style="@style/EditText3" />
-
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="6dp"
-            android:text="@string/seconds"
-            android:textColor="@color/colorPrimary" />
-
-  </LinearLayout>
-
-</LinearLayout>
+</layout>

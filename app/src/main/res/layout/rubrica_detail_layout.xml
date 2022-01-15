@@ -1,292 +1,306 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:orientation="vertical">
+    <data>
+        <variable
+                name="temp"
+                type="it.giovanni.arkivio.model.DarkModeModel" />
+
+        <variable
+                name="presenter"
+                type="it.giovanni.arkivio.presenter.DarkModePresenter" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <ImageView
-                    android:id="@+id/ico_profile"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:src="@drawable/ico_profile"
-                    android:contentDescription="@string/app_name" />
-
-            <RelativeLayout
+            <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="24dp">
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:orientation="horizontal">
 
-                <TextView
-                        android:id="@+id/user_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:textSize="24sp"
-                        android:textColor="@color/dark"
-                        android:text="@string/name_surname_title"
-                        android:ellipsize="end"
-                        android:maxLines="1" />
+                <ImageView
+                        android:id="@+id/ico_profile"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ico_profile"
+                        android:contentDescription="@string/app_name" />
 
-            </RelativeLayout>
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="24dp">
 
-        </LinearLayout>
+                    <TextView
+                            android:id="@+id/user_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:textSize="24sp"
+                            android:textColor="@color/dark"
+                            android:text="@string/name_surname_title"
+                            android:ellipsize="end"
+                            android:maxLines="1" />
 
-        <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                </RelativeLayout>
 
-            <ScrollView
+            </LinearLayout>
+
+            <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                <LinearLayout
+                <ScrollView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:layout_height="match_parent">
 
-                    <RelativeLayout
-                            android:id="@+id/numero_fisso_container"
+                    <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingLeft="16dp"
-                            android:paddingRight="16dp">
+                            android:orientation="vertical">
+
+                        <RelativeLayout
+                                android:id="@+id/numero_fisso_container"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="16dp"
+                                android:paddingRight="16dp">
+
+                            <TextView
+                                    android:id="@+id/key_numero_fisso"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="16dp"
+                                    android:layout_marginBottom="16dp"
+                                    android:layout_marginEnd="20dp"
+                                    android:layout_alignParentStart="true"
+                                    android:text="Numero fisso"
+                                    android:textColor="@color/dark"
+                                    android:textStyle="bold"
+                                    android:textSize="16sp" />
+
+                            <TextView
+                                    android:id="@+id/value_numero_fisso"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="16dp"
+                                    android:layout_marginBottom="16dp"
+                                    android:layout_alignParentEnd="true"
+                                    android:text="0818183301"
+                                    android:layout_toEndOf="@+id/key_numero_fisso"
+                                    android:gravity="end"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="16sp"
+                                    android:ellipsize="end"
+                                    android:maxLines="2" />
+
+                            <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="@color/grey_1"
+                                    android:layout_alignParentBottom="true" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                                android:id="@+id/cellulare_container"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="16dp"
+                                android:paddingRight="16dp">
+
+                            <TextView
+                                    android:id="@+id/key_cellulare"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="16dp"
+                                    android:layout_marginBottom="16dp"
+                                    android:layout_marginEnd="20dp"
+                                    android:layout_alignParentStart="true"
+                                    android:text="Cellulare"
+                                    android:textColor="@color/dark"
+                                    android:textStyle="bold"
+                                    android:textSize="16sp" />
+
+                            <TextView
+                                    android:id="@+id/value_cellulare"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="16dp"
+                                    android:layout_marginBottom="16dp"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_toEndOf="@+id/key_cellulare"
+                                    android:text="3331582355"
+                                    android:gravity="end"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="16sp"
+                                    android:ellipsize="end"
+                                    android:maxLines="2" />
+
+                            <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="@color/grey_1"
+                                    android:layout_alignParentBottom="true" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                                android:id="@+id/email_container"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="16dp"
+                                android:paddingRight="16dp">
+
+                            <TextView
+                                    android:id="@+id/key_mail"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="16dp"
+                                    android:layout_marginBottom="16dp"
+                                    android:layout_marginEnd="20dp"
+                                    android:layout_alignParentStart="true"
+                                    android:text="Mail"
+                                    android:textColor="@color/dark"
+                                    android:textStyle="bold"
+                                    android:textSize="16sp" />
+
+                            <TextView
+                                    android:id="@+id/value_mail"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="16dp"
+                                    android:layout_marginBottom="16dp"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_toEndOf="@+id/key_mail"
+                                    android:text="giovanni.petito88@gmail.com"
+                                    android:gravity="end"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="16sp"
+                                    android:ellipsize="end"
+                                    android:maxLines="2" />
+
+                            <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="@color/grey_1"
+                                    android:layout_alignParentBottom="true" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                                android:id="@+id/indirizzo_container"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="16dp"
+                                android:paddingRight="16dp">
+
+                            <TextView
+                                    android:id="@+id/key_indirizzo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="16dp"
+                                    android:layout_marginBottom="16dp"
+                                    android:layout_marginEnd="20dp"
+                                    android:layout_alignParentStart="true"
+                                    android:text="Indirizzo"
+                                    android:textColor="@color/dark"
+                                    android:textStyle="bold"
+                                    android:textSize="16sp" />
+
+                            <TextView
+                                    android:id="@+id/value_indirizzo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="16dp"
+                                    android:layout_marginBottom="16dp"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_toEndOf="@+id/key_indirizzo"
+                                    android:text="Via Casoretto 60, Milano"
+                                    android:gravity="end"
+                                    android:textColor="@color/dark"
+                                    android:textSize="16sp"
+                                    android:ellipsize="end"
+                                    android:maxLines="2" />
+
+                            <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="@color/grey_1"
+                                    android:layout_alignParentBottom="true" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                                android:id="@+id/occupazione_container"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="16dp"
+                                android:paddingRight="16dp">
+
+                            <TextView
+                                    android:id="@+id/key_occupazione"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="16dp"
+                                    android:layout_marginBottom="16dp"
+                                    android:layout_marginEnd="20dp"
+                                    android:layout_alignParentStart="true"
+                                    android:text="Occupazione"
+                                    android:textColor="@color/dark"
+                                    android:textStyle="bold"
+                                    android:textSize="16sp" />
+
+                            <TextView
+                                    android:id="@+id/value_occupazione"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="16dp"
+                                    android:layout_marginBottom="16dp"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_toEndOf="@+id/key_occupazione"
+                                    android:text="Android Developer"
+                                    android:gravity="end"
+                                    android:textColor="@color/dark"
+                                    android:textSize="16sp"
+                                    android:ellipsize="end"
+                                    android:maxLines="2" />
+
+                            <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="@color/grey_1"
+                                    android:layout_alignParentBottom="true" />
+
+                        </RelativeLayout>
 
                         <TextView
-                                android:id="@+id/key_numero_fisso"
+                                android:id="@+id/show_contacts"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="16dp"
-                                android:layout_marginBottom="16dp"
-                                android:layout_marginEnd="20dp"
-                                android:layout_alignParentStart="true"
-                                android:text="Numero fisso"
-                                android:textColor="@color/dark"
-                                android:textStyle="bold"
+                                android:layout_gravity="center"
+                                android:text="Mostra i contatti della rubrica"
+                                android:textColor="@color/verde"
                                 android:textSize="16sp" />
 
-                        <TextView
-                                android:id="@+id/value_numero_fisso"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
-                                android:layout_marginBottom="16dp"
-                                android:layout_alignParentEnd="true"
-                                android:text="0818183301"
-                                android:layout_toEndOf="@+id/key_numero_fisso"
-                                android:gravity="end"
-                                android:textColor="@color/colorPrimary"
-                                android:textSize="16sp"
-                                android:ellipsize="end"
-                                android:maxLines="2" />
+                    </LinearLayout>
 
-                        <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="@color/grey_1"
-                                android:layout_alignParentBottom="true" />
+                </ScrollView>
 
-                    </RelativeLayout>
+            </FrameLayout>
 
-                    <RelativeLayout
-                            android:id="@+id/cellulare_container"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="16dp"
-                            android:paddingRight="16dp">
+        </LinearLayout>
 
-                        <TextView
-                                android:id="@+id/key_cellulare"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
-                                android:layout_marginBottom="16dp"
-                                android:layout_marginEnd="20dp"
-                                android:layout_alignParentStart="true"
-                                android:text="Cellulare"
-                                android:textColor="@color/dark"
-                                android:textStyle="bold"
-                                android:textSize="16sp" />
+        <include layout="@layout/bottom_sheet_layout" />
 
-                        <TextView
-                                android:id="@+id/value_cellulare"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
-                                android:layout_marginBottom="16dp"
-                                android:layout_alignParentEnd="true"
-                                android:layout_toEndOf="@+id/key_cellulare"
-                                android:text="3331582355"
-                                android:gravity="end"
-                                android:textColor="@color/colorPrimary"
-                                android:textSize="16sp"
-                                android:ellipsize="end"
-                                android:maxLines="2" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-                        <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="@color/grey_1"
-                                android:layout_alignParentBottom="true" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                            android:id="@+id/email_container"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="16dp"
-                            android:paddingRight="16dp">
-
-                        <TextView
-                                android:id="@+id/key_mail"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
-                                android:layout_marginBottom="16dp"
-                                android:layout_marginEnd="20dp"
-                                android:layout_alignParentStart="true"
-                                android:text="Mail"
-                                android:textColor="@color/dark"
-                                android:textStyle="bold"
-                                android:textSize="16sp" />
-
-                        <TextView
-                                android:id="@+id/value_mail"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
-                                android:layout_marginBottom="16dp"
-                                android:layout_alignParentEnd="true"
-                                android:layout_toEndOf="@+id/key_mail"
-                                android:text="giovanni.petito88@gmail.com"
-                                android:gravity="end"
-                                android:textColor="@color/colorPrimary"
-                                android:textSize="16sp"
-                                android:ellipsize="end"
-                                android:maxLines="2" />
-
-                        <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="@color/grey_1"
-                                android:layout_alignParentBottom="true" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                            android:id="@+id/indirizzo_container"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="16dp"
-                            android:paddingRight="16dp">
-
-                        <TextView
-                                android:id="@+id/key_indirizzo"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
-                                android:layout_marginBottom="16dp"
-                                android:layout_marginEnd="20dp"
-                                android:layout_alignParentStart="true"
-                                android:text="Indirizzo"
-                                android:textColor="@color/dark"
-                                android:textStyle="bold"
-                                android:textSize="16sp" />
-
-                        <TextView
-                                android:id="@+id/value_indirizzo"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
-                                android:layout_marginBottom="16dp"
-                                android:layout_alignParentEnd="true"
-                                android:layout_toEndOf="@+id/key_indirizzo"
-                                android:text="Via Casoretto 60, Milano"
-                                android:gravity="end"
-                                android:textColor="@color/dark"
-                                android:textSize="16sp"
-                                android:ellipsize="end"
-                                android:maxLines="2" />
-
-                        <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="@color/grey_1"
-                                android:layout_alignParentBottom="true" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                            android:id="@+id/occupazione_container"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="16dp"
-                            android:paddingRight="16dp">
-
-                        <TextView
-                                android:id="@+id/key_occupazione"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
-                                android:layout_marginBottom="16dp"
-                                android:layout_marginEnd="20dp"
-                                android:layout_alignParentStart="true"
-                                android:text="Occupazione"
-                                android:textColor="@color/dark"
-                                android:textStyle="bold"
-                                android:textSize="16sp" />
-
-                        <TextView
-                                android:id="@+id/value_occupazione"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
-                                android:layout_marginBottom="16dp"
-                                android:layout_alignParentEnd="true"
-                                android:layout_toEndOf="@+id/key_occupazione"
-                                android:text="Android Developer"
-                                android:gravity="end"
-                                android:textColor="@color/dark"
-                                android:textSize="16sp"
-                                android:ellipsize="end"
-                                android:maxLines="2" />
-
-                        <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="@color/grey_1"
-                                android:layout_alignParentBottom="true" />
-
-                    </RelativeLayout>
-
-                    <TextView
-                            android:id="@+id/show_contacts"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:layout_gravity="center"
-                            android:text="Mostra i contatti della rubrica"
-                            android:textColor="@color/verde"
-                            android:textSize="16sp" />
-
-                </LinearLayout>
-
-            </ScrollView>
-
-        </FrameLayout>
-
-    </LinearLayout>
-
-    <include layout="@layout/bottom_sheet_layout" />
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

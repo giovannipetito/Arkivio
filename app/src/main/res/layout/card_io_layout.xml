@@ -1,224 +1,330 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
+    <data>
+        <variable
+                name="temp"
+                type="it.giovanni.arkivio.model.DarkModeModel" />
+
+        <variable
+                name="presenter"
+                type="it.giovanni.arkivio.presenter.DarkModePresenter" />
+    </data>
+
+    <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-        <ScrollView
+        <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layout_marginBottom="132dp">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <LinearLayout
+            <ScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:orientation="vertical">
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="132dp">
 
                 <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:padding="16dp"
+                        android:orientation="vertical">
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                        <CheckBox
+                                android:id="@+id/expiry"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.4"
+                                android:padding="6dp"
+                                android:text="@string/expiry"
+                                android:textColor="@color/grey_3"
+                                android:button="@drawable/checkbox_selector" />
+
+                        <CheckBox
+                                android:id="@+id/scan_expiry"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.6"
+                                android:padding="6dp"
+                                android:text="@string/scan_expiry"
+                                android:textColor="@color/grey_3"
+                                android:checked="true"
+                                android:button="@drawable/checkbox_selector" />
+
+                    </LinearLayout>
 
                     <CheckBox
-                            android:id="@+id/expiry"
-                            android:layout_width="0dp"
+                            android:id="@+id/cvv"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.4"
                             android:padding="6dp"
-                            android:text="@string/expiry"
+                            android:text="@string/cvv"
                             android:textColor="@color/grey_3"
                             android:button="@drawable/checkbox_selector" />
 
                     <CheckBox
-                            android:id="@+id/scan_expiry"
-                            android:layout_width="0dp"
+                            android:id="@+id/postal_code"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.6"
                             android:padding="6dp"
-                            android:text="@string/scan_expiry"
+                            android:text="@string/postal_code"
                             android:textColor="@color/grey_3"
-                            android:checked="true"
                             android:button="@drawable/checkbox_selector" />
+
+                    <CheckBox
+                            android:id="@+id/use_card_io_logo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="6dp"
+                            android:text="@string/use_card_io_logo"
+                            android:textColor="@color/grey_3"
+                            android:button="@drawable/checkbox_selector" />
+
+                    <CheckBox
+                            android:id="@+id/cardholder_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="6dp"
+                            android:text="@string/cardholder_name"
+                            android:textColor="@color/grey_3"
+                            android:button="@drawable/checkbox_selector" />
+
+                    <CheckBox
+                            android:id="@+id/suppress_confirmation"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="6dp"
+                            android:text="@string/suppress_confirmation"
+                            android:textColor="@color/grey_3"
+                            android:button="@drawable/checkbox_selector" />
+
+                    <CheckBox
+                            android:id="@+id/bypass_the_scan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="6dp"
+                            android:text="@string/bypass_the_scan"
+                            android:textColor="@color/grey_3"
+                            android:button="@drawable/checkbox_selector" />
+
+                    <CheckBox
+                            android:id="@+id/keep_application_theme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="6dp"
+                            android:text="@string/keep_application_theme"
+                            android:textColor="@color/grey_3"
+                            android:button="@drawable/checkbox_selector" />
+
+                    <CheckBox
+                            android:id="@+id/suppress_keyboard_icon"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="6dp"
+                            android:text="@string/suppress_keyboard_icon"
+                            android:textColor="@color/grey_3"
+                            android:button="@drawable/checkbox_selector" />
+
+                    <CheckBox
+                            android:id="@+id/suppress_scan_info"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="6dp"
+                            android:text="@string/suppress_scan_info"
+                            android:textColor="@color/grey_3"
+                            android:button="@drawable/checkbox_selector" />
+
+                    <CheckBox
+                            android:id="@+id/postal_code_numeric"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="6dp"
+                            android:text="@string/postal_code_numeric"
+                            android:textColor="@color/grey_3"
+                            android:button="@drawable/checkbox_selector" />
+
+                    <CheckBox
+                            android:id="@+id/show_paypal_action_bar_icon"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="6dp"
+                            android:text="@string/show_paypal_action_bar_icon"
+                            android:textColor="@color/grey_3"
+                            android:button="@drawable/checkbox_selector" />
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="@dimen/dimen_16dp">
+
+                        <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.5"
+                                android:text="@string/select_language"
+                                android:textColor="@color/grey_3"
+                                android:gravity="center" />
+
+                        <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.5"
+                                android:text="@string/unblurred_digits"
+                                android:textColor="@color/grey_3"
+                                android:gravity="center" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                        <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.5">
+
+                            <RelativeLayout
+                                    android:id="@+id/spinner_container"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true">
+
+                                <it.giovanni.arkivio.customview.AppCompatSpinnerCustom
+                                        android:id="@+id/language_spinner"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:layout_margin="12dp"
+                                        android:overlapAnchor="false"
+                                        android:background="@drawable/spinner_background_down" />
+
+                            </RelativeLayout>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.5">
+
+                            <NumberPicker
+                                    android:id="@+id/picker_unblurred_digits"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true" />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                        <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.7">
+
+                            <TextView
+                                    android:id="@+id/card_info"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_centerVertical="true"
+                                    android:textColor="@color/colorPrimary" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.3">
+
+                            <ImageView
+                                    android:id="@+id/card_type_image"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_centerVertical="true"
+                                    android:contentDescription="@string/app_name" />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <ImageView
+                            android:id="@+id/card_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/app_name" />
 
                 </LinearLayout>
 
-                <CheckBox
-                        android:id="@+id/cvv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="6dp"
-                        android:text="@string/cvv"
-                        android:textColor="@color/grey_3"
-                        android:button="@drawable/checkbox_selector" />
+            </ScrollView>
 
-                <CheckBox
-                        android:id="@+id/postal_code"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="6dp"
-                        android:text="@string/postal_code"
-                        android:textColor="@color/grey_3"
-                        android:button="@drawable/checkbox_selector" />
+        </LinearLayout>
 
-                <CheckBox
-                        android:id="@+id/use_card_io_logo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="6dp"
-                        android:text="@string/use_card_io_logo"
-                        android:textColor="@color/grey_3"
-                        android:button="@drawable/checkbox_selector" />
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true">
 
-                <CheckBox
-                        android:id="@+id/cardholder_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="6dp"
-                        android:text="@string/cardholder_name"
-                        android:textColor="@color/grey_3"
-                        android:button="@drawable/checkbox_selector" />
+            <View
+                    android:id="@+id/top_shadow"
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp"
+                    android:background="@drawable/shadow_top" />
 
-                <CheckBox
-                        android:id="@+id/suppress_confirmation"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="6dp"
-                        android:text="@string/suppress_confirmation"
-                        android:textColor="@color/grey_3"
-                        android:button="@drawable/checkbox_selector" />
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/top_shadow"
+                    android:background="@color/colorAccent">
 
-                <CheckBox
-                        android:id="@+id/bypass_the_scan"
+                <Button
+                        android:id="@+id/button_scan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="6dp"
-                        android:text="@string/bypass_the_scan"
-                        android:textColor="@color/grey_3"
-                        android:button="@drawable/checkbox_selector" />
-
-                <CheckBox
-                        android:id="@+id/keep_application_theme"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="6dp"
-                        android:text="@string/keep_application_theme"
-                        android:textColor="@color/grey_3"
-                        android:button="@drawable/checkbox_selector" />
-
-                <CheckBox
-                        android:id="@+id/suppress_keyboard_icon"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="6dp"
-                        android:text="@string/suppress_keyboard_icon"
-                        android:textColor="@color/grey_3"
-                        android:button="@drawable/checkbox_selector" />
-
-                <CheckBox
-                        android:id="@+id/suppress_scan_info"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="6dp"
-                        android:text="@string/suppress_scan_info"
-                        android:textColor="@color/grey_3"
-                        android:button="@drawable/checkbox_selector" />
-
-                <CheckBox
-                        android:id="@+id/postal_code_numeric"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="6dp"
-                        android:text="@string/postal_code_numeric"
-                        android:textColor="@color/grey_3"
-                        android:button="@drawable/checkbox_selector" />
-
-                <CheckBox
-                        android:id="@+id/show_paypal_action_bar_icon"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="6dp"
-                        android:text="@string/show_paypal_action_bar_icon"
-                        android:textColor="@color/grey_3"
-                        android:button="@drawable/checkbox_selector" />
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="@string/scan_credit_card"
+                        style="@style/ButtonNormalDarkMode" />
 
                 <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginTop="@dimen/dimen_16dp">
-
-                    <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
-                            android:text="@string/select_language"
-                            android:textColor="@color/grey_3"
-                            android:gravity="center" />
-
-                    <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
-                            android:text="@string/unblurred_digits"
-                            android:textColor="@color/grey_3"
-                            android:gravity="center" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_below="@+id/button_scan">
 
                     <RelativeLayout
                             android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.5">
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.3">
 
-                        <RelativeLayout
-                                android:id="@+id/spinner_container"
+                        <TextView
+                                android:id="@+id/library_version"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_centerInParent="true">
-
-                            <it.giovanni.arkivio.customview.AppCompatSpinnerCustom
-                                    android:id="@+id/language_spinner"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerInParent="true"
-                                    android:layout_margin="12dp"
-                                    android:overlapAnchor="false"
-                                    android:background="@drawable/spinner_background_down" />
-
-                        </RelativeLayout>
+                                android:layout_marginTop="16dp"
+                                android:textColor="@color/grey_3" />
 
                     </RelativeLayout>
-
-                    <RelativeLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.5">
-
-                        <NumberPicker
-                                android:id="@+id/picker_unblurred_digits"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true" />
-
-                    </RelativeLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
 
                     <RelativeLayout
                             android:layout_width="0dp"
@@ -226,112 +332,20 @@
                             android:layout_weight="0.7">
 
                         <TextView
-                                android:id="@+id/card_info"
+                                android:id="@+id/build_date"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentStart="true"
-                                android:layout_centerVertical="true"
-                                android:textColor="@color/colorPrimary" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.3">
-
-                        <ImageView
-                                android:id="@+id/card_type_image"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentStart="true"
-                                android:layout_centerVertical="true"
-                                android:contentDescription="@string/app_name" />
+                                android:layout_marginTop="16dp"
+                                android:textColor="@color/grey_3" />
 
                     </RelativeLayout>
 
                 </LinearLayout>
 
-                <ImageView
-                        android:id="@+id/card_image"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/app_name" />
-
-            </LinearLayout>
-
-        </ScrollView>
-
-    </LinearLayout>
-
-    <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true">
-
-        <View
-                android:id="@+id/top_shadow"
-                android:layout_width="match_parent"
-                android:layout_height="16dp"
-                android:background="@drawable/shadow_top" />
-
-        <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/top_shadow"
-                android:background="@color/colorAccent">
-
-            <Button
-                    android:id="@+id/button_scan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/scan_credit_card"
-                    style="@style/ButtonNormalDarkMode" />
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_below="@+id/button_scan">
-
-                <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.3">
-
-                    <TextView
-                            android:id="@+id/library_version"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:textColor="@color/grey_3" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.7">
-
-                    <TextView
-                            android:id="@+id/build_date"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:textColor="@color/grey_3" />
-
-                </RelativeLayout>
-
-            </LinearLayout>
+            </RelativeLayout>
 
         </RelativeLayout>
 
     </RelativeLayout>
 
-</RelativeLayout>
+</layout>

@@ -1,90 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
+    <data>
+        <variable
+                name="temp"
+                type="it.giovanni.arkivio.model.DarkModeModel" />
+
+        <variable
+                name="presenter"
+                type="it.giovanni.arkivio.presenter.DarkModePresenter" />
+    </data>
+
+    <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        <View
-                android:id="@+id/divider_top"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/dark" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
         <RelativeLayout
-                android:id="@+id/edit_search_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/grey_1"
-                android:minHeight="50dp"
-                android:layout_below="@+id/divider_top">
+                android:layout_height="wrap_content">
 
-            <ImageView
-                    android:id="@+id/img_attachment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="9dp"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ico_add_floating_button"
-                    android:contentDescription="@string/app_name"
-                    app:tint="@color/dark" />
-            <!-- ico_chat_plus (e eliminare app:tint="@color/dark") -->
+            <View
+                    android:id="@+id/divider_top"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/dark" />
 
             <RelativeLayout
+                    android:id="@+id/edit_search_container"
                     android:layout_width="match_parent"
-                    android:layout_height="34dp"
-                    android:layout_marginStart="11dp"
-                    android:layout_marginEnd="9dp"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/round_corner_1"
-                    android:layout_toEndOf="@+id/img_attachment">
-
-                <EditText
-                        android:id="@+id/edit_search"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="30dp"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentStart="true"
-                        android:hint="@string/edit_search"
-                        android:background="@drawable/edittext_background"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:imeOptions="actionSearch"
-                        android:inputType="textPersonName"
-                        android:autofillHints="@string/edit_search" />
+                    android:layout_height="wrap_content"
+                    android:background="@color/grey_1"
+                    android:minHeight="50dp"
+                    android:layout_below="@+id/divider_top">
 
                 <ImageView
-                        android:id="@+id/arrow_search"
+                        android:id="@+id/img_attachment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="9dp"
                         android:layout_centerVertical="true"
-                        android:layout_alignParentEnd="true"
-                        android:background="@drawable/ico_close_menu"
-                        android:contentDescription="@string/app_name" />
-                <!-- ico_chat_next_disabled -->
+                        android:src="@drawable/ico_add_floating_button"
+                        android:contentDescription="@string/app_name"
+                        app:tint="@color/dark" />
+                <!-- ico_chat_plus (e eliminare app:tint="@color/dark") -->
+
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="34dp"
+                        android:layout_marginStart="11dp"
+                        android:layout_marginEnd="9dp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/round_corner_1"
+                        android:layout_toEndOf="@+id/img_attachment">
+
+                    <EditText
+                            android:id="@+id/edit_search"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="30dp"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentStart="true"
+                            android:hint="@string/edit_search"
+                            android:background="@drawable/edittext_background"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:imeOptions="actionSearch"
+                            android:inputType="textPersonName"
+                            android:autofillHints="@string/edit_search" />
+
+                    <ImageView
+                            android:id="@+id/arrow_search"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentEnd="true"
+                            android:background="@drawable/ico_close_menu"
+                            android:contentDescription="@string/app_name" />
+                    <!-- ico_chat_next_disabled -->
+
+                </RelativeLayout>
 
             </RelativeLayout>
 
+            <View
+                    android:id="@+id/divider_bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/dark"
+                    android:layout_below="@+id/edit_search_container" />
+
         </RelativeLayout>
 
-        <View
-                android:id="@+id/divider_bottom"
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_video"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/dark"
-                android:layout_below="@+id/edit_search_container" />
+                android:layout_height="match_parent"
+                android:dividerHeight="5dp" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview_video"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:dividerHeight="5dp" />
-
-</LinearLayout>
+</layout>

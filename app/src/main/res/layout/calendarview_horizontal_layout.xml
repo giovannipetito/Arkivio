@@ -1,93 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:clickable="true"
-        android:focusable="true">
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+                name="temp"
+                type="it.giovanni.arkivio.model.DarkModeModel" />
+
+        <variable
+                name="presenter"
+                type="it.giovanni.arkivio.presenter.DarkModePresenter" />
+    </data>
 
     <LinearLayout
-            android:id="@+id/calendarview_horizontal_legend"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true">
 
-        <it.giovanni.arkivio.customview.TextViewCustom
-                android:layout_width="0dp"
+        <LinearLayout
+                android:id="@+id/calendarview_horizontal_legend"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textColor="@color/black_1"
-                android:textSize="14sp"
-                tools:text="LUN" />
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
 
-        <it.giovanni.arkivio.customview.TextViewCustom
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textColor="@color/black_1"
-                android:textSize="14sp"
-                tools:text="MAR" />
+            <it.giovanni.arkivio.customview.TextViewCustom
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/black_1"
+                    android:textSize="14sp"
+                    tools:text="LUN" />
 
-        <it.giovanni.arkivio.customview.TextViewCustom
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textColor="@color/black_1"
-                android:textSize="14sp"
-                tools:text="MER" />
+            <it.giovanni.arkivio.customview.TextViewCustom
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/black_1"
+                    android:textSize="14sp"
+                    tools:text="MAR" />
 
-        <it.giovanni.arkivio.customview.TextViewCustom
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textColor="@color/black_1"
-                android:textSize="14sp"
-                tools:text="GIO" />
+            <it.giovanni.arkivio.customview.TextViewCustom
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/black_1"
+                    android:textSize="14sp"
+                    tools:text="MER" />
 
-        <it.giovanni.arkivio.customview.TextViewCustom
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textColor="@color/black_1"
-                android:textSize="14sp"
-                tools:text="VEN" />
+            <it.giovanni.arkivio.customview.TextViewCustom
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/black_1"
+                    android:textSize="14sp"
+                    tools:text="GIO" />
 
-        <it.giovanni.arkivio.customview.TextViewCustom
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textColor="@color/black_1"
-                android:textSize="14sp"
-                tools:text="SAB" />
+            <it.giovanni.arkivio.customview.TextViewCustom
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/black_1"
+                    android:textSize="14sp"
+                    tools:text="VEN" />
 
-        <it.giovanni.arkivio.customview.TextViewCustom
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textColor="@color/black_1"
-                android:textSize="14sp"
-                tools:text="DOM" />
+            <it.giovanni.arkivio.customview.TextViewCustom
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/black_1"
+                    android:textSize="14sp"
+                    tools:text="SAB" />
+
+            <it.giovanni.arkivio.customview.TextViewCustom
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/black_1"
+                    android:textSize="14sp"
+                    tools:text="DOM" />
+
+        </LinearLayout>
+
+        <it.giovanni.arkivio.customview.calendarview.CalendarView
+                android:id="@+id/calendarview_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cv_month_header="@layout/calendarview_horizontal_header"
+                app:cv_day_item="@layout/calendarview_horizontal_item"
+                app:cv_orientation="horizontal"
+                app:cv_scroll_mode="paged" />
 
     </LinearLayout>
 
-    <it.giovanni.arkivio.customview.calendarview.CalendarView
-            android:id="@+id/calendarview_horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:cv_month_header="@layout/calendarview_horizontal_header"
-            app:cv_day_item="@layout/calendarview_horizontal_item"
-            app:cv_orientation="horizontal"
-            app:cv_scroll_mode="paged" />
-
-</LinearLayout>
+</layout>

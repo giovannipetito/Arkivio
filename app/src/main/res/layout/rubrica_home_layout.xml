@@ -1,127 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true"
-        android:focusable="true">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <data>
+        <variable
+                name="temp"
+                type="it.giovanni.arkivio.model.DarkModeModel" />
+
+        <variable
+                name="presenter"
+                type="it.giovanni.arkivio.presenter.DarkModePresenter" />
+    </data>
+
+    <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:clickable="true"
+            android:focusable="true">
 
-        <RelativeLayout
-                android:id="@+id/users_container"
+        <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="50dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
             <RelativeLayout
-                    android:id="@+id/ico_users"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp">
-
-                <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/ico_users"
-                        android:contentDescription="@string/app_name" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                    android:id="@+id/flexboxlayout_container"
+                    android:id="@+id/users_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="50dp"
-                    android:layout_marginStart="18dp"
-                    android:layout_toEndOf="@+id/ico_users">
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp">
 
-                <ScrollView
+                <RelativeLayout
+                        android:id="@+id/ico_users"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp">
+
+                    <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ico_users"
+                            android:contentDescription="@string/app_name" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                        android:id="@+id/flexboxlayout_container"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:clickable="true"
-                        android:focusable="true">
+                        android:minHeight="50dp"
+                        android:layout_marginStart="18dp"
+                        android:layout_toEndOf="@+id/ico_users">
 
-                    <com.google.android.flexbox.FlexboxLayout
-                            android:id="@+id/flexbox_layout_users"
+                    <ScrollView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:alignItems="flex_start"
-                            android:visibility="gone"
-                            app:flexDirection="row"
-                            app:flexWrap="wrap" />
+                            android:layout_centerVertical="true"
+                            android:clickable="true"
+                            android:focusable="true">
 
-                </ScrollView>
+                        <com.google.android.flexbox.FlexboxLayout
+                                android:id="@+id/flexbox_layout_users"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:alignItems="flex_start"
+                                android:visibility="gone"
+                                app:flexDirection="row"
+                                app:flexWrap="wrap" />
 
-                <TextView
-                        android:id="@+id/users_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="6dp"
-                        android:ellipsize="end"
-                        android:hint="@string/add_users"
-                        android:maxLines="1"
-                        android:textColor="@color/dark"
-                        android:textColorHint="@color/grey_2"
-                        android:textSize="16sp"
-                        android:visibility="visible" />
+                    </ScrollView>
+
+                    <TextView
+                            android:id="@+id/users_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="6dp"
+                            android:ellipsize="end"
+                            android:hint="@string/add_users"
+                            android:maxLines="1"
+                            android:textColor="@color/dark"
+                            android:textColorHint="@color/grey_2"
+                            android:textSize="16sp"
+                            android:visibility="visible" />
+
+                </RelativeLayout>
 
             </RelativeLayout>
 
-        </RelativeLayout>
-
-        <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="58dp"
-                android:layout_marginEnd="16dp">
-
-            <View android:layout_width="match_parent"
+            <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/grey_1" />
+                    android:layout_marginStart="58dp"
+                    android:layout_marginEnd="16dp">
 
-        </RelativeLayout>
+                <View android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/grey_1" />
 
-    </LinearLayout>
+            </RelativeLayout>
 
-    <Button
-            android:id="@+id/init_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="@string/get_init_users"
-            android:layout_above="@+id/json_button"
-            android:layout_centerHorizontal="true"
-            style="@style/ButtonEmptyDarkMode" />
+        </LinearLayout>
 
-    <Button
-            android:id="@+id/json_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="@string/get_json_users"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            style="@style/ButtonEmptyDarkMode" />
+        <Button
+                android:id="@+id/init_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@string/get_init_users"
+                android:layout_above="@+id/json_button"
+                android:layout_centerHorizontal="true"
+                style="@style/ButtonEmptyDarkMode" />
 
-    <it.giovanni.arkivio.customview.ButtonCustom
-            android:id="@+id/realtime_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="@string/get_realtime_users"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/json_button"
-            style="@style/ButtonEmptyDarkMode" />
+        <Button
+                android:id="@+id/json_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@string/get_json_users"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                style="@style/ButtonEmptyDarkMode" />
 
-</RelativeLayout>
+        <it.giovanni.arkivio.customview.ButtonCustom
+                android:id="@+id/realtime_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@string/get_realtime_users"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/json_button"
+                style="@style/ButtonEmptyDarkMode" />
+
+    </RelativeLayout>
+
+</layout>

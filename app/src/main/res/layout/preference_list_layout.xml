@@ -1,38 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+    <data>
+        <variable
+                name="temp"
+                type="it.giovanni.arkivio.model.DarkModeModel" />
 
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/search_checkbox_recyclerview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingBottom="60dp"
-                android:clipToPadding="false" />
-
-    </LinearLayout>
+        <variable
+                name="presenter"
+                type="it.giovanni.arkivio.presenter.DarkModePresenter" />
+    </data>
 
     <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@color/grey_1"
-            android:layout_alignParentBottom="true">
+            android:layout_height="match_parent">
 
-        <Button
-                android:id="@+id/button_user_preference"
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_centerInParent="true"
-                android:text="@string/button_confirm"
-                android:enabled="false"
-                style="@style/ButtonNormalDarkMode" />
+                android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/search_checkbox_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="60dp"
+                    android:clipToPadding="false" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@color/grey_1"
+                android:layout_alignParentBottom="true">
+
+            <Button
+                    android:id="@+id/button_user_preference"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_centerInParent="true"
+                    android:text="@string/button_confirm"
+                    android:enabled="false"
+                    style="@style/ButtonNormalDarkMode" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
-</RelativeLayout>
+</layout>

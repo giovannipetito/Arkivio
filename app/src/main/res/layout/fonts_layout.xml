@@ -1,167 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
+    <data>
+        <variable
+                name="temp"
+                type="it.giovanni.arkivio.model.DarkModeModel" />
+
+        <variable
+                name="presenter"
+                type="it.giovanni.arkivio.presenter.DarkModePresenter" />
+    </data>
+
+    <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-        <TextView
-                android:layout_width="wrap_content"
+        <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:textColor="@color/azzurro"
-                android:text="TextView textStyle italic"
-                android:textSize="14sp"
-                android:textStyle="italic" />
+                android:layout_margin="12dp"
+                android:orientation="vertical">
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:textColor="@color/azzurro"
-                android:text="TextView textStyle normal"
-                android:textSize="14sp"
-                android:textStyle="normal" />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:textColor="@color/azzurro"
+                    android:text="TextView textStyle italic"
+                    android:textSize="14sp"
+                    android:textStyle="italic" />
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:textColor="@color/azzurro"
-                android:text="TextView textStyle bold"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:textColor="@color/azzurro"
+                    android:text="TextView textStyle normal"
+                    android:textSize="14sp"
+                    android:textStyle="normal" />
 
-        <it.giovanni.arkivio.customview.TextViewCustom
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:textColor="@color/azzurro"
-                android:text="TextViewCustom textStyle italic (fira_light)"
-                android:textSize="14sp"
-                android:textStyle="italic" />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:textColor="@color/azzurro"
+                    android:text="TextView textStyle bold"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
-        <it.giovanni.arkivio.customview.TextViewCustom
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:textColor="@color/azzurro"
-                android:text="TextViewCustom textStyle normal (fira_regular)"
-                android:textSize="14sp"
-                android:textStyle="normal" />
+            <it.giovanni.arkivio.customview.TextViewCustom
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:textColor="@color/azzurro"
+                    android:text="TextViewCustom textStyle italic (fira_light)"
+                    android:textSize="14sp"
+                    android:textStyle="italic" />
 
-        <it.giovanni.arkivio.customview.TextViewCustom
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:textColor="@color/azzurro"
-                android:text="TextViewCustom textStyle bold (fira_medium)"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+            <it.giovanni.arkivio.customview.TextViewCustom
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:textColor="@color/azzurro"
+                    android:text="TextViewCustom textStyle normal (fira_regular)"
+                    android:textSize="14sp"
+                    android:textStyle="normal" />
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:textColor="@color/azzurro"
-                android:text="TextView fontFamily montserrat_light"
-                android:textSize="14sp"
-                android:fontFamily="@font/montserrat_light" />
+            <it.giovanni.arkivio.customview.TextViewCustom
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:textColor="@color/azzurro"
+                    android:text="TextViewCustom textStyle bold (fira_medium)"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:textColor="@color/azzurro"
-                android:text="TextView fontFamily montserrat_regular"
-                android:textSize="14sp"
-                android:fontFamily="@font/montserrat_regular" />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:textColor="@color/azzurro"
+                    android:text="TextView fontFamily montserrat_light"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/montserrat_light" />
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:textColor="@color/azzurro"
-                android:text="TextView fontFamily montserrat_medium"
-                android:textSize="14sp"
-                android:fontFamily="@font/montserrat_medium" />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:textColor="@color/azzurro"
+                    android:text="TextView fontFamily montserrat_regular"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/montserrat_regular" />
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:textColor="@color/azzurro"
-                android:text="TextView fontFamily montserrat_semibold"
-                android:textSize="14sp"
-                android:fontFamily="@font/montserrat_semibold" />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:textColor="@color/azzurro"
+                    android:text="TextView fontFamily montserrat_medium"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/montserrat_medium" />
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:textColor="@color/azzurro"
-                android:text="TextView fontFamily montserrat_bold"
-                android:textSize="14sp"
-                android:fontFamily="@font/montserrat_bold" />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:textColor="@color/azzurro"
+                    android:text="TextView fontFamily montserrat_semibold"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/montserrat_semibold" />
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:textColor="@color/azzurro"
-                android:text="TextView style NunitoLight (nunito_light)"
-                android:textSize="14sp"
-                style="@style/NunitoLight" />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:textColor="@color/azzurro"
+                    android:text="TextView fontFamily montserrat_bold"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/montserrat_bold" />
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:textColor="@color/azzurro"
-                android:text="TextView style NunitoRegular (nunito_regular)"
-                android:textSize="14sp"
-                style="@style/NunitoRegular" />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:textColor="@color/azzurro"
+                    android:text="TextView style NunitoLight (nunito_light)"
+                    android:textSize="14sp"
+                    style="@style/NunitoLight" />
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:textColor="@color/azzurro"
-                android:text="TextView style NunitoSemibold (nunito_semibold)"
-                android:textSize="14sp"
-                style="@style/NunitoSemibold" />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:textColor="@color/azzurro"
+                    android:text="TextView style NunitoRegular (nunito_regular)"
+                    android:textSize="14sp"
+                    style="@style/NunitoRegular" />
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:textColor="@color/azzurro"
-                android:text="TextView style NunitoBold (nunito_bold)"
-                android:textSize="14sp"
-                style="@style/NunitoBold" />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:textColor="@color/azzurro"
+                    android:text="TextView style NunitoSemibold (nunito_semibold)"
+                    android:textSize="14sp"
+                    style="@style/NunitoSemibold" />
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:textColor="@color/azzurro"
-                android:text="TextView style NunitoExtrabold (nunito_extrabold)"
-                android:textSize="14sp"
-                style="@style/NunitoExtrabold" />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:textColor="@color/azzurro"
+                    android:text="TextView style NunitoBold (nunito_bold)"
+                    android:textSize="14sp"
+                    style="@style/NunitoBold" />
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:textColor="@color/azzurro"
-                android:text="TextView style NunitoBlack (nunito_black)"
-                android:textSize="14sp"
-                style="@style/NunitoBlack" />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:textColor="@color/azzurro"
+                    android:text="TextView style NunitoExtrabold (nunito_extrabold)"
+                    android:textSize="14sp"
+                    style="@style/NunitoExtrabold" />
 
-    </LinearLayout>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:textColor="@color/azzurro"
+                    android:text="TextView style NunitoBlack (nunito_black)"
+                    android:textSize="14sp"
+                    style="@style/NunitoBlack" />
 
-</ScrollView>
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>

@@ -72,15 +72,15 @@ dependencies {
 
     // androidx
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'androidx.appcompat:appcompat:1.4.0'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'androidx.biometric:biometric:1.1.0'
     implementation 'androidx.work:work-runtime-ktx:2.7.1'
     implementation 'androidx.preference:preference-ktx:1.1.1'
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    // kapt 'androidx.lifecycle:lifecycle-common-java8:2.4.0'
+    kapt 'androidx.lifecycle:lifecycle-common-java8:2.4.0'
 
     // Core
     implementation 'androidx.core:core-ktx:1.7.0'
@@ -88,19 +88,19 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'
 
     // Room
-    kapt 'androidx.room:room-compiler:2.4.0'
-    implementation 'androidx.room:room-ktx:2.4.0'
-    implementation 'androidx.room:room-runtime:2.4.0'
-    implementation 'androidx.room:room-rxjava2:2.4.0'
-    annotationProcessor 'androidx.room:room-compiler:2.4.0'
+    kapt 'androidx.room:room-compiler:2.4.1'
+    implementation 'androidx.room:room-ktx:2.4.1'
+    implementation 'androidx.room:room-runtime:2.4.1'
+    implementation 'androidx.room:room-rxjava2:2.4.1'
+    annotationProcessor 'androidx.room:room-compiler:2.4.1'
 
     // Material
-    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'com.google.android.material:material:1.5.0'
 
     // Dagger
     implementation 'com.google.dagger:dagger:2.40.5'
-    // kapt 'com.google.dagger:dagger-compiler:2.40.2'
-    // kapt 'com.google.dagger:dagger-android-processor:2.40.2'
+    kapt 'com.google.dagger:dagger-compiler:2.40.2'
+    kapt 'com.google.dagger:dagger-android-processor:2.40.2'
 
     // Navigation
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
@@ -108,21 +108,21 @@ dependencies {
 
     // Google Mobile Services
     implementation 'com.google.android.gms:play-services-gcm:17.0.0'
-    implementation 'com.google.android.gms:play-services-maps:18.0.1'
-    implementation 'com.google.android.gms:play-services-auth:20.0.0'
+    implementation 'com.google.android.gms:play-services-maps:18.0.2'
+    implementation 'com.google.android.gms:play-services-auth:20.0.1'
     implementation 'com.google.android.gms:play-services-plus:17.0.0'
-    implementation 'com.google.android.gms:play-services-nearby:18.0.1'
-    implementation 'com.google.android.gms:play-services-location:19.0.0'
-    implementation 'com.google.android.gms:play-services-analytics:18.0.0'
+    implementation 'com.google.android.gms:play-services-nearby:18.0.2'
+    implementation 'com.google.android.gms:play-services-location:19.0.1'
+    implementation 'com.google.android.gms:play-services-analytics:18.0.1'
 
     // Import the BoM for the Firebase platform. When using the BoM, you don't specify versions in
     // Firebase library dependencies
     implementation platform('com.google.firebase:firebase-bom:29.0.0')
-    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.2.6'
+    implementation 'com.loopj.android:android-async-http:1.4.11' // Firebase Realtime Database
+    implementation 'com.google.firebase:firebase-database-ktx:20.0.3'
     implementation 'com.google.firebase:firebase-analytics-ktx:20.0.2'
     implementation 'com.google.firebase:firebase-messaging-ktx:23.0.0'
-    implementation 'com.google.firebase:firebase-database-ktx:20.0.3'
-    implementation 'com.loopj.android:android-async-http:1.4.11' // Firebase Realtime Database
+    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.2.6'
 
     // GSON
     implementation 'com.google.code.gson:gson:2.8.9'
@@ -154,7 +154,7 @@ dependencies {
     // Airbnb
     implementation 'com.airbnb.android:lottie:4.2.2' // Lottie
     implementation 'com.airbnb.android:paris:2.0.1' // Paris
-    // kapt 'com.airbnb.android:paris-processor:2.0.1' // Paris annotations.
+    kapt 'com.airbnb.android:paris-processor:2.0.1' // Paris annotations.
 
     // card.io
     implementation 'io.card:android-sdk:5.5.1'

@@ -1,57 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/black_1"
-              android:alpha="0.8"
-              android:clickable="true"
-              android:focusable="true">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <RelativeLayout
+    <data>
+        <variable
+                name="temp"
+                type="it.giovanni.arkivio.model.DarkModeModel" />
+
+        <variable
+                name="presenter"
+                type="it.giovanni.arkivio.presenter.DarkModePresenter" />
+    </data>
+
+    <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/black_1"
+            android:alpha="0.8"
+            android:clickable="true"
+            android:focusable="true">
 
         <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp">
+                android:layout_height="match_parent">
 
             <RelativeLayout
-                    android:id="@+id/ico_close_container"
-                    android:layout_width="48dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true">
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
 
-                <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="12dp"
-                        android:background="@drawable/ico_close_rvd"
-                        android:contentDescription="@string/app_name" />
+                <RelativeLayout
+                        android:id="@+id/ico_close_container"
+                        android:layout_width="48dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true">
+
+                    <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="12dp"
+                            android:background="@drawable/ico_close_rvd"
+                            android:contentDescription="@string/app_name" />
+
+                </RelativeLayout>
 
             </RelativeLayout>
 
-        </RelativeLayout>
+            <RelativeLayout
+                    android:id="@+id/speech_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-        <RelativeLayout
-                android:id="@+id/speech_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                <TextView
+                        android:id="@+id/speech_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="120dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="6dp"
+                        android:text="Ciao,\ncome posso aiutarti?"
+                        android:textColor="@color/white"
+                        android:textSize="24sp" />
 
-            <TextView
-                    android:id="@+id/speech_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="120dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="6dp"
-                    android:text="Ciao,\ncome posso aiutarti?"
-                    android:textColor="@color/white"
-                    android:textSize="24sp" />
-
-            <ScrollView android:layout_width="match_parent"
+                <ScrollView android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="100dp"
@@ -59,35 +71,35 @@
                         android:layout_marginEnd="6dp"
                         android:layout_below="@+id/speech_title">
 
+                    <TextView
+                            android:id="@+id/speech_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="18sp"
+                            android:textColor="@color/colorPrimary" />
+
+                </ScrollView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:id="@+id/suggestions_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
                 <TextView
-                        android:id="@+id/speech_text"
+                        android:id="@+id/suggestions_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="18sp"
-                        android:textColor="@color/colorPrimary" />
+                        android:layout_marginTop="90dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="6dp"
+                        android:text="Ecco alcuni esempi di quello che puoi chiedermi:"
+                        android:textColor="@color/white"
+                        android:textSize="24sp" />
 
-            </ScrollView>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-                android:id="@+id/suggestions_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone">
-
-            <TextView
-                    android:id="@+id/suggestions_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="90dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="6dp"
-                    android:text="Ecco alcuni esempi di quello che puoi chiedermi:"
-                    android:textColor="@color/white"
-                    android:textSize="24sp" />
-
-            <ScrollView android:layout_width="match_parent"
+                <ScrollView android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="100dp"
@@ -95,155 +107,157 @@
                         android:layout_marginEnd="6dp"
                         android:layout_below="@+id/suggestions_title">
 
-                <LinearLayout android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:orientation="vertical">
+                    <LinearLayout android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
 
-                    <RelativeLayout android:layout_width="match_parent"
+                        <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dimen_16dp">
+
+                            <ImageView
+                                    android:id="@+id/ico_rubrica_voice_1"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/dimen_16dp">
+                                    android:layout_alignParentStart="true"
+                                    android:background="@drawable/ico_rubrica_voice"
+                                    android:contentDescription="@string/app_name" />
 
-                        <ImageView
-                                android:id="@+id/ico_rubrica_voice_1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentStart="true"
-                                android:background="@drawable/ico_rubrica_voice"
-                                android:contentDescription="@string/app_name" />
-
-                        <TextView
-                                android:id="@+id/ico_rubrica_title_1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="18dp"
-                                android:layout_marginEnd="6dp"
-                                android:text="@string/rubrica_title"
-                                android:textColor="@color/colorPrimary"
-                                android:textAllCaps="true"
-                                android:textSize="16sp"
-                                android:textStyle="bold"
-                                android:layout_toEndOf="@+id/ico_rubrica_voice_1" />
-
-                        <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="18dp"
-                                android:layout_marginEnd="6dp"
-                                android:text='\"Apri la rubrica\"'
-                                android:textColor="@color/white"
-                                android:textSize="16sp"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:layout_below="@+id/ico_rubrica_title_1"
-                                android:layout_toEndOf="@+id/ico_rubrica_voice_1" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout android:layout_width="match_parent"
+                            <TextView
+                                    android:id="@+id/ico_rubrica_title_1"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/dimen_16dp">
+                                    android:layout_marginStart="18dp"
+                                    android:layout_marginEnd="6dp"
+                                    android:text="@string/rubrica_title"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textAllCaps="true"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    android:layout_toEndOf="@+id/ico_rubrica_voice_1" />
 
-                        <ImageView
-                                android:id="@+id/ico_rubrica_voice_2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentStart="true"
-                                android:background="@drawable/ico_rubrica_voice"
-                                android:contentDescription="@string/app_name" />
-
-                        <TextView
-                                android:id="@+id/ico_rubrica_title_2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="18dp"
-                                android:layout_marginEnd="6dp"
-                                android:text="@string/rubrica_title"
-                                android:textColor="@color/colorPrimary"
-                                android:textAllCaps="true"
-                                android:textSize="16sp"
-                                android:textStyle="bold"
-                                android:layout_toEndOf="@+id/ico_rubrica_voice_2" />
-
-                        <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="18dp"
-                                android:layout_marginEnd="6dp"
-                                android:text='\"Cerca Giovanni in rubrica\"'
-                                android:textColor="@color/white"
-                                android:textSize="16sp"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:layout_below="@+id/ico_rubrica_title_2"
-                                android:layout_toEndOf="@+id/ico_rubrica_voice_2" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout android:layout_width="match_parent"
+                            <TextView
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/dimen_16dp">
+                                    android:layout_marginStart="18dp"
+                                    android:layout_marginEnd="6dp"
+                                    android:text='\"Apri la rubrica\"'
+                                    android:textColor="@color/white"
+                                    android:textSize="16sp"
+                                    android:ellipsize="end"
+                                    android:maxLines="1"
+                                    android:layout_below="@+id/ico_rubrica_title_1"
+                                    android:layout_toEndOf="@+id/ico_rubrica_voice_1" />
 
-                        <ImageView
-                                android:id="@+id/ico_rubrica_voice_3"
-                                android:layout_width="wrap_content"
+                        </RelativeLayout>
+
+                        <RelativeLayout android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentStart="true"
-                                android:background="@drawable/ico_rubrica_voice"
-                                android:contentDescription="@string/app_name" />
+                                android:layout_marginTop="@dimen/dimen_16dp">
 
-                        <TextView
-                                android:id="@+id/ico_rubrica_title_3"
-                                android:layout_width="wrap_content"
+                            <ImageView
+                                    android:id="@+id/ico_rubrica_voice_2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentStart="true"
+                                    android:background="@drawable/ico_rubrica_voice"
+                                    android:contentDescription="@string/app_name" />
+
+                            <TextView
+                                    android:id="@+id/ico_rubrica_title_2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="18dp"
+                                    android:layout_marginEnd="6dp"
+                                    android:text="@string/rubrica_title"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textAllCaps="true"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    android:layout_toEndOf="@+id/ico_rubrica_voice_2" />
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="18dp"
+                                    android:layout_marginEnd="6dp"
+                                    android:text='\"Cerca Giovanni in rubrica\"'
+                                    android:textColor="@color/white"
+                                    android:textSize="16sp"
+                                    android:ellipsize="end"
+                                    android:maxLines="1"
+                                    android:layout_below="@+id/ico_rubrica_title_2"
+                                    android:layout_toEndOf="@+id/ico_rubrica_voice_2" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="18dp"
-                                android:layout_marginEnd="6dp"
-                                android:text="@string/rubrica_title"
-                                android:textColor="@color/colorPrimary"
-                                android:textAllCaps="true"
-                                android:textSize="16sp"
-                                android:textStyle="bold"
-                                android:layout_toEndOf="@+id/ico_rubrica_voice_3" />
+                                android:layout_marginTop="@dimen/dimen_16dp">
 
-                        <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="18dp"
-                                android:layout_marginEnd="6dp"
-                                android:text='\"Di chi è il numero 3331582355?\"'
-                                android:textColor="@color/white"
-                                android:textSize="16sp"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:layout_below="@+id/ico_rubrica_title_3"
-                                android:layout_toEndOf="@+id/ico_rubrica_voice_3" />
+                            <ImageView
+                                    android:id="@+id/ico_rubrica_voice_3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentStart="true"
+                                    android:background="@drawable/ico_rubrica_voice"
+                                    android:contentDescription="@string/app_name" />
 
-                    </RelativeLayout>
+                            <TextView
+                                    android:id="@+id/ico_rubrica_title_3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="18dp"
+                                    android:layout_marginEnd="6dp"
+                                    android:text="@string/rubrica_title"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textAllCaps="true"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    android:layout_toEndOf="@+id/ico_rubrica_voice_3" />
 
-                </LinearLayout>
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="18dp"
+                                    android:layout_marginEnd="6dp"
+                                    android:text='\"Di chi è il numero 3331582355?\"'
+                                    android:textColor="@color/white"
+                                    android:textSize="16sp"
+                                    android:ellipsize="end"
+                                    android:maxLines="1"
+                                    android:layout_below="@+id/ico_rubrica_title_3"
+                                    android:layout_toEndOf="@+id/ico_rubrica_voice_3" />
 
-            </ScrollView>
+                        </RelativeLayout>
 
-        </RelativeLayout>
+                    </LinearLayout>
 
-        <RelativeLayout
-                android:id="@+id/button_voice_container"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="44dp"
-                android:background="@drawable/round_empty">
+                </ScrollView>
 
-            <ImageView
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:id="@+id/button_voice_container"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:padding="12dp"
-                    android:src="@drawable/ico_voice_rvd"
-                    android:contentDescription="@string/app_name" />
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="44dp"
+                    android:background="@drawable/round_empty">
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:padding="12dp"
+                        android:src="@drawable/ico_voice_rvd"
+                        android:contentDescription="@string/app_name" />
+
+            </RelativeLayout>
 
         </RelativeLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 
-</LinearLayout>
+</layout>
