@@ -1,44 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:paddingBottom="10dp">
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <it.giovanni.arkivio.customview.TextViewCustom
-            android:id="@+id/calendarview_horizontal_header"
-            android:layout_width="wrap_content"
+    <data>
+        <variable
+                name="temp"
+                type="it.giovanni.arkivio.model.DarkModeModel" />
+
+        <variable
+                name="presenter"
+                type="it.giovanni.arkivio.presenter.DarkModePresenter" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textColor="@color/black_1"
-            android:textSize="24sp"
-            tools:text="Febbraio 1988"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:paddingTop="20dp"
+            android:paddingBottom="10dp">
 
-    <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginEnd="10dp"
-            android:background="@color/black_1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/calendarview_horizontal_header"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <it.giovanni.arkivio.customview.TextViewCustom
+                android:id="@+id/calendarview_horizontal_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="24sp"
+                tools:textColor="@color/colorPrimary"
+                tools:text="Febbraio 1988"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="10dp"
-            android:background="@color/black_1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/calendarview_horizontal_header"
-            app:layout_constraintTop_toTopOf="parent" />
+        <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginEnd="10dp"
+                android:background="@color/azzurro"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/calendarview_horizontal_header"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="10dp"
+                android:background="@color/azzurro"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/calendarview_horizontal_header"
+                app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

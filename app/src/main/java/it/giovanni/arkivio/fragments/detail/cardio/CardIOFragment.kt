@@ -9,10 +9,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.RelativeLayout
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.AppCompatSpinner
 import androidx.core.content.ContextCompat
+import com.airbnb.paris.extensions.style
 import io.card.payment.CardIOActivity
 import io.card.payment.CardType
 import io.card.payment.CreditCard
@@ -20,13 +20,18 @@ import io.card.payment.i18n.locales.LocalizedStringsList
 import it.giovanni.arkivio.App
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.customview.AppCompatSpinnerCustom
+import it.giovanni.arkivio.databinding.CardIoLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
-import kotlinx.android.synthetic.main.card_io_layout.*
+import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.presenter.DarkModePresenter
+import it.giovanni.arkivio.utils.SharedPreferencesManager
 import java.text.DecimalFormat
 
 class CardIOFragment : DetailFragment(), AppCompatSpinnerCustom.OnSpinnerEventsListener {
 
-    private var viewFragment: View? = null
+    private var layoutBinding: CardIoLayoutBinding? = null
+    private val binding get() = layoutBinding
+
     private var creditCard: CreditCard? = null
     private var cardType : CardType? = null
     private var cardTypeImage: Bitmap? = null
@@ -37,7 +42,7 @@ class CardIOFragment : DetailFragment(), AppCompatSpinnerCustom.OnSpinnerEventsL
     private val formatter = DecimalFormat("0")
 
     override fun getLayout(): Int {
-        return R.layout.card_io_layout
+        return NO_LAYOUT
     }
 
     override fun getTitle(): Int {
@@ -74,77 +79,94 @@ class CardIOFragment : DetailFragment(), AppCompatSpinnerCustom.OnSpinnerEventsL
     override fun onActionSearch(search_string: String) {
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
-        return viewFragment
-    }
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+        layoutBinding = CardIoLayoutBinding.inflate(inflater, container, false)
 
-    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        TODO("Not yet implemented")
+        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val model = DarkModeModel(requireContext())
+        binding?.presenter = darkModePresenter
+        binding?.temp = model
+
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val spinnerContainer = viewFragment?.findViewById(R.id.spinner_container) as RelativeLayout
-        val drawableBar = GradientDrawable(
-            GradientDrawable.Orientation.LEFT_RIGHT,
-            intArrayOf(ContextCompat.getColor(requireContext(), R.color.verde), ContextCompat.getColor(requireContext(), R.color.verde))
-        )
-        drawableBar.cornerRadius = 100f
-        spinnerContainer.background = drawableBar
+        setViewStyle()
 
         unblurredDigits = 0
         setPickerInterval()
-        picker_unblurred_digits.setOnValueChangedListener { _, _, newVal ->
+        binding?.pickerUnblurredDigits?.setOnValueChangedListener { _, _, newVal ->
             unblurredDigits = newVal * 4
         }
 
         setupLanguageList()
         enableScanExpiry()
 
-        expiry.setOnClickListener {
+        binding?.expiry?.setOnClickListener {
             enableScanExpiry()
         }
 
-        button_scan.setOnClickListener {
+        binding?.buttonScan?.setOnClickListener {
             scanCreditCard()
         }
 
         val libraryVersion = "card.io library:\n" + CardIOActivity.sdkVersion()
-        library_version.text = libraryVersion
+        binding?.libraryVersion?.text = libraryVersion
 
         val buildDate = "CardIOActivity build date:\n" + CardIOActivity.sdkBuildDate()
-        build_date.text = buildDate
+        binding?.buildDate?.text = buildDate
+    }
+
+    private fun setViewStyle() {
+        isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
+
+        val spinnerContainer = binding?.spinnerContainer
+        val drawableBar: GradientDrawable?
+
+        if (isDarkMode) {
+            drawableBar = GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
+                intArrayOf(ContextCompat.getColor(requireContext(), R.color.verde), ContextCompat.getColor(requireContext(), R.color.verde)))
+            binding?.buttonScan?.style(R.style.ButtonNormalDarkMode)
+        }
+        else {
+            drawableBar = GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
+                intArrayOf(ContextCompat.getColor(requireContext(), R.color.rosso), ContextCompat.getColor(requireContext(), R.color.rosso)))
+            binding?.buttonScan?.style(R.style.ButtonNormalLightMode)
+        }
+
+        drawableBar.cornerRadius = 100f
+        spinnerContainer?.background = drawableBar
     }
 
     private fun enableScanExpiry() {
-        if (expiry.isChecked) {
-            scan_expiry.isEnabled = true
-            scan_expiry.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey_3))
+        if (binding?.expiry?.isChecked!!) {
+            binding?.scanExpiry?.isEnabled = true
+            binding?.scanExpiry?.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey_3))
         } else {
-            scan_expiry.isEnabled = false
-            scan_expiry.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey_2))
+            binding?.scanExpiry?.isEnabled = false
+            binding?.scanExpiry?.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey_2))
         }
     }
 
     private fun scanCreditCard() {
         val intent = Intent(context, CardIOActivity::class.java)
-            .putExtra(CardIOActivity.EXTRA_REQUIRE_EXPIRY, expiry.isChecked)
-            .putExtra(CardIOActivity.EXTRA_SCAN_EXPIRY, scan_expiry.isChecked)
-            .putExtra(CardIOActivity.EXTRA_REQUIRE_CVV, cvv.isChecked)
-            .putExtra(CardIOActivity.EXTRA_REQUIRE_POSTAL_CODE, postal_code.isChecked)
-            .putExtra(CardIOActivity.EXTRA_USE_CARDIO_LOGO, use_card_io_logo.isChecked)
-            .putExtra(CardIOActivity.EXTRA_REQUIRE_CARDHOLDER_NAME, cardholder_name.isChecked)
-            .putExtra(CardIOActivity.EXTRA_SUPPRESS_CONFIRMATION, suppress_confirmation.isChecked)
-            .putExtra(CardIOActivity.EXTRA_NO_CAMERA, bypass_the_scan.isChecked)
-            .putExtra(CardIOActivity.EXTRA_KEEP_APPLICATION_THEME, keep_application_theme.isChecked)
-            .putExtra(CardIOActivity.EXTRA_SUPPRESS_MANUAL_ENTRY, suppress_keyboard_icon.isChecked)
-            .putExtra(CardIOActivity.EXTRA_SUPPRESS_SCAN, suppress_scan_info.isChecked)
-            .putExtra(CardIOActivity.EXTRA_RESTRICT_POSTAL_CODE_TO_NUMERIC_ONLY, postal_code_numeric.isChecked)
-            .putExtra(CardIOActivity.EXTRA_USE_PAYPAL_ACTIONBAR_ICON, show_paypal_action_bar_icon.isChecked)
+            .putExtra(CardIOActivity.EXTRA_REQUIRE_EXPIRY, binding?.expiry?.isChecked)
+            .putExtra(CardIOActivity.EXTRA_SCAN_EXPIRY, binding?.scanExpiry?.isChecked)
+            .putExtra(CardIOActivity.EXTRA_REQUIRE_CVV, binding?.cvv?.isChecked)
+            .putExtra(CardIOActivity.EXTRA_REQUIRE_POSTAL_CODE, binding?.postalCode?.isChecked)
+            .putExtra(CardIOActivity.EXTRA_USE_CARDIO_LOGO, binding?.useCardIoLogo?.isChecked)
+            .putExtra(CardIOActivity.EXTRA_REQUIRE_CARDHOLDER_NAME, binding?.cardholderName?.isChecked)
+            .putExtra(CardIOActivity.EXTRA_SUPPRESS_CONFIRMATION, binding?.suppressConfirmation?.isChecked)
+            .putExtra(CardIOActivity.EXTRA_NO_CAMERA, binding?.bypassTheScan?.isChecked)
+            .putExtra(CardIOActivity.EXTRA_KEEP_APPLICATION_THEME, binding?.keepApplicationTheme?.isChecked)
+            .putExtra(CardIOActivity.EXTRA_SUPPRESS_MANUAL_ENTRY, binding?.suppressKeyboardIcon?.isChecked)
+            .putExtra(CardIOActivity.EXTRA_SUPPRESS_SCAN, binding?.suppressScanInfo?.isChecked)
+            .putExtra(CardIOActivity.EXTRA_RESTRICT_POSTAL_CODE_TO_NUMERIC_ONLY, binding?.postalCodeNumeric?.isChecked)
+            .putExtra(CardIOActivity.EXTRA_USE_PAYPAL_ACTIONBAR_ICON, binding?.showPaypalActionBarIcon?.isChecked)
             .putExtra(CardIOActivity.EXTRA_GUIDE_COLOR, ContextCompat.getColor(App.context, R.color.colorPrimary)) // Color.BLUE (import android.graphics.Color)
-            .putExtra(CardIOActivity.EXTRA_LANGUAGE_OR_LOCALE, language_spinner.selectedItem as String)
+            .putExtra(CardIOActivity.EXTRA_LANGUAGE_OR_LOCALE, binding?.languageSpinner?.selectedItem as String)
             .putExtra(CardIOActivity.EXTRA_RETURN_CARD_IMAGE, true)
         try {
             intent.putExtra(CardIOActivity.EXTRA_UNBLUR_DIGITS, unblurredDigits)
@@ -166,24 +188,24 @@ class CardIOFragment : DetailFragment(), AppCompatSpinnerCustom.OnSpinnerEventsL
                 cardInfo = "Card number: " + creditCard?.redactedCardNumber + "\n" +
                         "Card type: " + cardType.toString() + "\n" + "Display name: " + cardType?.getDisplayName(null) + "\n"
 
-                if (expiry.isChecked)
+                if (binding?.expiry?.isChecked!!)
                     cardInfo += "Expiry: " + creditCard?.expiryMonth + "/" + creditCard?.expiryYear + "\n"
 
-                if (cvv.isChecked)
+                if (binding?.cvv?.isChecked!!)
                     cardInfo += "CVV: " + creditCard?.cvv + "\n"
 
-                if (postal_code.isChecked)
+                if (binding?.postalCode?.isChecked!!)
                     cardInfo += "Postal Code: " + creditCard?.postalCode + "\n"
 
-                if (cardholder_name.isChecked)
+                if (binding?.cardholderName?.isChecked!!)
                     cardInfo += "Cardholder Name: " + creditCard?.cardholderName + "\n"
             }
 
-            card_type_image.setImageBitmap(cardTypeImage)
-            card_info.text = cardInfo
+            binding?.cardTypeImage?.setImageBitmap(cardTypeImage)
+            binding?.cardInfo?.text = cardInfo
 
             val card = CardIOActivity.getCapturedCardImage(data)
-            card_image.setImageBitmap(card)
+            binding?.cardImage?.setImageBitmap(card)
         }
     }
 
@@ -208,22 +230,22 @@ class CardIOFragment : DetailFragment(), AppCompatSpinnerCustom.OnSpinnerEventsL
         // TODO) Nota: Per l'adapter ho definito un item custom (spinner_dropdown_item), ma avrei anche potuto utilizzare un item nativo di Android (simple_dropdown_item_1line):
         // val adapter = ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, languages)
 
-        language_spinner.adapter = adapter
-        language_spinner.setSelection(adapter.getPosition("it"))
-        language_spinner.setSpinnerEventsListener(this)
+        binding?.languageSpinner?.adapter = adapter
+        binding?.languageSpinner?.setSelection(adapter.getPosition("it"))
+        binding?.languageSpinner?.setSpinnerEventsListener(this)
 
         /*
-        language_spinner.setOnTouchListener { _, event ->
+        binding?.languageSpinner?.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_UP) {
-                language_spinner.setBackgroundResource(R.drawable.spinner_background_up)
+                binding?.languageSpinner?.setBackgroundResource(R.drawable.spinner_background_up)
             }
             false
         }
 
-        language_spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        binding?.languageSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if (position == 1) {
-                    language_spinner.setBackgroundResource(R.drawable.spinner_background_down)
+                    binding?.languageSpinner?.setBackgroundResource(R.drawable.spinner_background_down)
                 }
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -240,22 +262,27 @@ class CardIOFragment : DetailFragment(), AppCompatSpinnerCustom.OnSpinnerEventsL
             displayedValues[i] = formatter.format(i * interval)
         }
 
-        picker_unblurred_digits.value = 0
-        picker_unblurred_digits.minValue = 0
-        picker_unblurred_digits.maxValue = numValues - 1
-        picker_unblurred_digits.displayedValues = displayedValues
+        binding?.pickerUnblurredDigits?.value = 0
+        binding?.pickerUnblurredDigits?.minValue = 0
+        binding?.pickerUnblurredDigits?.maxValue = numValues - 1
+        binding?.pickerUnblurredDigits?.displayedValues = displayedValues
     }
 
     override fun onStop() {
         super.onStop()
-        card_info.text = ""
+        binding?.cardInfo?.text = ""
     }
 
     override fun onSpinnerOpened(spin: AppCompatSpinner?) {
-        language_spinner.setBackgroundResource(R.drawable.spinner_background_up)
+        binding?.languageSpinner?.setBackgroundResource(R.drawable.spinner_background_up)
     }
 
     override fun onSpinnerClosed(spin: AppCompatSpinner?) {
-        language_spinner.setBackgroundResource(R.drawable.spinner_background_down)
+        binding?.languageSpinner?.setBackgroundResource(R.drawable.spinner_background_down)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
     }
 }

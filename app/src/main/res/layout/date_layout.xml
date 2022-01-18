@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -25,17 +26,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:text="@string/date_format_title"
-                android:textColor="@color/dark"
+                android:textColor="@{temp.labelColor}"
                 android:textSize="16sp"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                tools:textColor="@color/colorPrimary" />
 
-        <View android:layout_width="120dp"
+        <View
+                android:layout_width="120dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@color/dark"
+                android:background="@{temp.labelColor}"
                 android:layout_gravity="center"
-                android:alpha=".4" />
+                android:alpha=".4"
+                tools:background="@color/colorPrimary" />
 
         <TextView
                 android:id="@+id/label_date_picker"
@@ -43,17 +47,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="@string/date_picker_title"
-                android:textColor="@color/dark"
+                android:textColor="@{temp.labelColor}"
                 android:textSize="16sp"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                tools:textColor="@color/colorPrimary" />
 
-        <View android:layout_width="120dp"
+        <View
+                android:layout_width="120dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@color/dark"
+                android:background="@{temp.labelColor}"
                 android:layout_gravity="center"
-                android:alpha=".4" />
+                android:alpha=".4"
+                tools:background="@color/colorPrimary" />
 
         <TextView
                 android:id="@+id/label_calendarview_horizontal"
@@ -61,17 +68,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="@string/calendarview_horizontal_title"
-                android:textColor="@color/dark"
+                android:textColor="@{temp.labelColor}"
                 android:textSize="16sp"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                tools:textColor="@color/colorPrimary" />
 
-        <View android:layout_width="120dp"
+        <View
+                android:layout_width="120dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@color/dark"
+                android:background="@{temp.labelColor}"
                 android:layout_gravity="center"
-                android:alpha=".4" />
+                android:alpha=".4"
+                tools:background="@color/colorPrimary" />
 
         <TextView
                 android:id="@+id/label_calendarview_vertical"
@@ -79,17 +89,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="@string/calendarview_vertical_title"
-                android:textColor="@color/dark"
+                android:textColor="@{temp.labelColor}"
                 android:textSize="16sp"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                tools:textColor="@color/colorPrimary" />
 
-        <View android:layout_width="120dp"
+        <View
+                android:layout_width="120dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@color/dark"
+                android:background="@{temp.labelColor}"
                 android:layout_gravity="center"
-                android:alpha=".4" />
+                android:alpha=".4"
+                tools:background="@color/colorPrimary" />
 
         <TextView
                 android:id="@+id/label_smartworking"
@@ -97,9 +110,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="@string/smartworking_title"
-                android:textColor="@color/dark"
+                android:textColor="@{temp.labelColor}"
                 android:textSize="16sp"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                tools:textColor="@color/colorPrimary" />
 
         <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/reset_selected_days"
@@ -107,17 +121,20 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/switch_selected_days"
-                android:textColor="@color/dark"
+                android:textColor="@{temp.labelColor}"
                 android:theme="@style/SwitchCompatTheme"
+                tools:textColor="@color/colorPrimary"
                 app:switchPadding="6dp" />
 
-        <View android:layout_width="120dp"
+        <View
+                android:layout_width="120dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@color/dark"
+                android:background="@{temp.labelColor}"
                 android:layout_gravity="center"
-                android:alpha=".4" />
+                android:alpha=".4"
+                tools:background="@color/colorPrimary" />
 
     </LinearLayout>
 

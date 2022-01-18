@@ -61,16 +61,17 @@
 
             </LinearLayout>
 
-            <View android:id="@+id/separator"
+            <View
+                    android:id="@+id/separator"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="4dp"
                     android:layout_marginStart="48dp"
                     android:layout_marginEnd="48dp"
                     android:layout_below="@+id/avatar_container"
-                    android:background="@{temp.viewColor}"
+                    android:background="@{temp.labelColor}"
                     android:alpha=".4"
-                    tools:background="@color/grey_3" />
+                    tools:background="@color/colorPrimary" />
 
             <LinearLayout
                     android:layout_width="wrap_content"

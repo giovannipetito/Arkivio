@@ -33,63 +33,70 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:textColor="@color/black_1"
+                    android:textColor="@{temp.labelColor}"
                     android:textSize="14sp"
-                    tools:text="LUN" />
+                    tools:text="LUN"
+                    tools:textColor="@color/colorPrimary" />
 
             <it.giovanni.arkivio.customview.TextViewCustom
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:textColor="@color/black_1"
+                    android:textColor="@{temp.labelColor}"
                     android:textSize="14sp"
-                    tools:text="MAR" />
+                    tools:text="MAR"
+                    tools:textColor="@color/colorPrimary" />
 
             <it.giovanni.arkivio.customview.TextViewCustom
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:textColor="@color/black_1"
+                    android:textColor="@{temp.labelColor}"
                     android:textSize="14sp"
-                    tools:text="MER" />
+                    tools:text="MER"
+                    tools:textColor="@color/colorPrimary" />
 
             <it.giovanni.arkivio.customview.TextViewCustom
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:textColor="@color/black_1"
+                    android:textColor="@{temp.labelColor}"
                     android:textSize="14sp"
-                    tools:text="GIO" />
+                    tools:text="GIO"
+                    tools:textColor="@color/colorPrimary" />
 
             <it.giovanni.arkivio.customview.TextViewCustom
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:textColor="@color/black_1"
+                    android:textColor="@{temp.labelColor}"
                     android:textSize="14sp"
-                    tools:text="VEN" />
+                    tools:text="VEN"
+                    tools:textColor="@color/colorPrimary" />
 
             <it.giovanni.arkivio.customview.TextViewCustom
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:textColor="@color/black_1"
+                    android:textColor="@{temp.labelColor}"
                     android:textSize="14sp"
-                    tools:text="SAB" />
+                    tools:text="SAB"
+                    tools:textColor="@color/colorPrimary" />
 
             <it.giovanni.arkivio.customview.TextViewCustom
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:textColor="@color/black_1"
+                    android:textColor="@{temp.labelColor}"
                     android:textSize="14sp"
-                    tools:text="DOM" />
+                    tools:text="DOM"
+                    tools:textColor="@color/colorPrimary" />
 
         </LinearLayout>
 

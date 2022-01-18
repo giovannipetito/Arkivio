@@ -16,20 +16,25 @@ import it.giovanni.arkivio.customview.calendarview.ui.MonthHeaderFooterBinder
 import it.giovanni.arkivio.customview.calendarview.ui.ViewContainer
 import it.giovanni.arkivio.databinding.CalendarviewHorizontalHeaderBinding
 import it.giovanni.arkivio.databinding.CalendarviewHorizontalItemBinding
+import it.giovanni.arkivio.databinding.CalendarviewHorizontalLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
-import kotlinx.android.synthetic.main.calendarview_horizontal_layout.*
+import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.presenter.DarkModePresenter
+import it.giovanni.arkivio.utils.SharedPreferencesManager
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 
 class CalendarViewHorizontalFragment : DetailFragment() {
 
-    private var viewFragment: View? = null
+    private var layoutBinding: CalendarviewHorizontalLayoutBinding? = null
+    private val binding get() = layoutBinding
+
     private var selectedDate: LocalDate? = null
     private val today = LocalDate.now()
 
     override fun getLayout(): Int {
-        return R.layout.calendarview_horizontal_layout
+        return NO_LAYOUT
     }
 
     override fun getTitle(): Int {
@@ -66,21 +71,25 @@ class CalendarViewHorizontalFragment : DetailFragment() {
     override fun onActionSearch(search_string: String) {
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
-        return viewFragment
-    }
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+        layoutBinding = CalendarviewHorizontalLayoutBinding.inflate(inflater, container, false)
 
-    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        TODO("Not yet implemented")
+        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val model = DarkModeModel(requireContext())
+        binding?.presenter = darkModePresenter
+        binding?.temp = model
+
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
+
         val daysOfWeek = getDaysOfWeek()
 
-        calendarview_horizontal_legend?.children?.forEachIndexed { index, mView ->
+        binding?.calendarviewHorizontalLegend?.children?.forEachIndexed { index, mView ->
             (mView as TextViewCustom).apply {
                 // text = daysOfWeek[index].name.first().toString()
                 if (daysOfWeek[index].name == DaysOfWeek.MONDAY.name) {
@@ -113,8 +122,8 @@ class CalendarViewHorizontalFragment : DetailFragment() {
         val startMonth = currentMonth.minusMonths(2)
         val endMonth = currentMonth.plusMonths(2)
 
-        calendarview_horizontal.setup(startMonth, endMonth, daysOfWeek.first())
-        calendarview_horizontal.scrollToMonth(currentMonth)
+        binding?.calendarviewHorizontal?.setup(startMonth, endMonth, daysOfWeek.first())
+        binding?.calendarviewHorizontal?.scrollToMonth(currentMonth)
 
         class DayViewContainer(view: View) : ViewContainer(view) {
 
@@ -128,18 +137,18 @@ class CalendarViewHorizontalFragment : DetailFragment() {
                         if (selectedDate != day.date) {
                             val oldDate = selectedDate
                             selectedDate = day.date
-                            calendarview_horizontal.notifyDateChanged(day.date)
-                            oldDate?.let { calendarview_horizontal.notifyDateChanged(oldDate) }
+                            binding?.calendarviewHorizontal?.notifyDateChanged(day.date)
+                            oldDate?.let { binding?.calendarviewHorizontal?.notifyDateChanged(oldDate) }
                         } else {
                             selectedDate = null
-                            calendarview_horizontal.notifyDayChanged(day)
+                            binding?.calendarviewHorizontal?.notifyDayChanged(day)
                         }
                     }
                 }
             }
         }
 
-        calendarview_horizontal.dayBinder = object : DayBinder<DayViewContainer> {
+        binding?.calendarviewHorizontal?.dayBinder = object : DayBinder<DayViewContainer> {
 
             override fun create(view: View) = DayViewContainer(view)
             override fun bind(container: DayViewContainer, day: CalendarDay) {
@@ -161,7 +170,11 @@ class CalendarViewHorizontalFragment : DetailFragment() {
                             horizontalLabel.background = null
                         }
                         else -> {
-                            horizontalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.black_1))
+                            if (isDarkMode)
+                                horizontalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                            else
+                                horizontalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.dark))
+
                             horizontalLabel.background = null
                         }
                     }
@@ -174,17 +187,28 @@ class CalendarViewHorizontalFragment : DetailFragment() {
         }
 
         class MonthViewContainer(view: View) : ViewContainer(view) {
-            val textView = CalendarviewHorizontalHeaderBinding.bind(view).calendarviewHorizontalHeader
+            val calendarviewHorizontalHeader = CalendarviewHorizontalHeaderBinding.bind(view).calendarviewHorizontalHeader
         }
 
-        calendarview_horizontal.monthHeaderBinder = object : MonthHeaderFooterBinder<MonthViewContainer> {
+        binding?.calendarviewHorizontal?.monthHeaderBinder = object : MonthHeaderFooterBinder<MonthViewContainer> {
             override fun create(view: View) = MonthViewContainer(view)
             override fun bind(container: MonthViewContainer, month: CalendarMonth) {
+
                 var monthName = month.yearMonth.month.name.lowercase()
                 monthName = monthName.substring(0, 1).uppercase() + monthName.substring(1)
                 val date = "$monthName ${month.year}"
-                container.textView.text = date
+                container.calendarviewHorizontalHeader.text = date
+
+                if (isDarkMode)
+                    container.calendarviewHorizontalHeader.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+                else
+                    container.calendarviewHorizontalHeader.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
     }
 }

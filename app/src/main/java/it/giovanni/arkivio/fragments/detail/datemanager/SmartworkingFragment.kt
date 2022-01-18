@@ -9,7 +9,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
-import androidx.databinding.DataBindingUtil
 import com.airbnb.paris.extensions.style
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.bean.SelectedDay
@@ -40,7 +39,6 @@ import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadSelected
 import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.saveSelectedDaysToPreferences
 import it.giovanni.arkivio.utils.UserFactory
 import it.giovanni.arkivio.utils.Utils.Companion.turnArrayListToString
-import kotlinx.android.synthetic.main.smartworking_layout.*
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -51,7 +49,8 @@ import kotlin.collections.ArrayList
 class SmartworkingFragment: DetailFragment() {
 
     private var mTag: String = SmartworkingFragment::class.java.simpleName
-    private var viewFragment: View? = null
+    private var layoutBinding: SmartworkingLayoutBinding? = null
+    private val binding get() = layoutBinding
     private var currentDate: DateManager? = null
     private var selectedDate: LocalDate? = null
     private val selectedDates = mutableSetOf<LocalDate>()
@@ -127,16 +126,15 @@ class SmartworkingFragment: DetailFragment() {
         return true
     }
 
-    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding: SmartworkingLayoutBinding? = DataBindingUtil.inflate(inflater, R.layout.smartworking_layout, container, false)
-        viewFragment = binding?.root
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+        layoutBinding = SmartworkingLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this, requireContext())
         val model = DarkModeModel(requireContext())
-        binding?.temp = model
         binding?.presenter = darkModePresenter
+        binding?.temp = model
 
-        return viewFragment
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -161,8 +159,8 @@ class SmartworkingFragment: DetailFragment() {
         val startMonth = currentMonth.minusMonths(1)
         val endMonth = currentMonth.plusMonths(3)
 
-        calendarview.setup(startMonth, endMonth, daysOfWeek.first())
-        calendarview.scrollToMonth(currentMonth)
+        binding?.calendarview?.setup(startMonth, endMonth, daysOfWeek.first())
+        binding?.calendarview?.scrollToMonth(currentMonth)
 
         val response = loadSelectedDaysFromPreferences()
         items = response?.selectedDays
@@ -173,7 +171,7 @@ class SmartworkingFragment: DetailFragment() {
 
         class DayViewContainer(view: View) : ViewContainer(view) {
             lateinit var day: CalendarDay // Will be set when this container is bound.
-            val binding = CalendarviewItemBinding.bind(view)
+            val mBinding = CalendarviewItemBinding.bind(view)
 
             init {
                 view.setOnClickListener {
@@ -211,7 +209,7 @@ class SmartworkingFragment: DetailFragment() {
                                     }
                                 }
                             }
-                            calendarview.notifyDayChanged(day)
+                            binding?.calendarview?.notifyDayChanged(day)
                         } else {
                             if (selectedDates.contains(day.date)) {
                                 selectedDates.remove(day.date)
@@ -241,7 +239,7 @@ class SmartworkingFragment: DetailFragment() {
                                     selectedItems?.add(SelectedDay(year, month, dayOfMonth))
                                 }
                             }
-                            calendarview.notifyDayChanged(day)
+                            binding?.calendarview?.notifyDayChanged(day)
                         }
                     }
                     checkItemsStatus()
@@ -257,15 +255,15 @@ class SmartworkingFragment: DetailFragment() {
         selectedItems = ArrayList()
         deselectedItems = ArrayList()
 
-        calendarview.dayBinder = object : DayBinder<DayViewContainer> {
+        binding?.calendarview?.dayBinder = object : DayBinder<DayViewContainer> {
             override fun create(view: View) = DayViewContainer(view)
             override fun bind(container: DayViewContainer, day: CalendarDay) {
 
                 container.day = day
 
-                val itemLayout = container.binding.itemLayout
-                val itemText = container.binding.itemText
-                val badge = container.binding.badge
+                val itemLayout = container.mBinding.itemLayout
+                val itemText = container.mBinding.itemText
+                val badge = container.mBinding.badge
 
                 itemText.text = day.date.dayOfMonth.toString()
 
@@ -389,7 +387,7 @@ class SmartworkingFragment: DetailFragment() {
                     if (isDarkMode)
                         itemText.setTextColor(ContextCompat.getColor(context!!, R.color.dark))
                     else
-                        itemText.setTextColor(ContextCompat.getColor(context!!, R.color.grey_3))
+                        itemText.setTextColor(ContextCompat.getColor(context!!, R.color.grey_2))
 
                     if (6 == day.date.dayOfWeek.value || 7 == day.date.dayOfWeek.value) {
                         if (isDarkMode)
@@ -410,7 +408,7 @@ class SmartworkingFragment: DetailFragment() {
             val pipe = CalendarviewHeaderBinding.bind(view).calendarviewPipe
         }
 
-        calendarview.monthHeaderBinder = object : MonthHeaderFooterBinder<MonthViewContainer> {
+        binding?.calendarview?.monthHeaderBinder = object : MonthHeaderFooterBinder<MonthViewContainer> {
             override fun create(view: View) = MonthViewContainer(view)
             override fun bind(container: MonthViewContainer, month: CalendarMonth) {
 
@@ -469,15 +467,15 @@ class SmartworkingFragment: DetailFragment() {
             }
         }
 
-        calendarview.monthScrollListener = { _ ->
+        binding?.calendarview?.monthScrollListener = { _ ->
             selectedDate?.let {
                 // Clear selection if we scroll to a new month.
                 selectedDate = null
-                calendarview.notifyDateChanged(it)
+                binding?.calendarview?.notifyDateChanged(it)
             }
         }
 
-        smartworking_button.setOnClickListener {
+        binding?.smartworkingButton?.setOnClickListener {
             if (items != null) {
 
                 val sortedDates: ArrayList<Date> = sortItems(items)
@@ -569,9 +567,9 @@ class SmartworkingFragment: DetailFragment() {
     private fun setViewStyle() {
         isDarkMode = loadDarkModeStateFromPreferences()
         if (isDarkMode)
-            smartworking_button.style(R.style.ButtonNormalDarkMode)
+            binding?.smartworkingButton?.style(R.style.ButtonNormalDarkMode)
         else
-            smartworking_button.style(R.style.ButtonNormalLightMode)
+            binding?.smartworkingButton?.style(R.style.ButtonNormalLightMode)
     }
 
     private fun cloneItems(list: ArrayList<SelectedDay>?): ArrayList<SelectedDay>? {
@@ -586,18 +584,18 @@ class SmartworkingFragment: DetailFragment() {
 
     private fun checkItemsStatus() {
         if (items?.size != oldItems?.size) {
-            smartworking_button_container.animate().translationY(4F).alpha(1.0f).duration = 500
+            binding?.smartworkingButtonContainer?.animate()?.translationY(4F)?.alpha(1.0f)?.duration = 500
         }
         else {
             if (selectedItems?.isEmpty()!! && deselectedItems?.isEmpty()!!) {
-                smartworking_button_container.animate().translationY(smartworking_button_container.height.toFloat()).alpha(0.0f).duration = 500
+                binding?.smartworkingButtonContainer?.animate()?.translationY(binding?.smartworkingButtonContainer?.height?.toFloat()!!)?.alpha(0.0f)?.duration = 500
             }
             else {
                 for (i in 0 until items?.size!!) {
                     if (items!![i].year == oldItems!![i].year && items!![i].month == oldItems!![i].month && items!![i].dayOfMonth == oldItems!![i].dayOfMonth) {
-                        smartworking_button_container.animate().translationY(smartworking_button_container.height.toFloat()).alpha(0.0f).duration = 500
+                        binding?.smartworkingButtonContainer?.animate()?.translationY(binding?.smartworkingButtonContainer?.height?.toFloat()!!)?.alpha(0.0f)?.duration = 500
                     } else {
-                        smartworking_button_container.animate().translationY(4F).alpha(1.0f).duration = 500
+                        binding?.smartworkingButtonContainer?.animate()?.translationY(4F)?.alpha(1.0f)?.duration = 500
                         break
                     }
                 }
@@ -717,5 +715,10 @@ class SmartworkingFragment: DetailFragment() {
             }
             customPopup.show()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
     }
 }

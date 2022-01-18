@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -32,9 +33,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.45"
-                        android:text="DatePickerDialog (minDate)"
-                        android:textColor="@color/grey_3"
-                        android:textSize="12sp" />
+                        android:text="@string/DatePickerDialog_minDate"
+                        android:textSize="12sp"
+                        android:textColor="@{temp.labelColor}"
+                        tools:textColor="@color/colorPrimary" />
 
                 <TextView
                         android:id="@+id/datepickerdialog_mindate"
@@ -42,8 +44,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.55"
                         android:hint="@string/tap_here"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:textColor="@{temp.labelColor}"
+                        tools:textColor="@color/colorPrimary" />
 
             </LinearLayout>
 
@@ -57,9 +60,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.45"
-                        android:text="DatePickerDialog (maxDate)"
-                        android:textColor="@color/grey_3"
-                        android:textSize="12sp" />
+                        android:text="@string/DatePickerDialog_maxDate"
+                        android:textSize="12sp"
+                        android:textColor="@{temp.labelColor}"
+                        tools:textColor="@color/colorPrimary" />
 
                 <TextView
                         android:id="@+id/datepickerdialog_maxdate"
@@ -67,8 +71,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.55"
                         android:hint="@string/tap_here"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:textColor="@{temp.labelColor}"
+                        tools:textColor="@color/colorPrimary" />
 
             </LinearLayout>
 
@@ -82,9 +87,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.45"
-                        android:text="Current TimePickerDialog"
-                        android:textColor="@color/grey_3"
-                        android:textSize="12sp" />
+                        android:text="@string/Current_TimePickerDialog"
+                        android:textSize="12sp"
+                        android:textColor="@{temp.labelColor}"
+                        tools:textColor="@color/colorPrimary" />
 
                 <TextView
                         android:id="@+id/current_time_picker_label"
@@ -92,8 +98,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.55"
                         android:hint="@string/tap_here"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:textColor="@{temp.labelColor}"
+                        tools:textColor="@color/colorPrimary" />
 
             </LinearLayout>
 
@@ -107,9 +114,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.45"
-                        android:text="Start TimePickerDialog"
-                        android:textColor="@color/grey_3"
-                        android:textSize="12sp" />
+                        android:text="@string/Start_TimePickerDialog"
+                        android:textSize="12sp"
+                        android:textColor="@{temp.labelColor}"
+                        tools:textColor="@color/colorPrimary" />
 
                 <TextView
                         android:id="@+id/start_time_picker_label"
@@ -117,8 +125,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.55"
                         android:hint="@string/tap_here"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:textColor="@{temp.labelColor}"
+                        tools:textColor="@color/colorPrimary" />
 
             </LinearLayout>
 
@@ -132,9 +141,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.45"
-                        android:text="Range TimePickerDialog"
-                        android:textColor="@color/grey_3"
-                        android:textSize="12sp" />
+                        android:text="@string/Range_TimePickerDialog"
+                        android:textSize="12sp"
+                        android:textColor="@{temp.labelColor}"
+                        tools:textColor="@color/colorPrimary" />
 
                 <TextView
                         android:id="@+id/range_time_picker_label"
@@ -142,8 +152,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.55"
                         android:hint="@string/tap_here"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:textColor="@{temp.labelColor}"
+                        tools:textColor="@color/colorPrimary" />
 
             </LinearLayout>
 
@@ -157,9 +168,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.45"
-                        android:text="DatePicker"
-                        android:textColor="@color/grey_3"
-                        android:textSize="12sp" />
+                        android:text="@string/DatePicker"
+                        android:textSize="12sp"
+                        android:textColor="@{temp.labelColor}"
+                        tools:textColor="@color/colorPrimary" />
 
                 <TextView
                         android:id="@+id/date_picker"
@@ -167,8 +179,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.55"
                         android:hint="@string/tap_here"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:textColor="@{temp.labelColor}"
+                        tools:textColor="@color/colorPrimary" />
 
             </LinearLayout>
 
@@ -182,9 +195,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.45"
-                        android:text="Single TimePicker"
-                        android:textColor="@color/grey_3"
-                        android:textSize="12sp" />
+                        android:text="@string/Single_TimePicker"
+                        android:textSize="12sp"
+                        android:textColor="@{temp.labelColor}"
+                        tools:textColor="@color/colorPrimary" />
 
                 <TextView
                         android:id="@+id/single_time_picker"
@@ -192,8 +206,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.55"
                         android:hint="@string/tap_here"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:textColor="@{temp.labelColor}"
+                        tools:textColor="@color/colorPrimary" />
 
             </LinearLayout>
 
@@ -207,9 +222,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.45"
-                        android:text="Range TimePicker 1"
-                        android:textColor="@color/grey_3"
-                        android:textSize="12sp" />
+                        android:text="@string/Range_TimePicker_1"
+                        android:textSize="12sp"
+                        android:textColor="@{temp.labelColor}"
+                        tools:textColor="@color/colorPrimary" />
 
                 <TextView
                         android:id="@+id/range_time_picker_1"
@@ -217,8 +233,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.55"
                         android:hint="@string/tap_here"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:textColor="@{temp.labelColor}"
+                        tools:textColor="@color/colorPrimary" />
 
             </LinearLayout>
 
@@ -232,9 +249,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.45"
-                        android:text="Range TimePicker 2"
-                        android:textColor="@color/grey_3"
-                        android:textSize="12sp" />
+                        android:text="@string/Range_TimePicker_2"
+                        android:textSize="12sp"
+                        android:textColor="@{temp.labelColor}"
+                        tools:textColor="@color/colorPrimary" />
 
                 <TextView
                         android:id="@+id/range_time_picker_2"
@@ -242,8 +260,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.55"
                         android:hint="@string/tap_here"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:textColor="@{temp.labelColor}"
+                        tools:textColor="@color/colorPrimary" />
 
             </LinearLayout>
 

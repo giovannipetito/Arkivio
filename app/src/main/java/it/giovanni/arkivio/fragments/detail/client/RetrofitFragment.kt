@@ -8,11 +8,15 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.databinding.ClientItemBinding
+import it.giovanni.arkivio.databinding.RetrofitLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
+import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.restclient.retrofit.IRetrofit
 import it.giovanni.arkivio.restclient.retrofit.MyRetrofitClient
 import it.giovanni.arkivio.restclient.retrofit.User
-import kotlinx.android.synthetic.main.retrofit_layout.*
+import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadDarkModeStateFromPreferences
 
 /**
  * Retrofit è una libreria HTTP per Android che gestisce le chiamate REST.
@@ -20,10 +24,11 @@ import kotlinx.android.synthetic.main.retrofit_layout.*
 
 class RetrofitFragment: DetailFragment(), IRetrofit {
 
-    private var viewFragment: View? = null
+    private var layoutBinding: RetrofitLayoutBinding? = null
+    private val binding get() = layoutBinding
 
     override fun getLayout(): Int {
-        return R.layout.retrofit_layout
+        return NO_LAYOUT
     }
 
     override fun getTitle(): Int {
@@ -60,25 +65,21 @@ class RetrofitFragment: DetailFragment(), IRetrofit {
     override fun onActionSearch(search_string: String) {
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
-        return viewFragment
-    }
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+        layoutBinding = RetrofitLayoutBinding.inflate(inflater, container, false)
 
-    override fun onCreateBindingView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        TODO("Not yet implemented")
+        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val model = DarkModeModel(requireContext())
+        binding?.presenter = darkModePresenter
+        binding?.temp = model
+
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        isDarkMode = loadDarkModeStateFromPreferences()
 
         MyRetrofitClient.getUsers(this)
         showProgressDialog()
@@ -102,16 +103,13 @@ class RetrofitFragment: DetailFragment(), IRetrofit {
             return
         for (user in list) {
 
-            val rowView = LayoutInflater.from(context).inflate(
-                R.layout.client_item,
-                retrofit_users_container,
-                false
-            )
+            val itemBinding: ClientItemBinding = ClientItemBinding.inflate(layoutInflater, binding?.retrofitUsersContainer, false)
+            val itemView: View = itemBinding.root
 
-            val labelUsername: TextView = rowView.findViewById(R.id.client_text1)
+            val labelUsername: TextView = itemBinding.clientText1
             labelUsername.text = user?.username
 
-            val labelEmail: TextView = rowView.findViewById(R.id.client_text2)
+            val labelEmail: TextView = itemBinding.clientText2
             labelEmail.text = user?.email
 
             if (isDarkMode) {
@@ -123,7 +121,12 @@ class RetrofitFragment: DetailFragment(), IRetrofit {
                 labelEmail.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
             }
 
-            retrofit_users_container.addView(rowView)
+            binding?.retrofitUsersContainer?.addView(itemView)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
     }
 }

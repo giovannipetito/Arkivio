@@ -17,11 +17,13 @@ import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.databinding.DatePickerLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
+import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.DateManager
-import kotlinx.android.synthetic.main.date_picker_layout.*
-import kotlinx.android.synthetic.main.datepicker_single_date.view.*
 import kotlinx.android.synthetic.main.detail_layout.*
+import kotlinx.android.synthetic.main.datepicker_single_date.view.*
 import kotlinx.android.synthetic.main.timepicker_range_time.view.*
 import kotlinx.android.synthetic.main.timepicker_single_time.view.*
 import java.text.DecimalFormat
@@ -30,7 +32,8 @@ import java.util.*
 
 class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener {
 
-    private var viewFragment: View? = null
+    private var layoutBinding: DatePickerLayoutBinding? = null
+    private val binding get() = layoutBinding
 
     private var calendar : Calendar? = null
 
@@ -59,7 +62,7 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
     private var minutePicker: NumberPicker? = null
 
     override fun getLayout(): Int {
-        return R.layout.date_picker_layout
+        return NO_LAYOUT
     }
 
     override fun getTitle(): Int {
@@ -100,13 +103,15 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
         return true
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
-        return viewFragment
-    }
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+        layoutBinding = DatePickerLayoutBinding.inflate(inflater, container, false)
 
-    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        TODO("Not yet implemented")
+        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val model = DarkModeModel(requireContext())
+        binding?.presenter = darkModePresenter
+        binding?.temp = model
+
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -126,14 +131,14 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
         timeDate = DateManager(dateFormat.parse(dataInizio)!!)
         timeDate?.setTimeDate(currentHours, currentMinutes)
 
-        datepickerdialog_mindate?.setOnClickListener(datePickerDialogMinDateClickListener)
-        datepickerdialog_maxdate?.setOnClickListener(datePickerDialogMaxDateClickListener)
+        binding?.datepickerdialogMindate?.setOnClickListener(datePickerDialogMinDateClickListener)
+        binding?.datepickerdialogMaxdate?.setOnClickListener(datePickerDialogMaxDateClickListener)
 
-        current_time_picker_label?.setOnClickListener(currentTimePickerDialogClickListener)
+        binding?.currentTimePickerLabel?.setOnClickListener(currentTimePickerDialogClickListener)
 
-        start_time_picker_label?.setOnClickListener(startTimePickerDialogClickListener)
+        binding?.startTimePickerLabel?.setOnClickListener(startTimePickerDialogClickListener)
 
-        range_time_picker_label?.setOnClickListener(rangeTimePickerDialogClickListener)
+        binding?.rangeTimePickerLabel?.setOnClickListener(rangeTimePickerDialogClickListener)
 
         // CUSTOM PICKERS
 
@@ -141,23 +146,23 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
         mese = calendar?.get(Calendar.MONTH)!! + 1
         anno = calendar?.get(Calendar.YEAR)
 
-        date_picker.setOnClickListener {
+        binding?.datePicker?.setOnClickListener {
             showDatePicker()
         }
 
-        single_time_picker.setOnClickListener {
+        binding?.singleTimePicker?.setOnClickListener {
             showSingleTimePicker()
         }
 
-        range_time_picker_1.setOnClickListener {
+        binding?.rangeTimePicker1?.setOnClickListener {
             showRangeTimePicker1()
         }
 
-        range_time_picker_2.setOnClickListener {
+        binding?.rangeTimePicker2?.setOnClickListener {
             showRangeTimePicker2()
         }
 
-        scroll_container.setOnScrollChangeListener { _, _, scrollY, _, _ ->
+        binding?.scrollContainer?.setOnScrollChangeListener { _, _, scrollY, _, _ ->
             swipeRefreshLayout.isEnabled = scrollY == 0
         }
 
@@ -210,9 +215,9 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
 
         pickerData = String.format("%02d/%02d/%04d", day, month + 1, year) // "dd/MM/yyyy"
         if (isMinDate!!)
-            datepickerdialog_mindate.text = pickerData
+            binding?.datepickerdialogMindate?.text = pickerData
         else
-            datepickerdialog_maxdate.text = pickerData
+            binding?.datepickerdialogMaxdate?.text = pickerData
     }
 
     private val currentTimePickerDialogClickListener = View.OnClickListener {
@@ -220,7 +225,7 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
         val timePickerDialog = TimePickerDialog(context, R.style.PickerDialogTheme, { _, hourOfDay, minute ->
 
             startTime = String.format("%02d:%02d", hourOfDay, minute) + ":00"
-            current_time_picker_label.text = startTime
+            binding?.currentTimePickerLabel?.text = startTime
         }, calendar?.get(Calendar.HOUR_OF_DAY)!!, calendar?.get(Calendar.MINUTE)!!, true)
 
         timePickerDialog.setCancelable(false)
@@ -236,7 +241,7 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
         val timePickerDialog = TimePickerDialog(context, R.style.PickerDialogTheme, { _, hourOfDay, minute ->
 
             startTime = String.format("%02d:%02d", hourOfDay, minute) + ":00"
-            start_time_picker_label.text = startTime
+            binding?.startTimePickerLabel?.text = startTime
         }, 9, 0, true)
 
         timePickerDialog.setCancelable(false)
@@ -253,7 +258,7 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
 
                 endTime = String.format("%02d:%02d", endHourOfDay, endMinute) + ":00"
                 rangeTime = "Dalle $startTime alle $endTime"
-                range_time_picker_label.text = rangeTime
+                binding?.rangeTimePickerLabel?.text = rangeTime
 
             }, 18, 0, true)
 
@@ -294,7 +299,7 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
         }
         view.ok.setOnClickListener {
             val result = "$giorno/$mese/$anno"
-            date_picker.text = result
+            binding?.datePicker?.text = result
             dialog.dismiss()
         }
         dialog.show()
@@ -327,7 +332,7 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
             dialog.dismiss()
         }
         view.single_time_ok.setOnClickListener {
-            single_time_picker.text = startTime
+            binding?.singleTimePicker?.text = startTime
             dialog.dismiss()
         }
         dialog.show()
@@ -406,7 +411,7 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
                     popupError?.dismiss()
                 }
             } else {
-                range_time_picker_1.text = rangeTime
+                binding?.rangeTimePicker1?.text = rangeTime
             }
 
             dialog.dismiss()
@@ -500,7 +505,7 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
                     }
                 } else {
                     val result = "Dalle " + startDate?.getFormatTime() + " alle " + endDate?.getFormatTime()
-                    range_time_picker_2.text = result
+                    binding?.rangeTimePicker2?.text = result
                 }
                 */
 
@@ -523,7 +528,7 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
                 }
                 else {
                     val result = "Dalle " + startDate?.getFormatTime() + " alle " + endDate?.getFormatTime()
-                    range_time_picker_2.text = result
+                    binding?.rangeTimePicker2?.text = result
                 }
 
             } else {
@@ -541,7 +546,7 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
                 }
                 else {
                     val result = "Dalle " + startDate?.getFormatTime() + " alle " + endDate?.getFormatTime()
-                    range_time_picker_2.text = result
+                    binding?.rangeTimePicker2?.text = result
                 }
 
                 /*
@@ -556,7 +561,7 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
                     }
                 } else {
                     val result = "Dalle " + startDate?.getFormatTime() + " alle " + endDate?.getFormatTime()
-                    range_time_picker_2.text = result
+                    binding?.rangeTimePicker2?.text = result
                 }
                 */
             }
@@ -608,5 +613,10 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
             minutePicker?.maxValue = numValues - 1
             minutePicker?.displayedValues = displayedValues
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
     }
 }

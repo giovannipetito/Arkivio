@@ -205,9 +205,14 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
 
         if (cursor?.count!! > 0) {
             while (cursor.moveToNext()) {
-                id = cursor.getLong(cursor.getColumnIndex(ContactsContract.Contacts._ID))
-                name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
-                lookupKey = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY))
+
+                val mId = cursor.getColumnIndex(ContactsContract.Contacts._ID)
+                val mDisplayName = cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)
+                val mLookupKey = cursor.getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY)
+
+                id = cursor.getLong(mId)
+                name = cursor.getString(mDisplayName)
+                lookupKey = cursor.getString(mLookupKey)
                 selectedContactUri = ContactsContract.Contacts.getLookupUri(id, lookupKey)
             }
         }
@@ -243,10 +248,15 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
 
         if (cursor?.count ?: 0 > 0) {
             while (cursor != null && cursor.moveToNext()) {
-                val id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID))
-                val name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
+
+                val mId = cursor.getColumnIndex(ContactsContract.Contacts._ID)
+                val mDisplayName = cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)
+                val mHasPhoneNumber = cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)
+
+                val id = cursor.getString(mId)
+                val name = cursor.getString(mDisplayName)
                 // list.add(name)
-                if (cursor.getInt(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)) > 0) {
+                if (cursor.getInt(mHasPhoneNumber) > 0) {
                     val phoneCursor = contentResolver.query(
                         ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
                         null,
@@ -255,7 +265,8 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
                         null
                     )
                     while (phoneCursor?.moveToNext()!!) {
-                        phone = phoneCursor.getString(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+                        val mNumber = phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
+                        phone = phoneCursor.getString(mNumber)
                     }
                     list.add("$name: $phone")
                     phoneCursor.close()

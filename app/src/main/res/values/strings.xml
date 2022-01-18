@@ -1,4 +1,4 @@
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <!-- APP NAME -->
     <string name="app_name">Arkivio</string>
@@ -84,7 +84,6 @@
     <string name="date_picker_title">Date Picker</string>
     <string name="calendarview_horizontal_title">CalendarView Horizontal</string>
     <string name="calendarview_vertical_title">CalendarView Vertical</string>
-    <string name="tap_here">Tap here</string>
     <string name="monday">LUN</string>
     <string name="tuesday">MAR</string>
     <string name="wednesday">MER</string>
@@ -92,6 +91,63 @@
     <string name="friday">VEN</string>
     <string name="saturday">SAB</string>
     <string name="sunday">DOM</string>
+
+    <string name="Date.hours">Date().hours</string>
+    <string name="Date.minutes">Date().minutes</string>
+    <string name="getDate">getDate</string>
+    <string name="getDate_millis">getDate (millis)</string>
+    <string name="millis_1">millis 1</string>
+    <string name="millis_2">millis 2</string>
+    <string name="millis_3">millis 3</string>
+    <string name="millis_4">millis 4</string>
+    <string name="getFormatTime">getFormatTime</string>
+    <string name="getFormatTimePlus1">getFormatTime + 1</string>
+    <string name="getFormatDate1" tools:ignore="Typos">getFormatDate1</string>
+    <string name="getFormatDate2">getFormatDate2</string>
+    <string name="getFormatDate3">getFormatDate3</string>
+    <string name="getFormatDate4">getFormatDate4</string>
+    <string name="getFormatDate4Plus1">getFormatDate4 + 1</string>
+    <string name="getCustomFormatDate">getCustomFormatDate</string>
+    <string name="getFormatTime_start">getFormatTime (start)</string>
+    <string name="getFormatTime_end">getFormatTime (end)</string>
+    <string name="getFormatDate4_start">getFormatDate4 (start)</string>
+    <string name="getFormatDate4_end">getFormatDate4 (end)</string>
+    <string name="getRangeTime_current">getRangeTime (current)</string>
+    <string name="getRangeTime_response">getRangeTime (response)</string>
+    <string name="getRangeDate1_current" tools:ignore="Typos">getRangeDate1 (current)</string>
+    <string name="getRangeDate1_response" tools:ignore="Typos">getRangeDate1 (response)</string>
+    <string name="getRangeDate2_current">getRangeDate2 (current)</string>
+    <string name="getSimpleDate1" tools:ignore="Typos">getSimpleDate1</string>
+    <string name="getSimpleDate2">getSimpleDate2</string>
+    <string name="getSimpleDate3">getSimpleDate3</string>
+    <string name="getSimpleDate4">getSimpleDate4</string>
+    <string name="getSimpleTime">getSimpleTime</string>
+    <string name="getSimpleName">getSimpleName</string>
+    <string name="getSimpleDay">getSimpleDay</string>
+    <string name="getSimpleMonth">getSimpleMonth</string>
+    <string name="getSimpleYear">getSimpleYear</string>
+    <string name="getUpperSimpleName1" tools:ignore="Typos">getUpperSimpleName1</string>
+    <string name="getUpperSimpleName2">getUpperSimpleName2</string>
+    <string name="getUpperSimpleDate1" tools:ignore="Typos">getUpperSimpleDate1</string>
+    <string name="getUpperSimpleDate2">getUpperSimpleDate2</string>
+    <string name="getCustomFormatTime">getCustomFormatTime</string>
+    <string name="getTimeRange1" tools:ignore="Typos">getTimeRange1</string>
+    <string name="getTimeRange2">getTimeRange2</string>
+    <string name="getTimeRange3">getTimeRange3</string>
+    <string name="getTimeRange4">getTimeRange4</string>
+    <string name="getGranularityDate">getGranularityDate</string>
+    <string name="setTimeDate">setTimeDate</string>
+
+    <string name="tap_here">Tap here</string>
+    <string name="DatePickerDialog_minDate">DatePickerDialog (minDate)</string>
+    <string name="DatePickerDialog_maxDate">DatePickerDialog (maxDate)</string>
+    <string name="Current_TimePickerDialog">Current TimePickerDialog</string>
+    <string name="Start_TimePickerDialog">Start TimePickerDialog</string>
+    <string name="Range_TimePickerDialog">Range TimePickerDialog</string>
+    <string name="DatePicker">DatePicker</string>
+    <string name="Single_TimePicker">Single TimePicker</string>
+    <string name="Range_TimePicker_1">Range TimePicker 1</string>
+    <string name="Range_TimePicker_2">Range TimePicker 2</string>
 
     <!-- SMARTWORKING -->
     <string name="smartworking_title">Smartworking</string>

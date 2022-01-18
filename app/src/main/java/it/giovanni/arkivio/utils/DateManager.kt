@@ -17,8 +17,8 @@ class DateManager {
 
         // HH:mm - HH:mm
         fun getRangeTime(startDate: String, endDate: String): StringBuilder {
-            val dataInizio = SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.UK).parse(startDate)
-            val dataFine = SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.UK).parse(endDate)
+            val dataInizio = SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.ITALY).parse(startDate)
+            val dataFine = SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.ITALY).parse(endDate)
 
             return StringBuilder()
                 .append(SimpleDateFormat("HH:mm", Locale.ITALY).format(dataInizio!!))
@@ -28,8 +28,8 @@ class DateManager {
 
         // dd MMMM yyyy | HH:mm - HH:mm
         fun getRangeDate1(start_date: String, end_date: String): StringBuilder {
-            val startDate = SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.UK).parse(start_date)
-            val endDate = SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.UK).parse(end_date)
+            val startDate = SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.ITALY).parse(start_date)
+            val endDate = SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.ITALY).parse(end_date)
 
             return StringBuilder()
                 .append(SimpleDateFormat("dd MMMM yyyy", Locale.ITALY).format(startDate!!))
@@ -41,8 +41,8 @@ class DateManager {
 
         // Sab, 06 Feb 1988 | 06:00 - 12:30
         fun getRangeDate2(start_date: String, end_date: String): StringBuilder {
-            val startDate = SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.UK).parse(start_date)
-            val endDate = SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.UK).parse(end_date)
+            val startDate = SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.ITALY).parse(start_date)
+            val endDate = SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.ITALY).parse(end_date)
 
             var day = SimpleDateFormat("E", Locale.ITALY).format(startDate!!)
             var month = SimpleDateFormat("MMM", Locale.ITALY).format(startDate)
@@ -65,13 +65,13 @@ class DateManager {
 
         // dd MMM yyyy
         fun getSimpleDate1(date: String): StringBuilder {
-            val formattedDate = SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.UK).parse(date)
+            val formattedDate = SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.ITALY).parse(date)
             return StringBuilder().append(SimpleDateFormat("dd MMM yyyy", Locale.ITALY).format(formattedDate!!))
         }
 
         // dd MMMM yyyy
         fun getSimpleDate2(date: String): StringBuilder {
-            val formattedDate = SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.UK).parse(date)
+            val formattedDate = SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.ITALY).parse(date)
             return StringBuilder().append(SimpleDateFormat("dd MMMM yyyy", Locale.ITALY).format(formattedDate!!))
         }
 
@@ -84,51 +84,51 @@ class DateManager {
 
         // dd MMMM yyyy HH:mm
         fun getSimpleDate4(date: String): StringBuilder {
-            val formattedDate = SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.UK).parse(date)
+            val formattedDate = SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.ITALY).parse(date)
             return StringBuilder().append(SimpleDateFormat("dd MMMM yyyy HH:mm", Locale.ITALY).format(formattedDate!!))
         }
 
         // HH:mm:ss
         fun getSimpleTime(date: String): StringBuilder {
-            val formattedDate = SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.UK).parse(date)
+            val formattedDate = SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.ITALY).parse(date)
             return StringBuilder().append(SimpleDateFormat("HH:mm:ss", Locale.ITALY).format(formattedDate!!))
         }
 
         // EEEE
         fun getSimpleName(date: String): StringBuilder {
-            val formattedDate = SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.UK).parse(date)
+            val formattedDate = SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.ITALY).parse(date)
             return StringBuilder().append(SimpleDateFormat("EEEE", Locale.ITALY).format(formattedDate!!))
         }
 
         // dd
         fun getSimpleDay(date: String): StringBuilder {
-            val formattedDate = SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.UK).parse(date)
+            val formattedDate = SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.ITALY).parse(date)
             return StringBuilder().append(SimpleDateFormat("dd", Locale.ITALY).format(formattedDate!!))
         }
 
         // MMMM
         fun getSimpleMonth1(date: String): StringBuilder {
-            val formattedDate = SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.UK).parse(date)
+            val formattedDate = SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.ITALY).parse(date)
             return StringBuilder().append(SimpleDateFormat("MMMM", Locale.ITALY).format(formattedDate!!))
         }
 
         // MMMM
         fun getSimpleMonth2(date: String): String {
-            val formattedDate = SimpleDateFormat("MM", Locale.getDefault()).parse(date)
-            var month = StringBuilder().append(SimpleDateFormat("MMMM", Locale.getDefault()).format(formattedDate!!)).toString()
+            val formattedDate = SimpleDateFormat("MM", Locale.ITALY).parse(date)
+            var month = StringBuilder().append(SimpleDateFormat("MMMM", Locale.ITALY).format(formattedDate!!)).toString()
             month = month.substring(0, 1).uppercase() + month.substring(1)
             return month
         }
 
         // yyyy
         fun getSimpleYear(date: String): StringBuilder {
-            val formattedDate = SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.UK).parse(date)
+            val formattedDate = SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.ITALY).parse(date)
             return StringBuilder().append(SimpleDateFormat("yyyy", Locale.ITALY).format(formattedDate!!))
         }
 
         // Sabato
         fun getUpperSimpleName1(date: String): String {
-            val formattedDate = SimpleDateFormat("yyyy/MM/dd", Locale.UK).parse(date)
+            val formattedDate = SimpleDateFormat("yyyy/MM/dd", Locale.ITALY).parse(date)
             var name = StringBuilder().append(SimpleDateFormat("EEEE", Locale.ITALY).format(formattedDate!!)).toString()
             name = name.substring(0, 1).uppercase() + name.substring(1)
             return name
@@ -136,7 +136,7 @@ class DateManager {
 
         // Sabato
         fun getUpperSimpleName2(date: String): String {
-            val formattedDate = SimpleDateFormat("dd/MM/yyyy", Locale.UK).parse(date)
+            val formattedDate = SimpleDateFormat("dd/MM/yyyy", Locale.ITALY).parse(date)
             var name = StringBuilder().append(SimpleDateFormat("EEEE", Locale.ITALY).format(formattedDate!!)).toString()
             name = name.substring(0, 1).uppercase() + name.substring(1)
             return name
@@ -144,23 +144,22 @@ class DateManager {
 
         // 06 Feb 1988
         fun getUpperSimpleDate1(dataPicker: String): String {
-            val formattedDate = SimpleDateFormat("yyyy/MM/dd", Locale.UK).parse(dataPicker)
+            val formattedDate = SimpleDateFormat("yyyy/MM/dd", Locale.ITALY).parse(dataPicker)
             val stringBuilder = StringBuilder().append(SimpleDateFormat("dd MMM yyyy", Locale.ITALY).format(formattedDate!!))
             return stringBuilder.substring(0, 3) + stringBuilder.substring(3, 4).uppercase() + stringBuilder.substring(4, stringBuilder.length)
         }
 
         // 06 Feb 1988
         fun getUpperSimpleDate2(date: String): String {
-            val formattedDate = SimpleDateFormat("dd/MM/yyyy", Locale.UK).parse(date)
+            val formattedDate = SimpleDateFormat("dd/MM/yyyy", Locale.ITALY).parse(date)
             val stringBuilder = StringBuilder().append(SimpleDateFormat("dd MMM yyyy", Locale.ITALY).format(formattedDate!!))
             return stringBuilder.substring(0, 3) + stringBuilder.substring(3, 4).uppercase() + stringBuilder.substring(4, stringBuilder.length)
         }
 
-
         // Febbraio
         fun getUpperSimpleDate3(date: String): String {
-            val formattedDate = SimpleDateFormat("MM", Locale.UK).parse(date)
-            val stringBuilder = StringBuilder().append(SimpleDateFormat("MMMM", Locale.getDefault()).format(formattedDate!!))
+            val formattedDate = SimpleDateFormat("MM", Locale.ITALY).parse(date)
+            val stringBuilder = StringBuilder().append(SimpleDateFormat("MMMM", Locale.ITALY).format(formattedDate!!))
             return stringBuilder.toString().uppercase()
         }
 
@@ -186,8 +185,8 @@ class DateManager {
 
                 return sb.toString()
             } else {
-                val startDate = SimpleDateFormat("yyyy/MM/dd", Locale.UK).parse(dataInizio)
-                val endDate = SimpleDateFormat("yyyy/MM/dd", Locale.UK).parse(dataFine)
+                val startDate = SimpleDateFormat("yyyy/MM/dd", Locale.ITALY).parse(dataInizio)
+                val endDate = SimpleDateFormat("yyyy/MM/dd", Locale.ITALY).parse(dataFine)
 
                 val difference = ((endDate?.time!! - startDate?.time!!) / (60 * 60 * 24 * 1000)).toInt()
                 val sb = StringBuilder()
@@ -202,7 +201,7 @@ class DateManager {
         // 06 Feb 1988 - 07 Feb 1988
         fun getTimeRange2(dataInizio: String, dataFine: String): String {
 
-            val startDate = SimpleDateFormat("yyyy/MM/dd", Locale.UK).parse(dataInizio)
+            val startDate = SimpleDateFormat("yyyy/MM/dd", Locale.ITALY).parse(dataInizio)
 
             if (dataInizio == dataFine) {
                 var month = SimpleDateFormat("MMMM", Locale.ITALY).format(startDate!!)
@@ -217,7 +216,7 @@ class DateManager {
 
                 return sb.toString()
             } else {
-                val endDate = SimpleDateFormat("yyyy/MM/dd", Locale.UK).parse(dataFine)
+                val endDate = SimpleDateFormat("yyyy/MM/dd", Locale.ITALY).parse(dataFine)
 
                 val sb = StringBuilder()
                     .append(SimpleDateFormat("dd MMM yyyy", Locale.ITALY).format(startDate!!))
@@ -236,7 +235,7 @@ class DateManager {
         // Sab, 06 Feb 1988 - Dom, 07 Feb 1988
         fun getTimeRange3(dataInizio: String, dataFine: String): String {
 
-            val startDate = SimpleDateFormat("yyyy/MM/dd", Locale.UK).parse(dataInizio)
+            val startDate = SimpleDateFormat("yyyy/MM/dd", Locale.ITALY).parse(dataInizio)
 
             if (dataInizio == dataFine) {
                 var day = SimpleDateFormat("E", Locale.ITALY).format(startDate!!)
@@ -254,7 +253,7 @@ class DateManager {
                     .append(SimpleDateFormat("yyyy", Locale.ITALY).format(startDate))
                 return sb.toString()
             } else {
-                val endDate = SimpleDateFormat("yyyy/MM/dd", Locale.UK).parse(dataFine)
+                val endDate = SimpleDateFormat("yyyy/MM/dd", Locale.ITALY).parse(dataFine)
 
                 var startDay = SimpleDateFormat("E", Locale.ITALY).format(startDate!!)
                 var startMonth = SimpleDateFormat("dd MMM yyyy", Locale.ITALY).format(startDate)
@@ -285,7 +284,7 @@ class DateManager {
         // Sab, 06 Feb 1988 - Mer, 10 Feb 1988 | 5 giorni
         fun getTimeRange4(dataInizio: String, dataFine: String, totaleOre: Float): String {
 
-            val startDate = SimpleDateFormat("yyyy/MM/dd", Locale.UK).parse(dataInizio)
+            val startDate = SimpleDateFormat("yyyy/MM/dd", Locale.ITALY).parse(dataInizio)
 
             if (dataInizio == dataFine && totaleOre < 8) {
 
@@ -321,7 +320,7 @@ class DateManager {
                 return sb.toString()
 
             } else {
-                val endDate = SimpleDateFormat("yyyy/MM/dd", Locale.UK).parse(dataFine)
+                val endDate = SimpleDateFormat("yyyy/MM/dd", Locale.ITALY).parse(dataFine)
                 val difference = ((endDate?.time!! - startDate?.time!!) / (60 * 60 * 24 * 1000)).toInt() + 1
 
                 var startDay = SimpleDateFormat("E", Locale.ITALY).format(startDate)
@@ -361,7 +360,7 @@ class DateManager {
     private var data: Date? = null
 
     constructor(date: Date) {
-        val sdf = SimpleDateFormat(BASE_FORMAT, Locale.UK)
+        val sdf = SimpleDateFormat(BASE_FORMAT, Locale.ITALY)
         sdf.timeZone = TimeZone.getDefault()
         dataString = sdf.format(date)
         data = date
@@ -369,7 +368,7 @@ class DateManager {
 
     constructor(millis: Long) {
         val date = Date(millis)
-        val sdf = SimpleDateFormat(BASE_FORMAT, Locale.UK)
+        val sdf = SimpleDateFormat(BASE_FORMAT, Locale.ITALY)
         sdf.timeZone = TimeZone.getDefault()
         dataString = sdf.format(date)
         data = date
@@ -377,7 +376,7 @@ class DateManager {
 
     constructor(dateString: String) {
         dataString = dateString
-        val sdf = SimpleDateFormat(BASE_FORMAT, Locale.UK)
+        val sdf = SimpleDateFormat(BASE_FORMAT, Locale.ITALY)
         sdf.timeZone = TimeZone.getDefault()
         data = sdf.parse(dataString)
     }
@@ -388,7 +387,7 @@ class DateManager {
 
     // HH:mm
     fun getFormatTime(): StringBuilder {
-        val sdf = SimpleDateFormat(BASE_FORMAT, Locale.UK)
+        val sdf = SimpleDateFormat(BASE_FORMAT, Locale.ITALY)
         sdf.timeZone = TimeZone.getDefault()
         val formattedHour = sdf.parse(dataString)
         return StringBuilder().append(SimpleDateFormat("HH:mm", Locale.ITALY).format(formattedHour!!))
@@ -400,7 +399,7 @@ class DateManager {
 
     // dd MMMM yyyy
     fun getFormatDate1(): StringBuilder {
-        val sdf = SimpleDateFormat(BASE_FORMAT, Locale.UK)
+        val sdf = SimpleDateFormat(BASE_FORMAT, Locale.ITALY)
         sdf.timeZone = TimeZone.getDefault()
         val formattedDate = sdf.parse(dataString)
         return StringBuilder().append(SimpleDateFormat("dd MMMM yyyy", Locale.ITALY).format(formattedDate!!))
@@ -408,7 +407,7 @@ class DateManager {
 
     // E dd MMM yyyy (Sab 06 Feb 1988)
     fun getFormatDate2(): String {
-        val sdf = SimpleDateFormat(BASE_FORMAT, Locale.UK)
+        val sdf = SimpleDateFormat(BASE_FORMAT, Locale.ITALY)
         sdf.timeZone = TimeZone.getDefault()
         val formattedDate = sdf.parse(dataString)
         val stringBuilder = StringBuilder().append(SimpleDateFormat("E dd MMM yyyy", Locale.ITALY).format(formattedDate!!))
@@ -417,7 +416,7 @@ class DateManager {
 
     // E dd MMM yyyy (Sab, 06 Feb 1988)
     fun getFormatDate3(): String {
-        val sdf = SimpleDateFormat(BASE_FORMAT, Locale.UK)
+        val sdf = SimpleDateFormat(BASE_FORMAT, Locale.ITALY)
         sdf.timeZone = TimeZone.getDefault()
         val formattedDate = sdf.parse(dataString)
 
@@ -439,10 +438,10 @@ class DateManager {
 
     // YYYY-MM-dd HH:mm:ss
     fun getFormatDate4(): String {
-        val sdf = SimpleDateFormat(BASE_FORMAT, Locale.UK)
+        val sdf = SimpleDateFormat(BASE_FORMAT, Locale.ITALY)
         sdf.timeZone = TimeZone.getDefault()
 
-        val sdfTo = SimpleDateFormat(REQUEST_DATE_FORMAT, Locale.UK)
+        val sdfTo = SimpleDateFormat(REQUEST_DATE_FORMAT, Locale.ITALY)
         sdfTo.timeZone = TimeZone.getDefault()
 
         val dateFromFormatted = sdf.parse(dataString)
@@ -451,16 +450,16 @@ class DateManager {
 
     // || dd || MM || yyyy ||
     fun getCustomFormatDate(dateToFormat: String): String {
-        val formattedDate = SimpleDateFormat(BASE_FORMAT, Locale.UK).parse(dataString)
-        return StringBuilder().append(SimpleDateFormat(dateToFormat, Locale.UK).format(formattedDate!!)).toString()
+        val formattedDate = SimpleDateFormat(BASE_FORMAT, Locale.ITALY).parse(dataString)
+        return StringBuilder().append(SimpleDateFormat(dateToFormat, Locale.ITALY).format(formattedDate!!)).toString()
     }
 
     fun getGranularityDate(granularity: Int): String {
 
-        val sdf = SimpleDateFormat(BASE_FORMAT, Locale.UK)
+        val sdf = SimpleDateFormat(BASE_FORMAT, Locale.ITALY)
         sdf.timeZone = TimeZone.getDefault()
 
-        var sdfTo = SimpleDateFormat(REQUEST_DATE_FORMAT, Locale.UK)
+        var sdfTo = SimpleDateFormat(REQUEST_DATE_FORMAT, Locale.ITALY)
         sdfTo.timeZone = TimeZone.getDefault()
 
         val dateFromFormatted = sdf.parse(dataString)
@@ -468,11 +467,11 @@ class DateManager {
 
         when (granularity) {
             GRANULARITY_MINUTE -> {
-                sdfTo = SimpleDateFormat(REQUEST_DATE_FORMAT.replace(":ss", ":00"), Locale.UK)
+                sdfTo = SimpleDateFormat(REQUEST_DATE_FORMAT.replace(":ss", ":00"), Locale.ITALY)
                 dateToFormatted = StringBuilder().append(sdfTo.format(dateFromFormatted!!)).toString()
             }
             GRANULARITY_HOUR -> {
-                sdfTo = SimpleDateFormat(REQUEST_DATE_FORMAT.replace("mm:ss", "00:00"), Locale.UK)
+                sdfTo = SimpleDateFormat(REQUEST_DATE_FORMAT.replace("mm:ss", "00:00"), Locale.ITALY)
                 dateToFormatted = StringBuilder().append(sdfTo.format(dateFromFormatted!!)).toString()
             }
             else -> {
@@ -483,13 +482,13 @@ class DateManager {
     }
 
     fun setTimeDate(hourOfDay: Int, minute: Int) {
-        val sdf = SimpleDateFormat(BASE_FORMAT, Locale.UK)
+        val sdf = SimpleDateFormat(BASE_FORMAT, Locale.ITALY)
         sdf.timeZone = TimeZone.getDefault()
         val formattedHour = sdf.parse(dataString)
         var baseFormat = BASE_FORMAT
         baseFormat = baseFormat.replace("HH", hourOfDay.toString())
         baseFormat = baseFormat.replace("mm", minute.toString())
-        dataString = SimpleDateFormat(baseFormat, Locale.UK).format(formattedHour!!)
+        dataString = SimpleDateFormat(baseFormat, Locale.ITALY).format(formattedHour!!)
         data = sdf.parse(dataString)
     }
 
@@ -501,7 +500,7 @@ class DateManager {
         if (minute in 30..44) min = 45
         if (minute in 45..59) min = 0
 
-        val sdf = SimpleDateFormat(BASE_FORMAT, Locale.UK)
+        val sdf = SimpleDateFormat(BASE_FORMAT, Locale.ITALY)
         sdf.timeZone = TimeZone.getDefault()
         val formattedHour = sdf.parse(dataString)
         var baseFormat = BASE_FORMAT
@@ -511,7 +510,7 @@ class DateManager {
             else baseFormat.replace("HH", hourOfDay.toString())
 
         baseFormat = baseFormat.replace("mm", min.toString())
-        dataString = SimpleDateFormat(baseFormat, Locale.UK).format(formattedHour!!)
+        dataString = SimpleDateFormat(baseFormat, Locale.ITALY).format(formattedHour!!)
         data = sdf.parse(dataString)
     }
 
@@ -522,23 +521,23 @@ class DateManager {
         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
         calendar.set(Calendar.HOUR_OF_DAY, getDatePickerHour())
         calendar.set(Calendar.MINUTE, getDatePickerMinute())
-        val sdf = SimpleDateFormat(BASE_FORMAT, Locale.UK)
+        val sdf = SimpleDateFormat(BASE_FORMAT, Locale.ITALY)
         sdf.timeZone = TimeZone.getDefault()
         dataString = sdf.format(calendar.time)
         data = calendar.time
     }
 
     fun getDatePickerHour(): Int {
-        val sdf = SimpleDateFormat(BASE_FORMAT, Locale.UK)
+        val sdf = SimpleDateFormat(BASE_FORMAT, Locale.ITALY)
         sdf.timeZone = TimeZone.getDefault()
         val formattedHour = sdf.parse(dataString)
-        return SimpleDateFormat("HH", Locale.UK).format(formattedHour!!).toInt()
+        return SimpleDateFormat("HH", Locale.ITALY).format(formattedHour!!).toInt()
     }
 
     fun getDatePickerMinute(): Int {
-        val sdf = SimpleDateFormat(BASE_FORMAT, Locale.UK)
+        val sdf = SimpleDateFormat(BASE_FORMAT, Locale.ITALY)
         sdf.timeZone = TimeZone.getDefault()
         val formattedHour = sdf.parse(dataString)
-        return SimpleDateFormat("mm", Locale.UK).format(formattedHour!!).toInt()
+        return SimpleDateFormat("mm", Locale.ITALY).format(formattedHour!!).toInt()
     }
 }

@@ -12,7 +12,6 @@ import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadDarkMode
 
 class DarkModeModel : BaseObservable {
 
-    private var viewColor: Int? = 0
     private var labelColor: Int? = 0
     private var bottomBarColor: Int? = 0
     private var label: String? = null
@@ -34,9 +33,8 @@ class DarkModeModel : BaseObservable {
     constructor(context: Context) {
         val isDarkMode = loadDarkModeStateFromPreferences()
         if (isDarkMode) {
-            viewColor = ResourcesCompat.getColor(context.resources, R.color.colorPrimary, null)
             labelColor = ResourcesCompat.getColor(context.resources, R.color.colorPrimary, null)
-            bottomBarColor = ResourcesCompat.getColor(context.resources, R.color.white, null)
+            bottomBarColor = ResourcesCompat.getColor(context.resources, R.color.verde, null)
             label = context.resources.getString(R.string.label_dark_mode)
             icoDark = ResourcesCompat.getDrawable(context.resources, R.drawable.ico_dark_mode_light, null)
             icoLight = ResourcesCompat.getDrawable(context.resources, R.drawable.ico_light_mode_light, null)
@@ -46,9 +44,8 @@ class DarkModeModel : BaseObservable {
             backgroundColor = ResourcesCompat.getColor(context.resources, R.color.black_1, null)
             viewVisibility = View.GONE
         } else {
-            viewColor = ResourcesCompat.getColor(context.resources, R.color.azzurro, null)
             labelColor = ResourcesCompat.getColor(context.resources, R.color.colorPrimaryDark, null)
-            bottomBarColor = ResourcesCompat.getColor(context.resources, R.color.black_1, null)
+            bottomBarColor = ResourcesCompat.getColor(context.resources, R.color.rosso, null)
             label = context.resources.getString(R.string.label_light_mode)
             icoDark = ResourcesCompat.getDrawable(context.resources, R.drawable.ico_dark_mode_dark, null)
             icoLight = ResourcesCompat.getDrawable(context.resources, R.drawable.ico_light_mode_dark, null)
@@ -58,16 +55,6 @@ class DarkModeModel : BaseObservable {
             backgroundColor = ResourcesCompat.getColor(context.resources, R.color.white, null)
             viewVisibility = View.VISIBLE
         }
-    }
-
-    @Bindable
-    fun getViewColor(): Int? {
-        return viewColor
-    }
-
-    fun setViewColor(viewColor: Int?) {
-        this.viewColor = viewColor
-        notifyPropertyChanged(BR.viewColor)
     }
 
     @Bindable

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -44,8 +45,9 @@
                                 android:layout_weight="0.4"
                                 android:padding="6dp"
                                 android:text="@string/expiry"
-                                android:textColor="@color/grey_3"
-                                android:button="@drawable/checkbox_selector" />
+                                android:textColor="@{temp.labelColor}"
+                                android:button="@drawable/checkbox_selector"
+                                tools:textColor="@color/colorPrimary" />
 
                         <CheckBox
                                 android:id="@+id/scan_expiry"
@@ -54,9 +56,10 @@
                                 android:layout_weight="0.6"
                                 android:padding="6dp"
                                 android:text="@string/scan_expiry"
-                                android:textColor="@color/grey_3"
+                                android:textColor="@{temp.labelColor}"
                                 android:checked="true"
-                                android:button="@drawable/checkbox_selector" />
+                                android:button="@drawable/checkbox_selector"
+                                tools:textColor="@color/colorPrimary" />
 
                     </LinearLayout>
 
@@ -66,8 +69,9 @@
                             android:layout_height="wrap_content"
                             android:padding="6dp"
                             android:text="@string/cvv"
-                            android:textColor="@color/grey_3"
-                            android:button="@drawable/checkbox_selector" />
+                            android:textColor="@{temp.labelColor}"
+                            android:button="@drawable/checkbox_selector"
+                            tools:textColor="@color/colorPrimary" />
 
                     <CheckBox
                             android:id="@+id/postal_code"
@@ -75,8 +79,9 @@
                             android:layout_height="wrap_content"
                             android:padding="6dp"
                             android:text="@string/postal_code"
-                            android:textColor="@color/grey_3"
-                            android:button="@drawable/checkbox_selector" />
+                            android:textColor="@{temp.labelColor}"
+                            android:button="@drawable/checkbox_selector"
+                            tools:textColor="@color/colorPrimary" />
 
                     <CheckBox
                             android:id="@+id/use_card_io_logo"
@@ -84,8 +89,9 @@
                             android:layout_height="wrap_content"
                             android:padding="6dp"
                             android:text="@string/use_card_io_logo"
-                            android:textColor="@color/grey_3"
-                            android:button="@drawable/checkbox_selector" />
+                            android:textColor="@{temp.labelColor}"
+                            android:button="@drawable/checkbox_selector"
+                            tools:textColor="@color/colorPrimary" />
 
                     <CheckBox
                             android:id="@+id/cardholder_name"
@@ -93,8 +99,9 @@
                             android:layout_height="wrap_content"
                             android:padding="6dp"
                             android:text="@string/cardholder_name"
-                            android:textColor="@color/grey_3"
-                            android:button="@drawable/checkbox_selector" />
+                            android:textColor="@{temp.labelColor}"
+                            android:button="@drawable/checkbox_selector"
+                            tools:textColor="@color/colorPrimary" />
 
                     <CheckBox
                             android:id="@+id/suppress_confirmation"
@@ -102,8 +109,9 @@
                             android:layout_height="wrap_content"
                             android:padding="6dp"
                             android:text="@string/suppress_confirmation"
-                            android:textColor="@color/grey_3"
-                            android:button="@drawable/checkbox_selector" />
+                            android:textColor="@{temp.labelColor}"
+                            android:button="@drawable/checkbox_selector"
+                            tools:textColor="@color/colorPrimary" />
 
                     <CheckBox
                             android:id="@+id/bypass_the_scan"
@@ -111,8 +119,9 @@
                             android:layout_height="wrap_content"
                             android:padding="6dp"
                             android:text="@string/bypass_the_scan"
-                            android:textColor="@color/grey_3"
-                            android:button="@drawable/checkbox_selector" />
+                            android:textColor="@{temp.labelColor}"
+                            android:button="@drawable/checkbox_selector"
+                            tools:textColor="@color/colorPrimary" />
 
                     <CheckBox
                             android:id="@+id/keep_application_theme"
@@ -120,8 +129,9 @@
                             android:layout_height="wrap_content"
                             android:padding="6dp"
                             android:text="@string/keep_application_theme"
-                            android:textColor="@color/grey_3"
-                            android:button="@drawable/checkbox_selector" />
+                            android:textColor="@{temp.labelColor}"
+                            android:button="@drawable/checkbox_selector"
+                            tools:textColor="@color/colorPrimary" />
 
                     <CheckBox
                             android:id="@+id/suppress_keyboard_icon"
@@ -129,8 +139,9 @@
                             android:layout_height="wrap_content"
                             android:padding="6dp"
                             android:text="@string/suppress_keyboard_icon"
-                            android:textColor="@color/grey_3"
-                            android:button="@drawable/checkbox_selector" />
+                            android:textColor="@{temp.labelColor}"
+                            android:button="@drawable/checkbox_selector"
+                            tools:textColor="@color/colorPrimary" />
 
                     <CheckBox
                             android:id="@+id/suppress_scan_info"
@@ -138,8 +149,9 @@
                             android:layout_height="wrap_content"
                             android:padding="6dp"
                             android:text="@string/suppress_scan_info"
-                            android:textColor="@color/grey_3"
-                            android:button="@drawable/checkbox_selector" />
+                            android:textColor="@{temp.labelColor}"
+                            android:button="@drawable/checkbox_selector"
+                            tools:textColor="@color/colorPrimary" />
 
                     <CheckBox
                             android:id="@+id/postal_code_numeric"
@@ -147,8 +159,9 @@
                             android:layout_height="wrap_content"
                             android:padding="6dp"
                             android:text="@string/postal_code_numeric"
-                            android:textColor="@color/grey_3"
-                            android:button="@drawable/checkbox_selector" />
+                            android:textColor="@{temp.labelColor}"
+                            android:button="@drawable/checkbox_selector"
+                            tools:textColor="@color/colorPrimary" />
 
                     <CheckBox
                             android:id="@+id/show_paypal_action_bar_icon"
@@ -156,8 +169,9 @@
                             android:layout_height="wrap_content"
                             android:padding="6dp"
                             android:text="@string/show_paypal_action_bar_icon"
-                            android:textColor="@color/grey_3"
-                            android:button="@drawable/checkbox_selector" />
+                            android:textColor="@{temp.labelColor}"
+                            android:button="@drawable/checkbox_selector"
+                            tools:textColor="@color/colorPrimary" />
 
                     <LinearLayout
                             android:layout_width="match_parent"
@@ -169,24 +183,27 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.5"
+                                android:gravity="center"
                                 android:text="@string/select_language"
-                                android:textColor="@color/grey_3"
-                                android:gravity="center" />
+                                android:textColor="@{temp.labelColor}"
+                                tools:textColor="@color/colorPrimary" />
 
                         <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.5"
+                                android:gravity="center"
                                 android:text="@string/unblurred_digits"
-                                android:textColor="@color/grey_3"
-                                android:gravity="center" />
+                                android:textColor="@{temp.labelColor}"
+                                tools:textColor="@color/colorPrimary" />
 
                     </LinearLayout>
 
                     <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:baselineAligned="false">
 
                         <RelativeLayout
                                 android:layout_width="0dp"
@@ -204,7 +221,10 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_centerInParent="true"
-                                        android:layout_margin="12dp"
+                                        android:layout_marginStart="12dp"
+                                        android:layout_marginTop="12dp"
+                                        android:layout_marginEnd="12dp"
+                                        android:layout_marginBottom="12dp"
                                         android:overlapAnchor="false"
                                         android:background="@drawable/spinner_background_down" />
 
@@ -221,7 +241,8 @@
                                     android:id="@+id/picker_unblurred_digits"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_centerInParent="true" />
+                                    android:layout_centerInParent="true"
+                                    android:theme="@style/AppTheme.Picker" />
 
                         </RelativeLayout>
 
@@ -230,7 +251,8 @@
                     <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:baselineAligned="false">
 
                         <RelativeLayout
                                 android:layout_width="0dp"
@@ -243,7 +265,8 @@
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentStart="true"
                                     android:layout_centerVertical="true"
-                                    android:textColor="@color/colorPrimary" />
+                                    android:textColor="@{temp.labelColor}"
+                                    tools:textColor="@color/colorPrimary" />
 
                         </RelativeLayout>
 
@@ -291,7 +314,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/top_shadow"
-                    android:background="@color/colorAccent">
+                    android:background="@{temp.bottomBarColor}"
+                    tools:background="@color/rosso">
 
                 <Button
                         android:id="@+id/button_scan"
@@ -310,7 +334,8 @@
                         android:layout_marginBottom="16dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_below="@+id/button_scan">
+                        android:layout_below="@+id/button_scan"
+                        android:baselineAligned="false">
 
                     <RelativeLayout
                             android:layout_width="0dp"
@@ -322,7 +347,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="16dp"
-                                android:textColor="@color/grey_3" />
+                                android:textColor="@{temp.labelColor}"
+                                tools:textColor="@color/colorPrimary" />
 
                     </RelativeLayout>
 
@@ -336,7 +362,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="16dp"
-                                android:textColor="@color/grey_3" />
+                                android:textColor="@{temp.labelColor}"
+                                tools:textColor="@color/colorPrimary" />
 
                     </RelativeLayout>
 

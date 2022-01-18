@@ -5,17 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.databinding.DateLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
+import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.Globals
 import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.resetSelectedDays
-import kotlinx.android.synthetic.main.date_layout.*
 
 class DateFragment : DetailFragment() {
 
-    private var viewFragment: View? = null
+    private var layoutBinding: DateLayoutBinding? = null
+    private val binding get() = layoutBinding
 
     override fun getLayout(): Int {
-        return R.layout.date_layout
+        return NO_LAYOUT
     }
 
     override fun getTitle(): Int {
@@ -52,35 +55,42 @@ class DateFragment : DetailFragment() {
     override fun onActionSearch(search_string: String) {
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
-        return viewFragment
-    }
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+        layoutBinding = DateLayoutBinding.inflate(inflater, container, false)
 
-    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        TODO("Not yet implemented")
+        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val model = DarkModeModel(requireContext())
+        binding?.presenter = darkModePresenter
+        binding?.temp = model
+
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        label_date_format.setOnClickListener {
+        binding?.labelDateFormat?.setOnClickListener {
             currentActivity.openDetail(Globals.DATE_FORMAT, null)
         }
-        label_date_picker.setOnClickListener {
+        binding?.labelDatePicker?.setOnClickListener {
             currentActivity.openDetail(Globals.DATE_PICKER, null)
         }
-        label_calendarview_horizontal.setOnClickListener {
+        binding?.labelCalendarviewHorizontal?.setOnClickListener {
             currentActivity.openDetail(Globals.CALENDARVIEW_HORIZONTAL, null)
         }
-        label_calendarview_vertical.setOnClickListener {
+        binding?.labelCalendarviewVertical?.setOnClickListener {
             currentActivity.openDetail(Globals.CALENDARVIEW_VERTICAL, null)
         }
-        label_smartworking.setOnClickListener {
+        binding?.labelSmartworking?.setOnClickListener {
             currentActivity.openDetail(Globals.SMARTWORKING, null)
         }
-        reset_selected_days.setOnClickListener {
+        binding?.resetSelectedDays?.setOnClickListener {
             resetSelectedDays()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
     }
 }

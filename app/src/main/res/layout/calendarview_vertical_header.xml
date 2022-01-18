@@ -11,9 +11,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textColor="@color/white"
             android:textSize="16sp"
-            tools:text="Febbraio | 2020" />
+            tools:text="Febbraio | 2020"
+            tools:textColor="@color/white" />
 
     <LinearLayout
             android:id="@+id/calendarview_vertical_legend"
@@ -27,60 +27,60 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                tools:text="LUN" />
+                tools:text="LUN"
+                tools:textColor="@color/white" />
 
         <it.giovanni.arkivio.customview.TextViewCustom
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                tools:text="MAR" />
+                tools:text="MAR"
+                tools:textColor="@color/white" />
 
         <it.giovanni.arkivio.customview.TextViewCustom
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                tools:text="MER" />
+                tools:text="MER"
+                tools:textColor="@color/white" />
 
         <it.giovanni.arkivio.customview.TextViewCustom
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                tools:text="GIO" />
+                tools:text="GIO"
+                tools:textColor="@color/white" />
 
         <it.giovanni.arkivio.customview.TextViewCustom
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                tools:text="VEN" />
+                tools:text="VEN"
+                tools:textColor="@color/white" />
 
         <it.giovanni.arkivio.customview.TextViewCustom
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                tools:text="SAB" />
+                tools:text="SAB"
+                tools:textColor="@color/white" />
 
         <it.giovanni.arkivio.customview.TextViewCustom
                 android:layout_width="0dp"
@@ -100,6 +100,6 @@
             android:layout_marginTop="24dp"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
-            android:background="@color/grey_3" />
+            android:background="@color/azzurro" />
 
 </LinearLayout>

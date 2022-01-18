@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import com.airbnb.paris.extensions.style
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.bean.SelectedDay
 import it.giovanni.arkivio.bean.SelectedDaysResponse
@@ -25,11 +26,14 @@ import it.giovanni.arkivio.customview.calendarview.ui.MonthHeaderFooterBinder
 import it.giovanni.arkivio.customview.calendarview.ui.ViewContainer
 import it.giovanni.arkivio.databinding.CalendarviewVerticalHeaderBinding
 import it.giovanni.arkivio.databinding.CalendarviewVerticalItemBinding
+import it.giovanni.arkivio.databinding.CalendarviewVerticalLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
+import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.presenter.DarkModePresenter
+import it.giovanni.arkivio.utils.SharedPreferencesManager
 import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadSelectedDaysFromPreferences
 import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.saveSelectedDaysToPreferences
 import it.giovanni.arkivio.utils.Utils
-import kotlinx.android.synthetic.main.calendarview_vertical_layout.*
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
@@ -37,7 +41,9 @@ import kotlin.collections.ArrayList
 
 class CalendarViewVerticalFragment : DetailFragment() {
 
-    private var viewFragment: View? = null
+    private var layoutBinding: CalendarviewVerticalLayoutBinding? = null
+    private val binding get() = layoutBinding
+
     private var selectedDate: LocalDate? = null
     private val selectedDates = mutableSetOf<LocalDate>()
     private val today = LocalDate.now()
@@ -47,7 +53,7 @@ class CalendarViewVerticalFragment : DetailFragment() {
     private var deselectedItems: ArrayList<SelectedDay>? = null
 
     override fun getLayout(): Int {
-        return R.layout.calendarview_vertical_layout
+        return NO_LAYOUT
     }
 
     override fun getTitle(): Int {
@@ -84,17 +90,21 @@ class CalendarViewVerticalFragment : DetailFragment() {
     override fun onActionSearch(search_string: String) {
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
-        return viewFragment
-    }
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+        layoutBinding = CalendarviewVerticalLayoutBinding.inflate(inflater, container, false)
 
-    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        TODO("Not yet implemented")
+        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val model = DarkModeModel(requireContext())
+        binding?.presenter = darkModePresenter
+        binding?.temp = model
+
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setViewStyle()
 
         val daysOfWeek = getDaysOfWeek()
 
@@ -102,8 +112,8 @@ class CalendarViewVerticalFragment : DetailFragment() {
         val startMonth = currentMonth.minusMonths(1)
         val endMonth = currentMonth.plusMonths(3)
 
-        calendarview.setup(startMonth, endMonth, daysOfWeek.first())
-        calendarview.scrollToMonth(currentMonth)
+        binding?.calendarview?.setup(startMonth, endMonth, daysOfWeek.first())
+        binding?.calendarview?.scrollToMonth(currentMonth)
 
         val response = loadSelectedDaysFromPreferences()
         items = response?.selectedDays
@@ -113,7 +123,7 @@ class CalendarViewVerticalFragment : DetailFragment() {
 
         class DayViewContainer(view: View) : ViewContainer(view) {
             lateinit var day: CalendarDay // Will be set when this container is bound.
-            val binding = CalendarviewVerticalItemBinding.bind(view)
+            val itemBinding = CalendarviewVerticalItemBinding.bind(view)
             init {
                 view.setOnClickListener {
                     if (day.owner == DayOwner.THIS_MONTH) {
@@ -122,7 +132,9 @@ class CalendarViewVerticalFragment : DetailFragment() {
                         } else {
                             selectedDates.add(day.date)
                         }
-                        calendarview.notifyDayChanged(day)
+                        binding?.calendarview?.notifyDayChanged(day)
+
+                        binding?.calendarviewButton?.isEnabled = selectedDates.isNotEmpty()
                     }
                 }
             }
@@ -134,17 +146,17 @@ class CalendarViewVerticalFragment : DetailFragment() {
         selectedItems = ArrayList()
         deselectedItems = ArrayList()
 
-        calendarview.dayBinder = object : DayBinder<DayViewContainer> {
+        binding?.calendarview?.dayBinder = object : DayBinder<DayViewContainer> {
 
             override fun create(view: View) = DayViewContainer(view)
             override fun bind(container: DayViewContainer, day: CalendarDay) {
                 container.day = day
 
-                val verticalItem = container.binding.verticalItem
-                val horizontalLabel = container.binding.horizontalLabel
-                val badge = container.binding.badge
+                val verticalItem = container.itemBinding.verticalItem
+                val verticalLabel = container.itemBinding.verticalLabel
+                val badge = container.itemBinding.badge
 
-                horizontalLabel.text = day.date.dayOfMonth.toString()
+                verticalLabel.text = day.date.dayOfMonth.toString()
 
                 if (day.owner == DayOwner.THIS_MONTH) {
 
@@ -169,18 +181,17 @@ class CalendarViewVerticalFragment : DetailFragment() {
 
                             if (badge.isInvisible) {
                                 verticalItem.setBackgroundResource(R.drawable.calendarview_selected_item)
-                                horizontalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.verde))
+                                verticalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.verde))
 
                                 items?.add(SelectedDay(year, month, dayOfMonth))
                                 selectedItems?.add(SelectedDay(year, month, dayOfMonth))
-                                calendarview_button.isEnabled = true
                             }
 
                             if (badge.isVisible) {
                                 badge.visibility = View.INVISIBLE
-                                horizontalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.rosso))
+                                verticalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.rosso))
                                 verticalItem.setBackgroundResource(R.drawable.calendarview_deselected_item)
-                                // horizontalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                                // verticalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.white))
                                 // verticalItem.background = null
 
                                 for (item in items!!) {
@@ -192,15 +203,18 @@ class CalendarViewVerticalFragment : DetailFragment() {
                                         break
                                     }
                                 }
-                                calendarview_button.isEnabled = true
                             }
                         }
                         today == day.date -> {
                             verticalItem.setBackgroundResource(R.drawable.calendarview_today_item)
-                            horizontalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.blu))
+                            verticalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.blu))
                         }
                         else -> {
-                            horizontalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                            if (isDarkMode)
+                                verticalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                            else
+                                verticalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.dark))
+
                             verticalItem.background = null
 
 //                            for (item in items!!) {
@@ -215,7 +229,7 @@ class CalendarViewVerticalFragment : DetailFragment() {
                     }
 
                     if (6 == day.date.dayOfWeek.value || 7 == day.date.dayOfWeek.value) {
-                        horizontalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.rosso))
+                        verticalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.rosso))
                         verticalItem.isClickable = false
                         verticalItem.isFocusable = false
                         if (today == day.date)
@@ -223,46 +237,85 @@ class CalendarViewVerticalFragment : DetailFragment() {
                         else verticalItem.background = null
                     }
                 } else {
-                    horizontalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.grey_3))
-                    if (6 == day.date.dayOfWeek.value || 7 == day.date.dayOfWeek.value)
-                        horizontalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.red_transparent_1))
+                    if (isDarkMode)
+                        verticalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.dark))
+                    else
+                        verticalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.grey_2))
+
+                    if (6 == day.date.dayOfWeek.value || 7 == day.date.dayOfWeek.value) {
+                        if (isDarkMode)
+                            verticalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.red_transparent_1))
+                        else
+                            verticalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.red_transparent_2))
+                    }
+
                     verticalItem.background = null
                 }
             }
         }
 
-        class MonthViewContainer(view: View) : ViewContainer(view) {
-            val header = CalendarviewVerticalHeaderBinding.bind(view).calendarviewVerticalHeader
-            val legend = CalendarviewVerticalHeaderBinding.bind(view).calendarviewVerticalLegend
+        class MonthViewContainerHeader(view: View) : ViewContainer(view) {
+            val calendarviewVerticalHeader = CalendarviewVerticalHeaderBinding.bind(view).calendarviewVerticalHeader
+            val calendarviewVerticalLegend = CalendarviewVerticalHeaderBinding.bind(view).calendarviewVerticalLegend
         }
 
-        calendarview.monthHeaderBinder = object : MonthHeaderFooterBinder<MonthViewContainer> {
+        class MonthViewContainerLegend(view: View) : ViewContainer(view) {
+            val calendarviewVerticalLegend = CalendarviewVerticalHeaderBinding.bind(view).calendarviewVerticalLegend
+        }
 
-            override fun create(view: View) = MonthViewContainer(view)
+        binding?.calendarview?.monthHeaderBinder = object : MonthHeaderFooterBinder<MonthViewContainerHeader> {
 
-            override fun bind(container: MonthViewContainer, month: CalendarMonth) {
+            override fun create(view: View) = MonthViewContainerHeader(view)
+
+            override fun bind(container: MonthViewContainerHeader, month: CalendarMonth) {
 
                 val currentDate = DateTimeFormatter.ofPattern("MMMM").format(month.yearMonth.month) + " | " + month.year
                 val headerDate = currentDate.uppercase()
-                container.header.text = headerDate
-                // container.header.text = "${month.yearMonth.month.name.uppercase().capitalize(Locale.getDefault())} ${"|"} ${month.year}"
+                container.calendarviewVerticalHeader.text = headerDate
+                // container.calendarviewVerticalHeader.text = "${month.yearMonth.month.name.uppercase().capitalize(Locale.getDefault())} ${"|"} ${month.year}"
 
-                container.legend.children.forEachIndexed { index, mView ->
+                isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
+                if (isDarkMode)
+                    container.calendarviewVerticalHeader.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+                else
+                    container.calendarviewVerticalHeader.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
+
+                container.calendarviewVerticalLegend.children.forEachIndexed { index, mView ->
                     (mView as TextViewCustom).apply {
                         if (daysOfWeek[index].name == DaysOfWeek.MONDAY.name) {
                             setText(R.string.monday)
+                            if (isDarkMode)
+                                setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
+                            else
+                                setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
                         }
                         if (daysOfWeek[index].name == DaysOfWeek.TUESDAY.name) {
                             setText(R.string.tuesday)
+                            if (isDarkMode)
+                                setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
+                            else
+                                setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
                         }
                         if (daysOfWeek[index].name == DaysOfWeek.WEDNESDAY.name) {
                             setText(R.string.wednesday)
+                            if (isDarkMode)
+                                setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
+                            else
+                                setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
                         }
                         if (daysOfWeek[index].name == DaysOfWeek.THURSDAY.name) {
                             setText(R.string.thursday)
+                            if (isDarkMode)
+                                setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
+                            else
+                                setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
                         }
                         if (daysOfWeek[index].name == DaysOfWeek.FRIDAY.name) {
                             setText(R.string.friday)
+                            if (isDarkMode)
+                                setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
+                            else
+                                setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
                         }
                         if (daysOfWeek[index].name == DaysOfWeek.SATURDAY.name) {
                             setText(R.string.saturday)
@@ -277,15 +330,71 @@ class CalendarViewVerticalFragment : DetailFragment() {
             }
         }
 
-        calendarview.monthScrollListener = { _ ->
+//        binding?.calendarview?.monthHeaderBinder = object : MonthHeaderFooterBinder<MonthViewContainerLegend> {
+//
+//            override fun create(view: View) = MonthViewContainerLegend(view)
+//
+//            override fun bind(container: MonthViewContainerLegend, month: CalendarMonth) {
+//
+//                container.calendarviewVerticalLegend.children.forEachIndexed { index, mView ->
+//                    (mView as TextViewCustom).apply {
+//                        if (daysOfWeek[index].name == DaysOfWeek.MONDAY.name) {
+//                            setText(R.string.monday)
+//                            if (isDarkMode)
+//                                setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
+//                            else
+//                                setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
+//                        }
+//                        if (daysOfWeek[index].name == DaysOfWeek.TUESDAY.name) {
+//                            setText(R.string.tuesday)
+//                            if (isDarkMode)
+//                                setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
+//                            else
+//                                setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
+//                        }
+//                        if (daysOfWeek[index].name == DaysOfWeek.WEDNESDAY.name) {
+//                            setText(R.string.wednesday)
+//                            if (isDarkMode)
+//                                setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
+//                            else
+//                                setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
+//                        }
+//                        if (daysOfWeek[index].name == DaysOfWeek.THURSDAY.name) {
+//                            setText(R.string.thursday)
+//                            if (isDarkMode)
+//                                setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
+//                            else
+//                                setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
+//                        }
+//                        if (daysOfWeek[index].name == DaysOfWeek.FRIDAY.name) {
+//                            setText(R.string.friday)
+//                            if (isDarkMode)
+//                                setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
+//                            else
+//                                setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
+//                        }
+//                        if (daysOfWeek[index].name == DaysOfWeek.SATURDAY.name) {
+//                            setText(R.string.saturday)
+//                            setTextColor(ContextCompat.getColor(context, R.color.rosso))
+//                        }
+//                        if (daysOfWeek[index].name == DaysOfWeek.SUNDAY.name) {
+//                            setText(R.string.sunday)
+//                            setTextColor(ContextCompat.getColor(context, R.color.rosso))
+//                        }
+//                    }
+//                }
+//            }
+//        }
+
+        binding?.calendarview?.monthScrollListener = { _ ->
             selectedDate?.let {
                 // Clear selection if we scroll to a new month.
                 selectedDate = null
-                calendarview.notifyDateChanged(it)
+                binding?.calendarview?.notifyDateChanged(it)
             }
         }
 
-        calendarview_button.setOnClickListener {
+        binding?.calendarviewButton?.setOnClickListener {
             if (items != null) {
                 val selectedDaysResponse = SelectedDaysResponse()
                 selectedDaysResponse.selectedDays = items
@@ -329,5 +438,18 @@ class CalendarViewVerticalFragment : DetailFragment() {
                 currentActivity.onBackPressed()
             }
         }
+    }
+
+    private fun setViewStyle() {
+        isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
+        if (isDarkMode)
+            binding?.calendarviewButton?.style(R.style.ButtonNormalDarkMode)
+        else
+            binding?.calendarviewButton?.style(R.style.ButtonNormalLightMode)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
     }
 }

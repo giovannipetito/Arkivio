@@ -53,8 +53,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_alignParentTop="true"
-                        android:background="@{temp.viewColor}"
-                        tools:background="@color/dark" />
+                        android:background="@{temp.labelColor}"
+                        tools:background="@color/colorPrimary" />
 
                 <it.giovanni.arkivio.customview.ButtonCustom
                         android:id="@+id/smartworking_button"

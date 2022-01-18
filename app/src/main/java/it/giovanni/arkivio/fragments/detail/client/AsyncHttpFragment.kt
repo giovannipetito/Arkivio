@@ -6,17 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.databinding.AsyncHttpLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
+import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.restclient.asynchttp.IAsyncHttpClient
 import it.giovanni.arkivio.restclient.asynchttp.MyAsyncHttpClient
 import it.giovanni.arkivio.restclient.asynchttp.Response
 
 class AsyncHttpFragment: DetailFragment(), IAsyncHttpClient {
 
-    private var viewFragment: View? = null
+    private var layoutBinding: AsyncHttpLayoutBinding? = null
+    private val binding get() = layoutBinding
 
     override fun getLayout(): Int {
-        return R.layout.async_http_layout
+        return NO_LAYOUT
     }
 
     override fun getTitle(): Int {
@@ -53,21 +57,15 @@ class AsyncHttpFragment: DetailFragment(), IAsyncHttpClient {
     override fun onActionSearch(search_string: String) {
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
-        return viewFragment
-    }
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+        layoutBinding = AsyncHttpLayoutBinding.inflate(inflater, container, false)
 
-    override fun onCreateBindingView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        TODO("Not yet implemented")
+        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val model = DarkModeModel(requireContext())
+        binding?.presenter = darkModePresenter
+        binding?.temp = model
+
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -78,12 +76,20 @@ class AsyncHttpFragment: DetailFragment(), IAsyncHttpClient {
     }
 
     override fun onAsyncHttpSuccess(message: String?, response: Response?) {
-        Toast.makeText(context, message + ", IP: " + response?.ip, Toast.LENGTH_LONG).show()
+        val resulMessage = message + ", IP: " + response?.ip
+        Toast.makeText(context, resulMessage, Toast.LENGTH_LONG).show()
+        binding?.labelIp?.text = resulMessage
         hideProgressDialog()
     }
 
     override fun onAsyncHttpFailure(message: String?) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+        binding?.labelIp?.text = message
         hideProgressDialog()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
     }
 }

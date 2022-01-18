@@ -34,6 +34,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/shadow_top" />
+
             <it.giovanni.arkivio.customview.ButtonCustom
                     android:id="@+id/calendarview_button"
                     android:layout_width="match_parent"
