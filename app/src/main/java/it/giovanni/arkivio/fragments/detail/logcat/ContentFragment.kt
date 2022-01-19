@@ -46,7 +46,7 @@ class ContentFragment : BaseFragment(SectionType.TAB_DETAIL) {
             loadData()
         }
 
-        swipeRefreshLayout = viewFragment?.findViewById(R.id.swipe_refresh_layout) as MultiSwipeRefreshLayout
+        swipeRefreshLayout = viewFragment?.findViewById(R.id.working_area_swipe_refresh_layout) as MultiSwipeRefreshLayout
         swipeRefreshLayout.setSwipeableChildren(R.id.working_area_tab_detail_container)
         swipeRefreshLayout.setOnRefreshListener {
             refresh()

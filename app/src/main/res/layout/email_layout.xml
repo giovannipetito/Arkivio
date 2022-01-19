@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -24,18 +25,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:text="@string/simple_mail_title"
-                android:textColor="@color/dark"
+                android:textColor="@{temp.labelColor}"
                 android:textSize="16sp"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                tools:textColor="@color/colorPrimary" />
 
         <View
                 android:layout_width="120dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@color/dark"
+                android:background="@{temp.labelColor}"
                 android:layout_gravity="center"
-                android:alpha=".4" />
+                android:alpha=".4"
+                tools:background="@color/colorPrimary" />
 
         <TextView
                 android:id="@+id/label_filled_out_mail"
@@ -43,18 +46,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="@string/filled_out_mail_title"
-                android:textColor="@color/dark"
+                android:textColor="@{temp.labelColor}"
                 android:textSize="16sp"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                tools:textColor="@color/colorPrimary" />
 
         <View
                 android:layout_width="120dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@color/dark"
+                android:background="@{temp.labelColor}"
                 android:layout_gravity="center"
-                android:alpha=".4" />
+                android:alpha=".4"
+                tools:background="@color/colorPrimary" />
 
         <TextView
                 android:id="@+id/label_gmail_mail"
@@ -62,18 +67,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="@string/gmail_mail_title"
-                android:textColor="@color/dark"
+                android:textColor="@{temp.labelColor}"
                 android:textSize="16sp"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                tools:textColor="@color/colorPrimary" />
 
         <View
                 android:layout_width="120dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@color/dark"
+                android:background="@{temp.labelColor}"
                 android:layout_gravity="center"
-                android:alpha=".4" />
+                android:alpha=".4"
+                tools:background="@color/colorPrimary" />
 
         <TextView
                 android:id="@+id/label_outlook_mail"
@@ -81,18 +88,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="@string/outlook_mail_title"
-                android:textColor="@color/dark"
+                android:textColor="@{temp.labelColor}"
                 android:textSize="16sp"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                tools:textColor="@color/colorPrimary" />
 
         <View
                 android:layout_width="120dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@color/dark"
+                android:background="@{temp.labelColor}"
                 android:layout_gravity="center"
-                android:alpha=".4" />
+                android:alpha=".4"
+                tools:background="@color/colorPrimary" />
 
     </LinearLayout>
 

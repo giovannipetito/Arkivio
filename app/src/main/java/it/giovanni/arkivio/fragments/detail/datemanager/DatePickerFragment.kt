@@ -2,7 +2,6 @@ package it.giovanni.arkivio.fragments.detail.datemanager
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.content.Context
 import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -18,14 +17,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.DatePickerLayoutBinding
+import it.giovanni.arkivio.databinding.DatepickerSingleDateBinding
+import it.giovanni.arkivio.databinding.TimepickerRangeTimeBinding
+import it.giovanni.arkivio.databinding.TimepickerSingleTimeBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.DateManager
-import kotlinx.android.synthetic.main.detail_layout.*
-import kotlinx.android.synthetic.main.datepicker_single_date.view.*
-import kotlinx.android.synthetic.main.timepicker_range_time.view.*
-import kotlinx.android.synthetic.main.timepicker_single_time.view.*
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -103,6 +101,10 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
         return true
     }
 
+    override fun refresh() {
+        stopSwipeRefresh()
+    }
+
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
         layoutBinding = DatePickerLayoutBinding.inflate(inflater, container, false)
 
@@ -163,10 +165,10 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
         }
 
         binding?.scrollContainer?.setOnScrollChangeListener { _, _, scrollY, _, _ ->
-            swipeRefreshLayout.isEnabled = scrollY == 0
+            mBinding?.swipeRefreshLayout?.isEnabled = scrollY == 0
         }
 
-        swipeRefreshLayout.setOnRefreshListener {
+        mBinding?.swipeRefreshLayout?.setOnRefreshListener {
             refresh()
         }
     }
@@ -275,29 +277,26 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
 
         val builder = AlertDialog.Builder(requireContext())
         builder.setCancelable(false)
-        val inflater = requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val view = inflater.inflate(R.layout.datepicker_single_date, null)
-        builder.setView(view)
+
+        val datepickerBinding = DatepickerSingleDateBinding.inflate(layoutInflater)
+
+        builder.setView(datepickerBinding.root)
         val dialog = builder.create()
         if (dialog.window != null) {
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
             dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog.window?.setBackgroundDrawableResource(R.color.white)
-            // dialog.window?.addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND) // TODO: NON FUNZIONA
         }
 
-        // view.date.maxDate = calendar?.timeInMillis
-        // view.date.minDate = calendar?.timeInMillis
-
-        view.date_picker.setOnDateChangedListener { _, year, monthOfYear, dayOfMonth ->
+        datepickerBinding.datePicker.setOnDateChangedListener { _, year, monthOfYear, dayOfMonth ->
             giorno = dayOfMonth
             mese = monthOfYear + 1
             anno = year
         }
-        view.back.setOnClickListener {
+        datepickerBinding.back.setOnClickListener {
             dialog.dismiss()
         }
-        view.ok.setOnClickListener {
+        datepickerBinding.ok.setOnClickListener {
             val result = "$giorno/$mese/$anno"
             binding?.datePicker?.text = result
             dialog.dismiss()
@@ -309,9 +308,10 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
 
         val builder = AlertDialog.Builder(requireContext())
         builder.setCancelable(false)
-        val inflater = requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val view = inflater.inflate(R.layout.timepicker_single_time, null)
-        builder.setView(view)
+
+        val timepickerBinding = TimepickerSingleTimeBinding.inflate(layoutInflater)
+
+        builder.setView(timepickerBinding.root)
         val dialog = builder.create()
         if (dialog.window != null) {
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -321,17 +321,17 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
 
         calendar = Calendar.getInstance()
         startTime = String.format("%02d:%02d", calendar?.get(Calendar.HOUR_OF_DAY), calendar?.get(Calendar.MINUTE)) + ":00"
-        view.time_value.text = String.format("%02d:%02d", calendar?.get(Calendar.HOUR_OF_DAY), calendar?.get(Calendar.MINUTE))
+        timepickerBinding.timeValue.text = String.format("%02d:%02d", calendar?.get(Calendar.HOUR_OF_DAY), calendar?.get(Calendar.MINUTE))
 
-        view.time_picker.setIs24HourView(true)
-        view.time_picker.setOnTimeChangedListener { _, hourOfDay, minute ->
+        timepickerBinding.timePicker.setIs24HourView(true)
+        timepickerBinding.timePicker.setOnTimeChangedListener { _, hourOfDay, minute ->
             startTime = String.format("%02d:%02d", hourOfDay, minute) + ":00"
-            view.time_value.text = String.format("%02d:%02d", hourOfDay, minute)
+            timepickerBinding.timeValue.text = String.format("%02d:%02d", hourOfDay, minute)
         }
-        view.single_time_annulla.setOnClickListener {
+        timepickerBinding.singleTimeAnnulla.setOnClickListener {
             dialog.dismiss()
         }
-        view.single_time_ok.setOnClickListener {
+        timepickerBinding.singleTimeOk.setOnClickListener {
             binding?.singleTimePicker?.text = startTime
             dialog.dismiss()
         }
@@ -342,9 +342,10 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
 
         val builder = AlertDialog.Builder(requireContext())
         builder.setCancelable(false)
-        val inflater = requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val view = inflater.inflate(R.layout.timepicker_range_time, null)
-        builder.setView(view)
+
+        val timepickerBinding = TimepickerRangeTimeBinding.inflate(layoutInflater)
+
+        builder.setView(timepickerBinding.root)
         val dialog = builder.create()
         if (dialog.window != null) {
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -357,27 +358,27 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
 
         startTime = String.format("%02d:%02d:%02d", 9, 0, 0)
         endTime = String.format("%02d:%02d:%02d", 18, 0, 0)
-        view.start_time_value.text = String.format("%02d:%02d", 9, 0)
-        view.end_time_value.text = String.format("%02d:%02d", 18, 0)
+        timepickerBinding.startTimeValue.text = String.format("%02d:%02d", 9, 0)
+        timepickerBinding.endTimeValue.text = String.format("%02d:%02d", 18, 0)
         rangeTime = "Dalle $startTime alle $endTime"
 
-        view.start_time_picker.setIs24HourView(true)
-        view.start_time_picker.hour = 9
-        view.start_time_picker.minute = 0
-        setTimePickerInterval(view.start_time_picker)
-        view.end_time_picker.setIs24HourView(true)
-        view.end_time_picker.hour = 18
-        view.end_time_picker.minute = 0
-        setTimePickerInterval(view.end_time_picker)
+        timepickerBinding.startTimePicker.setIs24HourView(true)
+        timepickerBinding.startTimePicker.hour = 9
+        timepickerBinding.startTimePicker.minute = 0
+        setTimePickerInterval(timepickerBinding.startTimePicker)
+        timepickerBinding.endTimePicker.setIs24HourView(true)
+        timepickerBinding.endTimePicker.hour = 18
+        timepickerBinding.endTimePicker.minute = 0
+        setTimePickerInterval(timepickerBinding.endTimePicker)
 
         var startHour: Int? = 9
         var startMinute: Int? = 0
         var endHour: Int? = 18
         var endMinute: Int? = 0
 
-        view.start_time_picker.setOnTimeChangedListener { _, hourOfDay, minute ->
+        timepickerBinding.startTimePicker.setOnTimeChangedListener { _, hourOfDay, minute ->
 
-            view.start_time_value.text = String.format("%02d:%02d", hourOfDay, minute * 15)
+            timepickerBinding.startTimeValue.text = String.format("%02d:%02d", hourOfDay, minute * 15)
 
             startTime = String.format("%02d:%02d", hourOfDay, minute * 15) + ":00"
             rangeTime = "Dalle $startTime alle $endTime"
@@ -385,9 +386,9 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
             startHour = hourOfDay
             startMinute = minute
         }
-        view.end_time_picker.setOnTimeChangedListener { _, hourOfDay, minute ->
+        timepickerBinding.endTimePicker.setOnTimeChangedListener { _, hourOfDay, minute ->
 
-            view.end_time_value.text = String.format("%02d:%02d", hourOfDay, minute * 15)
+            timepickerBinding.endTimeValue.text = String.format("%02d:%02d", hourOfDay, minute * 15)
 
             endTime = String.format("%02d:%02d", hourOfDay, minute * 15) + ":00"
             rangeTime = "Dalle $startTime alle $endTime"
@@ -395,10 +396,10 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
             endHour = hourOfDay
             endMinute = minute
         }
-        view.range_time_annulla.setOnClickListener {
+        timepickerBinding.rangeTimeAnnulla.setOnClickListener {
             dialog.dismiss()
         }
-        view.range_time_ok.setOnClickListener {
+        timepickerBinding.rangeTimeOk.setOnClickListener {
 
             if (startHour!! > endHour!! || (startHour == endHour && startMinute!! > endMinute!!)) {
 
@@ -416,21 +417,21 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
 
             dialog.dismiss()
         }
-        view.start_time_container.setOnClickListener {
-            view.start_time_picker.visibility = View.VISIBLE
-            view.end_time_picker.visibility = View.GONE
-            view.start_tab_indicator.visibility = View.VISIBLE
-            view.end_tab_indicator.visibility = View.GONE
-            view.inizio.alpha = 1F
-            view.fine.alpha = 0.4F
+        timepickerBinding.startTimeContainer.setOnClickListener {
+            timepickerBinding.startTimePicker.visibility = View.VISIBLE
+            timepickerBinding.endTimePicker.visibility = View.GONE
+            timepickerBinding.startTabIndicator.visibility = View.VISIBLE
+            timepickerBinding.endTabIndicator.visibility = View.GONE
+            timepickerBinding.inizio.alpha = 1F
+            timepickerBinding.fine.alpha = 0.4F
         }
-        view.end_time_container.setOnClickListener {
-            view.start_time_picker.visibility = View.GONE
-            view.end_time_picker.visibility = View.VISIBLE
-            view.start_tab_indicator.visibility = View.GONE
-            view.end_tab_indicator.visibility = View.VISIBLE
-            view.inizio.alpha = 0.4F
-            view.fine.alpha = 1F
+        timepickerBinding.endTimeContainer.setOnClickListener {
+            timepickerBinding.startTimePicker.visibility = View.GONE
+            timepickerBinding.endTimePicker.visibility = View.VISIBLE
+            timepickerBinding.startTabIndicator.visibility = View.GONE
+            timepickerBinding.endTabIndicator.visibility = View.VISIBLE
+            timepickerBinding.inizio.alpha = 0.4F
+            timepickerBinding.fine.alpha = 1F
         }
         dialog.show()
     }
@@ -439,9 +440,10 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
 
         val builder = AlertDialog.Builder(requireContext())
         builder.setCancelable(false)
-        val inflater = requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val view = inflater.inflate(R.layout.timepicker_range_time, null)
-        builder.setView(view)
+
+        val timepickerBinding = TimepickerRangeTimeBinding.inflate(layoutInflater)
+
+        builder.setView(timepickerBinding.root)
         val dialog = builder.create()
         if (dialog.window != null) {
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -459,33 +461,33 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
         // startDate?.setIntervalTimeDate(calendar?.get(Calendar.HOUR_OF_DAY)!!, calendar?.get(Calendar.MINUTE)!!)
         // endDate?.setIntervalTimeDate(calendar?.get(Calendar.HOUR_OF_DAY)!! + 1, calendar?.get(Calendar.MINUTE)!!)
 
-        view.start_time_value.text = startDate?.getFormatTime()
-        view.end_time_value.text = endDate?.getFormatTime()
+        timepickerBinding.startTimeValue.text = startDate?.getFormatTime()
+        timepickerBinding.endTimeValue.text = endDate?.getFormatTime()
 
-        view.start_time_picker.setIs24HourView(true)
-        view.start_time_picker.hour = startDate?.getDatePickerHour()!!
-        view.start_time_picker.minute = startDate?.getDatePickerMinute()!!/15
-        setTimePickerInterval(view.start_time_picker)
+        timepickerBinding.startTimePicker.setIs24HourView(true)
+        timepickerBinding.startTimePicker.hour = startDate?.getDatePickerHour()!!
+        timepickerBinding.startTimePicker.minute = startDate?.getDatePickerMinute()!!/15
+        setTimePickerInterval(timepickerBinding.startTimePicker)
 
-        view.end_time_picker.setIs24HourView(true)
-        view.end_time_picker.hour = endDate?.getDatePickerHour()!!
-        view.end_time_picker.minute = endDate?.getDatePickerMinute()!!/15
-        setTimePickerInterval(view.end_time_picker)
+        timepickerBinding.endTimePicker.setIs24HourView(true)
+        timepickerBinding.endTimePicker.hour = endDate?.getDatePickerHour()!!
+        timepickerBinding.endTimePicker.minute = endDate?.getDatePickerMinute()!!/15
+        setTimePickerInterval(timepickerBinding.endTimePicker)
 
-        view.start_time_picker.setOnTimeChangedListener { _, hourOfDay, minute ->
+        timepickerBinding.startTimePicker.setOnTimeChangedListener { _, hourOfDay, minute ->
 
-            view.start_time_value.text = String.format("%02d:%02d", hourOfDay, minute * 15)
+            timepickerBinding.startTimeValue.text = String.format("%02d:%02d", hourOfDay, minute * 15)
             startDate?.setTimeDate(hourOfDay, minute * 15)
         }
-        view.end_time_picker.setOnTimeChangedListener { _, hourOfDay, minute ->
+        timepickerBinding.endTimePicker.setOnTimeChangedListener { _, hourOfDay, minute ->
 
-            view.end_time_value.text = String.format("%02d:%02d", hourOfDay, minute * 15)
+            timepickerBinding.endTimeValue.text = String.format("%02d:%02d", hourOfDay, minute * 15)
             endDate?.setTimeDate(hourOfDay, minute * 15)
         }
-        view.range_time_annulla.setOnClickListener {
+        timepickerBinding.rangeTimeAnnulla.setOnClickListener {
             dialog.dismiss()
         }
-        view.range_time_ok.setOnClickListener {
+        timepickerBinding.rangeTimeOk.setOnClickListener {
 
             if (startDate?.getFormatDate3() == startCurrentDate?.getFormatDate3()) {
 
@@ -568,21 +570,21 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
 
             dialog.dismiss()
         }
-        view.start_time_container.setOnClickListener {
-            view.start_time_picker.visibility = View.VISIBLE
-            view.end_time_picker.visibility = View.GONE
-            view.start_tab_indicator.visibility = View.VISIBLE
-            view.end_tab_indicator.visibility = View.GONE
-            view.inizio.alpha = 1F
-            view.fine.alpha = 0.4F
+        timepickerBinding.startTimeContainer.setOnClickListener {
+            timepickerBinding.startTimePicker.visibility = View.VISIBLE
+            timepickerBinding.endTimePicker.visibility = View.GONE
+            timepickerBinding.startTabIndicator.visibility = View.VISIBLE
+            timepickerBinding.endTabIndicator.visibility = View.GONE
+            timepickerBinding.inizio.alpha = 1F
+            timepickerBinding.fine.alpha = 0.4F
         }
-        view.end_time_container.setOnClickListener {
-            view.start_time_picker.visibility = View.GONE
-            view.end_time_picker.visibility = View.VISIBLE
-            view.start_tab_indicator.visibility = View.GONE
-            view.end_tab_indicator.visibility = View.VISIBLE
-            view.inizio.alpha = 0.4F
-            view.fine.alpha = 1F
+        timepickerBinding.endTimeContainer.setOnClickListener {
+            timepickerBinding.startTimePicker.visibility = View.GONE
+            timepickerBinding.endTimePicker.visibility = View.VISIBLE
+            timepickerBinding.startTabIndicator.visibility = View.GONE
+            timepickerBinding.endTabIndicator.visibility = View.VISIBLE
+            timepickerBinding.inizio.alpha = 0.4F
+            timepickerBinding.fine.alpha = 1F
         }
         dialog.show()
     }

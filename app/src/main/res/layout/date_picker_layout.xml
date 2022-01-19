@@ -43,8 +43,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.55"
-                        android:hint="@string/tap_here"
                         android:textSize="12sp"
+                        android:hint="@string/tap_here"
+                        android:textColorHint="@color/blue_grey_500"
                         android:textColor="@{temp.labelColor}"
                         tools:textColor="@color/colorPrimary" />
 
@@ -70,8 +71,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.55"
-                        android:hint="@string/tap_here"
                         android:textSize="12sp"
+                        android:hint="@string/tap_here"
+                        android:textColorHint="@color/blue_grey_500"
                         android:textColor="@{temp.labelColor}"
                         tools:textColor="@color/colorPrimary" />
 
@@ -97,8 +99,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.55"
-                        android:hint="@string/tap_here"
                         android:textSize="12sp"
+                        android:hint="@string/tap_here"
+                        android:textColorHint="@color/blue_grey_500"
                         android:textColor="@{temp.labelColor}"
                         tools:textColor="@color/colorPrimary" />
 
@@ -124,8 +127,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.55"
-                        android:hint="@string/tap_here"
                         android:textSize="12sp"
+                        android:hint="@string/tap_here"
+                        android:textColorHint="@color/blue_grey_500"
                         android:textColor="@{temp.labelColor}"
                         tools:textColor="@color/colorPrimary" />
 
@@ -151,8 +155,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.55"
-                        android:hint="@string/tap_here"
                         android:textSize="12sp"
+                        android:hint="@string/tap_here"
+                        android:textColorHint="@color/blue_grey_500"
                         android:textColor="@{temp.labelColor}"
                         tools:textColor="@color/colorPrimary" />
 
@@ -178,8 +183,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.55"
-                        android:hint="@string/tap_here"
                         android:textSize="12sp"
+                        android:hint="@string/tap_here"
+                        android:textColorHint="@color/blue_grey_500"
                         android:textColor="@{temp.labelColor}"
                         tools:textColor="@color/colorPrimary" />
 
@@ -205,8 +211,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.55"
-                        android:hint="@string/tap_here"
                         android:textSize="12sp"
+                        android:hint="@string/tap_here"
+                        android:textColorHint="@color/blue_grey_500"
                         android:textColor="@{temp.labelColor}"
                         tools:textColor="@color/colorPrimary" />
 
@@ -232,8 +239,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.55"
-                        android:hint="@string/tap_here"
                         android:textSize="12sp"
+                        android:hint="@string/tap_here"
+                        android:textColorHint="@color/blue_grey_500"
                         android:textColor="@{temp.labelColor}"
                         tools:textColor="@color/colorPrimary" />
 
@@ -259,8 +267,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.55"
-                        android:hint="@string/tap_here"
                         android:textSize="12sp"
+                        android:hint="@string/tap_here"
+                        android:textColorHint="@color/blue_grey_500"
                         android:textColor="@{temp.labelColor}"
                         tools:textColor="@color/colorPrimary" />
 

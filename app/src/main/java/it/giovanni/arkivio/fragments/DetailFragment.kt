@@ -10,16 +10,19 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
 import it.giovanni.arkivio.viewinterfaces.IDetailFragment
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.DetailLayoutBinding
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.viewinterfaces.IDarkMode
-import kotlinx.android.synthetic.main.detail_layout.*
 
 abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragment, IDarkMode.View {
+
+    companion object {
+        private var layoutBinding: DetailLayoutBinding? = null
+        val mBinding get() = layoutBinding
+    }
 
     abstract fun getLayout(): Int
     abstract fun searchAction(): Boolean
@@ -42,19 +45,18 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         // ----- DATA BINDING ----- //
-        val binding: DetailLayoutBinding? = DataBindingUtil.inflate(inflater, R.layout.detail_layout, container, false)
-        val view = binding?.root
+        layoutBinding = DetailLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this, requireContext())
         val model = DarkModeModel(requireContext())
-        binding?.temp = model
-        binding?.presenter = darkModePresenter
+        mBinding?.temp = model
+        mBinding?.presenter = darkModePresenter
 
         if (getLayout() == NO_LAYOUT)
-            binding?.frameLayout?.addView(onCreateBindingView(inflater, binding.frameLayout, savedInstanceState))
+            mBinding?.frameLayout?.addView(onCreateBindingView(inflater, mBinding?.frameLayout, savedInstanceState))
         // ------------------------ //
 
-        return view
+        return mBinding?.root
     }
 
     abstract fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
@@ -67,65 +69,65 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
         // Manage arguments
 
         if (backAction())
-            arrow_go_back.visibility = View.VISIBLE
+            mBinding?.arrowGoBack?.visibility = View.VISIBLE
         else
-            arrow_go_back.visibility = View.GONE
+            mBinding?.arrowGoBack?.visibility = View.GONE
 
         if (searchAction())
-            detail_search.visibility = View.VISIBLE
+            mBinding?.detailSearch?.visibility = View.VISIBLE
         else
-            detail_search.visibility = View.GONE
-        detail_search.setOnClickListener(searchClickListener)
+            mBinding?.detailSearch?.visibility = View.GONE
+        mBinding?.detailSearch?.setOnClickListener(searchClickListener)
 
         if (deleteAction())
-            detail_trash.visibility = View.VISIBLE
+            mBinding?.detailTrash?.visibility = View.VISIBLE
         else
-            detail_trash.visibility = View.GONE
+            mBinding?.detailTrash?.visibility = View.GONE
 
         if (editAction())
-            edit_icon.visibility = View.VISIBLE
+            mBinding?.editIcon?.visibility = View.VISIBLE
         else
-            edit_icon.visibility = View.GONE
+            mBinding?.editIcon?.visibility = View.GONE
 
-        edit_icon.setOnClickListener(editClickListener)
+        mBinding?.editIcon?.setOnClickListener(editClickListener)
 
         if (closeAction()) {
-            arrow_go_back.visibility = View.VISIBLE
-            arrow_go_back.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ico_close_rvd))
+            mBinding?.arrowGoBack?.visibility = View.VISIBLE
+            mBinding?.arrowGoBack?.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ico_close_rvd))
         }
 
-        arrow_go_back.setOnClickListener(arrowGoBackClickListener)
+        mBinding?.arrowGoBack?.setOnClickListener(arrowGoBackClickListener)
 
         if (arguments != null && requireArguments().containsKey("link_deeplink")) {
-            detail_title.text = requireArguments().getString("link_deeplink")
+            mBinding?.detailTitle?.text = requireArguments().getString("link_deeplink")
         } else if (getTitle() != NO_TITLE) {
-            detail_title.text = getString(getTitle())
+            mBinding?.detailTitle?.text = getString(getTitle())
         }
 
         if (getLayout() != NO_LAYOUT) {
             val customLayout = LayoutInflater.from(context).inflate(getLayout(), null, false)
-            frame_layout.addView(customLayout)
+            mBinding?.frameLayout?.addView(customLayout)
         }
 
         if (isRefreshEnabled()) {
-            swipeRefreshLayout.setSwipeableChildren(R.id.frame_layout)
-            swipeRefreshLayout.setOnRefreshListener {
+            mBinding?.swipeRefreshLayout?.setSwipeableChildren(R.id.frame_layout)
+            mBinding?.swipeRefreshLayout?.setOnRefreshListener {
                 refresh()
             }
         }
 
-        if (swipeRefreshLayout != null) {
-            swipeRefreshLayout.setColorSchemeResources(android.R.color.black)
+        if (mBinding?.swipeRefreshLayout != null) {
+            mBinding?.swipeRefreshLayout?.setColorSchemeResources(android.R.color.black)
         }
 
         if (getActionTitle() != NO_TITLE) {
-            action_label.visibility = View.VISIBLE
-            action_label.text = getString(getActionTitle())
-            action_label.setOnClickListener {
+            mBinding?.actionLabel?.visibility = View.VISIBLE
+            mBinding?.actionLabel?.text = getString(getActionTitle())
+            mBinding?.actionLabel?.setOnClickListener {
                 onActionClickListener()
             }
         } else {
-            action_label.visibility = View.GONE
+            mBinding?.actionLabel?.visibility = View.GONE
         }
     }
 
@@ -133,21 +135,21 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
 
     fun actionLabelState(state: Boolean) {
         when (state) {
-            true -> {action_label.isEnabled = true}
-            false -> {action_label.isEnabled = false}
+            true -> {mBinding?.actionLabel?.isEnabled = true}
+            false -> {mBinding?.actionLabel?.isEnabled = false}
         }
     }
 
     fun actionLabelText(label: String) {
-        action_label.text = label
+        mBinding?.actionLabel?.text = label
     }
 
     fun actionLabelVisibility(visibility: Int) {
-        action_label.visibility = visibility
+        mBinding?.actionLabel?.visibility = visibility
     }
 
     fun actionLabelClickListener(listener:View.OnClickListener) {
-        action_label.setOnClickListener(listener)
+        mBinding?.actionLabel?.setOnClickListener(listener)
     }
 
     private var arrowGoBackClickListener = View.OnClickListener {
@@ -156,13 +158,13 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
     }
 
     fun isUserSearch(): Boolean {
-        return (search_input_text.visibility == View.VISIBLE)
+        return (mBinding?.searchInputText?.visibility == View.VISIBLE)
     }
 
     fun closeSearch() {
-        search_input_text.visibility = View.GONE
+        mBinding?.searchInputText?.visibility = View.GONE
         hideSoftKeyboard()
-        detail_title.visibility = View.VISIBLE
+        mBinding?.detailTitle?.visibility = View.VISIBLE
     }
 
     abstract fun editIconClick()
@@ -173,26 +175,26 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
 
     private var searchClickListener = View.OnClickListener {
 
-        if (search_input_text.visibility == View.GONE) {
+        if (mBinding?.searchInputText?.visibility == View.GONE) {
             openSearch()
         } else {
             // Search!
-            onActionSearch(search_input_text.text.toString())
+            onActionSearch(mBinding?.searchInputText?.text.toString())
         }
     }
 
     private fun openSearch() {
-        search_input_text.visibility = View.VISIBLE
-        search_input_text.requestFocus()
+        mBinding?.searchInputText?.visibility = View.VISIBLE
+        mBinding?.searchInputText?.requestFocus()
         showDetailSoftKeyboard()
-        detail_title.visibility = View.GONE
+        mBinding?.detailTitle?.visibility = View.GONE
     }
 
     abstract fun onActionSearch(search_string: String)
 
     private fun showDetailSoftKeyboard() {
         val imm = currentActivity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.showSoftInput(search_input_text, InputMethodManager.SHOW_IMPLICIT)
+        imm.showSoftInput(mBinding?.searchInputText, InputMethodManager.SHOW_IMPLICIT)
     }
 
     fun showSoftKeyboard(editText: EditText) {
@@ -218,16 +220,16 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
     }
 
     fun stopSwipeRefresh() {
-        if (swipeRefreshLayout != null) {
-            swipeRefreshLayout.isRefreshing = false
-            swipeRefreshLayout.destroyDrawingCache()
-            swipeRefreshLayout.clearAnimation()
+        if (mBinding?.swipeRefreshLayout != null) {
+            mBinding?.swipeRefreshLayout?.isRefreshing = false
+            mBinding?.swipeRefreshLayout?.destroyDrawingCache()
+            mBinding?.swipeRefreshLayout?.clearAnimation()
         }
     }
 
     protected fun startSwipeRefresh() {
-        if (swipeRefreshLayout != null && !swipeRefreshLayout.isRefreshing)
-            swipeRefreshLayout.isRefreshing = true
+        if (mBinding?.swipeRefreshLayout != null && !mBinding?.swipeRefreshLayout?.isRefreshing!!)
+            mBinding?.swipeRefreshLayout?.isRefreshing = true
     }
 
     override fun hidePullToRefresh() {
@@ -235,12 +237,17 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
     }
 
     override fun isPullToRefreshEnabled(isEnabled: Boolean) {
-        if (swipeRefreshLayout != null) {
-            swipeRefreshLayout.isEnabled = isEnabled
+        if (mBinding?.swipeRefreshLayout != null) {
+            mBinding?.swipeRefreshLayout?.isEnabled = isEnabled
         }
     }
 
     override fun onShowDataModel(model: DarkModeModel?) {}
 
     override fun onSetLayout(model: DarkModeModel?) {}
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
+    }
 }

@@ -313,6 +313,23 @@
 
     <!-- FONTS -->
     <string name="fonts_title">Fonts</string>
+    <string name="textview_textstyle_italic">TextView textStyle italic</string>
+    <string name="textview_textstyle_normal">TextView textStyle normal</string>
+    <string name="textview_textstyle_bold">TextView textStyle bold</string>
+    <string name="textviewcustom_textstyle_italic_fira_light">TextViewCustom textStyle italic (fira_light)</string>
+    <string name="textviewcustom_textstyle_normal_fira_regular">TextViewCustom textStyle normal (fira_regular)</string>
+    <string name="textviewcustom_textstyle_bold_fira_medium">TextViewCustom textStyle bold (fira_medium)</string>
+    <string name="textview_fontfamily_montserrat_light">TextView fontFamily montserrat_light</string>
+    <string name="textview_fontfamily_montserrat_regular">TextView fontFamily montserrat_regular</string>
+    <string name="textview_fontfamily_montserrat_medium">TextView fontFamily montserrat_medium</string>
+    <string name="textview_fontfamily_montserrat_semibold">TextView fontFamily montserrat_semibold</string>
+    <string name="textview_fontfamily_montserrat_bold">TextView fontFamily montserrat_bold</string>
+    <string name="textview_style_nunitolight_nunito_light">TextView style NunitoLight (nunito_light)</string>
+    <string name="textview_style_nunitoregular_nunito_regular">TextView style NunitoRegular (nunito_regular)</string>
+    <string name="textview_style_nunitosemibold_nunito_semibold">TextView style NunitoSemibold (nunito_semibold)</string>
+    <string name="textview_style_nunitobold_nunito_bold">TextView style NunitoBold (nunito_bold)</string>
+    <string name="textview_style_nunitoextrabold_nunito_extrabold">TextView style NunitoExtrabold (nunito_extrabold)</string>
+    <string name="textview_style_nunitoblack_nunito_black">TextView style NunitoBlack (nunito_black)</string>
 
     <!-- LOCAL NOTIFICATION -->
     <string name="notification_title">Notification</string>

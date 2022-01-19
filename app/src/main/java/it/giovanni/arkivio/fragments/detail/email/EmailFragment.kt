@@ -5,19 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.databinding.EmailLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
+import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.Utils.Companion.sendFilledOutMail
 import it.giovanni.arkivio.utils.Utils.Companion.sendGmailMail
 import it.giovanni.arkivio.utils.Utils.Companion.sendOutlookMail
 import it.giovanni.arkivio.utils.Utils.Companion.sendSimpleMail
-import kotlinx.android.synthetic.main.email_layout.*
 
 class EmailFragment: DetailFragment() {
 
-    private var viewFragment: View? = null
+    private var layoutBinding: EmailLayoutBinding? = null
+    private val binding get() = layoutBinding
 
     override fun getLayout(): Int {
-        return R.layout.email_layout
+        return NO_LAYOUT
     }
 
     override fun getTitle(): Int {
@@ -54,13 +57,15 @@ class EmailFragment: DetailFragment() {
     override fun onActionSearch(search_string: String) {
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
-        return viewFragment
-    }
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+        layoutBinding = EmailLayoutBinding.inflate(inflater, container, false)
 
-    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        TODO("Not yet implemented")
+        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val model = DarkModeModel(requireContext())
+        binding?.presenter = darkModePresenter
+        binding?.temp = model
+
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -69,22 +74,27 @@ class EmailFragment: DetailFragment() {
         val to = arrayOf("raf@gmail.com", "gio@gmail.com")
         val cc = arrayOf("raf@outlook.it", "gio@outlook.it")
 
-        label_simple_mail.setOnClickListener {
+        binding?.labelSimpleMail?.setOnClickListener {
             sendSimpleMail(requireContext(), "raf@gmail.com")
         }
 
-        label_filled_out_mail.setOnClickListener {
+        binding?.labelFilledOutMail?.setOnClickListener {
             sendFilledOutMail(requireContext(), to, cc, "Subject", "Text")
         }
 
-        label_gmail_mail.setOnClickListener {
+        binding?.labelGmailMail?.setOnClickListener {
             showProgressDialog()
             sendGmailMail(requireContext(), to, cc, "Subject", "Text")
         }
 
-        label_outlook_mail.setOnClickListener {
+        binding?.labelOutlookMail?.setOnClickListener {
             showProgressDialog()
             sendOutlookMail(requireContext(), to, cc, "Subject", "Text")
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
     }
 }

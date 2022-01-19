@@ -132,6 +132,7 @@
 
     <style name="AppTheme.Picker" parent="Theme.AppCompat.Light.NoActionBar" >
         <item name="android:textColorPrimary">@color/rosso</item>
+        <item name="colorControlNormal">@color/verde</item>
     </style>
 
     <style name="ActionLabel" parent="android:Widget.Button">

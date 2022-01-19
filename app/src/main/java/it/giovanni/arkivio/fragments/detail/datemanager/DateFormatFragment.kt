@@ -31,7 +31,6 @@ import it.giovanni.arkivio.utils.DateManager.Companion.getUpperSimpleDate1
 import it.giovanni.arkivio.utils.DateManager.Companion.getUpperSimpleDate2
 import it.giovanni.arkivio.utils.DateManager.Companion.getUpperSimpleName1
 import it.giovanni.arkivio.utils.DateManager.Companion.getUpperSimpleName2
-import kotlinx.android.synthetic.main.detail_layout.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -207,10 +206,10 @@ class DateFormatFragment : DetailFragment() {
         binding?.timeDate?.text = getSimpleDate4(timeDate?.getFormatDate()!!)
 
         binding?.scrollContainer?.setOnScrollChangeListener { _, _, scrollY, _, _ ->
-            swipeRefreshLayout.isEnabled = scrollY == 0
+            mBinding?.swipeRefreshLayout?.isEnabled = scrollY == 0
         }
 
-        swipeRefreshLayout.setOnRefreshListener {
+        mBinding?.swipeRefreshLayout?.setOnRefreshListener {
             refresh()
         }
     }

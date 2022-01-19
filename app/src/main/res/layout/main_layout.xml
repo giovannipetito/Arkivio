@@ -18,7 +18,8 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="false">
 
-        <include layout="@layout/main_content_layout"
+        <include
+                layout="@layout/main_content_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 bind:temp2="@{temp}" />
@@ -29,7 +30,8 @@
                 android:layout_gravity="end"
                 android:fitsSystemWindows="true">
 
-            <include layout="@layout/nav_header_main"
+            <include
+                    layout="@layout/nav_header_main"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     bind:temp2="@{temp}" />

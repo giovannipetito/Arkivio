@@ -1,5 +1,6 @@
 package it.giovanni.arkivio.fragments.detail.layoutmanager
 
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.text.Editable
@@ -11,7 +12,6 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -24,14 +24,13 @@ import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.Utils.Companion.checkEmail
-import kotlinx.android.synthetic.main.layout_manager_layout.*
 
 class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener {
 
-    private var viewFragment: View? = null
-    private var viewParent: View? = null
-    private var progressBarContainer: RelativeLayout? = null
+    private var layoutBinding: LayoutManagerLayoutBinding? = null
+    private val binding get() = layoutBinding
 
+    private var progressBarContainer: RelativeLayout? = null
     private lateinit var list: List<String>
 
     override fun getLayout(): Int {
@@ -72,78 +71,72 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
     override fun onActionSearch(search_string: String) {
     }
 
-    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding: LayoutManagerLayoutBinding? = DataBindingUtil.inflate(inflater, R.layout.layout_manager_layout, container, false)
-        viewFragment = binding?.root
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+        layoutBinding = LayoutManagerLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this, requireContext())
         val model = DarkModeModel(requireContext())
-        binding?.temp = model
         binding?.presenter = darkModePresenter
+        binding?.temp = model
 
-        return viewFragment
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val viewGroup = viewFragment?.findViewById(R.id.progress_bar_viewgroup) as ViewGroup
-        viewParent = layoutInflater.inflate(R.layout.layout_manager_layout, viewGroup, false)
+        progressBarContainer = binding?.progressBarContent?.progressBarContainer
+        val progressBar = binding?.progressBarContent?.progressBar
+        val bar = binding?.progressBarContent?.bar
 
-        // val inflater = LayoutInflater.from(context)
-        // val viewParent = inflater.inflate(R.layout.layout_manager_layout, null)
-        // NOTA: viewParent e viewFragment sono equivalenti.
-
-        val progressBarContent = viewFragment?.findViewById(R.id.progress_bar_content) as View
-        progressBarContainer = progressBarContent.findViewById(R.id.progress_bar_container)
-        val progressBar = progressBarContent.findViewById(R.id.progress_bar) as RelativeLayout
-        val bar = progressBarContent.findViewById(R.id.bar) as ImageView
-
-        val drawableBar = GradientDrawable(
+        val gradientDrawableBar = GradientDrawable(
             GradientDrawable.Orientation.LEFT_RIGHT,
-            intArrayOf(ContextCompat.getColor(requireContext(), R.color.rosso),
+            intArrayOf(
+                ContextCompat.getColor(requireContext(), R.color.rosso),
                 ContextCompat.getColor(requireContext(), R.color.giallo),
-                ContextCompat.getColor(requireContext(), R.color.blu))
+                ContextCompat.getColor(requireContext(), R.color.blu)
+            )
         )
 
-        drawableBar.cornerRadius = 50f
-        progressBar.setBackgroundDrawable(drawableBar)
+        gradientDrawableBar.cornerRadius = 50f
+        val drawableBar: Drawable = gradientDrawableBar.current // Oppure: gradientDrawableBar.mutate()
+        progressBar?.background = drawableBar
 
         /*
         var progressbarwidth: Int? = null
-        viewParent?.viewTreeObserver?.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+        binding?.root?.viewTreeObserver?.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 view.viewTreeObserver.removeOnGlobalLayoutListener(this)
                 if (progressBarContainer != null)
                     progressbarwidth = progressBarContainer?.width!! * 1000 / 5
             }
         })
-        viewParent?.requestLayout()
+        binding?.root?.requestLayout()
         */
 
-        multi_spinner_view.setValues(104F, 140F, 104F, 20F)
-        number_picker_1.minValue = 104
-        number_picker_1.maxValue = 167
-        number_picker_1.value = 104
-        // number_picker_1.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
-        number_picker_1.setOnValueChangedListener { _, _, newVal ->
+        binding?.multiSpinnerView?.setValues(104F, 140F, 104F, 20F)
+        binding?.numberPicker1?.minValue = 104
+        binding?.numberPicker1?.maxValue = 167
+        binding?.numberPicker1?.value = 104
+        // binding?.numberPicker1?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+        binding?.numberPicker1?.setOnValueChangedListener { _, _, newVal ->
 
-            multi_spinner_view.setValues(newVal.toFloat(), 140F, 104F, 20F)
+            binding?.multiSpinnerView?.setValues(newVal.toFloat(), 140F, 104F, 20F)
         }
 
-        number_picker_2.minValue = 0
-        number_picker_2.maxValue = 350
-        number_picker_2.setOnValueChangedListener { _, _, newVal ->
-            bar.translationX = newVal.toFloat()
+        binding?.numberPicker2?.minValue = 0
+        binding?.numberPicker2?.maxValue = 350
+        binding?.numberPicker2?.setOnValueChangedListener { _, _, newVal ->
+            bar?.translationX = newVal.toFloat()
         }
 
-        // icon_1.background = resources.getDrawable(R.drawable.giovanni)
-        icon_1.setBackgroundDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.giovanni))
+        // binding?.icon1?.background = resources.getDrawable(R.drawable.giovanni)
+        binding?.icon1?.setBackgroundDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.giovanni))
 
         Glide.with(requireContext())
             .load(R.drawable.giovanni)
             .apply(RequestOptions.bitmapTransform(RoundedCorners(28)))
-            .into(icon_2)
+            .into(binding?.icon2!!)
 
         Glide.with(requireContext())
             .load(R.drawable.giovanni)
@@ -151,14 +144,14 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
             .error(R.mipmap.ic_launcher)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .apply(RequestOptions.bitmapTransform(RoundedCorners(54)))
-            .into(icon_3)
+            .into(binding?.icon3!!)
 
         Glide.with(requireContext())
             .load(R.drawable.giovanni)
             .apply(RequestOptions()
                 .circleCrop()
                 .placeholder(R.mipmap.ic_launcher))
-            .into(icon_4)
+            .into(binding?.icon4!!)
 
         Glide.with(requireContext())                     // Passing context.
             .load(R.drawable.giovanni)                   // Passing your url to load image.
@@ -167,7 +160,7 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
             .diskCacheStrategy(DiskCacheStrategy.ALL)    // Using to load into cache, then second time it will load fast.
             .apply(RequestOptions.circleCropTransform()) // This CircleTransform class help to crop an image as circle.
             // .animate(R.anim.fade_in)                  // When image (url) will be loaded by Glide, then this face in animation help to replace url image in the place of placeHolder image.
-            .into(icon_5)                                // Passing imageView reference to appear the image.
+            .into(binding?.icon5!!)                      // Passing imageView reference to appear the image.
 
         val timelineView: TimelineView = view.findViewById(R.id.bar_tagli)
         list = listOf("10€", "20€", "30€", "40€", "50€")
@@ -195,12 +188,12 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
             }
         }
 
-        edit_email.addTextChangedListener(object : TextWatcher {
+        binding?.editEmail?.addTextChangedListener(object : TextWatcher {
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (checkEmail(edit_email.text.toString()))
+                if (checkEmail(binding?.editEmail?.text.toString()))
                     Toast.makeText(context, "Email valida", Toast.LENGTH_LONG).show()
                 else
                     Toast.makeText(context, "Email errata", Toast.LENGTH_LONG).show()
@@ -274,5 +267,10 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
                 R.drawable.background_dark_mode
             )
         )
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
     }
 }

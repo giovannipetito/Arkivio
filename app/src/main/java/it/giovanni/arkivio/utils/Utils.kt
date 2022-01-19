@@ -36,7 +36,6 @@ import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import java.util.*
 import java.util.concurrent.Executors
-import java.util.regex.Pattern
 import kotlin.math.min
 
 class Utils {
@@ -96,11 +95,10 @@ class Utils {
         }
 
         private fun cropCenter(bitmap: Bitmap): Bitmap {
-            var dimen: Int = bitmap.width
-            if (bitmap.width > bitmap.height)
-                dimen = bitmap.height
-            val dimension = min(dimen, dimen)
-            return ThumbnailUtils.extractThumbnail(bitmap, dimension, dimension)
+            return if (bitmap.width != bitmap.height) {
+                val dimen: Int = min(bitmap.width, bitmap.height)
+                ThumbnailUtils.extractThumbnail(bitmap, dimen, dimen)
+            } else bitmap
         }
 
         fun setBitmapFromUrl(imageUrl: String, imageView: ImageView, activity: FragmentActivity) {
@@ -174,11 +172,7 @@ class Utils {
             var html = htmlMessage
             if (html == null)
                 html = ""
-            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY)
-            } else {
-                Html.fromHtml(html)
-            }
+            return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY)
         }
 
         fun getVersionNameLong(versionName: String): Long {
