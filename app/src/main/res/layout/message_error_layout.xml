@@ -1,59 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <data>
-        <variable
-                name="temp"
-                type="it.giovanni.arkivio.model.DarkModeModel" />
-
-        <variable
-                name="presenter"
-                type="it.giovanni.arkivio.presenter.DarkModePresenter" />
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+        <ImageView
+                android:id="@+id/error_smile_ico"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:alpha="0.6"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ico_error_rvd"
+                app:tint="@color/rosso" />
 
-            <ImageView
-                    android:id="@+id/error_ico"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="157dp"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/ico_error_rvd"
-                    android:alpha="0.6"
-                    android:contentDescription="@string/app_name" />
+        <TextView
+                android:id="@+id/oops"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/error_smile_ico"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:text="Oops!"
+                android:textAlignment="center"
+                android:textColor="@color/rosso"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-            <TextView
-                    android:id="@+id/oops"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/error_ico"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="20dp"
-                    android:text="Oops!"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+        <TextView
+                android:id="@+id/error_message_smile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/oops"
+                android:layout_centerHorizontal="true"
+                android:textAlignment="center"
+                android:text="Sembra che ci sia qualche problema, tappa per aggiornare."
+                android:textSize="14sp"
+                android:textColor="@color/rosso" />
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/oops"
-                    android:layout_centerHorizontal="true"
-                    android:text="Sembra che ci sia qualche problema, tappa per aggiornare."
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
+    </RelativeLayout>
 
-        </RelativeLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>

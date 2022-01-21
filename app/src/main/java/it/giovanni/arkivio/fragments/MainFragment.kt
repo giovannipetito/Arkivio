@@ -20,7 +20,6 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
-import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager.widget.ViewPager
 import it.giovanni.arkivio.BuildConfig
@@ -31,6 +30,7 @@ import it.giovanni.arkivio.bean.Link
 import it.giovanni.arkivio.bean.LinkSide
 import it.giovanni.arkivio.customview.popup.CustomDialogPopup
 import it.giovanni.arkivio.databinding.MainLayoutBinding
+import it.giovanni.arkivio.fragments.homepage.LinkAreaFragment.Companion.linkAreaLayoutBinding
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.Globals
@@ -41,10 +41,6 @@ import it.giovanni.arkivio.utils.UserFactory
 import it.giovanni.arkivio.utils.Utils.Companion.getRoundBitmap
 import it.giovanni.arkivio.utils.Utils.Companion.setBitmapFromUrl
 import it.giovanni.arkivio.viewinterfaces.IDarkMode
-import kotlinx.android.synthetic.main.link_area_layout.*
-import kotlinx.android.synthetic.main.main_content_layout.*
-import kotlinx.android.synthetic.main.main_layout.*
-import kotlinx.android.synthetic.main.nav_header_main.*
 
 class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
 
@@ -69,8 +65,14 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
     companion object {
         var TAB_INDEX_HOME: Int = 1
         var TAB_INDEX_WORKING_AREA: Int = 2
-        var TAB_INDEX_ADMINISTRATIVE: Int = 3
+        var TAB_INDEX_LINK_AREA: Int = 3
     }
+
+    // DATA BINDING
+    private var layoutBinding: MainLayoutBinding? = null
+    private val binding get() = layoutBinding
+    private var darkModePresenter: DarkModePresenter? = null
+    private var model: DarkModeModel? = null
 
     private var defaultX: Float = 0f
     private var transitionTime: Long = 100
@@ -89,10 +91,9 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
     private lateinit var customPopup: CustomDialogPopup
     private var compress: Boolean = false
 
-    // DATA BINDING
-    private var binding: MainLayoutBinding? = null
-    private var darkModePresenter: DarkModePresenter? = null
-    private var model: DarkModeModel? = null
+    override fun getLayout(): Int {
+        return NO_LAYOUT
+    }
 
     override fun getTitle(): Int {
         return NO_TITLE
@@ -103,8 +104,10 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
         var view = super.onCreateView(inflater, container, savedInstanceState) // Non rimuovere.
 
         // ----- DATA BINDING ----- //
-        binding = DataBindingUtil.inflate(inflater, R.layout.main_layout, container, false)
+        layoutBinding = MainLayoutBinding.inflate(inflater, container, false)
+
         view = binding?.root
+
         darkModePresenter = DarkModePresenter(this, requireContext())
         model = DarkModeModel(requireContext())
         binding?.temp = model
@@ -132,11 +135,11 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
 
         val avatar : Bitmap = BitmapFactory.decodeResource(requireContext().resources, R.drawable.giovanni)
         val roundAvatar : Bitmap = getRoundBitmap(avatar, avatar.width)
-        nav_header_avatar.setImageBitmap(roundAvatar)
+        binding?.navHeader?.navHeaderAvatar?.setImageBitmap(roundAvatar)
 
-        switch_mode.isChecked = !isDarkMode
+        binding?.navHeader?.switchMode?.isChecked = !isDarkMode
 
-        switch_mode.setOnClickListener {
+        binding?.navHeader?.switchMode?.setOnClickListener {
 
             val customPopup = CustomDialogPopup(currentActivity, R.style.PopupTheme)
             customPopup.setCancelable(false)
@@ -153,7 +156,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
                 resources.getString(R.string.button_cancel),
                 {
                     customPopup.dismiss()
-                    switch_mode.isChecked = !isDarkMode
+                    binding?.navHeader?.switchMode?.isChecked = !isDarkMode
                 }
             )
             customPopup.show()
@@ -184,7 +187,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
             addLinkViews(listLink)
         }
 
-        voice.setOnClickListener {
+        binding?.mainContent?.voice?.setOnClickListener {
             currentActivity.openDialogDetail(Globals.DIALOG_FLOW, Bundle())
             currentActivity.window.statusBarColor = ContextCompat.getColor(
                 requireContext(),
@@ -194,18 +197,18 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
     }
 
     fun goToHomePosition(position: Int) {
-        view_pager.currentItem = position - 1
+        binding?.mainContent?.viewPager?.currentItem = position - 1
     }
 
     private fun attachViewPager() {
 
         fragmentAdapter = HomeFragmentAdapter(childFragmentManager, 3, this)
 
-        view_pager.adapter = fragmentAdapter
-        view_pager.offscreenPageLimit = 3
-        view_pager.currentItem = (TAB_INDEX_HOME - 1)
+        binding?.mainContent?.viewPager?.adapter = fragmentAdapter
+        binding?.mainContent?.viewPager?.offscreenPageLimit = 3
+        binding?.mainContent?.viewPager?.currentItem = (TAB_INDEX_HOME - 1)
 
-        view_pager.addOnPageChangeListener(
+        binding?.mainContent?.viewPager?.addOnPageChangeListener(
             object : ViewPager.OnPageChangeListener {
                 override fun onPageScrollStateChanged(state: Int) {}
 
@@ -225,13 +228,13 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
 
                     when (position) {
                         0 -> {
-                            voice.visibility = View.VISIBLE
+                            binding?.mainContent?.voice?.visibility = View.VISIBLE
                         }
                         1 -> {
-                            voice.visibility = View.GONE
+                            binding?.mainContent?.voice?.visibility = View.GONE
                         }
                         2 -> {
-                            voice.visibility = View.GONE
+                            binding?.mainContent?.voice?.visibility = View.GONE
                         }
                     }
                 }
@@ -240,41 +243,41 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
     }
 
     private fun attachSideMenu(listLinkSide: ArrayList<LinkSide>?) {
-        drawer_layout.isEnabled = false
-        drawer_layout.setScrimColor(Color.TRANSPARENT)
+        binding?.drawerLayout?.isEnabled = false
+        binding?.drawerLayout?.setScrimColor(Color.TRANSPARENT)
 
-        drawer_layout.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
+        binding?.drawerLayout?.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
 
                 if (loadCompressStateFromPreferences()) {
                     // Scale the View based on current slide offset
                     val diffScaledOffset = slideOffset * (1 - endScale)
                     val offsetScale = 1 - diffScaledOffset
-                    container.scaleX = offsetScale
-                    container.scaleY = offsetScale
+                    binding?.mainContent?.container?.scaleX = offsetScale
+                    binding?.mainContent?.container?.scaleY = offsetScale
 
                     // Translate the View, accounting for the scaled width
                     val xOffset = drawerView.width * slideOffset
-                    val xOffsetDiff = container.width * diffScaledOffset / 2
+                    val xOffsetDiff = binding?.mainContent?.container?.width!! * diffScaledOffset / 2
                     val xTranslation = xOffset - xOffsetDiff
-                    container.translationX = -xTranslation
+                    binding?.mainContent?.container?.translationX = -xTranslation
                 } else {
                     // Scale the View based on current slide offset
                     val diffScaledOffset = slideOffset * (1 - endScale)
                     val offsetScale = 1.0f
-                    container.scaleX = offsetScale
-                    container.scaleY = offsetScale
+                    binding?.mainContent?.container?.scaleX = offsetScale
+                    binding?.mainContent?.container?.scaleY = offsetScale
 
                     // Translate the View, accounting for the scaled width
                     val xOffset = drawerView.width * slideOffset
-                    val xOffsetDiff = container.width * diffScaledOffset / 10
+                    val xOffsetDiff = binding?.mainContent?.container?.width!! * diffScaledOffset / 10
                     val xTranslation = xOffset - xOffsetDiff
-                    container.translationX = -xTranslation
+                    binding?.mainContent?.container?.translationX = -xTranslation
                 }
             }
 
             override fun onDrawerClosed(drawerView: View) {
-                tab_menu.setImageDrawable(
+                binding?.mainContent?.tabMenu?.setImageDrawable(
                     ContextCompat.getDrawable(
                         requireContext(),
                         R.drawable.ico_bottom_menu
@@ -283,9 +286,9 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
             }
         })
 
-        drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        binding?.drawerLayout?.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
-        settings.setOnClickListener {
+        binding?.navHeader?.settings?.setOnClickListener {
             customPopup = CustomDialogPopup(currentActivity, R.style.PopupTheme)
             customPopup.setCancelable(false)
             customPopup.setTitle(context?.resources?.getString(R.string.settings)!!, "")
@@ -306,20 +309,20 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
             customPopup.show()
         }
 
-        logout.setOnClickListener {
+        binding?.navHeader?.logout?.setOnClickListener {
             (activity as MainActivity).logout()
         }
 
         if (BuildConfig.CREDITS_PREFIX == "DEBUG") {
             val versionName = BuildConfig.VERSION_NAME + " " + BuildConfig.CREDITS_PREFIX
-            version_name.text = versionName
+            binding?.navHeader?.versionName?.text = versionName
         } else {
             val versionName = BuildConfig.VERSION_NAME
-            version_name.text = versionName
+            binding?.navHeader?.versionName?.text = versionName
         }
 
         val versionCode = "(" + BuildConfig.VERSION_CODE.toString() + ")"
-        version_code.text = versionCode
+        binding?.navHeader?.versionCode?.text = versionCode
 
         if (listLinkSide != null) {
             addSideViews(listLinkSide)
@@ -335,7 +338,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
 
             val rowView = LayoutInflater.from(context).inflate(
                 R.layout.link_dynamic_item,
-                link_utili_container,
+                linkAreaLayoutBinding?.linkUtiliContainer,
                 false
             )
 
@@ -348,7 +351,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
 
             labelName.text = item.name
 
-            link_utili_container.addView(rowView)
+            linkAreaLayoutBinding?.linkUtiliContainer?.addView(rowView)
 
             linkItem.setOnClickListener {
                 when (item.type) {
@@ -374,7 +377,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
                 }
             }
         }
-        link_utili_container.visibility = View.VISIBLE
+        linkAreaLayoutBinding?.linkUtiliContainer?.visibility = View.VISIBLE
     }
 
     private fun addSideViews(listLinkSide: ArrayList<LinkSide>?) {
@@ -386,7 +389,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
 
             val rowView = LayoutInflater.from(context).inflate(
                 R.layout.nav_header_item,
-                nav_header_container,
+                binding?.navHeader?.navHeaderContainer,
                 false
             )
 
@@ -398,7 +401,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
             else
                 labelName.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
 
-            nav_header_container.addView(rowView)
+            binding?.navHeader?.navHeaderContainer?.addView(rowView)
 
             labelName.setOnClickListener {
                 closeSideMenu()
@@ -421,37 +424,37 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
                 }
             }
         }
-        nav_header_container.visibility = View.VISIBLE
+        binding?.navHeader?.navHeaderContainer?.visibility = View.VISIBLE
     }
 
     private fun attachTabListener() {
-        tab_home.setOnClickListener(tabHomeClick)
-        tab_working_area.setOnClickListener(tabWorkingAreaClick)
-        tab_administrative.setOnClickListener(tabAdministrativeClick)
-        tab_menu.setOnClickListener(tabMenuClick)
+        binding?.mainContent?.tabHome?.setOnClickListener(tabHomeClick)
+        binding?.mainContent?.tabWorkingArea?.setOnClickListener(tabWorkingAreaClick)
+        binding?.mainContent?.tabLinkArea?.setOnClickListener(tabLinkAreaClick)
+        binding?.mainContent?.tabMenu?.setOnClickListener(tabMenuClick)
     }
 
     private fun resetBackgroundTabNav() {
-        val start = tab_home.x + (tab_home.width / 2)
-        val end = tab_menu.x + (tab_menu.width / 2)
+        val start = binding?.mainContent?.tabHome?.x!! + (binding?.mainContent?.tabHome?.width!! / 2)
+        val end = binding?.mainContent?.tabMenu?.x!! + (binding?.mainContent?.tabMenu?.width!! / 2)
         val delta = (end - start) / 4
 
-        background_bottom_bar.x = -(delta * 2)
-        tab_home.setImageDrawable(
+        binding?.mainContent?.backgroundBottomBar?.x = -(delta * 2)
+        binding?.mainContent?.tabHome?.setImageDrawable(
             ContextCompat.getDrawable(
                 requireContext(),
                 R.drawable.ico_bottom_home_rvd
             )
         )
-        defaultX = (tab_home.width).toFloat()
+        defaultX = (binding?.mainContent?.tabHome?.width!!).toFloat()
     }
 
     private fun getTabInstanceByPosition(position: Int): ImageView {
         return when (position) {
-            1 -> tab_home
-            2 -> tab_working_area
-            3 -> tab_administrative
-            else -> tab_home
+            1 -> binding?.mainContent?.tabHome!!
+            2 -> binding?.mainContent?.tabWorkingArea!!
+            3 -> binding?.mainContent?.tabLinkArea!!
+            else -> binding?.mainContent?.tabHome!!
         }
     }
 
@@ -473,12 +476,12 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
                 return if (!rvdType)
                     ContextCompat.getDrawable(
                         requireContext(),
-                        R.drawable.ico_bottom_administrative_area
+                        R.drawable.ico_bottom_link_area
                     )!!
                 else
                     ContextCompat.getDrawable(
                         requireContext(),
-                        R.drawable.ico_bottom_administrative_area_rvd
+                        R.drawable.ico_bottom_link_area_rvd
                     )!!
             }
             else -> {
@@ -493,31 +496,31 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
     private var tabHomeClick: View.OnClickListener = View.OnClickListener {
         translateAnimation(
             TAB_INDEX_HOME,
-            tab_home,
+            binding?.mainContent?.tabHome!!,
             ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_home)!!,
             ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_home_rvd)!!
         )
-        view_pager.currentItem = TAB_INDEX_HOME - 1
+        binding?.mainContent?.viewPager?.currentItem = TAB_INDEX_HOME - 1
     }
 
     private var tabWorkingAreaClick: View.OnClickListener = View.OnClickListener {
         translateAnimation(
             TAB_INDEX_WORKING_AREA,
-            tab_working_area,
+            binding?.mainContent?.tabWorkingArea!!,
             ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_working_area)!!,
             ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_working_area_rvd)!!
         )
-        view_pager.currentItem = TAB_INDEX_WORKING_AREA - 1
+        binding?.mainContent?.viewPager?.currentItem = TAB_INDEX_WORKING_AREA - 1
     }
 
-    private var tabAdministrativeClick: View.OnClickListener = View.OnClickListener {
+    private var tabLinkAreaClick: View.OnClickListener = View.OnClickListener {
         translateAnimation(
-            TAB_INDEX_ADMINISTRATIVE,
-            tab_administrative,
-            ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_administrative_area)!!,
-            ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_administrative_area_rvd)!!
+            TAB_INDEX_LINK_AREA,
+            binding?.mainContent?.tabLinkArea!!,
+            ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_link_area)!!,
+            ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_link_area_rvd)!!
         )
-        view_pager.currentItem = TAB_INDEX_ADMINISTRATIVE - 1
+        binding?.mainContent?.viewPager?.currentItem = TAB_INDEX_LINK_AREA - 1
     }
 
     private var tabMenuClick: View.OnClickListener = View.OnClickListener {
@@ -525,9 +528,9 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
     }
 
     private fun closeSideMenu() {
-        if (drawer_layout.isDrawerOpen(GravityCompat.END)) {
-            drawer_layout.closeDrawer(GravityCompat.END)
-            tab_menu.setImageDrawable(
+        if (binding?.drawerLayout?.isDrawerOpen(GravityCompat.END)!!) {
+            binding?.drawerLayout?.closeDrawer(GravityCompat.END)
+            binding?.mainContent?.tabMenu?.setImageDrawable(
                 ContextCompat.getDrawable(
                     requireContext(),
                     R.drawable.ico_bottom_menu
@@ -537,18 +540,18 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
     }
 
     private fun openSideMenu() {
-        drawer_layout.isEnabled = true
-        if (drawer_layout.isDrawerOpen(GravityCompat.END)) {
-            drawer_layout.closeDrawer(GravityCompat.END)
-            tab_menu.setImageDrawable(
+        binding?.drawerLayout?.isEnabled = true
+        if (binding?.drawerLayout?.isDrawerOpen(GravityCompat.END)!!) {
+            binding?.drawerLayout?.closeDrawer(GravityCompat.END)
+            binding?.mainContent?.tabMenu?.setImageDrawable(
                 ContextCompat.getDrawable(
                     requireContext(),
                     R.drawable.ico_bottom_menu
                 )
             )
         } else {
-            drawer_layout.openDrawer(GravityCompat.END)
-            tab_menu.setImageDrawable(
+            binding?.drawerLayout?.openDrawer(GravityCompat.END)
+            binding?.mainContent?.tabMenu?.setImageDrawable(
                 ContextCompat.getDrawable(
                     requireContext(),
                     R.drawable.ico_close_menu
@@ -565,10 +568,10 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
     ) {
         if (animationFinish) {
             resetAllImages()
-            val offset: Float = background_bottom_bar.x + ((tab - previousTab) * defaultX)
+            val offset: Float = binding?.mainContent?.backgroundBottomBar?.x!! + ((tab - previousTab) * defaultX)
             previousTab = tab
             val valueAnimator: ValueAnimator = ObjectAnimator.ofFloat(
-                background_bottom_bar,
+                binding?.mainContent?.backgroundBottomBar,
                 "translationX",
                 offset
             ).apply {
@@ -605,17 +608,17 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
     }
 
     private fun resetAllImages() {
-        tab_home.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_home))
-        tab_working_area.setImageDrawable(
+        binding?.mainContent?.tabHome?.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_home))
+        binding?.mainContent?.tabWorkingArea?.setImageDrawable(
             ContextCompat.getDrawable(
                 requireContext(),
                 R.drawable.ico_bottom_working_area
             )
         )
-        tab_administrative.setImageDrawable(
+        binding?.mainContent?.tabLinkArea?.setImageDrawable(
             ContextCompat.getDrawable(
                 requireContext(),
-                R.drawable.ico_bottom_administrative_area
+                R.drawable.ico_bottom_link_area
             )
         )
     }
@@ -778,5 +781,10 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
         mModel = DarkModeModel(requireContext())
         binding?.temp = mModel
         binding?.presenter = darkModePresenter
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
     }
 }

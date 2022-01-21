@@ -15,7 +15,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.databinding.DataBindingUtil
 import it.giovanni.arkivio.BuildConfig
 import it.giovanni.arkivio.fragments.HomeFragment
 import it.giovanni.arkivio.fragments.MainFragment
@@ -32,7 +31,6 @@ import it.giovanni.arkivio.utils.Utils.Companion.getHashKey
 import it.giovanni.arkivio.utils.Utils.Companion.getVersionNameLong
 import it.giovanni.arkivio.utils.Utils.Companion.turnArrayListToString
 import it.giovanni.arkivio.utils.Utils.Companion.turnArrayToString
-import kotlinx.android.synthetic.main.home_page_layout.*
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -42,8 +40,18 @@ class HomePageFragment : HomeFragment() {
 
     private val mTag = HomePageFragment::class.java.simpleName
 
+    companion object {
+        private var caller: MainFragment? = null
+        fun newInstance(c: MainFragment): HomePageFragment {
+            caller = c
+            return HomePageFragment()
+        }
+    }
+
+    private var layoutBinding: HomePageLayoutBinding? = null
+    private val binding get() = layoutBinding
+
     private val delayTime: Long = 3000
-    private var viewFragment: View? = null
     private val currentHours = Date().hours
 
     private var list: ArrayList<String>? = null
@@ -57,27 +65,18 @@ class HomePageFragment : HomeFragment() {
         return NO_TITLE
     }
 
-    companion object {
-        private var caller: MainFragment? = null
-        fun newInstance(c: MainFragment): HomePageFragment {
-            caller = c
-            return HomePageFragment()
-        }
-    }
-
-    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding: HomePageLayoutBinding? = DataBindingUtil.inflate(inflater, R.layout.home_page_layout, container, false)
-        viewFragment = binding?.root
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+        layoutBinding = HomePageLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this, requireContext())
         val model = DarkModeModel(requireContext())
-        binding?.temp = model
         binding?.presenter = darkModePresenter
+        binding?.temp = model
 
         val intro = MediaPlayer.create(context, R.raw.intro)
         intro.start()
 
-        return viewFragment
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -173,22 +172,22 @@ class HomePageFragment : HomeFragment() {
 
         var dayOfWeek = SimpleDateFormat("EEEE", Locale.ITALY).format(date)
         dayOfWeek = dayOfWeek.substring(0, 1).uppercase() + dayOfWeek.substring(1)
-        label_day.text = dayOfWeek
+        binding?.labelDay?.text = dayOfWeek
 
         val currentMonth = SimpleDateFormat("dd MMMM yyyy", Locale.ITALY).format(date).substring(0, 3) +
                 SimpleDateFormat("dd MMMM yyyy", Locale.ITALY).format(date).substring(3, 4).uppercase() +
                 SimpleDateFormat("dd MMMM yyyy", Locale.ITALY).format(date).substring(4, SimpleDateFormat("dd MMMM yyyy", Locale.ITALY).format(date).length)
-        label_date.text = currentMonth
+        binding?.labelDate?.text = currentMonth
 
-        label_time.text = DateManager(Date()).getFormatTime()
+        binding?.labelTime?.text = DateManager(Date()).getFormatTime()
 
         Handler(Looper.getMainLooper()).postDelayed({
             val avatar: Bitmap = BitmapFactory.decodeResource(requireContext().resources, R.drawable.giovanni)
             val roundAvatar: Bitmap = getRoundBitmap(avatar, avatar.width)
-            ico_avatar.setImageBitmap(roundAvatar)
+            binding?.icoAvatar?.setImageBitmap(roundAvatar)
         }, delayTime)
 
-        ico_avatar.setOnClickListener {
+        binding?.icoAvatar?.setOnClickListener {
             pickFromGallery()
         }
 
@@ -202,17 +201,17 @@ class HomePageFragment : HomeFragment() {
         Log.i(mTag, "Hash Key: $hashKey")
 
         if (currentHours in 5..17) {
-            lottie_sun.visibility = View.VISIBLE
-            lottie_moon.visibility = View.GONE
-            label_greeting.setText(R.string.good_moorning_title)
+            binding?.lottieSun?.visibility = View.VISIBLE
+            binding?.lottieMoon?.visibility = View.GONE
+            binding?.labelGreeting?.setText(R.string.good_moorning_title)
         } else {
-            lottie_sun.visibility = View.GONE
-            lottie_moon.visibility = View.VISIBLE
-            label_greeting.setText(R.string.good_evening_title)
+            binding?.lottieSun?.visibility = View.GONE
+            binding?.lottieMoon?.visibility = View.VISIBLE
+            binding?.labelGreeting?.setText(R.string.good_evening_title)
         }
 
         val batteryLevel = "Livello della batteria: " + getBatteryCapacity(requireContext()) + " %"
-        label_battery_level.text = batteryLevel
+        binding?.labelBatteryLevel?.text = batteryLevel
     }
 
     private fun pickFromGallery() {
@@ -229,12 +228,17 @@ class HomePageFragment : HomeFragment() {
                         val source: ImageDecoder.Source = ImageDecoder.createSource(requireContext().contentResolver, data.data!!)
                         val avatar: Bitmap = ImageDecoder.decodeBitmap(source)
                         val roundAvatar: Bitmap = getRoundBitmap(avatar, avatar.width)
-                        ico_avatar.setImageBitmap(roundAvatar)
+                        binding?.icoAvatar?.setImageBitmap(roundAvatar)
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
     }
 }

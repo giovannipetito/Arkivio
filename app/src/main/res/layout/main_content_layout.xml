@@ -73,6 +73,7 @@
 
         <!-- BOOTTOM BAR -->
         <RelativeLayout
+                android:id="@+id/bottom_bar_container"
                 android:layout_width="match_parent"
                 android:layout_height="69dp"
                 android:layout_alignParentBottom="true"
@@ -113,11 +114,11 @@
                         android:contentDescription="@string/app_name" />
 
                 <ImageView
-                        android:id="@+id/tab_administrative"
+                        android:id="@+id/tab_link_area"
                         android:layout_width="34dp"
                         android:layout_height="34dp"
                         android:layout_weight=".25"
-                        android:src="@drawable/ico_bottom_administrative_area"
+                        android:src="@drawable/ico_bottom_link_area"
                         android:contentDescription="@string/app_name" />
 
                 <ImageView

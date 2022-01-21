@@ -22,6 +22,7 @@ abstract class BaseFragment(private var sectionType: SectionType) : Fragment() {
         var NO_TITLE: Int = -1
     }
 
+    abstract fun getLayout(): Int
     abstract fun getTitle(): Int
 
     // Define layout
@@ -77,7 +78,7 @@ abstract class BaseFragment(private var sectionType: SectionType) : Fragment() {
                 view = inflater.inflate(R.layout.main_layout, container, false)
             }
             SectionType.TAB_DETAIL -> {
-                view = inflater.inflate(R.layout.working_area_tab_detail, container, false)
+                view = inflater.inflate(R.layout.logcat_tab_layout, container, false)
             }
             SectionType.HOME -> {
                 view = inflater.inflate(R.layout.home_layout, container, false)

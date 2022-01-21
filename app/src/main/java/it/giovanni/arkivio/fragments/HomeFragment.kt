@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.HomeLayoutBinding
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
@@ -14,13 +12,17 @@ import kotlinx.android.synthetic.main.home_layout.*
 
 abstract class HomeFragment : BaseFragment(SectionType.HOME), IDarkMode.View {
 
-    abstract fun getLayout(): Int
+    private var layoutBinding: HomeLayoutBinding? = null
+    private val binding get() = layoutBinding
+
+    override fun getLayout(): Int {
+        return NO_LAYOUT
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         // ----- DATA BINDING ----- //
-        val binding: HomeLayoutBinding? = DataBindingUtil.inflate(inflater, R.layout.home_layout, container, false)
-        val view = binding?.root
+        layoutBinding = HomeLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this, requireContext())
         val model = DarkModeModel(requireContext())
@@ -28,10 +30,10 @@ abstract class HomeFragment : BaseFragment(SectionType.HOME), IDarkMode.View {
         binding?.presenter = darkModePresenter
 
         if (getLayout() == NO_LAYOUT)
-            binding?.frameLayout?.addView(onCreateBindingView(inflater, binding.frameLayout, savedInstanceState))
+            binding?.frameLayout?.addView(onCreateBindingView(inflater, binding?.frameLayout, savedInstanceState))
         // ------------------------ //
 
-        return view
+        return binding?.root
     }
 
     abstract fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
@@ -49,4 +51,9 @@ abstract class HomeFragment : BaseFragment(SectionType.HOME), IDarkMode.View {
     override fun onShowDataModel(model: DarkModeModel?) {}
 
     override fun onSetLayout(model: DarkModeModel?) {}
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
+    }
 }

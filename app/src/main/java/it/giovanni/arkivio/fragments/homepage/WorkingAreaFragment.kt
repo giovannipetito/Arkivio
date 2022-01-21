@@ -4,27 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.WorkingAreaLayoutBinding
 import it.giovanni.arkivio.fragments.HomeFragment
 import it.giovanni.arkivio.fragments.MainFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.Globals
-import kotlinx.android.synthetic.main.working_area_layout.*
 
 class WorkingAreaFragment : HomeFragment() {
-
-    private var viewFragment: View? = null
-
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
-    override fun getTitle(): Int {
-        return NO_TITLE
-    }
 
     companion object {
         private var caller: MainFragment? = null
@@ -34,16 +21,26 @@ class WorkingAreaFragment : HomeFragment() {
         }
     }
 
-    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding: WorkingAreaLayoutBinding? = DataBindingUtil.inflate(inflater, R.layout.working_area_layout, container, false)
-        viewFragment = binding?.root
+    private var layoutBinding: WorkingAreaLayoutBinding? = null
+    private val binding get() = layoutBinding
+
+    override fun getLayout(): Int {
+        return NO_LAYOUT
+    }
+
+    override fun getTitle(): Int {
+        return NO_TITLE
+    }
+
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+        layoutBinding = WorkingAreaLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this, requireContext())
         val model = DarkModeModel(requireContext())
-        binding?.temp = model
         binding?.presenter = darkModePresenter
+        binding?.temp = model
 
-        return viewFragment
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,69 +48,74 @@ class WorkingAreaFragment : HomeFragment() {
 
         var oldPostion = 0
 
-        if (scroll_view != null) {
-            scroll_view.viewTreeObserver.addOnScrollChangedListener {
-                if (scroll_view != null) {
-                    if (scroll_view.scrollY > oldPostion) {
-                        fab.hide()
-                    } else if (scroll_view.scrollY < oldPostion || scroll_view.scrollY <= 0) {
-                        fab.show()
+        if (binding?.scrollView != null) {
+            binding?.scrollView?.viewTreeObserver?.addOnScrollChangedListener {
+                if (binding?.scrollView != null) {
+                    if (binding?.scrollView?.scrollY!! > oldPostion) {
+                        binding?.fab?.hide()
+                    } else if (binding?.scrollView?.scrollY!! < oldPostion || binding?.scrollView?.scrollY!! <= 0) {
+                        binding?.fab?.show()
                     }
-                    oldPostion = scroll_view.scrollY
+                    oldPostion = binding?.scrollView?.scrollY!!
                 }
             }
         }
 
-        label_logcat_projects.setOnClickListener {
+        binding?.labelLogcatProjects?.setOnClickListener {
             currentActivity.openDetail(Globals.LOGCAT_PROJECTS, null)
         }
-        label_date.setOnClickListener {
+        binding?.labelDate?.setOnClickListener {
             currentActivity.openDetail(Globals.DATE, null)
         }
-        label_email.setOnClickListener {
+        binding?.labelEmail?.setOnClickListener {
             currentActivity.openDetail(Globals.EMAIL, null)
         }
-        label_retrofit.setOnClickListener {
+        binding?.labelRetrofit?.setOnClickListener {
             currentActivity.openDetail(Globals.RETROFIT, null)
         }
-        label_async_http.setOnClickListener {
+        binding?.labelAsyncHttp?.setOnClickListener {
             currentActivity.openDetail(Globals.ASYNC_HTTP, null)
         }
-        label_volley.setOnClickListener {
+        binding?.labelVolley?.setOnClickListener {
             currentActivity.openDetail(Globals.VOLLEY, null)
         }
-        label_rubrica.setOnClickListener {
+        binding?.labelRubrica?.setOnClickListener {
             currentActivity.openDetail(Globals.RUBRICA_REALTIME, null)
         }
-        label_permissions.setOnClickListener {
+        binding?.labelPermissions?.setOnClickListener {
             currentActivity.openDetail(Globals.PERMISSIONS, null)
         }
-        label_layout_manager.setOnClickListener {
+        binding?.labelLayoutManager?.setOnClickListener {
             currentActivity.openDetail(Globals.LAYOUT_MANAGER, null)
         }
-        label_preference.setOnClickListener {
+        binding?.labelPreference?.setOnClickListener {
             currentActivity.openDetail(Globals.PREFERENCE, null)
         }
-        label_sticky_header.setOnClickListener {
+        binding?.labelStickyHeader?.setOnClickListener {
             currentActivity.openDetail(Globals.STICKY_HEADER, null)
         }
-        label_card_io.setOnClickListener {
+        binding?.labelCardIo?.setOnClickListener {
             currentActivity.openDetail(Globals.CARD_IO, null)
         }
-        label_youtube.setOnClickListener {
+        binding?.labelYoutube?.setOnClickListener {
             currentActivity.openDetail(Globals.YOUTUBE_MANAGER, null)
         }
-        label_fonts.setOnClickListener {
+        binding?.labelFonts?.setOnClickListener {
             currentActivity.openDetail(Globals.FONTS, null)
         }
-        label_notification.setOnClickListener {
+        binding?.labelNotification?.setOnClickListener {
             currentActivity.openDetail(Globals.NOTIFICATION, null)
         }
-        label_nearby.setOnClickListener {
+        binding?.labelNearby?.setOnClickListener {
             currentActivity.openDetail(Globals.NEARBY, null)
         }
-        label_machine_learning.setOnClickListener {
+        binding?.labelMachineLearning?.setOnClickListener {
             currentActivity.openDetail(Globals.MACHINE_LEARNING, null)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
     }
 }

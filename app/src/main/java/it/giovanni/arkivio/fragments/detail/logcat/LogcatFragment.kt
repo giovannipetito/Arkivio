@@ -9,21 +9,24 @@ import android.widget.Toast
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.databinding.LogcatLayoutBinding
 import it.giovanni.arkivio.fragments.adapter.LogcatViewPager
 import it.giovanni.arkivio.fragments.DetailFragment
-import kotlinx.android.synthetic.main.detail_layout.*
-import kotlinx.android.synthetic.main.logcat_layout.*
+import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.presenter.DarkModePresenter
 import java.text.SimpleDateFormat
 import java.util.*
 
 class LogcatFragment : DetailFragment() {
 
-    private var viewFragment: View? = null
+    private var layoutBinding: LogcatLayoutBinding? = null
+    private val binding get() = layoutBinding
+
     var adapter: LogcatViewPager? = null
-    private val millisecondsInWeek = 604800000
+    private val millisecondsInWeek = 604800000L
 
     override fun getLayout(): Int {
-        return R.layout.logcat_layout
+        return NO_LAYOUT
     }
 
     override fun getTitle(): Int {
@@ -60,25 +63,27 @@ class LogcatFragment : DetailFragment() {
     override fun onActionSearch(search_string: String) {
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
-        return viewFragment
-    }
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+        layoutBinding = LogcatLayoutBinding.inflate(inflater, container, false)
 
-    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        TODO("Not yet implemented")
+        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val model = DarkModeModel(requireContext())
+        binding?.presenter = darkModePresenter
+        binding?.temp = model
+
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        top_bar.elevation = 0f
-        arrow_go_back.setOnClickListener {
-            if (search_input_text.visibility == View.VISIBLE) {
+        detailLayoutBinding?.topBar?.elevation = 0f
+        detailLayoutBinding?.arrowGoBack?.setOnClickListener {
+            if (detailLayoutBinding?.searchInputText?.visibility == View.VISIBLE) {
                 hideSoftKeyboard()
-                search_input_text.setText("")
-                search_input_text.visibility = View.GONE
-                detail_title.visibility = View.VISIBLE
+                detailLayoutBinding?.searchInputText?.setText("")
+                detailLayoutBinding?.searchInputText?.visibility = View.GONE
+                detailLayoutBinding?.detailTitle?.visibility = View.VISIBLE
             } else
                 currentActivity.onBackPressed()
         }
@@ -88,7 +93,7 @@ class LogcatFragment : DetailFragment() {
 
         Toast.makeText(context, "Position " + 0, Toast.LENGTH_SHORT).show()
 
-        working_area_viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        binding?.logcatViewpager?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
 
             override fun onPageSelected(position: Int) {
@@ -105,7 +110,7 @@ class LogcatFragment : DetailFragment() {
 
     private fun createTabs1() {
 
-        working_area_tabs.removeAllTabs()
+        binding?.logcatTabs?.removeAllTabs()
         adapter = LogcatViewPager(childFragmentManager)
 
         val currentTime = Calendar.getInstance()
@@ -121,44 +126,44 @@ class LogcatFragment : DetailFragment() {
         sunday.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
 
         adapter?.addFragment(
-            SimpleDateFormat("yyyy-MM-dd HH:00:00", Locale.UK).format(currentTime.timeInMillis),
-            SimpleDateFormat("yyyy-MM-dd", Locale.UK).format(friday.time),
+            SimpleDateFormat("yyyy-MM-dd HH:00:00", Locale.ITALY).format(currentTime.timeInMillis),
+            SimpleDateFormat("yyyy-MM-dd", Locale.ITALY).format(friday.time),
             resources.getString(R.string.current_week))
 
         adapter?.addFragment(
-            SimpleDateFormat("yyyy-MM-dd 23:59:59", Locale.UK).format(sunday.time),
-            SimpleDateFormat("yyyy-MM-dd", Locale.UK).format(friday.timeInMillis + millisecondsInWeek),
+            SimpleDateFormat("yyyy-MM-dd 23:59:59", Locale.ITALY).format(sunday.time),
+            SimpleDateFormat("yyyy-MM-dd", Locale.ITALY).format(friday.timeInMillis + millisecondsInWeek),
             resources.getString(R.string.next_week))
 
         adapter?.addFragment(
-            SimpleDateFormat("yyyy-MM-dd 23:59:59", Locale.UK).format(sunday.timeInMillis + millisecondsInWeek),
-            SimpleDateFormat("yyyy-MM-dd", Locale.UK).format(nextTime.timeInMillis),
+            SimpleDateFormat("yyyy-MM-dd 23:59:59", Locale.ITALY).format(sunday.timeInMillis + millisecondsInWeek),
+            SimpleDateFormat("yyyy-MM-dd", Locale.ITALY).format(nextTime.timeInMillis),
             resources.getString(R.string.future_events))
 
-        working_area_viewpager.adapter = adapter
-        working_area_tabs.setupWithViewPager(working_area_viewpager)
-        working_area_tabs.tabGravity = TabLayout.GRAVITY_CENTER
-        working_area_tabs.tabMode = TabLayout.MODE_SCROLLABLE
-        working_area_viewpager.offscreenPageLimit = 3
-        working_area_viewpager.currentItem = 0
+        binding?.logcatViewpager?.adapter = adapter
+        binding?.logcatTabs?.setupWithViewPager(binding?.logcatViewpager)
+        binding?.logcatTabs?.tabGravity = TabLayout.GRAVITY_CENTER
+        binding?.logcatTabs?.tabMode = TabLayout.MODE_SCROLLABLE
+        binding?.logcatViewpager?.offscreenPageLimit = 3
+        binding?.logcatViewpager?.currentItem = 0
     }
 
     private fun createTabs2() {
 
-        working_area_tabs.removeAllTabs()
+        binding?.logcatTabs?.removeAllTabs()
         adapter = LogcatViewPager(childFragmentManager)
 
         val currentTime = Calendar.getInstance()
         val nextTime = Calendar.getInstance()
 
         adapter?.addFragment(
-            SimpleDateFormat("yyyy-MM-dd HH:00:00", Locale.UK).format(currentTime.timeInMillis),
-            SimpleDateFormat("yyyy-MM-dd", Locale.UK).format(nextTime.timeInMillis + millisecondsInWeek),
+            SimpleDateFormat("yyyy-MM-dd HH:00:00", Locale.ITALY).format(currentTime.timeInMillis),
+            SimpleDateFormat("yyyy-MM-dd", Locale.ITALY).format(nextTime.timeInMillis + millisecondsInWeek),
             resources.getString(R.string.current_week))
 
         adapter?.addFragment(
-            SimpleDateFormat("yyyy-MM-dd 00:00:00", Locale.UK).format(currentTime.timeInMillis + millisecondsInWeek),
-            SimpleDateFormat("yyyy-MM-dd", Locale.UK).format(nextTime.timeInMillis + millisecondsInWeek + millisecondsInWeek),
+            SimpleDateFormat("yyyy-MM-dd 00:00:00", Locale.ITALY).format(currentTime.timeInMillis + millisecondsInWeek),
+            SimpleDateFormat("yyyy-MM-dd", Locale.ITALY).format(nextTime.timeInMillis + millisecondsInWeek + millisecondsInWeek),
             resources.getString(R.string.next_week))
 
         val thirdWeek = nextTime.timeInMillis + millisecondsInWeek + millisecondsInWeek
@@ -167,21 +172,21 @@ class LogcatFragment : DetailFragment() {
         nextTime.set(Calendar.DAY_OF_MONTH, nextTime.getActualMaximum(Calendar.DAY_OF_MONTH))
 
         adapter?.addFragment(
-            SimpleDateFormat("yyyy-MM-dd 00:00:00", Locale.UK).format(thirdWeek),
-            SimpleDateFormat("yyyy-MM-dd", Locale.UK).format(nextTime.timeInMillis),
+            SimpleDateFormat("yyyy-MM-dd 00:00:00", Locale.ITALY).format(thirdWeek),
+            SimpleDateFormat("yyyy-MM-dd", Locale.ITALY).format(nextTime.timeInMillis),
             resources.getString(R.string.future_events))
 
-        working_area_viewpager.adapter = adapter
-        working_area_tabs.setupWithViewPager(working_area_viewpager)
-        working_area_tabs.tabGravity = TabLayout.GRAVITY_CENTER
-        working_area_tabs.tabMode = TabLayout.MODE_SCROLLABLE
-        working_area_viewpager.offscreenPageLimit = 3
-        working_area_viewpager.currentItem = 0
+        binding?.logcatViewpager?.adapter = adapter
+        binding?.logcatTabs?.setupWithViewPager(binding?.logcatViewpager)
+        binding?.logcatTabs?.tabGravity = TabLayout.GRAVITY_CENTER
+        binding?.logcatTabs?.tabMode = TabLayout.MODE_SCROLLABLE
+        binding?.logcatViewpager?.offscreenPageLimit = 3
+        binding?.logcatViewpager?.currentItem = 0
     }
 
     private fun createTabs3() {
 
-        working_area_tabs.removeAllTabs()
+        binding?.logcatTabs?.removeAllTabs()
         adapter = LogcatViewPager(childFragmentManager)
 
         val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.ITALY)
@@ -250,11 +255,16 @@ class LogcatFragment : DetailFragment() {
             sdf.format(lastDayOf3YearsAgo.time),
             SimpleDateFormat("yyyy", Locale.ITALY).format(firstDayOf3YearsAgo.time))
 
-        working_area_viewpager.adapter = adapter
-        working_area_tabs.setupWithViewPager(working_area_viewpager)
-        working_area_tabs.tabGravity = TabLayout.GRAVITY_CENTER
-        working_area_tabs.tabMode = TabLayout.MODE_SCROLLABLE
-        working_area_viewpager.offscreenPageLimit = 3
-        working_area_viewpager.currentItem = 0
+        binding?.logcatViewpager?.adapter = adapter
+        binding?.logcatTabs?.setupWithViewPager(binding?.logcatViewpager)
+        binding?.logcatTabs?.tabGravity = TabLayout.GRAVITY_CENTER
+        binding?.logcatTabs?.tabMode = TabLayout.MODE_SCROLLABLE
+        binding?.logcatViewpager?.offscreenPageLimit = 3
+        binding?.logcatViewpager?.currentItem = 0
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
     }
 }

@@ -9,25 +9,26 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.biometric.BiometricCallback
 import it.giovanni.arkivio.biometric.BiometricManager
 import it.giovanni.arkivio.customview.popup.CustomDialogPopup
+import it.giovanni.arkivio.databinding.LoginLayoutBinding
 import it.giovanni.arkivio.utils.PermissionManager
 import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadRememberMeFromPreferences
 import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.saveRememberMeToPreferences
 import it.giovanni.arkivio.utils.Utils.Companion.clearCache
 import it.giovanni.arkivio.utils.Utils.Companion.isOnline
-import kotlinx.android.synthetic.main.login_layout.*
 
 class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, PermissionManager.PermissionListener {
+
+    private var layoutBinding: LoginLayoutBinding? = null
+    private val binding get() = layoutBinding
 
     private var biometricManager: BiometricManager? = null
     private var customPopup: CustomDialogPopup? = null
     private var hasPermission: Boolean = false
-    private lateinit var loginButton: Button
     private var rememberMe: Boolean = false
     private var action: Action? = null
 
@@ -36,17 +37,20 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
         REGISTER
     }
 
+    override fun getLayout(): Int {
+        return NO_LAYOUT
+    }
+
     override fun getTitle(): Int {
         return NO_TITLE
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = super.onCreateView(inflater, container, savedInstanceState)
+        layoutBinding = LoginLayoutBinding.inflate(inflater, container, false)
 
         currentActivity.setStatusBarTransparent()
-        loginButton = view?.findViewById(R.id.login_button) as Button
 
-        return view
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,41 +58,41 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
 
         action = Action.NONE
 
-        checkbox_remember_me.isChecked = loadRememberMeFromPreferences()
+        binding?.checkboxRememberMe?.isChecked = loadRememberMeFromPreferences()
 
-        username.getInputText().setOnKeyListener { _, _, _ ->
-            loginButton.isEnabled = username.getText().trim().isNotEmpty() && password.getText().trim().isNotEmpty()
+        binding?.username?.getInputText()?.setOnKeyListener { _, _, _ ->
+            binding?.loginButton?.isEnabled = binding?.username?.getText()?.trim()?.isNotEmpty()!! && binding?.password?.getText()?.trim()?.isNotEmpty()!!
             false
         }
 
-        username.getInputText().addTextChangedListener(object : TextWatcher {
+        binding?.username?.getInputText()?.addTextChangedListener(object : TextWatcher {
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
             override fun afterTextChanged(s: Editable?) {
-                loginButton.isEnabled = username.getText().trim().isNotEmpty() && password.getText().trim().isNotEmpty()
+                binding?.loginButton?.isEnabled = binding?.username?.getText()?.trim()?.isNotEmpty()!! && binding?.password?.getText()?.trim()?.isNotEmpty()!!
             }
         })
 
-        password.getInputText().setOnKeyListener { _, _, _ ->
-            loginButton.isEnabled = username.getText().trim().isNotEmpty() && password.getText().trim().isNotEmpty()
+        binding?.password?.getInputText()?.setOnKeyListener { _, _, _ ->
+            binding?.loginButton?.isEnabled = binding?.username?.getText()?.trim()?.isNotEmpty()!! && binding?.password?.getText()?.trim()?.isNotEmpty()!!
             false
         }
 
-        password.getInputText().addTextChangedListener(object : TextWatcher {
+        binding?.password?.getInputText()?.addTextChangedListener(object : TextWatcher {
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
             override fun afterTextChanged(s: Editable?) {
-                loginButton.isEnabled = username.getText().trim().isNotEmpty() && password.getText().trim().isNotEmpty()
+                binding?.loginButton?.isEnabled = binding?.username?.getText()?.trim()?.isNotEmpty()!! && binding?.password?.getText()?.trim()?.isNotEmpty()!!
             }
         })
 
-        loginButton.setOnClickListener {
+        binding?.loginButton?.setOnClickListener {
             if (isOnline()) {
                 showProgressDialog()
                 currentActivity.openMainFragment()
@@ -96,7 +100,7 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
                 Toast.makeText(context,"Errore di connessione", Toast.LENGTH_LONG).show()
         }
 
-        image_fingerprint.setOnClickListener {
+        binding?.imageFingerprint?.setOnClickListener {
             biometricManager = BiometricManager.BiometricBuilder(requireContext())
                 .setTitle(getString(R.string.biometric_title))
                 .setSubtitle(getString(R.string.biometric_subtitle))
@@ -108,17 +112,17 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
             biometricManager?.authenticate(this)
         }
 
-        checkbox_remember_me.setOnCheckedChangeListener { _, isChecked ->
+        binding?.checkboxRememberMe?.setOnCheckedChangeListener { _, isChecked ->
             rememberMe = isChecked
             saveRememberMeToPreferences(rememberMe)
         }
 
-        clear_cache.setOnClickListener {
+        binding?.clearCache?.setOnClickListener {
             clearCache(context)
         }
 
         val apiVersion = Build.VERSION.SDK_INT
-        api_version_text.text = getString(R.string.api_version, "" + apiVersion)
+        binding?.apiVersionText?.text = getString(R.string.api_version, "" + apiVersion)
     }
 
     override fun onSdkVersionNotSupported() {
@@ -207,5 +211,10 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
 
     override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
         Toast.makeText(context, errString, Toast.LENGTH_LONG).show()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
     }
 }

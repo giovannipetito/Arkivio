@@ -165,10 +165,10 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
         }
 
         binding?.scrollContainer?.setOnScrollChangeListener { _, _, scrollY, _, _ ->
-            mBinding?.swipeRefreshLayout?.isEnabled = scrollY == 0
+            detailLayoutBinding?.swipeRefreshLayout?.isEnabled = scrollY == 0
         }
 
-        mBinding?.swipeRefreshLayout?.setOnRefreshListener {
+        detailLayoutBinding?.swipeRefreshLayout?.setOnRefreshListener {
             refresh()
         }
     }

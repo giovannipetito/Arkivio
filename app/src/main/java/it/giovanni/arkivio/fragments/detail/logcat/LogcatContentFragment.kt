@@ -7,16 +7,21 @@ import android.view.ViewGroup
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.fragments.BaseFragment
 import it.giovanni.arkivio.customview.MultiSwipeRefreshLayout
-import kotlinx.android.synthetic.main.message_error_detail_layout.*
-import kotlinx.android.synthetic.main.working_area_tab_detail.*
+import kotlinx.android.synthetic.main.message_error_layout.*
+import kotlinx.android.synthetic.main.logcat_tab_layout.*
 
-class ContentFragment : BaseFragment(SectionType.TAB_DETAIL) {
+class LogcatContentFragment : BaseFragment(SectionType.TAB_DETAIL) {
 
     private var viewFragment: View? = null
+
     private var tabDateFrom: String = ""
     private var tabDateTo: String = ""
     var position: Int = -1
     private lateinit var swipeRefreshLayout: MultiSwipeRefreshLayout
+
+    override fun getLayout(): Int {
+        return NO_LAYOUT
+    }
 
     override fun getTitle(): Int {
         return NO_TITLE
@@ -30,6 +35,7 @@ class ContentFragment : BaseFragment(SectionType.TAB_DETAIL) {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewFragment = super.onCreateView(inflater, container, savedInstanceState)
+
         return viewFragment
     }
 
@@ -42,12 +48,12 @@ class ContentFragment : BaseFragment(SectionType.TAB_DETAIL) {
             tabDateTo = "$tabDateTo 23:59:59"
         }
 
-        smile_cries_detail_layout.setOnClickListener {
+        error_smile.setOnClickListener {
             loadData()
         }
 
-        swipeRefreshLayout = viewFragment?.findViewById(R.id.working_area_swipe_refresh_layout) as MultiSwipeRefreshLayout
-        swipeRefreshLayout.setSwipeableChildren(R.id.working_area_tab_detail_container)
+        swipeRefreshLayout = viewFragment?.findViewById(R.id.logcat_swipe_refresh_layout) as MultiSwipeRefreshLayout
+        swipeRefreshLayout.setSwipeableChildren(R.id.logcat_tab_container)
         swipeRefreshLayout.setOnRefreshListener {
             refresh()
         }
@@ -57,25 +63,25 @@ class ContentFragment : BaseFragment(SectionType.TAB_DETAIL) {
     }
 
     private fun loadData() {
-        hideSmileCry()
+        hideErrorSmile()
     }
 
-    private fun loadSmileCryData() {
-        showSmileCry("Tap on me!")
+    private fun loadErrorSmileData() {
+        showErrorSmile("Tap on me!")
     }
 
-    private fun hideSmileCry() {
-        smile_cries_detail_layout.visibility = View.GONE
+    private fun hideErrorSmile() {
+        error_smile.visibility = View.GONE
     }
 
-    private fun showSmileCry(message: String) {
-        smile_message_detail.text = message
-        smile_cries_detail_layout.visibility = View.VISIBLE
+    private fun showErrorSmile(message: String) {
+        error_message_smile.text = message
+        error_smile.visibility = View.VISIBLE
         stopSwipeRefresh()
     }
 
     private fun refresh() {
-        loadSmileCryData()
+        loadErrorSmileData()
     }
 
     private fun stopSwipeRefresh() {

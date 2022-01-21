@@ -206,10 +206,10 @@ class DateFormatFragment : DetailFragment() {
         binding?.timeDate?.text = getSimpleDate4(timeDate?.getFormatDate()!!)
 
         binding?.scrollContainer?.setOnScrollChangeListener { _, _, scrollY, _, _ ->
-            mBinding?.swipeRefreshLayout?.isEnabled = scrollY == 0
+            detailLayoutBinding?.swipeRefreshLayout?.isEnabled = scrollY == 0
         }
 
-        mBinding?.swipeRefreshLayout?.setOnRefreshListener {
+        detailLayoutBinding?.swipeRefreshLayout?.setOnRefreshListener {
             refresh()
         }
     }

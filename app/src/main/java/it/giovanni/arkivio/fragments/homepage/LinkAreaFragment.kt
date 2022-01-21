@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.LinkAreaLayoutBinding
 import it.giovanni.arkivio.fragments.HomeFragment
@@ -15,11 +14,20 @@ import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.Globals
 import it.giovanni.arkivio.utils.Utils
-import kotlinx.android.synthetic.main.link_area_layout.*
 
 class LinkAreaFragment : HomeFragment() {
 
-    private var viewFragment: View? = null
+    companion object {
+        private var caller: MainFragment? = null
+        fun newInstance(c: MainFragment): LinkAreaFragment {
+            caller = c
+            return LinkAreaFragment()
+        }
+
+        private var layoutBinding: LinkAreaLayoutBinding? = null
+        val linkAreaLayoutBinding get() = layoutBinding
+    }
+
     private var bundleW3B: Bundle = Bundle()
     private var bundleWAW3: Bundle = Bundle()
     private var bundleGitHub: Bundle = Bundle()
@@ -32,14 +40,6 @@ class LinkAreaFragment : HomeFragment() {
 
     override fun getTitle(): Int {
         return NO_TITLE
-    }
-
-    companion object {
-        private var caller: MainFragment? = null
-        fun newInstance(c: MainFragment): LinkAreaFragment {
-            caller = c
-            return LinkAreaFragment()
-        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,47 +61,46 @@ class LinkAreaFragment : HomeFragment() {
         bundleHtml.putString("url_html", resources.getString(R.string.url_html))
     }
 
-    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding: LinkAreaLayoutBinding? = DataBindingUtil.inflate(inflater, R.layout.link_area_layout, container, false)
-        viewFragment = binding?.root
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+        layoutBinding = LinkAreaLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this, requireContext())
         val model = DarkModeModel(requireContext())
-        binding?.temp = model
-        binding?.presenter = darkModePresenter
+        linkAreaLayoutBinding?.presenter = darkModePresenter
+        linkAreaLayoutBinding?.temp = model
 
-        return viewFragment
+        return linkAreaLayoutBinding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        label_webview_drive_w3b.setOnClickListener {
+        linkAreaLayoutBinding?.labelWebviewDriveW3b?.setOnClickListener {
             currentActivity.openDetail(Globals.WEB_VIEW, bundleW3B)
         }
 
-        label_link_drive_waw3.setOnClickListener {
+        linkAreaLayoutBinding?.labelLinkDriveWaw3?.setOnClickListener {
             Utils.openBrowser(requireContext(), requireContext().getString(R.string.url_drive_waw3))
             // currentActivity.openDetail(Globals.WEB_VIEW, bundleWAW3)
         }
 
-        label_browser_github.setOnClickListener {
+        linkAreaLayoutBinding?.labelBrowserGithub?.setOnClickListener {
             Utils.openBrowser(requireContext(), requireContext().getString(R.string.url_github))
         }
 
-        label_webview_github.setOnClickListener {
+        linkAreaLayoutBinding?.labelWebviewGithub?.setOnClickListener {
             currentActivity.openDetail(Globals.WEB_VIEW, bundleGitHub)
         }
 
-        label_link_app.setOnClickListener {
+        linkAreaLayoutBinding?.labelLinkApp?.setOnClickListener {
             Utils.openApp(requireContext(), requireContext().resources.getString(R.string.url_gympass))
         }
 
-        label_link_test.setOnClickListener {
+        linkAreaLayoutBinding?.labelLinkTest?.setOnClickListener {
             Utils.openBrowser(requireContext(), requireContext().getString(R.string.test_url))
         }
 
-        label_webview_video_player.setOnClickListener {
+        linkAreaLayoutBinding?.labelWebviewVideoPlayer?.setOnClickListener {
 
             val intent = Intent(context, WebViewActivity::class.java)
             intent.putExtra("bundle_video", bundleVideo)
@@ -120,13 +119,13 @@ class LinkAreaFragment : HomeFragment() {
             // Nota: ActivityOptions.makeSceneTransitionAnimation(activity).toBundle() crea un effetto dissolvenza.
         }
 
-        label_webview_text.setOnClickListener {
+        linkAreaLayoutBinding?.labelWebviewText?.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("TEXT_KEY", message())
             currentActivity.openDetail(Globals.WEB_VIEW, bundle)
         }
 
-        label_webview_html.setOnClickListener {
+        linkAreaLayoutBinding?.labelWebviewHtml?.setOnClickListener {
             currentActivity.openDetail(Globals.WEB_VIEW, bundleHtml)
         }
     }
@@ -151,5 +150,10 @@ class LinkAreaFragment : HomeFragment() {
                 "</a>" +
                 "</center>" +
                 "</p>"
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
     }
 }
