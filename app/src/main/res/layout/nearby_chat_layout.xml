@@ -27,7 +27,7 @@
                 tools:visibility="visible">
 
             <EditText
-                    android:id="@+id/edittext_message"
+                    android:id="@+id/edit_text_message"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

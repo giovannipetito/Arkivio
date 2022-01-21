@@ -5,16 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.databinding.MlMachineLearningLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
+import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.Globals
-import kotlinx.android.synthetic.main.ml_machine_learning_layout.*
 
 class MachineLearningFragment : DetailFragment() {
 
-    private var viewFragment: View? = null
+    private var layoutBinding: MlMachineLearningLayoutBinding? = null
+    private val binding get() = layoutBinding
 
     override fun getLayout(): Int {
-        return R.layout.ml_machine_learning_layout
+        return NO_LAYOUT
     }
 
     override fun getTitle(): Int {
@@ -51,47 +54,54 @@ class MachineLearningFragment : DetailFragment() {
     override fun onActionSearch(search_string: String) {
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
-        return viewFragment
-    }
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+        layoutBinding = MlMachineLearningLayoutBinding.inflate(inflater, container, false)
 
-    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        TODO("Not yet implemented")
+        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val model = DarkModeModel(requireContext())
+        binding?.presenter = darkModePresenter
+        binding?.temp = model
+
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        label_text_recognition.setOnClickListener {
+        binding?.labelTextRecognition?.setOnClickListener {
             currentActivity.openDetail(Globals.TEXT_RECOGNITION, null)
         }
-        label_image_labeling.setOnClickListener {
+        binding?.labelImageLabeling?.setOnClickListener {
             currentActivity.openDetail(Globals.IMAGE_LABELING, null)
         }
-        label_facial_detection.setOnClickListener {
+        binding?.labelFacialDetection?.setOnClickListener {
             currentActivity.openDetail(Globals.FACIAL_DETECTION, null)
         }
-        label_object_detection_and_tracking.setOnClickListener {
+        binding?.labelObjectDetectionAndTracking?.setOnClickListener {
             currentActivity.openDetail(Globals.OBJECT_DETECTION, null)
         }
-        label_barcode_scanning.setOnClickListener {
+        binding?.labelBarcodeScanning?.setOnClickListener {
             currentActivity.openDetail(Globals.BARCODE_SCANNING, null)
         }
-        label_language_id.setOnClickListener {
+        binding?.labelLanguageId?.setOnClickListener {
             currentActivity.openDetail(Globals.LANGUAGE_ID, null)
         }
-        label_translation_on_device.setOnClickListener {
+        binding?.labelTranslationOnDevice?.setOnClickListener {
             currentActivity.openDetail(Globals.TRANSLATION, null)
         }
-        label_quick_answer.setOnClickListener {
+        binding?.labelQuickAnswer?.setOnClickListener {
             currentActivity.openDetail(Globals.QUICK_ANSWER, null)
         }
-        label_automl_vision_edge.setOnClickListener {
+        binding?.labelAutomlVisionEdge?.setOnClickListener {
             currentActivity.openDetail(Globals.AUTOML_VISION_EDGE, null)
         }
-        label_recognition_of_landmarks.setOnClickListener {
+        binding?.labelRecognitionOfLandmarks?.setOnClickListener {
             currentActivity.openDetail(Globals.LANDMARKS_RECOGNITION, null)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
     }
 }

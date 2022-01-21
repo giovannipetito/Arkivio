@@ -11,18 +11,24 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.CallSuper
 import androidx.core.content.ContextCompat
+import com.airbnb.paris.extensions.style
 import com.google.android.gms.nearby.Nearby
 import com.google.android.gms.nearby.connection.*
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.databinding.NearbyGameLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.fragments.detail.nearby.game.PlayerGenerator.Companion.generate
-import kotlinx.android.synthetic.main.nearby_game_layout.*
+import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.presenter.DarkModePresenter
+import it.giovanni.arkivio.utils.SharedPreferencesManager
 import java.nio.charset.StandardCharsets
 
 class NearbyGameFragment: DetailFragment() {
 
     private val mTag = NearbyGameFragment::class.java.simpleName
-    private var viewFragment: View? = null
+
+    private var layoutBinding: NearbyGameLayoutBinding? = null
+    private val binding get() = layoutBinding
 
     private val requestCodeRequiredPermissions = 1
     private val strategy = Strategy.P2P_STAR
@@ -117,7 +123,7 @@ class NearbyGameFragment: DetailFragment() {
     }
 
     override fun getLayout(): Int {
-        return R.layout.nearby_game_layout
+        return NO_LAYOUT
     }
 
     override fun getTitle(): Int {
@@ -154,31 +160,35 @@ class NearbyGameFragment: DetailFragment() {
     override fun onActionSearch(search_string: String) {
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
-        return viewFragment
-    }
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+        layoutBinding = NearbyGameLayoutBinding.inflate(inflater, container, false)
 
-    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        TODO("Not yet implemented")
+        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val model = DarkModeModel(requireContext())
+        binding?.presenter = darkModePresenter
+        binding?.temp = model
+
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setViewStyle()
+
         connectionsClient = Nearby.getConnectionsClient(currentActivity)
 
-        text_player.text = getString(R.string.player_name, player)
+        binding?.textPlayer?.text = getString(R.string.player_name, player)
 
-        button_find_opponent.setOnClickListener {
+        binding?.buttonFindOpponent?.setOnClickListener {
             showProgressDialog()
             startAdvertising()
             startDiscovery()
             setStatusText(getString(R.string.status_searching))
-            button_find_opponent.isEnabled = false
+            binding?.buttonFindOpponent?.isEnabled = false
         }
 
-        button_disconnect.setOnClickListener {
+        binding?.buttonDisconnect?.setOnClickListener {
             connectionsClient.disconnectFromEndpoint(opponentEndpointId!!)
             resetGame()
         }
@@ -312,31 +322,54 @@ class NearbyGameFragment: DetailFragment() {
 
     /** Enables/disables buttons depending on the connection status.  */
     private fun setButtonState(connected: Boolean) {
-        button_find_opponent.isEnabled = true
-        button_find_opponent.visibility = if (connected) View.GONE else View.VISIBLE
-        button_disconnect.isEnabled = connected
+        binding?.buttonFindOpponent?.isEnabled = true
+        binding?.buttonFindOpponent?.visibility = if (connected) View.GONE else View.VISIBLE
+        binding?.buttonDisconnect?.isEnabled = connected
         setGameChoicesEnabled(connected)
     }
 
     /** Enables/disables the rock, paper, and scissors buttons.  */
     private fun setGameChoicesEnabled(enabled: Boolean) {
-        button_rock.isEnabled = enabled
-        button_paper.isEnabled = enabled
-        button_scissors.isEnabled = enabled
+        binding?.buttonRock?.isEnabled = enabled
+        binding?.buttonPaper?.isEnabled = enabled
+        binding?.buttonScissors?.isEnabled = enabled
     }
 
     /** Shows a status message to the user.  */
     private fun setStatusText(text: String) {
-        text_status.text = text
+        binding?.textStatus?.text = text
     }
 
     /** Updates the opponent name on the UI.  */
     private fun setOpponentName(opponentName: String) {
-        text_opponent.text = getString(R.string.opponent_name, opponentName)
+        binding?.textOpponent?.text = getString(R.string.opponent_name, opponentName)
     }
 
     /** Updates the running score ticker.  */
     private fun updateScore(myScore: Int, opponentScore: Int) {
-        text_score.text = getString(R.string.game_score, myScore, opponentScore)
+        binding?.textScore?.text = getString(R.string.game_score, myScore, opponentScore)
+    }
+
+    private fun setViewStyle() {
+        isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
+        if (isDarkMode) {
+            binding?.buttonRock?.style(R.style.ButtonNormalDarkMode)
+            binding?.buttonPaper?.style(R.style.ButtonNormalDarkMode)
+            binding?.buttonScissors?.style(R.style.ButtonNormalDarkMode)
+            binding?.buttonFindOpponent?.style(R.style.ButtonNormalDarkMode)
+            binding?.buttonDisconnect?.style(R.style.ButtonNormalDarkMode)
+        }
+        else {
+            binding?.buttonRock?.style(R.style.ButtonNormalLightMode)
+            binding?.buttonPaper?.style(R.style.ButtonNormalLightMode)
+            binding?.buttonScissors?.style(R.style.ButtonNormalLightMode)
+            binding?.buttonFindOpponent?.style(R.style.ButtonNormalLightMode)
+            binding?.buttonDisconnect?.style(R.style.ButtonNormalLightMode)
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
     }
 }

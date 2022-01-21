@@ -5,16 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.databinding.NearbyLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
+import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.Globals
-import kotlinx.android.synthetic.main.nearby_layout.*
 
 class NearbyFragment: DetailFragment() {
 
-    private var viewFragment: View? = null
+    private var layoutBinding: NearbyLayoutBinding? = null
+    private val binding get() = layoutBinding
 
     override fun getLayout(): Int {
-        return R.layout.nearby_layout
+        return NO_LAYOUT
     }
 
     override fun getTitle(): Int {
@@ -51,29 +54,36 @@ class NearbyFragment: DetailFragment() {
     override fun onActionSearch(search_string: String) {
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
-        return viewFragment
-    }
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+        layoutBinding = NearbyLayoutBinding.inflate(inflater, container, false)
 
-    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        TODO("Not yet implemented")
+        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val model = DarkModeModel(requireContext())
+        binding?.presenter = darkModePresenter
+        binding?.temp = model
+
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        label_nearby_search.setOnClickListener {
+        binding?.labelNearbySearch?.setOnClickListener {
             currentActivity.openDetail(Globals.NEARBY_SEARCH, null)
         }
-        label_nearby_chat.setOnClickListener {
+        binding?.labelNearbyChat?.setOnClickListener {
             currentActivity.openDetail(Globals.NEARBY_CHAT, null)
         }
-        label_nearby_game.setOnClickListener {
+        binding?.labelNearbyGame?.setOnClickListener {
             currentActivity.openDetail(Globals.NEARBY_GAME, null)
         }
-        label_nearby_beacons.setOnClickListener {
+        binding?.labelNearbyBeacons?.setOnClickListener {
             currentActivity.openDetail(Globals.NEARBY_BEACONS, null)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
     }
 }

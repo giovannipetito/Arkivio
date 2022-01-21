@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -22,21 +23,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="24sp"
-                android:textColor="@color/dark" />
+                android:textColor="@{temp.labelColor}"
+                tools:textColor="@color/colorPrimary" />
 
         <TextView
                 android:id="@+id/text_opponent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="24sp"
-                android:textColor="@color/dark" />
+                android:textColor="@{temp.labelColor}"
+                tools:textColor="@color/colorPrimary" />
 
         <TextView
                 android:id="@+id/text_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="24sp"
-                android:textColor="@color/dark" />
+                android:textColor="@{temp.labelColor}"
+                tools:textColor="@color/colorPrimary" />
 
         <TextView
                 android:id="@+id/text_score"
@@ -46,7 +50,8 @@
                 android:layout_marginBottom="16dp"
                 android:gravity="center"
                 android:textSize="48sp"
-                android:textColor="@color/azzurro" />
+                android:textColor="@{temp.labelColor}"
+                tools:textColor="@color/colorPrimary" />
 
         <LinearLayout
                 android:layout_width="match_parent"

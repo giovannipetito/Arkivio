@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -24,18 +25,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:text="@string/text_recognition_title"
-                android:textColor="@color/dark"
+                android:textColor="@{temp.labelColor}"
                 android:textSize="16sp"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                tools:textColor="@color/colorPrimary" />
 
         <View
                 android:layout_width="120dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@color/dark"
+                android:background="@{temp.labelColor}"
                 android:layout_gravity="center"
-                android:alpha=".4" />
+                android:alpha=".4"
+                tools:background="@color/colorPrimary" />
 
         <TextView
                 android:id="@+id/label_image_labeling"
@@ -43,17 +46,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="@string/image_labeling_title"
-                android:textColor="@color/dark"
+                android:textColor="@{temp.labelColor}"
                 android:textSize="16sp"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                tools:textColor="@color/colorPrimary" />
 
         <View android:layout_width="120dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@color/dark"
+                android:background="@{temp.labelColor}"
                 android:layout_gravity="center"
-                android:alpha=".4" />
+                android:alpha=".4"
+                tools:background="@color/colorPrimary" />
 
         <TextView
                 android:id="@+id/label_facial_detection"
@@ -61,17 +66,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="@string/facial_detection_title"
-                android:textColor="@color/dark"
+                android:textColor="@{temp.labelColor}"
                 android:textSize="16sp"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                tools:textColor="@color/colorPrimary" />
 
         <View android:layout_width="120dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@color/dark"
+                android:background="@{temp.labelColor}"
                 android:layout_gravity="center"
-                android:alpha=".4" />
+                android:alpha=".4"
+                tools:background="@color/colorPrimary" />
 
         <TextView
                 android:id="@+id/label_object_detection_and_tracking"
@@ -79,17 +86,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="@string/object_detection_and_tracking_title"
-                android:textColor="@color/dark"
+                android:textColor="@{temp.labelColor}"
                 android:textSize="16sp"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                tools:textColor="@color/colorPrimary" />
 
         <View android:layout_width="120dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@color/dark"
+                android:background="@{temp.labelColor}"
                 android:layout_gravity="center"
-                android:alpha=".4" />
+                android:alpha=".4"
+                tools:background="@color/colorPrimary" />
 
         <TextView
                 android:id="@+id/label_barcode_scanning"
@@ -97,17 +106,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="@string/barcode_scanning_title"
-                android:textColor="@color/dark"
+                android:textColor="@{temp.labelColor}"
                 android:textSize="16sp"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                tools:textColor="@color/colorPrimary" />
 
         <View android:layout_width="120dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@color/dark"
+                android:background="@{temp.labelColor}"
                 android:layout_gravity="center"
-                android:alpha=".4" />
+                android:alpha=".4"
+                tools:background="@color/colorPrimary" />
 
         <TextView
                 android:id="@+id/label_language_id"
@@ -115,17 +126,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="@string/language_id_title"
-                android:textColor="@color/dark"
+                android:textColor="@{temp.labelColor}"
                 android:textSize="16sp"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                tools:textColor="@color/colorPrimary" />
 
         <View android:layout_width="120dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@color/dark"
+                android:background="@{temp.labelColor}"
                 android:layout_gravity="center"
-                android:alpha=".4" />
+                android:alpha=".4"
+                tools:background="@color/colorPrimary" />
 
         <TextView
                 android:id="@+id/label_translation_on_device"
@@ -133,17 +146,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="@string/translation_on_device_title"
-                android:textColor="@color/dark"
+                android:textColor="@{temp.labelColor}"
                 android:textSize="16sp"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                tools:textColor="@color/colorPrimary" />
 
         <View android:layout_width="120dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@color/dark"
+                android:background="@{temp.labelColor}"
                 android:layout_gravity="center"
-                android:alpha=".4" />
+                android:alpha=".4"
+                tools:background="@color/colorPrimary" />
 
         <TextView
                 android:id="@+id/label_quick_answer"
@@ -151,17 +166,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="@string/quick_answer_title"
-                android:textColor="@color/dark"
+                android:textColor="@{temp.labelColor}"
                 android:textSize="16sp"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                tools:textColor="@color/colorPrimary" />
 
         <View android:layout_width="120dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@color/dark"
+                android:background="@{temp.labelColor}"
                 android:layout_gravity="center"
-                android:alpha=".4" />
+                android:alpha=".4"
+                tools:background="@color/colorPrimary" />
 
         <TextView
                 android:id="@+id/label_automl_vision_edge"
@@ -169,17 +186,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="@string/automl_vision_edge_title"
-                android:textColor="@color/dark"
+                android:textColor="@{temp.labelColor}"
                 android:textSize="16sp"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                tools:textColor="@color/colorPrimary" />
 
         <View android:layout_width="120dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@color/dark"
+                android:background="@{temp.labelColor}"
                 android:layout_gravity="center"
-                android:alpha=".4" />
+                android:alpha=".4"
+                tools:background="@color/colorPrimary" />
 
         <TextView
                 android:id="@+id/label_recognition_of_landmarks"
@@ -187,17 +206,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="@string/recognition_of_landmarks_title"
-                android:textColor="@color/dark"
+                android:textColor="@{temp.labelColor}"
                 android:textSize="16sp"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                tools:textColor="@color/colorPrimary" />
 
         <View android:layout_width="120dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@color/dark"
+                android:background="@{temp.labelColor}"
                 android:layout_gravity="center"
-                android:alpha=".4" />
+                android:alpha=".4"
+                tools:background="@color/colorPrimary" />
 
     </LinearLayout>
 

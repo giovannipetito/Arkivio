@@ -8,28 +8,31 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
+import com.airbnb.paris.extensions.style
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.face.Face
 import com.google.mlkit.vision.face.FaceDetection
 import com.google.mlkit.vision.face.FaceDetectorOptions
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.customview.GraphicOverlay
+import it.giovanni.arkivio.databinding.MlFacialDetectionLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
+import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.presenter.DarkModePresenter
+import it.giovanni.arkivio.utils.SharedPreferencesManager
 import it.giovanni.arkivio.utils.Utils
 import kotlin.math.max
 
 class FacialDetectionFragment : DetailFragment(), OnItemSelectedListener {
 
-    private var viewFragment: View? = null
-    private var graphicOverlay: GraphicOverlay? = null
-    private var mlImageView: ImageView? = null
-    private var mlButton: Button? = null
+    private var layoutBinding: MlFacialDetectionLayoutBinding? = null
+    private val binding get() = layoutBinding
+
     private var selectedImage: Bitmap? = null
     private var imageMaxWidth: Int? = null
     private var imageMaxHeight: Int? = null
 
     override fun getLayout(): Int {
-        return R.layout.ml_facial_detection_layout
+        return NO_LAYOUT
     }
 
     override fun getTitle(): Int {
@@ -66,29 +69,28 @@ class FacialDetectionFragment : DetailFragment(), OnItemSelectedListener {
     override fun onActionSearch(search_string: String) {
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
-        return viewFragment
-    }
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+        layoutBinding = MlFacialDetectionLayoutBinding.inflate(inflater, container, false)
 
-    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        TODO("Not yet implemented")
+        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val model = DarkModeModel(requireContext())
+        binding?.presenter = darkModePresenter
+        binding?.temp = model
+
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        graphicOverlay = viewFragment?.findViewById(R.id.graphic_overlay)
-        mlImageView = viewFragment?.findViewById(R.id.ml_imageview)
-        mlButton = viewFragment?.findViewById(R.id.ml_button)
+        setViewStyle()
 
-        val spinner: Spinner = viewFragment?.findViewById(R.id.ml_spinner)!!
         val items = arrayOf("Gio & Tara 1", "Gio & Tara 2", "Gio & Tara 3")
         val adapter: ArrayAdapter<String> = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, items)
-        spinner.adapter = adapter
-        spinner.onItemSelectedListener = this
+        binding?.mlSpinner?.adapter = adapter
+        binding?.mlSpinner?.onItemSelectedListener = this
 
-        mlButton?.setOnClickListener {
+        binding?.mlButton?.setOnClickListener {
             runFaceContourDetection()
         }
     }
@@ -99,13 +101,13 @@ class FacialDetectionFragment : DetailFragment(), OnItemSelectedListener {
             .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_FAST)
             .setContourMode(FaceDetectorOptions.CONTOUR_MODE_ALL)
             .build()
-        mlButton?.isEnabled = false
+        binding?.mlButton?.isEnabled = false
         val detector = FaceDetection.getClient(options)
         detector.process(image).addOnSuccessListener { faces ->
-            mlButton?.isEnabled = true
+            binding?.mlButton?.isEnabled = true
             processFaceContourDetectionResult(faces)
         }.addOnFailureListener { e -> // Task failed with an exception
-            mlButton?.isEnabled = true
+            binding?.mlButton?.isEnabled = true
             e.printStackTrace()
         }
     }
@@ -116,11 +118,11 @@ class FacialDetectionFragment : DetailFragment(), OnItemSelectedListener {
             Toast.makeText(context, "No face found", Toast.LENGTH_SHORT).show()
             return
         }
-        graphicOverlay?.clear()
+        binding?.graphicOverlay?.clear()
         for (i in faces.indices) {
             val face = faces[i]
-            val faceGraphic = FaceContourGraphic(graphicOverlay)
-            graphicOverlay?.add(faceGraphic)
+            val faceGraphic = FaceContourGraphic(binding?.graphicOverlay)
+            binding?.graphicOverlay?.add(faceGraphic)
             faceGraphic.updateFace(face)
         }
     }
@@ -131,7 +133,7 @@ class FacialDetectionFragment : DetailFragment(), OnItemSelectedListener {
         if (imageMaxWidth == null) {
             // Calculate the max width in portrait mode. This is done lazily since we need to wait for
             // a UI layout pass to get the right values. So delay it to first time image rendering time.
-            imageMaxWidth = mlImageView?.width
+            imageMaxWidth = binding?.mlImageView?.width
         }
         return imageMaxWidth
     }
@@ -141,7 +143,7 @@ class FacialDetectionFragment : DetailFragment(), OnItemSelectedListener {
         if (imageMaxHeight == null) {
             // Calculate the max width in portrait mode. This is done lazily since we need to wait for
             // a UI layout pass to get the right values. So delay it to first time image rendering time.
-            imageMaxHeight = mlImageView?.height
+            imageMaxHeight = binding?.mlImageView?.height
         }
         return imageMaxHeight
     }
@@ -162,7 +164,7 @@ class FacialDetectionFragment : DetailFragment(), OnItemSelectedListener {
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, v: View?, position: Int, id: Long) {
-        graphicOverlay?.clear()
+        binding?.graphicOverlay?.clear()
         when (position) {
             0 -> selectedImage = Utils.getBitmapFromAsset(requireContext(), "gio_tara_1.jpg")
             1 -> selectedImage = Utils.getBitmapFromAsset(requireContext(), "gio_tara_2.jpg")
@@ -185,8 +187,21 @@ class FacialDetectionFragment : DetailFragment(), OnItemSelectedListener {
                 (selectedImage?.height!! / scaleFactor).toInt(),
                 true
             )
-            mlImageView?.setImageBitmap(resizedBitmap)
+            binding?.mlImageView?.setImageBitmap(resizedBitmap)
             selectedImage = resizedBitmap
         }
+    }
+
+    private fun setViewStyle() {
+        isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
+        if (isDarkMode)
+            binding?.mlButton?.style(R.style.ButtonNormalDarkMode)
+        else
+            binding?.mlButton?.style(R.style.ButtonNormalLightMode)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
     }
 }

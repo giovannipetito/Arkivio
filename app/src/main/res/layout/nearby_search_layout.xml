@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -25,19 +26,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/discover_nearby_devices"
-                android:textColor="@color/dark"
-                android:theme="@style/SwitchCompatTheme" />
+                android:textColor="@{temp.labelColor}"
+                android:theme="@style/SwitchCompatTheme"
+                tools:textColor="@color/colorPrimary" />
 
         <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/publish_switch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/share_device_information"
-                android:textColor="@color/dark"
-                android:theme="@style/SwitchCompatTheme" />
+                android:textColor="@{temp.labelColor}"
+                android:theme="@style/SwitchCompatTheme"
+                tools:textColor="@color/colorPrimary" />
 
         <ListView
-                android:id="@+id/nearby_devices_listview"
+                android:id="@+id/nearby_devices_list_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"

@@ -29,8 +29,10 @@ import com.google.android.gms.nearby.messages.*
 import com.google.android.material.snackbar.Snackbar
 import it.giovanni.arkivio.BuildConfig
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.databinding.NearbyBeaconsLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
-import kotlinx.android.synthetic.main.nearby_beacons_layout.*
+import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.presenter.DarkModePresenter
 import java.util.*
 
 class NearbyBeaconsFragment: DetailFragment(),
@@ -39,7 +41,9 @@ class NearbyBeaconsFragment: DetailFragment(),
     OnSharedPreferenceChangeListener {
 
     private val mTag = NearbyBeaconsFragment::class.java.simpleName
-    private var viewFragment: View? = null
+
+    private var layoutBinding: NearbyBeaconsLayoutBinding? = null
+    private val binding get() = layoutBinding
 
     private var subscribed = false
     private val permissionsRequestCode = 1
@@ -49,7 +53,7 @@ class NearbyBeaconsFragment: DetailFragment(),
     private var adapter: ArrayAdapter<String>? = null // Adapter for working with messages from nearby beacons.
 
     override fun getLayout(): Int {
-        return R.layout.nearby_beacons_layout
+        return NO_LAYOUT
     }
 
     override fun getTitle(): Int {
@@ -86,13 +90,15 @@ class NearbyBeaconsFragment: DetailFragment(),
     override fun onActionSearch(search_string: String) {
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
-        return viewFragment
-    }
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+        layoutBinding = NearbyBeaconsLayoutBinding.inflate(inflater, container, false)
 
-    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        TODO("Not yet implemented")
+        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val model = DarkModeModel(requireContext())
+        binding?.presenter = darkModePresenter
+        binding?.temp = model
+
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -104,7 +110,7 @@ class NearbyBeaconsFragment: DetailFragment(),
         val cachedMessages = NearbyBeaconsUtils.getCachedMessages(requireContext())
         messagesList.addAll(cachedMessages)
 
-        val listView: ListView = viewFragment?.findViewById(R.id.nearby_messages_listview)!!
+        val listView: ListView = binding?.nearbyMessagesListView!!
         adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, messagesList)
         listView.adapter = adapter
 
@@ -190,9 +196,9 @@ class NearbyBeaconsFragment: DetailFragment(),
     }
 
     override fun onConnectionFailed(p0: ConnectionResult) {
-        if (nearby_messages_container != null) {
+        if (binding?.nearbyMessagesContainer != null) {
             Snackbar.make(
-                nearby_messages_container!!,
+                binding?.nearbyMessagesContainer!!,
                 "Exception while connecting to Google Play services: " + p0.errorMessage,
                 Snackbar.LENGTH_INDEFINITE
             ).show()
@@ -255,10 +261,10 @@ class NearbyBeaconsFragment: DetailFragment(),
     }
 
     private fun showLinkToSettingsSnackbar() {
-        if (nearby_messages_container == null) {
+        if (binding?.nearbyMessagesContainer == null) {
             return
         }
-        Snackbar.make(nearby_messages_container!!, R.string.permission_denied, Snackbar.LENGTH_INDEFINITE)
+        Snackbar.make(binding?.nearbyMessagesContainer!!, R.string.permission_denied, Snackbar.LENGTH_INDEFINITE)
             .setAction(R.string.settings) {
                 // Build intent that displays the App settings screen.
                 val intent = Intent()
@@ -271,10 +277,10 @@ class NearbyBeaconsFragment: DetailFragment(),
     }
 
     private fun showRequestPermissionsSnackbar() {
-        if (nearby_messages_container == null) {
+        if (binding?.nearbyMessagesContainer == null) {
             return
         }
-        Snackbar.make(nearby_messages_container!!, R.string.permission_required, Snackbar.LENGTH_INDEFINITE)
+        Snackbar.make(binding?.nearbyMessagesContainer!!, R.string.permission_required, Snackbar.LENGTH_INDEFINITE)
             .setAction(R.string.button_ok) {
             // Request permission.
             ActivityCompat.requestPermissions(
@@ -283,5 +289,10 @@ class NearbyBeaconsFragment: DetailFragment(),
                 permissionsRequestCode
             )
         }.show()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
     }
 }

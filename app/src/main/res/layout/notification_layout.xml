@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -18,29 +19,37 @@
             android:clickable="true"
             android:orientation="vertical">
 
-        <include android:id="@+id/notification_item_1"
+        <include
+                android:id="@+id/notification_item_1"
+                layout="@layout/notification_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                layout="@layout/notification_item" />
+                bind:temp2="@{temp}" />
 
-        <include android:id="@+id/notification_item_2"
+        <include
+                android:id="@+id/notification_item_2"
+                layout="@layout/notification_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                layout="@layout/notification_item" />
+                bind:temp2="@{temp}" />
 
-        <include android:id="@+id/notification_item_3"
+        <include
+                android:id="@+id/notification_item_3"
+                layout="@layout/notification_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                layout="@layout/notification_item" />
+                bind:temp2="@{temp}" />
 
-        <include android:id="@+id/notification_item_4"
+        <include
+                android:id="@+id/notification_item_4"
+                layout="@layout/notification_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                layout="@layout/notification_item" />
+                bind:temp2="@{temp}" />
 
     </LinearLayout>
 

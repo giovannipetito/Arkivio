@@ -11,17 +11,19 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.widget.SwitchCompat
 import androidx.core.app.AlarmManagerCompat
 import androidx.core.content.ContextCompat
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.databinding.NotificationLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
+import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.presenter.DarkModePresenter
 
 class NotificationFragment: DetailFragment() {
 
-    private var viewFragment: View? = null
+    private var layoutBinding: NotificationLayoutBinding? = null
+    private val binding get() = layoutBinding
 
     private lateinit var notifyPendingIntent: PendingIntent
     private lateinit var notifyIntent: Intent
@@ -32,7 +34,7 @@ class NotificationFragment: DetailFragment() {
     }
 
     override fun getLayout(): Int {
-        return R.layout.notification_layout
+        return NO_LAYOUT
     }
 
     override fun getTitle(): Int {
@@ -69,37 +71,39 @@ class NotificationFragment: DetailFragment() {
     override fun onActionSearch(search_string: String) {
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
-        return viewFragment
-    }
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+        layoutBinding = NotificationLayoutBinding.inflate(inflater, container, false)
 
-    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        TODO("Not yet implemented")
+        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val model = DarkModeModel(requireContext())
+        binding?.presenter = darkModePresenter
+        binding?.temp = model
+
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val notificationItem1 = viewFragment?.findViewById(R.id.notification_item_1) as View
-        val notificationItem2 = viewFragment?.findViewById(R.id.notification_item_2) as View
-        val notificationItem3 = viewFragment?.findViewById(R.id.notification_item_3) as View
-        val notificationItem4 = viewFragment?.findViewById(R.id.notification_item_4) as View
+        val notificationItem1 = binding?.notificationItem1
+        val notificationItem2 = binding?.notificationItem2
+        val notificationItem3 = binding?.notificationItem3
+        val notificationItem4 = binding?.notificationItem4
 
-        val serviceText1 = notificationItem1.findViewById(R.id.service_text) as TextView
-        val serviceText2 = notificationItem2.findViewById(R.id.service_text) as TextView
-        val serviceText3 = notificationItem3.findViewById(R.id.service_text) as TextView
-        val serviceText4 = notificationItem4.findViewById(R.id.service_text) as TextView
+        val serviceText1 = notificationItem1?.serviceText
+        val serviceText2 = notificationItem2?.serviceText
+        val serviceText3 = notificationItem3?.serviceText
+        val serviceText4 = notificationItem4?.serviceText
 
-        serviceText1.setText(R.string.service_1)
-        serviceText2.setText(R.string.service_2)
-        serviceText3.setText(R.string.service_3)
-        serviceText4.setText(R.string.service_4)
+        serviceText1?.setText(R.string.service_1)
+        serviceText2?.setText(R.string.service_2)
+        serviceText3?.setText(R.string.service_3)
+        serviceText4?.setText(R.string.service_4)
 
-        val serviceSwitch1 = notificationItem1.findViewById(R.id.service_switch) as SwitchCompat
-        val serviceSwitch2 = notificationItem2.findViewById(R.id.service_switch) as SwitchCompat
-        val serviceSwitch3 = notificationItem3.findViewById(R.id.service_switch) as SwitchCompat
-        val serviceSwitch4 = notificationItem4.findViewById(R.id.service_switch) as SwitchCompat
+        val serviceSwitch1 = notificationItem1?.serviceSwitch
+        val serviceSwitch2 = notificationItem2?.serviceSwitch
+        val serviceSwitch3 = notificationItem3?.serviceSwitch
+        val serviceSwitch4 = notificationItem4?.serviceSwitch
 
         val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
         if (bluetoothAdapter != null && !bluetoothAdapter.isEnabled) {
@@ -107,7 +111,7 @@ class NotificationFragment: DetailFragment() {
             startActivityForResult(Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE),1)
         }
 
-        serviceSwitch1.setOnClickListener {
+        serviceSwitch1?.setOnClickListener {
             if (serviceSwitch1.isChecked) {
                 serviceSwitch1.setText(R.string.stop_service)
 
@@ -119,7 +123,7 @@ class NotificationFragment: DetailFragment() {
                 serviceSwitch1.setText(R.string.start_service)
             }
         }
-        serviceSwitch2.setOnClickListener {
+        serviceSwitch2?.setOnClickListener {
             if (serviceSwitch2.isChecked) {
                 serviceSwitch2.setText(R.string.stop_service)
 
@@ -129,7 +133,7 @@ class NotificationFragment: DetailFragment() {
                 serviceSwitch2.setText(R.string.start_service)
             }
         }
-        serviceSwitch3.setOnClickListener {
+        serviceSwitch3?.setOnClickListener {
             if (serviceSwitch3.isChecked) {
                 serviceSwitch3.setText(R.string.stop_service)
 
@@ -139,7 +143,7 @@ class NotificationFragment: DetailFragment() {
                 serviceSwitch3.setText(R.string.start_service)
             }
         }
-        serviceSwitch4.setOnClickListener {
+        serviceSwitch4?.setOnClickListener {
             if (serviceSwitch4.isChecked) {
                 serviceSwitch4.setText(R.string.stop_service)
 
@@ -234,5 +238,10 @@ class NotificationFragment: DetailFragment() {
             val data: Intent? = result.data
         }
         */
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
     }
 }

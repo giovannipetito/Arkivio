@@ -12,6 +12,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.IntDef
 import androidx.appcompat.app.AlertDialog
+import com.airbnb.paris.extensions.style
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks
@@ -23,8 +24,11 @@ import com.google.android.gms.nearby.connection.AppMetadata
 import com.google.android.gms.nearby.connection.Connections.*
 import com.google.android.gms.nearby.connection.ConnectionsStatusCodes
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.databinding.NearbyChatLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
-import kotlinx.android.synthetic.main.nearby_chat_layout.*
+import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.presenter.DarkModePresenter
+import it.giovanni.arkivio.utils.SharedPreferencesManager
 import java.util.*
 
 class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFailedListener, MessageListener {
@@ -32,7 +36,9 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
     // Once the devices are connected, they can send messages to each other.
 
     private val mTag = NearbyChatFragment::class.java.simpleName
-    private var viewFragment: View? = null
+
+    private var layoutBinding: NearbyChatLayoutBinding? = null
+    private val binding get() = layoutBinding
 
     /**
      * Timeouts (in millis) for startAdvertising and startDiscovery.  At the end of these time
@@ -82,7 +88,7 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
     private var otherEndpointId: String? = null
 
     override fun getLayout(): Int {
-        return R.layout.nearby_chat_layout
+        return NO_LAYOUT
     }
 
     override fun getTitle(): Int {
@@ -137,20 +143,24 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
-        return viewFragment
-    }
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+        layoutBinding = NearbyChatLayoutBinding.inflate(inflater, container, false)
 
-    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        TODO("Not yet implemented")
+        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val model = DarkModeModel(requireContext())
+        binding?.presenter = darkModePresenter
+        binding?.temp = model
+
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        editMessage = viewFragment?.findViewById(R.id.edittext_message)
-        debugText = viewFragment?.findViewById(R.id.debug_text)
+        setViewStyle()
+
+        editMessage = binding?.editTextMessage
+        debugText = binding?.debugText
 
         // Debug text view
         debugText?.movementMethod = ScrollingMovementMethod()
@@ -161,15 +171,15 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
             .addApi(Nearby.CONNECTIONS_API)
             .build()
 
-        button_advertise.setOnClickListener {
+        binding?.buttonAdvertise?.setOnClickListener {
             startAdvertising()
         }
 
-        button_discover.setOnClickListener {
+        binding?.buttonDiscover?.setOnClickListener {
             startDiscovery()
         }
 
-        button_send.setOnClickListener {
+        binding?.buttonSend?.setOnClickListener {
             sendMessage()
         }
     }
@@ -428,18 +438,18 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
         when (newState) {
             STATE_IDLE -> {
                 // The GoogleAPIClient is not connected, we can't yet start advertising or discovery so hide all buttons
-                buttons_container.visibility = View.GONE
-                message_container.visibility = View.GONE
+                binding?.buttonsContainer?.visibility = View.GONE
+                binding?.messageContainer?.visibility = View.GONE
             }
             STATE_READY -> {
                 // The GoogleAPIClient is connected, we can begin advertising or discovery.
-                buttons_container.visibility = View.VISIBLE
-                message_container.visibility = View.GONE
+                binding?.buttonsContainer?.visibility = View.VISIBLE
+                binding?.messageContainer?.visibility = View.GONE
             }
             STATE_CONNECTED -> {
                 // We are connected to another device via the Connections API, so we can show the message UI.
-                buttons_container.visibility = View.VISIBLE
-                message_container.visibility = View.VISIBLE
+                binding?.buttonsContainer?.visibility = View.VISIBLE
+                binding?.messageContainer?.visibility = View.VISIBLE
             }
             STATE_ADVERTISING, STATE_DISCOVERING -> {}
         }
@@ -453,5 +463,24 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
     private fun debugLog(message: String) {
         Log.i(mTag, message)
         debugText?.append("""$message """.trimIndent()) // In Java: debugText.append("\n" + message);
+    }
+
+    private fun setViewStyle() {
+        isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
+        if (isDarkMode) {
+            binding?.buttonAdvertise?.style(R.style.ButtonNormalDarkMode)
+            binding?.buttonDiscover?.style(R.style.ButtonNormalDarkMode)
+            binding?.buttonSend?.style(R.style.ButtonNormalDarkMode)
+        }
+        else {
+            binding?.buttonAdvertise?.style(R.style.ButtonNormalLightMode)
+            binding?.buttonDiscover?.style(R.style.ButtonNormalLightMode)
+            binding?.buttonSend?.style(R.style.ButtonNormalLightMode)
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
     }
 }

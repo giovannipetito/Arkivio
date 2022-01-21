@@ -22,15 +22,20 @@ import com.google.android.gms.nearby.Nearby
 import com.google.android.gms.nearby.messages.*
 import com.google.android.material.snackbar.Snackbar
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.databinding.NearbySearchLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.fragments.detail.nearby.search.DeviceMessage.Companion.fromNearbyMessage
 import it.giovanni.arkivio.fragments.detail.nearby.search.DeviceMessage.Companion.newNearbyMessage
+import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.presenter.DarkModePresenter
 import java.util.*
 
 class NearbySearchFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFailedListener {
 
     private val mTag = NearbySearchFragment::class.java.simpleName
-    private var viewFragment: View? = null
+
+    private var layoutBinding: NearbySearchLayoutBinding? = null
+    private val binding get() = layoutBinding
 
     private val ttlSeconds = 3 * 60 // Three minutes.
 
@@ -67,7 +72,7 @@ class NearbySearchFragment: DetailFragment(), ConnectionCallbacks, OnConnectionF
     }
 
     override fun getLayout(): Int {
-        return R.layout.nearby_search_layout
+        return NO_LAYOUT
     }
 
     override fun getTitle(): Int {
@@ -104,20 +109,22 @@ class NearbySearchFragment: DetailFragment(), ConnectionCallbacks, OnConnectionF
     override fun onActionSearch(search_string: String) {
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
-        return viewFragment
-    }
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+        layoutBinding = NearbySearchLayoutBinding.inflate(inflater, container, false)
 
-    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        TODO("Not yet implemented")
+        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val model = DarkModeModel(requireContext())
+        binding?.presenter = darkModePresenter
+        binding?.temp = model
+
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        publishSwitch = viewFragment?.findViewById(R.id.publish_switch)
-        subscribeSwitch = viewFragment?.findViewById(R.id.subscribe_switch)
+        publishSwitch = binding?.publishSwitch
+        subscribeSwitch = binding?.subscribeSwitch
 
         publishSwitch?.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
             // If GoogleApiClient is connected, perform sub actions in response to user action.
@@ -159,8 +166,8 @@ class NearbySearchFragment: DetailFragment(), ConnectionCallbacks, OnConnectionF
 
         val nearbyDevicesArrayList: List<String> = ArrayList()
         nearbyDevicesAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, nearbyDevicesArrayList)
-        val nearbyDevicesListView: ListView = viewFragment?.findViewById(R.id.nearby_devices_listview)!!
-        nearbyDevicesListView.adapter = nearbyDevicesAdapter
+        val listView: ListView = binding?.nearbyDevicesListView!!
+        listView.adapter = nearbyDevicesAdapter
         buildGoogleApiClient()
     }
 
@@ -259,7 +266,12 @@ class NearbySearchFragment: DetailFragment(), ConnectionCallbacks, OnConnectionF
     // Logs a message and shows a Snackbar using the String text that is used in the Log message and the SnackBar.
     private fun logAndShowSnackbar(text: String) {
         Log.i(mTag, text)
-        val container: View = viewFragment?.findViewById(R.id.nearby_search_container)!!
+        val container: View = binding?.nearbySearchContainer!!
         Snackbar.make(container, text, Snackbar.LENGTH_LONG).show()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
     }
 }
