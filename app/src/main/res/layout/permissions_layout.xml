@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -24,18 +25,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:text="@string/phone_state_title"
-                android:textColor="@color/dark"
                 android:textSize="16sp"
-                android:textAlignment="center" />
+                android:textColor="@{temp.labelColor}"
+                android:textAlignment="center"
+                tools:textColor="@color/colorPrimary" />
 
         <View
                 android:layout_width="120dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@color/dark"
+                android:background="@{temp.labelColor}"
                 android:layout_gravity="center"
-                android:alpha=".4" />
+                android:alpha=".4"
+                tools:background="@color/colorPrimary" />
 
         <TextView
                 android:id="@+id/label_explores_pdf"
@@ -43,18 +46,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="@string/explores_pdf_title"
-                android:textColor="@color/dark"
                 android:textSize="16sp"
-                android:textAlignment="center" />
+                android:textColor="@{temp.labelColor}"
+                android:textAlignment="center"
+                tools:textColor="@color/colorPrimary" />
 
         <View
                 android:layout_width="120dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@color/dark"
+                android:background="@{temp.labelColor}"
                 android:layout_gravity="center"
-                android:alpha=".4" />
+                android:alpha=".4"
+                tools:background="@color/colorPrimary" />
 
         <TextView
                 android:id="@+id/label_download_pdf"
@@ -62,18 +67,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="@string/download_pdf_title"
-                android:textColor="@color/dark"
                 android:textSize="16sp"
-                android:textAlignment="center" />
+                android:textColor="@{temp.labelColor}"
+                android:textAlignment="center"
+                tools:textColor="@color/colorPrimary" />
 
         <View
                 android:layout_width="120dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@color/dark"
+                android:background="@{temp.labelColor}"
                 android:layout_gravity="center"
-                android:alpha=".4" />
+                android:alpha=".4"
+                tools:background="@color/colorPrimary" />
 
         <TextView
                 android:id="@+id/label_show_webcam"
@@ -81,10 +88,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="@string/show_webcam_title"
-                android:textColor="@color/dark"
                 android:textSize="16sp"
+                android:textColor="@{temp.labelColor}"
                 android:textAlignment="center"
-                android:visibility="invisible" />
+                android:visibility="invisible"
+                tools:textColor="@color/colorPrimary" />
 
         <View
                 android:id="@+id/webcam_separator"
@@ -92,10 +100,11 @@
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@color/dark"
+                android:background="@{temp.labelColor}"
                 android:layout_gravity="center"
                 android:alpha=".4"
-                android:visibility="invisible" />
+                android:visibility="invisible"
+                tools:background="@color/colorPrimary" />
 
     </LinearLayout>
 

@@ -1,14 +1,14 @@
 package it.giovanni.arkivio.fragments.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import it.giovanni.arkivio.R
 import it.giovanni.arkivio.bean.Persona
 import it.giovanni.arkivio.bean.Persona.Companion.HEADER_TYPE
 import it.giovanni.arkivio.bean.Persona.Companion.ITEM_TYPE
+import it.giovanni.arkivio.databinding.RowHeaderBinding
+import it.giovanni.arkivio.databinding.RowItemBinding
 
 class StickyHeaderAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -19,11 +19,13 @@ class StickyHeaderAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-
-        return if (viewType == HEADER_TYPE)
-            HeaderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_header, parent, false))
-        else
-            ItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_item, parent, false))
+        return if (viewType == HEADER_TYPE) {
+            val rowHeaderBinding: RowHeaderBinding = RowHeaderBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            HeaderViewHolder(rowHeaderBinding)
+        } else {
+            val rowItemBinding: RowItemBinding = RowItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemViewHolder(rowItemBinding)
+        }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -31,8 +33,9 @@ class StickyHeaderAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         if (persona != null) {
             when (persona.tipo) {
                 HEADER_TYPE -> {
-                    if (holder is HeaderViewHolder)
+                    if (holder is HeaderViewHolder) {
                         holder.header.text = persona.nome
+                    }
                 }
                 ITEM_TYPE -> {
                     if (holder is ItemViewHolder) {
@@ -59,14 +62,12 @@ class StickyHeaderAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         else list?.size!!
     }
 
-    inner class HeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        val header: TextView = itemView.findViewById(R.id.text_header)
+    inner class HeaderViewHolder(rowHeaderBinding: RowHeaderBinding) : RecyclerView.ViewHolder(rowHeaderBinding.root) {
+        val header: TextView = rowHeaderBinding.textHeader
     }
 
-    inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        val item1: TextView = itemView.findViewById(R.id.text_item1)
-        val item2: TextView = itemView.findViewById(R.id.text_item2)
+    inner class ItemViewHolder(rowHeaderBinding: RowItemBinding) : RecyclerView.ViewHolder(rowHeaderBinding.root) {
+        val item1: TextView = rowHeaderBinding.textItem1
+        val item2: TextView = rowHeaderBinding.textItem2
     }
 }

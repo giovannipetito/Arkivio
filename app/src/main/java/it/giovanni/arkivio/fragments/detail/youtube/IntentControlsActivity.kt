@@ -15,7 +15,6 @@ import java.util.*
 class IntentControlsActivity: Activity(), View.OnClickListener {
 
     private lateinit var binding: IntentControlsActivityBinding
-    private lateinit var view: View
 
     companion object {
         private const val REQ_START_STANDALONE_PLAYER = 1
@@ -27,10 +26,9 @@ class IntentControlsActivity: Activity(), View.OnClickListener {
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // setContentView(R.layout.intent_controls_activity)
+
         binding = IntentControlsActivityBinding.inflate(layoutInflater)
-        view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
 
         binding.playVideoButton.setOnClickListener(this)
         binding.startPlaylistButton.setOnClickListener(this)

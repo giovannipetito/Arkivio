@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -43,11 +45,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:textSize="24sp"
-                            android:textColor="@color/dark"
-                            android:text="@string/name_surname_title"
                             android:ellipsize="end"
-                            android:maxLines="1" />
+                            android:maxLines="1"
+                            android:text="@string/name_surname_title"
+                            android:textColor="@color/dark"
+                            android:textSize="24sp" />
 
                 </RelativeLayout>
 
@@ -90,16 +92,17 @@
                                     android:id="@+id/value_numero_fisso"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
                                     android:layout_marginTop="16dp"
                                     android:layout_marginBottom="16dp"
-                                    android:layout_alignParentEnd="true"
-                                    android:text="0818183301"
                                     android:layout_toEndOf="@+id/key_numero_fisso"
-                                    android:gravity="end"
-                                    android:textColor="@color/colorPrimary"
-                                    android:textSize="16sp"
                                     android:ellipsize="end"
-                                    android:maxLines="2" />
+                                    android:gravity="end"
+                                    android:maxLines="2"
+                                    android:text="0818183301"
+                                    android:textColor="@{temp.labelColor}"
+                                    android:textSize="16sp"
+                                    tools:textColor="@color/colorPrimary" />
 
                             <View
                                     android:layout_width="match_parent"
@@ -133,16 +136,17 @@
                                     android:id="@+id/value_cellulare"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
                                     android:layout_marginTop="16dp"
                                     android:layout_marginBottom="16dp"
-                                    android:layout_alignParentEnd="true"
                                     android:layout_toEndOf="@+id/key_cellulare"
-                                    android:text="3331582355"
-                                    android:gravity="end"
-                                    android:textColor="@color/colorPrimary"
-                                    android:textSize="16sp"
                                     android:ellipsize="end"
-                                    android:maxLines="2" />
+                                    android:gravity="end"
+                                    android:maxLines="2"
+                                    android:text="3331582355"
+                                    android:textSize="16sp"
+                                    android:textColor="@{temp.labelColor}"
+                                    tools:textColor="@color/colorPrimary" />
 
                             <View
                                     android:layout_width="match_parent"
@@ -176,16 +180,17 @@
                                     android:id="@+id/value_mail"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
                                     android:layout_marginTop="16dp"
                                     android:layout_marginBottom="16dp"
-                                    android:layout_alignParentEnd="true"
                                     android:layout_toEndOf="@+id/key_mail"
-                                    android:text="giovanni.petito88@gmail.com"
-                                    android:gravity="end"
-                                    android:textColor="@color/colorPrimary"
-                                    android:textSize="16sp"
                                     android:ellipsize="end"
-                                    android:maxLines="2" />
+                                    android:gravity="end"
+                                    android:maxLines="2"
+                                    android:text="giovanni.petito88@gmail.com"
+                                    android:textSize="16sp"
+                                    android:textColor="@{temp.labelColor}"
+                                    tools:textColor="@color/colorPrimary" />
 
                             <View
                                     android:layout_width="match_parent"
@@ -219,16 +224,17 @@
                                     android:id="@+id/value_indirizzo"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
                                     android:layout_marginTop="16dp"
                                     android:layout_marginBottom="16dp"
-                                    android:layout_alignParentEnd="true"
                                     android:layout_toEndOf="@+id/key_indirizzo"
-                                    android:text="Via Casoretto 60, Milano"
-                                    android:gravity="end"
-                                    android:textColor="@color/dark"
-                                    android:textSize="16sp"
                                     android:ellipsize="end"
-                                    android:maxLines="2" />
+                                    android:gravity="end"
+                                    android:maxLines="2"
+                                    android:text="Via Casoretto 60, Milano"
+                                    android:textSize="16sp"
+                                    android:textColor="@{temp.labelColor}"
+                                    tools:textColor="@color/colorPrimary" />
 
                             <View
                                     android:layout_width="match_parent"
@@ -262,16 +268,17 @@
                                     android:id="@+id/value_occupazione"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
                                     android:layout_marginTop="16dp"
                                     android:layout_marginBottom="16dp"
-                                    android:layout_alignParentEnd="true"
                                     android:layout_toEndOf="@+id/key_occupazione"
-                                    android:text="Android Developer"
-                                    android:gravity="end"
-                                    android:textColor="@color/dark"
-                                    android:textSize="16sp"
                                     android:ellipsize="end"
-                                    android:maxLines="2" />
+                                    android:gravity="end"
+                                    android:maxLines="2"
+                                    android:text="Android Developer"
+                                    android:textSize="16sp"
+                                    android:textColor="@{temp.labelColor}"
+                                    tools:textColor="@color/colorPrimary" />
 
                             <View
                                     android:layout_width="match_parent"
@@ -299,7 +306,10 @@
 
         </LinearLayout>
 
-        <include layout="@layout/bottom_sheet_layout" />
+        <include
+                android:id="@+id/bottom_sheet_rubrica"
+                layout="@layout/bottom_sheet_layout"
+                bind:temp2="@{temp}" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

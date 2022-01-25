@@ -1,19 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+                name="temp"
+                type="it.giovanni.arkivio.model.DarkModeModel" />
+
+        <variable
+                name="presenter"
+                type="it.giovanni.arkivio.presenter.DarkModePresenter" />
+    </data>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <WebView
+                android:id="@+id/webview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent" />
 
-    <WebView
-            android:id="@+id/webview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+        <ProgressBar
+                android:id="@+id/progressBar"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:progressDrawable="@drawable/web_progress_drawable"
+                style="@android:style/Widget.ProgressBar.Horizontal" />
 
-    <ProgressBar
-            android:id="@+id/progressBar"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:progressDrawable="@drawable/web_progress_drawable"
-            style="@android:style/Widget.ProgressBar.Horizontal" />
+    </RelativeLayout>
 
-</RelativeLayout>
+</layout>

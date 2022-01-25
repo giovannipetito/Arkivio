@@ -130,6 +130,10 @@
                     android:resource="@xml/provider_paths" />
         </provider>
 
+        <activity
+                android:name=".fragments.detail.webview.WebViewActivity"
+                android:configChanges="orientation|screenSize|keyboardHidden" />
+
         <activity android:name=".fragments.detail.youtube.search.YouTubePlayerViewActivity" />
         <activity android:name=".fragments.detail.youtube.search.YouTubePlayerFragmentActivity" />
 
@@ -194,10 +198,6 @@
             <meta-data android:name="@string/minVersion" android:value="8"/>
             <meta-data android:name="@string/isLaunchableActivity" android:value="true"/>
         </activity>
-
-        <activity
-                android:name=".fragments.detail.webview.WebViewActivity"
-                android:configChanges="orientation|screenSize|keyboardHidden" />
 
         <service android:name=".fragments.detail.notification.NotificationService1" />
         <receiver

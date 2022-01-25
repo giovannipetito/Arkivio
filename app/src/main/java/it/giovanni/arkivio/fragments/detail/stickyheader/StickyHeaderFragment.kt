@@ -10,16 +10,20 @@ import it.giovanni.arkivio.R
 import it.giovanni.arkivio.bean.Persona
 import it.giovanni.arkivio.bean.Persona.Companion.HEADER_TYPE
 import it.giovanni.arkivio.bean.Persona.Companion.ITEM_TYPE
+import it.giovanni.arkivio.databinding.StickyHeaderLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.fragments.adapter.StickyHeaderAdapter
+import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.StickyHeaderItemDecoration
 
 class StickyHeaderFragment : DetailFragment() {
 
-    private var viewFragment: View? = null
+    private var layoutBinding: StickyHeaderLayoutBinding? = null
+    private val binding get() = layoutBinding
 
     override fun getLayout(): Int {
-        return R.layout.sticky_header_layout
+        return NO_LAYOUT
     }
 
     override fun getTitle(): Int {
@@ -56,29 +60,31 @@ class StickyHeaderFragment : DetailFragment() {
     override fun onActionSearch(search_string: String) {
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
-        return viewFragment
-    }
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+        layoutBinding = StickyHeaderLayoutBinding.inflate(inflater, container, false)
 
-    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        TODO("Not yet implemented")
+        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val model = DarkModeModel(requireContext())
+        binding?.presenter = darkModePresenter
+        binding?.temp = model
+
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recyclerView = viewFragment?.findViewById(R.id.recyclerview_sticky_header) as RecyclerView
-        recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        val recyclerView = binding?.recyclerviewStickyHeader
+        recyclerView?.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
         val list = init()
         val adapter = StickyHeaderAdapter()
         adapter.setList(list)
-        recyclerView.adapter = adapter
-        recyclerView.setHasFixedSize(true)
+        recyclerView?.adapter = adapter
+        recyclerView?.setHasFixedSize(true)
 
-        // recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-        recyclerView.addItemDecoration(StickyHeaderItemDecoration())
+        // recyclerView?.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+        recyclerView?.addItemDecoration(StickyHeaderItemDecoration())
     }
 
     private fun init(): ArrayList<Persona> {
@@ -117,6 +123,43 @@ class StickyHeaderFragment : DetailFragment() {
         list.add(Persona("Row 19", "Description 19", ITEM_TYPE))
         list.add(Persona("Row 20", "Description 20", ITEM_TYPE))
 
+        list.add(Persona("Title 9", "", HEADER_TYPE))
+        list.add(Persona("Row 21", "Description 21", ITEM_TYPE))
+        list.add(Persona("Row 22", "Description 22", ITEM_TYPE))
+        list.add(Persona("Title 10", "", HEADER_TYPE))
+        list.add(Persona("Row 23", "Description 23", ITEM_TYPE))
+        list.add(Persona("Row 24", "Description 24", ITEM_TYPE))
+        list.add(Persona("Row 25", "Description 25", ITEM_TYPE))
+
+        list.add(Persona("Title 11", "", HEADER_TYPE))
+        list.add(Persona("Row 26", "Description 26", ITEM_TYPE))
+        list.add(Persona("Row 27", "Description 27", ITEM_TYPE))
+        list.add(Persona("Title 12", "", HEADER_TYPE))
+        list.add(Persona("Row 28", "Description 28", ITEM_TYPE))
+        list.add(Persona("Row 29", "Description 29", ITEM_TYPE))
+        list.add(Persona("Row 30", "Description 30", ITEM_TYPE))
+
+        list.add(Persona("Title 13", "", HEADER_TYPE))
+        list.add(Persona("Row 31", "Description 31", ITEM_TYPE))
+        list.add(Persona("Row 32", "Description 32", ITEM_TYPE))
+        list.add(Persona("Title 14", "", HEADER_TYPE))
+        list.add(Persona("Row 33", "Description 33", ITEM_TYPE))
+        list.add(Persona("Row 34", "Description 34", ITEM_TYPE))
+        list.add(Persona("Row 35", "Description 35", ITEM_TYPE))
+
+        list.add(Persona("Title 15", "", HEADER_TYPE))
+        list.add(Persona("Row 36", "Description 36", ITEM_TYPE))
+        list.add(Persona("Row 37", "Description 37", ITEM_TYPE))
+        list.add(Persona("Title 16", "", HEADER_TYPE))
+        list.add(Persona("Row 38", "Description 38", ITEM_TYPE))
+        list.add(Persona("Row 39", "Description 39", ITEM_TYPE))
+        list.add(Persona("Row 40", "Description 40", ITEM_TYPE))
+
         return list
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
     }
 }

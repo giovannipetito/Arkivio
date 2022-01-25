@@ -8,20 +8,25 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.paris.extensions.style
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.bean.Persona
+import it.giovanni.arkivio.databinding.PreferenceListLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.fragments.adapter.PreferenceListAdapter
+import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.Globals
+import it.giovanni.arkivio.utils.SharedPreferencesManager
 import it.giovanni.arkivio.utils.Utils.Companion.turnArrayListToString
-import kotlinx.android.synthetic.main.preference_list_layout.*
 import kotlin.collections.ArrayList
 
 class PreferenceListFragment: DetailFragment(), PreferenceListAdapter.OnItemViewClicked {
 
+    private var layoutBinding: PreferenceListLayoutBinding? = null
+    private val binding get() = layoutBinding
+
     private var threshold = 3
-    private var viewFragment: View? = null
     private var button: Button? = null
     private var checkedList: ArrayList<Persona>? = null
     private var clonedList: ArrayList<Persona>? = null
@@ -30,7 +35,7 @@ class PreferenceListFragment: DetailFragment(), PreferenceListAdapter.OnItemView
     private var isButtonClicked: Boolean? = false
 
     override fun getLayout(): Int {
-        return R.layout.preference_list_layout
+        return NO_LAYOUT
     }
 
     override fun getTitle(): Int {
@@ -67,34 +72,38 @@ class PreferenceListFragment: DetailFragment(), PreferenceListAdapter.OnItemView
     override fun onActionSearch(search_string: String) {
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
-        return viewFragment
-    }
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+        layoutBinding = PreferenceListLayoutBinding.inflate(inflater, container, false)
 
-    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        TODO("Not yet implemented")
+        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val model = DarkModeModel(requireContext())
+        binding?.presenter = darkModePresenter
+        binding?.temp = model
+
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setViewStyle()
+
         isButtonClicked = false
-        val recyclerView = viewFragment?.findViewById(R.id.search_checkbox_recyclerview) as RecyclerView
-        button = viewFragment?.findViewById(R.id.button_user_preference)
+        val recyclerView = binding?.searchCheckboxRecyclerview
+        button = binding?.buttonUserPreference
 
         val list = init()
         checkedList = ArrayList()
         checkedContacts = ArrayList()
         val adapter = PreferenceListAdapter(this)
 
-        recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager = LinearLayoutManager(activity)
-        recyclerView.adapter = adapter
+        recyclerView?.setHasFixedSize(true)
+        recyclerView?.layoutManager = LinearLayoutManager(activity)
+        recyclerView?.adapter = adapter
         adapter.setList(list)
         adapter.notifyDataSetChanged()
 
-        button_user_preference.setOnClickListener {
+        binding?.buttonUserPreference?.setOnClickListener {
             isButtonClicked = true
             currentActivity.onBackPressed()
         }
@@ -164,5 +173,18 @@ class PreferenceListFragment: DetailFragment(), PreferenceListAdapter.OnItemView
         list.add(Persona("Daniele", "Musacchia", "3494977374", false))
 
         return list
+    }
+
+    private fun setViewStyle() {
+        isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
+        if (isDarkMode)
+            binding?.buttonUserPreference?.style(R.style.ButtonNormalDarkMode)
+        else
+            binding?.buttonUserPreference?.style(R.style.ButtonNormalLightMode)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
     }
 }

@@ -21,6 +21,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import it.giovanni.arkivio.*
 import it.giovanni.arkivio.App.Companion.context
+import it.giovanni.arkivio.databinding.ActivityMainBinding
 import it.giovanni.arkivio.deeplink.DeepLinkDescriptor
 import it.giovanni.arkivio.fragments.*
 import it.giovanni.arkivio.fragments.detail.cardio.CardIOFragment
@@ -69,6 +70,8 @@ import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadRemember
 
 class MainActivity : BaseActivity(), IProgressLoader {
 
+    private var binding: ActivityMainBinding? = null
+
     private val delayTime: Long = 3000
     private var progressDialog: Dialog? = null
     private var spinnerLogo: ImageView? = null
@@ -91,7 +94,10 @@ class MainActivity : BaseActivity(), IProgressLoader {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        // setContentView(R.layout.activity_main)
+        setContentView(binding?.root)
 
         // Room: Load user preferences.
         App.getRepository()?.loadPreferences()
@@ -103,7 +109,7 @@ class MainActivity : BaseActivity(), IProgressLoader {
 
         val view = LayoutInflater.from(applicationContext).inflate(R.layout.progress_dialog_custom, null)
 
-        spinnerLogo = view.findViewById(R.id.spinnerImageView) as ImageView
+        spinnerLogo = view.findViewById(R.id.spinner_image_view) as ImageView
         progressDialog?.setContentView(view)
         progressDialog?.setCancelable(true)
 
@@ -591,5 +597,10 @@ class MainActivity : BaseActivity(), IProgressLoader {
 
     fun openBrowser(url: String) {
         Utils.openBrowser(this, url)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }

@@ -6,22 +6,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.databinding.PreferenceLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.interfaces.IPreference
+import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.model.PreferenceModel
 import it.giovanni.arkivio.persistence.UserPreferencesRepository
+import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.presenter.PreferencePresenter
 import it.giovanni.arkivio.utils.Globals
 import it.giovanni.arkivio.utils.UserFactory
-import kotlinx.android.synthetic.main.preference_layout.*
 
 class PreferenceFragment: DetailFragment(), IPreference.UpdatesView {
 
-    private var viewFragment: View? = null
+    private var layoutBinding: PreferenceLayoutBinding? = null
+    private val binding get() = layoutBinding
+
     var presenter: IPreference.UserEvents? = null
 
     override fun getLayout(): Int {
-        return R.layout.preference_layout
+        return NO_LAYOUT
     }
 
     override fun getTitle(): Int {
@@ -58,36 +62,43 @@ class PreferenceFragment: DetailFragment(), IPreference.UpdatesView {
     override fun onActionSearch(search_string: String) {
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
-        return viewFragment
-    }
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+        layoutBinding = PreferenceLayoutBinding.inflate(inflater, container, false)
 
-    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        TODO("Not yet implemented")
+        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val model = DarkModeModel(requireContext())
+        binding?.presenter = darkModePresenter
+        binding?.temp = model
+
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         presenter = PreferencePresenter(this, PreferenceModel())
-        contacts_text.text = presenter?.getUserPreference(UserPreferencesRepository.KEY_PREFERENCE_CONTACT)
-        contacts_container.setOnClickListener {
+        binding?.contactsText?.text = presenter?.getUserPreference(UserPreferencesRepository.KEY_PREFERENCE_CONTACT)
+        binding?.contactsContainer?.setOnClickListener {
             currentActivity.openDetail(Globals.PREFERENCE_LIST, null, this@PreferenceFragment, Globals.REQUEST_CODE_USER_PREFERENCE)
         }
 
-        user_contacts_text.text = UserFactory.getInstance().contacts
+        binding?.userContactsText?.text = UserFactory.getInstance().contacts
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == Globals.REQUEST_CODE_USER_PREFERENCE && data != null && data.hasExtra(Globals.BACK_PARAM_KEY_USER_PREFERENCE)) {
-            contacts_text.text = data.getStringExtra(Globals.BACK_PARAM_KEY_USER_PREFERENCE) as String
-            presenter?.setUserPreference(UserPreferencesRepository.KEY_PREFERENCE_CONTACT, contacts_text.text.toString())
+            binding?.contactsText?.text = data.getStringExtra(Globals.BACK_PARAM_KEY_USER_PREFERENCE) as String
+            presenter?.setUserPreference(UserPreferencesRepository.KEY_PREFERENCE_CONTACT, binding?.contactsText?.text.toString())
 
-            UserFactory.getInstance().contacts = contacts_text.text.toString()
-            user_contacts_text.text = UserFactory.getInstance().contacts
+            UserFactory.getInstance().contacts = binding?.contactsText?.text.toString()
+            binding?.userContactsText?.text = UserFactory.getInstance().contacts
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
     }
 }

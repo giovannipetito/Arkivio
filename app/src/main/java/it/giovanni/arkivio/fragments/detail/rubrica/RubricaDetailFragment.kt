@@ -18,18 +18,21 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.bean.user.User
 import it.giovanni.arkivio.customview.popup.ListDialogPopup
+import it.giovanni.arkivio.databinding.RubricaDetailLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
+import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.Utils
 import it.giovanni.arkivio.utils.Utils.Companion.callContact
 import it.giovanni.arkivio.utils.Utils.Companion.sendSimpleMail
 import kotlinx.android.synthetic.main.bottom_sheet_layout.*
-import kotlinx.android.synthetic.main.detail_layout.*
-import kotlinx.android.synthetic.main.rubrica_detail_layout.*
 import java.io.ByteArrayOutputStream
 
 class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
 
-    private var viewFragment: View? = null
+    private var layoutBinding: RubricaDetailLayoutBinding? = null
+    private val binding get() = layoutBinding
+
     private val labelEdit = "Aggiungi a contatto esistente"
     private val labelInsert = "Crea nuovo contatto"
     private val labelOpen = "Apri lista contatti"
@@ -56,7 +59,7 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
     }
 
     override fun getLayout(): Int {
-        return R.layout.rubrica_detail_layout
+        return NO_LAYOUT
     }
 
     override fun getTitle(): Int {
@@ -93,13 +96,15 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
     override fun onActionSearch(search_string: String) {
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
-        return viewFragment
-    }
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+        layoutBinding = RubricaDetailLayoutBinding.inflate(inflater, container, false)
 
-    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        TODO("Not yet implemented")
+        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val model = DarkModeModel(requireContext())
+        binding?.presenter = darkModePresenter
+        binding?.temp = model
+
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -109,51 +114,51 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
             user = requireArguments().getSerializable(KEY_RUBRICA) as User
 
             val contact = user.nome + " " + user.cognome
-            user_name.text = contact
+            binding?.userName?.text = contact
 
-            if (user.fisso != "") value_numero_fisso.text = user.fisso
-            else numero_fisso_container.visibility = View.GONE
+            if (user.fisso != "") binding?.valueNumeroFisso?.text = user.fisso
+            else binding?.numeroFissoContainer?.visibility = View.GONE
 
-            if (user.cellulare != "") value_cellulare.text = user.cellulare
-            else cellulare_container.visibility = View.GONE
+            if (user.cellulare != "") binding?.valueCellulare?.text = user.cellulare
+            else binding?.cellulareContainer?.visibility = View.GONE
 
-            if (user.emails!![0] != "") value_mail.text = Utils.turnArrayListToString(user.emails!!)
-            else email_container.visibility = View.GONE
+            if (user.emails!![0] != "") binding?.valueMail?.text = Utils.turnArrayListToString(user.emails!!)
+            else binding?.emailContainer?.visibility = View.GONE
 
-            if (user.indirizzo != "") value_indirizzo.text = user.indirizzo
-            else indirizzo_container.visibility = View.GONE
+            if (user.indirizzo != "") binding?.valueIndirizzo?.text = user.indirizzo
+            else binding?.indirizzoContainer?.visibility = View.GONE
 
-            if (user.occupazione != "") value_occupazione.text = user.occupazione
-            else occupazione_container.visibility = View.GONE
+            if (user.occupazione != "") binding?.valueOccupazione?.text = user.occupazione
+            else binding?.occupazioneContainer?.visibility = View.GONE
         }
 
         if (user.nome == "Giovanni" && user.cognome == "Petito") {
             avatar = BitmapFactory.decodeResource(requireContext().resources, R.drawable.giovanni)
             val roundAvatar : Bitmap = Utils.getRoundBitmap(avatar!!, avatar?.width!!)
-            ico_profile.setImageBitmap(roundAvatar)
+            binding?.icoProfile?.setImageBitmap(roundAvatar)
         } else {
             val color = requireArguments().getInt(KEY_COLOR)
-            ico_profile.setColorFilter(ResourcesCompat.getColor(context?.resources!!, color, null))
+            binding?.icoProfile?.setColorFilter(ResourcesCompat.getColor(context?.resources!!, color, null))
         }
 
-        numero_fisso_container.setOnClickListener {
-            callContact(requireContext(), value_numero_fisso.text.toString())
+        binding?.numeroFissoContainer?.setOnClickListener {
+            callContact(requireContext(), binding?.valueNumeroFisso?.text.toString())
         }
 
-        cellulare_container.setOnClickListener {
-            callContact(requireContext(), value_cellulare.text.toString())
+        binding?.cellulareContainer?.setOnClickListener {
+            callContact(requireContext(), binding?.valueCellulare?.text.toString())
         }
 
-        email_container.setOnClickListener {
-            sendSimpleMail(requireContext(), value_mail.text.toString())
+        binding?.emailContainer?.setOnClickListener {
+            sendSimpleMail(requireContext(), binding?.valueMail?.text.toString())
         }
 
-        rubrica_icon.visibility = View.VISIBLE
-        rubrica_icon.setOnClickListener {
+        detailLayoutBinding?.rubricaIcon?.visibility = View.VISIBLE
+        detailLayoutBinding?.rubricaIcon?.setOnClickListener {
             requestContactPermission()
         }
 
-        show_contacts.setOnClickListener {
+        binding?.showContacts?.setOnClickListener {
             requestContactsPermission()
         }
 
@@ -198,7 +203,7 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
         val cursor = contentResolver?.query(
             ContactsContract.Contacts.CONTENT_URI,
             null,
-            "lower(" + ContactsContract.Contacts.DISPLAY_NAME + ") = lower('" + user_name.text.toString().replace("'", "''") + "')",
+            "lower(" + ContactsContract.Contacts.DISPLAY_NAME + ") = lower('" + binding?.userName?.text.toString().replace("'", "''") + "')",
             null,
             null
         )
@@ -389,20 +394,20 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
     private fun fillContactFields(intent : Intent) {
 
         intent.apply {
-            putExtra(ContactsContract.Intents.Insert.NAME, user_name.text.toString())
+            putExtra(ContactsContract.Intents.Insert.NAME, binding?.userName?.text.toString())
 
-            putExtra(ContactsContract.Intents.Insert.PHONE, value_numero_fisso.text.toString())
+            putExtra(ContactsContract.Intents.Insert.PHONE, binding?.valueNumeroFisso?.text.toString())
             putExtra(ContactsContract.Intents.Insert.PHONE_TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_HOME)
 
-            putExtra(ContactsContract.Intents.Insert.SECONDARY_PHONE, value_cellulare.text.toString())
+            putExtra(ContactsContract.Intents.Insert.SECONDARY_PHONE, binding?.valueCellulare?.text.toString())
             putExtra(ContactsContract.Intents.Insert.SECONDARY_PHONE_TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE)
 
-            putExtra(ContactsContract.Intents.Insert.EMAIL, value_mail.text.toString())
+            putExtra(ContactsContract.Intents.Insert.EMAIL, binding?.valueMail?.text.toString())
             putExtra(ContactsContract.Intents.Insert.EMAIL_TYPE, ContactsContract.CommonDataKinds.Email.TYPE_WORK)
 
-            putExtra(ContactsContract.Intents.Insert.COMPANY, value_occupazione.text.toString())
+            putExtra(ContactsContract.Intents.Insert.COMPANY, binding?.valueOccupazione?.text.toString())
 
-            putExtra(ContactsContract.Intents.Insert.POSTAL, value_indirizzo.text.toString())
+            putExtra(ContactsContract.Intents.Insert.POSTAL, binding?.valueIndirizzo?.text.toString())
             putExtra(ContactsContract.Intents.Insert.POSTAL_TYPE, ContactsContract.CommonDataKinds.StructuredPostal.TYPE_HOME)
         }
 
@@ -418,5 +423,10 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
             data.add(row)
             intent.putParcelableArrayListExtra(ContactsContract.Intents.Insert.DATA, data)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
     }
 }

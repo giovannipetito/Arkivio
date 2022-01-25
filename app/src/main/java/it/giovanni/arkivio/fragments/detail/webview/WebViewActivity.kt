@@ -7,9 +7,11 @@ import android.webkit.*
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import it.giovanni.arkivio.R
-import kotlinx.android.synthetic.main.webview_video_layout.*
+import it.giovanni.arkivio.databinding.WebviewVideoLayoutBinding
 
 class WebViewActivity: AppCompatActivity() {
+
+    private var binding: WebviewVideoLayoutBinding? = null
 
     private var bundleVideo: Bundle = Bundle()
     private var titleVideo: String? = null
@@ -17,7 +19,10 @@ class WebViewActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.webview_video_layout)
+
+        binding = WebviewVideoLayoutBinding.inflate(layoutInflater)
+        // setContentView(R.layout.webview_video_layout)
+        setContentView(binding?.root)
 
         bundleVideo = intent.getBundleExtra("bundle_video")!!
 
@@ -33,22 +38,22 @@ class WebViewActivity: AppCompatActivity() {
 
         when {
             urlVideo != "" -> {
-                webview.loadUrl(urlVideo!!)
+                binding?.webview?.loadUrl(urlVideo!!)
             }
         }
 
-        webview.requestFocus(View.FOCUS_DOWN)
-        webview.settings.javaScriptCanOpenWindowsAutomatically = true
-        webview.settings.pluginState = WebSettings.PluginState.ON
-        webview.settings.mediaPlaybackRequiresUserGesture = false
-        webview.settings.builtInZoomControls = false
-        webview.isHorizontalScrollBarEnabled = true
-        webview.isVerticalScrollBarEnabled = true
-        webview.settings.javaScriptEnabled = true
-        webview.settings.domStorageEnabled = true
-        webview.settings.useWideViewPort = true
+        binding?.webview?.requestFocus(View.FOCUS_DOWN)
+        binding?.webview?.settings?.javaScriptCanOpenWindowsAutomatically = true
+        binding?.webview?.settings?.pluginState = WebSettings.PluginState.ON
+        binding?.webview?.settings?.mediaPlaybackRequiresUserGesture = false
+        binding?.webview?.settings?.builtInZoomControls = false
+        binding?.webview?.isHorizontalScrollBarEnabled = true
+        binding?.webview?.isVerticalScrollBarEnabled = true
+        binding?.webview?.settings?.javaScriptEnabled = true
+        binding?.webview?.settings?.domStorageEnabled = true
+        binding?.webview?.settings?.useWideViewPort = true
 
-        webview.webChromeClient = object : WebChromeClient() {
+        binding?.webview?.webChromeClient = object : WebChromeClient() {
 
             private var view: View? = null
             private var viewCallback: CustomViewCallback? = null
@@ -79,15 +84,15 @@ class WebViewActivity: AppCompatActivity() {
 
             override fun onProgressChanged(view: WebView, progress: Int) {
 
-                if (progressBar != null) {
-                    progressBar.visibility = View.VISIBLE
-                    progressBar.progress = 0
-                    progressBar.max = 100
-                    progressBar.progress = progress
+                if (binding?.progressBar != null) {
+                    binding?.progressBar?.visibility = View.VISIBLE
+                    binding?.progressBar?.progress = 0
+                    binding?.progressBar?.max = 100
+                    binding?.progressBar?.progress = progress
 
                     if (progress == 100) {
-                        progressBar.progress = 0
-                        progressBar.visibility = View.GONE
+                        binding?.progressBar?.progress = 0
+                        binding?.progressBar?.visibility = View.GONE
                     }
                 }
             }
@@ -99,7 +104,7 @@ class WebViewActivity: AppCompatActivity() {
             }
         }
 
-        webview.webViewClient = object : WebViewClient() {
+        binding?.webview?.webViewClient = object : WebViewClient() {
 
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
                 super.onPageStarted(view, url, favicon)
@@ -107,8 +112,8 @@ class WebViewActivity: AppCompatActivity() {
 
             override fun onPageFinished(view: WebView?, url: String?) {
                 // title = view?.title
-                if (progressBar != null)
-                    progressBar.visibility = View.GONE
+                if (binding?.progressBar != null)
+                    binding?.progressBar?.visibility = View.GONE
                 super.onPageFinished(view, url)
             }
 
@@ -128,7 +133,7 @@ class WebViewActivity: AppCompatActivity() {
             }
         }
 
-        arrow_go_back.setOnClickListener {
+        binding?.arrowGoBack?.setOnClickListener {
             onBackPressed()
         }
     }
@@ -136,5 +141,10 @@ class WebViewActivity: AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         overridePendingTransition(R.anim.out_left_to_right_2, R.anim.out_right_to_left_2)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }

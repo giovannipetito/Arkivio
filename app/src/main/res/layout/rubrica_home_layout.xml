@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -27,9 +28,9 @@
                     android:id="@+id/users_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="50dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp">
+                    android:layout_marginEnd="16dp"
+                    android:minHeight="50dp">
 
                 <RelativeLayout
                         android:id="@+id/ico_users"
@@ -41,18 +42,18 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
-                            android:src="@drawable/ico_users"
-                            android:contentDescription="@string/app_name" />
+                            android:contentDescription="@string/app_name"
+                            android:src="@drawable/ico_users" />
 
                 </RelativeLayout>
 
                 <RelativeLayout
-                        android:id="@+id/flexboxlayout_container"
+                        android:id="@+id/flexbox_layout_container"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:minHeight="50dp"
                         android:layout_marginStart="18dp"
-                        android:layout_toEndOf="@+id/ico_users">
+                        android:layout_toEndOf="@+id/ico_users"
+                        android:minHeight="50dp">
 
                     <ScrollView
                             android:layout_width="match_parent"
@@ -65,8 +66,8 @@
                                 android:id="@+id/flexbox_layout_users"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                app:alignItems="flex_start"
                                 android:visibility="gone"
+                                app:alignItems="flex_start"
                                 app:flexDirection="row"
                                 app:flexWrap="wrap" />
 
@@ -82,8 +83,8 @@
                             android:ellipsize="end"
                             android:hint="@string/add_users"
                             android:maxLines="1"
-                            android:textColor="@color/dark"
-                            android:textColorHint="@color/grey_2"
+                            android:textColor="@{temp.labelColor}"
+                            android:textColorHint="@color/azzurro"
                             android:textSize="16sp"
                             android:visibility="visible" />
 
@@ -101,7 +102,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_alignParentBottom="true"
-                        android:background="@color/grey_1" />
+                        android:background="@{temp.labelColor}"
+                        tools:background="@color/colorPrimary" />
 
             </RelativeLayout>
 

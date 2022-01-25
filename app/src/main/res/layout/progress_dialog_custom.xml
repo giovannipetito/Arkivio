@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/spinnerImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/spinner_loader"
-        android:contentDescription="@string/app_name" />
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+                name="temp"
+                type="it.giovanni.arkivio.model.DarkModeModel" />
+
+        <variable
+                name="presenter"
+                type="it.giovanni.arkivio.presenter.DarkModePresenter" />
+    </data>
+
+    <ImageView
+            android:id="@+id/spinner_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/spinner_loader"
+            android:contentDescription="@string/app_name" />
+
+</layout>

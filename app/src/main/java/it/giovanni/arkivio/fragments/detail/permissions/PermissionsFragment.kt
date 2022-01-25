@@ -17,7 +17,10 @@ import android.widget.Toast
 import androidx.core.content.FileProvider
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.customview.popup.CustomDialogPopup
+import it.giovanni.arkivio.databinding.PermissionsLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
+import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.Globals
 import it.giovanni.arkivio.utils.PermissionManager
 import it.giovanni.arkivio.utils.Utils
@@ -37,13 +40,14 @@ import it.giovanni.arkivio.utils.Utils.Companion.isOnMobileConnection
 import it.giovanni.arkivio.utils.Utils.Companion.isOnWiFiConnection
 import it.giovanni.arkivio.utils.Utils.Companion.isOnline
 import it.giovanni.arkivio.utils.Utils.Companion.isSimKena
-import kotlinx.android.synthetic.main.permissions_layout.*
 import java.io.File
 import java.util.*
 
 class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListener {
 
-    private var viewFragment: View? = null
+    private var layoutBinding: PermissionsLayoutBinding? = null
+    private val binding get() = layoutBinding
+
     private var isDownloading: Boolean = false
     private var hasPDFPermission: Boolean = false
     private var hasPhonePermission: Boolean = false
@@ -64,7 +68,7 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
     }
 
     override fun getLayout(): Int {
-        return R.layout.permissions_layout
+        return NO_LAYOUT
     }
 
     override fun getTitle(): Int {
@@ -101,27 +105,29 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
     override fun onActionSearch(search_string: String) {
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
-        return viewFragment
-    }
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+        layoutBinding = PermissionsLayoutBinding.inflate(inflater, container, false)
 
-    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        TODO("Not yet implemented")
+        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val model = DarkModeModel(requireContext())
+        binding?.presenter = darkModePresenter
+        binding?.temp = model
+
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         askPermissions()
-        label_show_webcam.setOnClickListener {
+        binding?.labelShowWebcam?.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("link_webcam", "WebCam")
             bundle.putString("GENERIC_URL", "https://www.omegle.com/")
             currentActivity.openDetail(Globals.WEB_VIEW, bundle)
         }
 
-        label_phone_state.setOnClickListener {
+        binding?.labelPhoneState?.setOnClickListener {
 
             phoneState = true
             downloadPdf = false
@@ -130,7 +136,7 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
             showPhoneState()
         }
 
-        label_explores_pdf.setOnClickListener {
+        binding?.labelExploresPdf?.setOnClickListener {
 
             val intent = Intent(Intent.ACTION_VIEW)
             // intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -156,7 +162,7 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
             Action.NONE
         isDownloading = false
 
-        label_download_pdf.setOnClickListener {
+        binding?.labelDownloadPdf?.setOnClickListener {
 
             phoneState = false
             downloadPdf = true
@@ -192,8 +198,8 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
     private fun askPermissions() {
         checkPermissions()
         if (hasPermissions) {
-            label_show_webcam.visibility = View.VISIBLE
-            webcam_separator.visibility = View.VISIBLE
+            binding?.labelShowWebcam?.visibility = View.VISIBLE
+            binding?.webcamSeparator?.visibility = View.VISIBLE
             return
         }
         PermissionManager.requestPermission(requireContext(), this, arrayOf(Manifest.permission.MODIFY_AUDIO_SETTINGS, Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA))
@@ -280,8 +286,8 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
     override fun onPermissionResult(permissions: Array<String>, grantResults: IntArray) {
         if (!phoneState && !downloadPdf) {
             checkPermissions()
-            label_show_webcam.visibility = View.VISIBLE
-            webcam_separator.visibility = View.VISIBLE
+            binding?.labelShowWebcam?.visibility = View.VISIBLE
+            binding?.webcamSeparator?.visibility = View.VISIBLE
         }
         if (phoneState && !downloadPdf) {
             checkPhonePermission()
@@ -384,5 +390,10 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
             startActivity(viewIntent)
         else
             Toast.makeText(activity, resources.getString(R.string.no_pdf_reader), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
     }
 }

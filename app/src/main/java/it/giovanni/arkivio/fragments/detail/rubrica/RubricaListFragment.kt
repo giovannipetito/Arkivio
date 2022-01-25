@@ -20,14 +20,15 @@ import it.giovanni.arkivio.R
 import it.giovanni.arkivio.bean.user.User
 import it.giovanni.arkivio.customview.Brick
 import it.giovanni.arkivio.customview.popup.CustomDialogPopup
+import it.giovanni.arkivio.databinding.RubricaListLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.fragments.adapter.UsersAdapter
+import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.viewinterfaces.IFlexBoxCallback
 import it.giovanni.arkivio.utils.Globals
 import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadUsersFromPreferences
 import it.giovanni.arkivio.utils.Utils
-import kotlinx.android.synthetic.main.rubrica_list_layout.*
-import kotlinx.android.synthetic.main.detail_layout.*
 import kotlin.collections.ArrayList
 import kotlin.math.hypot
 import kotlin.math.max
@@ -42,7 +43,9 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
         var KEY_SPEECH_USERS: String = "KEY_SPEECH_USERS"
     }
 
-    private var viewFragment: View? = null
+    private var layoutBinding: RubricaListLayoutBinding? = null
+    private val binding get() = layoutBinding
+
     private lateinit var adapter: UsersAdapter
     private var list: ArrayList<User>? = null
     private var filtered: ArrayList<User>? = null
@@ -54,7 +57,7 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
     private var isOpen = false
 
     override fun getLayout(): Int {
-        return R.layout.rubrica_list_layout
+        return NO_LAYOUT
     }
 
     override fun getTitle(): Int {
@@ -120,15 +123,15 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
     override fun getResultBack(): Intent {
         val backIntent = Intent()
         if (labelIsClicked) {
-            if (flexbox_users.childCount <= 0) {
+            if (binding?.flexboxUsers?.childCount!! <= 0) {
                 return backIntent
             } else {
                 hideSoftKeyboard()
                 list = ArrayList()
-                val count = flexbox_users.childCount
+                val count = binding?.flexboxUsers?.childCount!!
                 if (count > 0) {
                     for (index in 1..count) {
-                        val brick: Brick = (flexbox_users.getChildAt(index - 1) as Brick)
+                        val brick: Brick = (binding?.flexboxUsers?.getChildAt(index - 1) as Brick)
                         if (brick.isVisible()) {
                             val user = User(brick.getName(), brick.getEmail(), "", "", ArrayList(), "", "", true)
                             list?.add(user)
@@ -143,33 +146,34 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+        layoutBinding = RubricaListLayoutBinding.inflate(inflater, container, false)
 
-        val response = loadUsersFromPreferences()
-        list = response?.users
-        adapter = UsersAdapter(this)
+        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val model = DarkModeModel(requireContext())
+        binding?.presenter = darkModePresenter
+        binding?.temp = model
 
-        return viewFragment
-    }
-
-    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        TODO("Not yet implemented")
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recyclerview_users.setHasFixedSize(true)
-        recyclerview_users.layoutManager = LinearLayoutManager(activity)
-        recyclerview_users.adapter = adapter
+        val response = loadUsersFromPreferences()
+        list = response?.users
+        adapter = UsersAdapter(this)
+
+        binding?.recyclerviewUsers?.setHasFixedSize(true)
+        binding?.recyclerviewUsers?.layoutManager = LinearLayoutManager(activity)
+        binding?.recyclerviewUsers?.adapter = adapter
         adapter.setList(list)
         adapter.notifyDataSetChanged()
 
-        arrow_go_back.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ico_back_rvd))
+        detailLayoutBinding?.arrowGoBack?.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ico_back_rvd))
 
-        flexbox_users?.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
-            scrollview_flexbox?.scrollTo(0, flexbox_users.height)
+        binding?.flexboxUsers?.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
+            binding?.scrollviewFlexbox?.scrollTo(0, binding?.flexboxUsers?.height!!)
         }
 
         if (arguments != null) {
@@ -177,7 +181,7 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
             if (requireArguments().getSerializable(KEY_BRICKS) != null)
                 brickUsers = requireArguments().getSerializable(KEY_BRICKS) as ArrayList<User>
             if (brickUsers.size > 0) {
-                flexbox_users.removeAllViews()
+                binding?.flexboxUsers?.removeAllViews()
                 for ((i, user) in brickUsers.withIndex()) {
                     val brick = Brick(requireContext())
                     brick.mode(Brick.ModeType.EDIT)
@@ -188,52 +192,52 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
                         brick.setEmail(user.emails!![0])
                     brick.callback(this)
                     brick.position(i)
-                    flexbox_users.addView(brick)
+                    binding?.flexboxUsers?.addView(brick)
                 }
                 actionLabelState(true)
             }
 
             sentence = requireArguments().getString(KEY_SPEECH_USERS)
             if (sentence != null) {
-                edit_search.setText(sentence)
-                edit_search.requestFocus()
-                showSoftKeyboard(edit_search)
+                binding?.editSearch?.setText(sentence)
+                binding?.editSearch?.requestFocus()
+                showSoftKeyboard(binding?.editSearch!!)
                 filter()
             }
         }
 
-        switch_compat.setOnClickListener {
+        binding?.switchCompat?.setOnClickListener {
 
-            close_action.visibility = View.GONE
-            edit_search.setText("")
+            binding?.closeAction?.visibility = View.GONE
+            binding?.editSearch?.setText("")
             startAnimation()
 
-            if (switch_compat.isChecked) {
-                edit_search.requestFocus()
-                showSoftKeyboard(edit_search)
-                recyclerview_users.visibility = View.VISIBLE
+            if (binding?.switchCompat?.isChecked!!) {
+                binding?.editSearch?.requestFocus()
+                showSoftKeyboard(binding?.editSearch!!)
+                binding?.recyclerviewUsers?.visibility = View.VISIBLE
             } else {
-                edit_search.clearFocus()
+                binding?.editSearch?.clearFocus()
                 hideSoftKeyboard()
-                recyclerview_users.visibility = View.GONE
+                binding?.recyclerviewUsers?.visibility = View.GONE
             }
         }
 
-        edit_search.addTextChangedListener(object : TextWatcher {
+        binding?.editSearch?.addTextChangedListener(object : TextWatcher {
 
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
 
-                if (edit_search.text?.isNotEmpty()!!) {
-                    close_action.visibility = View.VISIBLE
+                if (binding?.editSearch?.text?.isNotEmpty()!!) {
+                    binding?.closeAction?.visibility = View.VISIBLE
                     filter()
 
-                    if (edit_search.text.endsWith(",") || edit_search.text.endsWith(" ")) {
-                        var email: String = edit_search.text.toString().lowercase()
+                    if (binding?.editSearch?.text?.endsWith(",")!! || binding?.editSearch?.text?.endsWith(" ")!!) {
+                        var email: String = binding?.editSearch?.text.toString().lowercase()
                         email = email.substring(0, email.length - 1)
                         addBrick(email, email)
-                        edit_search.setText("")
+                        binding?.editSearch?.setText("")
                         /*
                         email = email.substring(0, email.length - 1)
                         if (Utils.checkEmail(email)) {
@@ -242,18 +246,18 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
 
                                     if (email == list!![0].email) {
                                         addBrick(list!![0].nome, email)
-                                        edit_search.setText("")
+                                        binding?.editSearch?.setText("")
                                     }
                                 }
                             } else {
                                 addBrick(email, email)
-                                edit_search.setText("")
+                                binding?.editSearch?.setText("")
                             }
                         }
                         */
                     }
-                } else if (edit_search.text?.isEmpty()!!) {
-                    close_action.visibility = View.GONE
+                } else if (binding?.editSearch?.text?.isEmpty()!!) {
+                    binding?.closeAction?.visibility = View.GONE
                     resetList()
                 }
 
@@ -265,19 +269,19 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
             override fun afterTextChanged(s: Editable) {}
         })
 
-        edit_search.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
+        binding?.editSearch?.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                var email: String = edit_search.text.toString().lowercase()
+                var email: String = binding?.editSearch?.text.toString().lowercase()
                 email = email.substring(0, email.length)
                 if (Utils.checkEmail(email)) {
                     if (list?.size != 0) {
                         if (email == list!![0].emails!![0]) {
                             addBrick(list!![0].nome!!, email)
-                            edit_search.setText("")
+                            binding?.editSearch?.setText("")
                         }
                     } else {
                         addBrick(email, email)
-                        edit_search.setText("")
+                        binding?.editSearch?.setText("")
                     }
                 }
                 return@OnEditorActionListener true
@@ -285,8 +289,8 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
             false
         })
 
-        close_action.setOnClickListener {
-            edit_search.setText("")
+        binding?.closeAction?.setOnClickListener {
+            binding?.editSearch?.setText("")
             resetList()
         }
     }
@@ -298,16 +302,16 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
             brick.setName(name)
             brick.setEmail(email)
             brick.callback(this)
-            brick.position(flexbox_users.childCount)
-            flexbox_users.addView(brick)
+            brick.position(binding?.flexboxUsers?.childCount!!)
+            binding?.flexboxUsers?.addView(brick)
         }
     }
 
     private fun isAdded(email: String): Boolean {
-        val count = flexbox_users.childCount
+        val count = binding?.flexboxUsers?.childCount!!
         if (count > 0) {
             for (index in 1..count) {
-                val brick = (flexbox_users.getChildAt(index - 1) as Brick)
+                val brick = (binding?.flexboxUsers?.getChildAt(index - 1) as Brick)
                 if (brick.isVisible() && brick.getEmail() == email)
                     return true
             }
@@ -321,8 +325,8 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
         user.isVisible = false
         addBrick(user.nome!!, user.emails!![0])
         val density = resources.displayMetrics.density
-        if (flexbox_container.measuredHeight >= (FLEXBOX_CONTAINER_HEIGHT?.toFloat()!! * density).roundToInt())
-            flexbox_container.layoutParams.height = (FLEXBOX_CONTAINER_HEIGHT?.toFloat()!! * density).roundToInt()
+        if (binding?.flexboxContainer?.measuredHeight!! >= (FLEXBOX_CONTAINER_HEIGHT?.toFloat()!! * density).roundToInt())
+            binding?.flexboxContainer?.layoutParams?.height = (FLEXBOX_CONTAINER_HEIGHT?.toFloat()!! * density).roundToInt()
 
         if (list != null) {
             for (notChosen in list) {
@@ -351,29 +355,29 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
     }
 
     override fun flexBoxRemoved(position: Int) {
-        flexbox_users.getChildAt(position).visibility = View.GONE
+        binding?.flexboxUsers?.getChildAt(position)?.visibility = View.GONE
     }
 
     private fun filter() {
         /*
-        if (sentence != null && sentence.equals(edit_search.text.toString(), ignoreCase = true))
+        if (sentence != null && sentence.equals(binding?.editSearch?.text.toString(), ignoreCase = true))
             return
         */
-        sentence = edit_search.text.toString()
+        sentence = binding?.editSearch?.text.toString()
         if (sentence?.isEmpty()!!) {
             sentence = null
             clearFilteredList()
-            no_result.visibility = View.GONE
-            recyclerview_users.visibility = View.VISIBLE
+            binding?.noResult?.visibility = View.GONE
+            binding?.recyclerviewUsers?.visibility = View.VISIBLE
             adapter.setList(list)
             adapter.notifyDataSetChanged()
             return
         }
         clearFilteredList()
         if (list == null || list?.size == 0) {
-            recyclerview_users.visibility = View.GONE
-            no_result.visibility = View.VISIBLE
-            no_result.setText(R.string.no_list)
+            binding?.recyclerviewUsers?.visibility = View.GONE
+            binding?.noResult?.visibility = View.VISIBLE
+            binding?.noResult?.setText(R.string.no_list)
             return
         }
         for (user in list!!) {
@@ -386,11 +390,11 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
                 filtered?.add(user)
         }
         if (filtered == null || filtered?.size == 0) {
-            recyclerview_users.visibility = View.GONE
-            no_result.visibility = View.VISIBLE
+            binding?.recyclerviewUsers?.visibility = View.GONE
+            binding?.noResult?.visibility = View.VISIBLE
         } else {
-            no_result.visibility = View.GONE
-            recyclerview_users.visibility = View.VISIBLE
+            binding?.noResult?.visibility = View.GONE
+            binding?.recyclerviewUsers?.visibility = View.VISIBLE
             adapter.setList(filtered)
             adapter.notifyDataSetChanged()
         }
@@ -407,46 +411,54 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
         list = loadUsersFromPreferences()?.users
         adapter.setList(list)
         adapter.notifyDataSetChanged()
-        no_result.visibility = View.GONE
-        recyclerview_users.visibility = View.VISIBLE
+        binding?.noResult?.visibility = View.GONE
+        binding?.recyclerviewUsers?.visibility = View.VISIBLE
     }
 
     private fun startAnimation() {
 
         if (!isOpen) {
-            val centerX = switch_compat.x.toInt() + switch_compat.width/2
-            val centerY = switch_compat.y.toInt() + switch_compat.height/2
+            val centerX = binding?.switchCompat?.x?.toInt()!! + binding?.switchCompat?.width!!/2
+            val centerY = binding?.switchCompat?.y?.toInt()!! + binding?.switchCompat?.height!!/2
             val startRadius = 0
-            val endRadius = hypot(container.width.toDouble(), container.height.toDouble()).toInt()
+            val endRadius = hypot(binding?.container?.width?.toDouble()!!, binding?.container?.height?.toDouble()!!).toInt()
 
-            val anim = ViewAnimationUtils.createCircularReveal(content, centerX, centerY, startRadius.toFloat(), endRadius.toFloat())
+            val anim = ViewAnimationUtils.createCircularReveal(binding?.content, centerX, centerY, startRadius.toFloat(), endRadius.toFloat())
             anim.duration = TRANSITION_TIME
             anim.start()
 
-            content.visibility = View.VISIBLE
+            binding?.content?.visibility = View.VISIBLE
             isOpen = true
         } else {
-            val centerX = switch_compat.x.toInt() + switch_compat.width/2
-            val centerY = switch_compat.y.toInt() + switch_compat.height/2
-            val startRadius = max(container.width, container.height)
+            val centerX = binding?.switchCompat?.x?.toInt()!! + binding?.switchCompat?.width!!/2
+            val centerY = binding?.switchCompat?.y?.toInt()!! + binding?.switchCompat?.height!!/2
+            val startRadius = max(binding?.container?.width!!, binding?.container?.height!!)
             val endRadius = 0
 
-            val anim = ViewAnimationUtils.createCircularReveal(content, centerX, centerY, startRadius.toFloat(), endRadius.toFloat())
+            val anim = ViewAnimationUtils.createCircularReveal(binding?.content, centerX, centerY, startRadius.toFloat(), endRadius.toFloat())
+
             anim.addListener(object : Animator.AnimatorListener {
+
                 override fun onAnimationStart(animator: Animator) {}
 
                 override fun onAnimationEnd(animator: Animator) {
-                    content.visibility = View.GONE
+                    binding?.content?.visibility = View.GONE
                 }
 
                 override fun onAnimationCancel(animator: Animator) {}
 
                 override fun onAnimationRepeat(animator: Animator) {}
             })
+
             anim.duration = TRANSITION_TIME
             anim.start()
 
             isOpen = false
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
     }
 }

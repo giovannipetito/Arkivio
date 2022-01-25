@@ -8,14 +8,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.*
-import it.giovanni.arkivio.R
+import it.giovanni.arkivio.databinding.WebviewLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
+import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.Utils.Companion.setTextWebview
-import kotlinx.android.synthetic.main.webview_layout.*
 
 class WebViewFragment : DetailFragment() {
 
-    private var viewFragment: View? = null
+    private var layoutBinding: WebviewLayoutBinding? = null
+    private val binding get() = layoutBinding
 
     private var urlGitHub = ""
     private var urlDriveW3B = ""
@@ -27,6 +29,10 @@ class WebViewFragment : DetailFragment() {
 
     private val pathHtml = "file:///android_asset/cb_html/"
     private var urlHtml = ""
+
+    override fun getLayout(): Int {
+        return NO_LAYOUT
+    }
 
     override fun getTitle(): Int {
 
@@ -55,10 +61,6 @@ class WebViewFragment : DetailFragment() {
         }
 
         return -1
-    }
-
-    override fun getLayout(): Int {
-        return R.layout.webview_layout
     }
 
     override fun getActionTitle(): Int {
@@ -91,32 +93,34 @@ class WebViewFragment : DetailFragment() {
     override fun onActionSearch(search_string: String) {
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
-        return viewFragment
-    }
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+        layoutBinding = WebviewLayoutBinding.inflate(inflater, container, false)
 
-    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        TODO("Not yet implemented")
+        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val model = DarkModeModel(requireContext())
+        binding?.presenter = darkModePresenter
+        binding?.temp = model
+
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        webview.requestFocus(View.FOCUS_DOWN)
-        webview.settings.javaScriptCanOpenWindowsAutomatically = true
-        webview.settings.pluginState = WebSettings.PluginState.ON
-        webview.settings.mediaPlaybackRequiresUserGesture = false
-        webview.settings.builtInZoomControls = false
-        webview.isHorizontalScrollBarEnabled = true
-        webview.isVerticalScrollBarEnabled = true
-        webview.settings.javaScriptEnabled = true
-        webview.settings.domStorageEnabled = true
-        webview.settings.useWideViewPort = true
+        binding?.webview?.requestFocus(View.FOCUS_DOWN)
+        binding?.webview?.settings?.javaScriptCanOpenWindowsAutomatically = true
+        binding?.webview?.settings?.pluginState = WebSettings.PluginState.ON
+        binding?.webview?.settings?.mediaPlaybackRequiresUserGesture = false
+        binding?.webview?.settings?.builtInZoomControls = false
+        binding?.webview?.isHorizontalScrollBarEnabled = true
+        binding?.webview?.isVerticalScrollBarEnabled = true
+        binding?.webview?.settings?.javaScriptEnabled = true
+        binding?.webview?.settings?.domStorageEnabled = true
+        binding?.webview?.settings?.useWideViewPort = true
 
-        webview.settings.textSize = WebSettings.TextSize.NORMAL // Definisce la size del testo del file HTML.
+        binding?.webview?.settings?.textSize = WebSettings.TextSize.NORMAL // Definisce la size del testo del file HTML.
 
-        webview.webViewClient = object : WebViewClient() {
+        binding?.webview?.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                 Log.i("TAG_HTML", "Url: $url") // market://details?id=it.wind.windtre
                 try {
@@ -130,19 +134,19 @@ class WebViewFragment : DetailFragment() {
             }
         }
 
-        webview.webChromeClient = object : WebChromeClient() {
+        binding?.webview?.webChromeClient = object : WebChromeClient() {
 
             override fun onProgressChanged(view: WebView, progress: Int) {
 
-                if (progressBar != null) {
-                    progressBar.visibility = View.VISIBLE
-                    progressBar.progress = 0
-                    progressBar.max = 100
-                    progressBar.progress = progress
+                if (binding?.progressBar != null) {
+                    binding?.progressBar?.visibility = View.VISIBLE
+                    binding?.progressBar?.progress = 0
+                    binding?.progressBar?.max = 100
+                    binding?.progressBar?.progress = progress
 
                     if (progress == 100) {
-                        progressBar.progress = 0
-                        progressBar.visibility = View.GONE
+                        binding?.progressBar?.progress = 0
+                        binding?.progressBar?.visibility = View.GONE
                     }
                 }
             }
@@ -154,7 +158,7 @@ class WebViewFragment : DetailFragment() {
             }
         }
 
-        webview.webViewClient = object : WebViewClient() {
+        binding?.webview?.webViewClient = object : WebViewClient() {
             override fun onReceivedHttpError(view: WebView?, request: WebResourceRequest?, errorResponse: WebResourceResponse?) {
                 if (errorResponse != null) {
                     /*
@@ -183,27 +187,27 @@ class WebViewFragment : DetailFragment() {
 
             message = requireArguments().getString("TEXT_KEY")
             if (message != null && message?.isNotEmpty()!!)
-                setTextWebview(webview, message!!, requireContext())
+                setTextWebview(binding?.webview!!, message!!, requireContext())
         }
 
         if (message == null) {
             when {
                 urlGitHub != "" -> {
-                    webview.loadUrl(urlGitHub)
+                    binding?.webview?.loadUrl(urlGitHub)
                 }
                 urlDriveW3B != "" -> {
-                    webview.loadUrl(urlDriveW3B)
+                    binding?.webview?.loadUrl(urlDriveW3B)
                 }
                 urlDriveWAW3 != "" -> {
-                    webview.loadUrl(urlDriveWAW3)
+                    binding?.webview?.loadUrl(urlDriveWAW3)
                 }
-                urlDeeplink != "" -> webview.loadUrl(urlDeeplink)
+                urlDeeplink != "" -> binding?.webview?.loadUrl(urlDeeplink)
 
                 urlHtml != "" -> {
-                    webview.loadUrl(pathHtml + urlHtml)
+                    binding?.webview?.loadUrl(pathHtml + urlHtml)
                 }
 
-                genericUrl != null -> webview.loadUrl(genericUrl!!)
+                genericUrl != null -> binding?.webview?.loadUrl(genericUrl!!)
             }
         }
     }
@@ -223,5 +227,10 @@ class WebViewFragment : DetailFragment() {
             urlHtml != "" -> urlHtml
             else -> ""
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
     }
 }

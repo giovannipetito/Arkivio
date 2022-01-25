@@ -1,17 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/dimen_10dp"
-                android:background="@color/azzurro">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-            android:id="@+id/text_header"
+    <data>
+        <variable
+                name="temp"
+                type="it.giovanni.arkivio.model.DarkModeModel" />
+
+        <variable
+                name="presenter"
+                type="it.giovanni.arkivio.presenter.DarkModePresenter" />
+    </data>
+
+    <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:padding="@dimen/dimen_10dp"
+            android:background="@color/colorPrimary">
 
-</RelativeLayout>
+        <TextView
+                android:id="@+id/text_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+    </RelativeLayout>
+
+</layout>

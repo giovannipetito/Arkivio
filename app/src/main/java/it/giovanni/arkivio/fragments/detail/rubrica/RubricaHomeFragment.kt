@@ -14,7 +14,10 @@ import it.giovanni.arkivio.bean.user.Response
 import it.giovanni.arkivio.bean.user.User
 import it.giovanni.arkivio.bean.user.UserResponse
 import it.giovanni.arkivio.customview.Brick
+import it.giovanni.arkivio.databinding.RubricaHomeLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
+import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.restclient.realtime.IRealtime
 import it.giovanni.arkivio.restclient.realtime.MyRealtimeClient.Companion.callRealtimeDatabase
 import it.giovanni.arkivio.viewinterfaces.IFlexBoxCallback
@@ -23,17 +26,18 @@ import it.giovanni.arkivio.utils.SharedPreferencesManager
 import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadUsersFromPreferences
 import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.saveUsersToPreferences
 import it.giovanni.arkivio.utils.Utils
-import kotlinx.android.synthetic.main.rubrica_home_layout.*
 import kotlin.math.roundToInt
 
 class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback, IRealtime {
 
-    private var viewFragment: View? = null
+    private var layoutBinding: RubricaHomeLayoutBinding? = null
+    private val binding get() = layoutBinding
+
     private var mResponse: Response? = null
     private var users: ArrayList<User>? = null
 
     override fun getLayout(): Int {
-        return R.layout.rubrica_home_layout
+        return NO_LAYOUT
     }
 
     override fun getTitle(): Int {
@@ -70,13 +74,15 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback, IRealtime {
     override fun onActionSearch(search_string: String) {
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
-        return viewFragment
-    }
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+        layoutBinding = RubricaHomeLayoutBinding.inflate(inflater, container, false)
 
-    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        TODO("Not yet implemented")
+        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val model = DarkModeModel(requireContext())
+        binding?.presenter = darkModePresenter
+        binding?.temp = model
+
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -87,29 +93,29 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback, IRealtime {
         mResponse = Response()
         users = ArrayList()
 
-        init_button.setOnClickListener {
+        binding?.initButton?.setOnClickListener {
             mResponse?.users = initUsers()
             saveUsersToPreferences(mResponse)
         }
 
-        json_button.setOnClickListener {
+        binding?.jsonButton?.setOnClickListener {
             mResponse?.users = getUsersFromJson()
             saveUsersToPreferences(mResponse)
         }
 
-        realtime_button.setOnClickListener {
+        binding?.realtimeButton?.setOnClickListener {
             showProgressDialog()
             callRealtimeDatabase(this)
         }
 
-        users_container.setOnClickListener {
+        binding?.usersContainer?.setOnClickListener {
 
             val bundle = Bundle()
             val brickUsers = ArrayList<User>()
-            val count = flexbox_layout_users.childCount
+            val count = binding?.flexboxLayoutUsers?.childCount!!
             if (count > 0) {
                 for (index in 1..count) {
-                    val brick = (flexbox_layout_users.getChildAt(index - 1) as Brick)
+                    val brick = (binding?.flexboxLayoutUsers?.getChildAt(index - 1) as Brick)
                     val brickUser = User(brick.getName(), brick.getName(), "", "", ArrayList(), "", "", true)
                     brickUsers.add(brickUser)
                 }
@@ -122,14 +128,14 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback, IRealtime {
                 Toast.makeText(context, "Inizializza la lista di utenti.", Toast.LENGTH_LONG).show()
         }
 
-        flexbox_layout_users.setOnClickListener {
+        binding?.flexboxLayoutUsers?.setOnClickListener {
 
             val bundle = Bundle()
             val brickUsers = ArrayList<User>()
-            val count = flexbox_layout_users.childCount
+            val count = binding?.flexboxLayoutUsers?.childCount!!
             if (count > 0) {
                 for (index in 1..count) {
-                    val brick = (flexbox_layout_users.getChildAt(index - 1) as Brick)
+                    val brick = (binding?.flexboxLayoutUsers?.getChildAt(index - 1) as Brick)
                     val brickUser = User(brick.getName(), brick.getName(), "", "", ArrayList(), "", "", true)
                     brickUsers.add(brickUser)
                 }
@@ -147,15 +153,15 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback, IRealtime {
             users = data.getSerializableExtra(Globals.BACK_PARAM_KEY_USER_SEARCH) as ArrayList<User>
 
             if (users != null) {
-                flexbox_layout_users.removeAllViews()
+                binding?.flexboxLayoutUsers?.removeAllViews()
                 for (user in users!!) {
                     val brick = Brick(requireContext())
                     brick.mode(Brick.ModeType.VIEW)
                     brick.setName(user.nome!!)
                     brick.callback(this)
-                    flexbox_layout_users.addView(brick)
+                    binding?.flexboxLayoutUsers?.addView(brick)
                 }
-                setFlexBoxHeight(flexbox_layout_users.childCount)
+                setFlexBoxHeight(binding?.flexboxLayoutUsers?.childCount!!)
             }
         }
     }
@@ -163,18 +169,18 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback, IRealtime {
     private fun setFlexBoxHeight(brickCount: Int) {
         val density = resources.displayMetrics.density
         if (brickCount == 0) {
-            flexbox_layout_users.visibility = View.GONE
-            users_text.visibility = View.VISIBLE
-            flexboxlayout_container.layoutParams.height = (50.toFloat() * density).roundToInt()
+            binding?.flexboxLayoutUsers?.visibility = View.GONE
+            binding?.usersText?.visibility = View.VISIBLE
+            binding?.flexboxLayoutContainer?.layoutParams?.height = (50.toFloat() * density).roundToInt()
         } else {
-            flexbox_layout_users.visibility = View.VISIBLE
-            users_text.visibility = View.GONE
+            binding?.flexboxLayoutUsers?.visibility = View.VISIBLE
+            binding?.usersText?.visibility = View.GONE
             if (brickCount == 1)
-                flexboxlayout_container.layoutParams.height = (50.toFloat() * density).roundToInt()
+                binding?.flexboxLayoutContainer?.layoutParams?.height = (50.toFloat() * density).roundToInt()
             if (brickCount == 2)
-                flexboxlayout_container.layoutParams.height = (90.toFloat() * density).roundToInt()
+                binding?.flexboxLayoutContainer?.layoutParams?.height = (90.toFloat() * density).roundToInt()
             if (brickCount == 3 || brickCount > 3)
-                flexboxlayout_container.layoutParams.height = (130.toFloat() * density).roundToInt()
+                binding?.flexboxLayoutContainer?.layoutParams?.height = (130.toFloat() * density).roundToInt()
         }
     }
 
@@ -230,14 +236,19 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback, IRealtime {
     private fun setViewStyle() {
         isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
         if (isDarkMode) {
-            init_button.style(R.style.ButtonEmptyDarkMode)
-            json_button.style(R.style.ButtonEmptyDarkMode)
-            realtime_button.style(R.style.ButtonEmptyDarkMode)
+            binding?.initButton?.style(R.style.ButtonEmptyDarkMode)
+            binding?.jsonButton?.style(R.style.ButtonEmptyDarkMode)
+            binding?.realtimeButton?.style(R.style.ButtonEmptyDarkMode)
         }
         else {
-            init_button.style(R.style.ButtonEmptyLightMode)
-            json_button.style(R.style.ButtonEmptyLightMode)
-            realtime_button.style(R.style.ButtonEmptyLightMode)
+            binding?.initButton?.style(R.style.ButtonEmptyLightMode)
+            binding?.jsonButton?.style(R.style.ButtonEmptyLightMode)
+            binding?.realtimeButton?.style(R.style.ButtonEmptyLightMode)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
     }
 }

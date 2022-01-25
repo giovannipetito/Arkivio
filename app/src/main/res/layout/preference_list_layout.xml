@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -31,19 +32,32 @@
 
         <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="@color/grey_1"
+                android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true">
 
-            <Button
-                    android:id="@+id/button_user_preference"
+            <View
+                    android:id="@+id/top_shadow"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_centerInParent="true"
-                    android:text="@string/button_confirm"
-                    android:enabled="false"
-                    style="@style/ButtonNormalDarkMode" />
+                    android:layout_height="16dp"
+                    android:background="@drawable/shadow_top" />
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/top_shadow"
+                    android:background="@{temp.bottomBarColor}"
+                    tools:background="@color/rosso">
+
+                <Button
+                        android:id="@+id/button_user_preference"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dimen_16dp"
+                        android:text="@string/button_confirm"
+                        android:enabled="false"
+                        style="@style/ButtonNormalDarkMode" />
+
+            </RelativeLayout>
 
         </RelativeLayout>
 

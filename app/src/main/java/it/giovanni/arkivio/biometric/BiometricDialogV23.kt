@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.annotation.NonNull
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.databinding.BiometricBottomSheetBinding
 
 class BiometricDialogV23 internal constructor(@NonNull context: Context, private val biometricCallback: BiometricCallback) :
     BottomSheetDialog(context, R.style.BottomSheetDialogTheme1), View.OnClickListener {
@@ -23,14 +24,17 @@ class BiometricDialogV23 internal constructor(@NonNull context: Context, private
 
     private fun setDialogView() {
 
-        val bottomSheetView = layoutInflater.inflate(R.layout.biometric_bottom_sheet, null)
-        setContentView(bottomSheetView)
+        // val bottomSheetView: View = layoutInflater.inflate(R.layout.biometric_bottom_sheet, null)
+        // setContentView(bottomSheetView)
 
-        textTitle = findViewById(R.id.text_title)
-        textSubtitle = findViewById(R.id.text_subtitle)
-        textDescription = findViewById(R.id.text_description)
-        textStatus = findViewById(R.id.text_status)
-        buttonCancel = findViewById(R.id.button_cancel)
+        val binding: BiometricBottomSheetBinding = BiometricBottomSheetBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        textTitle = binding.textTitle
+        textSubtitle = binding.textSubtitle
+        textDescription = binding.textDescription
+        textStatus = binding.textStatus
+        buttonCancel = binding.buttonCancel
     }
 
     internal fun setTitle(title: String) {
