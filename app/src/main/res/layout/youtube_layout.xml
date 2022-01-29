@@ -36,7 +36,7 @@
             android:alpha=".4" />
 
     <TextView
-            android:id="@+id/label_videowall"
+            android:id="@+id/label_video_wall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -55,7 +55,7 @@
             android:alpha=".4" />
 
     <TextView
-            android:id="@+id/label_videolist"
+            android:id="@+id/label_video_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -74,7 +74,7 @@
             android:alpha=".4" />
 
     <TextView
-            android:id="@+id/label_fullscreen"
+            android:id="@+id/label_full_screen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -93,7 +93,7 @@
             android:alpha=".4" />
 
     <TextView
-            android:id="@+id/label_actionbar"
+            android:id="@+id/label_action_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"

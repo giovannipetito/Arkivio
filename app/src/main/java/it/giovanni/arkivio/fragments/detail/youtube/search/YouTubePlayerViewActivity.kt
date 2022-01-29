@@ -9,23 +9,28 @@ import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerView
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.databinding.YoutubePlayerViewActivityBinding
 import it.giovanni.arkivio.fragments.detail.youtube.YoutubeConnector
-import kotlinx.android.synthetic.main.youtube_player_view_activity.*
 
 class YouTubePlayerViewActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener {
+
+    private var binding: YoutubePlayerViewActivityBinding? = null
 
     private val recoveryDialogRequest = 1
 
     override fun onCreate(bundle: Bundle?) {
         super.onCreate(bundle)
-        setContentView(R.layout.youtube_player_view_activity)
+
+        binding = YoutubePlayerViewActivityBinding.inflate(layoutInflater)
+        // setContentView(R.layout.youtube_player_view_activity)
+        setContentView(binding?.root)
 
         val playerView: YouTubePlayerView = findViewById(R.id.youtube_player_view)
         playerView.initialize(YoutubeConnector.API_KEY, this)
 
-        player_title.text = intent.getStringExtra("VIDEO_TITLE")
-        player_description.text = intent.getStringExtra("VIDEO_DESCRIPTION")
-        player_id.text = intent.getStringExtra("VIDEO_ID")
+        binding?.playerTitle?.text = intent.getStringExtra("VIDEO_TITLE")
+        binding?.playerDescription?.text = intent.getStringExtra("VIDEO_DESCRIPTION")
+        binding?.playerId?.text = intent.getStringExtra("VIDEO_ID")
     }
 
     override fun onInitializationSuccess(provider: YouTubePlayer.Provider, player: YouTubePlayer, restored: Boolean) {
@@ -51,5 +56,10 @@ class YouTubePlayerViewActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitial
 
     private fun getYouTubePlayerProvider(): YouTubePlayer.Provider {
         return findViewById<View>(R.id.youtube_player_view) as YouTubePlayerView
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }

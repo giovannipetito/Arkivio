@@ -7,19 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.youtube.player.YouTubeIntents
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.databinding.YoutubeLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.utils.Globals
 import it.giovanni.arkivio.fragments.detail.youtube.intents.YouTubeIntentsActivity
 import it.giovanni.arkivio.fragments.detail.youtube.videolist.VideoListActivity
 import it.giovanni.arkivio.fragments.detail.youtube.videowall.VideoWallActivity
-import kotlinx.android.synthetic.main.youtube_layout.*
+import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.presenter.DarkModePresenter
 
 class YouTubeFragment : DetailFragment() {
 
-    private var viewFragment: View? = null
+    private var layoutBinding: YoutubeLayoutBinding? = null
+    private val binding get() = layoutBinding
 
     override fun getLayout(): Int {
-        return R.layout.youtube_layout
+        return NO_LAYOUT
     }
 
     override fun getTitle(): Int {
@@ -56,13 +59,15 @@ class YouTubeFragment : DetailFragment() {
     override fun onActionSearch(search_string: String) {
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
-        return viewFragment
-    }
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+        layoutBinding = YoutubeLayoutBinding.inflate(inflater, container, false)
 
-    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        TODO("Not yet implemented")
+        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val model = DarkModeModel(requireContext())
+        binding?.presenter = darkModePresenter
+        binding?.temp = model
+
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -71,39 +76,44 @@ class YouTubeFragment : DetailFragment() {
         val youTubeVersion = YouTubeIntents.getInstalledYouTubeVersionName(context)
         if (youTubeVersion != null) {
             val text = String.format(getString(R.string.youtube_version), youTubeVersion)
-            label_youtube_version.text = text
-        } else label_youtube_version.text = getString(R.string.youtube_not_installed)
+            binding?.labelYoutubeVersion?.text = text
+        } else binding?.labelYoutubeVersion?.text = getString(R.string.youtube_not_installed)
 
-        label_search.setOnClickListener {
+        binding?.labelSearch?.setOnClickListener {
             currentActivity.openDetail(Globals.SEARCH_VIDEO, null)
         }
 
-        label_videowall.setOnClickListener {
+        binding?.labelVideoWall?.setOnClickListener {
             startActivity(Intent(context, VideoWallActivity::class.java))
         }
 
-        label_videolist.setOnClickListener {
+        binding?.labelVideoList?.setOnClickListener {
             startActivity(Intent(context, VideoListActivity::class.java))
         }
 
-        label_fullscreen.setOnClickListener {
+        binding?.labelFullScreen?.setOnClickListener {
             startActivity(Intent(context, FullScreenActivity::class.java))
         }
 
-        label_actionbar.setOnClickListener {
+        binding?.labelActionBar?.setOnClickListener {
             startActivity(Intent(context, ActionBarActivity::class.java))
         }
 
-        label_player_controls.setOnClickListener {
+        binding?.labelPlayerControls?.setOnClickListener {
             startActivity(Intent(context, PlayerControlsActivity::class.java))
         }
 
-        label_intent_controls.setOnClickListener {
+        binding?.labelIntentControls?.setOnClickListener {
             startActivity(Intent(context, IntentControlsActivity::class.java))
         }
 
-        label_youtube_intents.setOnClickListener {
+        binding?.labelYoutubeIntents?.setOnClickListener {
             startActivity(Intent(context, YouTubeIntentsActivity::class.java))
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
     }
 }

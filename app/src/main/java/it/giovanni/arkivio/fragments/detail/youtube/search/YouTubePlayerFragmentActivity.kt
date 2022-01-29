@@ -8,10 +8,12 @@ import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayer.Provider
 import com.google.android.youtube.player.YouTubePlayerFragment
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.databinding.YoutubePlayerFragmentActivityBinding
 import it.giovanni.arkivio.fragments.detail.youtube.YoutubeConnector
-import kotlinx.android.synthetic.main.youtube_player_fragment_activity.*
 
 class YouTubePlayerFragmentActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener {
+
+    private var binding: YoutubePlayerFragmentActivityBinding? = null
 
     private var youTubePlayer: YouTubePlayer? = null
 
@@ -22,14 +24,17 @@ class YouTubePlayerFragmentActivity : YouTubeBaseActivity(), YouTubePlayer.OnIni
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.youtube_player_fragment_activity)
+
+        binding = YoutubePlayerFragmentActivityBinding.inflate(layoutInflater)
+        // setContentView(R.layout.youtube_player_fragment_activity)
+        setContentView(binding?.root)
 
         VIDEO_ID = intent?.getStringExtra("VIDEO_ID")!!
 
         val youTubePlayerFragment = fragmentManager.findFragmentById(R.id.youtube_player_fragment) as YouTubePlayerFragment
         youTubePlayerFragment.initialize(YoutubeConnector.API_KEY, this)
 
-        full_screen_button.setOnClickListener {
+        binding?.fullScreenButton?.setOnClickListener {
             youTubePlayer?.setFullscreen(true)
         }
     }
@@ -52,5 +57,10 @@ class YouTubePlayerFragmentActivity : YouTubeBaseActivity(), YouTubePlayer.OnIni
             player.cueVideo(VIDEO_ID)
             // player.cuePlaylist(PLAYLIST_ID)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }

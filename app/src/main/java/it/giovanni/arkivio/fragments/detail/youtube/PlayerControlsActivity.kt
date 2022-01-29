@@ -15,8 +15,8 @@ import com.google.android.youtube.player.YouTubePlayer.*
 import com.google.android.youtube.player.YouTubePlayerView
 import it.giovanni.arkivio.App.Companion.context
 import it.giovanni.arkivio.R
-import kotlinx.android.synthetic.main.player_controls_activity.*
-import kotlinx.android.synthetic.main.player_controls_board.*
+import it.giovanni.arkivio.databinding.PlayerControlsActivityBinding
+//import kotlinx.android.synthetic.main.player_controls_board.*
 
 class PlayerControlsActivity : YouTubeBaseActivity(),
     OnInitializedListener,
@@ -24,6 +24,8 @@ class PlayerControlsActivity : YouTubeBaseActivity(),
     OnEditorActionListener,
     CompoundButton.OnCheckedChangeListener,
     OnItemSelectedListener {
+
+    private var binding: PlayerControlsActivityBinding? = null
 
     private var player: YouTubePlayer? = null
     private var selectedPosition = 0
@@ -38,7 +40,10 @@ class PlayerControlsActivity : YouTubeBaseActivity(),
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.player_controls_activity)
+
+        binding = PlayerControlsActivityBinding.inflate(layoutInflater)
+        // setContentView(R.layout.player_controls_activity)
+        setContentView(binding?.root)
 
         youTubePlayerView = findViewById(R.id.youtube_player_view)
         palyerRadioGroup = findViewById(R.id.player_radio_group)
@@ -48,11 +53,13 @@ class PlayerControlsActivity : YouTubeBaseActivity(),
         eventLog = StringBuilder()
         videoAdapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, ENTRIES)
         videoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner_video.onItemSelectedListener = this
-        spinner_video.adapter = videoAdapter
-        play_button.setOnClickListener(this)
-        pause_button.setOnClickListener(this)
-        skip_to_text.setOnEditorActionListener(this)
+
+        binding?.board?.spinnerVideo?.onItemSelectedListener = this
+        binding?.board?.spinnerVideo?.adapter = videoAdapter
+        binding?.board?.playButton?.setOnClickListener(this)
+        binding?.board?.pauseButton?.setOnClickListener(this)
+        binding?.board?.skipToText?.setOnEditorActionListener(this)
+
         youTubePlayerView.initialize(YoutubeConnector.API_KEY, this)
         playlistEventListener = MyPlaylistEventListener()
         playerStateChangeListener = MyPlayerStateChangeListener()
@@ -94,15 +101,15 @@ class PlayerControlsActivity : YouTubeBaseActivity(),
     override fun onNothingSelected(parent: AdapterView<*>?) {}
 
     override fun onClick(v: View) {
-        if (v === play_button)
+        if (v === binding?.board?.playButton)
             player?.play()
-        else if (v === pause_button)
+        else if (v === binding?.board?.pauseButton)
             player?.pause()
     }
 
     override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
-        if (v === skip_to_text) {
-            val skipToSecs = parseInt(skip_to_text.text.toString(), 0)
+        if (v === binding?.board?.skipToText) {
+            val skipToSecs = parseInt(binding?.board?.skipToText?.text.toString(), 0)
             player?.seekToMillis(skipToSecs * 1000)
             hideSoftKeyboard()
             return true
@@ -136,7 +143,7 @@ class PlayerControlsActivity : YouTubeBaseActivity(),
     }
 
     private fun updateText() {
-        state_text.text = String.format("Current state: %s %s %s",
+        binding?.stateText?.text = String.format("Current state: %s %s %s",
             playerStateChangeListener.playerState,
             playbackEventListener.playbackState,
             playbackEventListener.bufferingState
@@ -145,14 +152,14 @@ class PlayerControlsActivity : YouTubeBaseActivity(),
 
     private fun log(message: String) {
         eventLog.append(message + "\n")
-        event_log.text = eventLog
+        binding?.eventLog?.text = eventLog
     }
 
     private fun setControlsEnabled(enabled: Boolean) {
-        play_button.isEnabled = enabled
-        pause_button.isEnabled = enabled
-        skip_to_text.isEnabled = enabled
-        spinner_video.isEnabled = enabled
+        binding?.board?.playButton?.isEnabled = enabled
+        binding?.board?.pauseButton?.isEnabled = enabled
+        binding?.board?.skipToText?.isEnabled = enabled
+        binding?.board?.spinnerVideo?.isEnabled = enabled
         for (i in 0 until palyerRadioGroup.childCount) {
             palyerRadioGroup.getChildAt(i).isEnabled = enabled
         }
@@ -287,5 +294,10 @@ class PlayerControlsActivity : YouTubeBaseActivity(),
                 defaultValue
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }
