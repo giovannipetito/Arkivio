@@ -8,7 +8,6 @@ import it.giovanni.arkivio.databinding.HomeLayoutBinding
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.viewinterfaces.IDarkMode
-import kotlinx.android.synthetic.main.home_layout.*
 
 abstract class HomeFragment : BaseFragment(SectionType.HOME), IDarkMode.View {
 
@@ -44,7 +43,7 @@ abstract class HomeFragment : BaseFragment(SectionType.HOME), IDarkMode.View {
         // manage arguments
         if (getLayout() != NO_LAYOUT) {
             val customLayout = LayoutInflater.from(context).inflate(getLayout(), null, false)
-            frame_layout.addView(customLayout)
+            binding?.frameLayout?.addView(customLayout)
         }
     }
 

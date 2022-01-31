@@ -3,7 +3,7 @@ package it.giovanni.arkivio
 import android.app.Application
 import android.content.Context
 import it.giovanni.arkivio.persistence.UserPreferencesRepository
-import it.giovanni.arkivio.utils.typekit.Typekit
+import it.giovanni.arkivio.utils.Typekit
 
 class App : Application() {
 

@@ -189,7 +189,7 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback, IRealtime {
     private fun initUsers(): ArrayList<User> {
 
         val list = ArrayList<User>()
-        list.add(User("Giovanni", "Petito (initUsers())", "", "3331582355", arrayListOf("giovanni.petito88@gmail.com", "gi.petito@gmail.com"), "Via Casoretto 60, Milano (MI)", "Android Developer", false))
+        list.add(User("Giovanni", "Petito (initUsers())", "", "3331582355", arrayListOf("giovanni.petito88@gmail.com", "gi.petito@gmail.com"), "Via Monte Grappa 15, Cologno Monzese (MI)", "Android Developer", false))
         list.add(User("Raffaele", "Petito", "0818183301", "3802689011", arrayListOf("raffaele.petito@gmail.com"), "Via Santa Maria a Cubito 19, Giugliano in Campania (NA)", "Fotografo", false))
         list.add(User("Teresa", "Petito", "", "3343540536", arrayListOf("teresa_petito@yahoo.it"), "Via Raffaele Carelli 8, Giugliano in Campania (NA)", "Commercialista", false))
         list.add(User("Salvatore", "Pragliola", "", "3384672609", arrayListOf("salvatore.pragliola@gmail.com"), "Via Raffaele Carelli 8, Giugliano in Campania (NA)", "Marmista", false))

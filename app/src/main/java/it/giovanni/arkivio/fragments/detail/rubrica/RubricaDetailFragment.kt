@@ -4,7 +4,6 @@ import android.Manifest
 import android.content.ContentResolver
 import android.content.ContentValues
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -22,13 +21,14 @@ import it.giovanni.arkivio.databinding.RubricaDetailLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
+import it.giovanni.arkivio.utils.PermissionManager
 import it.giovanni.arkivio.utils.Utils
 import it.giovanni.arkivio.utils.Utils.Companion.callContact
 import it.giovanni.arkivio.utils.Utils.Companion.sendSimpleMail
 import kotlinx.android.synthetic.main.bottom_sheet_layout.*
 import java.io.ByteArrayOutputStream
 
-class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
+class RubricaDetailFragment : DetailFragment(), View.OnClickListener, PermissionManager.PermissionListener {
 
     private var layoutBinding: RubricaDetailLayoutBinding? = null
     private val binding get() = layoutBinding
@@ -45,7 +45,6 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
     private lateinit var contacts: ArrayList<String>
     private lateinit var label: String
 
-    private val requestCodeContactsPermission = 1000
     private lateinit var lookupKey: String
     var id: Long = 0
     private var name: String? = null
@@ -155,44 +154,41 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
 
         detailLayoutBinding?.rubricaIcon?.visibility = View.VISIBLE
         detailLayoutBinding?.rubricaIcon?.setOnClickListener {
-            requestContactPermission()
+            askContactPermissions()
         }
 
         binding?.showContacts?.setOnClickListener {
-            requestContactsPermission()
+            askContactsPermissions()
         }
 
         BottomSheetBehavior.from(bottom_sheet).state = BottomSheetBehavior.STATE_HIDDEN
     }
 
-    private fun requestContactPermission() {
-        if (context?.checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED ||
-            context?.checkSelfPermission(Manifest.permission.WRITE_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-
-            requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS), requestCodeContactsPermission)
-        } else {
+    private fun askContactPermissions() {
+        checkPermissions()
+        if (checkPermissions()) {
             handleContact()
+            return
         }
+        PermissionManager.requestPermission(requireContext(), this, arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS))
     }
 
-    private fun requestContactsPermission() {
-        if (context?.checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED ||
-            context?.checkSelfPermission(Manifest.permission.WRITE_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-
-            requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS), requestCodeContactsPermission)
-        } else {
+    private fun askContactsPermissions() {
+        if (checkPermissions()) {
             showContactsDialog()
+            return
         }
+        PermissionManager.requestPermission(requireContext(), this, arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS))
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {
-            requestCodeContactsPermission -> {
-                if (grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                    handleContact()
-                }
-            }
+    private fun checkPermissions(): Boolean {
+        return PermissionManager.checkSelfPermission(requireContext(), Manifest.permission.READ_CONTACTS) &&
+                PermissionManager.checkSelfPermission(requireContext(), Manifest.permission.WRITE_CONTACTS)
+    }
+
+    override fun onPermissionResult(permissions: Array<String>, grantResults: IntArray) {
+        if (checkPermissions()) {
+            handleContact()
         }
     }
 
@@ -331,7 +327,7 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
 
     override fun onClick(view: View?) {
 
-        label = requireView().tag as String
+        label = view?.tag.toString()
         listDialogPopup.dismiss()
 
         when (label) {
@@ -353,7 +349,6 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener {
     }
 
     private fun insertContact() {
-
         val intent = Intent(ContactsContract.Intents.Insert.ACTION).apply {
             type = ContactsContract.RawContacts.CONTENT_TYPE
         }

@@ -231,7 +231,7 @@
                                     android:ellipsize="end"
                                     android:gravity="end"
                                     android:maxLines="2"
-                                    android:text="Via Casoretto 60, Milano"
+                                    android:text="Via Monte Grappa 15, Cologno Monzese"
                                     android:textSize="16sp"
                                     android:textColor="@{temp.labelColor}"
                                     tools:textColor="@color/colorPrimary" />

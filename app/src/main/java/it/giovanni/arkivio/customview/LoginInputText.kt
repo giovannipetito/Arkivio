@@ -12,16 +12,22 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import it.giovanni.arkivio.R
-import kotlinx.android.synthetic.main.input_text.view.*
+import it.giovanni.arkivio.databinding.InputTextBinding
 
 class LoginInputText @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0)
 
     : LinearLayout(context, attrs, defStyle) {
 
+    var layoutBinding: InputTextBinding? = null
+    val binding get() = layoutBinding
+
     init {
-        var passwordHidden = true
-        LayoutInflater.from(context).inflate(R.layout.input_text, this, true)
+        // LayoutInflater.from(context).inflate(R.layout.input_text, this, true)
+        layoutBinding = InputTextBinding.inflate(LayoutInflater.from(context), this, true)
+
         orientation = VERTICAL
+
+        var passwordHidden = true
 
         attrs?.let {
             val typedArray = context.obtainStyledAttributes(it, R.styleable.LoginInputText, 0, 0)
@@ -37,42 +43,41 @@ class LoginInputText @JvmOverloads constructor(context: Context, attrs: Attribut
             val texttype = resources.getText(
                 typedArray.getResourceId(R.styleable.LoginInputText_login_textview_input_type, R.string.input_type_text))
 
-            label.text = title
-            image.setImageDrawable(icon)
-            input_text.hint = hint
+            binding?.label?.text = title
+            binding?.image?.setImageDrawable(icon)
+            binding?.inputText?.hint = hint
             when (texttype) {
                 "text" -> {
-                    input_text.inputType = InputType.TYPE_CLASS_TEXT
-                    dominio_windtre.visibility = View.VISIBLE
-                    val params = RelativeLayout.LayoutParams(
-                        LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
-                    params.addRule(RelativeLayout.LEFT_OF, dominio_windtre.id)
-                    params.addRule(RelativeLayout.RIGHT_OF, image.id)
-                    input_text.layoutParams = params
+                    binding?.inputText?.inputType = InputType.TYPE_CLASS_TEXT
+                    binding?.mailDomain?.visibility = View.VISIBLE
+                    val params = RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
+                    params.addRule(RelativeLayout.LEFT_OF, binding?.mailDomain?.id!!)
+                    params.addRule(RelativeLayout.RIGHT_OF, binding?.image?.id!!)
+                    binding?.inputText?.layoutParams = params
                 }
                 "password" -> {
-                    input_text.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                    binding?.inputText?.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
                     val firaRegular = Typeface.createFromAsset(context.assets, "fonts/fira_regular.ttf")
-                    // inputtext.typeface = Typeface.DEFAULT
-                    input_text.typeface = firaRegular
-                    show_hide_password.visibility = View.VISIBLE
-                    show_hide_password.setOnClickListener {
+                    // binding?.inputText?.typeface = Typeface.DEFAULT
+                    binding?.inputText?.typeface = firaRegular
+                    binding?.showHidePassword?.visibility = View.VISIBLE
+                    binding?.showHidePassword?.setOnClickListener {
                         passwordHidden = !passwordHidden
                         if (passwordHidden) {
-                            show_hide_password.setImageResource(R.drawable.ico_show_password)
-                            input_text.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
-                            input_text.transformationMethod = PasswordTransformationMethod()
-                        }else {
-                            show_hide_password.setImageResource(R.drawable.ico_hide_password)
-                            input_text.inputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
-                            input_text.transformationMethod = SingleLineTransformationMethod()
+                            binding?.showHidePassword?.setImageResource(R.drawable.ico_show_password)
+                            binding?.inputText?.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+                            binding?.inputText?.transformationMethod = PasswordTransformationMethod()
+                        } else {
+                            binding?.showHidePassword?.setImageResource(R.drawable.ico_hide_password)
+                            binding?.inputText?.inputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
+                            binding?.inputText?.transformationMethod = SingleLineTransformationMethod()
                         }
-                        input_text.setSelection(input_text.text.length)
+                        binding?.inputText?.setSelection(binding?.inputText?.text?.length!!)
                     }
                     val params = RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
-                    params.addRule(RelativeLayout.LEFT_OF, show_hide_password.id)
-                    params.addRule(RelativeLayout.RIGHT_OF, image.id)
-                    input_text.layoutParams = params
+                    params.addRule(RelativeLayout.LEFT_OF, binding?.showHidePassword?.id!!)
+                    params.addRule(RelativeLayout.RIGHT_OF, binding?.image?.id!!)
+                    binding?.inputText?.layoutParams = params
                 }
             }
 
@@ -81,16 +86,16 @@ class LoginInputText @JvmOverloads constructor(context: Context, attrs: Attribut
     }
 
     fun getText(): String {
-        return input_text.text.toString()
+        return binding?.inputText?.text.toString()
     }
 
     /*
     fun setInputText(value: String) {
-        input_text.setText(value)
+        binding?.inputText?.setText(value)
     }
     */
 
     fun getInputText(): EditText {
-        return input_text
+        return binding?.inputText!!
     }
 }

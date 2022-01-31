@@ -16,7 +16,6 @@ import com.google.android.youtube.player.YouTubePlayerView
 import it.giovanni.arkivio.App.Companion.context
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.PlayerControlsActivityBinding
-//import kotlinx.android.synthetic.main.player_controls_board.*
 
 class PlayerControlsActivity : YouTubeBaseActivity(),
     OnInitializedListener,

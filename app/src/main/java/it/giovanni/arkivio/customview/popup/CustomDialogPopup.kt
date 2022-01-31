@@ -67,8 +67,8 @@ open class CustomDialogPopup : AlertDialog.Builder {
     }
 
     protected fun prepare() {
-        val inflater = activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        dialogView = inflater.inflate(R.layout.custom_dialog_popup, null)
+
+        dialogView = LayoutInflater.from(context).inflate(R.layout.custom_dialog_popup, null)
 
         elementList = dialogView.findViewById(R.id.element_list) as LinearLayout
         labelList = dialogView.findViewById(R.id.label_list) as LinearLayout
@@ -128,7 +128,6 @@ open class CustomDialogPopup : AlertDialog.Builder {
         if (isBottom) {
             val window = dialog.window
             window?.setGravity(Gravity.BOTTOM)
-            // window?.addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND) // TODO: NON FUNZIONA
         }
 
         when (type) {

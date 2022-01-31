@@ -18,8 +18,7 @@ class YouTubeIntentsAdapter internal constructor(
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
 
-        val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val mView = inflater.inflate(R.layout.intents_list_item, null)
+        val mView = LayoutInflater.from(context).inflate(R.layout.intents_list_item, null)
 
         val intentName = mView?.findViewById<TextView>(R.id.list_item_text)
         intentName?.text = getItem(position)?.title

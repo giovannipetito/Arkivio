@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.utils.typekit;
+package it.giovanni.arkivio.utils;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -15,13 +15,13 @@ public class Typekit {
         BoldItalic
     }
 
-    private static Typekit mInstance = new Typekit();
+    private static final Typekit mInstance = new Typekit();
 
     public static Typekit getInstance() {
         return mInstance;
     }
 
-    private Map<String, Typeface> mFonts = new HashMap<>();
+    private final Map<String, Typeface> mFonts = new HashMap<>();
 
     private Typekit() {}
 
@@ -38,13 +38,13 @@ public class Typekit {
         return this;
     }
 
-    public Typekit addItalic(Typeface typeface) {
-        mFonts.put(Style.Italic.toString(), typeface);
+    public Typekit addBold(Typeface typeface) {
+        mFonts.put(Style.Bold.toString(), typeface);
         return this;
     }
 
-    public Typekit addBold(Typeface typeface) {
-        mFonts.put(Style.Bold.toString(), typeface);
+    public Typekit addItalic(Typeface typeface) {
+        mFonts.put(Style.Italic.toString(), typeface);
         return this;
     }
 
