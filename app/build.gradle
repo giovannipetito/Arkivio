@@ -109,7 +109,7 @@ dependencies {
     // Google Mobile Services
     implementation 'com.google.android.gms:play-services-gcm:17.0.0'
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
-    implementation 'com.google.android.gms:play-services-auth:20.0.1'
+    implementation 'com.google.android.gms:play-services-auth:20.1.0'
     implementation 'com.google.android.gms:play-services-plus:17.0.0'
     implementation 'com.google.android.gms:play-services-nearby:18.0.2'
     implementation 'com.google.android.gms:play-services-location:19.0.1'

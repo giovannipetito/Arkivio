@@ -184,7 +184,17 @@ class Utils {
             return longVersion.toLong()
         }
 
-        fun callContact(context: Context, phone: String) {
+        fun callContact1(context: Context, phone: String) {
+            try {
+                val uri = "tel:$phone"
+                val intent = Intent(Intent.ACTION_DIAL, Uri.parse(uri))
+                context.startActivity(intent)
+            } catch (e: Exception) {}
+        }
+
+        fun callContact2(context: Context, label: String) {
+
+            val phone = label.substring(label.indexOf(": "), label.length)
             try {
                 val uri = "tel:$phone"
                 val intent = Intent(Intent.ACTION_DIAL, Uri.parse(uri))

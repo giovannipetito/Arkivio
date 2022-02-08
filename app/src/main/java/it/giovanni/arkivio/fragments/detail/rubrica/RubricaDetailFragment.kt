@@ -8,6 +8,8 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.View
@@ -23,9 +25,9 @@ import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.PermissionManager
 import it.giovanni.arkivio.utils.Utils
-import it.giovanni.arkivio.utils.Utils.Companion.callContact
+import it.giovanni.arkivio.utils.Utils.Companion.callContact1
+import it.giovanni.arkivio.utils.Utils.Companion.callContact2
 import it.giovanni.arkivio.utils.Utils.Companion.sendSimpleMail
-import kotlinx.android.synthetic.main.bottom_sheet_layout.*
 import java.io.ByteArrayOutputStream
 
 class RubricaDetailFragment : DetailFragment(), View.OnClickListener, PermissionManager.PermissionListener {
@@ -51,6 +53,8 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener, Permission
     private lateinit var selectedContactUri: Uri
 
     private lateinit var user: User
+
+    private val delayTime: Long = 1000
 
     companion object {
         var KEY_RUBRICA = "KEY_RUBRICA"
@@ -141,11 +145,11 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener, Permission
         }
 
         binding?.numeroFissoContainer?.setOnClickListener {
-            callContact(requireContext(), binding?.valueNumeroFisso?.text.toString())
+            callContact1(requireContext(), binding?.valueNumeroFisso?.text.toString())
         }
 
         binding?.cellulareContainer?.setOnClickListener {
-            callContact(requireContext(), binding?.valueCellulare?.text.toString())
+            callContact1(requireContext(), binding?.valueCellulare?.text.toString())
         }
 
         binding?.emailContainer?.setOnClickListener {
@@ -161,7 +165,7 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener, Permission
             askContactsPermissions()
         }
 
-        BottomSheetBehavior.from(bottom_sheet).state = BottomSheetBehavior.STATE_HIDDEN
+        BottomSheetBehavior.from(binding?.bottomSheetRubrica?.bottomSheet!!).state = BottomSheetBehavior.STATE_HIDDEN
     }
 
     private fun askContactPermissions() {
@@ -223,22 +227,78 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener, Permission
         } else {
             showInsertEditContactDialog()
 
-            if (BottomSheetBehavior.from(bottom_sheet).state != BottomSheetBehavior.STATE_EXPANDED) {
-                BottomSheetBehavior.from(bottom_sheet).setState(BottomSheetBehavior.STATE_EXPANDED)
+            if (BottomSheetBehavior.from(binding?.bottomSheetRubrica?.bottomSheet!!).state != BottomSheetBehavior.STATE_EXPANDED) {
+                BottomSheetBehavior.from(binding?.bottomSheetRubrica?.bottomSheet!!).setState(BottomSheetBehavior.STATE_EXPANDED)
             } else {
-                BottomSheetBehavior.from(bottom_sheet).setState(BottomSheetBehavior.STATE_COLLAPSED)
+                BottomSheetBehavior.from(binding?.bottomSheetRubrica?.bottomSheet!!).setState(BottomSheetBehavior.STATE_COLLAPSED)
             }
 
-            bottom_sheet_delete.setOnClickListener {
-                BottomSheetBehavior.from(bottom_sheet).state = BottomSheetBehavior.STATE_HIDDEN
+            binding?.bottomSheetRubrica?.bottomSheetDelete?.setOnClickListener {
+                BottomSheetBehavior.from(binding?.bottomSheetRubrica?.bottomSheet!!).state = BottomSheetBehavior.STATE_HIDDEN
             }
-            bottom_sheet_edit.setOnClickListener {
+            binding?.bottomSheetRubrica?.bottomSheetEdit?.setOnClickListener {
                 editContact(selectedContactUri)
             }
-            bottom_sheet_insert.setOnClickListener {
+            binding?.bottomSheetRubrica?.bottomSheetInsert?.setOnClickListener {
                 insertContact()
             }
         }
+
+        cursor.close()
+    }
+
+    private fun showContactsDialog() {
+
+        showProgressDialog()
+
+        Handler(Looper.getMainLooper()).postDelayed({
+
+            contacts = getContacts()
+            contacts.add(labelDelete)
+
+            listDialogPopup = ListDialogPopup(currentActivity, R.style.PopupTheme)
+            listDialogPopup.setCancelable(false)
+            listDialogPopup.setMessage(resources.getString(R.string.rubrica_title))
+            listDialogPopup.setLabels(contacts, this)
+            listDialogPopup.setButtons(resources.getString(R.string.button_cancel)) {}
+            listDialogPopup.setGravityBottom(false)
+            listDialogPopup.show()
+
+            hideProgressDialog()
+
+        }, delayTime)
+    }
+
+    private fun showInsertContactDialog() {
+
+        labels = ArrayList()
+        labels.add(labelInsert)
+        labels.add(labelDelete)
+
+        listDialogPopup = ListDialogPopup(currentActivity, R.style.PopupTheme)
+        listDialogPopup.setCancelable(false)
+        listDialogPopup.setMessage(resources.getString(R.string.rubrica_message_dialog))
+        listDialogPopup.setLabels(labels, this)
+        listDialogPopup.setButtons(resources.getString(R.string.button_cancel)) {}
+        listDialogPopup.setGravityBottom(true)
+        listDialogPopup.show()
+    }
+
+    private fun showInsertEditContactDialog() {
+
+        labels = ArrayList()
+        labels.add(labelEdit)
+        labels.add(labelInsert)
+        labels.add(labelOpen)
+        labels.add(labelDelete)
+
+        listDialogPopup = ListDialogPopup(currentActivity, R.style.PopupTheme)
+        listDialogPopup.setCancelable(false)
+        listDialogPopup.setMessage(resources.getString(R.string.rubrica_message_dialog))
+        listDialogPopup.setLabels(labels, this)
+        listDialogPopup.setButtons(resources.getString(R.string.button_cancel)) {}
+        listDialogPopup.setGravityBottom(true)
+        listDialogPopup.show()
     }
 
     private fun getContacts(): ArrayList<String> {
@@ -280,55 +340,9 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener, Permission
         return list
     }
 
-    private fun showContactsDialog() {
-        contacts = getContacts()
-        contacts.add(labelDelete)
-
-        listDialogPopup = ListDialogPopup(currentActivity, R.style.PopupTheme)
-        listDialogPopup.setCancelable(false)
-        listDialogPopup.setMessage(resources.getString(R.string.rubrica_title))
-        listDialogPopup.setLabels(contacts, this)
-        listDialogPopup.setButtons(resources.getString(R.string.button_cancel)) {}
-        listDialogPopup.setGravityBottom(false)
-        listDialogPopup.show()
-    }
-
-    private fun showInsertContactDialog() {
-
-        labels = ArrayList()
-        labels.add(labelInsert)
-        labels.add(labelDelete)
-
-        listDialogPopup = ListDialogPopup(currentActivity, R.style.PopupTheme)
-        listDialogPopup.setCancelable(false)
-        listDialogPopup.setMessage(resources.getString(R.string.rubrica_message_dialog))
-        listDialogPopup.setLabels(labels, this)
-        listDialogPopup.setButtons(resources.getString(R.string.button_cancel)) {}
-        listDialogPopup.setGravityBottom(true)
-        listDialogPopup.show()
-    }
-
-    private fun showInsertEditContactDialog() {
-
-        labels = ArrayList()
-        labels.add(labelEdit)
-        labels.add(labelInsert)
-        labels.add(labelOpen)
-        labels.add(labelDelete)
-
-        listDialogPopup = ListDialogPopup(currentActivity, R.style.PopupTheme)
-        listDialogPopup.setCancelable(false)
-        listDialogPopup.setMessage(resources.getString(R.string.rubrica_message_dialog))
-        listDialogPopup.setLabels(labels, this)
-        listDialogPopup.setButtons(resources.getString(R.string.button_cancel)) {}
-        listDialogPopup.setGravityBottom(true)
-        listDialogPopup.show()
-    }
-
     override fun onClick(view: View?) {
 
         label = view?.tag.toString()
-        listDialogPopup.dismiss()
 
         when (label) {
             labelEdit -> {
@@ -340,10 +354,13 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener, Permission
             labelOpen -> {
                 insertEditContact(selectedContactUri)
             }
-            else -> {
-                if (label != labelDelete) {
-                    callContact(requireContext(), label)
+            labelDelete -> {
+                activity?.runOnUiThread {
+                    listDialogPopup.dismiss()
                 }
+            }
+            else -> {
+                callContact2(requireContext(), label)
             }
         }
     }
