@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment
 import it.giovanni.arkivio.*
 import it.giovanni.arkivio.App.Companion.context
 import it.giovanni.arkivio.databinding.ActivityMainBinding
+import it.giovanni.arkivio.databinding.ProgressDialogCustomBinding
 import it.giovanni.arkivio.deeplink.DeepLinkDescriptor
 import it.giovanni.arkivio.fragments.*
 import it.giovanni.arkivio.fragments.detail.cardio.CardIOFragment
@@ -70,7 +71,8 @@ import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadRemember
 
 class MainActivity : BaseActivity(), IProgressLoader {
 
-    private var binding: ActivityMainBinding? = null
+    private var layoutBinding: ActivityMainBinding? = null
+    val binding get() = layoutBinding
 
     private val delayTime: Long = 3000
     private var progressDialog: Dialog? = null
@@ -95,7 +97,7 @@ class MainActivity : BaseActivity(), IProgressLoader {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        layoutBinding = ActivityMainBinding.inflate(layoutInflater)
         // setContentView(R.layout.activity_main)
         setContentView(binding?.root)
 
@@ -107,9 +109,10 @@ class MainActivity : BaseActivity(), IProgressLoader {
         progressDialog = Dialog(this, R.style.DialogTheme)
         progressDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        val view = LayoutInflater.from(applicationContext).inflate(R.layout.progress_dialog_custom, null)
+        val progressDialogCustomBinding = ProgressDialogCustomBinding.inflate(LayoutInflater.from(context))
+        val view = progressDialogCustomBinding.root
 
-        spinnerLogo = view.findViewById(R.id.spinner_image_view) as ImageView
+        spinnerLogo = progressDialogCustomBinding.spinnerImageView
         progressDialog?.setContentView(view)
         progressDialog?.setCancelable(true)
 
@@ -601,6 +604,6 @@ class MainActivity : BaseActivity(), IProgressLoader {
 
     override fun onDestroy() {
         super.onDestroy()
-        binding = null
+        layoutBinding = null
     }
 }
