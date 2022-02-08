@@ -307,7 +307,7 @@
         </LinearLayout>
 
         <include
-                android:id="@+id/bottom_sheet_rubrica"
+                android:id="@+id/include_bottom_sheet"
                 layout="@layout/bottom_sheet_layout"
                 bind:temp2="@{temp}" />
 

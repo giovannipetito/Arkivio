@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.fragments.BaseFragment
 import it.giovanni.arkivio.customview.MultiSwipeRefreshLayout
-import kotlinx.android.synthetic.main.message_error_layout.*
-import kotlinx.android.synthetic.main.logcat_tab_layout.*
+import it.giovanni.arkivio.databinding.LogcatTabLayoutBinding
 
 class LogcatContentFragment : BaseFragment(SectionType.TAB_DETAIL) {
 
-    private var viewFragment: View? = null
+    private var layoutBinding: LogcatTabLayoutBinding? = null
+    private val binding get() = layoutBinding
 
     private var tabDateFrom: String = ""
     private var tabDateTo: String = ""
@@ -34,9 +34,8 @@ class LogcatContentFragment : BaseFragment(SectionType.TAB_DETAIL) {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewFragment = super.onCreateView(inflater, container, savedInstanceState)
-
-        return viewFragment
+        layoutBinding = LogcatTabLayoutBinding.inflate(inflater, container, false)
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,11 +47,11 @@ class LogcatContentFragment : BaseFragment(SectionType.TAB_DETAIL) {
             tabDateTo = "$tabDateTo 23:59:59"
         }
 
-        error_smile.setOnClickListener {
+        binding?.includeErrorSmile?.errorSmile?.setOnClickListener {
             loadData()
         }
 
-        swipeRefreshLayout = viewFragment?.findViewById(R.id.logcat_swipe_refresh_layout) as MultiSwipeRefreshLayout
+        swipeRefreshLayout = binding?.logcatSwipeRefreshLayout!!
         swipeRefreshLayout.setSwipeableChildren(R.id.logcat_tab_container)
         swipeRefreshLayout.setOnRefreshListener {
             refresh()
@@ -71,12 +70,12 @@ class LogcatContentFragment : BaseFragment(SectionType.TAB_DETAIL) {
     }
 
     private fun hideErrorSmile() {
-        error_smile.visibility = View.GONE
+        binding?.includeErrorSmile?.errorSmile?.visibility = View.GONE
     }
 
     private fun showErrorSmile(message: String) {
-        error_message_smile.text = message
-        error_smile.visibility = View.VISIBLE
+        binding?.includeErrorSmile?.errorMessageSmile?.text = message
+        binding?.includeErrorSmile?.errorSmile?.visibility = View.VISIBLE
         stopSwipeRefresh()
     }
 
@@ -88,5 +87,10 @@ class LogcatContentFragment : BaseFragment(SectionType.TAB_DETAIL) {
         swipeRefreshLayout.isRefreshing = false
         swipeRefreshLayout.destroyDrawingCache()
         swipeRefreshLayout.clearAnimation()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        layoutBinding = null
     }
 }

@@ -165,7 +165,7 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener, Permission
             askContactsPermissions()
         }
 
-        BottomSheetBehavior.from(binding?.bottomSheetRubrica?.bottomSheet!!).state = BottomSheetBehavior.STATE_HIDDEN
+        BottomSheetBehavior.from(binding?.includeBottomSheet?.bottomSheet!!).state = BottomSheetBehavior.STATE_HIDDEN
     }
 
     private fun askContactPermissions() {
@@ -227,19 +227,19 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener, Permission
         } else {
             showInsertEditContactDialog()
 
-            if (BottomSheetBehavior.from(binding?.bottomSheetRubrica?.bottomSheet!!).state != BottomSheetBehavior.STATE_EXPANDED) {
-                BottomSheetBehavior.from(binding?.bottomSheetRubrica?.bottomSheet!!).setState(BottomSheetBehavior.STATE_EXPANDED)
+            if (BottomSheetBehavior.from(binding?.includeBottomSheet?.bottomSheet!!).state != BottomSheetBehavior.STATE_EXPANDED) {
+                BottomSheetBehavior.from(binding?.includeBottomSheet?.bottomSheet!!).setState(BottomSheetBehavior.STATE_EXPANDED)
             } else {
-                BottomSheetBehavior.from(binding?.bottomSheetRubrica?.bottomSheet!!).setState(BottomSheetBehavior.STATE_COLLAPSED)
+                BottomSheetBehavior.from(binding?.includeBottomSheet?.bottomSheet!!).setState(BottomSheetBehavior.STATE_COLLAPSED)
             }
 
-            binding?.bottomSheetRubrica?.bottomSheetDelete?.setOnClickListener {
-                BottomSheetBehavior.from(binding?.bottomSheetRubrica?.bottomSheet!!).state = BottomSheetBehavior.STATE_HIDDEN
+            binding?.includeBottomSheet?.bottomSheetDelete?.setOnClickListener {
+                BottomSheetBehavior.from(binding?.includeBottomSheet?.bottomSheet!!).state = BottomSheetBehavior.STATE_HIDDEN
             }
-            binding?.bottomSheetRubrica?.bottomSheetEdit?.setOnClickListener {
+            binding?.includeBottomSheet?.bottomSheetEdit?.setOnClickListener {
                 editContact(selectedContactUri)
             }
-            binding?.bottomSheetRubrica?.bottomSheetInsert?.setOnClickListener {
+            binding?.includeBottomSheet?.bottomSheetInsert?.setOnClickListener {
                 insertContact()
             }
         }
