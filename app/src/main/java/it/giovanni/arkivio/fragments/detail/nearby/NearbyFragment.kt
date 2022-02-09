@@ -16,10 +16,6 @@ class NearbyFragment: DetailFragment() {
     private var layoutBinding: NearbyLayoutBinding? = null
     private val binding get() = layoutBinding
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return R.string.nearby_title
     }

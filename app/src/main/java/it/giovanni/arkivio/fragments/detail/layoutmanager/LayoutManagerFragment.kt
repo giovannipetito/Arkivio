@@ -33,10 +33,6 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
     private var progressBarContainer: RelativeLayout? = null
     private lateinit var list: List<String>
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return R.string.layout_manager_title
     }

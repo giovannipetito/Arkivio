@@ -34,10 +34,6 @@ class LinkAreaFragment : HomeFragment() {
     private var bundleVideo: Bundle = Bundle()
     private var bundleHtml: Bundle = Bundle()
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return NO_TITLE
     }

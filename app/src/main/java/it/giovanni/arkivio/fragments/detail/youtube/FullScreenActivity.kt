@@ -13,7 +13,7 @@ import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayer.OnFullscreenListener
 import com.google.android.youtube.player.YouTubePlayerView
-import it.giovanni.arkivio.R
+import it.giovanni.arkivio.databinding.YoutubePlayerViewActivityBinding
 
 class FullScreenActivity : YouTubeBaseActivity(),
     YouTubePlayer.OnInitializedListener,
@@ -21,33 +21,38 @@ class FullScreenActivity : YouTubeBaseActivity(),
     CompoundButton.OnCheckedChangeListener,
     OnFullscreenListener {
 
-    companion object {
-        private const val PORTRAIT_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT
-    }
+    private var layoutBinding: YoutubePlayerViewActivityBinding? = null
+    val binding get() = layoutBinding
 
     private var baseLayout: LinearLayout? = null
     private var playerView: YouTubePlayerView? = null
     private var player: YouTubePlayer? = null
-    private var fullscreenButton: Button? = null
+    private var fullScreenButton: Button? = null
     private var checkbox: CompoundButton? = null
     private var otherViews: View? = null
     private var fullscreen = false
 
+    companion object {
+        private const val PORTRAIT_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.youtube_player_view_activity)
 
-        baseLayout = findViewById(R.id.player_view_container)
-        playerView = findViewById(R.id.youtube_player_view)
-        fullscreenButton = findViewById(R.id.full_screen_button)
-        checkbox = findViewById(R.id.landscape_fullscreen_checkbox)
-        otherViews = findViewById(R.id.player_view_content)
+        layoutBinding = YoutubePlayerViewActivityBinding.inflate(layoutInflater)
+        setContentView(binding?.root)
+
+        baseLayout = binding?.playerViewContainer
+        playerView = binding?.youtubePlayerView
+        fullScreenButton = binding?.fullScreenButton
+        checkbox = binding?.landscapeFullScreenCheckbox
+        otherViews = binding?.playerViewContent
 
         checkbox?.visibility = View.VISIBLE
-        fullscreenButton?.visibility = View.VISIBLE
+        fullScreenButton?.visibility = View.VISIBLE
 
         checkbox?.setOnCheckedChangeListener(this)
-        fullscreenButton?.setOnClickListener(this)
+        fullScreenButton?.setOnClickListener(this)
         playerView?.initialize(YoutubeConnector.API_KEY, this)
 
         layoutHandling()
@@ -113,7 +118,7 @@ class FullScreenActivity : YouTubeBaseActivity(),
 
     private fun setControlsEnabled() {
         checkbox?.isEnabled = player != null && resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
-        fullscreenButton?.isEnabled = player != null
+        fullScreenButton?.isEnabled = player != null
     }
 
     override fun onFullscreen(isFullscreen: Boolean) {
@@ -124,5 +129,10 @@ class FullScreenActivity : YouTubeBaseActivity(),
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         layoutHandling()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        layoutBinding = null
     }
 }

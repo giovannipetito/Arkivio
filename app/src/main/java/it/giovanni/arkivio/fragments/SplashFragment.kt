@@ -11,10 +11,6 @@ class SplashFragment : BaseFragment(SectionType.SPLASH) {
     private var layoutBinding: SplashLayoutBinding? = null
     private val binding get() = layoutBinding
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return NO_TITLE
     }

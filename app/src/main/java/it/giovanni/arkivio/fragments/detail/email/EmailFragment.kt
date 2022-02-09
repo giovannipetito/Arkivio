@@ -19,10 +19,6 @@ class EmailFragment: DetailFragment() {
     private var layoutBinding: EmailLayoutBinding? = null
     private val binding get() = layoutBinding
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return R.string.email_title
     }

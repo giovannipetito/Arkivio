@@ -19,10 +19,6 @@ class AsyncHttpFragment: DetailFragment(), IAsyncHttpClient {
     private var layoutBinding: AsyncHttpLayoutBinding? = null
     private val binding get() = layoutBinding
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return R.string.async_http_title
     }

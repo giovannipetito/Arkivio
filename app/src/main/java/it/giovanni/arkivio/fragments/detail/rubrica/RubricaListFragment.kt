@@ -56,10 +56,6 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
     private var sentence: String? = null
     private var isOpen = false
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return R.string.rubrica_list_title
     }

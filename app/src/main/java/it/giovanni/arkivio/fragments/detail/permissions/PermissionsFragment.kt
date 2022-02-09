@@ -67,10 +67,6 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
         OPEN
     }
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return R.string.permissions_title
     }

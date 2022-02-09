@@ -24,10 +24,6 @@ class WorkingAreaFragment : HomeFragment() {
     private var layoutBinding: WorkingAreaLayoutBinding? = null
     private val binding get() = layoutBinding
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return NO_TITLE
     }

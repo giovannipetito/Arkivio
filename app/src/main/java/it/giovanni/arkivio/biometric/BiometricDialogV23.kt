@@ -23,10 +23,6 @@ class BiometricDialogV23 internal constructor(@NonNull context: Context, private
     }
 
     private fun setDialogView() {
-
-        // val bottomSheetView: View = layoutInflater.inflate(R.layout.biometric_bottom_sheet, null)
-        // setContentView(bottomSheetView)
-
         val binding: BiometricBottomSheetBinding = BiometricBottomSheetBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

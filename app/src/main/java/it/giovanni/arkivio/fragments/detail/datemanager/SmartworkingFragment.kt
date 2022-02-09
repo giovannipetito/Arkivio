@@ -63,10 +63,6 @@ class SmartworkingFragment: DetailFragment() {
     private var onSuccess: Boolean = false
     private var editingMode: Boolean = false
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return R.string.smartworking_title
     }

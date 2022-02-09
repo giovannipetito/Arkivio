@@ -59,10 +59,6 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
     private val formatter = DecimalFormat("00")
     private var minutePicker: NumberPicker? = null
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return R.string.date_picker_title
     }

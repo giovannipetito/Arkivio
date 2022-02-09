@@ -32,10 +32,6 @@ class TextRecognitionFragment : DetailFragment(), OnItemSelectedListener {
     private var imageMaxWidth: Int? = null
     private var imageMaxHeight: Int? = null
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return R.string.text_recognition_title
     }

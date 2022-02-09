@@ -14,13 +14,8 @@ abstract class HomeFragment : BaseFragment(SectionType.HOME), IDarkMode.View {
     private var layoutBinding: HomeLayoutBinding? = null
     private val binding get() = layoutBinding
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        // ----- DATA BINDING ----- //
         layoutBinding = HomeLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this, requireContext())
@@ -28,24 +23,12 @@ abstract class HomeFragment : BaseFragment(SectionType.HOME), IDarkMode.View {
         binding?.temp = model
         binding?.presenter = darkModePresenter
 
-        if (getLayout() == NO_LAYOUT)
-            binding?.frameLayout?.addView(onCreateBindingView(inflater, binding?.frameLayout, savedInstanceState))
-        // ------------------------ //
+        binding?.frameLayout?.addView(onCreateBindingView(inflater, binding?.frameLayout, savedInstanceState))
 
         return binding?.root
     }
 
     abstract fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        // manage arguments
-        if (getLayout() != NO_LAYOUT) {
-            val customLayout = LayoutInflater.from(context).inflate(getLayout(), null, false)
-            binding?.frameLayout?.addView(customLayout)
-        }
-    }
 
     override fun onShowDataModel(model: DarkModeModel?) {}
 

@@ -57,10 +57,6 @@ class HomePageFragment : HomeFragment() {
     private var list: ArrayList<String>? = null
     private var array: Array<String>? = null
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return NO_TITLE
     }

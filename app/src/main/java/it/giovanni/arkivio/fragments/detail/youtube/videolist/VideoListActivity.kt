@@ -10,9 +10,13 @@ import android.widget.*
 import com.google.android.youtube.player.*
 import com.google.android.youtube.player.YouTubePlayer.OnFullscreenListener
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.databinding.VideoListActivityBinding
 
 @TargetApi(13)
 class VideoListActivity : Activity(), OnFullscreenListener {
+
+    private var layoutBinding: VideoListActivityBinding? = null
+    val binding get() = layoutBinding
 
     private var listFragment: VideoListFragment? = null
     private var videoFragment: VideoFragment? = null
@@ -22,7 +26,11 @@ class VideoListActivity : Activity(), OnFullscreenListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // layoutBinding = VideoListActivityBinding.inflate(layoutInflater)
+        // setContentView(binding?.root)
         setContentView(R.layout.video_list_activity)
+
         listFragment = fragmentManager.findFragmentById(R.id.list_fragment) as VideoListFragment
         videoFragment = fragmentManager.findFragmentById(R.id.video_fragment_container) as VideoFragment
         videoBox = findViewById(R.id.video_box)
@@ -162,5 +170,10 @@ class VideoListActivity : Activity(), OnFullscreenListener {
             params.gravity = gravity
             view.layoutParams = params
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        layoutBinding = null
     }
 }

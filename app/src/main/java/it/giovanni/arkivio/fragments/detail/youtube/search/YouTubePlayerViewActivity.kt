@@ -22,7 +22,6 @@ class YouTubePlayerViewActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitial
         super.onCreate(bundle)
 
         binding = YoutubePlayerViewActivityBinding.inflate(layoutInflater)
-        // setContentView(R.layout.youtube_player_view_activity)
         setContentView(binding?.root)
 
         val playerView: YouTubePlayerView = findViewById(R.id.youtube_player_view)

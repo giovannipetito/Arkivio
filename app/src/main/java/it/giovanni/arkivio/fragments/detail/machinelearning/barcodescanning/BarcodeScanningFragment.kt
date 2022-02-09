@@ -15,10 +15,6 @@ class BarcodeScanningFragment : DetailFragment() {
     private var layoutBinding: MlBarcodeScanningLayoutBinding? = null
     private val binding get() = layoutBinding
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return R.string.barcode_scanning_title
     }

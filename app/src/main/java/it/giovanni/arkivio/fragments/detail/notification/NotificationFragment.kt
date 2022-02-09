@@ -33,10 +33,6 @@ class NotificationFragment: DetailFragment() {
         private const val REQUEST_CODE = 1
     }
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return R.string.notification_title
     }

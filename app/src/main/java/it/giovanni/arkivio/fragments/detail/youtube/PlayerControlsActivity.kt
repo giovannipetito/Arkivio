@@ -24,34 +24,34 @@ class PlayerControlsActivity : YouTubeBaseActivity(),
     CompoundButton.OnCheckedChangeListener,
     OnItemSelectedListener {
 
-    private var binding: PlayerControlsActivityBinding? = null
+    private var layoutBinding: PlayerControlsActivityBinding? = null
+    val binding get() = layoutBinding
 
     private var player: YouTubePlayer? = null
     private var selectedPosition = 0
     private var selectedId: String? = null
-    private lateinit var youTubePlayerView: YouTubePlayerView
-    private lateinit var eventLog: StringBuilder
-    private lateinit var palyerRadioGroup: RadioGroup
-    private lateinit var videoAdapter: ArrayAdapter<ListEntry>
-    private lateinit var playlistEventListener: MyPlaylistEventListener
-    private lateinit var playerStateChangeListener: MyPlayerStateChangeListener
-    private lateinit var playbackEventListener: MyPlaybackEventListener
+    private var youTubePlayerView: YouTubePlayerView? = null
+    private var eventLog: StringBuilder? = null
+    private var palyerRadioGroup: RadioGroup? = null
+    private var videoAdapter: ArrayAdapter<ListEntry>? = null
+    private var playlistEventListener: MyPlaylistEventListener? = null
+    private var playerStateChangeListener: MyPlayerStateChangeListener? = null
+    private var playbackEventListener: MyPlaybackEventListener? = null
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = PlayerControlsActivityBinding.inflate(layoutInflater)
-        // setContentView(R.layout.player_controls_activity)
+        layoutBinding = PlayerControlsActivityBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-        youTubePlayerView = findViewById(R.id.youtube_player_view)
-        palyerRadioGroup = findViewById(R.id.player_radio_group)
+        youTubePlayerView = binding?.youtubePlayerView
+        palyerRadioGroup = binding?.playerRadioGroup
         (findViewById<View>(R.id.style_default) as RadioButton).setOnCheckedChangeListener(this)
         (findViewById<View>(R.id.style_minimal) as RadioButton).setOnCheckedChangeListener(this)
         (findViewById<View>(R.id.style_chromeless) as RadioButton).setOnCheckedChangeListener(this)
         eventLog = StringBuilder()
         videoAdapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, ENTRIES)
-        videoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        videoAdapter?.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         binding?.board?.spinnerVideo?.onItemSelectedListener = this
         binding?.board?.spinnerVideo?.adapter = videoAdapter
@@ -59,7 +59,7 @@ class PlayerControlsActivity : YouTubeBaseActivity(),
         binding?.board?.pauseButton?.setOnClickListener(this)
         binding?.board?.skipToText?.setOnEditorActionListener(this)
 
-        youTubePlayerView.initialize(YoutubeConnector.API_KEY, this)
+        youTubePlayerView?.initialize(YoutubeConnector.API_KEY, this)
         playlistEventListener = MyPlaylistEventListener()
         playerStateChangeListener = MyPlayerStateChangeListener()
         playbackEventListener = MyPlaybackEventListener()
@@ -80,7 +80,7 @@ class PlayerControlsActivity : YouTubeBaseActivity(),
     override fun onInitializationFailure(p0: Provider?, p1: YouTubeInitializationResult?) {}
 
     private fun playVideoAtSelection() {
-        val selectedEntry = videoAdapter.getItem(selectedPosition)
+        val selectedEntry = videoAdapter?.getItem(selectedPosition)
         if (selectedEntry != null) {
             if (selectedEntry.id != selectedId && player != null) {
                 selectedId = selectedEntry.id
@@ -143,14 +143,14 @@ class PlayerControlsActivity : YouTubeBaseActivity(),
 
     private fun updateText() {
         binding?.stateText?.text = String.format("Current state: %s %s %s",
-            playerStateChangeListener.playerState,
-            playbackEventListener.playbackState,
-            playbackEventListener.bufferingState
+            playerStateChangeListener?.playerState,
+            playbackEventListener?.playbackState,
+            playbackEventListener?.bufferingState
         )
     }
 
     private fun log(message: String) {
-        eventLog.append(message + "\n")
+        eventLog?.append(message + "\n")
         binding?.eventLog?.text = eventLog
     }
 
@@ -159,8 +159,8 @@ class PlayerControlsActivity : YouTubeBaseActivity(),
         binding?.board?.pauseButton?.isEnabled = enabled
         binding?.board?.skipToText?.isEnabled = enabled
         binding?.board?.spinnerVideo?.isEnabled = enabled
-        for (i in 0 until palyerRadioGroup.childCount) {
-            palyerRadioGroup.getChildAt(i).isEnabled = enabled
+        for (i in 0 until palyerRadioGroup?.childCount!!) {
+            palyerRadioGroup?.getChildAt(i)?.isEnabled = enabled
         }
     }
 
@@ -297,6 +297,6 @@ class PlayerControlsActivity : YouTubeBaseActivity(),
 
     override fun onDestroy() {
         super.onDestroy()
-        binding = null
+        layoutBinding = null
     }
 }

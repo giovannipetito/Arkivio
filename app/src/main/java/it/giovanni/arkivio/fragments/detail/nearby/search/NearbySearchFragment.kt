@@ -71,10 +71,6 @@ class NearbySearchFragment: DetailFragment(), ConnectionCallbacks, OnConnectionF
         return uuid
     }
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return R.string.nearby_search_title
     }

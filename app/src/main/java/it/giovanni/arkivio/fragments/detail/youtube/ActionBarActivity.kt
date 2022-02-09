@@ -9,14 +9,20 @@ import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayer.OnFullscreenListener
 import com.google.android.youtube.player.YouTubePlayerFragment
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.databinding.YoutubePlayerFragmentActivityBinding
 
 class ActionBarActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener, OnFullscreenListener {
 
     private var playerFragment: YouTubePlayerFragment? = null
 
+    private var layoutBinding: YoutubePlayerFragmentActivityBinding? = null
+    val binding get() = layoutBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.youtube_player_fragment_activity)
+
+        layoutBinding = YoutubePlayerFragmentActivityBinding.inflate(layoutInflater)
+        setContentView(binding?.root)
 
         playerFragment = fragmentManager.findFragmentById(R.id.youtube_player_fragment) as YouTubePlayerFragment
         playerFragment?.initialize(YoutubeConnector.API_KEY, this)
@@ -42,5 +48,10 @@ class ActionBarActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedList
             playerParams?.width = 0
             playerParams?.height = ViewGroup.LayoutParams.WRAP_CONTENT
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        layoutBinding = null
     }
 }

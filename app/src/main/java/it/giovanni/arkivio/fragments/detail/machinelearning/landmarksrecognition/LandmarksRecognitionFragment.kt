@@ -15,10 +15,6 @@ class LandmarksRecognitionFragment : DetailFragment() {
     private var layoutBinding: MlLandmarksRecognitionLayoutBinding? = null
     private val binding get() = layoutBinding
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return R.string.recognition_of_landmarks_title
     }

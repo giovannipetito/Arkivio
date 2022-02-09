@@ -15,10 +15,6 @@ class ImageLabelingFragment : DetailFragment() {
     private var layoutBinding: MlImageLabelingLayoutBinding? = null
     private val binding get() = layoutBinding
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return R.string.image_labeling_title
     }

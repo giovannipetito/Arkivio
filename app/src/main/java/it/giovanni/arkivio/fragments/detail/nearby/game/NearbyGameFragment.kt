@@ -122,10 +122,6 @@ class NearbyGameFragment: DetailFragment() {
         override fun onEndpointLost(endpointId: String) {}
     }
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return R.string.nearby_game_title
     }

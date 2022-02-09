@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.databinding.IntentsListItemBinding
 
 class YouTubeIntentsAdapter internal constructor(
     context: Context,
@@ -19,6 +20,7 @@ class YouTubeIntentsAdapter internal constructor(
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
 
         val mView = LayoutInflater.from(context).inflate(R.layout.intents_list_item, null)
+        // val mView = IntentsListItemBinding.inflate(LayoutInflater.from(context))
 
         val intentName = mView?.findViewById<TextView>(R.id.list_item_text)
         intentName?.text = getItem(position)?.title

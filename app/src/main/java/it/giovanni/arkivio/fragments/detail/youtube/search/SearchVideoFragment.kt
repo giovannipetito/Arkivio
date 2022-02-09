@@ -31,10 +31,6 @@ class SearchVideoFragment: DetailFragment(), SearchVideoAdapter.OnItemViewClicke
     private var handler: Handler? = null
     private var searchResults: List<Video>? = null
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return R.string.youtube_title
     }

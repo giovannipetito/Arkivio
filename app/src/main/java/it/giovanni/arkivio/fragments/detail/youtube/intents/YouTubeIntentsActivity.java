@@ -13,8 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.giovanni.arkivio.R;
+import it.giovanni.arkivio.databinding.YoutubeIntentsActivityBinding;
 
 public class YouTubeIntentsActivity extends Activity implements AdapterView.OnItemClickListener {
+
+    private YoutubeIntentsActivityBinding layoutBinding;
 
     // This is the value of Intent.EXTRA_LOCAL_ONLY for API level 11 and above.
     private static final String EXTRA_LOCAL_ONLY = "android.intent.extra.LOCAL_ONLY";
@@ -39,7 +42,9 @@ public class YouTubeIntentsActivity extends Activity implements AdapterView.OnIt
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.youtube_intents_activity);
+
+        layoutBinding = YoutubeIntentsActivityBinding.inflate(getLayoutInflater());
+        setContentView(layoutBinding.getRoot());
 
         intentItems = new ArrayList<>();
         intentItems.add(new IntentItem("Play Video", IntentType.PLAY_VIDEO));
@@ -50,7 +55,7 @@ public class YouTubeIntentsActivity extends Activity implements AdapterView.OnIt
         intentItems.add(new IntentItem("Open Search Results", IntentType.OPEN_SEARCH));
         intentItems.add(new IntentItem("Upload Video", IntentType.UPLOAD_VIDEO));
 
-        ListView listView = findViewById(R.id.intents_list);
+        ListView listView = layoutBinding.intentsList;
         YouTubeIntentsAdapter adapter = new YouTubeIntentsAdapter(this, R.layout.intents_list_item, intentItems);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
@@ -150,5 +155,11 @@ public class YouTubeIntentsActivity extends Activity implements AdapterView.OnIt
         public String getDisabledText() {
             return getString(R.string.intent_disabled);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        layoutBinding = null;
     }
 }

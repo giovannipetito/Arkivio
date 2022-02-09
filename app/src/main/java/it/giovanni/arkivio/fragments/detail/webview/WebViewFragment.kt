@@ -30,10 +30,6 @@ class WebViewFragment : DetailFragment() {
     private val pathHtml = "file:///android_asset/cb_html/"
     private var urlHtml = ""
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
 
         val linkGitHub = requireArguments().getInt("link_github")

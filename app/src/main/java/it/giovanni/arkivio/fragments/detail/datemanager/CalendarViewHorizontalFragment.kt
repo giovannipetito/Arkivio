@@ -33,10 +33,6 @@ class CalendarViewHorizontalFragment : DetailFragment() {
     private var selectedDate: LocalDate? = null
     private val today = LocalDate.now()
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return R.string.calendarview_horizontal_title
     }

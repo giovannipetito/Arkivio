@@ -37,10 +37,6 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
         REGISTER
     }
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return NO_TITLE
     }

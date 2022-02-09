@@ -52,10 +52,6 @@ class NearbyBeaconsFragment: DetailFragment(),
     private val messagesList: MutableList<String> = ArrayList()
     private var adapter: ArrayAdapter<String>? = null // Adapter for working with messages from nearby beacons.
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return R.string.nearby_beacons_title
     }

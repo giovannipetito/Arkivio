@@ -52,10 +52,6 @@ class CalendarViewVerticalFragment : DetailFragment() {
     private var selectedItems: ArrayList<SelectedDay>? = null
     private var deselectedItems: ArrayList<SelectedDay>? = null
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return R.string.calendarview_vertical_title
     }

@@ -23,10 +23,6 @@ class DialogFlowFragment : BaseFragment(SectionType.DIALOG_FLOW) {
 
     private val delayTime: Long = 5000
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return NO_TITLE
     }

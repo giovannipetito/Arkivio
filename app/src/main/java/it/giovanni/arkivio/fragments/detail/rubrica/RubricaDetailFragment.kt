@@ -61,10 +61,6 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener, Permission
         var KEY_COLOR = "KEY_COLOR"
     }
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return R.string.rubrica_detail_title
     }

@@ -16,10 +16,6 @@ class MachineLearningFragment : DetailFragment() {
     private var layoutBinding: MlMachineLearningLayoutBinding? = null
     private val binding get() = layoutBinding
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return R.string.machine_learning_title
     }

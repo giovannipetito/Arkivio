@@ -22,10 +22,6 @@ class StickyHeaderFragment : DetailFragment() {
     private var layoutBinding: StickyHeaderLayoutBinding? = null
     private val binding get() = layoutBinding
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return R.string.sticky_header_title
     }

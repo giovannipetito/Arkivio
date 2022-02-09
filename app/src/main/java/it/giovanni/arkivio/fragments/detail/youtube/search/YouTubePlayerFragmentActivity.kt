@@ -26,7 +26,6 @@ class YouTubePlayerFragmentActivity : YouTubeBaseActivity(), YouTubePlayer.OnIni
         super.onCreate(savedInstanceState)
 
         binding = YoutubePlayerFragmentActivityBinding.inflate(layoutInflater)
-        // setContentView(R.layout.youtube_player_fragment_activity)
         setContentView(binding?.root)
 
         VIDEO_ID = intent?.getStringExtra("VIDEO_ID")!!

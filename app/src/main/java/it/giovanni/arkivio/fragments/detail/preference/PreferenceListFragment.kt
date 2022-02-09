@@ -34,10 +34,6 @@ class PreferenceListFragment: DetailFragment(), PreferenceListAdapter.OnItemView
     private var contacts: String? = null
     private var isButtonClicked: Boolean? = false
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return R.string.preference_title
     }

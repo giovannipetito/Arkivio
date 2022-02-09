@@ -15,10 +15,6 @@ class QuickAnswerFragment : DetailFragment() {
     private var layoutBinding: MlQuickAnswerLayoutBinding? = null
     private val binding get() = layoutBinding
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return R.string.quick_answer_title
     }

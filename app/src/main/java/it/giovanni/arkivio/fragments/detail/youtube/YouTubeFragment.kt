@@ -21,10 +21,6 @@ class YouTubeFragment : DetailFragment() {
     private var layoutBinding: YoutubeLayoutBinding? = null
     private val binding get() = layoutBinding
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return R.string.youtube_title
     }

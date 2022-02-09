@@ -15,10 +15,6 @@ class TranslationFragment : DetailFragment() {
     private var layoutBinding: MlTranslationLayoutBinding? = null
     private val binding get() = layoutBinding
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return R.string.translation_on_device_title
     }

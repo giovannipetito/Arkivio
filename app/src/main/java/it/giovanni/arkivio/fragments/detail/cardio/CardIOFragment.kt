@@ -41,10 +41,6 @@ class CardIOFragment : DetailFragment(), AppCompatSpinnerCustom.OnSpinnerEventsL
     private val interval = 4
     private val formatter = DecimalFormat("0")
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return R.string.card_io_title
     }

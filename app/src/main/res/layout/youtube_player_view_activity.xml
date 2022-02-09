@@ -61,7 +61,7 @@
                     android:maxLines="4" />
 
             <CheckBox
-                    android:id="@+id/landscape_fullscreen_checkbox"
+                    android:id="@+id/landscape_full_screen_checkbox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="6dp"

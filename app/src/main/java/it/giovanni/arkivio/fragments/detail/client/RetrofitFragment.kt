@@ -27,10 +27,6 @@ class RetrofitFragment: DetailFragment(), IRetrofit {
     private var layoutBinding: RetrofitLayoutBinding? = null
     private val binding get() = layoutBinding
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return R.string.retrofit_title
     }

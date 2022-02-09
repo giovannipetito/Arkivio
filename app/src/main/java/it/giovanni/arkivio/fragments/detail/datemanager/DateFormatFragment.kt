@@ -53,10 +53,6 @@ class DateFormatFragment : DetailFragment() {
     private var granularityHour: Int = 1
     private var granularityMinute: Int = 2
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return R.string.date_format_title
     }

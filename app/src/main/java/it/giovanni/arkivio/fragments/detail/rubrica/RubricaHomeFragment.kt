@@ -36,10 +36,6 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback, IRealtime {
     private var mResponse: Response? = null
     private var users: ArrayList<User>? = null
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return R.string.rubrica_home_title
     }

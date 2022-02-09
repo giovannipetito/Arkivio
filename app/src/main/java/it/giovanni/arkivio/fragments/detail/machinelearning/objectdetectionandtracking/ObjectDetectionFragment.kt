@@ -15,10 +15,6 @@ class ObjectDetectionFragment : DetailFragment() {
     private var layoutBinding: MlObjectDetectionLayoutBinding? = null
     private val binding get() = layoutBinding
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return R.string.object_detection_and_tracking_title
     }

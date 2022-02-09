@@ -11,7 +11,8 @@ import it.giovanni.arkivio.databinding.WebviewVideoLayoutBinding
 
 class WebViewActivity: AppCompatActivity() {
 
-    private var binding: WebviewVideoLayoutBinding? = null
+    private var layoutBinding: WebviewVideoLayoutBinding? = null
+    val binding get() = layoutBinding
 
     private var bundleVideo: Bundle = Bundle()
     private var titleVideo: String? = null
@@ -20,8 +21,7 @@ class WebViewActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = WebviewVideoLayoutBinding.inflate(layoutInflater)
-        // setContentView(R.layout.webview_video_layout)
+        layoutBinding = WebviewVideoLayoutBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
         bundleVideo = intent.getBundleExtra("bundle_video")!!
@@ -145,6 +145,6 @@ class WebViewActivity: AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        binding = null
+        layoutBinding = null
     }
 }

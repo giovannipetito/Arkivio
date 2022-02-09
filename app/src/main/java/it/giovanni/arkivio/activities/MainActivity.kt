@@ -72,7 +72,7 @@ import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadRemember
 class MainActivity : BaseActivity(), IProgressLoader {
 
     private var layoutBinding: ActivityMainBinding? = null
-    val binding get() = layoutBinding
+    val binding: ActivityMainBinding? get() = layoutBinding
 
     private val delayTime: Long = 3000
     private var progressDialog: Dialog? = null
@@ -98,7 +98,6 @@ class MainActivity : BaseActivity(), IProgressLoader {
         super.onCreate(savedInstanceState)
 
         layoutBinding = ActivityMainBinding.inflate(layoutInflater)
-        // setContentView(R.layout.activity_main)
         setContentView(binding?.root)
 
         // Room: Load user preferences.

@@ -43,7 +43,6 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        // ----- DATA BINDING ----- //
         layoutBinding = DetailLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this, requireContext())
@@ -51,9 +50,7 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
         detailLayoutBinding?.temp = model
         detailLayoutBinding?.presenter = darkModePresenter
 
-        if (getLayout() == NO_LAYOUT)
-            detailLayoutBinding?.frameLayout?.addView(onCreateBindingView(inflater, detailLayoutBinding?.frameLayout, savedInstanceState))
-        // ------------------------ //
+        detailLayoutBinding?.frameLayout?.addView(onCreateBindingView(inflater, detailLayoutBinding?.frameLayout, savedInstanceState))
 
         return detailLayoutBinding?.root
     }
@@ -101,11 +98,6 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
             detailLayoutBinding?.detailTitle?.text = requireArguments().getString("link_deeplink")
         } else if (getTitle() != NO_TITLE) {
             detailLayoutBinding?.detailTitle?.text = getString(getTitle())
-        }
-
-        if (getLayout() != NO_LAYOUT) {
-            val customLayout = LayoutInflater.from(context).inflate(getLayout(), null, false)
-            detailLayoutBinding?.frameLayout?.addView(customLayout)
         }
 
         if (isRefreshEnabled()) {
@@ -177,7 +169,6 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
         if (detailLayoutBinding?.searchInputText?.visibility == View.GONE) {
             openSearch()
         } else {
-            // Search!
             onActionSearch(detailLayoutBinding?.searchInputText?.text.toString())
         }
     }

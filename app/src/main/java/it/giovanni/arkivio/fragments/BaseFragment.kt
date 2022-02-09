@@ -22,7 +22,6 @@ abstract class BaseFragment(private var sectionType: SectionType) : Fragment() {
         var NO_TITLE: Int = -1
     }
 
-    abstract fun getLayout(): Int
     abstract fun getTitle(): Int
 
     // Define layout
@@ -99,7 +98,6 @@ abstract class BaseFragment(private var sectionType: SectionType) : Fragment() {
         return view
     }
 
-    // Used to define fragment type {Home, Detail, ...}
     fun getSectionType(): SectionType {
         return this.sectionType
     }

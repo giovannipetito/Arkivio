@@ -87,10 +87,6 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
      */
     private var otherEndpointId: String? = null
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return R.string.nearby_chat_title
     }

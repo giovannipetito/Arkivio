@@ -91,10 +91,6 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
     private lateinit var customPopup: CustomDialogPopup
     private var compress: Boolean = false
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return NO_TITLE
     }

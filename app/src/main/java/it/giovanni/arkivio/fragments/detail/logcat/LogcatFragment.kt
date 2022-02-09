@@ -25,10 +25,6 @@ class LogcatFragment : DetailFragment() {
     var adapter: LogcatViewPager? = null
     private val millisecondsInWeek = 604800000L
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return R.string.logcat_projects_title
     }

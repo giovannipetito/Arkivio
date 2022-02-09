@@ -24,10 +24,6 @@ class PreferenceFragment: DetailFragment(), IPreference.UpdatesView {
 
     var presenter: IPreference.UserEvents? = null
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return R.string.preference_title
     }

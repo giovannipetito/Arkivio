@@ -19,10 +19,6 @@ class LogcatContentFragment : BaseFragment(SectionType.TAB_DETAIL) {
     var position: Int = -1
     private lateinit var swipeRefreshLayout: MultiSwipeRefreshLayout
 
-    override fun getLayout(): Int {
-        return NO_LAYOUT
-    }
-
     override fun getTitle(): Int {
         return NO_TITLE
     }
