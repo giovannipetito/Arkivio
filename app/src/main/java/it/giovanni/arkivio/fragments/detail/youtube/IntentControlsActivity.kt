@@ -112,7 +112,9 @@ class IntentControlsActivity: Activity(), View.OnClickListener {
         if (!TextUtils.isEmpty(text)) {
             try {
                 return text.toInt()
-            } catch (e: NumberFormatException) {}
+            } catch (e: NumberFormatException) {
+                e.printStackTrace()
+            }
         }
         return defaultValue
     }

@@ -54,7 +54,23 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener, Permission
 
     private lateinit var user: User
 
+    private var handler: Handler? = null
     private val delayTime: Long = 1000
+
+    private val contactsDialogRunnable: Runnable = Runnable {
+        contacts = getContacts()
+        contacts.add(labelDelete)
+
+        listDialogPopup = ListDialogPopup(currentActivity, R.style.PopupTheme)
+        listDialogPopup.setCancelable(false)
+        listDialogPopup.setMessage(resources.getString(R.string.rubrica_title))
+        listDialogPopup.setLabels(contacts, this)
+        listDialogPopup.setButtons(resources.getString(R.string.button_cancel)) {}
+        listDialogPopup.setGravityBottom(false)
+        listDialogPopup.show()
+
+        hideProgressDialog()
+    }
 
     companion object {
         var KEY_RUBRICA = "KEY_RUBRICA"
@@ -108,6 +124,8 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener, Permission
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        handler = Handler(Looper.getMainLooper())
 
         if (arguments != null) {
             user = requireArguments().getSerializable(KEY_RUBRICA) as User
@@ -244,25 +262,8 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener, Permission
     }
 
     private fun showContactsDialog() {
-
         showProgressDialog()
-
-        Handler(Looper.getMainLooper()).postDelayed({
-
-            contacts = getContacts()
-            contacts.add(labelDelete)
-
-            listDialogPopup = ListDialogPopup(currentActivity, R.style.PopupTheme)
-            listDialogPopup.setCancelable(false)
-            listDialogPopup.setMessage(resources.getString(R.string.rubrica_title))
-            listDialogPopup.setLabels(contacts, this)
-            listDialogPopup.setButtons(resources.getString(R.string.button_cancel)) {}
-            listDialogPopup.setGravityBottom(false)
-            listDialogPopup.show()
-
-            hideProgressDialog()
-
-        }, delayTime)
+        handler?.postDelayed(contactsDialogRunnable, delayTime)
     }
 
     private fun showInsertContactDialog() {
@@ -431,6 +432,11 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener, Permission
             data.add(row)
             intent.putParcelableArrayListExtra(ContactsContract.Intents.Insert.DATA, data)
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        handler?.removeCallbacks(contactsDialogRunnable)
     }
 
     override fun onDestroyView() {

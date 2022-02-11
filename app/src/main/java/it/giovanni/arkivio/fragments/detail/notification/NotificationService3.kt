@@ -19,31 +19,26 @@ import androidx.annotation.NonNull
 import androidx.core.app.ActivityCompat
 import androidx.core.app.AlarmManagerCompat
 import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat
 import it.giovanni.arkivio.R
 
 class NotificationService3 : Service() {
 
-    private var counter = 0
-
-    private var notificationManager: NotificationManager? = null
-    private lateinit var notifyPendingIntent: PendingIntent
-    private lateinit var notifyIntent: Intent
-
-    private val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
-
     private companion object {
+        private var TAG: String = NotificationService3::class.java.simpleName
         private const val SECOND: Long = 1_000L
         private const val REQUEST_CODE = 3 // NOTIFICATION ID
     }
 
+    private val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+    private var notificationManager: NotificationManager? = null
+    private lateinit var notifyPendingIntent: PendingIntent
+    private lateinit var notifyIntent: Intent
+    private var counter = 0
+
     override fun onCreate() {
         super.onCreate()
 
-        notificationManager = if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.O))
-            getSystemService(NotificationManager::class.java)
-        else
-            ContextCompat.getSystemService(this, NotificationManager::class.java) as NotificationManager
+        notificationManager = getSystemService(NotificationManager::class.java)
 
         notifyIntent = Intent(this, NotificationReceiver3::class.java)
         notifyPendingIntent = PendingIntent.getBroadcast(application, REQUEST_CODE, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT)
@@ -92,7 +87,7 @@ class NotificationService3 : Service() {
                 val bluetoothName = intent.getStringExtra(BluetoothDevice.EXTRA_NAME)
 
                 if (bluetoothName != null) {
-                    Log.i("TAG_NOTIFY", bluetoothName + " ===> " + rssi + "dBm")
+                    Log.i(TAG, bluetoothName + " ===> " + rssi + "dBm")
                     createNotificationChannel()
                     startTimer()
                 }
@@ -140,7 +135,7 @@ class NotificationService3 : Service() {
             notifyPendingIntent
         )
 
-        Log.i("TAG_NOTIFY", "========== " + counter++ + " ==========")
+        Log.i(TAG, "counter: " + counter++)
     }
 
     private fun NotificationManager.sendNotification(context: Context) {

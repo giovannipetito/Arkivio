@@ -48,7 +48,10 @@ import kotlin.collections.ArrayList
 
 class SmartworkingFragment: DetailFragment() {
 
-    private var mTag: String = SmartworkingFragment::class.java.simpleName
+    companion object {
+        private var TAG: String = SmartworkingFragment::class.java.simpleName
+    }
+
     private var layoutBinding: SmartworkingLayoutBinding? = null
     private val binding get() = layoutBinding
     private var currentDate: DateManager? = null
@@ -496,7 +499,7 @@ class SmartworkingFragment: DetailFragment() {
                 // Log.i(TAG, "mSortedItems: $mSortedItems\nmSortedSelectedItems: $mSortedSelectedItems\nmSortedDeselectedItems: $mSortedDeselectedItems")
 
                 if (sortedItems.isNotEmpty() && sortedSelectedItems.isEmpty() && sortedDeselectedItems.isEmpty()) {
-                    Log.i(mTag, "Non mando alcuna segnalazione.")
+                    Log.i(TAG, "Non mando alcuna segnalazione.")
                 }
 
                 if (sortedItems.isNotEmpty() && sortedSelectedItems.isNotEmpty() && sortedDeselectedItems.isEmpty()) {
@@ -510,7 +513,7 @@ class SmartworkingFragment: DetailFragment() {
                         contiguousSelectedItems,
                         UserFactory.getInstance().givenName
                     )
-                    Log.i(mTag, UserFactory.getInstance().smartworkingSubjectMail + "\n" + UserFactory.getInstance().smartworkingContentMail)
+                    Log.i(TAG, UserFactory.getInstance().smartworkingSubjectMail + "\n" + UserFactory.getInstance().smartworkingContentMail)
                 }
 
                 if (sortedItems.isNotEmpty() && sortedSelectedItems.isEmpty() && sortedDeselectedItems.isNotEmpty()) {
@@ -523,7 +526,7 @@ class SmartworkingFragment: DetailFragment() {
                         contiguousDeselectedItems,
                         UserFactory.getInstance().givenName
                     )
-                    Log.i(mTag,
+                    Log.i(TAG,
                         UserFactory.getInstance().smartworkingSubjectMail + "\n" + UserFactory.getInstance().smartworkingContentMail)
                 }
 
@@ -537,7 +540,7 @@ class SmartworkingFragment: DetailFragment() {
                         contiguousDeselectedItems,
                         UserFactory.getInstance().givenName
                     )
-                    Log.i(mTag, UserFactory.getInstance().smartworkingSubjectMail + "\n" + UserFactory.getInstance().smartworkingContentMail)
+                    Log.i(TAG, UserFactory.getInstance().smartworkingSubjectMail + "\n" + UserFactory.getInstance().smartworkingContentMail)
                 }
 
                 if (sortedItems.isNotEmpty() && sortedSelectedItems.isNotEmpty() && sortedDeselectedItems.isNotEmpty()) {
@@ -552,7 +555,7 @@ class SmartworkingFragment: DetailFragment() {
                         contiguousSelectedItems,
                         UserFactory.getInstance().givenName
                     )
-                    Log.i(mTag, UserFactory.getInstance().smartworkingSubjectMail + "\n" + UserFactory.getInstance().smartworkingContentMail)
+                    Log.i(TAG, UserFactory.getInstance().smartworkingSubjectMail + "\n" + UserFactory.getInstance().smartworkingContentMail)
                 }
 
                 sendSmartworkingCommunication()

@@ -16,6 +16,10 @@ import it.giovanni.arkivio.utils.Utils.Companion.setTextWebview
 
 class WebViewFragment : DetailFragment() {
 
+    companion object {
+        private var TAG: String = WebViewFragment::class.java.simpleName
+    }
+
     private var layoutBinding: WebviewLayoutBinding? = null
     private val binding get() = layoutBinding
 
@@ -118,7 +122,7 @@ class WebViewFragment : DetailFragment() {
 
         binding?.webview?.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-                Log.i("TAG_HTML", "Url: $url") // market://details?id=it.wind.windtre
+                Log.i(TAG, "Url: $url") // market://details?id=it.wind.windtre
                 try {
                     if (url.startsWith("market")) {
                         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))

@@ -24,16 +24,16 @@ open class BiometricManagerV23 {
 
     private var cipher: Cipher? = null
     private var keyStore: KeyStore? = null
-    private var biometricDialogV23:BiometricDialogV23? = null
+    private var biometricDialogV23: BiometricDialogV23? = null
 
     var context: Context? = null
-    var title:String? = null
-    var subtitle:String? = null
-    var description:String? = null
-    var cancel:String? = null
+    var title: String? = null
+    var subtitle: String? = null
+    var description: String? = null
+    var cancel: String? = null
     var mCancellationSignalV23 = CancellationSignal()
 
-    fun displayBiometricPromptV23(biometricCallback:BiometricCallback) {
+    fun displayBiometricPromptV23(biometricCallback: BiometricCallback) {
         generateKey()
 
         if (initCipher()) {
@@ -41,21 +41,21 @@ open class BiometricManagerV23 {
             val fingerprintManagerCompat = FingerprintManagerCompat.from(context!!)
 
             fingerprintManagerCompat.authenticate(cryptoObject, 0, mCancellationSignalV23,
-                object:FingerprintManagerCompat.AuthenticationCallback() {
+                object: FingerprintManagerCompat.AuthenticationCallback() {
 
-                    override fun onAuthenticationError(errMsgId:Int, errString:CharSequence?) {
+                    override fun onAuthenticationError(errMsgId: Int, errString: CharSequence?) {
                         super.onAuthenticationError(errMsgId, errString)
                         updateStatus(errString.toString())
                         biometricCallback.onAuthenticationError(errMsgId, errString!!)
                     }
 
-                    override fun onAuthenticationHelp(helpMsgId:Int, helpString:CharSequence?) {
+                    override fun onAuthenticationHelp(helpMsgId: Int, helpString: CharSequence?) {
                         super.onAuthenticationHelp(helpMsgId, helpString)
                         updateStatus(helpString.toString())
                         biometricCallback.onAuthenticationHelp(helpMsgId, helpString!!)
                     }
 
-                    override fun onAuthenticationSucceeded(result:FingerprintManagerCompat.AuthenticationResult?) {
+                    override fun onAuthenticationSucceeded(result: FingerprintManagerCompat.AuthenticationResult?) {
                         super.onAuthenticationSucceeded(result)
                         dismissDialog()
                         biometricCallback.onAuthenticationSuccessful()
@@ -72,7 +72,7 @@ open class BiometricManagerV23 {
         }
     }
 
-    private fun displayBiometricDialog(biometricCallback:BiometricCallback) {
+    private fun displayBiometricDialog(biometricCallback: BiometricCallback) {
         biometricDialogV23 = BiometricDialogV23(context!!, biometricCallback)
         biometricDialogV23?.setTitle(title)
         biometricDialogV23?.setSubtitle(subtitle!!)
@@ -85,7 +85,7 @@ open class BiometricManagerV23 {
         biometricDialogV23?.dismiss()
     }
 
-    private fun updateStatus(status:String) {
+    private fun updateStatus(status: String) {
         biometricDialogV23?.updateStatus(status)
     }
 
@@ -104,31 +104,31 @@ open class BiometricManagerV23 {
 
             keyGenerator.generateKey()
         }
-        catch (exc: KeyStoreException) {
-            exc.printStackTrace()
+        catch (e: KeyStoreException) {
+            e.printStackTrace()
         }
-        catch (exc: NoSuchAlgorithmException) {
-            exc.printStackTrace()
+        catch (e: NoSuchAlgorithmException) {
+            e.printStackTrace()
         }
-        catch (exc: NoSuchProviderException) {
-            exc.printStackTrace()
+        catch (e: NoSuchProviderException) {
+            e.printStackTrace()
         }
-        catch (exc: InvalidAlgorithmParameterException) {
-            exc.printStackTrace()
+        catch (e: InvalidAlgorithmParameterException) {
+            e.printStackTrace()
         }
-        catch (exc: CertificateException) {
-            exc.printStackTrace()
+        catch (e: CertificateException) {
+            e.printStackTrace()
         }
-        catch (exc: IOException) {
-            exc.printStackTrace()
+        catch (e: IOException) {
+            e.printStackTrace()
         }
     }
 
-    private fun initCipher():Boolean {
+    private fun initCipher(): Boolean {
         try {
             cipher = Cipher.getInstance(KeyProperties.KEY_ALGORITHM_AES + "/" + KeyProperties.BLOCK_MODE_CBC + "/" + KeyProperties.ENCRYPTION_PADDING_PKCS7)
         }
-        catch (e:NoSuchAlgorithmException) {
+        catch (e: NoSuchAlgorithmException) {
             throw RuntimeException("Failed to get Cipher", e)
         }
         catch (e: NoSuchPaddingException) {
@@ -141,25 +141,25 @@ open class BiometricManagerV23 {
             cipher?.init(Cipher.ENCRYPT_MODE, key)
             return true
         }
-        catch (e:KeyPermanentlyInvalidatedException) {
+        catch (e: KeyPermanentlyInvalidatedException) {
             return false
         }
-        catch (e:KeyStoreException) {
+        catch (e: KeyStoreException) {
             throw RuntimeException("Failed to init Cipher", e)
         }
-        catch (e:CertificateException) {
+        catch (e: CertificateException) {
             throw RuntimeException("Failed to init Cipher", e)
         }
-        catch (e:UnrecoverableKeyException) {
+        catch (e: UnrecoverableKeyException) {
             throw RuntimeException("Failed to init Cipher", e)
         }
-        catch (e:IOException) {
+        catch (e: IOException) {
             throw RuntimeException("Failed to init Cipher", e)
         }
-        catch (e:NoSuchAlgorithmException) {
+        catch (e: NoSuchAlgorithmException) {
             throw RuntimeException("Failed to init Cipher", e)
         }
-        catch (e:InvalidKeyException) {
+        catch (e: InvalidKeyException) {
             throw RuntimeException("Failed to init Cipher", e)
         }
     }

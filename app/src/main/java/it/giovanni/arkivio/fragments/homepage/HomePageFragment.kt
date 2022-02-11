@@ -16,31 +16,30 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import it.giovanni.arkivio.BuildConfig
-import it.giovanni.arkivio.fragments.HomeFragment
-import it.giovanni.arkivio.fragments.MainFragment
-import it.giovanni.arkivio.utils.Utils.Companion.getRoundBitmap
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.bean.SelectedDay
 import it.giovanni.arkivio.databinding.HomePageLayoutBinding
+import it.giovanni.arkivio.fragments.HomeFragment
+import it.giovanni.arkivio.fragments.MainFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.DateManager
 import it.giovanni.arkivio.utils.Utils.Companion.convertDpToPixel
 import it.giovanni.arkivio.utils.Utils.Companion.getBatteryCapacity
 import it.giovanni.arkivio.utils.Utils.Companion.getHashKey
+import it.giovanni.arkivio.utils.Utils.Companion.getRoundBitmap
 import it.giovanni.arkivio.utils.Utils.Companion.getVersionNameLong
 import it.giovanni.arkivio.utils.Utils.Companion.turnArrayListToString
 import it.giovanni.arkivio.utils.Utils.Companion.turnArrayToString
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class HomePageFragment : HomeFragment() {
 
-    private val mTag = HomePageFragment::class.java.simpleName
-
     companion object {
+        private val TAG = HomePageFragment::class.java.simpleName
+
         private var caller: MainFragment? = null
         fun newInstance(c: MainFragment): HomePageFragment {
             caller = c
@@ -52,10 +51,17 @@ class HomePageFragment : HomeFragment() {
     private val binding get() = layoutBinding
 
     private val delayTime: Long = 3000
+    private var handler: Handler? = null
     private val currentHours = Date().hours
 
     private var list: ArrayList<String>? = null
     private var array: Array<String>? = null
+
+    private val avatarRunnable: Runnable = Runnable {
+        val avatar: Bitmap = BitmapFactory.decodeResource(requireContext().resources, R.drawable.giovanni)
+        val roundAvatar: Bitmap = getRoundBitmap(avatar, avatar.width)
+        binding?.icoAvatar?.setImageBitmap(roundAvatar)
+    }
 
     override fun getTitle(): Int {
         return NO_TITLE
@@ -69,14 +75,16 @@ class HomePageFragment : HomeFragment() {
         binding?.presenter = darkModePresenter
         binding?.temp = model
 
-        val intro = MediaPlayer.create(context, R.raw.intro)
-        intro.start()
-
         return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val intro = MediaPlayer.create(context, R.raw.intro)
+        intro.start()
+
+        handler = Handler(Looper.getMainLooper())
 
         list = ArrayList() // Oppure: ArrayList<String>()
         list?.add("Hi")
@@ -89,11 +97,11 @@ class HomePageFragment : HomeFragment() {
 
         // Come convertire un array di stringhe in una stringa:
         val message1 = turnArrayToString(array!!)
-        Log.i(mTag, message1)
+        Log.i(TAG, message1)
 
         // Come convertire una lista di stringhe in una stringa:
         val message2 = turnArrayListToString(list!!)
-        Log.i(mTag, message2)
+        Log.i(TAG, message2)
 
         // Se ho bisogno di un'array di stringhe di cui conosco la dimensione, posso inizializzarlo nel modo seguente:
         array = arrayOf("", "", "")
@@ -129,7 +137,7 @@ class HomePageFragment : HomeFragment() {
                 newList.add(list[i])
             }
         }
-        Log.i(mTag, "newList: " + turnArrayListToString(newList))
+        Log.i(TAG, "newList: " + turnArrayListToString(newList))
 
         // ----------- START SORT ---------- //
         // Dato un ArrayList di Date (o anche di SelectedDay come in questo caso), restituisco un
@@ -157,7 +165,7 @@ class HomePageFragment : HomeFragment() {
         try {
             dateItems.sort()
             for (date in dateItems) {
-                Log.i(mTag, sdf.format(date))
+                Log.i(TAG, sdf.format(date))
             }
         } catch (ex: ParseException) {
             ex.printStackTrace()
@@ -177,24 +185,20 @@ class HomePageFragment : HomeFragment() {
 
         binding?.labelTime?.text = DateManager(Date()).getFormatTime()
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            val avatar: Bitmap = BitmapFactory.decodeResource(requireContext().resources, R.drawable.giovanni)
-            val roundAvatar: Bitmap = getRoundBitmap(avatar, avatar.width)
-            binding?.icoAvatar?.setImageBitmap(roundAvatar)
-        }, delayTime)
+        handler?.postDelayed(avatarRunnable, delayTime)
 
         binding?.icoAvatar?.setOnClickListener {
             pickFromGallery()
         }
 
         val pixel = convertDpToPixel(requireContext(), 24F)
-        Log.i(mTag, "pixel: $pixel")
+        Log.i(TAG, "pixel: $pixel")
 
         val versionName = BuildConfig.VERSION_NAME
-        Log.i(mTag, "versionName: " + getVersionNameLong(versionName))
+        Log.i(TAG, "versionName: " + getVersionNameLong(versionName))
 
         val hashKey = getHashKey(requireContext())
-        Log.i(mTag, "Hash Key: $hashKey")
+        Log.i(TAG, "Hash Key: $hashKey")
 
         if (currentHours in 5..17) {
             binding?.lottieSun?.visibility = View.VISIBLE
@@ -231,6 +235,11 @@ class HomePageFragment : HomeFragment() {
                 }
             }
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        handler?.removeCallbacks(avatarRunnable)
     }
 
     override fun onDestroyView() {

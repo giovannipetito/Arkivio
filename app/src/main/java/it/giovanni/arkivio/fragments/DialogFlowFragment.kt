@@ -21,7 +21,15 @@ class DialogFlowFragment : BaseFragment(SectionType.DIALOG_FLOW) {
     private var layoutBinding: DialogFlowLayoutBinding? = null
     private val binding get() = layoutBinding
 
+    private var handler: Handler? = null
     private val delayTime: Long = 5000
+
+    private val visibilityRunnable: Runnable = Runnable {
+        if (binding?.speechContainer != null && binding?.suggestionsContainer != null) {
+            binding?.speechContainer?.visibility = View.GONE
+            binding?.suggestionsContainer?.visibility = View.VISIBLE
+        }
+    }
 
     override fun getTitle(): Int {
         return NO_TITLE
@@ -35,16 +43,13 @@ class DialogFlowFragment : BaseFragment(SectionType.DIALOG_FLOW) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        handler = Handler(Looper.getMainLooper())
+
         binding?.icoCloseContainer?.setOnClickListener {
             currentActivity.onBackPressed()
         }
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            if (binding?.speechContainer != null && binding?.suggestionsContainer != null) {
-                binding?.speechContainer?.visibility = View.GONE
-                binding?.suggestionsContainer?.visibility = View.VISIBLE
-            }
-        }, delayTime)
+        handler?.postDelayed(visibilityRunnable, delayTime)
 
         binding?.buttonVoiceContainer?.setOnClickListener {
 
@@ -77,6 +82,11 @@ class DialogFlowFragment : BaseFragment(SectionType.DIALOG_FLOW) {
                 currentActivity.openDetail(Globals.RUBRICA_LIST, contact)
             }
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        handler?.removeCallbacks(visibilityRunnable)
     }
 
     override fun onDestroyView() {

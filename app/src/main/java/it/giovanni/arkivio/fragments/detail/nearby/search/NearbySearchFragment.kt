@@ -32,7 +32,9 @@ import java.util.*
 
 class NearbySearchFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFailedListener {
 
-    private val mTag = NearbySearchFragment::class.java.simpleName
+    companion object {
+        private val TAG = NearbySearchFragment::class.java.simpleName
+    }
 
     private var layoutBinding: NearbySearchLayoutBinding? = null
     private val binding get() = layoutBinding
@@ -179,7 +181,7 @@ class NearbySearchFragment: DetailFragment(), ConnectionCallbacks, OnConnectionF
     }
 
     override fun onConnected(bundle: Bundle?) {
-        Log.i(mTag, "GoogleApiClient connected")
+        Log.i(TAG, "GoogleApiClient connected")
         // We use the Switch buttons in the UI to track whether we were previously doing pub/sub.
         // Since the GoogleApiClient disconnects when the activity is destroyed, foreground pubs/subs
         // do not survive device rotation. Once this activity is re-created and GoogleApiClient connects,
@@ -200,7 +202,7 @@ class NearbySearchFragment: DetailFragment(), ConnectionCallbacks, OnConnectionF
 
     // Subscribes to messages from nearby devices and updates the UI if the subscription either fails or TTLs.
     private fun subscribe() {
-        Log.i(mTag, "Subscribing")
+        Log.i(TAG, "Subscribing")
         nearbyDevicesAdapter?.clear()
 
         val options = SubscribeOptions.Builder()
@@ -208,14 +210,14 @@ class NearbySearchFragment: DetailFragment(), ConnectionCallbacks, OnConnectionF
             .setCallback(object : SubscribeCallback() {
                 override fun onExpired() {
                     super.onExpired()
-                    Log.i(mTag, "No longer subscribing")
+                    Log.i(TAG, "No longer subscribing")
                     currentActivity.runOnUiThread { subscribeSwitch?.isChecked = false }
                 }
             }).build()
 
         Nearby.Messages.subscribe(googleApiClient!!, messageListener!!, options).setResultCallback { status: Status ->
                 if (status.isSuccess) {
-                    Log.i(mTag, "Subscribed successfully.")
+                    Log.i(TAG, "Subscribed successfully.")
                 } else {
                     logAndShowSnackbar("Could not subscribe, status = $status")
                     subscribeSwitch?.isChecked = false
@@ -225,21 +227,21 @@ class NearbySearchFragment: DetailFragment(), ConnectionCallbacks, OnConnectionF
 
     // Publishes a message to nearby devices and updates the UI if the publication either fails or TTLs.
     private fun publish() {
-        Log.i(mTag, "Publishing")
+        Log.i(TAG, "Publishing")
 
         val options = PublishOptions.Builder()
             .setStrategy(pubSubStrategy)
             .setCallback(object : PublishCallback() {
                 override fun onExpired() {
                     super.onExpired()
-                    Log.i(mTag, "No longer publishing")
+                    Log.i(TAG, "No longer publishing")
                     currentActivity.runOnUiThread { publishSwitch?.isChecked = false }
                 }
             }).build()
 
         Nearby.Messages.publish(googleApiClient!!, message!!, options).setResultCallback { status: Status ->
                 if (status.isSuccess) {
-                    Log.i(mTag, "Published successfully.")
+                    Log.i(TAG, "Published successfully.")
                 } else {
                     logAndShowSnackbar("Could not publish, status = $status")
                     publishSwitch?.isChecked = false
@@ -249,19 +251,19 @@ class NearbySearchFragment: DetailFragment(), ConnectionCallbacks, OnConnectionF
 
     // Stops subscribing to messages from nearby devices.
     private fun unsubscribe() {
-        Log.i(mTag, "Unsubscribing.")
+        Log.i(TAG, "Unsubscribing.")
         Nearby.Messages.unsubscribe(googleApiClient!!, messageListener!!)
     }
 
     // Stops publishing message to nearby devices.
     private fun unpublish() {
-        Log.i(mTag, "Unpublishing.")
+        Log.i(TAG, "Unpublishing.")
         Nearby.Messages.unpublish(googleApiClient!!, message!!)
     }
 
     // Logs a message and shows a Snackbar using the String text that is used in the Log message and the SnackBar.
     private fun logAndShowSnackbar(text: String) {
-        Log.i(mTag, text)
+        Log.i(TAG, text)
         val container: View = binding?.nearbySearchContainer!!
         Snackbar.make(container, text, Snackbar.LENGTH_LONG).show()
     }

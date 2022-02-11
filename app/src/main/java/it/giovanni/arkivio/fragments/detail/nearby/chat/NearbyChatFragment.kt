@@ -35,7 +35,23 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
 
     // Once the devices are connected, they can send messages to each other.
 
-    private val mTag = NearbyChatFragment::class.java.simpleName
+    /**
+     * Possible states for this application:
+     * IDLE - GoogleApiClient not yet connected, can't do anything.
+     * READY - GoogleApiClient connected, ready to use Nearby Connections API.
+     * ADVERTISING - advertising for peers to connect.
+     * DISCOVERING - looking for a peer that is advertising.
+     * CONNECTED - found a peer.
+     */
+    companion object {
+        private val TAG = NearbyChatFragment::class.java.simpleName
+
+        private const val STATE_IDLE = 1023
+        private const val STATE_READY = 1024
+        private const val STATE_ADVERTISING = 1025
+        private const val STATE_DISCOVERING = 1026
+        private const val STATE_CONNECTED = 1027
+    }
 
     private var layoutBinding: NearbyChatLayoutBinding? = null
     private val binding get() = layoutBinding
@@ -48,22 +64,6 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
      */
     private val timeoutAdvertise = 1000L * 30L
     private val timeoutDiscover = 1000L * 30L
-
-    /**
-     * Possible states for this application:
-     * IDLE - GoogleApiClient not yet connected, can't do anything.
-     * READY - GoogleApiClient connected, ready to use Nearby Connections API.
-     * ADVERTISING - advertising for peers to connect.
-     * DISCOVERING - looking for a peer that is advertising.
-     * CONNECTED - found a peer.
-     */
-    companion object {
-        private const val STATE_IDLE = 1023
-        private const val STATE_READY = 1024
-        private const val STATE_ADVERTISING = 1025
-        private const val STATE_DISCOVERING = 1026
-        private const val STATE_CONNECTED = 1027
-    }
 
     @kotlin.annotation.Retention(AnnotationRetention.BINARY) // In Java: @Retention(RetentionPolicy.CLASS)
     @IntDef(STATE_IDLE, STATE_READY, STATE_ADVERTISING, STATE_DISCOVERING, STATE_CONNECTED)
@@ -182,13 +182,13 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
 
     override fun onStart() {
         super.onStart()
-        Log.i(mTag, "onStart")
+        Log.i(TAG, "onStart")
         googleApiClient?.connect()
     }
 
     override fun onStop() {
         super.onStop()
-        Log.i(mTag, "onStop")
+        Log.i(TAG, "onStop")
 
         // Disconnect the Google API client and stop any ongoing discovery or advertising. When the
         // GoogleAPIClient is disconnected, any connected peers will get an onDisconnected callback.
@@ -224,7 +224,7 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
             timeoutAdvertise,
             connectionRequestListener
         ).setResultCallback { result: StartAdvertisingResult ->
-            Log.i(mTag, "startAdvertising:onResult: $result")
+            Log.i(TAG, "startAdvertising:onResult: $result")
             if (result.status.isSuccess) {
                 debugLog("startAdvertising:onResult: SUCCESS")
                 updateViewVisibility(STATE_ADVERTISING)
@@ -313,7 +313,7 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
         val myName = "Giovanni"
         Nearby.Connections.sendConnectionRequest(
             googleApiClient!!, myName, endpointId, "".toByteArray(), { endpointId1: String, status: Status, _: ByteArray? ->
-                Log.i(mTag, "onConnectionResponse: $endpointId1: $status")
+                Log.i(TAG, "onConnectionResponse: $endpointId1: $status")
                 if (status.isSuccess) {
                     debugLog("onConnectionResponse: $endpointName SUCCESS")
                     Toast.makeText(context, "Connected to $endpointName", Toast.LENGTH_SHORT).show()
@@ -363,7 +363,7 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
 
     fun onEndpointFound(endpointId: String, endpointName: String) {
 
-        Log.i(mTag, "onEndpointFound:$endpointId:$endpointName")
+        Log.i(TAG, "onEndpointFound:$endpointId:$endpointName")
 
         // This device is discovering endpoints and has located an advertiser. Display a dialog to
         // the user asking if they want to connect, and send a connection request if they do.
@@ -457,7 +457,7 @@ class NearbyChatFragment: DetailFragment(), ConnectionCallbacks, OnConnectionFai
      * @param message the message to print and display.
      */
     private fun debugLog(message: String) {
-        Log.i(mTag, message)
+        Log.i(TAG, message)
         debugText?.append("""$message """.trimIndent()) // In Java: debugText.append("\n" + message);
     }
 

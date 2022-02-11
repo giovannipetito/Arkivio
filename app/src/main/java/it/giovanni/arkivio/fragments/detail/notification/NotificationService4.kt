@@ -26,14 +26,16 @@ import java.util.*
 
 class NotificationService4 : Service() {
 
-    private var timer: Timer? = null
-    private var counter = 0
-    private val requestCode = 3 // NOTIFICATION ID
-
-    private var builder: NotificationCompat.Builder? = null
+    companion object {
+        private var TAG: String = NotificationService4::class.java.simpleName
+    }
 
     private val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
     private var notificationManager: NotificationManagerCompat? = null
+    private var builder: NotificationCompat.Builder? = null
+    private val requestCode = 3 // NOTIFICATION ID
+    private var timer: Timer? = null
+    private var counter = 0
 
     private val receiver: BroadcastReceiver = object : BroadcastReceiver() {
 
@@ -48,7 +50,7 @@ class NotificationService4 : Service() {
                 val bluetoothName = intent.getStringExtra(BluetoothDevice.EXTRA_NAME)
 
                 if (bluetoothName != null) {
-                    Log.i("TAG_NOTIFY", bluetoothName + " ===> " + rssi + "dBm")
+                    Log.i(TAG, bluetoothName + " ===> " + rssi + "dBm")
                     val notification: Notification? = builder?.build()
                     notificationManager?.notify(requestCode, notification!!)
                     startForeground(requestCode, notification)
@@ -76,7 +78,7 @@ class NotificationService4 : Service() {
         timer = Timer()
         val timerTask: TimerTask = object : TimerTask() {
             override fun run() {
-                Log.i("TAG_NOTIFY", "========== " + counter++ + " ==========")
+                Log.i(TAG, "counter: " + counter++)
                 createNotificationChannel()
                 startNotificationService()
             }

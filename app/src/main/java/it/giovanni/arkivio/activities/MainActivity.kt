@@ -71,10 +71,15 @@ import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadRemember
 
 class MainActivity : BaseActivity(), IProgressLoader {
 
+    companion object {
+        var running = false
+    }
+
     private var layoutBinding: ActivityMainBinding? = null
     val binding: ActivityMainBinding? get() = layoutBinding
 
-    private val delayTime: Long = 3000
+    private val delayTime1: Long = 1000
+    private val delayTime2: Long = 3000
     private var progressDialog: Dialog? = null
     private var spinnerLogo: ImageView? = null
     private var spinnerAnimation: AnimationDrawable? = null
@@ -90,8 +95,53 @@ class MainActivity : BaseActivity(), IProgressLoader {
 
     private var rememberMe: Boolean = false
 
-    companion object {
-        var running = false
+    private var handler1: Handler? = null
+    private var handler2: Handler? = null
+    private var handler3: Handler? = null
+    private var handler4: Handler? = null
+    private var handler5: Handler? = null
+    private var handler6: Handler? = null
+
+    private val m1Runnable: Runnable = Runnable {
+        supportFragmentManager
+            .beginTransaction()
+            .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+            .replace(R.id.frame_container, LoginFragment(), mLoginFragment
+            ).commit()
+    }
+
+    private val m2Runnable: Runnable = Runnable {
+        supportFragmentManager
+            .beginTransaction()
+            .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+            .replace(R.id.frame_container, MainFragment(), mMainFragment)
+            .commitAllowingStateLoss()
+            // .commit()
+    }
+
+    private val m3Runnable: Runnable = Runnable {
+        if (mainFragment != null)
+            mainFragment?.goToHomePosition(1)
+    }
+
+    private val m4Runnable: Runnable = Runnable {
+        if (mainFragment != null)
+            mainFragment?.goToHomePosition(2)
+    }
+
+    private val m5Runnable: Runnable = Runnable {
+        if (mainFragment != null)
+            mainFragment?.goToHomePosition(3)
+    }
+
+    private val m6Runnable: Runnable = Runnable {
+        try {
+            progressDialog?.dismiss()
+            if (spinnerAnimation != null)
+                spinnerAnimation?.stop()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -99,6 +149,13 @@ class MainActivity : BaseActivity(), IProgressLoader {
 
         layoutBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
+
+        handler1 = Handler(Looper.getMainLooper())
+        handler2 = Handler(Looper.getMainLooper())
+        handler3 = Handler(Looper.getMainLooper())
+        handler4 = Handler(Looper.getMainLooper())
+        handler5 = Handler(Looper.getMainLooper())
+        handler6 = Handler(Looper.getMainLooper())
 
         // Room: Load user preferences.
         App.getRepository()?.loadPreferences()
@@ -121,25 +178,12 @@ class MainActivity : BaseActivity(), IProgressLoader {
                 .add(R.id.frame_container, SplashFragment(), mSplashFragment)
                 .commit()
 
-            if (!rememberMe) {
-                Handler(Looper.getMainLooper()).postDelayed({
-                    supportFragmentManager
-                        .beginTransaction()
-                        .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-                        .replace(R.id.frame_container, LoginFragment(), mLoginFragment
-                        ).commit()
-                }, delayTime)
-            } else {
-                if (isOnline()) {
-                    Handler(mainLooper).postDelayed({
-                        supportFragmentManager
-                            .beginTransaction()
-                            .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-                            .replace(R.id.frame_container, MainFragment(), mMainFragment)
-                            .commitAllowingStateLoss()
-                            // .commit()
-                    }, delayTime)
-                } else
+            if (!rememberMe)
+                handler1?.postDelayed(m1Runnable, delayTime2)
+            else {
+                if (isOnline())
+                    handler2?.postDelayed(m2Runnable, delayTime2)
+                else
                     Toast.makeText(context,"Errore di connessione", Toast.LENGTH_LONG).show()
             }
         }
@@ -148,11 +192,11 @@ class MainActivity : BaseActivity(), IProgressLoader {
             val params = intent.extras
 
             if (params != null && params.containsKey(DeepLinkDescriptor.DEEP_LINK)) {
-                Log.i(mTag, "DeepLink trovato..")
+                Log.i(TAG, "DeepLink trovato..")
                 val bundle = params.getBundle(DeepLinkActivity.DEEP_LINK)
                 val uri = bundle?.getParcelable<Uri>(DeepLinkActivity.DEEP_LINK_URI)
                 if (uri != null)
-                    Log.i(mTag, "HOST:" + uri.host + "| path" + uri.path)
+                    Log.i(TAG, "HOST:" + uri.host + "| path" + uri.path)
                 deepLinkEvent = DeepLinkDescriptor()
                 deepLinkEvent?.deeplink = uri
             }
@@ -201,24 +245,15 @@ class MainActivity : BaseActivity(), IProgressLoader {
             }
             DeepLinkDescriptor.URI_HOME_PAGE -> {
                 removeAllFragmentsToMainFragment()
-                Handler(Looper.getMainLooper()).postDelayed({
-                    if (mainFragment != null)
-                        mainFragment?.goToHomePosition(1)
-                }, 1000)
+                handler3?.postDelayed(m3Runnable, delayTime1)
             }
             DeepLinkDescriptor.URI_HOME_WORK_PAGE -> {
                 removeAllFragmentsToMainFragment()
-                Handler(Looper.getMainLooper()).postDelayed({
-                    if (mainFragment != null)
-                        mainFragment?.goToHomePosition(2)
-                }, 1000)
+                handler4?.postDelayed(m4Runnable, delayTime1)
             }
             DeepLinkDescriptor.URI_HOME_ADMIN_PAGE -> {
                 removeAllFragmentsToMainFragment()
-                Handler(Looper.getMainLooper()).postDelayed({
-                    if (mainFragment != null)
-                        mainFragment?.goToHomePosition(3)
-                }, 1000)
+                handler5?.postDelayed(m5Runnable, delayTime1)
             }
         }
     }
@@ -248,6 +283,7 @@ class MainActivity : BaseActivity(), IProgressLoader {
                 try {
                     spinnerAnimation?.start()
                 } catch (e: Exception) {
+                    e.printStackTrace()
                 }
             }
         }
@@ -261,19 +297,13 @@ class MainActivity : BaseActivity(), IProgressLoader {
             if (spinnerAnimation != null)
                 spinnerAnimation?.stop()
         } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
     */
 
     override fun hideProgressDialog() {
-        Handler(Looper.getMainLooper()).postDelayed({
-            try {
-                progressDialog?.dismiss()
-                if (spinnerAnimation != null)
-                    spinnerAnimation?.stop()
-            } catch (e: Exception) {
-            }
-        }, delayTime)
+        handler6?.postDelayed(m6Runnable, delayTime2)
     }
 
     fun openMainFragment() {
@@ -604,5 +634,11 @@ class MainActivity : BaseActivity(), IProgressLoader {
     override fun onDestroy() {
         super.onDestroy()
         layoutBinding = null
+        handler1?.removeCallbacks(m1Runnable)
+        handler2?.removeCallbacks(m2Runnable)
+        handler3?.removeCallbacks(m3Runnable)
+        handler4?.removeCallbacks(m4Runnable)
+        handler5?.removeCallbacks(m5Runnable)
+        handler6?.removeCallbacks(m6Runnable)
     }
 }

@@ -189,7 +189,9 @@ class Utils {
                 val uri = "tel:$phone"
                 val intent = Intent(Intent.ACTION_DIAL, Uri.parse(uri))
                 context.startActivity(intent)
-            } catch (e: Exception) {}
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
 
         fun callContact2(context: Context, label: String) {
@@ -199,7 +201,9 @@ class Utils {
                 val uri = "tel:$phone"
                 val intent = Intent(Intent.ACTION_DIAL, Uri.parse(uri))
                 context.startActivity(intent)
-            } catch (e: Exception) {}
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
 
         fun sendSimpleMail(context: Context, email: String) {
@@ -335,8 +339,12 @@ class Utils {
                     hashKey = String(Base64.encode(md.digest(), Base64.DEFAULT))
                 }
             }
-            catch (e: NoSuchAlgorithmException) {}
-            catch (e: Exception) {}
+            catch (e: NoSuchAlgorithmException) {
+                e.printStackTrace()
+            }
+            catch (e: Exception) {
+                e.printStackTrace()
+            }
 
             return hashKey
         }
@@ -351,6 +359,7 @@ class Utils {
                 encodedUrl = Base64.encodeToString(baos.toByteArray(), Base64.URL_SAFE)
                 baos.close()
             } catch (e: Exception) {
+                e.printStackTrace()
             }
             return encodedUrl
         }
@@ -363,6 +372,7 @@ class Utils {
                 decodedUrl = ois.readObject() as String
                 ois.close()
             } catch (e: Exception) {
+                e.printStackTrace()
             }
             return decodedUrl
         }
@@ -411,6 +421,7 @@ class Utils {
                         result = networkType == ConnectivityManager.TYPE_MOBILE
                     }
                 } catch (e: java.lang.Exception) {
+                    e.printStackTrace()
                 }
             }
             return result
@@ -425,7 +436,6 @@ class Utils {
                 // Permission Granted
                 val manager: TelephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
                 val deviceSoftwareVersion = manager.deviceSoftwareVersion
-
                 deviceSoftwareVersion
             } else {
                 "Permission required"
@@ -437,7 +447,6 @@ class Utils {
                 // Permission Granted
                 val manager: TelephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
                 val simOperator: String = manager.simOperator
-
                 simOperator
             } else {
                 "Permission denied"
@@ -449,7 +458,6 @@ class Utils {
                 // Permission Granted
                 val manager: TelephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
                 val simOperatorName = manager.simOperatorName
-
                 simOperatorName
             } else {
                 "Permission denied"
@@ -461,7 +469,6 @@ class Utils {
                 // Permission Granted
                 val manager: TelephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
                 val simOperator: String = manager.simOperator
-
                 simOperator.startsWith("22207")
             } else {
                 // Permission denied
@@ -473,7 +480,6 @@ class Utils {
             return if (PermissionManager.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE)) {
                 val manager: TelephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
                 val line1Number = manager.line1Number
-
                 line1Number
             } else {
                 "Permission denied"
@@ -484,7 +490,6 @@ class Utils {
             return if (PermissionManager.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE)) {
                 val manager: TelephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
                 val simSerialNumber = manager.simSerialNumber
-
                 simSerialNumber
             } else {
                 "Permission denied"
@@ -495,7 +500,6 @@ class Utils {
             return if (PermissionManager.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE)) {
                 val manager: TelephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
                 val simCountryIso = manager.simCountryIso
-
                 simCountryIso
             } else {
                 "Permission denied"
@@ -506,7 +510,6 @@ class Utils {
             return if (PermissionManager.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE)) {
                 val manager: TelephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
                 val networkOperator = manager.networkOperator
-
                 networkOperator
             } else {
                 "Permission denied"
@@ -517,7 +520,6 @@ class Utils {
             return if (PermissionManager.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE)) {
                 val manager: TelephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
                 val networkOperatorName = manager.networkOperatorName
-
                 networkOperatorName
             } else {
                 "Permission denied"
@@ -528,7 +530,6 @@ class Utils {
             return if (PermissionManager.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE)) {
                 val manager: TelephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
                 val networkCountryIso = manager.networkCountryIso
-
                 networkCountryIso
             } else {
                 "Permission denied"

@@ -166,7 +166,9 @@ class CardIOFragment : DetailFragment(), AppCompatSpinnerCustom.OnSpinnerEventsL
             .putExtra(CardIOActivity.EXTRA_RETURN_CARD_IMAGE, true)
         try {
             intent.putExtra(CardIOActivity.EXTRA_UNBLUR_DIGITS, unblurredDigits)
-        } catch (ignored: NumberFormatException) {}
+        } catch (ignored: NumberFormatException) {
+            ignored.printStackTrace()
+        }
 
         launcher.launch(intent)
     }

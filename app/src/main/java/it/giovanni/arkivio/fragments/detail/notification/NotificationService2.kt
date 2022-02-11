@@ -14,16 +14,16 @@ import it.giovanni.arkivio.R
 
 class NotificationService2 : Service() {
 
-    private var counter = 0
+    private companion object {
+        private var TAG: String = NotificationService2::class.java.simpleName
+        private const val SECOND: Long = 1_000L
+        private const val REQUEST_CODE = 2 // NOTIFICATION ID
+    }
 
     private var notificationManager: NotificationManager? = null
     private lateinit var notifyPendingIntent: PendingIntent
     private lateinit var notifyIntent: Intent
-
-    private companion object {
-        private const val SECOND: Long = 1_000L
-        private const val REQUEST_CODE = 2 // NOTIFICATION ID
-    }
+    private var counter = 0
 
     override fun onCreate() {
         super.onCreate()
@@ -84,7 +84,7 @@ class NotificationService2 : Service() {
             notifyPendingIntent
         )
 
-        Log.i("TAG_NOTIFY", "========== " + counter++ + " ==========")
+        Log.i(TAG, "counter: " + counter++)
     }
 
     private fun NotificationManager.sendNotification(context: Context) {

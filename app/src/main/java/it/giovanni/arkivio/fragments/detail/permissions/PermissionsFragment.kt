@@ -45,13 +45,14 @@ import java.util.*
 
 class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListener {
 
+    companion object {
+        private var TAG: String = PermissionsFragment::class.java.simpleName
+    }
+
     private var layoutBinding: PermissionsLayoutBinding? = null
     private val binding get() = layoutBinding
 
     private var isDownloading: Boolean = false
-    private var hasPDFPermission: Boolean = false
-    private var hasPhonePermission: Boolean = false
-    private var hasPermissions: Boolean = false
     private lateinit var customPopup: CustomDialogPopup
     private lateinit var action: Action
     private lateinit var url: String
@@ -146,16 +147,15 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
         }
 
         val encodedUrl = encodeBase64Url("https://kotlinlang.org/docs/kotlin-docs.pdf")
-        Log.i("TAG_PDF", "Encoded url: $encodedUrl")
+        Log.i(TAG, "Encoded url: $encodedUrl")
 
         val decodedUrl = decodeBase64Url("rO0ABXQAK2h0dHBzOi8va290bGlubGFuZy5vcmcvZG9jcy9rb3RsaW4tZG9jcy5wZGY=")
-        Log.i("TAG_PDF", "Decoded url: $decodedUrl")
+        Log.i(TAG, "Decoded url: $decodedUrl")
 
         url = "https://kotlinlang.org/docs/kotlin-docs.pdf"
         // url = "http://www.vittal.it/wp-content/uploads/2019/07/kotlin.pdf"
 
-        action =
-            Action.NONE
+        action = Action.NONE
         isDownloading = false
 
         binding?.labelDownloadPdf?.setOnClickListener {
@@ -193,7 +193,7 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
 
     private fun askPermissions() {
         checkPermissions()
-        if (hasPermissions) {
+        if (checkPermissions()) {
             binding?.labelShowWebcam?.visibility = View.VISIBLE
             binding?.webcamSeparator?.visibility = View.VISIBLE
             return
@@ -201,25 +201,25 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
         PermissionManager.requestPermission(requireContext(), this, arrayOf(Manifest.permission.MODIFY_AUDIO_SETTINGS, Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA))
     }
 
-    private fun checkPermissions() {
-        hasPermissions = PermissionManager.checkSelfPermission(requireContext(), Manifest.permission.MODIFY_AUDIO_SETTINGS) &&
+    private fun checkPermissions(): Boolean {
+        return PermissionManager.checkSelfPermission(requireContext(), Manifest.permission.MODIFY_AUDIO_SETTINGS) &&
                 PermissionManager.checkSelfPermission(requireContext(), Manifest.permission.RECORD_AUDIO) &&
                 PermissionManager.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
     }
 
     private fun askPhonePermission() {
         checkPhonePermission()
-        if (hasPhonePermission)
+        if (checkPhonePermission())
             return
-        PermissionManager.requestPermission(requireContext(), this, arrayOf(Manifest.permission.READ_PHONE_STATE))
+        PermissionManager.requestPermission(requireContext(), this, arrayOf(Manifest.permission.READ_PHONE_NUMBERS))
     }
 
-    private fun checkPhonePermission() {
-        hasPhonePermission = PermissionManager.checkSelfPermission(requireContext(), Manifest.permission.READ_PHONE_STATE)
+    private fun checkPhonePermission(): Boolean {
+        return PermissionManager.checkSelfPermission(requireContext(), Manifest.permission.READ_PHONE_NUMBERS)
     }
 
     private fun showPhoneState() {
-        if (!hasPhonePermission)
+        if (!checkPhonePermission())
             return
 
         customPopup = CustomDialogPopup(currentActivity, R.style.PopupTheme)
@@ -262,7 +262,7 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
 
     private fun askPDFPermission() {
         checkPDFPermission()
-        if (hasPDFPermission)
+        if (checkPDFPermission())
             return
         PermissionManager.requestPermission(
             requireContext(),
@@ -275,8 +275,8 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
         )
     }
 
-    private fun checkPDFPermission() {
-        hasPDFPermission = PermissionManager.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    private fun checkPDFPermission(): Boolean {
+        return PermissionManager.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
     }
 
     override fun onPermissionResult(permissions: Array<String>, grantResults: IntArray) {
@@ -298,7 +298,7 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     private fun downloadPDF() {
 
-        if (!hasPDFPermission)
+        if (!checkPDFPermission())
             return
         if (isDownloading)
             return

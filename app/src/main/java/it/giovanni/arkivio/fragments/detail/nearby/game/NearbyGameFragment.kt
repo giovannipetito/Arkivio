@@ -25,7 +25,9 @@ import java.nio.charset.StandardCharsets
 
 class NearbyGameFragment: DetailFragment() {
 
-    private val mTag = NearbyGameFragment::class.java.simpleName
+    companion object {
+        private val TAG = NearbyGameFragment::class.java.simpleName
+    }
 
     private var layoutBinding: NearbyGameLayoutBinding? = null
     private val binding get() = layoutBinding
@@ -84,7 +86,7 @@ class NearbyGameFragment: DetailFragment() {
     private val connectionLifecycleCallback: ConnectionLifecycleCallback = object : ConnectionLifecycleCallback() {
 
         override fun onConnectionInitiated(endpointId: String, connectionInfo: ConnectionInfo) {
-            Log.i(mTag, "Accepting connection")
+            Log.i(TAG, "Accepting connection")
             connectionsClient.acceptConnection(endpointId, payloadCallback)
             opponent = connectionInfo.endpointName
         }
@@ -92,7 +94,7 @@ class NearbyGameFragment: DetailFragment() {
         override fun onConnectionResult(endpointId: String, result: ConnectionResolution) {
             if (result.status.isSuccess) {
                 hideProgressDialog()
-                Log.i(mTag, "Connection successful")
+                Log.i(TAG, "Connection successful")
                 connectionsClient.stopDiscovery()
                 connectionsClient.stopAdvertising()
                 opponentEndpointId = endpointId
@@ -100,12 +102,12 @@ class NearbyGameFragment: DetailFragment() {
                 setStatusText(getString(R.string.status_connected))
                 setButtonState(true)
             } else {
-                    Log.i(mTag, "Connection failed")
+                    Log.i(TAG, "Connection failed")
             }
         }
 
         override fun onDisconnected(endpointId: String) {
-            Log.i(mTag, "Disconnected from the opponent")
+            Log.i(TAG, "Disconnected from the opponent")
             resetGame()
         }
     }
@@ -114,7 +116,7 @@ class NearbyGameFragment: DetailFragment() {
     private val endpointDiscoveryCallback: EndpointDiscoveryCallback = object : EndpointDiscoveryCallback() {
 
         override fun onEndpointFound(endpointId: String, info: DiscoveredEndpointInfo) {
-            Log.i(mTag, "Endpoint found, connecting")
+            Log.i(TAG, "Endpoint found, connecting")
             if (player != null)
                 connectionsClient.requestConnection(player, endpointId, connectionLifecycleCallback)
         }
