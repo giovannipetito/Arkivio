@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.TextView
-import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.IntentsListItemBinding
 
 class YouTubeIntentsAdapter internal constructor(
@@ -19,20 +17,20 @@ class YouTubeIntentsAdapter internal constructor(
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
 
-        val mView = LayoutInflater.from(context).inflate(R.layout.intents_list_item, null)
-        // val mView = IntentsListItemBinding.inflate(LayoutInflater.from(context))
+        val itemBinding = IntentsListItemBinding.inflate(LayoutInflater.from(context), null, false)
+        val mView = itemBinding.root
 
-        val intentName = mView?.findViewById<TextView>(R.id.list_item_text)
-        intentName?.text = getItem(position)?.title
+        val intentName = itemBinding.listItemText
+        intentName.text = getItem(position)?.title
 
-        val disabledText = mView?.findViewById<TextView>(R.id.list_item_disabled_text)
-        disabledText?.text = getItem(position)?.disabledText
+        val disabledText = itemBinding.listItemDisabledText
+        disabledText.text = getItem(position)?.disabledText
 
         if (isEnabled(position)) {
-            disabledText?.visibility = View.GONE
+            disabledText.visibility = View.GONE
         } else {
-            disabledText?.visibility = View.VISIBLE
-            intentName?.setTextColor(Color.GRAY)
+            disabledText.visibility = View.VISIBLE
+            intentName.setTextColor(Color.GRAY)
         }
 
         return mView

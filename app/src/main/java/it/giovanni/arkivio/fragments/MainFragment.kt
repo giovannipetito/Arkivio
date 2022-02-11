@@ -29,7 +29,9 @@ import it.giovanni.arkivio.adapters.HomeFragmentAdapter
 import it.giovanni.arkivio.bean.Link
 import it.giovanni.arkivio.bean.LinkSide
 import it.giovanni.arkivio.customview.popup.CustomDialogPopup
+import it.giovanni.arkivio.databinding.LinkDynamicItemBinding
 import it.giovanni.arkivio.databinding.MainLayoutBinding
+import it.giovanni.arkivio.databinding.NavHeaderItemBinding
 import it.giovanni.arkivio.fragments.homepage.LinkAreaFragment.Companion.linkAreaLayoutBinding
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
@@ -332,18 +334,15 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
             return
         for (item in listLink) {
 
-            val rowView = LayoutInflater.from(context).inflate(
-                R.layout.link_dynamic_item,
-                linkAreaLayoutBinding?.linkUtiliContainer,
-                false
-            )
+            val itemBinding = LinkDynamicItemBinding.inflate(LayoutInflater.from(context), linkAreaLayoutBinding?.linkUtiliContainer, false)
+            val rowView: View = itemBinding.root
 
-            val labelName: TextView = rowView.findViewById(R.id.link_name)
-            val labelIcon: ImageView = rowView.findViewById(R.id.link_icon)
+            val labelName: TextView = itemBinding.linkName
+            val labelIcon: ImageView = itemBinding.linkIcon
 
             setBitmapFromUrl(item.image, labelIcon, requireActivity())
 
-            val linkItem: RelativeLayout = rowView.findViewById(R.id.link_item)
+            val linkItem: RelativeLayout = itemBinding.linkItem
 
             labelName.text = item.name
 
@@ -383,13 +382,10 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
             return
         for (item in listLinkSide) {
 
-            val rowView = LayoutInflater.from(context).inflate(
-                R.layout.nav_header_item,
-                binding?.navHeader?.navHeaderContainer,
-                false
-            )
+            val itemBinding = NavHeaderItemBinding.inflate(LayoutInflater.from(context), binding?.navHeader?.navHeaderContainer, false)
+            val rowView = itemBinding.root
 
-            val labelName: TextView = rowView.findViewById(R.id.label_name)
+            val labelName: TextView = itemBinding.labelName
             labelName.text = item.name
 
             if (isDarkMode)

@@ -2,14 +2,13 @@ package it.giovanni.arkivio.fragments.detail.youtube.search
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import it.giovanni.arkivio.R
+import it.giovanni.arkivio.databinding.VideoItemBinding
 
 class SearchVideoAdapter(
     private val context: Context?,
@@ -18,8 +17,8 @@ class SearchVideoAdapter(
 ) : RecyclerView.Adapter<SearchVideoAdapter.SearchVideoViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchVideoViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.video_item, parent, false)
-        return SearchVideoViewHolder(itemView)
+        val videoItemBinding: VideoItemBinding = VideoItemBinding.inflate(LayoutInflater.from(context), parent, false)
+        return SearchVideoViewHolder(videoItemBinding)
     }
 
     override fun onBindViewHolder(holder: SearchVideoViewHolder, position: Int) {
@@ -49,14 +48,14 @@ class SearchVideoAdapter(
         return if (list == null) 0 else list?.size!!
     }
 
-    inner class SearchVideoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class SearchVideoViewHolder(videoItemBinding: VideoItemBinding) : RecyclerView.ViewHolder(videoItemBinding.root) {
 
-        var thumbnail: ImageView = view.findViewById(R.id.video_thumbnail)
-        var title: TextView = view.findViewById(R.id.video_title)
-        var description: TextView = view.findViewById(R.id.video_description)
-        var id: TextView = view.findViewById(R.id.video_id)
-        var goToPlayerView: LinearLayout = view.findViewById(R.id.go_to_player_view)
-        var goToPlayerFragment: LinearLayout = view.findViewById(R.id.go_to_player_fragment)
+        var thumbnail: ImageView = videoItemBinding.videoThumbnail
+        var title: TextView = videoItemBinding.videoTitle
+        var description: TextView = videoItemBinding.videoDescription
+        var id: TextView = videoItemBinding.videoId
+        var goToPlayerView: LinearLayout = videoItemBinding.goToPlayerView
+        var goToPlayerFragment: LinearLayout = videoItemBinding.goToPlayerFragment
     }
 
     interface OnItemViewClicked {

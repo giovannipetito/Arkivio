@@ -6,6 +6,7 @@ import android.widget.CompoundButton
 import androidx.recyclerview.widget.RecyclerView
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.bean.Persona
+import it.giovanni.arkivio.databinding.UserItemBinding
 import it.giovanni.arkivio.fragments.viewholder.UserPreferenceViewHolder
 
 class PreferenceListAdapter(private val onItemViewClicked: OnItemViewClicked) : RecyclerView.Adapter<UserPreferenceViewHolder>() {
@@ -17,8 +18,8 @@ class PreferenceListAdapter(private val onItemViewClicked: OnItemViewClicked) : 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserPreferenceViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
-        return UserPreferenceViewHolder(view)
+        val userItemBinding: UserItemBinding = UserItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return UserPreferenceViewHolder(userItemBinding)
     }
 
     override fun onBindViewHolder(holder: UserPreferenceViewHolder, position: Int) {

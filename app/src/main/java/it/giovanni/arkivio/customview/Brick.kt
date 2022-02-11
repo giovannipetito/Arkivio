@@ -1,16 +1,16 @@
 package it.giovanni.arkivio.customview
 
 import android.content.Context
-import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.databinding.BrickBinding
 import it.giovanni.arkivio.viewinterfaces.IFlexBoxCallback
 
-class Brick : RelativeLayout {
+class Brick(context: Context) : RelativeLayout(context) {
 
     enum class ModeType {
         EDIT,
@@ -19,7 +19,6 @@ class Brick : RelativeLayout {
 
     private var callback: IFlexBoxCallback? = null
     private var mode: ModeType = ModeType.VIEW
-    private var mInflater: LayoutInflater? = null
     private var userName: TextView? = null
     private var userEmail: TextView? = null
     private var container: RelativeLayout? = null
@@ -28,29 +27,16 @@ class Brick : RelativeLayout {
     private var position: Int = -1
     private var visible: Boolean = true
 
-    constructor(context: Context) : super(context) {
-        mInflater = LayoutInflater.from(context)
-        init()
-    }
-
-    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle) {
-        mInflater = LayoutInflater.from(context)
-        init()
-    }
-
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        mInflater = LayoutInflater.from(context)
+    init {
         init()
     }
 
     private fun init() {
-        val view = mInflater?.inflate(R.layout.brick, this, true)
-        if (view != null) {
-            userName = view.findViewById(R.id.partecipante) as TextView
-            userEmail = view.findViewById(R.id.emailPartecipante) as TextView
-            container = view.findViewById(R.id.container) as RelativeLayout
-            icon = view.findViewById(R.id.icon) as ImageView
-        }
+        val brickBinding = BrickBinding.inflate(LayoutInflater.from(context), this, true)
+        userName = brickBinding.partecipante
+        userEmail = brickBinding.emailPartecipante
+        container = brickBinding.container
+        icon = brickBinding.icon
         isSelected = false
     }
 

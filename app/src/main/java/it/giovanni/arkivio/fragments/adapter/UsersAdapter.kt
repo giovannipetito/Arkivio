@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import it.giovanni.arkivio.App.Companion.context
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.bean.user.User
+import it.giovanni.arkivio.databinding.RubricaItemBinding
 import it.giovanni.arkivio.fragments.viewholder.UsersViewHolder
 import it.giovanni.arkivio.utils.ColorGenerator.Companion.generate
 import it.giovanni.arkivio.utils.Utils.Companion.turnArrayListToString
@@ -21,8 +22,8 @@ class UsersAdapter(onItemClicked: OnItemViewClicked) : RecyclerView.Adapter<User
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UsersViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
-        return UsersViewHolder(view)
+        val rubricaItemBinding: RubricaItemBinding = RubricaItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return UsersViewHolder(rubricaItemBinding)
     }
 
     override fun onBindViewHolder(holder: UsersViewHolder, position: Int) {

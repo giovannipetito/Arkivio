@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import it.giovanni.arkivio.utils.Utils
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.customview.TextViewCustom
+import it.giovanni.arkivio.databinding.CustomDialogPopupBinding
 
 open class CustomDialogPopup : AlertDialog.Builder {
 
@@ -68,22 +69,23 @@ open class CustomDialogPopup : AlertDialog.Builder {
 
     protected fun prepare() {
 
-        dialogView = LayoutInflater.from(context).inflate(R.layout.custom_dialog_popup, null)
+        val binding = CustomDialogPopupBinding.inflate(LayoutInflater.from(context), null, false)
+        dialogView = binding.root
 
-        elementList = dialogView.findViewById(R.id.element_list) as LinearLayout
-        labelList = dialogView.findViewById(R.id.label_list) as LinearLayout
+        elementList = binding.elementList
+        labelList = binding.labelList
 
-        titleDialog = dialogView.findViewById(R.id.title_dialog) as TextViewCustom
-        subtitleDialog = dialogView.findViewById(R.id.subtitle_dialog) as TextViewCustom
-        messageDialog = dialogView.findViewById(R.id.message_dialog) as TextViewCustom
+        titleDialog = binding.titleDialog
+        subtitleDialog = binding.subtitleDialog
+        messageDialog = binding.messageDialog
 
-        buttonsContainer = dialogView.findViewById(R.id.buttons_container) as LinearLayout
-        containerLeftButton = dialogView.findViewById(R.id.container_left_button) as RelativeLayout
-        containerCenterButton = dialogView.findViewById(R.id.container_center_button) as RelativeLayout
+        buttonsContainer = binding.buttonsContainer
+        containerLeftButton = binding.containerLeftButton
+        containerCenterButton = binding.containerCenterButton
 
-        leftButton = dialogView.findViewById(R.id.left_button) as TextViewCustom
-        centerButton = dialogView.findViewById(R.id.center_button) as TextViewCustom
-        rightButton = dialogView.findViewById(R.id.right_button) as TextViewCustom
+        leftButton = binding.leftButton
+        centerButton = binding.centerButton
+        rightButton = binding.rightButton
     }
 
     fun setType(type: Int) {
