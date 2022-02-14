@@ -99,8 +99,8 @@ class WorkingAreaFragment : HomeFragment() {
         binding?.labelFonts?.setOnClickListener {
             currentActivity.openDetail(Globals.FONTS, null)
         }
-        binding?.labelNotification?.setOnClickListener {
-            currentActivity.openDetail(Globals.NOTIFICATION, null)
+        binding?.labelNotificationHome?.setOnClickListener {
+            currentActivity.openDetail(Globals.NOTIFICATION_HOME, null)
         }
         binding?.labelNearby?.setOnClickListener {
             currentActivity.openDetail(Globals.NEARBY, null)

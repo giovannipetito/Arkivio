@@ -31,7 +31,7 @@ class NotificationService2 : Service() {
         notificationManager = getSystemService(NotificationManager::class.java)
 
         notifyIntent = Intent(this, NotificationReceiver2::class.java)
-        notifyPendingIntent = PendingIntent.getBroadcast(application, REQUEST_CODE, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        notifyPendingIntent = PendingIntent.getBroadcast(application, REQUEST_CODE, notifyIntent, PendingIntent.FLAG_IMMUTABLE)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -94,7 +94,7 @@ class NotificationService2 : Service() {
 
         // You created the intent, but the notification is displayed outside your app.
         // To make an intent work outside your app, you need to create a new PendingIntent.
-        val pendingIntent = PendingIntent.getActivity(context, REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingIntent = PendingIntent.getActivity(context, REQUEST_CODE, intent, PendingIntent.FLAG_IMMUTABLE)
 
         // Add style
         val eggImage = BitmapFactory.decodeResource(context.resources, R.drawable.cooked_egg)

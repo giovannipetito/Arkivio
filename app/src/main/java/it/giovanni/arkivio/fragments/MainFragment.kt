@@ -70,7 +70,6 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
         var TAB_INDEX_LINK_AREA: Int = 3
     }
 
-    // DATA BINDING
     private var layoutBinding: MainLayoutBinding? = null
     private val binding get() = layoutBinding
     private var darkModePresenter: DarkModePresenter? = null
@@ -101,7 +100,6 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
 
         var view = super.onCreateView(inflater, container, savedInstanceState) // Non rimuovere.
 
-        // ----- DATA BINDING ----- //
         layoutBinding = MainLayoutBinding.inflate(inflater, container, false)
 
         view = binding?.root
@@ -110,11 +108,10 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
         model = DarkModeModel(requireContext())
         binding?.temp = model
         binding?.presenter = darkModePresenter
-        // ------------------------ //
 
         currentActivity.setDarkModeStatusBarTransparent()
 
-        hideProgressDialog() // TODO: Questo l'ho messo io qui.
+        hideProgressDialog()
 
         val drawListener = object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {

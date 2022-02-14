@@ -332,6 +332,7 @@
     <string name="textview_style_nunitoblack_nunito_black">TextView style NunitoBlack (nunito_black)</string>
 
     <!-- LOCAL NOTIFICATION -->
+    <string name="button_notification">Go to Notification Services</string>
     <string name="notification_title">Notification</string>
     <string name="start_service">Start Service</string>
     <string name="stop_service">Stop Service</string>

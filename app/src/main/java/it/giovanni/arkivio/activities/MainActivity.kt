@@ -57,6 +57,7 @@ import it.giovanni.arkivio.fragments.detail.nearby.chat.NearbyChatFragment
 import it.giovanni.arkivio.fragments.detail.nearby.game.NearbyGameFragment
 import it.giovanni.arkivio.fragments.detail.nearby.search.NearbySearchFragment
 import it.giovanni.arkivio.fragments.detail.notification.NotificationFragment
+import it.giovanni.arkivio.fragments.detail.notification.NotificationHomeFragment
 import it.giovanni.arkivio.fragments.detail.permissions.PermissionsFragment
 import it.giovanni.arkivio.fragments.detail.stickyheader.StickyHeaderFragment
 import it.giovanni.arkivio.fragments.detail.youtube.YouTubeFragment
@@ -247,11 +248,11 @@ class MainActivity : BaseActivity(), IProgressLoader {
                 removeAllFragmentsToMainFragment()
                 handler3?.postDelayed(m3Runnable, delayTime1)
             }
-            DeepLinkDescriptor.URI_HOME_WORK_PAGE -> {
+            DeepLinkDescriptor.URI_WORKING_AREA -> {
                 removeAllFragmentsToMainFragment()
                 handler4?.postDelayed(m4Runnable, delayTime1)
             }
-            DeepLinkDescriptor.URI_HOME_ADMIN_PAGE -> {
+            DeepLinkDescriptor.URI_LINK_AREA -> {
                 removeAllFragmentsToMainFragment()
                 handler5?.postDelayed(m5Runnable, delayTime1)
             }
@@ -435,6 +436,9 @@ class MainActivity : BaseActivity(), IProgressLoader {
             Globals.FONTS -> {
                 baseFragment =
                     FontsFragment()
+            }
+            Globals.NOTIFICATION_HOME -> {
+                baseFragment = NotificationHomeFragment()
             }
             Globals.NOTIFICATION -> {
                 baseFragment = NotificationFragment()

@@ -30,7 +30,7 @@ class NotificationReceiver1: BroadcastReceiver() {
 
         // You created the intent, but the notification is displayed outside your app.
         // To make an intent work outside your app, you need to create a new PendingIntent.
-        val pendingIntent = PendingIntent.getActivity(context, notificationId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingIntent = PendingIntent.getActivity(context, notificationId, intent, PendingIntent.FLAG_IMMUTABLE)
 
         // Add style
         val eggImage = BitmapFactory.decodeResource(context.resources, R.drawable.cooked_egg)

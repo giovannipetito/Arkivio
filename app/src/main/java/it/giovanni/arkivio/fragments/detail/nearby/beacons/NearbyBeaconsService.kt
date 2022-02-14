@@ -51,7 +51,7 @@ class NearbyBeaconsService : IntentService("BackgroundSubscribeIntentService") {
             applicationContext,
             0,
             launchIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_IMMUTABLE
         )
         val contentTitle = getContentTitle(messages)
         val contentText = getContentText(messages)

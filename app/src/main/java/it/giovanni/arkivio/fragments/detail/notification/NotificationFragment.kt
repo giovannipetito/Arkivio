@@ -7,11 +7,11 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.os.SystemClock
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.widget.SwitchCompat
 import androidx.core.app.AlarmManagerCompat
 import androidx.core.content.ContextCompat
 import it.giovanni.arkivio.R
@@ -24,6 +24,11 @@ class NotificationFragment: DetailFragment() {
 
     private var layoutBinding: NotificationLayoutBinding? = null
     private val binding get() = layoutBinding
+
+    private var serviceSwitch1: SwitchCompat? = null
+    private var serviceSwitch2: SwitchCompat? = null
+    private var serviceSwitch3: SwitchCompat? = null
+    private var serviceSwitch4: SwitchCompat? = null
 
     private lateinit var notifyPendingIntent: PendingIntent
     private lateinit var notifyIntent: Intent
@@ -96,57 +101,65 @@ class NotificationFragment: DetailFragment() {
         serviceText3?.setText(R.string.service_3)
         serviceText4?.setText(R.string.service_4)
 
-        val serviceSwitch1 = notificationItem1?.serviceSwitch
-        val serviceSwitch2 = notificationItem2?.serviceSwitch
-        val serviceSwitch3 = notificationItem3?.serviceSwitch
-        val serviceSwitch4 = notificationItem4?.serviceSwitch
+        serviceSwitch1 = notificationItem1?.serviceSwitch
+        serviceSwitch2 = notificationItem2?.serviceSwitch
+        serviceSwitch3 = notificationItem3?.serviceSwitch
+        serviceSwitch4 = notificationItem4?.serviceSwitch
 
         val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
         if (bluetoothAdapter != null && !bluetoothAdapter.isEnabled) {
-            // launcher.launch(Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)) // todo: da testare.
-            startActivityForResult(Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE),1)
+            serviceSwitch1?.isEnabled = false
+            serviceSwitch2?.isEnabled = false
+            serviceSwitch3?.isEnabled = false
+            serviceSwitch4?.isEnabled = false
+            launcher.launch(Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE))
+        } else {
+            serviceSwitch1?.isEnabled = true
+            serviceSwitch2?.isEnabled = true
+            serviceSwitch3?.isEnabled = true
+            serviceSwitch4?.isEnabled = true
         }
 
         serviceSwitch1?.setOnClickListener {
-            if (serviceSwitch1.isChecked) {
-                serviceSwitch1.setText(R.string.stop_service)
+            if (serviceSwitch1?.isChecked!!) {
+                serviceSwitch1?.setText(R.string.stop_service)
 
                 notifyIntent = Intent(context, NotificationReceiver1::class.java)
-                notifyPendingIntent = PendingIntent.getBroadcast(currentActivity.application, REQUEST_CODE, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+                notifyPendingIntent = PendingIntent.getBroadcast(currentActivity.application, REQUEST_CODE, notifyIntent, PendingIntent.FLAG_IMMUTABLE)
                 createChannel()
                 startTimer()
             } else {
-                serviceSwitch1.setText(R.string.start_service)
+                serviceSwitch1?.setText(R.string.start_service)
             }
         }
         serviceSwitch2?.setOnClickListener {
-            if (serviceSwitch2.isChecked) {
-                serviceSwitch2.setText(R.string.stop_service)
+            if (serviceSwitch2?.isChecked!!) {
+                serviceSwitch2?.setText(R.string.stop_service)
 
                 startNotificationService2()
             }
             else {
-                serviceSwitch2.setText(R.string.start_service)
+                serviceSwitch2?.setText(R.string.start_service)
             }
         }
         serviceSwitch3?.setOnClickListener {
-            if (serviceSwitch3.isChecked) {
-                serviceSwitch3.setText(R.string.stop_service)
+            if (serviceSwitch3?.isChecked!!) {
+                serviceSwitch3?.setText(R.string.stop_service)
 
                 startNotificationService3()
             }
             else {
-                serviceSwitch3.setText(R.string.start_service)
+                serviceSwitch3?.setText(R.string.start_service)
             }
         }
         serviceSwitch4?.setOnClickListener {
-            if (serviceSwitch4.isChecked) {
-                serviceSwitch4.setText(R.string.stop_service)
+            if (serviceSwitch4?.isChecked!!) {
+                serviceSwitch4?.setText(R.string.stop_service)
 
                 startNotificationService4()
             }
             else {
-                serviceSwitch4.setText(R.string.start_service)
+                serviceSwitch4?.setText(R.string.start_service)
             }
         }
     }
@@ -220,20 +233,25 @@ class NotificationFragment: DetailFragment() {
         val manager = currentActivity.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         for (service in manager.getRunningServices(Int.MAX_VALUE)) {
             if (serviceClass.name == service.service.className) {
-                Log.i("Service status", "Running")
                 return true
             }
         }
-        Log.i("Service status", "Not running")
         return false
     }
 
     private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        /*
         if (result.resultCode == Activity.RESULT_OK) {
-            val data: Intent? = result.data
+            // val data: Intent? = result.data
+            serviceSwitch1?.isEnabled = true
+            serviceSwitch2?.isEnabled = true
+            serviceSwitch3?.isEnabled = true
+            serviceSwitch4?.isEnabled = true
+        } else {
+            serviceSwitch1?.isEnabled = false
+            serviceSwitch2?.isEnabled = false
+            serviceSwitch3?.isEnabled = false
+            serviceSwitch4?.isEnabled = false
         }
-        */
     }
 
     override fun onDestroyView() {

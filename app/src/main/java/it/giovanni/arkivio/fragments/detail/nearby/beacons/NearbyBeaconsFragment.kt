@@ -248,7 +248,7 @@ class NearbyBeaconsFragment: DetailFragment(),
             context,
             0,
             getBackgroundSubscribeServiceIntent(),
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_IMMUTABLE
         )
     }
 

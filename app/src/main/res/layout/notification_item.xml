@@ -48,6 +48,7 @@
                     android:text="@string/start_service"
                     android:textColor="@{temp2.labelColor}"
                     android:theme="@style/SwitchCompatTheme"
+                    android:enabled="false"
                     tools:textColor="@color/colorPrimary" />
 
         </RelativeLayout>

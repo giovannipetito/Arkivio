@@ -15,9 +15,9 @@ class DeepLinkDescriptor {
         var URI_VIEW = "view" // waw3://openapp/{xyz}
         var URI_LOGOUT = "logout" // waw3://logout
 
-        var URI_HOME_PAGE = "homepage_layout" // waw3://homePage
-        var URI_HOME_WORK_PAGE = "workpage" // waw3://workPage
-        var URI_HOME_ADMIN_PAGE = "adminpage" // waw3://adminPage
+        var URI_HOME_PAGE = "homePage" // waw3://homePage
+        var URI_WORKING_AREA = "workingArea" // waw3://workingArea
+        var URI_LINK_AREA = "linkArea" // waw3://linkArea
 
         var URI_CALL = "call"
     }
