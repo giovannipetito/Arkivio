@@ -3,14 +3,14 @@ buildscript {
     ext.kotlin_version = '1.6.10'
     repositories {
         google()
+        mavenLocal()
         mavenCentral()
         maven {
             url 'https://maven.fabric.io/public'
         }
-        jcenter()
     }
     dependencies {
-        classpath 'io.realm:realm-gradle-plugin:4.1.1'
+        classpath 'io.realm:realm-gradle-plugin:10.10.1'
         classpath 'com.android.tools.build:gradle:7.1.1'
         classpath 'com.google.gms:google-services:4.3.10'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
@@ -22,6 +22,7 @@ buildscript {
 allprojects {
     repositories {
         google()
+        mavenLocal()
         mavenCentral()
         maven {
             url 'https://maven.google.com/'

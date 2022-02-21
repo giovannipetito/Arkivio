@@ -29,11 +29,11 @@
                 android:src="@drawable/logo_audioslave_big"
                 android:contentDescription="@string/app_name" />
 
-        <com.github.mmin18.widget.RealtimeBlurView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:realtimeBlurRadius="10dp"
-                app:realtimeOverlayColor="@color/transparent_1" />
+<!--        <com.github.mmin18.widget.RealtimeBlurView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                app:realtimeBlurRadius="10dp"-->
+<!--                app:realtimeOverlayColor="@color/transparent_1" />-->
         <!-- app:realtimeBlurRadius regola il livello del blur -->
 
         <LinearLayout
