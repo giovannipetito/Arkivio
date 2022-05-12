@@ -40,7 +40,7 @@
     <string name="app_version">Versione app:</string>
     <string name="label_dark_mode">Dark mode</string>
     <string name="label_light_mode">Light mode</string>
-    <string name="switch_mode_message">Per apportare le modifiche è necessario uscire dall\'app.</string>
+    <string name="switch_mode_message">Per apportare le modifiche è necessario riavviare l\'app.</string>
     <string name="settings_message">Vuoi comprimere il background all\'apertura del menu laterale?</string>
 
     <!-- HOME PAGE -->

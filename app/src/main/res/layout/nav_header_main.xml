@@ -20,7 +20,7 @@
             android:paddingBottom="8dp"
             android:background="@{temp2.sideNavBar}"
             android:theme="@style/ThemeOverlay.AppCompat.Dark"
-            tools:background="@drawable/side_nav_bar_light">
+            tools:background="@drawable/side_nav_bar_dark">
 
         <ImageView
                 android:layout_width="200dp"
@@ -40,7 +40,7 @@
                 android:id="@+id/profile_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/dimen_20dp"
                 android:layout_marginStart="36dp"
                 android:layout_marginEnd="36dp"
                 android:orientation="horizontal">
@@ -75,7 +75,7 @@
                 android:id="@+id/switch_mode_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/dimen_20dp"
                 android:layout_below="@+id/profile_container">
 
             <ImageView
@@ -83,8 +83,8 @@
                     android:layout_width="@dimen/dimen_24dp"
                     android:layout_height="@dimen/dimen_24dp"
                     android:layout_toStartOf="@+id/switch_mode"
-                    android:src="@{temp2.icoDark}"
                     android:contentDescription="@string/app_name"
+                    android:src="@{temp2.icoDark}"
                     tools:src="@drawable/ico_dark_mode_light" />
 
             <androidx.appcompat.widget.SwitchCompat
@@ -111,19 +111,19 @@
                 android:id="@+id/label_dark_mode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/switch_mode_container"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="4dp"
-                android:layout_below="@id/switch_mode_container"
                 android:text="@{temp2.label}"
                 android:textColor="@{temp2.labelColor}"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 tools:text="Dark mode"
-                tools:textColor="@color/white" />
+                tools:textColor="@color/colorPrimary" />
 
         <ScrollView android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/dimen_20dp"
                 android:layout_marginBottom="160dp"
                 android:layout_below="@+id/label_dark_mode">
 
@@ -156,21 +156,24 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/app_version"
-                        android:textColor="@color/white" />
+                        android:textColor="@{temp2.labelColor}"
+                        tools:textColor="@color/colorPrimary" />
 
                 <TextView
                         android:id="@+id/version_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="5dp"
-                        android:textColor="@color/white"
+                        android:textColor="@{temp2.labelColor}"
+                        tools:textColor="@color/colorPrimary"
                         tools:text="App Version: 0.1" />
 
                 <TextView
                         android:id="@+id/version_code"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
+                        android:textColor="@{temp2.labelColor}"
+                        tools:textColor="@color/colorPrimary"
                         tools:text="(Version Code)" />
 
             </LinearLayout>
@@ -181,14 +184,15 @@
                     android:layout_height="1dp"
                     android:layout_below="@id/app_version"
                     android:alpha=".4"
-                    android:background="@color/white" />
+                    android:background="@{temp2.labelColor}"
+                    tools:background="@color/colorPrimary" />
 
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/sep_line"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="@dimen/dimen_20dp"
+                    android:layout_marginEnd="@dimen/dimen_20dp"
                     android:orientation="vertical">
 
                 <RelativeLayout
@@ -203,19 +207,20 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
-                            android:src="@drawable/ico_menu_configuration"
                             android:contentDescription="@string/app_name"
+                            android:src="@drawable/ico_settings"
                             app:tint="@color/white" />
 
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:layout_marginStart="20dp"
+                            android:layout_marginStart="@dimen/dimen_20dp"
                             android:layout_toEndOf="@id/menu_ico_configuration"
                             android:text="@string/settings"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            android:textColor="@{temp2.labelColor}"
+                            tools:textColor="@color/colorPrimary" />
 
                 </RelativeLayout>
 
@@ -229,19 +234,20 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
-                            android:src="@drawable/ico_feedback"
                             android:contentDescription="@string/app_name"
+                            android:src="@drawable/ico_feedback"
                             app:tint="@color/white" />
 
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:layout_marginStart="20dp"
+                            android:layout_marginStart="@dimen/dimen_20dp"
                             android:layout_toEndOf="@id/menu_ico_link"
                             android:text="@string/feedback"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            android:textColor="@{temp2.labelColor}"
+                            tools:textColor="@color/colorPrimary" />
 
                 </RelativeLayout>
 
@@ -257,20 +263,21 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
-                            android:src="@drawable/ico_menu_logout"
                             android:contentDescription="@string/app_name"
+                            android:src="@drawable/ico_logout"
                             app:tint="@color/white" />
 
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:layout_marginStart="20dp"
+                            android:layout_marginStart="@dimen/dimen_20dp"
                             android:layout_toEndOf="@id/menu_ico_exit"
+                            android:textAllCaps="true"
                             android:text="@string/label_logout"
-                            android:textColor="@color/colorPrimary"
                             android:textSize="16sp"
-                            android:textAllCaps="true" />
+                            android:textColor="@{temp2.labelColor}"
+                            tools:textColor="@color/colorPrimary" />
 
                 </RelativeLayout>
 
