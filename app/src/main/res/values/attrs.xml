@@ -63,10 +63,10 @@
         If true, a section can only contain dates belonging to that month, its inDates and outDates.
         if false, the dates are added continuously, irrespective of month sections.
         When this property is false, a few things behave slightly differently:
-        - If inDateStyle is either `allMonths` or `firstMonth`, only the first index will contain inDates.
-        - If outDateStyle is either `endOfRow` or `endOfGrid`, only the last index will contain outDates.
-        - If outDateStyle is `endOfGrid`, outDates are generated for the last index until it
-        satisfies the `maxRowCount` requirement. -->
+        - If inDateStyle is either 'allMonths' or 'firstMonth', only the first index will contain inDates.
+        - If outDateStyle is either 'endOfRow' or 'endOfGrid', only the last index will contain outDates.
+        - If outDateStyle is 'endOfGrid', outDates are generated for the last index until it
+        satisfies the 'maxRowCount' requirement. -->
         <attr name="cv_in_month" format="boolean" />
         <!--This determines the scroll direction of the the calendar. -->
         <attr name="cv_orientation" format="enum">
@@ -74,39 +74,46 @@
             <enum name="vertical" value="1" />
         </attr>
         <!-- Determines how outDates are generated for each month on the calendar.
-        If set to `endOfRow`, the calendar will generate outDates until
+        If set to 'endOfRow', the calendar will generate outDates until
         it reaches the first end of a row. This means that if a month has 6 rows,
         it will display 6 rows and if a month has 5 rows, it will display 5 rows.
-        If set to `endOfGrid`, the calendar will generate outDates until
+        If set to 'endOfGrid', the calendar will generate outDates until
         it reaches the end of a 6 x 7 grid. This means that all months will have 6 rows.
-        If set to `none`, no outDates will be generated. -->
+        If set to 'none', no outDates will be generated. -->
         <attr name="cv_out_date_style" format="enum">
             <enum name="end_of_row" value="0" />
             <enum name="end_of_grid" value="1" />
             <enum name="none" value="2" />
         </attr>
         <!-- Determines how inDates are generated for each month on the calendar.
-        If set to `allMonths`, the calendar will generate inDates for all months.
-        If set to `firstMonth`, inDates will be generated for the first month only.
-        If set to `none`, inDates will not be generated, this means that there will be
+        If set to 'allMonths', the calendar will generate inDates for all months.
+        If set to 'firstMonth', inDates will be generated for the first month only.
+        If set to 'none', inDates will not be generated, this means that there will be
         no offset on any month. -->
         <attr name="cv_in_date_style" format="enum">
             <enum name="all_months" value="0" />
             <enum name="first_month" value="1" />
             <enum name="none" value="2" />
         </attr>
-        <!-- The scrolling behavior of the calendar. If `paged`, the calendar
+        <!-- The scrolling behavior of the calendar. If 'paged', the calendar
         will snap to the nearest month after a scroll or swipe action.
-        If `continuous`, the calendar scrolls normally. -->
+        If 'continuous', the calendar scrolls normally. -->
         <attr name="cv_scroll_mode" format="enum">
             <enum name="continuous" value="0" />
             <enum name="paged" value="1" />
         </attr>
         <!-- The duration in milliseconds of the animation used to adjust the CalendarView's
-        height when `scrollMode` is `paged` and the CalendarView height is set to `wrap_content`.
+        height when 'scrollMode' is 'paged' and the CalendarView height is set to 'wrap_content'.
         The height change happens when the CalendarView scrolls to a month which has less or more
         rows than the previous one. Default value is 200. To disable the animation, set this value to zero. -->
         <attr name="cv_animation_duration" format="integer" />
     </declare-styleable>
+
+    <declare-styleable name="DelayedProgressBar">
+        <attr name="delayStart" format="integer" />
+        <attr name="minShowTime" format="integer" />
+    </declare-styleable>
+
+    <attr name="progressBarStyle" format="reference" />
 
 </resources>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+                name="temp"
+                type="it.giovanni.arkivio.model.DarkModeModel" />
+
+        <variable
+                name="presenter"
+                type="it.giovanni.arkivio.presenter.DarkModePresenter" />
+    </data>
+
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusableInTouchMode="false"
+            android:focusable="false">
+
+        <com.google.android.exoplayer2.ui.PlayerView
+                android:id="@+id/player_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="0dp"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                app:resize_mode="fit"
+                app:scrubber_color="@android:color/transparent"
+                app:show_buffering="when_playing"
+                app:shutter_background_color="@android:color/transparent"
+                app:use_controller="false" />
+
+        <include
+                android:id="@+id/loader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="visible"
+                app:delayStart="500"
+                app:minShowTime="500"
+                layout="@layout/exoplayer_loader" />
+
+    </FrameLayout>
+
+</layout>

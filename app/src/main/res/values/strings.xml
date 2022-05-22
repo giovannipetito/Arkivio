@@ -411,4 +411,16 @@
     <string name="find_text">Find text</string>
     <string name="find_face_contour">Find face contour</string>
 
+    <!-- EXOPLAYER -->
+    <string name="exoplayer_title">ExoPlayer</string>
+
+    <!-- MASSIMO CARLI -->
+
+    <!-- LIFECYCLE -->
+    <string name="launch_activity_1">Launch Activity with parameters</string>
+    <string name="launch_activity_2">Launch Activity with Serializable</string>
+    <string name="launch_activity_3">Launch Activity with Parcelizable</string>
+    <string name="ping">Ping!</string>
+    <string name="show_picture">Show picture</string>
+
 </resources>

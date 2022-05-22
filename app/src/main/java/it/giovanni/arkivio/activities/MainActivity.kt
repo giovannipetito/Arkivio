@@ -31,6 +31,7 @@ import it.giovanni.arkivio.fragments.detail.client.RetrofitFragment
 import it.giovanni.arkivio.fragments.detail.client.VolleyFragment
 import it.giovanni.arkivio.fragments.detail.datemanager.*
 import it.giovanni.arkivio.fragments.detail.email.EmailFragment
+import it.giovanni.arkivio.fragments.detail.exoplayer.ExoPlayerFragment
 import it.giovanni.arkivio.fragments.detail.fonts.FontsFragment
 import it.giovanni.arkivio.fragments.detail.layoutmanager.LayoutManagerFragment
 import it.giovanni.arkivio.fragments.detail.logcat.LogcatFragment
@@ -490,6 +491,9 @@ class MainActivity : BaseActivity(), IProgressLoader {
             }
             Globals.LANDMARKS_RECOGNITION -> {
                 baseFragment = LandmarksRecognitionFragment()
+            }
+            Globals.EXOPLAYER -> {
+                baseFragment = ExoPlayerFragment()
             }
         }
 

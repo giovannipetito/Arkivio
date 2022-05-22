@@ -108,6 +108,10 @@ class WorkingAreaFragment : HomeFragment() {
         binding?.labelMachineLearning?.setOnClickListener {
             currentActivity.openDetail(Globals.MACHINE_LEARNING, null)
         }
+
+        binding?.labelExoplayer?.setOnClickListener {
+            currentActivity.openDetail(Globals.EXOPLAYER, null)
+        }
     }
 
     override fun onDestroyView() {

@@ -12,6 +12,7 @@ class Globals {
         var CARD_IO = "CARD_IO"
         var RETROFIT = "RETROFIT"
         var WEB_VIEW = "WEB_VIEW"
+        var EXOPLAYER = "EXOPLAYER"
         var PREFERENCE = "PREFERENCE"
         var ASYNC_HTTP = "ASYNC_HTTP"
         var DATE_FORMAT = "DATE_FORMAT"

@@ -161,7 +161,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
     private fun draw() {
 
         val displayMetrics = DisplayMetrics()
-        currentActivity.windowManager.defaultDisplay.getMetrics(displayMetrics)
+        currentActivity.windowManager.defaultDisplay.getMetrics(displayMetrics) // Todo: considera di usare: context?.display?.getMetrics(displayMetrics)
 
         listLink =
             if (UserFactory.getInstance().listLink != null)
