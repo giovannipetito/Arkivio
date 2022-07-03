@@ -291,19 +291,6 @@ class MainActivity : BaseActivity(), IProgressLoader {
         }
     }
 
-    // Questo è il metodo hideProgressDialog originale, non quello col metodo postDelayed.
-    /*
-    override fun hideProgressDialog() {
-        try {
-            progressDialog?.dismiss()
-            if (spinnerAnimation != null)
-                spinnerAnimation?.stop()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
-    */
-
     override fun hideProgressDialog() {
         handler6?.postDelayed(m6Runnable, delayTime2)
     }
@@ -353,8 +340,7 @@ class MainActivity : BaseActivity(), IProgressLoader {
         when (detailType) {
 
             Globals.LOGCAT_PROJECTS -> {
-                baseFragment =
-                    LogcatFragment()
+                baseFragment = LogcatFragment()
             }
             Globals.DATE -> {
                 baseFragment = DateFragment()
@@ -399,12 +385,10 @@ class MainActivity : BaseActivity(), IProgressLoader {
                 baseFragment = WebViewFragment()
             }
             Globals.PERMISSIONS -> {
-                baseFragment =
-                    PermissionsFragment()
+                baseFragment = PermissionsFragment()
             }
             Globals.LAYOUT_MANAGER -> {
-                baseFragment =
-                    LayoutManagerFragment()
+                baseFragment = LayoutManagerFragment()
             }
             Globals.DIALOG_FLOW -> {
                 baseFragment = DialogFlowFragment()
@@ -416,27 +400,19 @@ class MainActivity : BaseActivity(), IProgressLoader {
                 baseFragment = PreferenceListFragment()
             }
             Globals.STICKY_HEADER -> {
-                baseFragment =
-                    StickyHeaderFragment()
-            }
-            Globals.STICKY_HEADER -> {
-                baseFragment =
-                    StickyHeaderFragment()
+                baseFragment = StickyHeaderFragment()
             }
             Globals.CARD_IO -> {
-                baseFragment =
-                    CardIOFragment()
+                baseFragment = CardIOFragment()
             }
             Globals.YOUTUBE_MANAGER -> {
-                baseFragment =
-                    YouTubeFragment()
+                baseFragment = YouTubeFragment()
             }
             Globals.SEARCH_VIDEO -> {
                 baseFragment = SearchVideoFragment()
             }
             Globals.FONTS -> {
-                baseFragment =
-                    FontsFragment()
+                baseFragment = FontsFragment()
             }
             Globals.NOTIFICATION_HOME -> {
                 baseFragment = NotificationHomeFragment()

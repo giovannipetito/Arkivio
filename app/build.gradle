@@ -7,13 +7,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion 31
-    buildToolsVersion "31.0.0"
+    compileSdkVersion 32
+    buildToolsVersion "32.0.0"
 
     defaultConfig {
         applicationId "it.giovanni.arkivio"
         minSdkVersion 31
-        targetSdkVersion 31
+        targetSdkVersion 32
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -71,20 +71,20 @@ dependencies {
 
     // androidx
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'androidx.biometric:biometric:1.1.0'
     implementation 'androidx.work:work-runtime-ktx:2.7.1'
     implementation 'androidx.preference:preference-ktx:1.2.0'
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    kapt 'androidx.lifecycle:lifecycle-common-java8:2.4.1'
+    kapt 'androidx.lifecycle:lifecycle-common-java8:2.5.0'
 
     // Core
-    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.core:core-role:1.1.0-rc01'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1-native-mt'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3'
 
     // Room
     kapt 'androidx.room:room-compiler:2.4.2'
@@ -94,7 +94,7 @@ dependencies {
     annotationProcessor 'androidx.room:room-compiler:2.4.2'
 
     // Material
-    implementation 'com.google.android.material:material:1.6.0'
+    implementation 'com.google.android.material:material:1.6.1'
 
     // Dagger
     implementation 'com.google.dagger:dagger:2.42'
@@ -102,26 +102,26 @@ dependencies {
     kapt 'com.google.dagger:dagger-android-processor:2.42'
 
     // Navigation
-    implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.0'
 
     // Google Mobile Services
     implementation 'com.google.android.gms:play-services-gcm:17.0.0'
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
     implementation 'com.google.android.gms:play-services-auth:20.2.0'
     implementation 'com.google.android.gms:play-services-plus:17.0.0'
-    implementation 'com.google.android.gms:play-services-nearby:18.1.0'
-    implementation 'com.google.android.gms:play-services-location:19.0.1'
+    implementation 'com.google.android.gms:play-services-nearby:18.2.0'
+    implementation 'com.google.android.gms:play-services-location:20.0.0'
     implementation 'com.google.android.gms:play-services-analytics:18.0.1'
 
     // Import the BoM for the Firebase platform. When using the BoM, you don't specify versions in
     // Firebase library dependencies
-    implementation platform('com.google.firebase:firebase-bom:30.0.2')
+    implementation platform('com.google.firebase:firebase-bom:30.2.0')
     implementation 'com.loopj.android:android-async-http:1.4.11' // Firebase Realtime Database
     implementation 'com.google.firebase:firebase-database-ktx:20.0.5'
     implementation 'com.google.firebase:firebase-analytics-ktx:21.0.0'
-    implementation 'com.google.firebase:firebase-messaging-ktx:23.0.5'
-    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.2.10'
+    implementation 'com.google.firebase:firebase-messaging-ktx:23.0.6'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.2.11'
 
     // GSON
     implementation 'com.google.code.gson:gson:2.9.0'
@@ -151,7 +151,7 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
 
     // Airbnb
-    implementation 'com.airbnb.android:lottie:5.0.3' // Lottie
+    implementation 'com.airbnb.android:lottie:5.2.0' // Lottie
     implementation 'com.airbnb.android:paris:2.0.1' // Paris
     kapt 'com.airbnb.android:paris-processor:2.0.1' // Paris annotations.
 
@@ -171,15 +171,15 @@ dependencies {
     // YouTube
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
     implementation 'com.google.api-client:google-api-client-gson:1.31.1' // Non aggiornare: JacksonFactory issue.
-    implementation 'com.google.api-client:google-api-client-android:1.34.1'
-    implementation 'com.google.http-client:google-http-client-android:1.41.8'
+    implementation 'com.google.api-client:google-api-client-android:1.35.2'
+    implementation 'com.google.http-client:google-http-client-android:1.42.1'
     implementation 'com.google.apis:google-api-services-youtube:v3-rev99-1.17.0-rc'
 
     // ExoPlayer
-    implementation 'com.google.android.exoplayer:exoplayer-core:2.17.1'
-    implementation 'com.google.android.exoplayer:exoplayer-dash:2.17.1'
-    implementation 'com.google.android.exoplayer:exoplayer-hls:2.17.1'
-    implementation 'com.google.android.exoplayer:exoplayer-ui:2.17.1'
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.18.0'
+    implementation 'com.google.android.exoplayer:exoplayer-hls:2.18.0'
+    implementation 'com.google.android.exoplayer:exoplayer-dash:2.18.0'
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.18.0'
 
     // Test
     testImplementation 'junit:junit:4.13.2' // Libreria che gestisce gli unit test.
