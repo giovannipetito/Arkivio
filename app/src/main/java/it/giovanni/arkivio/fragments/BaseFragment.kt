@@ -18,7 +18,7 @@ abstract class BaseFragment(private var sectionType: SectionType) : Fragment() {
     var isDarkMode = false
 
     companion object {
-        var NO_LAYOUT: Int = -1
+        // var NO_LAYOUT: Int = -1
         var NO_TITLE: Int = -1
     }
 

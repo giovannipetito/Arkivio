@@ -71,15 +71,15 @@ dependencies {
 
     // androidx
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'androidx.appcompat:appcompat:1.5.0'
     implementation 'androidx.biometric:biometric:1.1.0'
     implementation 'androidx.work:work-runtime-ktx:2.7.1'
     implementation 'androidx.preference:preference-ktx:1.2.0'
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    kapt 'androidx.lifecycle:lifecycle-common-java8:2.5.0'
+    kapt 'androidx.lifecycle:lifecycle-common-java8:2.5.1'
 
     // Core
     implementation 'androidx.core:core-ktx:1.8.0'
@@ -87,11 +87,11 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3'
 
     // Room
-    kapt 'androidx.room:room-compiler:2.4.2'
-    implementation 'androidx.room:room-ktx:2.4.2'
-    implementation 'androidx.room:room-runtime:2.4.2'
-    implementation 'androidx.room:room-rxjava2:2.4.2'
-    annotationProcessor 'androidx.room:room-compiler:2.4.2'
+    kapt 'androidx.room:room-compiler:2.4.3'
+    implementation 'androidx.room:room-ktx:2.4.3'
+    implementation 'androidx.room:room-runtime:2.4.3'
+    implementation 'androidx.room:room-rxjava2:2.4.3'
+    annotationProcessor 'androidx.room:room-compiler:2.4.3'
 
     // Material
     implementation 'com.google.android.material:material:1.6.1'
@@ -102,15 +102,15 @@ dependencies {
     kapt 'com.google.dagger:dagger-android-processor:2.42'
 
     // Navigation
-    implementation 'androidx.navigation:navigation-ui-ktx:2.5.0'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.1'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.1'
 
     // Google Mobile Services
     implementation 'com.google.android.gms:play-services-gcm:17.0.0'
-    implementation 'com.google.android.gms:play-services-maps:18.0.2'
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
     implementation 'com.google.android.gms:play-services-auth:20.2.0'
     implementation 'com.google.android.gms:play-services-plus:17.0.0'
-    implementation 'com.google.android.gms:play-services-nearby:18.2.0'
+    implementation 'com.google.android.gms:play-services-nearby:18.3.0'
     implementation 'com.google.android.gms:play-services-location:20.0.0'
     implementation 'com.google.android.gms:play-services-analytics:18.0.1'
 
@@ -119,9 +119,9 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:30.2.0')
     implementation 'com.loopj.android:android-async-http:1.4.11' // Firebase Realtime Database
     implementation 'com.google.firebase:firebase-database-ktx:20.0.5'
-    implementation 'com.google.firebase:firebase-analytics-ktx:21.0.0'
-    implementation 'com.google.firebase:firebase-messaging-ktx:23.0.6'
-    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.2.11'
+    implementation 'com.google.firebase:firebase-analytics-ktx:21.1.0'
+    implementation 'com.google.firebase:firebase-messaging-ktx:23.0.7'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.2.12'
 
     // GSON
     implementation 'com.google.code.gson:gson:2.9.0'
@@ -166,7 +166,7 @@ dependencies {
 
     // Machine Learning
     implementation 'com.google.mlkit:face-detection:16.1.5'
-    implementation 'com.google.android.gms:play-services-mlkit-text-recognition:18.0.0'
+    implementation 'com.google.android.gms:play-services-mlkit-text-recognition:18.0.1'
 
     // YouTube
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
@@ -176,10 +176,10 @@ dependencies {
     implementation 'com.google.apis:google-api-services-youtube:v3-rev99-1.17.0-rc'
 
     // ExoPlayer
-    implementation 'com.google.android.exoplayer:exoplayer-ui:2.18.0'
-    implementation 'com.google.android.exoplayer:exoplayer-hls:2.18.0'
-    implementation 'com.google.android.exoplayer:exoplayer-dash:2.18.0'
-    implementation 'com.google.android.exoplayer:exoplayer-core:2.18.0'
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.18.1'
+    implementation 'com.google.android.exoplayer:exoplayer-hls:2.18.1'
+    implementation 'com.google.android.exoplayer:exoplayer-dash:2.18.1'
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.18.1'
 
     // Test
     testImplementation 'junit:junit:4.13.2' // Libreria che gestisce gli unit test.
