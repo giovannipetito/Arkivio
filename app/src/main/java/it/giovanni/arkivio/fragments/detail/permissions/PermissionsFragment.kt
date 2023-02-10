@@ -295,7 +295,6 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     private fun downloadPDF() {
 
         if (!checkPDFPermission())
