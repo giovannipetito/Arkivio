@@ -20,8 +20,33 @@ android {
         minSdkVersion 31
         targetSdkVersion 33
         versionCode 1
-        versionName "1.0"
+        versionName ARKIVIO_VERSION
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        debug {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storePassword 'android'
+        }
+        s21 {
+            // storeFile file("$rootProject.projectDir/keys/platform-uhd-o.keystore")
+            keyAlias 'arkivio'
+            keyPassword 'password'
+            storePassword 'password'
+        }
+    }
+
+    flavorDimensions "device"
+
+    productFlavors {
+        s21 {
+            dimension "device"
+            signingConfig signingConfigs.s21
+            minSdkVersion 31
+            targetSdkVersion 31
+        }
     }
 
     buildTypes {
@@ -33,6 +58,7 @@ android {
             debuggable true
             minifyEnabled false
             testCoverageEnabled true
+            signingConfig signingConfigs.debug
         }
         release {
             debuggable false
@@ -66,20 +92,20 @@ android {
 
     applicationVariants.all { variant ->
         def productFlavor = variant.productFlavors[0]
-        def stbName = "productFlavor.name"
-        def stbNameUpperCase = stbName.toUpperCase()
-        def apiLevel = "productFlavor.targetSdkVersion.getApiLevel()"
+        def deviceName = productFlavor.name
+        def deviceNameUpperCase = deviceName.toUpperCase()
+        def apiLevel = productFlavor.targetSdkVersion.getApiLevel()
 
         // project.ext.tvlibVersion = productFlavor.ext['tvlibVersion']
 
         final String newVersion = ARKIVIO_VERSION
         final String debugSuffix = (variant.buildType.name != "release") ? "-${variant.buildType.name.toUpperCase()}" : ""
-        final String apkName = "Arkivio-R${newVersion}-${stbNameUpperCase}${debugSuffix}.apk"
-        final String releaseNotesName = "ArkivioReleaseNotes-R${newVersion}-${stbNameUpperCase}${debugSuffix}.txt"
-        final String outputFolder = "$project.buildDir/outputs/apk/$stbName/${variant.buildType.name}"
+        final String apkName = "Arkivio-R${newVersion}-${deviceNameUpperCase}${debugSuffix}.apk"
+        final String releaseNotesName = "ArkivioReleaseNotes-R${newVersion}-${deviceNameUpperCase}${debugSuffix}.txt"
+        final String outputFolder = "$project.buildDir/outputs/apk/$deviceName/${variant.buildType.name}"
 
         variant.outputs.all { output ->
-            output.outputFileName = "../../$stbName/${variant.buildType.name}/$apkName"
+            output.outputFileName = "../../$deviceName/${variant.buildType.name}/$apkName"
         }
 
         final String taskNameCopyReleaseNotes = "copyReleaseNotes${variant.name.capitalize()}"
@@ -116,7 +142,7 @@ android {
 
                 expand(
                         build_date: new Date().format("dd.MM.yyyy HH:mm"),
-                        platform_name: stbNameUpperCase,
+                        platform_name: deviceNameUpperCase,
                         version_name: newVersion,
                         build_finalName: apkName,
                         changes: changes,
@@ -133,9 +159,9 @@ android {
         gradle.taskGraph.whenReady { taskGraph ->
             if (taskGraph.hasTask(assembleTask)) {
                 println ""
-//                println "********** Variant: " + variant.name + " **********"
-//                println "Product flavors:   $productFlavor.name"
-                println "STB name:          $stbNameUpperCase"
+                println "Build variant:     $variant.name"
+                println "Product flavors:   $productFlavor.name"
+                println "Device name:       $deviceNameUpperCase"
                 println "Android version:   $apiLevel"
                 println "Output folder:     $outputFolder"
                 println "APK file:          $apkName"
@@ -166,7 +192,7 @@ android {
                             }
 
                             println "On branch: " + branchName
-                            final String releaseFolder = project.createSftpFolderStructure(delegate, newVersion, scope, stbNameUpperCase, branchName)
+                            final String releaseFolder = project.createSftpFolderStructure(delegate, newVersion, scope, deviceNameUpperCase, branchName)
 
                             //upload
                             println 'Upload to ' + releaseFolder
