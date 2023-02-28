@@ -1,0 +1,95 @@
+import java.util.regex.Matcher
+
+class Change {
+    String ticketId
+    String title
+
+    String formattedString() {
+        "${ticketId.toUpperCase()}: $title"
+    }
+}
+
+class ReleaseNotes {
+    List<Change> changes
+
+    String toString() {
+        final String changesStr = changes.isEmpty() ? "[]" : "[\n${changes.collect { " - ${it.formattedString()}" }.join("\n")}\n  ]"
+        return "ReleaseNotes(\n" +
+                "  changes: $changesStr\n" +
+                ")"
+    }
+}
+
+/**
+ * Returns a list of commits in the given range in chronological order.
+ *
+ * @param git   a grgit instance
+ * @param from  a commit hash/tag which marks the beginning of the range
+ * @param to    a commit hash/tag which marks the end of the range
+ * @param firstParentOnly   if set to true, only first-parent commits
+ * (e.g., merge commits, direct commits) will be included
+ * @return a list of commits
+ */
+static List<Object> getCommits(git, String from, String to, boolean firstParentOnly) {
+    List<Object> commits = git.log { range from, to }
+
+    if (firstParentOnly) {
+        final String logCommand = 'git log ' + from + '..' + to + ' --first-parent --pretty=format:"%H"'
+        final List<String> firstParentCommitIds = logCommand.execute().text.trim().split().collect { it.replace('"', '') }
+        commits = commits.findAll { commit -> firstParentCommitIds.contains(commit.id) }
+    }
+    return commits.reverse()
+}
+
+/**
+ * Returns true if the given commit message represents a merge commit.
+ *
+ * @param commitMessage     full commit message of the commit in question
+ * @return whether or not the commit is a merge commit
+ */
+static boolean isMergeCommit(String commitMessage) {
+    final Matcher matcher1 = commitMessage =~ /Merge branch '[^' ]+' into '([^' ]+)'/
+    final Matcher matcher2 = commitMessage =~ /See merge request .*!\d+/
+    return matcher1.size() > 0 && matcher2.size() > 0
+}
+
+/**
+ * Generates a Change object with a ticket ID and a title from a merge commit.
+ * Will return null for merge commits that don't contain a valid ticket ID.
+ *
+ * @param commitMessage     full commit message of the commit in question
+ * @return a Change object (or null)
+ */
+static Change parseMergeCommit(String commitMessage) {
+    assert(isMergeCommit(commitMessage))
+
+    final Matcher matcher = commitMessage =~ /(?i)((TA|US|DE|ARKIVIO-)\d+)\s*:(.+)/
+    if (!matcher.find()) { return null }
+
+    final String ticketId = matcher[0][1].trim()
+    final String title = matcher[0][3].trim()
+    return new Change(ticketId: ticketId, title: title)
+}
+
+ReleaseNotes generateReleaseNotes(git, String from, String to) {
+    println("generateReleaseNotes(from=$from, to=$to)")
+
+    final List<Object> commits = getCommits(git, from, to, true)
+    final List<Change> changes = []
+
+    commits.each { commit ->
+        if (isMergeCommit(commit.fullMessage)) {
+            final Change change = parseMergeCommit(commit.fullMessage)
+            if (change != null) {
+                changes.add(change)
+            }
+        }
+    }
+
+    def sortedChanges = changes.toSorted { it.ticketId }
+    return new ReleaseNotes(changes: sortedChanges)
+}
+
+ext {
+    generateReleaseNotes = this.&generateReleaseNotes
+}

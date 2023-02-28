@@ -6,6 +6,11 @@ plugins {
     id 'com.google.firebase.crashlytics'
 }
 
+apply from: 'release_notes.gradle'
+apply from: 'send_release_email.gradle'
+apply from: 'sftp_tools.gradle'
+apply from: 'version.gradle'
+
 android {
     compileSdkVersion 33
     buildToolsVersion "33.0.0"
@@ -58,10 +63,265 @@ android {
         }
     }
     namespace 'it.giovanni.arkivio'
+
+    applicationVariants.all { variant ->
+        def productFlavor = variant.productFlavors[0]
+        def stbName = "productFlavor.name"
+        def stbNameUpperCase = stbName.toUpperCase()
+        def apiLevel = "productFlavor.targetSdkVersion.getApiLevel()"
+
+        // project.ext.tvlibVersion = productFlavor.ext['tvlibVersion']
+
+        final String newVersion = ARKIVIO_VERSION
+        final String debugSuffix = (variant.buildType.name != "release") ? "-${variant.buildType.name.toUpperCase()}" : ""
+        final String apkName = "Arkivio-R${newVersion}-${stbNameUpperCase}${debugSuffix}.apk"
+        final String releaseNotesName = "ArkivioReleaseNotes-R${newVersion}-${stbNameUpperCase}${debugSuffix}.txt"
+        final String outputFolder = "$project.buildDir/outputs/apk/$stbName/${variant.buildType.name}"
+
+        variant.outputs.all { output ->
+            output.outputFileName = "../../$stbName/${variant.buildType.name}/$apkName"
+        }
+
+        final String taskNameCopyReleaseNotes = "copyReleaseNotes${variant.name.capitalize()}"
+        task(taskNameCopyReleaseNotes, type: Copy) {
+            from 'ArkivioReleaseNotes.txt'
+            into outputFolder
+
+            // Use a closure to map the file name
+            rename { String fileName -> releaseNotesName }
+
+            doFirst {
+                // Open the Git repository in the current directory.
+                def git = grgit.open(currentDir: project.rootDir)
+
+                final String gitBranch = getBranchName(git)
+                final String tag = getLastVersion()
+                final String head = git.head().id
+                if (tag == null || head == null) {
+                    println("Something went wrong. (tag == null || head == null)")
+                    return
+                }
+
+                def releaseNotes = generateReleaseNotes(git, tag, head)
+                println()
+                println releaseNotes
+                println()
+
+                final String formattedChanges = releaseNotes.changes.indexed()
+                        .collect { index, change -> " ${index+1}. ${change.formattedString()}" }
+                        .join("\n")
+                final String changes = "\nChanges:\n$formattedChanges\n"
+
+                git.close()
+
+                expand(
+                        build_date: new Date().format("dd.MM.yyyy HH:mm"),
+                        platform_name: stbNameUpperCase,
+                        version_name: newVersion,
+                        build_finalName: apkName,
+                        changes: changes,
+                        git_branch: gitBranch,
+                        git_revision: head
+                )
+            }
+
+        }
+
+        final String taskNameAssemble = "assemble" + variant.name.capitalize()
+        def assembleTask = tasks.getByName(taskNameAssemble)
+
+        gradle.taskGraph.whenReady { taskGraph ->
+            if (taskGraph.hasTask(assembleTask)) {
+                println ""
+//                println "********** Variant: " + variant.name + " **********"
+//                println "Product flavors:   $productFlavor.name"
+                println "STB name:          $stbNameUpperCase"
+                println "Android version:   $apiLevel"
+                println "Output folder:     $outputFolder"
+                println "APK file:          $apkName"
+                println "Release notes:     $releaseNotesName"
+            }
+        }
+
+        assembleTask.finalizedBy(tasks.getByName(taskNameCopyReleaseNotes))
+
+        final String uploadTaskName = "uploadToSftp${variant.name.capitalize()}"
+        task(uploadTaskName, dependsOn: taskNameAssemble) {
+            doLast {
+                ssh.run {
+                    session(remotes.sftpHost) {
+                        sftp {
+                            final String scope = requireReleaseScope()
+
+                            def git = grgit.open(currentDir: project.rootDir)
+
+                            String branchName = null
+                            try {
+                                branchName = System.getenv('CI_BUILD_REF_NAME')
+                            } catch (ignored) {
+                                // ignore
+                            }
+                            if (branchName == null || branchName.isEmpty()) {
+                                branchName = git.branch.getCurrent().getName()
+                            }
+
+                            println "On branch: " + branchName
+                            final String releaseFolder = project.createSftpFolderStructure(delegate, newVersion, scope, stbNameUpperCase, branchName)
+
+                            //upload
+                            println 'Upload to ' + releaseFolder
+                            put from: files("$outputFolder/$apkName", "$outputFolder/$releaseNotesName", "$outputFolder/$TVUI_PROPERTIES"), into: releaseFolder
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 repositories {
     mavenCentral()
+}
+
+/*
+remotes {
+    sftpHost {
+        if (project.hasProperty("swisscomSFTPUser") && project.hasProperty("swisscomSFTPPassphrase")) {
+            host = 'sftp.sctv.ch'
+            identity = file('sftp_key.pem')
+            user = project.getProperties().get("swisscomSFTPUser")
+            passphrase = project.getProperties().get("swisscomSFTPPassphrase")
+            knownHosts = allowAnyHosts
+        }
+    }
+}
+*/
+
+static String getBranchName(git) {
+    String ciBranchName = null
+    try {
+        ciBranchName = System.getenv('CI_BUILD_REF_NAME')
+    } catch (ignored) {
+        // ignore
+    }
+
+    if (ciBranchName == null || ciBranchName.isEmpty()) {
+        return git.branch.getCurrent().getName()
+    } else {
+        return ciBranchName
+    }
+}
+
+String getLastVersion() {
+    String description = "git describe --first-parent".execute().text.trim()
+    println "git describe --first-parent = $description"
+    if (description.startsWith("v")) {
+        description = description.substring(1)
+    }
+
+    String tag = description
+
+    if ((description.contains('snapshot') || description.contains('dev')) && description.contains('-')) {
+        def matcher = description =~ /^(\d+)\.(\d+)\.(\d+).*/
+        Integer major = matcher[0][1].toInteger()
+        Integer minor = matcher[0][2].toInteger()
+        Integer patch = matcher[0][3].toInteger()
+
+        if (patch > 0) {
+            patch--
+        } else {
+            minor--
+        }
+
+        tag = "$major.$minor.$patch"
+    } else if (description.contains('-')) {
+        tag = description.substring(0, description.indexOf('-'))
+    }
+
+    return tagExists(tag) ? tag : "v$tag"
+}
+
+boolean tagExists(String tag) {
+    try {
+        return grgit.describe(commit: tag) != null
+    } catch (ignored) {
+        return false
+    }
+}
+
+/**
+ * Increments ARKIVIO_VERSION in the build.gradle file according to the provided 'release.scope'
+ * and 'release.increment' properties.
+ * Then it also creates a commit for the changed version.
+ */
+task incrementVersion(group: 'deployment') {
+    doLast {
+        final int increment = requireReleaseIncrement()
+        final String scope = requireReleaseScope()
+        def git = grgit.open(currentDir: project.rootDir)
+        project.incrementVersion(project, git, ARKIVIO_VERSION, scope, increment)
+    }
+}
+
+// Validate the 'release.increment' property
+int requireReleaseIncrement() {
+    if (!project.hasProperty('release.increment')) {
+        return 1
+    }
+
+    final String incrementStr = project.getProperty('release.increment')
+    try {
+        final int increment = incrementStr.toInteger()
+        if (increment <= 0) {
+            throw new GradleException("The property 'release.increment' needs to be set to a positive integer. Provided value = $incrementStr")
+        }
+        return increment
+    } catch (ignored) {
+        throw new GradleException("The property 'release.increment' needs to be set to a positive integer. Provided value = $incrementStr")
+    }
+}
+
+// Validate the 'release.scope' property
+String requireReleaseScope() {
+    if (!project.hasProperty('release.scope')) {
+        throw new GradleException("The property 'release.scope' has not been set.")
+    }
+
+    final String scope = project.getProperty('release.scope')
+    final List<String> validScopes = ["snapshot", "dev", "patch", "minor", "major"]
+    if (!validScopes.contains(scope)) {
+        throw new GradleException("Invalid value '$scope' specified for property 'release.scope'. Valid values are $validScopes.")
+    }
+    return scope
+}
+
+task('listAllVariants') {
+    doLast {
+        android.applicationVariants.all { variant ->
+            println "Variant: '${variant.getName()}'"
+            println "Assemble task: assemble${variant.getName().capitalize()}"
+            println "Install task: install${variant.getName().capitalize()}"
+            println ""
+        }
+    }
+}
+
+/**
+ * Create a new tag for the current version and push it to origin.
+ */
+task pushVersion(group: 'deployment') {
+    doLast {
+        println "Creating tag for version $ARKIVIO_VERSION"
+
+        final String repositoryUrl = System.getenv('REPOSITORY_URL')
+        if (repositoryUrl == null || repositoryUrl.isEmpty()) {
+            throw new GradleException("The environment variable 'REPOSITORY_URL' has not been set.")
+        }
+
+        def git = grgit.open(currentDir: project.rootDir)
+        git.tag.add(name: ARKIVIO_VERSION, message: "Version $ARKIVIO_VERSION. See mail for the changelog")
+        git.push(remote: repositoryUrl, refsOrSpecs: ['HEAD'], tags: true)
+    }
 }
 
 dependencies {
@@ -71,7 +331,7 @@ dependencies {
 
     // androidx
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'androidx.appcompat:appcompat:1.6.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.biometric:biometric:1.1.0'
     implementation 'androidx.work:work-runtime-ktx:2.8.0'
     implementation 'androidx.preference:preference-ktx:1.2.0'
@@ -121,7 +381,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database-ktx:20.1.0'
     implementation 'com.google.firebase:firebase-analytics-ktx:21.2.0'
     implementation 'com.google.firebase:firebase-messaging-ktx:23.1.1'
-    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.3.3'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.3.5'
 
     // GSON
     implementation 'com.google.code.gson:gson:2.10.1'
@@ -176,10 +436,10 @@ dependencies {
     implementation 'com.google.apis:google-api-services-youtube:v3-rev99-1.17.0-rc'
 
     // ExoPlayer
-    implementation 'com.google.android.exoplayer:exoplayer-ui:2.18.2'
-    implementation 'com.google.android.exoplayer:exoplayer-hls:2.18.2'
-    implementation 'com.google.android.exoplayer:exoplayer-dash:2.18.2'
-    implementation 'com.google.android.exoplayer:exoplayer-core:2.18.2'
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.18.3'
+    implementation 'com.google.android.exoplayer:exoplayer-hls:2.18.3'
+    implementation 'com.google.android.exoplayer:exoplayer-dash:2.18.3'
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.18.3'
 
     // Test
     testImplementation 'junit:junit:4.13.2' // Libreria che gestisce gli unit test.

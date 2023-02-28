@@ -1,0 +1,114 @@
+/**
+ * Increments the ARKIVIO_VERSION in the build.gradle file according to the provided 'scope' and 'increment'.
+ * Then it also creates a commit for the changed version.
+ */
+static def incrementVersion(project, git, String version, String scope, int increment) {
+    assert ["snapshot", "dev", "patch", "minor", "major"].contains(scope)
+    assert increment > 0
+
+    final LazyVersion lazyVersion = new LazyVersion(version)
+    println "currentVersion = $lazyVersion, scope = ${scope}, increment = ${increment}"
+
+    final String newVersion
+
+    switch (scope) {
+        case "patch":
+            lazyVersion.incrementPatch(increment)
+            newVersion = lazyVersion.toString()
+            break
+        case "minor":
+            lazyVersion.incrementMinor(increment)
+            newVersion = lazyVersion.toString()
+            break
+        case "major":
+            lazyVersion.incrementMajor(increment)
+            newVersion = lazyVersion.toString()
+            break
+        case "dev":
+            newVersion = "${lazyVersion.toString()}-dev_${project.createHeadCommitId()}"
+            break
+        case "snapshot":
+            newVersion = "${lazyVersion.toString()}-snapshot_${project.createHeadCommitId()}"
+            break
+        default:
+            println "nothing to do for scope $scope"
+            return
+    }
+
+    println "newVersion = $newVersion"
+
+    def buildFile = project.rootProject.buildFile
+    def s = buildFile.getText().replaceFirst("ARKIVIO_VERSION = \"$version\"", "ARKIVIO_VERSION = \"$newVersion\"")
+    buildFile.setText(s)
+
+    if (scope == "snapshot" || scope == "dev") {
+        println "No ARKIVIO_VERSION update for Dev/Test releases -> don't commit"
+        return
+    }
+
+    def branch = null
+    try {
+        branch = System.getenv('CI_BUILD_REF_NAME')
+    } catch (ignored) {
+        // ignored
+    }
+
+    if (branch != null) {
+        // In case of gitlab ci build we have to check out and update the branch to be able to commit
+        // and push afterwards to be sure we have no merge conflicts while updating the local branch,
+        // we have to delete the local branch and recreate it.
+        if (git.branch.list().find { it.name == branch }) {
+            git.branch.remove(names: [branch], force: true)
+        }
+        git.checkout(branch: branch, startPoint: "origin/$branch", createBranch: true)
+
+        // Fetch remote tags, and prune local tags that doesn't exist on remote.
+        "git tag -l | xargs git tag -d && git fetch -t".execute().waitForOrKill(5000)
+    }
+
+    git.add(patterns: ['build.gradle'])
+    git.commit(message: "Version $newVersion")
+}
+
+class LazyVersion {
+    int major
+    int minor
+    int patch
+
+    LazyVersion(String versionName) {
+        def matcher = versionName.trim() =~ /^(\d+)\.(\d+)\.(\d+)$/
+        assert matcher.groupCount() == 3
+        def group = matcher[0]
+
+        this.major = group[1].toInteger()
+        this.minor = group[2].toInteger()
+        this.patch = group[3].toInteger()
+    }
+
+    void incrementMajor(int increment) {
+        assert increment > 0
+        major = major + increment
+        minor = 0
+        patch = 0
+    }
+
+    void incrementMinor(int increment) {
+        assert increment > 0
+        minor = minor + increment
+        patch = 0
+    }
+
+    void incrementPatch(int increment) {
+        assert increment > 0
+        patch = patch + increment
+    }
+
+    @Override
+    String toString() {
+        return "$major.$minor.$patch"
+    }
+}
+
+ext {
+    incrementVersion = this.&incrementVersion
+}
