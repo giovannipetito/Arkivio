@@ -15,7 +15,7 @@ publish-dev-release:
   script:
     - ./gradlew clean
     # - chmod +x ./scripts/download-translations.sh && ./scripts/download-translations.sh
-    - ./gradlew uploadToSftpRelease -Prelease.scope=dev
+    # - ./gradlew uploadToSftpRelease -Prelease.scope=dev
   only:
     - develop
   when: manual
@@ -33,7 +33,7 @@ publish-snapshot-release:
   script:
     - ./gradlew clean
     # - chmod +x ./scripts/download-translations.sh && ./scripts/download-translations.sh
-    - ./gradlew uploadToSftpRelease -Prelease.scope=snapshot
+    # - ./gradlew uploadToSftpRelease -Prelease.scope=snapshot
   only:
     - /^feature\/.*$/
     - /^hotfix\/.*$/
@@ -55,7 +55,7 @@ release-major-increment:
     - ./gradlew clean
     # - chmod +x ./scripts/download-translations.sh && ./scripts/download-translations.sh
     - ./gradlew incrementVersion -Prelease.scope=major
-    - ./gradlew uploadToSftpRelease -Prelease.scope=major
+    # - ./gradlew uploadToSftpRelease -Prelease.scope=major
     - ./gradlew sendEmail
     - ./gradlew pushVersion
   only:
@@ -76,7 +76,7 @@ release-minor-increment:
     - ./gradlew clean
     # - chmod +x ./scripts/download-translations.sh && ./scripts/download-translations.sh
     - ./gradlew incrementVersion -Prelease.scope=minor
-    - ./gradlew uploadToSftpRelease -Prelease.scope=minor
+    # - ./gradlew uploadToSftpRelease -Prelease.scope=minor
     - ./gradlew sendEmail
     - ./gradlew pushVersion
   only:
@@ -97,7 +97,7 @@ release-patch-increment:
     - ./gradlew clean
     # - chmod +x ./scripts/download-translations.sh && ./scripts/download-translations.sh
     - ./gradlew incrementVersion -Prelease.scope=patch
-    - ./gradlew uploadToSftpRelease -Prelease.scope=patch
+    # - ./gradlew uploadToSftpRelease -Prelease.scope=patch
     - ./gradlew sendEmail
     - ./gradlew pushVersion
   only:
