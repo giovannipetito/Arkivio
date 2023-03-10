@@ -73,6 +73,17 @@ import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadRemember
 
 class MainActivity : BaseActivity(), IProgressLoader {
 
+    /*
+          - name: Run Lint
+        run: ./gradlew lintDebug
+
+        # Runs a set of commands using the runners shell
+        - name: Run a multi-line script
+          run: |
+            echo Add other actions to build,
+            echo test, and deploy your project.
+     */
+
     companion object {
         var running = false
     }
