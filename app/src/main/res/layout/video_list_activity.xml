@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-  <fragment
+  <androidx.fragment.app.FragmentContainerView
           class="it.giovanni.arkivio.fragments.detail.youtube.videolist.VideoListFragment"
           android:id="@+id/list_fragment"
           android:layout_width="match_parent"
@@ -25,7 +25,7 @@
             android:src="@android:drawable/btn_dialog"
             android:contentDescription="@string/app_name" />
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
             class="it.giovanni.arkivio.fragments.detail.youtube.videolist.VideoFragment"
             android:id="@+id/video_fragment_container"
             android:layout_width="match_parent"

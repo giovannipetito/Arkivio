@@ -11,11 +11,9 @@ import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.graphics.Color
-import android.os.Build
 import android.os.IBinder
 import android.os.SystemClock
 import android.util.Log
-import androidx.annotation.NonNull
 import androidx.core.app.ActivityCompat
 import androidx.core.app.AlarmManagerCompat
 import androidx.core.app.NotificationCompat
@@ -76,7 +74,7 @@ class NotificationService3 : Service() {
 
     private val receiver: BroadcastReceiver = object : BroadcastReceiver() {
 
-        override fun onReceive(@NonNull context: Context?, @NonNull intent: Intent?) {
+        override fun onReceive(context: Context?, intent: Intent?) {
             val action = intent?.action
             if (BluetoothDevice.ACTION_FOUND == action) {
                 val rssi = intent.getShortExtra(
@@ -96,21 +94,19 @@ class NotificationService3 : Service() {
     }
 
     private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val notificationChannel = NotificationChannel(
-                getString(R.string.egg_time_channel_id_3),
-                getString(R.string.egg_time_channel_name_3),
-                NotificationManager.IMPORTANCE_HIGH
-            )
-            notificationChannel.setShowBadge(true)
-            notificationChannel.lightColor = Color.BLUE
-            notificationChannel.enableLights(true)
-            notificationChannel.enableVibration(true)
-            notificationChannel.description = "Time for breakfast"
+        val notificationChannel = NotificationChannel(
+            getString(R.string.egg_time_channel_id_3),
+            getString(R.string.egg_time_channel_name_3),
+            NotificationManager.IMPORTANCE_HIGH
+        )
+        notificationChannel.setShowBadge(true)
+        notificationChannel.lightColor = Color.BLUE
+        notificationChannel.enableLights(true)
+        notificationChannel.enableVibration(true)
+        notificationChannel.description = "Time for breakfast"
 
-            // val notificationManager = getSystemService(NotificationManager::class.java)
-            notificationManager?.createNotificationChannel(notificationChannel)
-        }
+        // val notificationManager = getSystemService(NotificationManager::class.java)
+        notificationManager?.createNotificationChannel(notificationChannel)
     }
 
     // Creates a new alarm, notification and timer.

@@ -25,7 +25,6 @@ public class TextViewCustom extends AppCompatTextView {
         setTypeface(typeface);
     }
 
-
     public TextViewCustom(Context context, AttributeSet attrs) {
         super(context, attrs);
         applyCustomFont(context, attrs);
@@ -44,8 +43,8 @@ public class TextViewCustom extends AppCompatTextView {
             setTypeface(customFont);
             setPaintFlags(getPaintFlags() | Paint.ANTI_ALIAS_FLAG | Paint.DEV_KERN_TEXT_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
 
-            TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.textViewCustom);
-            boolean isUnderline = typedArray.getBoolean(R.styleable.textViewCustom_underlineText, false);
+            TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.TextViewCustom);
+            boolean isUnderline = typedArray.getBoolean(R.styleable.TextViewCustom_underlineText, false);
 
             if (isUnderline)
                 setPaintFlags(getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);

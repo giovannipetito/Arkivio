@@ -114,7 +114,7 @@ class WebViewFragment : DetailFragment() {
         binding?.webview?.settings?.builtInZoomControls = false
         binding?.webview?.isHorizontalScrollBarEnabled = true
         binding?.webview?.isVerticalScrollBarEnabled = true
-        binding?.webview?.settings?.javaScriptEnabled = true
+        // binding?.webview?.settings?.javaScriptEnabled = true
         binding?.webview?.settings?.domStorageEnabled = true
         binding?.webview?.settings?.useWideViewPort = true
 

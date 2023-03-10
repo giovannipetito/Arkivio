@@ -1,17 +1,15 @@
 package it.giovanni.arkivio.customview
 
-import android.annotation.TargetApi
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
-import android.os.Build
 import android.util.AttributeSet
 import android.view.ViewTreeObserver
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
-import it.giovanni.arkivio.utils.Utils
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadDarkModeStateFromPreferences
+import it.giovanni.arkivio.utils.Utils
 
 class AvatarImageView(context: Context, attrs: AttributeSet) : AppCompatImageView(context, attrs) {
 
@@ -49,7 +47,6 @@ class AvatarImageView(context: Context, attrs: AttributeSet) : AppCompatImageVie
         canvas?.drawCircle(center, center, size, drawPaint)
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private fun removeOnGlobalLayoutListener(listener: ViewTreeObserver.OnGlobalLayoutListener) {
         viewTreeObserver.removeOnGlobalLayoutListener(listener)
     }

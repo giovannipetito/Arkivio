@@ -1,18 +1,21 @@
 package it.giovanni.arkivio.fragments.detail.youtube.videolist
 
-import android.annotation.TargetApi
 import android.app.Activity
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
-import android.view.*
-import android.widget.*
-import com.google.android.youtube.player.*
+import android.view.Gravity
+import android.view.View
+import android.view.ViewGroup
+import android.view.ViewPropertyAnimator
+import android.widget.FrameLayout
+import android.widget.Toast
+import com.google.android.youtube.player.YouTubeApiServiceUtil
+import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer.OnFullscreenListener
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.VideoListActivityBinding
 
-@TargetApi(13)
 class VideoListActivity : Activity(), OnFullscreenListener {
 
     private var layoutBinding: VideoListActivityBinding? = null
@@ -136,7 +139,6 @@ class VideoListActivity : Activity(), OnFullscreenListener {
         }
     }
 
-    @TargetApi(16)
     private fun runOnAnimationEnd(animator: ViewPropertyAnimator, runnable: Runnable) {
         animator.withEndAction(runnable)
     }

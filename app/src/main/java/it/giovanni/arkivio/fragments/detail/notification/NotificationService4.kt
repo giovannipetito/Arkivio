@@ -15,7 +15,6 @@ import android.graphics.Color
 import android.media.RingtoneManager
 import android.os.IBinder
 import android.util.Log
-import androidx.annotation.NonNull
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -39,7 +38,7 @@ class NotificationService4 : Service() {
 
     private val receiver: BroadcastReceiver = object : BroadcastReceiver() {
 
-        override fun onReceive(@NonNull context: Context?, @NonNull intent: Intent?) {
+        override fun onReceive(context: Context?, intent: Intent?) {
             val action = intent?.action
             if (BluetoothDevice.ACTION_FOUND == action) {
                 val rssi = intent.getShortExtra(
@@ -64,7 +63,7 @@ class NotificationService4 : Service() {
         startTimer()
     }
 
-    override fun onStartCommand(@NonNull intent: Intent?, @NonNull flags: Int, @NonNull startId: Int): Int {
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
         return if (intent == null)
             START_NOT_STICKY
@@ -137,13 +136,6 @@ class NotificationService4 : Service() {
         if (ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED
         ) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return
         }
         bluetoothAdapter.startDiscovery()

@@ -17,7 +17,7 @@
             android:padding="6dp"
             android:orientation="vertical">
 
-        <fragment
+        <androidx.fragment.app.FragmentContainerView
                 android:name="com.google.android.youtube.player.YouTubePlayerFragment"
                 android:id="@+id/youtube_player_fragment"
                 android:layout_width="match_parent"

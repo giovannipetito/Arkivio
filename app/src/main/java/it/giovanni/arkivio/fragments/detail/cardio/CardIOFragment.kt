@@ -217,7 +217,7 @@ class CardIOFragment : DetailFragment(), AppCompatSpinnerCustom.OnSpinnerEventsL
                 locale.name == "it" ||
                 locale.name == "pt" ||
                 locale.name == "ru")
-            languages.add(locale.name)
+                languages.add(locale.name)
         }
 
         // TODO) Potrei passare all'adapter anche l'Array arraylanguages invece dell'ArrayList languages.

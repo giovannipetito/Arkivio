@@ -9,7 +9,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.BiometricBottomSheetBinding
 
-class BiometricDialogV23 internal constructor(@NonNull context: Context, private val biometricCallback: BiometricCallback) :
+class BiometricDialogV23 internal constructor(context: Context, private val biometricCallback: BiometricCallback) :
     BottomSheetDialog(context, R.style.BottomSheetDialogTheme1), View.OnClickListener {
 
     private var textTitle: TextView? = null

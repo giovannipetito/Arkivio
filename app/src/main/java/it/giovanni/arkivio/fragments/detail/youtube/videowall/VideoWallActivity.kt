@@ -1,6 +1,5 @@
 package it.giovanni.arkivio.fragments.detail.youtube.videowall
 
-import android.annotation.TargetApi
 import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
@@ -22,7 +21,6 @@ import it.giovanni.arkivio.fragments.detail.youtube.YoutubeConnector
 import kotlin.math.floor
 import kotlin.math.min
 
-@TargetApi(11)
 class VideoWallActivity : Activity(), FlippingView.Listener,
     YouTubePlayer.OnInitializedListener, YouTubeThumbnailView.OnInitializedListener {
 

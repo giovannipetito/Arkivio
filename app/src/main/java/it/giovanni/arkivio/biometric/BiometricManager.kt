@@ -1,11 +1,8 @@
 package it.giovanni.arkivio.biometric
 
-import android.hardware.biometrics.BiometricPrompt
-import android.os.Build
-import android.annotation.TargetApi
 import android.content.Context
+import android.hardware.biometrics.BiometricPrompt
 import android.os.CancellationSignal
-import androidx.annotation.NonNull
 
 class BiometricManager private constructor(biometricBuilder: BiometricBuilder) : BiometricManagerV23() {
 
@@ -19,7 +16,7 @@ class BiometricManager private constructor(biometricBuilder: BiometricBuilder) :
         this.cancel = biometricBuilder.cancel
     }
 
-    fun authenticate(@NonNull biometricCallback: BiometricCallback) {
+    fun authenticate(biometricCallback: BiometricCallback) {
 
         if (title == null) {
             biometricCallback.onBiometricAuthenticationInternalError("Biometric Dialog title cannot be null")
@@ -81,14 +78,13 @@ class BiometricManager private constructor(biometricBuilder: BiometricBuilder) :
             displayBiometricPromptV23(biometricCallback)
     }
 
-    @TargetApi(Build.VERSION_CODES.P)
     private fun displayBiometricPrompt(biometricCallback: BiometricCallback) {
         BiometricPrompt.Builder(context)
             .setTitle(title!!)
             .setSubtitle(subtitle!!)
             .setDescription(description!!)
-            .setNegativeButton(cancel!!, context?.mainExecutor!!,
-                { _, _ -> biometricCallback.onAuthenticationCancelled() })
+            .setNegativeButton(cancel!!, context?.mainExecutor!!
+            ) { _, _ -> biometricCallback.onAuthenticationCancelled() }
             .build()
             .authenticate(
                 mCancellationSignal,
@@ -103,22 +99,22 @@ class BiometricManager private constructor(biometricBuilder: BiometricBuilder) :
         var description: String? = null
         var cancel: String? = null
 
-        fun setTitle(@NonNull title: String): BiometricBuilder {
+        fun setTitle(title: String): BiometricBuilder {
             this.title = title
             return this
         }
 
-        fun setSubtitle(@NonNull subtitle: String): BiometricBuilder {
+        fun setSubtitle(subtitle: String): BiometricBuilder {
             this.subtitle = subtitle
             return this
         }
 
-        fun setDescription(@NonNull description: String): BiometricBuilder {
+        fun setDescription(description: String): BiometricBuilder {
             this.description = description
             return this
         }
 
-        fun setNegativeButtonText(@NonNull cancel: String): BiometricBuilder {
+        fun setNegativeButtonText(cancel: String): BiometricBuilder {
             this.cancel = cancel
             return this
         }

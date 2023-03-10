@@ -1,23 +1,22 @@
 package it.giovanni.arkivio.biometric
 
-import android.content.pm.PackageManager
-import android.Manifest.permission.USE_FINGERPRINT
 import android.Manifest.permission.USE_BIOMETRIC
-import androidx.core.hardware.fingerprint.FingerprintManagerCompat
-import android.os.Build
+import android.Manifest.permission.USE_FINGERPRINT
 import android.content.Context
+import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
+import androidx.core.hardware.fingerprint.FingerprintManagerCompat
 
 class BiometricUtils {
 
     companion object {
 
         fun isBiometricPromptEnabled(): Boolean {
-            return Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
+            return true
         }
 
         fun isSdkVersionSupported(): Boolean {
-            return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+            return true
         }
 
         fun isHardwareSupported(context: Context): Boolean {
