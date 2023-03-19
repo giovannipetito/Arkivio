@@ -52,7 +52,6 @@ android {
     }
 
     lintOptions {
-        // In the terminal, run: ./gradlew lintDebug
         baseline file("lint-baseline.xml")
     }
 
