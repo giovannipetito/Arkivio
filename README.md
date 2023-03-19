@@ -4,6 +4,16 @@
 
 Build, Execution, Deployment - Istant Run - Enable Instant Run... unchecked (da fare su tutte le app)
 
+# JDK
+
+Per conoscere e aggiornare l'ultima versione del JDK usata da Android Studio:
+
+Mac: Android Studio/Preferences.../Build, Execution, Deployment/ Build Tools/Gradle/Gradle JDK:
+
+Pc: File/Settings.../Build/Execution/Deployment/Build Tools/Gradle/Gradle JDK:
+
+Nota. Usare la versione 11.0.10
+
 # lint
 
 lint, o linter, è uno strumento che analizza il codice sorgente per evidenziare errori di programmazione,
