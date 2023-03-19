@@ -20,7 +20,7 @@ Nota. Per passare dal terminale di Git al terminale di Android Studio, esegui: .
 
 cd existing_repo
 git remote rename origin old-origin
-git remote add origin git@gitlab.wind-digital.com:My3/business-android.git
+git remote add origingit@github.com:giovannipetito/Arkivio.git
 git push -u origin --all
 git push -u origin –tags
 
