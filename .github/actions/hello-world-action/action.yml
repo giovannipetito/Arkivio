@@ -1,5 +1,5 @@
 name: hello-world-actions
-run-name: ${{ github.actor }} is learning Hello World Actions
+# run-name: ${{ github.actor }} is learning Hello World Actions
 on:
   push:
     branches: [ master ]
