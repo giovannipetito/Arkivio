@@ -50,8 +50,6 @@ giovanni.petito
 git config user.email
 giovanni.petito@gmail.com
 
-// todo
-
 ssh-keygen -t rsa -b 4096 -C "gi.petito@gmail.com"
 ssh-keygen -t ed25519 -C "gi.petito@gmail.com"
 ssh-keygen -o -t rsa -b 4096 -C gi.petito@gmail.com
