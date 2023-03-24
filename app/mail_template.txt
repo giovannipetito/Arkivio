@@ -1,0 +1,17 @@
+Hi,
+
+Version ${version_name} of Arkivio is now available!
+
+All released files can be found at:
+
+/pub/Arkivio/releases/${folder}/${subfolder}
+
+Please find attached the release notes!
+
+Have a nice day,
+Giovanni
+
+PS: This E-mail has been generated automatically. Please do not reply to this E-mail.
+If you have questions or need help, please contact me at giovanni.petito88@gmail.com..
+
+Please consider the environment before printing this email.

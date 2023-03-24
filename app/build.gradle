@@ -192,3 +192,78 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     // Nota. hamcrest: libreria che pianifica una strategia di test molto più estesa degli unit test.
 }
+
+// Validate the 'release.increment' property
+int requireReleaseIncrement() {
+    if (!project.hasProperty('release.increment')) {
+        return 1
+    }
+
+    final String incrementStr = project.getProperty('release.increment')
+    try {
+        final int increment = incrementStr.toInteger()
+        if (increment <= 0) {
+            throw new GradleException("The property 'release.increment' needs to be set to a positive integer. Provided value = $incrementStr")
+        }
+        return increment
+    } catch (ignored) {
+        throw new GradleException("The property 'release.increment' needs to be set to a positive integer. Provided value = $incrementStr")
+    }
+}
+
+// Validate the 'release.scope' property
+String requireReleaseScope() {
+    if (!project.hasProperty('release.scope')) {
+        throw new GradleException("The property 'release.scope' has not been set.")
+    }
+
+    final String scope = project.getProperty('release.scope')
+    final List<String> validScopes = ["snapshot", "dev", "patch", "minor", "major"]
+    if (!validScopes.contains(scope)) {
+        throw new GradleException("Invalid value '$scope' specified for property 'release.scope'. Valid values are $validScopes.")
+    }
+    return scope
+}
+
+task('listAllVariants') {
+    doLast {
+        android.applicationVariants.all { variant ->
+            println "Variant: '${variant.getName()}'"
+            println "   Assemble task:  assemble${variant.getName().capitalize()}"
+            println "   Install task:   install${variant.getName().capitalize()}"
+            println ""
+        }
+    }
+}
+
+/**
+ * Increments the ARKIVIO_VERSION in the build.gradle file according to the provided 'release.scope'
+ * and 'release.increment' properties.
+ * Then it also creates a commit for the changed version.
+ */
+task incrementVersion(group: 'deployment') {
+    doLast {
+        final int increment = requireReleaseIncrement()
+        final String scope = requireReleaseScope()
+        def git = grgit.open(currentDir: project.rootDir)
+        project.incrementVersion(project, git, ARKIVIO_VERSION, scope, increment)
+    }
+}
+
+/**
+ * Create a new tag for the current version and push it to origin
+ */
+task pushVersion(group: 'deployment') {
+    doLast {
+        println "Creating tag for version $ARKIVIO_VERSION"
+
+        final String repositoryUrl = System.getenv('REPOSITORY_URL')
+        if (repositoryUrl == null || repositoryUrl.isEmpty()) {
+            throw new GradleException("The environment variable 'REPOSITORY_URL' has not been set.")
+        }
+
+        def git = grgit.open(currentDir: project.rootDir)
+        git.tag.add(name: ARKIVIO_VERSION, message: "Version $ARKIVIO_VERSION. See mail for the changelog")
+        git.push(remote: repositoryUrl, refsOrSpecs: ['HEAD'], tags: true)
+    }
+}

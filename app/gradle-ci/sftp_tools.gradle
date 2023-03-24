@@ -1,0 +1,86 @@
+/**
+ * Creates the SFTP Folder structure for release uploading.
+ *
+ * @param sftp          The SFTP reference
+ * @param newVersion    Version code
+ * @param scope         The type of build (dev/release/etc.)
+ * @param stbName       The stb name
+ * @param branchName    The name of the branch used to create inner folders
+ *
+ * @return The full release folder path.
+ */
+String createSftpFolderStructure(Object sftp, String newVersion, String scope, String stbName, String branchName) {
+    assert newVersion != null
+    assert ["snapshot", "dev", "patch", "minor", "major"].contains(scope)
+
+    if (scope == "snapshot") {
+
+        String root = "/pub/WingoUI/releases/_snapshot"
+        branchName.split("/").each { part ->
+            project.createSftpFolder(sftp, root, part)
+            root += "/$part"
+        }
+        final String folderName = createHeadCommitId()
+        final String stbNameFolder = stbName.toLowerCase()
+
+        project.createSftpFolder(sftp, root, folderName)
+        project.createSftpFolder(sftp, "$root/$folderName", stbNameFolder)
+        return "$root/$folderName/$stbNameFolder/"
+
+    } else if (scope == "dev") {
+
+        final String root = "/pub/WingoUI/releases/_dev"
+        final String topFolderName = (newVersion.findAll("^[0-9]+\\.[0-9]+"))[0]
+        final String folderName = newVersion
+        final String stbNameFolder = stbName.toLowerCase()
+
+        project.createSftpFolder(sftp, root, topFolderName)
+        project.createSftpFolder(sftp, "$root/$topFolderName", folderName)
+        project.createSftpFolder(sftp, "$root/$topFolderName/$folderName", stbNameFolder)
+        return "$root/$topFolderName/$folderName/$stbNameFolder/"
+
+    } else {
+
+        final String root = "/pub/WingoUI/releases"
+        final String topFolderName = (newVersion.findAll("^[0-9]+\\.[0-9]+"))[0]
+        final String folderName = newVersion
+        final String stbNameFolder = stbName.toLowerCase()
+
+        project.createSftpFolder(sftp, root, topFolderName)
+        project.createSftpFolder(sftp, "$root/$topFolderName", folderName)
+        project.createSftpFolder(sftp, "$root/$topFolderName/$folderName", stbNameFolder)
+        return "$root/$topFolderName/$folderName/$stbNameFolder/"
+    }
+}
+
+/**
+ * Creates an identifier composed of the date and the SHA of the current HEAD commit.
+ */
+String createHeadCommitId() {
+    final String unixTimestamp = "git show -s --format=%ct HEAD".execute().text.trim()
+    final String timestamp = new Date(Long.parseLong(unixTimestamp) * 1000L).format('yyyyMMddHHmmss')
+    final String sha = "git rev-parse --short HEAD".execute().text.trim()
+    return "$timestamp-$sha"
+}
+
+/**
+ * Creates a SFTP folder if it doesn't exist.
+ * @param sftp          The SFTP reference.
+ * @param path          The base path.
+ * @param folderName    The new folder name
+ */
+def createSftpFolder(Object sftp, String path, String folderName) {
+    try {
+        sftp.ls path + "/" + folderName
+    } catch (Exception ex) {
+        sftp.cd path
+        sftp.mkdir folderName
+    }
+}
+
+// Export methods by turning them into closures
+ext {
+    createSftpFolderStructure = this.&createSftpFolderStructure
+    createSftpFolder = this.&createSftpFolder
+    createHeadCommitId = this.&createHeadCommitId
+}
