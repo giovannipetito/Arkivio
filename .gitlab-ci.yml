@@ -59,7 +59,7 @@ release-major-increment:
     expire_in: 2 days
     when: always
     paths:
-      - /builds/giovanni.petito/arkivio/app/build/outputs/
+      - /app/build/outputs/
   script:
     - ./gradlew clean
     - ./gradlew incrementVersion -Prelease.scope=major
