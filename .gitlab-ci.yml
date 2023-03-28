@@ -30,6 +30,9 @@ stages:          # List of stages for jobs, and their order of execution
 # The deploy stage runs your deployment script to deploy the application.
 # You'll need to fill in the details of your deployment script here.
 
+
+
+
 build-job:       # This job runs in the build stage, which runs first.
   stage: build
   script:
