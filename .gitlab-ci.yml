@@ -41,18 +41,12 @@ build-job:       # This job runs in the build stage, which runs first.
   script:
     - echo "Hello, $GITLAB_USER_LOGIN!"
     - echo "Compiling the code..."
-    # - ./gradlew assembleDebug
-    - echo "Compile complete."
-
-assembleDebug:
-  stage: build
-  image: openjdk:11-jdk-slim
-  script:
     - export JAVA_HOME=/usr/local/openjdk-11
     - ./gradlew assembleDebug
-  artifacts:
-    paths:
-      - app/build/outputs/
+    - echo "Compile complete."
+  #artifacts:
+    #paths:
+     #- app/build/outputs/
 
 unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
