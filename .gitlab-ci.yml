@@ -35,7 +35,7 @@ build-job:       # This job runs in the build stage, which runs first.
   script:
     - echo "Hello, $GITLAB_USER_LOGIN!"
     - echo "Compiling the code..."
-    # - ./gradlew assembleDebug
+    - ./gradlew assembleDebug
     - echo "Compile complete."
 
 unit-test-job:   # This job runs in the test stage.
