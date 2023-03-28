@@ -33,7 +33,7 @@ stages:          # List of stages for jobs, and their order of execution
 # Packages installation before running script
 before_script:
   - echo "Before script section"
-  // - source ./scripts/config.sh
+  # - source ./scripts/config.sh
   - echo "Config script loaded"
 
 build-job:       # This job runs in the build stage, which runs first.
