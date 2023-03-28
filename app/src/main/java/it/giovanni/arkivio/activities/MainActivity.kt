@@ -73,11 +73,6 @@ import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadRemember
 
 class MainActivity : BaseActivity(), IProgressLoader {
 
-    /*
-          - name: Run Lint
-        run: ./gradlew lintDebug
-     */
-
     companion object {
         var running = false
     }
