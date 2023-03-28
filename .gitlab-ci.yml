@@ -42,7 +42,7 @@ build-job:       # This job runs in the build stage, which runs first.
     - echo "Hello, $GITLAB_USER_LOGIN!"
     - echo "Compiling the code..."
     - export JAVA_HOME=/usr/local/openjdk-11
-    - export JAVA_HOME="C:\Program Files\Java\jdk1.8.0_301"
+    - export JAVA_HOME="C:/Program Files/Java/jdk1.8.0_301"
     - ./gradlew assembleDebug
     - echo "Compile complete."
   #artifacts:
