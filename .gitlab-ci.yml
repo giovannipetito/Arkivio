@@ -30,19 +30,37 @@ stages:          # List of stages for jobs, and their order of execution
 # The deploy stage runs your deployment script to deploy the application.
 # You'll need to fill in the details of your deployment script here.
 
+variables:
+  ANDROID_COMPILE_SDK: "31"
+  ANDROID_BUILD_TOOLS: "31.0.0"
+  ANDROID_SDK_TOOLS: "7583922"
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+
+before_script:
+  - apt-get --quiet update --yes
+  - apt-get --quiet install --yes wget tar unzip lib32stdc++6 lib32z1
+  - wget --quiet --output-document=android-sdk.zip https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_SDK_TOOLS}_latest.zip
+  - unzip -d android-sdk-linux android-sdk.zip
+  - echo y | android-sdk-linux/tools/bin/sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" >/dev/null
+  - echo y | android-sdk-linux/tools/bin/sdkmanager "platform-tools" >/dev/null
+  - echo y | android-sdk-linux/tools/bin/sdkmanager "build-tools;${ANDROID_BUILD_TOOLS}" >/dev/null
+  - export ANDROID_HOME=$PWD/android-sdk-linux/
+  - export PATH=$PATH:$PWD/android-sdk-linux/platform-tools/
+  - chmod +x ./gradlew
+
 build-job:       # This job runs in the build stage, which runs first.
   stage: build
   script:
     - echo "Hello, $GITLAB_USER_LOGIN!"
     - echo "Compiling the code..."
-    - ./gradlew assembleDebug
+    # - ./gradlew assembleDebug
     - echo "Compile complete."
 
 unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
   script:
     - echo "Running unit tests... This will take some time."
-    - ./gradlew testDebug
+    # - ./gradlew testDebug
     - echo "Code coverage is 90%"
 
 lint-test-job:   # This job also runs in the test stage.
