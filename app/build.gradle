@@ -60,6 +60,7 @@ android {
     }
     namespace 'it.giovanni.arkivio'
     lint {
+
         baseline file('lint-baseline.xml')
     }
 }
