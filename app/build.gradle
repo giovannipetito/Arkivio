@@ -51,9 +51,6 @@ android {
         }
     }
 
-    lintOptions {
-        baseline file("lint-baseline.xml")
-    }
 
     android {
         buildFeatures {
@@ -62,6 +59,9 @@ android {
         }
     }
     namespace 'it.giovanni.arkivio'
+    lint {
+        baseline file('lint-baseline.xml')
+    }
 }
 
 repositories {

@@ -1,5 +1,11 @@
 # Arkivio
 
+Giovanni Petito project
+
+# Terminal
+
+./gradlew build --refresh-dependencies
+
 # Build
 
 Build, Execution, Deployment - Istant Run - Enable Instant Run... unchecked (da fare su tutte le app)

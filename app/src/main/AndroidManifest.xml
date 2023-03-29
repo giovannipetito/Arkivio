@@ -76,9 +76,9 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <!-- Accepts URIs that begin with "http://www.host.it/v/v-app" -->
-                <data android:scheme="http"
-                        android:host="www.host.it"
-                        android:pathPrefix="/v/v-app" />
+                <data android:scheme="http" />
+                <data android:host="www.host.it" />
+                <data android:pathPrefix="/v/v-app" />
 
                 <!-- Accepts URIs that begin with "http://apps.dea.dev.wind-digital.com/dashboard" -->
                 <data android:scheme="http"
