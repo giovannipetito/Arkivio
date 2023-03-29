@@ -38,10 +38,10 @@ before_script:
 
 build-job:       # This job runs in the build stage, which runs first.
   stage: build
+  image: openjdk:8-jdk
   script:
     - echo "Hello, $GITLAB_USER_LOGIN!"
     - echo "Compiling the code..."
-    - image: openjdk:8-jdk
     # - export JAVA_HOME=C:\Program Files\Java\jdk1.8.0_301
     - export JAVA_HOME=$(dirname $(dirname $(readlink $(which javac))))
     - ./gradlew assembleDebug
