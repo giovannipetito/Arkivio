@@ -42,10 +42,10 @@ build-job:       # This job runs in the build stage, which runs first.
   script:
     - echo "Hello, $GITLAB_USER_LOGIN!"
     - echo "Compiling the code..."
-    - echo "PATH: $PATH"
+    - echo $PATH
     - which javac
     - export JAVA_HOME=$(dirname $(dirname $(readlink $(which javac))))
-    - echo "JAVA_HOME: $JAVA_HOME"
+    - echo $JAVA_HOME
     - ./gradlew assembleDebug
     - echo "Compile complete."
   #artifacts:
