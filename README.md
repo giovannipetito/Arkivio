@@ -5,6 +5,14 @@ Giovanni Petito project
 # Terminal
 
 ./gradlew build --refresh-dependencies
+./gradlew wrapper --gradle-version=7.5
+sudo nano /etc/paths
+nano ~/.zshrc
+echo $ANDROID_HOME
+echo $JAVA_HOME
+java -version
+/usr/libexec/java_home -V
+sudo rm -rf /Library/Java/JavaVirtualMachines/jdk-18.0.2.1.jdk/Contents/Home
 
 # Build
 
