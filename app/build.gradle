@@ -71,19 +71,20 @@ repositories {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0'
+    // implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
     // androidx
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.biometric:biometric:1.1.0'
-    implementation 'androidx.work:work-runtime-ktx:2.8.0'
+    implementation 'androidx.work:work-runtime-ktx:2.8.1'
     implementation 'androidx.preference:preference-ktx:1.2.0'
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    kapt 'androidx.lifecycle:lifecycle-common-java8:2.6.0'
+    kapt 'androidx.lifecycle:lifecycle-common-java8:2.6.1'
 
     // Core
     implementation 'androidx.core:core-ktx:1.9.0'
@@ -91,11 +92,11 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
 
     // Room
-    kapt 'androidx.room:room-compiler:2.5.0'
-    implementation 'androidx.room:room-ktx:2.5.0'
-    implementation 'androidx.room:room-runtime:2.5.0'
-    implementation 'androidx.room:room-rxjava2:2.5.0'
-    annotationProcessor 'androidx.room:room-compiler:2.5.0'
+    kapt 'androidx.room:room-compiler:2.5.1'
+    implementation 'androidx.room:room-ktx:2.5.1'
+    implementation 'androidx.room:room-runtime:2.5.1'
+    implementation 'androidx.room:room-rxjava2:2.5.1'
+    annotationProcessor 'androidx.room:room-compiler:2.5.1'
 
     // Material
     implementation 'com.google.android.material:material:1.8.0'
@@ -120,12 +121,12 @@ dependencies {
 
     // Import the BoM for the Firebase platform. When using the BoM, you don't specify versions in
     // Firebase library dependencies
-    implementation platform('com.google.firebase:firebase-bom:31.2.3')
+    implementation platform('com.google.firebase:firebase-bom:31.4.0')
     implementation 'com.loopj.android:android-async-http:1.4.11' // Firebase Realtime Database
     implementation 'com.google.firebase:firebase-database-ktx:20.1.0'
-    implementation 'com.google.firebase:firebase-analytics-ktx:21.2.0'
+    implementation 'com.google.firebase:firebase-analytics-ktx:21.2.1'
     implementation 'com.google.firebase:firebase-messaging-ktx:23.1.2'
-    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.3.5'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.3.6'
 
     // GSON
     implementation 'com.google.code.gson:gson:2.10.1'

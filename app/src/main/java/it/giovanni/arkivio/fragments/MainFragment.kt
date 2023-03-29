@@ -308,13 +308,8 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
             (activity as MainActivity).logout()
         }
 
-        if (BuildConfig.CREDITS_PREFIX == "DEBUG") {
-            val versionName = BuildConfig.VERSION_NAME + " " + BuildConfig.CREDITS_PREFIX
-            binding?.navHeader?.versionName?.text = versionName
-        } else {
-            val versionName = BuildConfig.VERSION_NAME
-            binding?.navHeader?.versionName?.text = versionName
-        }
+        val versionName = BuildConfig.VERSION_NAME
+        binding?.navHeader?.versionName?.text = versionName
 
         val versionCode = "(" + BuildConfig.VERSION_CODE.toString() + ")"
         binding?.navHeader?.versionCode?.text = versionCode
