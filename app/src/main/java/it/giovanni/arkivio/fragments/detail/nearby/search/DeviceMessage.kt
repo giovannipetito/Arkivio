@@ -12,7 +12,6 @@ class DeviceMessage {
     private constructor(uuid: String, messageBody: String) {
         mUUID = uuid
         mMessageBody = messageBody
-        // TODO: add other fields that must be included in the Nearby Message payload.
     }
 
     companion object {
