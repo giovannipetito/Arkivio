@@ -1,74 +1,84 @@
 # This file is a template, and might need editing before it works on your project.
-# This is a sample GitLab CI/CD configuration file that should run without any modifications.
-# It demonstrates a basic 3 stage CI/CD pipeline. Instead of real tests or scripts,
-# it uses echo commands to simulate the pipeline execution.
-#
-# A pipeline is composed of independent jobs that run scripts, grouped into stages.
-# Stages run in sequential order, but jobs within stages run in parallel.
-#
-# For more information, see: https://docs.gitlab.com/ee/ci/yaml/index.html#stages
-#
-# You can copy and paste this template into a new `.gitlab-ci.yml` file.
-# You should not add this template to an existing `.gitlab-ci.yml` file by using the `include:` keyword.
-#
 # To contribute improvements to CI/CD templates, please follow the Development guide at:
 # https://docs.gitlab.com/ee/development/cicd/templates.html
 # This specific template is located at:
-# https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
+# https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Android.gitlab-ci.yml
 
-stages:          # List of stages for jobs, and their order of execution
-  - build
-  - test
-  - deploy
+# Read more about this script on this blog post https://about.gitlab.com/2018/10/24/setting-up-gitlab-ci-for-android-projects/, by Jason Lenny
+# If you are interested in using Android with FastLane for publishing take a look at the Android-Fastlane template.
 
-# In this example, we're using the openjdk:11-jdk Docker image to run our build.
-# We define three stages: build, test, and deploy.
-# We also set some variables related to the Android SDK, and install the required dependencies and
-# tools in the before_script section.
-# The build stage runs ./gradlew assembleDebug to build the application.
-# The test stage runs ./gradlew testDebug to run unit tests.
-# The deploy stage runs your deployment script to deploy the application.
-# You'll need to fill in the details of your deployment script here.
+image: openjdk:11-jdk
+
+variables:
+
+  # ANDROID_COMPILE_SDK is the version of Android you're compiling with.
+  # It should match compileSdkVersion.
+  ANDROID_COMPILE_SDK: "29"
+
+  # ANDROID_BUILD_TOOLS is the version of the Android build tools you are using.
+  # It should match buildToolsVersion.
+  ANDROID_BUILD_TOOLS: "29.0.3"
+
+  # It's what version of the command line tools we're going to download from the official site.
+  # Official Site-> https://developer.android.com/studio/index.html
+  # There, look down below at the cli tools only, sdk tools package is of format:
+  #        commandlinetools-os_type-ANDROID_SDK_TOOLS_latest.zip
+  # when the script was last modified for latest compileSdkVersion, it was which is written down below
+  ANDROID_SDK_TOOLS: "6514223"
 
 # Packages installation before running script
 before_script:
-  - echo "Before script section"
-  # - source ./scripts/config.sh
-  - echo "Config script loaded"
+  - apt-get --quiet update --yes
+  - apt-get --quiet install --yes wget tar unzip lib32stdc++6 lib32z1
 
-build-job:
+  # Setup path as android_home for moving/exporting the downloaded sdk into it
+  - export ANDROID_HOME="${PWD}/android-home"
+  # Create a new directory at specified location
+  - install -d $ANDROID_HOME
+  # Here we are installing androidSDK tools from official source,
+  # (the key thing here is the url from where you are downloading these sdk tool for command line, so please do note this url pattern there and here as well)
+  # after that unzipping those tools and
+  # then running a series of SDK manager commands to install necessary android SDK packages that'll allow the app to build
+  - wget --output-document=$ANDROID_HOME/cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_SDK_TOOLS}_latest.zip
+  # move to the archive at ANDROID_HOME
+  - pushd $ANDROID_HOME
+  - unzip -d cmdline-tools cmdline-tools.zip
+  - popd
+  - export PATH=$PATH:${ANDROID_HOME}/cmdline-tools/tools/bin/
+
+  # Nothing fancy here, just checking sdkManager version
+  - sdkmanager --version
+
+  # use yes to accept all licenses
+  - yes | sdkmanager --sdk_root=${ANDROID_HOME} --licenses || true
+  - sdkmanager --sdk_root=${ANDROID_HOME} "platforms;android-${ANDROID_COMPILE_SDK}"
+  - sdkmanager --sdk_root=${ANDROID_HOME} "platform-tools"
+  - sdkmanager --sdk_root=${ANDROID_HOME} "build-tools;${ANDROID_BUILD_TOOLS}"
+
+  # Not necessary, but just for surity
+  - chmod +x ./gradlew
+
+# Basic android and gradle stuff
+# Check linting
+lintDebug:
+  interruptible: true
   stage: build
-  image: openjdk:11-jdk
-  # variables:
-  #   ANDROID_SDK_ROOT: /Users/Giovanni/Library/Android/sdk
-  before_script:
-    - curl https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip --output cmdline-tools.zip
-    - mkdir android-sdk && unzip -d android-sdk cmdline-tools.zip
-    - echo "y" | android-sdk/tools/bin/sdkmanager "platforms;android-30"
-    - echo "y" | android-sdk/tools/bin/sdkmanager "build-tools;30.0.3"
-    - export ANDROID_HOME=$PWD/android-sdk
   script:
-    # - export ANDROID_HOME=/Users/Giovanni/Library/Android/sdk
-    - ./gradlew assembleDebug --info
+    - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
 
-unit-test-job:   # This job runs in the test stage.
-  stage: test    # It only starts when the job in the build stage completes successfully.
+# Make Project
+assembleDebug:
+  interruptible: true
+  stage: build
   script:
-    - echo "Running unit tests... This will take some time."
-    # - ./gradlew testDebug
-    - echo "Code coverage is 90%"
+    - ./gradlew assembleDebug
+  artifacts:
+    paths:
+      - app/build/outputs/
 
-lint-test-job:   # This job also runs in the test stage.
-  stage: test    # It can run at the same time as unit-test-job (in parallel).
+# Run all tests, if any fails, interrupt the pipeline(fail it)
+debugTests:
+  interruptible: true
+  stage: test
   script:
-    - echo "Linting code... This will take about 5 seconds."
-    - sleep 5
-    - echo "No lint issues found."
-
-deploy-job:      # This job runs in the deploy stage.
-  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
-  environment: production
-  script:
-    - echo "Deploying application..."
-    - echo "This job deploys something from the $CI_COMMIT_BRANCH branch."
-    - echo "Application successfully deployed."
+    - ./gradlew -Pci --console=plain :app:testDebug
