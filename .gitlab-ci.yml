@@ -34,25 +34,25 @@ stages:          # List of stages for jobs, and their order of execution
 before_script:
   - echo "Before script section"
   # - source ./scripts/config.sh
-  - export JAVA_HOME='/usr/lib/jvm/java-11-openjdk-11.0.7.10-4.el7_8.x86_64'
-  - export ANDROID_SDK_ROOT=$HOME/android-sdk/
+  # - export JAVA_HOME='/usr/lib/jvm/java-11-openjdk-11.0.7.10-4.el7_8.x86_64'
+  # - export ANDROID_SDK_ROOT=$HOME/android-sdk/
   # - export ANDROID_SDK_ROOT=C:\Users\giovanni.petito\AppData\Local\Android\Sdk
-  # - export ANDROID_HOME=C:\Users\giovanni.petito\AppData\Local\Android\Sdk
+  - export ANDROID_HOME=C:\Users\giovanni.petito\AppData\Local\Android\Sdk
   - echo "Config script loaded"
 
 build-job:
   stage: build
-  # image: openjdk:11-jdk
+  image: openjdk:11-jdk
   variables:
     # ANDROID_SDK_ROOT: $HOME/android-sdk/
     # ANDROID_HOME: $HOME/android-sdk/
     # ANDROID_SDK_ROOT: /Users/Giovanni/Library/Android/sdk
     # ANDROID_HOME: /Users/Giovanni/Library/Android/sdk
     # ANDROID_SDK_ROOT: C:\Users\giovanni.petito\AppData\Local\Android\Sdk
-    # ANDROID_HOME: C:\Users\giovanni.petito\AppData\Local\Android\Sdk
+    ANDROID_HOME: C:\Users\giovanni.petito\AppData\Local\Android\Sdk
   script:
     # - export ANDROID_SDK_ROOT=C:\Users\giovanni.petito\AppData\Local\Android\Sdk
-    # - export ANDROID_HOME=C:\Users\giovanni.petito\AppData\Local\Android\Sdk
+    - export ANDROID_HOME=C:\Users\giovanni.petito\AppData\Local\Android\Sdk
     # - export ANDROID_SDK_ROOT=$HOME/android-sdk/
     # - export ANDROID_HOME=/Users/Giovanni/Library/Android/sdk
     # - ./gradlew assembleDebug --info
