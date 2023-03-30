@@ -86,13 +86,13 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
     /////////////////////////////////////////////
-    implementation 'javax.xml.bind:jaxb-api:2.3.1'
-    implementation 'com.sun.xml.bind:jaxb-core:2.3.0.1'
-    implementation 'com.sun.xml.bind:jaxb-impl:2.3.0.1'
+    // implementation 'javax.xml.bind:jaxb-api:2.3.1'
+    // implementation 'com.sun.xml.bind:jaxb-core:2.3.0.1'
+    // implementation 'com.sun.xml.bind:jaxb-impl:2.3.0.1'
 
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
-    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.13.0'
-    implementation 'com.fasterxml.woodstox:woodstox-core:6.2.6'
+    // implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
+    // implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.13.0'
+    // implementation 'com.fasterxml.woodstox:woodstox-core:6.2.6'
     /////////////////////////////////////////////
 
     // androidx
@@ -213,4 +213,8 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     // Nota. hamcrest: libreria che pianifica una strategia di test molto più estesa degli unit test.
+}
+
+task cleanBuildCache(type: Delete) {
+    delete rootProject.buildDir
 }
