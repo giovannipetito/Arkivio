@@ -36,20 +36,12 @@ before_script:
   # - source ./scripts/config.sh
   - echo "Config script loaded"
 
-build-job:       # This job runs in the build stage, which runs first.
+build-job:
   stage: build
   image: openjdk:11-jdk
   script:
-    - echo "Hello, $GITLAB_USER_LOGIN!"
-    - echo "Compiling the code..."
-    # - echo $PATH
-    # - which javac
-    # - export JAVA_HOME=$(dirname $(dirname $(readlink $(which javac))))
-    - ./gradlew assembleDebug
-    - echo "Compile complete."
-  #artifacts:
-    #paths:
-     #- app/build/outputs/
+    - export ANDROID_HOME=/Users/Giovanni/Library/Android/sdk
+    - ./gradlew assembleDebug --info
 
 unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
