@@ -41,8 +41,12 @@ build-job:
   image: openjdk:11-jdk
   # variables:
   #   ANDROID_SDK_ROOT: /Users/Giovanni/Library/Android/sdk
+  # variables:
+  #   ANDROID_SDK_ROOT: $HOME/android-sdk/
+
   variables:
     ANDROID_SDK_ROOT: $HOME/android-sdk/
+    ANDROID_HOME: $HOME/android-sdk/
   script:
     # - export ANDROID_SDK_ROOT=$HOME/android-sdk/
     # - export ANDROID_HOME=/Users/Giovanni/Library/Android/sdk
