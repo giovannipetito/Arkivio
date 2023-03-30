@@ -39,8 +39,14 @@ before_script:
 build-job:
   stage: build
   image: openjdk:11-jdk
-  variables:
-    ANDROID_SDK_ROOT: /Users/Giovanni/Library/Android/sdk
+  # variables:
+  #   ANDROID_SDK_ROOT: /Users/Giovanni/Library/Android/sdk
+  before_script:
+    - curl https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip --output cmdline-tools.zip
+    - mkdir android-sdk && unzip -d android-sdk cmdline-tools.zip
+    - echo "y" | android-sdk/tools/bin/sdkmanager "platforms;android-30"
+    - echo "y" | android-sdk/tools/bin/sdkmanager "build-tools;30.0.3"
+    - export ANDROID_HOME=$PWD/android-sdk
   script:
     # - export ANDROID_HOME=/Users/Giovanni/Library/Android/sdk
     - ./gradlew assembleDebug --info
