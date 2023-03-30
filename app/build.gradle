@@ -57,9 +57,10 @@ android {
             viewBinding true
         }
     }
-    namespace 'it.giovanni.arkivio'
-    lint {
 
+    namespace 'it.giovanni.arkivio'
+
+    lint {
         baseline file('lint-baseline.xml')
     }
 }
@@ -75,24 +76,10 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
 }
 
 dependencies {
-    // compileOnly("jakarta.xml.bind:jakarta.xml.bind-api:2.3.3")
-    // implementation("com.sun.xml.bind:jaxb-core:2.3.0.1")
-    // implementation("com.sun.xml.bind:jaxb-impl:2.3.0.1")
-
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     // implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-
-    //////////////////////////////////////////////
-    // implementation 'javax.xml.bind:jaxb-api:2.3.1'
-    // implementation 'com.sun.xml.bind:jaxb-core:2.3.0.1'
-    // implementation 'com.sun.xml.bind:jaxb-impl:2.3.0.1'
-
-    // implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
-    // implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.13.0'
-    // implementation 'com.fasterxml.woodstox:woodstox-core:6.2.6'
-    //////////////////////////////////////////////
 
     // androidx
     implementation 'androidx.multidex:multidex:2.0.1'
