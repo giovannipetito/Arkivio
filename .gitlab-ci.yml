@@ -39,14 +39,13 @@ before_script:
 build-job:
   stage: build
   image: openjdk:11-jdk
-  # variables:
-  #   ANDROID_SDK_ROOT: /Users/Giovanni/Library/Android/sdk
-  # variables:
-  #   ANDROID_SDK_ROOT: $HOME/android-sdk/
-
   variables:
-    ANDROID_SDK_ROOT: $HOME/android-sdk/
-    ANDROID_HOME: $HOME/android-sdk/
+    # ANDROID_SDK_ROOT: $HOME/android-sdk/
+    # ANDROID_HOME: $HOME/android-sdk/
+    # ANDROID_SDK_ROOT: /Users/Giovanni/Library/Android/sdk
+    # ANDROID_HOME: /Users/Giovanni/Library/Android/sdk
+    ANDROID_SDK_ROOT: C:\Users\giovanni.petito\AppData\Local\Android\Sdk
+    ANDROID_HOME: C:\Users\giovanni.petito\AppData\Local\Android\Sdk
   script:
     # - export ANDROID_SDK_ROOT=$HOME/android-sdk/
     # - export ANDROID_HOME=/Users/Giovanni/Library/Android/sdk
