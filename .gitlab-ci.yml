@@ -45,8 +45,7 @@ build-job:       # This job runs in the build stage, which runs first.
     # - echo $PATH
     # - which javac
     # - export JAVA_HOME=$(dirname $(dirname $(readlink $(which javac))))
-    # - ./gradlew assembleDebug
-    - ./gradlew assemble
+    - ./gradlew assembleDebug
     - echo "Compile complete."
   #artifacts:
     #paths:
