@@ -39,8 +39,10 @@ before_script:
 build-job:
   stage: build
   image: openjdk:11-jdk
+  variables:
+    ANDROID_SDK_ROOT: /Users/Giovanni/Library/Android/sdk
   script:
-    - export ANDROID_HOME=/Users/Giovanni/Library/Android/sdk
+    # - export ANDROID_HOME=/Users/Giovanni/Library/Android/sdk
     - ./gradlew assembleDebug --info
 
 unit-test-job:   # This job runs in the test stage.
