@@ -38,7 +38,7 @@ before_script:
 
 build-job:
   stage: build
-  # image: openjdk:11-jdk
+  image: openjdk:11-jdk
   # variables:
   #   ANDROID_SDK_ROOT: /Users/Giovanni/Library/Android/sdk
   script:
