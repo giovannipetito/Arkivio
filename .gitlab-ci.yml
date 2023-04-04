@@ -65,7 +65,7 @@ lintDebug:
   stage: build
   script:
     - echo "run lintDebug"
-    # - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
+    - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
 
 # Make Project
 assembleDebug:
@@ -90,8 +90,7 @@ debugTests:
     - ./gradlew -Pci --console=plain :app:testDebug
 
 incrementVersionName:
-  stage: test
-  # stage: build
+  stage: deploy
   script:
     - ./gradlew bumpMajorVersionName
     # - ./gradlew bumpMinorVersionName
@@ -101,8 +100,7 @@ incrementVersionName:
       - app/build.gradle
 
 incrementVersionCode:
-  stage: test
-  # stage: build
+  stage: deploy
   script:
     - echo "run bumpVersionCode"
     # - ./gradlew bumpVersionCode
