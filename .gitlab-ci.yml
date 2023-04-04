@@ -90,7 +90,8 @@ debugTests:
     - ./gradlew -Pci --console=plain :app:testDebug
 
 incrementVersionName:
-  stage: build
+  stage: test
+  # stage: build
   script:
     - ./gradlew bumpMajorVersionName
     # - ./gradlew bumpMinorVersionName
@@ -100,9 +101,11 @@ incrementVersionName:
       - app/build.gradle
 
 incrementVersionCode:
-  stage: build
+  stage: test
+  # stage: build
   script:
-    - ./gradlew bumpVersionCode
+    - echo "run bumpVersionCode"
+    # - ./gradlew bumpVersionCode
   artifacts:
     paths:
       - app/build.gradle

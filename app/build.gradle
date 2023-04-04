@@ -214,8 +214,8 @@ task bumpMajorVersionName() {
         // split version name into parts
         def parts = currentVersionName.split('\\.')
         def major = parts[0].toInteger()
-        // def minor = parts[1].toInteger()
-        // def patch = parts[2].toInteger()
+        def minor = parts[1].toInteger()
+        def patch = parts[2].toInteger()
 
         // increment major version name
         major += 1
@@ -242,7 +242,7 @@ task bumpMinorVersionName() {
         def parts = currentVersionName.split('\\.')
         def major = parts[0].toInteger()
         def minor = parts[1].toInteger()
-        // def patch = parts[2].toInteger()
+        def patch = parts[2].toInteger()
 
         // increment minor version name
         minor += 1
