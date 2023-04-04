@@ -65,7 +65,7 @@ lintDebug:
   stage: build
   script:
     - echo "run lintDebug"
-    # - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
+    - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
 
 # Make Project
 assembleDebug:
