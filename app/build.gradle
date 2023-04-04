@@ -15,7 +15,7 @@ android {
         minSdkVersion 31
         targetSdkVersion 33
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -203,4 +203,99 @@ dependencies {
 
 task cleanBuildCache(type: Delete) {
     delete rootProject.buildDir
+}
+
+// define tasks to increment major version name
+task bumpMajorVersionName() {
+    doLast {
+        // get current version name
+        def currentVersionName = android.defaultConfig.versionName
+
+        // split version name into parts
+        def parts = currentVersionName.split('\\.')
+        def major = parts[0].toInteger()
+        // def minor = parts[1].toInteger()
+        // def patch = parts[2].toInteger()
+
+        // increment major version name
+        major += 1
+        minor = 0
+        patch = 0
+        def newVersionName = "${major}.${minor}.${patch}"
+
+        // set new version name
+        android.defaultConfig.versionName = newVersionName
+        ARKIVIO_VERSION = newVersionName
+
+        // print new version name
+        println "New version name: ${newVersionName}"
+    }
+}
+
+// define tasks to increment minor version name
+task bumpMinorVersionName() {
+    doLast {
+        // get current version name
+        def currentVersionName = android.defaultConfig.versionName
+
+        // split version name into parts
+        def parts = currentVersionName.split('\\.')
+        def major = parts[0].toInteger()
+        def minor = parts[1].toInteger()
+        // def patch = parts[2].toInteger()
+
+        // increment minor version name
+        minor += 1
+        patch = 0
+        def newVersionName = "${major}.${minor}.${patch}"
+
+        // set new version name
+        android.defaultConfig.versionName = newVersionName
+        ARKIVIO_VERSION = newVersionName
+
+        // print new version name
+        println "New version name: ${newVersionName}"
+    }
+}
+
+// define tasks to increment patch version name
+task bumpPatchVersionName() {
+    doLast {
+        // get current version name
+        def currentVersionName = android.defaultConfig.versionName
+
+        // split version name into parts
+        def parts = currentVersionName.split('\\.')
+        def major = parts[0].toInteger()
+        def minor = parts[1].toInteger()
+        def patch = parts[2].toInteger()
+
+        // increment patch version name
+        patch += 1
+        def newVersionName = "${major}.${minor}.${patch}"
+
+        // set new version name
+        android.defaultConfig.versionName = newVersionName
+        ARKIVIO_VERSION = newVersionName
+
+        // print new version name
+        println "New version name: ${newVersionName}"
+    }
+}
+
+// define tasks to increment version code
+task bumpVersionCode() {
+    doLast {
+        // get current version code
+        def currentVersionCode = android.defaultConfig.versionCode
+
+        // increment version code
+        currentVersionCode += 1
+
+        // set new version code
+        android.defaultConfig.versionCode = currentVersionCode
+
+        // print new version code
+        println "New version code: ${currentVersionCode}"
+    }
 }

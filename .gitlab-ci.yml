@@ -4,7 +4,7 @@
 # This specific template is located at:
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Android.gitlab-ci.yml
 
-# Read more about this script on this blog post https://about.gitlab.com/2018/10/24/setting-up-gitlab-ci-for-android-projects/, by Jason Lenny
+# Read more about this script on this blog post https://about.gitlab.com/2018/10/24/setting-up-gitlab-ci-for-android-projects/
 # If you are interested in using Android with FastLane for publishing take a look at the Android-Fastlane template.
 
 image: openjdk:11-jdk
@@ -13,11 +13,11 @@ variables:
 
   # ANDROID_COMPILE_SDK is the version of Android you're compiling with.
   # It should match compileSdkVersion.
-  ANDROID_COMPILE_SDK: "29"
+  ANDROID_COMPILE_SDK: "33"
 
   # ANDROID_BUILD_TOOLS is the version of the Android build tools you are using.
   # It should match buildToolsVersion.
-  ANDROID_BUILD_TOOLS: "29.0.3"
+  ANDROID_BUILD_TOOLS: "33.0.0"
 
   # It's what version of the command line tools we're going to download from the official site.
   # Official Site-> https://developer.android.com/studio/index.html
@@ -65,13 +65,17 @@ lintDebug:
   stage: build
   script:
     - echo "run lintDebug"
-    # - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
+    - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
 
 # Make Project
 assembleDebug:
   interruptible: true
   stage: build
   script:
+    - echo "Hello, $GITLAB_USER_LOGIN!"
+    - echo "The email address associated with your GitLab account is $GITLAB_USER_EMAIL"
+    - echo "Your GitLab username is $GITLAB_USER_NAME"
+    - echo "Il tuo nome completo è $GITLAB_NOME_COGNOME"
     - ./gradlew assembleDebug
   artifacts:
     paths:
@@ -83,4 +87,22 @@ debugTests:
   stage: test
   script:
     - echo "run testDebug"
-    # - ./gradlew -Pci --console=plain :app:testDebug
+    - ./gradlew -Pci --console=plain :app:testDebug
+
+incrementVersionName:
+  stage: build
+  script:
+    - ./gradlew bumpMajorVersionName
+    # - ./gradlew bumpMinorVersionName
+    # - ./gradlew bumpPatchVersionName
+  artifacts:
+    paths:
+      - app/build.gradle
+
+incrementVersionCode:
+  stage: build
+  script:
+    - ./gradlew bumpVersionCode
+  artifacts:
+    paths:
+      - app/build.gradle
