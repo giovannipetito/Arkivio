@@ -247,18 +247,6 @@
             </intent-filter>
         </receiver>
 
-        <meta-data
-                android:name="com.google.android.gms.nearby.connection.SERVICE_ID"
-                android:value="@string/service_id" />
-
-        <meta-data
-                android:name="com.google.android.nearby.messages.API_KEY"
-                android:value="AIzaSyCSFUynztrGEOTVyFjUmD2z98H4G9ilEtM" />
-
-        <service
-                android:name=".fragments.detail.nearby.beacons.NearbyBeaconsService"
-                android:exported="false" />
-
     </application>
 
 </manifest>

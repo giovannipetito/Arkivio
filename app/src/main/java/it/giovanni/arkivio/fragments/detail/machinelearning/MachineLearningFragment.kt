@@ -67,32 +67,8 @@ class MachineLearningFragment : DetailFragment() {
         binding?.labelTextRecognition?.setOnClickListener {
             currentActivity.openDetail(Globals.TEXT_RECOGNITION, null)
         }
-        binding?.labelImageLabeling?.setOnClickListener {
-            currentActivity.openDetail(Globals.IMAGE_LABELING, null)
-        }
         binding?.labelFacialDetection?.setOnClickListener {
             currentActivity.openDetail(Globals.FACIAL_DETECTION, null)
-        }
-        binding?.labelObjectDetectionAndTracking?.setOnClickListener {
-            currentActivity.openDetail(Globals.OBJECT_DETECTION, null)
-        }
-        binding?.labelBarcodeScanning?.setOnClickListener {
-            currentActivity.openDetail(Globals.BARCODE_SCANNING, null)
-        }
-        binding?.labelLanguageId?.setOnClickListener {
-            currentActivity.openDetail(Globals.LANGUAGE_ID, null)
-        }
-        binding?.labelTranslationOnDevice?.setOnClickListener {
-            currentActivity.openDetail(Globals.TRANSLATION, null)
-        }
-        binding?.labelQuickAnswer?.setOnClickListener {
-            currentActivity.openDetail(Globals.QUICK_ANSWER, null)
-        }
-        binding?.labelAutomlVisionEdge?.setOnClickListener {
-            currentActivity.openDetail(Globals.AUTOML_VISION_EDGE, null)
-        }
-        binding?.labelRecognitionOfLandmarks?.setOnClickListener {
-            currentActivity.openDetail(Globals.LANDMARKS_RECOGNITION, null)
         }
     }
 

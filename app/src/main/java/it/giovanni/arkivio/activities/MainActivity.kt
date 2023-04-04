@@ -36,27 +36,14 @@ import it.giovanni.arkivio.fragments.detail.fonts.FontsFragment
 import it.giovanni.arkivio.fragments.detail.layoutmanager.LayoutManagerFragment
 import it.giovanni.arkivio.fragments.detail.logcat.LogcatFragment
 import it.giovanni.arkivio.fragments.detail.machinelearning.MachineLearningFragment
-import it.giovanni.arkivio.fragments.detail.machinelearning.automlvisionedge.AutoMLVisionEdgeFragment
-import it.giovanni.arkivio.fragments.detail.machinelearning.barcodescanning.BarcodeScanningFragment
 import it.giovanni.arkivio.fragments.detail.machinelearning.facialdetection.FacialDetectionFragment
-import it.giovanni.arkivio.fragments.detail.machinelearning.imagelabeling.ImageLabelingFragment
-import it.giovanni.arkivio.fragments.detail.machinelearning.landmarksrecognition.LandmarksRecognitionFragment
-import it.giovanni.arkivio.fragments.detail.machinelearning.languageid.LanguageIDFragment
-import it.giovanni.arkivio.fragments.detail.machinelearning.objectdetectionandtracking.ObjectDetectionFragment
-import it.giovanni.arkivio.fragments.detail.machinelearning.quickanswer.QuickAnswerFragment
 import it.giovanni.arkivio.fragments.detail.machinelearning.textrecognition.TextRecognitionFragment
-import it.giovanni.arkivio.fragments.detail.machinelearning.translation.TranslationFragment
 import it.giovanni.arkivio.fragments.detail.preference.PreferenceFragment
 import it.giovanni.arkivio.fragments.detail.preference.PreferenceListFragment
 import it.giovanni.arkivio.fragments.detail.rubrica.RubricaDetailFragment
 import it.giovanni.arkivio.fragments.detail.rubrica.RubricaHomeFragment
 import it.giovanni.arkivio.fragments.detail.rubrica.RubricaListFragment
 import it.giovanni.arkivio.fragments.detail.webview.WebViewFragment
-import it.giovanni.arkivio.fragments.detail.nearby.NearbyFragment
-import it.giovanni.arkivio.fragments.detail.nearby.beacons.NearbyBeaconsFragment
-import it.giovanni.arkivio.fragments.detail.nearby.chat.NearbyChatFragment
-import it.giovanni.arkivio.fragments.detail.nearby.game.NearbyGameFragment
-import it.giovanni.arkivio.fragments.detail.nearby.search.NearbySearchFragment
 import it.giovanni.arkivio.fragments.detail.notification.NotificationFragment
 import it.giovanni.arkivio.fragments.detail.notification.NotificationHomeFragment
 import it.giovanni.arkivio.fragments.detail.permissions.PermissionsFragment
@@ -420,53 +407,14 @@ class MainActivity : BaseActivity(), IProgressLoader {
             Globals.NOTIFICATION -> {
                 baseFragment = NotificationFragment()
             }
-            Globals.NEARBY -> {
-                baseFragment = NearbyFragment()
-            }
-            Globals.NEARBY_SEARCH -> {
-                baseFragment = NearbySearchFragment()
-            }
-            Globals.NEARBY_CHAT -> {
-                baseFragment = NearbyChatFragment()
-            }
-            Globals.NEARBY_GAME -> {
-                baseFragment = NearbyGameFragment()
-            }
-            Globals.NEARBY_BEACONS -> {
-                baseFragment = NearbyBeaconsFragment()
-            }
             Globals.MACHINE_LEARNING -> {
                 baseFragment = MachineLearningFragment()
             }
             Globals.TEXT_RECOGNITION -> {
                 baseFragment = TextRecognitionFragment()
             }
-            Globals.IMAGE_LABELING -> {
-                baseFragment = ImageLabelingFragment()
-            }
             Globals.FACIAL_DETECTION -> {
                 baseFragment = FacialDetectionFragment()
-            }
-            Globals.OBJECT_DETECTION -> {
-                baseFragment = ObjectDetectionFragment()
-            }
-            Globals.BARCODE_SCANNING -> {
-                baseFragment = BarcodeScanningFragment()
-            }
-            Globals.LANGUAGE_ID -> {
-                baseFragment = LanguageIDFragment()
-            }
-            Globals.TRANSLATION -> {
-                baseFragment = TranslationFragment()
-            }
-            Globals.QUICK_ANSWER -> {
-                baseFragment = QuickAnswerFragment()
-            }
-            Globals.AUTOML_VISION_EDGE -> {
-                baseFragment = AutoMLVisionEdgeFragment()
-            }
-            Globals.LANDMARKS_RECOGNITION -> {
-                baseFragment = LandmarksRecognitionFragment()
             }
             Globals.EXOPLAYER -> {
                 baseFragment = ExoPlayerFragment()

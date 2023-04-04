@@ -58,6 +58,12 @@ before_script:
   # Not necessary, but just for surity
   - chmod +x ./gradlew
 
+# Defines the paths that Gitlab CI should look for cached artifacts and dependencies.
+cache:
+  key: ${CI_PROJECT_ID}
+  paths:
+    - .gradle/
+
 # Basic android and gradle stuff
 # Check linting
 lintDebug:

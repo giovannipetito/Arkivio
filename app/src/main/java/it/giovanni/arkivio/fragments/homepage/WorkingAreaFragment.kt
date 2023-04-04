@@ -102,9 +102,6 @@ class WorkingAreaFragment : HomeFragment() {
         binding?.labelNotificationHome?.setOnClickListener {
             currentActivity.openDetail(Globals.NOTIFICATION_HOME, null)
         }
-        binding?.labelNearby?.setOnClickListener {
-            currentActivity.openDetail(Globals.NEARBY, null)
-        }
         binding?.labelMachineLearning?.setOnClickListener {
             currentActivity.openDetail(Globals.MACHINE_LEARNING, null)
         }

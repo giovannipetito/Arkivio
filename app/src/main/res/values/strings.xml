@@ -353,59 +353,10 @@
     <string name="notification_channel_id">covid_alert</string>
     <string name="notification_channel_description">Respect the safety distance</string>
 
-    <!-- NEARBY -->
-    <string name="nearby_title">Nearby</string>
-    <string name="nearby_search_title">Nearby Search</string>
-    <string name="nearby_chat_title">Nearby Chat</string>
-    <string name="nearby_game_title">Nearby Game</string>
-    <string name="nearby_beacons_title">Nearby Beacons</string>
-
-    <!-- NEARBY SEARCH -->
-    <string name="discover_nearby_devices">Discover nearby devices</string>
-    <string name="share_device_information">Share device information</string>
-
-    <!-- NEARBY CHAT -->
-    <string name="service_id">it.giovanni.arkivio</string>
-    <string name="message">Message</string>
-
-    <!-- NEARBY GAME -->
-    <string name="rock">Sasso</string>
-    <string name="paper">Carta</string>
-    <string name="scissors">Forbici</string>
-    <string name="error_missing_permissions">Impossibile avviare senza le autorizzazioni necessarie</string>
-    <string name="find_opponent">Cerca l\'avversario</string>
-    <string name="disconnect">Disconnetti</string>
-    <string name="player_name">Il tuo nome: %s</string>
-    <string name="opponent_name">Il tuo avversario: %s</string>
-    <string name="no_opponent_found">Non ancora trovato</string>
-    <string name="status_searching">Ricerca</string>
-    <string name="status_connected">Connesso</string>
-    <string name="status_disconnected">Disconnesso</string>
-    <string name="player_choice">Hai scelto %s</string>
-    <string name="win_message">%1$s ha battuto %2$s!</string>
-    <string name="tie_message">Avete scelto entrambi %s</string>
-    <string name="loss_message">%1$s ha perso contro %2$s…</string>
-    <string name="game_score">%1$d : %2$d</string>
-
-    <!-- NEARBY BEACONS -->
-    <string name="permission_required">Location permission is required when scanning for beacons with Nearby.</string>
-    <string name="permission_denied">Permission to use Nearby is denied, but is needed. Cannot subscribe. Go to Settings.</string>
-    <string name="scanning">Scanning for beacons&#8230;</string>
-    <string name="one_message">Scanning. Found 1 message</string>
-    <string name="many_messages">Scanning. Found %1$d messages</string>
-
     <!-- MACHINE LEARNING -->
     <string name="machine_learning_title">Machine Learning</string>
     <string name="text_recognition_title">Riconoscimento del testo</string>
-    <string name="image_labeling_title">Etichettatura delle immagini</string>
     <string name="facial_detection_title">Rilevamento facciale</string>
-    <string name="object_detection_and_tracking_title">Rilevamento e monitoraggio degli oggetti</string>
-    <string name="barcode_scanning_title">Scansione dei codici a barre</string>
-    <string name="language_id_title">ID lingua</string>
-    <string name="translation_on_device_title">Traduzione su dispositivo</string>
-    <string name="quick_answer_title">Risposta rapida</string>
-    <string name="automl_vision_edge_title">AutoML Vision Edge</string>
-    <string name="recognition_of_landmarks_title">Riconoscimento di punti di riferimento</string>
 
     <string name="select_image">Select image</string>
     <string name="find_text">Find text</string>
@@ -413,14 +364,5 @@
 
     <!-- EXOPLAYER -->
     <string name="exoplayer_title">ExoPlayer</string>
-
-    <!-- MASSIMO CARLI -->
-
-    <!-- LIFECYCLE -->
-    <string name="launch_activity_1">Launch Activity with parameters</string>
-    <string name="launch_activity_2">Launch Activity with Serializable</string>
-    <string name="launch_activity_3">Launch Activity with Parcelizable</string>
-    <string name="ping">Ping!</string>
-    <string name="show_picture">Show picture</string>
 
 </resources>
