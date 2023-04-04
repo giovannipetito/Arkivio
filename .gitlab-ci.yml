@@ -108,3 +108,21 @@ incrementVersionCode:
   artifacts:
     paths:
       - app/build.gradle
+
+release-patch-increment:
+  stage: deploy
+  artifacts:
+    # expire_in: 2 days
+    # when: always
+    paths:
+      - app/build/outputs/
+  script:
+    - ./gradlew clean
+    # - chmod +x ./scripts/download-translations.sh && ./scripts/download-translations.sh
+    - ./gradlew incrementVersion -Prelease.scope=patch
+    # - ./gradlew uploadToSftpIp1800Release -Prelease.scope=patch
+    # - ./gradlew sendEmail
+    # - ./gradlew pushVersion
+  # only:
+  #   - /^release\/.*$/
+  when: manual

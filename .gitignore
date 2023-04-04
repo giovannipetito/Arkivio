@@ -69,3 +69,6 @@ freeline_project_description.json
 
 # SO Generated Files
 Thumbs.db
+
+app/lint-baseline.xml
+/lint-baseline.xml

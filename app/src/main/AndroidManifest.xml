@@ -60,8 +60,8 @@
         <activity
                 android:name=".activities.MainActivity"
                 android:exported="true"
-                android:screenOrientation="portrait"
-                android:resizeableActivity="false"
+                android:screenOrientation="fullSensor"
+                android:resizeableActivity="true"
                 android:supportsPictureInPicture="false">
             <!-- android:windowSoftInputMode="adjustNothing" permette alla keyBoard di sovrapporsi alla View. -->
             <intent-filter>
