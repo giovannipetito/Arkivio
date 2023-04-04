@@ -81,9 +81,9 @@
                 <data android:pathPrefix="/v/v-app" />
 
                 <!-- Accepts URIs that begin with "http://apps.dea.dev.wind-digital.com/dashboard" -->
-                <data android:scheme="http"
-                        android:host="apps.dea.dev.wind-digital.com"
-                        android:pathPrefix="/dashboard" />
+                <data android:scheme="http" />
+                <data android:host="apps.dea.dev.wind-digital.com" />
+                <data android:pathPrefix="/dashboard" />
 
                 <!-- It is not necessary to include the host in the second <data> element because,
                 within each <intent-filter> element, all combinations of each <data> attribute are considered valid. -->
@@ -97,7 +97,8 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <!-- Accepts URIs that begin with "mydea://dashboard" -->
-                <data android:scheme="mydea" android:host="dashboard" />
+                <data android:scheme="mydea" />
+                <data android:host="dashboard" />
 
             </intent-filter>
 

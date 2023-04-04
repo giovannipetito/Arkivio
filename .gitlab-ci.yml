@@ -90,10 +90,10 @@ debugTests:
     - ./gradlew -Pci --console=plain :app:testDebug
 
 incrementVersionName:
-  stage: test
-  # stage: build
+  stage: deploy
   script:
-    - ./gradlew bumpMajorVersionName
+    - echo "run bumpMajorVersionName"
+    # - ./gradlew bumpMajorVersionName
     # - ./gradlew bumpMinorVersionName
     # - ./gradlew bumpPatchVersionName
   artifacts:
@@ -101,8 +101,7 @@ incrementVersionName:
       - app/build.gradle
 
 incrementVersionCode:
-  stage: test
-  # stage: build
+  stage: deploy
   script:
     - echo "run bumpVersionCode"
     # - ./gradlew bumpVersionCode
