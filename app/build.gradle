@@ -299,21 +299,30 @@ task bumpVersionCode() {
     }
 }
 
+task incrementVersion(group: 'deployment') {
+    doLast {
+        final int increment = requireReleaseIncrement()
+        final String scope = requireReleaseScope()
+        def git = grgit.open(currentDir: project.rootDir)
+        project.incrementVersion(project, git, ARKIVIO_VERSION, scope, increment)
+    }
+}
+
 // Validate the 'release.increment' property
 int requireReleaseIncrement() {
     if (!project.hasProperty('release.increment')) {
         return 1
     }
 
-    final String incrementStr = project.getProperty('release.increment')
+    final String incrementString = project.getProperty('release.increment')
     try {
-        final int increment = incrementStr.toInteger()
+        final int increment = incrementString.toInteger()
         if (increment <= 0) {
-            throw new GradleException("The property 'release.increment' needs to be set to a positive integer. Provided value = $incrementStr")
+            throw new GradleException("The property 'release.increment' needs to be set to a positive integer. Provided value = $incrementString")
         }
         return increment
     } catch (ignored) {
-        throw new GradleException("The property 'release.increment' needs to be set to a positive integer. Provided value = $incrementStr")
+        throw new GradleException("The property 'release.increment' needs to be set to a positive integer. Provided value = $incrementString")
     }
 }
 
@@ -329,13 +338,4 @@ String requireReleaseScope() {
         throw new GradleException("Invalid value '$scope' specified for property 'release.scope'. Valid values are $validScopes.")
     }
     return scope
-}
-
-task incrementVersion(group: 'deployment') {
-    doLast {
-        final int increment = requireReleaseIncrement()
-        final String scope = requireReleaseScope()
-        def git = grgit.open(currentDir: project.rootDir)
-        project.incrementVersion(project, git, ARKIVIO_VERSION, scope, increment)
-    }
 }
