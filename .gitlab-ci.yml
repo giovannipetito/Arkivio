@@ -82,38 +82,19 @@ assembleDebug:
     - echo "The email address associated with your GitLab account is $GITLAB_USER_EMAIL"
     - echo "Your GitLab username is $GITLAB_USER_NAME"
     - echo "Il tuo nome completo è $GITLAB_NOME_COGNOME"
-    - ./gradlew assembleDebug
+    - echo "run assembleDebug"
+    # - ./gradlew assembleDebug
   artifacts:
     paths:
       - app/build/outputs/
 
 # Run all tests, if any fails, interrupt the pipeline (fail it)
-debugTests:
+testDebug:
   interruptible: true
   stage: test
   script:
     - echo "run testDebug"
     # - ./gradlew -Pci --console=plain :app:testDebug
-
-incrementVersionName:
-  stage: deploy
-  script:
-    - echo "run bumpMajorVersionName"
-    # - ./gradlew bumpMajorVersionName
-    # - ./gradlew bumpMinorVersionName
-    # - ./gradlew bumpPatchVersionName
-  artifacts:
-    paths:
-      - app/build.gradle
-
-incrementVersionCode:
-  stage: deploy
-  script:
-    - echo "run bumpVersionCode"
-    # - ./gradlew bumpVersionCode
-  artifacts:
-    paths:
-      - app/build.gradle
 
 release-patch-increment:
   stage: deploy
@@ -128,7 +109,7 @@ release-patch-increment:
     - ./gradlew incrementVersion -Prelease.scope=patch
     # - ./gradlew uploadToSftpIp1800Release -Prelease.scope=patch
     # - ./gradlew sendEmail
-    # - ./gradlew pushVersion
+    - ./gradlew pushVersion
   # only:
   #   - /^release\/.*$/
   when: manual

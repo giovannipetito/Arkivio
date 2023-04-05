@@ -204,98 +204,55 @@ task cleanBuildCache(type: Delete) {
     delete rootProject.buildDir
 }
 
-// define tasks to increment major version name
-task bumpMajorVersionName() {
-    doLast {
-        // get current version name
-        def currentVersionName = android.defaultConfig.versionName
+static String getBranchName(git) {
+    String ciBranchName = null
+    try {
+        ciBranchName = System.getenv('CI_BUILD_REF_NAME')
+    } catch (ignored) {
+        // ignore
+    }
 
-        // split version name into parts
-        def parts = currentVersionName.split('\\.')
-        def major = parts[0].toInteger()
-        def minor = parts[1].toInteger()
-        def patch = parts[2].toInteger()
-
-        // increment major version name
-        major += 1
-        minor = 0
-        patch = 0
-        def newVersionName = "${major}.${minor}.${patch}"
-
-        // set new version name
-        android.defaultConfig.versionName = newVersionName
-        ARKIVIO_VERSION = newVersionName
-
-        // print new version name
-        println "New version name: ${newVersionName}"
+    if (ciBranchName == null || ciBranchName.isEmpty()) {
+        return git.branch.getCurrent().getName()
+    } else {
+        return ciBranchName
     }
 }
 
-// define tasks to increment minor version name
-task bumpMinorVersionName() {
-    doLast {
-        // get current version name
-        def currentVersionName = android.defaultConfig.versionName
-
-        // split version name into parts
-        def parts = currentVersionName.split('\\.')
-        def major = parts[0].toInteger()
-        def minor = parts[1].toInteger()
-        def patch = parts[2].toInteger()
-
-        // increment minor version name
-        minor += 1
-        patch = 0
-        def newVersionName = "${major}.${minor}.${patch}"
-
-        // set new version name
-        android.defaultConfig.versionName = newVersionName
-        ARKIVIO_VERSION = newVersionName
-
-        // print new version name
-        println "New version name: ${newVersionName}"
+String getLastVersion() {
+    String description = "git describe --first-parent".execute().text.trim()
+    println "git describe --first-parent = $description"
+    if (description.startsWith("v")) {
+        description = description.substring(1)
     }
+
+    String tag = description
+
+    if ((description.contains('snapshot') || description.contains('dev')) && description.contains('-')) {
+        def matcher = description =~ /^(\d+)\.(\d+)\.(\d+).*/
+        Integer major = matcher[0][1].toInteger()
+        Integer minor = matcher[0][2].toInteger()
+        Integer patch = matcher[0][3].toInteger()
+
+        if (patch > 0) {
+            patch--
+        } else {
+            minor--
+        }
+
+        tag = "$major.$minor.$patch"
+    } else if (description.contains('-')) {
+        tag = description.substring(0, description.indexOf('-'))
+    }
+
+    return tagExists(tag) ? tag : "v$tag"
 }
 
-// define tasks to increment patch version name
-task bumpPatchVersionName() {
-    doLast {
-        // get current version name
-        def currentVersionName = android.defaultConfig.versionName
-
-        // split version name into parts
-        def parts = currentVersionName.split('\\.')
-        def major = parts[0].toInteger()
-        def minor = parts[1].toInteger()
-        def patch = parts[2].toInteger()
-
-        // increment patch version name
-        patch += 1
-        def newVersionName = "${major}.${minor}.${patch}"
-
-        // set new version name
-        android.defaultConfig.versionName = newVersionName
-        ARKIVIO_VERSION = newVersionName
-
-        // print new version name
-        println "New version name: ${newVersionName}"
-    }
-}
-
-// define tasks to increment version code
-task bumpVersionCode() {
-    doLast {
-        // get current version code
-        def currentVersionCode = android.defaultConfig.versionCode
-
-        // increment version code
-        currentVersionCode += 1
-
-        // set new version code
-        android.defaultConfig.versionCode = currentVersionCode
-
-        // print new version code
-        println "New version code: ${currentVersionCode}"
+boolean tagExists(String tag) {
+    try {
+        return grgit.describe(commit: tag) != null
+    } catch (ignored) {
+        return false
     }
 }
 
@@ -338,4 +295,22 @@ String requireReleaseScope() {
         throw new GradleException("Invalid value '$scope' specified for property 'release.scope'. Valid values are $validScopes.")
     }
     return scope
+}
+
+/**
+ * Create a new tag for the current version and push it to origin
+ */
+task pushVersion(group: 'deployment') {
+    doLast {
+        println "Creating tag for version $ARKIVIO_VERSION"
+
+        final String repositoryUrl = System.getenv('REPOSITORY_URL')
+        if (repositoryUrl == null || repositoryUrl.isEmpty()) {
+            throw new GradleException("The environment variable 'REPOSITORY_URL' has not been set.")
+        }
+
+        def git = grgit.open(currentDir: project.rootDir)
+        git.tag.add(name: ARKIVIO_VERSION, message: "Version $ARKIVIO_VERSION. See mail for the changelog")
+        git.push(remote: repositoryUrl, refsOrSpecs: ['HEAD'], tags: true)
+    }
 }
