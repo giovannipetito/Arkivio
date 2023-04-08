@@ -64,9 +64,9 @@ giovanni.petito
 git config user.email
 giovanni.petito@gmail.com
 
-ssh-keygen -t rsa -b 4096 -C "gi.petito@gmail.com"
-ssh-keygen -t ed25519 -C "gi.petito@gmail.com"
-ssh-keygen -o -t rsa -b 4096 -C gi.petito@gmail.com
+ssh-keygen -o -t rsa -b 4096 -C giovanni.petito88@gmail.com
+ssh-keygen -t rsa -b 4096 -C "giovanni.petito88@gmail.com"
+ssh-keygen -t ed25519 -C "giovanni.petito88@gmail.com"
 
 # Git Merge
 
