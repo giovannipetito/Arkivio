@@ -114,4 +114,4 @@ release-patch-increment:
     - ./gradlew pushVersion
   # only:
   #   - /^release\/.*$/
-  when: manual
+  # when: manual
