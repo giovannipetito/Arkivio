@@ -91,11 +91,11 @@ assembleDebug:
       - app/build/outputs/
 
 # Run all tests, if any fails, interrupt the pipeline (fail it)
-testDebug:
-  interruptible: true
-  stage: test
-  script:
-    - echo "run testDebug"
+# testDebug:
+  # interruptible: true
+  # stage: test
+  # script:
+    # - echo "run testDebug"
     # - ./gradlew -Pci --console=plain :app:testDebug
 
 release-patch-increment:
