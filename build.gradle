@@ -44,5 +44,5 @@ task clean(type: Delete) {
 }
 
 ext {
-    ARKIVIO_VERSION = "1.0.0"
+    ARKIVIO_VERSION = "1.0.1"
 }
