@@ -90,8 +90,8 @@ before_script:
   ##
   ## Create the SSH directory and give it the right permissions
   ##
-  #- mkdir -p ~/.ssh
-  - chmod 700 /Users/Giovanni/.ssh
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
 
   ##
   ## Use ssh-keyscan to scan the keys of your private server. Replace gitlab.com
