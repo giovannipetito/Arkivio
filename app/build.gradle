@@ -94,7 +94,7 @@ dependencies {
     kapt 'androidx.lifecycle:lifecycle-common-java8:2.6.1' // prova 5
 
     // Core
-    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.core:core-ktx:1.10.0'
     implementation 'androidx.core:core-role:1.1.0-rc01'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
 
@@ -120,17 +120,17 @@ dependencies {
     // Google Mobile Services
     implementation 'com.google.android.gms:play-services-gcm:17.0.0'
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
-    implementation 'com.google.android.gms:play-services-auth:20.4.1'
+    implementation 'com.google.android.gms:play-services-auth:20.5.0'
     implementation 'com.google.android.gms:play-services-plus:17.0.0'
     implementation 'com.google.android.gms:play-services-location:21.0.1'
     implementation 'com.google.android.gms:play-services-analytics:18.0.2'
 
     // Import the BoM for the Firebase platform. When using the BoM, you don't specify versions in
     // Firebase library dependencies
-    implementation platform('com.google.firebase:firebase-bom:31.4.0')
+    implementation platform('com.google.firebase:firebase-bom:31.5.0')
     implementation 'com.loopj.android:android-async-http:1.4.11' // Firebase Realtime Database
-    implementation 'com.google.firebase:firebase-database-ktx:20.1.0'
-    implementation 'com.google.firebase:firebase-analytics-ktx:21.2.1'
+    implementation 'com.google.firebase:firebase-database-ktx:20.2.0'
+    implementation 'com.google.firebase:firebase-analytics-ktx:21.2.2'
     implementation 'com.google.firebase:firebase-messaging-ktx:23.1.2'
     implementation 'com.google.firebase:firebase-crashlytics-ktx:18.3.6'
 
@@ -163,8 +163,8 @@ dependencies {
 
     // Airbnb
     implementation 'com.airbnb.android:lottie:6.0.0' // Lottie
-    implementation 'com.airbnb.android:paris:2.0.1' // Paris
-    kapt 'com.airbnb.android:paris-processor:2.0.1' // Paris annotations.
+    implementation 'com.airbnb.android:paris:2.0.2' // Paris
+    kapt 'com.airbnb.android:paris-processor:2.0.2' // Paris annotations.
 
     // card.io
     implementation 'io.card:android-sdk:5.5.1'

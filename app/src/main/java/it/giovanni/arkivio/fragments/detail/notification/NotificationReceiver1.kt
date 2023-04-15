@@ -34,7 +34,7 @@ class NotificationReceiver1: BroadcastReceiver() {
 
         // Add style
         val eggImage = BitmapFactory.decodeResource(context.resources, R.drawable.cooked_egg)
-        val bigPictureStyle = NotificationCompat.BigPictureStyle().bigPicture(eggImage).bigLargeIcon(null)
+        val bigPictureStyle = NotificationCompat.BigPictureStyle().bigPicture(eggImage).bigLargeIcon(eggImage)
 
         /*
         Get an instance of NotificationCompat.Builder
