@@ -1,9 +1,11 @@
 package it.giovanni.arkivio.fragments.homepage
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import it.giovanni.arkivio.activities.NavigationActivity
 import it.giovanni.arkivio.databinding.WorkingAreaLayoutBinding
 import it.giovanni.arkivio.fragments.HomeFragment
 import it.giovanni.arkivio.fragments.MainFragment
@@ -101,6 +103,9 @@ class WorkingAreaFragment : HomeFragment() {
         }
         binding?.labelNotificationHome?.setOnClickListener {
             currentActivity.openDetail(Globals.NOTIFICATION_HOME, null)
+        }
+        binding?.labelNavigationComponent?.setOnClickListener {
+            startActivity(Intent(context, NavigationActivity::class.java))
         }
         binding?.labelMachineLearning?.setOnClickListener {
             currentActivity.openDetail(Globals.MACHINE_LEARNING, null)

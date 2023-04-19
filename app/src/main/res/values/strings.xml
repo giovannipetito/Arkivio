@@ -20,6 +20,7 @@
 
     <!-- LOGIN -->
     <style name="password">Password</style>
+
     <string name="username">Username</string>
     <string name="input_type_text">text</string>
     <string name="dominio_gmail">\@gmail.com</string>
@@ -353,6 +354,14 @@
     <string name="notification_channel_id">covid_alert</string>
     <string name="notification_channel_description">Respect the safety distance</string>
 
+    <!-- NAVIGATION COMPONENT -->
+    <string name="navigation_component_title">Navigation Component</string>
+    <string name="first_button">Go to SecondFragment</string>
+    <string name="second_button">Go to ArgsFragment</string>
+    <string name="third_button">Go to ListFragment</string>
+    <string name="edit_first_name">Inserisci il tuo nome</string>
+    <string name="edit_last_name">Inserisci il tuo cognome</string>
+
     <!-- MACHINE LEARNING -->
     <string name="machine_learning_title">Machine Learning</string>
     <string name="text_recognition_title">Riconoscimento del testo</string>
@@ -364,5 +373,7 @@
 
     <!-- EXOPLAYER -->
     <string name="exoplayer_title">ExoPlayer</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
