@@ -9,39 +9,35 @@ import org.json.JSONException
 import org.json.JSONObject
 
 /**
- * I fondamenti di REST
- * Molto spesso i servizi web gestiscono database e le nostre app potrebbero aver bisogno di
- * interagire con questi ed effettuare quattro tipi di operazioni sui dati:
- * creazione, lettura, modifica e cancellazione.
- * Il pattern REST, sfruttando il protocollo HTTP, permette di effettuare tali operazioni da remoto.
- * Un servizio REST si baserà per lo più sull’inoltro di richieste nelle quali si specificheranno
- * almeno tre tipi di elementi:
+ * The MyVolleyClient class provides a simple way to interact with a remote API using Volley.
  *
- * un URL, che rappresenta la risorsa cui dovremo accedere.
+ * It is a singleton object that provides methods to interact with a remote API using the Volley
+ * library. It has two public methods, getPosts and addPosts, which respectively retrieve a list
+ * of posts from the API and add a new post.
  *
- * un metodo HTTP che indicherà l’operazione da svolgere sui dati, da scegliere tipicamente tra:
- * GET (lettura), POST (inserimento), PUT (modifica) e DELETE (cancellazione).
+ * url: a constant string that represents the URL of the API endpoint.
  *
- * il corpo delle richieste conterrà dei dati che possono essere espressi in qualunque formato,
- * ma uno dei più utilizzati è JSON.
+ * mRequestQueue: a private RequestQueue object that represents the queue of requests to be sent to the API.
  *
- * Android dispone già di classi Java per gestire oggetti ed array JSON, rispettivamente JSONObject
- * e JSONArray. La prima permette di gestire le proprietà di un oggetto in modo simile ad una
- * struttura dati di tipo mappa, mentre la seconda rende un array fruibile in un ciclo con i metodi
- * length e getJSONObject.
+ * getPosts: a public function that retrieves the list of posts from the API. It takes an instance of
+ * IVolley as a parameter, which defines two callback functions, onVolleyGetSuccess and onVolleyFailure,
+ * to be called respectively when the request succeeds or fails. It creates a new JsonArrayRequest object,
+ * which is used to send a GET request to the API. The response is then parsed into JSON objects,
+ * and the title of each post is retrieved and passed to the onVolleyGetSuccess callback function.
  *
- * Volley fornisce due metodi pensati per le richieste basate su oggetti JSON: JSONArrayRequest e
- * JSONObjectRequest. Il primo richiede solo un URL da contattare e i due listener di successo ed
- * errore. Tale richiesta sarà effettuata con il metodo GET e il risultato ottenuto sarà un JSONArray.
- * Il secondo metodo permette di specificare il metodo HTTP, un URL, un oggetto JSON contenente
- * informazioni (opzionale) e i due soliti listener. Il risultato restituito sarà un JSONObject.
+ * addPosts: a public function that adds a new post to the API. It takes the title and text of the post
+ * as parameters, as well as an instance of IVolley as a parameter, which defines two callback functions,
+ * onVolleyPostSuccess and onVolleyFailure, to be called respectively when the request succeeds or fails.
+ * It creates a new JsonObjectRequest object, which is used to send a POST request to the API with the
+ * JSON representation of the new post. If the request succeeds, the ID of the new post is retrieved
+ * from the response and passed to the onVolleyPostSuccess callback function.
  */
 class MyVolleyClient {
 
     companion object {
 
         const val url = "https://jsonplaceholder.typicode.com/posts"
-        private val mRequestQueue: RequestQueue? = Volley.newRequestQueue(context)
+        private val mRequestQueue: RequestQueue = Volley.newRequestQueue(context)
 
         fun getPosts(callBack: IVolley) {
             val jsonArrayRequest = JsonArrayRequest(url, { response ->
@@ -59,7 +55,7 @@ class MyVolleyClient {
             }, {
                 callBack.onVolleyFailure("Errore di rete")
             })
-            mRequestQueue?.add(jsonArrayRequest)
+            mRequestQueue.add(jsonArrayRequest)
         }
 
         fun addPosts(title: String?, text: String?, callBack: IVolley) {
@@ -80,7 +76,7 @@ class MyVolleyClient {
             }, {
                 callBack.onVolleyFailure("Errore di rete")
             })
-            mRequestQueue?.add(jsonObjectRequest)
+            mRequestQueue.add(jsonObjectRequest)
         }
     }
 }
