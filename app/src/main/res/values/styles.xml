@@ -15,6 +15,10 @@
         <item name="android:windowBackground">@color/colorPrimary</item>
     </style> -->
 
+    <style name="ArkLibTheme" parent="ExportedArkLibTheme" />
+
+    <style name="ArkLibButton" parent="ExportedButton" />
+
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->

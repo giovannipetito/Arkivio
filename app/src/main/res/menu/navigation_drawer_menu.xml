@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group>
+        <item
+            android:id="@+id/firstFragment"
+            android:title="Home" />
+        <item
+            android:id="@+id/secondFragment"
+            android:title="Users" />
+        <item
+            android:id="@+id/argsFragment"
+            android:title="Arguments" />
+    </group>
+
+    <!-- Link the menu items with the fragment destinations. -->
+
+</menu>

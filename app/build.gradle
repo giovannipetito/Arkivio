@@ -84,7 +84,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
     // ArkLib
-    implementation 'com.github.giovannipetito:ArkLib:1.0.0'
+    implementation 'com.github.giovannipetito:ArkLib:1.0.7'
 
     // androidx
     implementation 'androidx.multidex:multidex:2.0.1'
