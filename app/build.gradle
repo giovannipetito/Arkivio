@@ -84,7 +84,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
     // ArkLib
-    implementation 'com.github.giovannipetito:ArkLib:1.0.7'
+    implementation 'com.github.giovannipetito:ArkLib:1.0.8'
 
     // androidx
     implementation 'androidx.multidex:multidex:2.0.1'
@@ -192,10 +192,10 @@ dependencies {
     implementation 'com.google.apis:google-api-services-youtube:v3-rev99-1.17.0-rc'
 
     // ExoPlayer
-    implementation 'com.google.android.exoplayer:exoplayer-ui:2.18.5'
-    implementation 'com.google.android.exoplayer:exoplayer-hls:2.18.5'
-    implementation 'com.google.android.exoplayer:exoplayer-dash:2.18.5'
-    implementation 'com.google.android.exoplayer:exoplayer-core:2.18.5'
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.18.6'
+    implementation 'com.google.android.exoplayer:exoplayer-hls:2.18.6'
+    implementation 'com.google.android.exoplayer:exoplayer-dash:2.18.6'
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.18.6'
 
     // Test
     testImplementation 'junit:junit:4.13.2' // Libreria che gestisce gli unit test.
