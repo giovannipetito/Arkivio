@@ -11,6 +11,17 @@ import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 
+/**
+ * Example of MVVM pattern without fetching data from an API, but from EditText user input.
+ *
+ * UserInputFragment class will bind the view to the ViewModel and handle user input. We're using
+ * the ViewModelProvider to get an instance of the UserInputViewModel class. We're also binding the
+ * EditText, Button, and TextView views to the corresponding variables, and setting a click listener
+ * on the buttonCalculate that will update the LiveData object with the user input and call the
+ * calculate() method on the ViewModel.
+ *
+ * Finally, we're observing the result LiveData object and updating the labelResult with the result.
+ */
 class UserInputFragment : DetailFragment() {
 
     private var layoutBinding: UserInputLayoutBinding? = null

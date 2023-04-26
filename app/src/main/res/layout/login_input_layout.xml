@@ -54,7 +54,15 @@
                 style="@style/ButtonEmptyDarkMode" />
 
             <TextView
-                android:id="@+id/label_user"
+                android:id="@+id/label_user_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_12dp"
+                android:textSize="24sp"
+                android:textColor="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/label_user_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dimen_12dp"

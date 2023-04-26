@@ -21,6 +21,7 @@
             android:layout_centerInParent="true"
             android:orientation="vertical">
 
+            <!-- The EditText will be used to input a number. -->
             <EditText
                 android:id="@+id/edit_insert"
                 android:layout_width="match_parent"
@@ -33,6 +34,7 @@
                 android:background="@drawable/round_corner_1"
                 style="@style/EditText1" />
 
+            <!-- The Button will be used to trigger a calculation. -->
             <Button
                 android:id="@+id/button_calculate"
                 android:layout_width="match_parent"
@@ -41,6 +43,7 @@
                 android:text="@string/button_calculate"
                 style="@style/ButtonEmptyDarkMode" />
 
+            <!-- The TextView will be used to show the result of the calculation. -->
             <TextView
                 android:id="@+id/label_result"
                 android:layout_width="match_parent"
