@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.bean.SelectedDay
+import it.giovanni.arkivio.model.SelectedDay
 import it.giovanni.arkivio.customview.calendarview.ui.Badge
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job

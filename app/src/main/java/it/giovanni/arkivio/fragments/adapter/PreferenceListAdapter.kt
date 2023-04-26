@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import android.widget.CompoundButton
 import androidx.recyclerview.widget.RecyclerView
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.bean.Persona
+import it.giovanni.arkivio.model.Persona
 import it.giovanni.arkivio.databinding.UserItemBinding
 import it.giovanni.arkivio.fragments.viewholder.UserPreferenceViewHolder
 

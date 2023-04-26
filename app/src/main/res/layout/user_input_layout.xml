@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="temp"
+            type="it.giovanni.arkivio.model.DarkModeModel" />
+
+        <variable
+            name="presenter"
+            type="it.giovanni.arkivio.presenter.DarkModePresenter" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/edit_insert"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_12dp"
+                android:layout_margin="@dimen/dimen_12dp"
+                android:hint="@string/edit_insert"
+                android:inputType="number"
+                android:autofillHints="@string/app_name"
+                android:background="@drawable/round_corner_1"
+                style="@style/EditText1" />
+
+            <Button
+                android:id="@+id/button_calculate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_12dp"
+                android:text="@string/button_calculate"
+                style="@style/ButtonEmptyDarkMode" />
+
+            <TextView
+                android:id="@+id/label_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_12dp"
+                android:textSize="24sp"
+                android:textColor="@color/colorPrimary" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>

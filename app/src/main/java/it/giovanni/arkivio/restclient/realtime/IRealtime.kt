@@ -1,6 +1,6 @@
 package it.giovanni.arkivio.restclient.realtime
 
-import it.giovanni.arkivio.bean.user.Response
+import it.giovanni.arkivio.model.user.Response
 
 interface IRealtime {
 

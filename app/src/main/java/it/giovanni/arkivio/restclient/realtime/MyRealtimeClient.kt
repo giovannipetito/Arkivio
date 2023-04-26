@@ -6,8 +6,8 @@ import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import com.loopj.android.http.RequestParams
 import cz.msebera.android.httpclient.Header
-import it.giovanni.arkivio.bean.user.Response
-import it.giovanni.arkivio.bean.user.SignInResponse
+import it.giovanni.arkivio.model.user.Response
+import it.giovanni.arkivio.model.user.SignInResponse
 import org.json.JSONObject
 import java.lang.Exception
 

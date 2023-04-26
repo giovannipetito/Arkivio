@@ -10,9 +10,9 @@ import com.airbnb.paris.extensions.style
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.bean.user.Response
-import it.giovanni.arkivio.bean.user.User
-import it.giovanni.arkivio.bean.user.UserResponse
+import it.giovanni.arkivio.model.user.Response
+import it.giovanni.arkivio.model.user.User
+import it.giovanni.arkivio.model.user.UserResponse
 import it.giovanni.arkivio.customview.Brick
 import it.giovanni.arkivio.databinding.RubricaHomeLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment

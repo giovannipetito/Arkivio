@@ -17,7 +17,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.bean.user.User
+import it.giovanni.arkivio.model.user.User
 import it.giovanni.arkivio.customview.Brick
 import it.giovanni.arkivio.customview.popup.CustomDialogPopup
 import it.giovanni.arkivio.databinding.RubricaListLayoutBinding

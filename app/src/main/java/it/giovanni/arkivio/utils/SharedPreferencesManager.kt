@@ -4,8 +4,8 @@ import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
 import com.google.gson.GsonBuilder
 import it.giovanni.arkivio.App
-import it.giovanni.arkivio.bean.SelectedDaysResponse
-import it.giovanni.arkivio.bean.user.Response
+import it.giovanni.arkivio.model.SelectedDaysResponse
+import it.giovanni.arkivio.model.user.Response
 
 class SharedPreferencesManager {
 

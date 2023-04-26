@@ -6,7 +6,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import it.giovanni.arkivio.App.Companion.context
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.bean.user.User
+import it.giovanni.arkivio.model.user.User
 import it.giovanni.arkivio.databinding.RubricaItemBinding
 import it.giovanni.arkivio.fragments.viewholder.UsersViewHolder
 import it.giovanni.arkivio.utils.ColorGenerator.Companion.generate

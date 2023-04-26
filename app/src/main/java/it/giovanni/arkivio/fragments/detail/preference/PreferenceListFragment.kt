@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airbnb.paris.extensions.style
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.bean.Persona
+import it.giovanni.arkivio.model.Persona
 import it.giovanni.arkivio.databinding.PreferenceListLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.fragments.adapter.PreferenceListAdapter

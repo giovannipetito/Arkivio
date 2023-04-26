@@ -59,15 +59,6 @@
                         android:textStyle="bold"
                         tools:textColor="@color/colorPrimary" />
 
-                <TextView
-                    android:id="@+id/label_arklib"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textColor="@{temp.labelColor}"
-                    android:textSize="14sp"
-                    tools:textColor="@color/colorPrimary" />
-
             </LinearLayout>
 
             <View

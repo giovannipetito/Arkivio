@@ -354,6 +354,12 @@
     <string name="notification_channel_id">covid_alert</string>
     <string name="notification_channel_description">Respect the safety distance</string>
 
+    <!-- PUNTONET -->
+    <string name="puntonet_title">PuntoNet</string>
+
+    <!-- ARKLIB -->
+    <string name="arklib_title">Welcome</string>
+
     <!-- NAVIGATION COMPONENT -->
     <string name="navigation_component_title">Navigation Component</string>
     <string name="first_button">Go to SecondFragment</string>
@@ -361,6 +367,18 @@
     <string name="third_button">Go to ListFragment</string>
     <string name="edit_first_name">Inserisci il tuo nome</string>
     <string name="edit_last_name">Inserisci il tuo cognome</string>
+
+    <!-- MVVVM USER INPUT -->
+    <string name="mvvm_user_input_title">MVVM User Input</string>
+    <string name="user_input_title">User Input</string>
+    <string name="edit_insert">Inserisci un numero</string>
+    <string name="button_calculate">Calcola il numero</string>
+
+    <!-- MVVVM LOGIN INPUT -->
+    <string name="mvvm_login_title">MVVM Login</string>
+    <string name="login_input_title">Login Input</string>
+    <string name="edit_username">Inserisci username</string>
+    <string name="edit_password">Inserisci password</string>
 
     <!-- MACHINE LEARNING -->
     <string name="machine_learning_title">Machine Learning</string>

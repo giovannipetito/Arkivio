@@ -17,7 +17,7 @@ import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.bean.user.User
+import it.giovanni.arkivio.model.user.User
 import it.giovanni.arkivio.customview.popup.ListDialogPopup
 import it.giovanni.arkivio.databinding.RubricaDetailLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment

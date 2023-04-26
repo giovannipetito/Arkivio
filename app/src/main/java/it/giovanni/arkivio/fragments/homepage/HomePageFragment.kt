@@ -15,10 +15,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
-import it.giovanni.archive.Toaster
 import it.giovanni.arkivio.BuildConfig
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.bean.SelectedDay
+import it.giovanni.arkivio.model.SelectedDay
 import it.giovanni.arkivio.databinding.HomePageLayoutBinding
 import it.giovanni.arkivio.fragments.HomeFragment
 import it.giovanni.arkivio.fragments.MainFragment
@@ -210,8 +209,6 @@ class HomePageFragment : HomeFragment() {
             binding?.lottieMoon?.visibility = View.VISIBLE
             binding?.labelGreeting?.setText(R.string.good_evening_title)
         }
-
-        binding?.labelArklib?.text = Toaster.getMessage()
 
         val batteryLevel = "Livello della batteria: " + getBatteryCapacity(requireContext()) + " %"
         binding?.labelBatteryLevel?.text = batteryLevel

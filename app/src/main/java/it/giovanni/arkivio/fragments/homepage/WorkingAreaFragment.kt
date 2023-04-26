@@ -1,11 +1,9 @@
 package it.giovanni.arkivio.fragments.homepage
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import it.giovanni.arkivio.activities.NavigationActivity
 import it.giovanni.arkivio.databinding.WorkingAreaLayoutBinding
 import it.giovanni.arkivio.fragments.HomeFragment
 import it.giovanni.arkivio.fragments.MainFragment
@@ -59,6 +57,9 @@ class WorkingAreaFragment : HomeFragment() {
             }
         }
 
+        binding?.labelPuntonet?.setOnClickListener {
+            currentActivity.openDetail(Globals.PUNTONET, null)
+        }
         binding?.labelLogcatProjects?.setOnClickListener {
             currentActivity.openDetail(Globals.LOGCAT_PROJECTS, null)
         }
@@ -104,13 +105,9 @@ class WorkingAreaFragment : HomeFragment() {
         binding?.labelNotificationHome?.setOnClickListener {
             currentActivity.openDetail(Globals.NOTIFICATION_HOME, null)
         }
-        binding?.labelNavigationComponent?.setOnClickListener {
-            startActivity(Intent(context, NavigationActivity::class.java))
-        }
         binding?.labelMachineLearning?.setOnClickListener {
             currentActivity.openDetail(Globals.MACHINE_LEARNING, null)
         }
-
         binding?.labelExoplayer?.setOnClickListener {
             currentActivity.openDetail(Globals.EXOPLAYER, null)
         }

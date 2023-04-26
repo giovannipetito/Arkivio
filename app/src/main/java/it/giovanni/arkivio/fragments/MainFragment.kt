@@ -26,8 +26,8 @@ import it.giovanni.arkivio.BuildConfig
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.activities.MainActivity
 import it.giovanni.arkivio.adapters.HomeFragmentAdapter
-import it.giovanni.arkivio.bean.Link
-import it.giovanni.arkivio.bean.LinkSide
+import it.giovanni.arkivio.model.Link
+import it.giovanni.arkivio.model.LinkSide
 import it.giovanni.arkivio.customview.popup.CustomDialogPopup
 import it.giovanni.arkivio.databinding.LinkDynamicItemBinding
 import it.giovanni.arkivio.databinding.MainLayoutBinding

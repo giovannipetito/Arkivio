@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.bean.advertising
+package it.giovanni.arkivio.model.advertising
 
 import android.os.Parcel
 import android.os.Parcelable

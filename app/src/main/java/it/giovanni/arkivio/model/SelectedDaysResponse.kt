@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.bean
+package it.giovanni.arkivio.model
 
 import java.io.Serializable
 

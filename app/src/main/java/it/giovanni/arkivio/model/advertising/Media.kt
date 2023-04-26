@@ -1,9 +1,10 @@
-package it.giovanni.arkivio.bean.advertising
+package it.giovanni.arkivio.model.advertising
 
 import android.os.Parcel
 import android.os.Parcelable
 
-data class Media(var durationInSeconds: Int, override var identifier: String, var url: String? = null) : AdvertisingMedia {
+data class Media(var durationInSeconds: Int, override var identifier: String, var url: String? = null) :
+    AdvertisingMedia {
 
     class Builder() {
         constructor(other: Media) : this() {

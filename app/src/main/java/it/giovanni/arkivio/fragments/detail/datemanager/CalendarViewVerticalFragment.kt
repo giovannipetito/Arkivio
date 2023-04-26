@@ -11,8 +11,8 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.airbnb.paris.extensions.style
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.bean.SelectedDay
-import it.giovanni.arkivio.bean.SelectedDaysResponse
+import it.giovanni.arkivio.model.SelectedDay
+import it.giovanni.arkivio.model.SelectedDaysResponse
 import it.giovanni.arkivio.customview.TextViewCustom
 import it.giovanni.arkivio.customview.calendarview.getDaysOfWeek
 import it.giovanni.arkivio.customview.calendarview.generateBadges

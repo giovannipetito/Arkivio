@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.bean.Persona
-import it.giovanni.arkivio.bean.Persona.Companion.HEADER_TYPE
-import it.giovanni.arkivio.bean.Persona.Companion.ITEM_TYPE
+import it.giovanni.arkivio.model.Persona
+import it.giovanni.arkivio.model.Persona.Companion.HEADER_TYPE
+import it.giovanni.arkivio.model.Persona.Companion.ITEM_TYPE
 import it.giovanni.arkivio.databinding.StickyHeaderLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.fragments.adapter.StickyHeaderAdapter

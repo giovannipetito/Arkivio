@@ -1,10 +1,10 @@
-package it.giovanni.arkivio.bean
+package it.giovanni.arkivio.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-class LinkSide(
+class Link(
 
     @SerializedName("analyticsLabel")
     @Expose
@@ -28,6 +28,10 @@ class LinkSide(
 
     @SerializedName("appLinkAndroid")
     @Expose
-    var appLinkAndroid: String
+    var appLinkAndroid: String,
+
+    @SerializedName("image")
+    @Expose
+    var image: String
 
 ) : Serializable

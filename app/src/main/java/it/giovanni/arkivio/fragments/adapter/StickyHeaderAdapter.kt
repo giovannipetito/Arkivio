@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import it.giovanni.arkivio.bean.Persona
-import it.giovanni.arkivio.bean.Persona.Companion.HEADER_TYPE
-import it.giovanni.arkivio.bean.Persona.Companion.ITEM_TYPE
+import it.giovanni.arkivio.model.Persona
+import it.giovanni.arkivio.model.Persona.Companion.HEADER_TYPE
+import it.giovanni.arkivio.model.Persona.Companion.ITEM_TYPE
 import it.giovanni.arkivio.databinding.RowHeaderBinding
 import it.giovanni.arkivio.databinding.RowItemBinding
 

@@ -1,8 +1,7 @@
 package it.giovanni.arkivio.utils
 
-import it.giovanni.arkivio.bean.Link
-import it.giovanni.arkivio.bean.LinkSide
-import java.util.*
+import it.giovanni.arkivio.model.Link
+import it.giovanni.arkivio.model.LinkSide
 import kotlin.collections.ArrayList
 
 class UserFactory {

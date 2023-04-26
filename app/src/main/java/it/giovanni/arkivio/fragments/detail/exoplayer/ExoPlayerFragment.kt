@@ -12,10 +12,14 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.upstream.DataSource
 import com.google.android.exoplayer2.upstream.DefaultDataSource
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.bean.advertising.*
 import it.giovanni.arkivio.databinding.ExoplayerLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.model.advertising.Advertising
+import it.giovanni.arkivio.model.advertising.AdvertisingItem
+import it.giovanni.arkivio.model.advertising.Event
+import it.giovanni.arkivio.model.advertising.Media
+import it.giovanni.arkivio.model.advertising.Tracking
 import it.giovanni.arkivio.presenter.DarkModePresenter
 
 class ExoPlayerFragment: DetailFragment() {
