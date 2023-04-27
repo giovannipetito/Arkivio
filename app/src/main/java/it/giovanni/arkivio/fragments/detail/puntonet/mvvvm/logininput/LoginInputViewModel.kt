@@ -1,17 +1,30 @@
 package it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.logininput
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class LoginInputViewModel : ViewModel() {
 
-    val user: MutableLiveData<User> = MutableLiveData<User>()
-    val message: MutableLiveData<String> = MutableLiveData<String>()
+    val _user: MutableLiveData<User> = MutableLiveData<User>()
+    private val _message: MutableLiveData<String> = MutableLiveData<String>()
 
-    fun showMessage() {
-        message.value = if (user.value?.password?.isEmpty()!!)
+    val message: LiveData<String> = _message
+    val user: LiveData<User> = _user
+
+    // setValue()
+    fun showMessage1() {
+        _message.value = if (_user.value?.password?.isEmpty()!!)
             "Inserisci la password!"
         else
-            "Ciao " + user.value?.username
+            "Ciao " + _user.value?.username
+    }
+
+    // postValue()
+    fun showMessage2() {
+        if (_user.value?.password?.isEmpty()!!)
+            _message.postValue("Inserisci la password!")
+        else
+            _message.postValue("Ciao " + _user.value?.username)
     }
 }

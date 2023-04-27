@@ -90,14 +90,13 @@ class LoginInputFragment : DetailFragment() {
 
             val user = User(username, password)
 
-            // 1)
-            viewModel.user.value = user
+            viewModel._user.value = user
 
-            // 2)
-            viewModel.showMessage()
+            viewModel.showMessage1()
+
+            viewModel.showMessage2()
         }
 
-        // 1)
         viewModel.user.observe(viewLifecycleOwner) { result ->
 
             val message: String = if (result.password.isEmpty())
@@ -108,9 +107,12 @@ class LoginInputFragment : DetailFragment() {
             binding?.labelUser1?.text = message
         }
 
-        // 2)
         viewModel.message.observe(viewLifecycleOwner) { message ->
             binding?.labelUser2?.text = message
+        }
+
+        viewModel.message.observe(viewLifecycleOwner) { message ->
+            binding?.labelUser3?.text = message
         }
     }
 

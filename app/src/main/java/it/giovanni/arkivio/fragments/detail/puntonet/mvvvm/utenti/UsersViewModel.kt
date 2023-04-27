@@ -1,5 +1,6 @@
 package it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.utenti
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.utenti.api.IUsers
@@ -22,17 +23,18 @@ import it.giovanni.arkivio.restclient.retrofit.User
  */
 class UsersViewModel : ViewModel(), IUsers {
 
-    val utente = MutableLiveData<Utente>()
+     val _utente: MutableLiveData<Utente> = MutableLiveData<Utente>()
+    val utente: LiveData<Utente> = _utente
 
     fun getUsersData() {
         UsersClient.getUsers(this)
     }
 
     override fun onSuccess(message: String?, users: List<User?>?) {
-        utente.value = Utente(message, users)
+        _utente.postValue(Utente(message, users))
     }
 
     override fun onFailure(message: String?) {
-        utente.value = Utente(message, null)
+        _utente.postValue(Utente(message, null))
     }
 }

@@ -83,7 +83,7 @@ class UserInputFragment : DetailFragment() {
         viewModel = ViewModelProvider(this).get(UserInputViewModel::class.java)
 
         binding?.buttonCalculate?.setOnClickListener {
-            viewModel.number.value = binding?.editInsert?.text.toString().toIntOrNull()
+            viewModel._number.value = binding?.editInsert?.text.toString().toIntOrNull()
             viewModel.calculate()
         }
 

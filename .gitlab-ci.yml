@@ -96,6 +96,7 @@ before_script:
 # Defines the paths that Gitlab CI should look for cached artifacts and dependencies.
 cache:
   key: ${CI_PROJECT_ID}
+  # key: "my-project-cache"
   paths:
     - .gradle/
 

@@ -1,5 +1,6 @@
 package it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.userinput
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
@@ -12,11 +13,14 @@ import androidx.lifecycle.ViewModel
  */
 class UserInputViewModel : ViewModel() {
 
-    val number = MutableLiveData<Int>()
-    val result = MutableLiveData<String>()
+    val _number: MutableLiveData<Int> = MutableLiveData<Int>()
+    private val _result: MutableLiveData<String> = MutableLiveData<String>()
+
+    val number: LiveData<Int> = _number
+    val result: LiveData<String> = _result
 
     fun calculate() {
-        val res = number.value?.let { it * 2 }
-        result.value = res?.toString() ?: "Invalid input"
+        val res = _number.value?.let { it * 2 }
+        _result.value = res?.toString() ?: "Invalid input"
     }
 }
