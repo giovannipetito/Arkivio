@@ -80,11 +80,11 @@
             tools:background="@color/colorPrimary" />
 
         <TextView
-            android:id="@+id/label_mvvm_user_input"
+            android:id="@+id/label_user_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="@string/mvvm_user_input_title"
+            android:text="@string/user_input_title"
             android:textSize="16sp"
             android:textColor="@{temp.labelColor}"
             android:textAlignment="center"
@@ -101,11 +101,32 @@
             tools:background="@color/colorPrimary" />
 
         <TextView
-            android:id="@+id/label_mvvm_login"
+            android:id="@+id/label_login_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="@string/mvvm_login_title"
+            android:text="@string/login_input_title"
+            android:textSize="16sp"
+            android:textColor="@{temp.labelColor}"
+            android:textAlignment="center"
+            tools:textColor="@color/colorPrimary" />
+
+        <View
+            android:layout_width="120dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@{temp.labelColor}"
+            android:layout_gravity="center"
+            android:alpha=".4"
+            tools:background="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/label_users"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/users_title"
             android:textSize="16sp"
             android:textColor="@{temp.labelColor}"
             android:textAlignment="center"

@@ -10,6 +10,7 @@ import it.giovanni.arkivio.databinding.UserInputLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
+import it.giovanni.arkivio.utils.SharedPreferencesManager
 
 /**
  * Example of MVVM pattern without fetching data from an API, but from EditText user input.
@@ -76,6 +77,8 @@ class UserInputFragment : DetailFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
 
         viewModel = ViewModelProvider(this).get(UserInputViewModel::class.java)
 

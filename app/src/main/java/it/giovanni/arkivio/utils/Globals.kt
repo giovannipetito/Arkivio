@@ -40,6 +40,7 @@ class Globals {
         var PUNTONET = "PUNTONET"
         var MVVM_USER_INPUT = "MVVM_USER_INPUT"
         var MVVM_LOGIN = "MVVM_LOGIN"
+        var MVVM_USERS = "MVVM_USERS"
 
         // BACK INTENT KEY PARAMS
         var BACK_PARAM_KEY_USER_SEARCH = "BACK_PARAM_KEY_USER_SEARCH"

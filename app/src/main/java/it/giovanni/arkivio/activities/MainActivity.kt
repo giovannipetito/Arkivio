@@ -50,6 +50,7 @@ import it.giovanni.arkivio.fragments.detail.permissions.PermissionsFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.PuntoNetFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.logininput.LoginInputFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.userinput.UserInputFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.utenti.UsersFragment
 import it.giovanni.arkivio.fragments.detail.stickyheader.StickyHeaderFragment
 import it.giovanni.arkivio.fragments.detail.youtube.YouTubeFragment
 import it.giovanni.arkivio.utils.Globals
@@ -430,6 +431,9 @@ class MainActivity : BaseActivity(), IProgressLoader {
             }
             Globals.MVVM_LOGIN -> {
                 baseFragment = LoginInputFragment()
+            }
+            Globals.MVVM_USERS -> {
+                baseFragment = UsersFragment()
             }
         }
 

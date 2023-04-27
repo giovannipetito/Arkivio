@@ -1,30 +1,39 @@
-package it.giovanni.arkivio.fragments.detail.client
+package it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.utenti
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.ClientItemBinding
-import it.giovanni.arkivio.databinding.RetrofitLayoutBinding
+import it.giovanni.arkivio.databinding.UsersLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
-import it.giovanni.arkivio.restclient.retrofit.IRetrofit
-import it.giovanni.arkivio.restclient.retrofit.MyRetrofitClient
 import it.giovanni.arkivio.restclient.retrofit.User
-import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadDarkModeStateFromPreferences
+import it.giovanni.arkivio.utils.SharedPreferencesManager
 
-class RetrofitFragment: DetailFragment(), IRetrofit {
+/**
+ * La classe View (activity o fragment) è dove definirai l'interfaccia utente (UI) che la tua app
+ * mostrerà all'utente legando i vari elementi della UI (TextView, EditText, Button, ecc.) al ViewModel.
+ *
+ * Il ViewModel osserva un oggetto LiveData chiamato utente, che viene aggiornato quando viene
+ * chiamato getUsersData(). La View quindi osserva l'oggetto utente e aggiorna la UI quando cambia.
+ * Ciò consente di separare il codice della UI dalla business logic e semplifica il test e la
+ * manutenzione del codice.
+ */
+class UsersFragment : DetailFragment() {
 
-    private var layoutBinding: RetrofitLayoutBinding? = null
+    private var layoutBinding: UsersLayoutBinding? = null
     private val binding get() = layoutBinding
 
+    private lateinit var viewModel: UsersViewModel
+
     override fun getTitle(): Int {
-        return R.string.retrofit_title
+        return R.string.users_title
     }
 
     override fun getActionTitle(): Int {
@@ -58,7 +67,7 @@ class RetrofitFragment: DetailFragment(), IRetrofit {
     }
 
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
-        layoutBinding = RetrofitLayoutBinding.inflate(inflater, container, false)
+        layoutBinding = UsersLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this, requireContext())
         val model = DarkModeModel(requireContext())
@@ -71,21 +80,20 @@ class RetrofitFragment: DetailFragment(), IRetrofit {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        isDarkMode = loadDarkModeStateFromPreferences()
+        isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
 
-        MyRetrofitClient.getUsers(this)
-        showProgressDialog()
-    }
+        viewModel = ViewModelProvider(this)[UsersViewModel::class.java]
 
-    override fun onRetrofitSuccess(message: String?, list: List<User?>?) {
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
-        hideProgressDialog()
-        showUsers(list)
-    }
+        binding?.buttonUsers?.setOnClickListener {
+            showProgressDialog()
+            viewModel.getUsersData()
+        }
 
-    override fun onRetrofitFailure(message: String?) {
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
-        hideProgressDialog()
+        viewModel.utente.observe(viewLifecycleOwner) { utente ->
+            hideProgressDialog()
+            binding?.labelMessage?.text = utente.message
+            showUsers(utente.users)
+        }
     }
 
     private fun showUsers(list: List<User?>?) {
@@ -95,7 +103,7 @@ class RetrofitFragment: DetailFragment(), IRetrofit {
             return
         for (user in list) {
 
-            val itemBinding: ClientItemBinding = ClientItemBinding.inflate(layoutInflater, binding?.retrofitUsersContainer, false)
+            val itemBinding: ClientItemBinding = ClientItemBinding.inflate(layoutInflater, binding?.usersContainer, false)
             val itemView: View = itemBinding.root
 
             val labelUsername: TextView = itemBinding.clientText1
@@ -113,7 +121,7 @@ class RetrofitFragment: DetailFragment(), IRetrofit {
                 labelEmail.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
             }
 
-            binding?.retrofitUsersContainer?.addView(itemView)
+            binding?.usersContainer?.addView(itemView)
         }
     }
 

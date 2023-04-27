@@ -369,16 +369,18 @@
     <string name="edit_last_name">Inserisci il tuo cognome</string>
 
     <!-- MVVVM USER INPUT -->
-    <string name="mvvm_user_input_title">MVVM User Input</string>
-    <string name="user_input_title">User Input</string>
+    <string name="user_input_title">MVVM User Input</string>
     <string name="edit_insert">Inserisci un numero</string>
     <string name="button_calculate">Calcola il numero</string>
 
     <!-- MVVVM LOGIN INPUT -->
-    <string name="mvvm_login_title">MVVM Login</string>
-    <string name="login_input_title">Login Input</string>
+    <string name="login_input_title">MVVM Login Input</string>
     <string name="edit_username">Inserisci username</string>
     <string name="edit_password">Inserisci password</string>
+
+    <!-- MVVVM USERS -->
+    <string name="users_title">MVVM Users</string>
+    <string name="button_users">Get users</string>
 
     <!-- MACHINE LEARNING -->
     <string name="machine_learning_title">Machine Learning</string>

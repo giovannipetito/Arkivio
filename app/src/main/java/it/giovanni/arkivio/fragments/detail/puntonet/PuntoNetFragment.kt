@@ -72,11 +72,14 @@ class PuntoNetFragment : DetailFragment() {
         binding?.labelNavigationComponent?.setOnClickListener {
             startActivity(Intent(context, NavigationActivity::class.java))
         }
-        binding?.labelMvvmUserInput?.setOnClickListener {
+        binding?.labelUserInput?.setOnClickListener {
             currentActivity.openDetail(Globals.MVVM_USER_INPUT, null)
         }
-        binding?.labelMvvmLogin?.setOnClickListener {
+        binding?.labelLoginInput?.setOnClickListener {
             currentActivity.openDetail(Globals.MVVM_LOGIN, null)
+        }
+        binding?.labelUsers?.setOnClickListener {
+            currentActivity.openDetail(Globals.MVVM_USERS, null)
         }
     }
 

@@ -45,8 +45,8 @@ class MyRetrofitClient {
 
             service?.getUsers()?.enqueue(object : Callback<List<User?>?> {
                 override fun onResponse(call: Call<List<User?>?>, response: Response<List<User?>?>) {
-                    val list: List<User?>? = response.body()
-                    callback.onRetrofitSuccess("onSuccess: Caricamento completato", list)
+                    val users: List<User?>? = response.body()
+                    callback.onRetrofitSuccess("onSuccess: Caricamento completato", users)
                 }
 
                 override fun onFailure(call: Call<List<User?>?>, t: Throwable) {
