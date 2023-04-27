@@ -23,7 +23,7 @@ import it.giovanni.arkivio.restclient.retrofit.User
  */
 class UsersViewModel : ViewModel(), IUsers {
 
-     val _utente: MutableLiveData<Utente> = MutableLiveData<Utente>()
+    private val _utente: MutableLiveData<Utente> = MutableLiveData<Utente>()
     val utente: LiveData<Utente> = _utente
 
     fun getUsersData() {
