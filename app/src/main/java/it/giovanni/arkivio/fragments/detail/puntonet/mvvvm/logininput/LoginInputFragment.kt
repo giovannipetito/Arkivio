@@ -10,6 +10,7 @@ import it.giovanni.arkivio.databinding.LoginInputLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
+import it.giovanni.arkivio.utils.Globals
 import it.giovanni.arkivio.utils.SharedPreferencesManager
 
 /**
@@ -82,7 +83,7 @@ class LoginInputFragment : DetailFragment() {
 
         isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
 
-        viewModel = ViewModelProvider(this)[LoginInputViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[LoginInputViewModel::class.java]
 
         binding?.buttonLogin?.setOnClickListener {
             val username: String = binding?.editUsername?.text.toString()
@@ -113,6 +114,10 @@ class LoginInputFragment : DetailFragment() {
 
         viewModel.message.observe(viewLifecycleOwner) { message ->
             binding?.labelUser3?.text = message
+        }
+
+        binding?.buttonLoginResult?.setOnClickListener {
+            currentActivity.openDetail(Globals.MVVM_LOGIN_RESULT, null)
         }
     }
 

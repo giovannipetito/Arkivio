@@ -49,6 +49,7 @@ import it.giovanni.arkivio.fragments.detail.notification.NotificationHomeFragmen
 import it.giovanni.arkivio.fragments.detail.permissions.PermissionsFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.PuntoNetFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.logininput.LoginInputFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.logininput.LoginResultFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.userinput.UserInputFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.utenti.UsersFragment
 import it.giovanni.arkivio.fragments.detail.stickyheader.StickyHeaderFragment
@@ -428,6 +429,9 @@ class MainActivity : BaseActivity(), IProgressLoader {
             }
             Globals.MVVM_USER_INPUT -> {
                 baseFragment = UserInputFragment()
+            }
+            Globals.MVVM_LOGIN_RESULT -> {
+                baseFragment = LoginResultFragment()
             }
             Globals.MVVM_LOGIN -> {
                 baseFragment = LoginInputFragment()

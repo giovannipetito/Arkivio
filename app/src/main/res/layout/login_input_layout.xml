@@ -60,6 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dimen_12dp"
+                android:textAlignment="center"
                 android:textSize="24sp"
                 android:textColor="@color/colorPrimary" />
 
@@ -68,6 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dimen_12dp"
+                android:textAlignment="center"
                 android:textSize="24sp"
                 android:textColor="@color/colorPrimary" />
 
@@ -76,10 +78,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dimen_12dp"
+                android:textAlignment="center"
                 android:textSize="24sp"
                 android:textColor="@color/colorPrimary" />
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/button_login_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_12dp"
+            android:layout_marginEnd="@dimen/dimen_12dp"
+            android:layout_marginBottom="@dimen/dimen_48dp"
+            android:layout_alignParentBottom="true"
+            android:text="@string/button_login_result"
+            style="@style/ButtonEmptyDarkMode" />
 
     </RelativeLayout>
 

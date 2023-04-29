@@ -82,7 +82,7 @@ class UsersFragment : DetailFragment() {
 
         isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
 
-        viewModel = ViewModelProvider(this)[UsersViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[UsersViewModel::class.java]
 
         binding?.buttonUsers?.setOnClickListener {
             showProgressDialog()

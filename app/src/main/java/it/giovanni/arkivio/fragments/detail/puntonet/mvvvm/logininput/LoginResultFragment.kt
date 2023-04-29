@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.userinput
+package it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.logininput
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,32 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.databinding.UserInputLayoutBinding
+import it.giovanni.arkivio.databinding.LoginResultLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.SharedPreferencesManager
 
-/**
- * Example of MVVM pattern without fetching data from an API, but from EditText user input.
- *
- * UserInputFragment class will bind the view to the ViewModel and handle user input. We're using
- * the ViewModelProvider to get an instance of the UserInputViewModel class. We're also binding the
- * EditText, Button, and TextView views to the corresponding variables, and setting a click listener
- * on the buttonCalculate that will update the LiveData object with the user input and call the
- * calculate() method on the ViewModel.
- *
- * Finally, we're observing the result LiveData object and updating the labelResult with the result.
- */
-class UserInputFragment : DetailFragment() {
+class LoginResultFragment : DetailFragment() {
 
-    private var layoutBinding: UserInputLayoutBinding? = null
+    private var layoutBinding: LoginResultLayoutBinding? = null
     private val binding get() = layoutBinding
 
-    private lateinit var viewModel: UserInputViewModel
+    private lateinit var viewModel: LoginInputViewModel
 
     override fun getTitle(): Int {
-        return R.string.user_input_title
+        return R.string.login_result_title
     }
 
     override fun getActionTitle(): Int {
@@ -65,7 +54,7 @@ class UserInputFragment : DetailFragment() {
     }
 
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
-        layoutBinding = UserInputLayoutBinding.inflate(inflater, container, false)
+        layoutBinding = LoginResultLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this, requireContext())
         val model = DarkModeModel(requireContext())
@@ -80,15 +69,10 @@ class UserInputFragment : DetailFragment() {
 
         isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
 
-        viewModel = ViewModelProvider(requireActivity())[UserInputViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[LoginInputViewModel::class.java]
 
-        binding?.buttonCalculate?.setOnClickListener {
-            viewModel._number.value = binding?.editInsert?.text.toString().toIntOrNull()
-            viewModel.calculate()
-        }
-
-        viewModel.result.observe(viewLifecycleOwner) { result ->
-            binding?.labelResult?.text = result
+        viewModel.message.observe(viewLifecycleOwner) { result ->
+            binding?.labelLoginResult?.text = result
         }
     }
 

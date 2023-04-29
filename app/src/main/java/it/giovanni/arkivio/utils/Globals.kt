@@ -39,6 +39,7 @@ class Globals {
         // PUNTONET
         var PUNTONET = "PUNTONET"
         var MVVM_USER_INPUT = "MVVM_USER_INPUT"
+        var MVVM_LOGIN_RESULT = "MVVM_LOGIN_RESULT"
         var MVVM_LOGIN = "MVVM_LOGIN"
         var MVVM_USERS = "MVVM_USERS"
 

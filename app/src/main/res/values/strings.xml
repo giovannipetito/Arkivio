@@ -377,6 +377,8 @@
     <string name="login_input_title">MVVM Login Input</string>
     <string name="edit_username">Inserisci username</string>
     <string name="edit_password">Inserisci password</string>
+    <string name="login_result_title">MVVM Login Result</string>
+    <string name="button_login_result">Go to Login Result</string>
 
     <!-- MVVVM USERS -->
     <string name="users_title">MVVM Users</string>
