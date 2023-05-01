@@ -81,11 +81,14 @@ class PuntoNetFragment : DetailFragment() {
         binding?.labelUsers?.setOnClickListener {
             currentActivity.openDetail(Globals.MVVM_USERS, null)
         }
-        binding?.labelCoroutinesBasics?.setOnClickListener {
-            currentActivity.openDetail(Globals.COROUTINES_BASICS, null)
+        binding?.labelCoroutineBasics?.setOnClickListener {
+            currentActivity.openDetail(Globals.COROUTINE_BASICS, null)
         }
-        binding?.labelCoroutinesScopes?.setOnClickListener {
-            currentActivity.openDetail(Globals.COROUTINES_SCOPES, null)
+        binding?.labelCoroutineScopes?.setOnClickListener {
+            currentActivity.openDetail(Globals.COROUTINE_SCOPES, null)
+        }
+        binding?.labelCoroutineJobsCancellation?.setOnClickListener {
+            currentActivity.openDetail(Globals.COROUTINE_JOBS_CANCELLATION, null)
         }
     }
 

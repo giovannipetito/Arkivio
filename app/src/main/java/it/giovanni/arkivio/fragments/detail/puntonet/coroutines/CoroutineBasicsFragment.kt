@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.databinding.CoroutinesBasicsLayoutBinding
+import it.giovanni.arkivio.databinding.CoroutineBasicsLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
@@ -16,13 +16,13 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class CoroutinesBasicsFragment : DetailFragment() {
+class CoroutineBasicsFragment : DetailFragment() {
 
-    private var layoutBinding: CoroutinesBasicsLayoutBinding? = null
+    private var layoutBinding: CoroutineBasicsLayoutBinding? = null
     private val binding get() = layoutBinding
 
     override fun getTitle(): Int {
-        return R.string.coroutines_basics_title
+        return R.string.coroutine_basics_title
     }
 
     override fun getActionTitle(): Int {
@@ -56,7 +56,7 @@ class CoroutinesBasicsFragment : DetailFragment() {
     }
 
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
-        layoutBinding = CoroutinesBasicsLayoutBinding.inflate(inflater, container, false)
+        layoutBinding = CoroutineBasicsLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this, requireContext())
         val model = DarkModeModel(requireContext())
@@ -125,7 +125,7 @@ class CoroutinesBasicsFragment : DetailFragment() {
     /**
      * After adding the delay, the first task which was run is taskAsync1(), and after that taskAsync1()
      * is successfully completed, we have called taskAsync2() because taskAsync2() was suspended, and
-     * after that taskAsync1() was completed, then taskAsync2() was resumed
+     * after that taskAsync1() was completed, then taskAsync2() was resumed.
      */
 
     /**

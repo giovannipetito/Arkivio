@@ -48,8 +48,9 @@ import it.giovanni.arkivio.fragments.detail.notification.NotificationFragment
 import it.giovanni.arkivio.fragments.detail.notification.NotificationHomeFragment
 import it.giovanni.arkivio.fragments.detail.permissions.PermissionsFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.PuntoNetFragment
-import it.giovanni.arkivio.fragments.detail.puntonet.coroutines.CoroutinesBasicsFragment
-import it.giovanni.arkivio.fragments.detail.puntonet.coroutines.CoroutinesScopesFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.coroutines.CoroutineBasicsFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.coroutines.CoroutineJobsCancellationFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.coroutines.CoroutineScopesFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.logininput.LoginInputFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.logininput.LoginResultFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.userinput.UserInputFragment
@@ -433,11 +434,14 @@ class MainActivity : BaseActivity(), IProgressLoader {
             Globals.MVVM_USERS -> {
                 baseFragment = UsersFragment()
             }
-            Globals.COROUTINES_BASICS -> {
-                baseFragment = CoroutinesBasicsFragment()
+            Globals.COROUTINE_BASICS -> {
+                baseFragment = CoroutineBasicsFragment()
             }
-            Globals.COROUTINES_SCOPES -> {
-                baseFragment = CoroutinesScopesFragment()
+            Globals.COROUTINE_SCOPES -> {
+                baseFragment = CoroutineScopesFragment()
+            }
+            Globals.COROUTINE_SCOPES -> {
+                baseFragment = CoroutineJobsCancellationFragment()
             }
         }
 

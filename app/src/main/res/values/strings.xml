@@ -341,8 +341,9 @@
     <string name="button_users">Get users</string>
 
     <!-- COROUTINES -->
-    <string name="coroutines_basics_title">Coroutines Basics</string>
-    <string name="coroutines_scopes_title">Coroutines Scopes</string>
+    <string name="coroutine_basics_title">Coroutine Basics</string>
+    <string name="coroutine_scopes_title">Coroutine Scopes</string>
+    <string name="coroutine_jobs_cancellation_title">Coroutine Jobs and Cancellation</string>
 
     <!-- MACHINE LEARNING -->
     <string name="machine_learning_title">Machine Learning</string>

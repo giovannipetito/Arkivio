@@ -143,11 +143,11 @@
             tools:background="@color/colorPrimary" />
 
         <TextView
-            android:id="@+id/label_coroutines_basics"
+            android:id="@+id/label_coroutine_basics"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="@string/coroutines_basics_title"
+            android:text="@string/coroutine_basics_title"
             android:textSize="16sp"
             android:textColor="@{temp.labelColor}"
             android:textAlignment="center"
@@ -164,11 +164,32 @@
             tools:background="@color/colorPrimary" />
 
         <TextView
-            android:id="@+id/label_coroutines_scopes"
+            android:id="@+id/label_coroutine_scopes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="@string/coroutines_scopes_title"
+            android:text="@string/coroutine_scopes_title"
+            android:textSize="16sp"
+            android:textColor="@{temp.labelColor}"
+            android:textAlignment="center"
+            tools:textColor="@color/colorPrimary" />
+
+        <View
+            android:layout_width="120dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@{temp.labelColor}"
+            android:layout_gravity="center"
+            android:alpha=".4"
+            tools:background="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/label_coroutine_jobs_cancellation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/coroutine_jobs_cancellation_title"
             android:textSize="16sp"
             android:textColor="@{temp.labelColor}"
             android:textAlignment="center"
