@@ -48,18 +48,17 @@ import it.giovanni.arkivio.fragments.detail.notification.NotificationFragment
 import it.giovanni.arkivio.fragments.detail.notification.NotificationHomeFragment
 import it.giovanni.arkivio.fragments.detail.permissions.PermissionsFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.PuntoNetFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.coroutines.CoroutinesBasicsFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.logininput.LoginInputFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.logininput.LoginResultFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.userinput.UserInputFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.utenti.UsersFragment
 import it.giovanni.arkivio.fragments.detail.stickyheader.StickyHeaderFragment
-import it.giovanni.arkivio.fragments.detail.youtube.YouTubeFragment
 import it.giovanni.arkivio.utils.Globals
 import it.giovanni.arkivio.utils.UserFactory
 import it.giovanni.arkivio.utils.Utils
 import it.giovanni.arkivio.utils.Utils.Companion.isOnline
 import it.giovanni.arkivio.viewinterfaces.IProgressLoader
-import it.giovanni.arkivio.fragments.detail.youtube.search.SearchVideoFragment
 import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadDarkModeStateFromPreferences
 import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadRememberMeFromPreferences
 
@@ -397,12 +396,6 @@ class MainActivity : BaseActivity(), IProgressLoader {
             Globals.CARD_IO -> {
                 baseFragment = CardIOFragment()
             }
-            Globals.YOUTUBE_MANAGER -> {
-                baseFragment = YouTubeFragment()
-            }
-            Globals.SEARCH_VIDEO -> {
-                baseFragment = SearchVideoFragment()
-            }
             Globals.FONTS -> {
                 baseFragment = FontsFragment()
             }
@@ -438,6 +431,9 @@ class MainActivity : BaseActivity(), IProgressLoader {
             }
             Globals.MVVM_USERS -> {
                 baseFragment = UsersFragment()
+            }
+            Globals.COROUTINES -> {
+                baseFragment = CoroutinesBasicsFragment()
             }
         }
 

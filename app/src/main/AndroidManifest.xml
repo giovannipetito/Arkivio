@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:installLocation="auto">
-    <!-- This permission is depreciated in Android P -->
-    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -44,6 +42,9 @@
     <uses-feature
         android:name="android.hardware.camera.front"
         android:required="true" />
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
 
     <application
         android:name=".App"
@@ -145,90 +146,8 @@
         <activity
             android:name=".fragments.detail.webview.WebViewActivity"
             android:configChanges="orientation|screenSize|keyboardHidden" />
+
         <activity android:name=".activities.NavigationActivity" />
-        <activity android:name=".fragments.detail.youtube.search.YouTubePlayerViewActivity" />
-        <activity android:name=".fragments.detail.youtube.search.YouTubePlayerFragmentActivity" /> <!-- android:screenOrientation="landscape" -->
-        <activity
-            android:name=".fragments.detail.youtube.videowall.VideoWallActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:label="@string/video_wall"
-            android:screenOrientation="fullSensor"
-            android:theme="@style/NoActionBarTheme">
-            <meta-data
-                android:name="@string/minVersion"
-                android:value="11" />
-            <meta-data
-                android:name="@string/isLaunchableActivity"
-                android:value="true" />
-        </activity>
-        <activity
-            android:name=".fragments.detail.youtube.videolist.VideoListActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/video_list">
-            <meta-data
-                android:name="@string/minVersion"
-                android:value="13" />
-            <meta-data
-                android:name="@string/isLaunchableActivity"
-                android:value="true" />
-        </activity>
-        <activity
-            android:name=".fragments.detail.youtube.FullScreenActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/fullscreen_handling"
-            android:screenOrientation="sensor"
-            android:theme="@style/NoTitleBarTheme">
-            <meta-data
-                android:name="@string/minVersion"
-                android:value="8" />
-            <meta-data
-                android:name="@string/isLaunchableActivity"
-                android:value="true" />
-        </activity> <!-- android:screenOrientation="sensorLandscape" -->
-        <activity
-            android:name=".fragments.detail.youtube.ActionBarActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/actionbar_overlay"
-            android:screenOrientation="fullSensor"
-            android:theme="@style/ActionBarOverlayTheme">
-            <meta-data
-                android:name="@string/minVersion"
-                android:value="11" />
-            <meta-data
-                android:name="@string/isLaunchableActivity"
-                android:value="true" />
-        </activity>
-        <activity
-            android:name=".fragments.detail.youtube.PlayerControlsActivity"
-            android:label="@string/player_controls"
-            android:windowSoftInputMode="stateHidden">
-            <meta-data
-                android:name="@string/minVersion"
-                android:value="8" />
-            <meta-data
-                android:name="@string/isLaunchableActivity"
-                android:value="true" />
-        </activity>
-        <activity
-            android:name=".fragments.detail.youtube.IntentControlsActivity"
-            android:label="@string/intent_controls">
-            <meta-data
-                android:name="@string/minVersion"
-                android:value="8" />
-            <meta-data
-                android:name="@string/isLaunchableActivity"
-                android:value="true" />
-        </activity>
-        <activity
-            android:name=".fragments.detail.youtube.intents.YouTubeIntentsActivity"
-            android:label="@string/youtube_intents">
-            <meta-data
-                android:name="@string/minVersion"
-                android:value="8" />
-            <meta-data
-                android:name="@string/isLaunchableActivity"
-                android:value="true" />
-        </activity>
 
         <service android:name=".fragments.detail.notification.NotificationService1" />
 

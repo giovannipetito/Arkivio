@@ -268,50 +268,6 @@
     <string name="biometric_error_fingerprint">L\'impronta digitale non è registrata sul tuo dispositivo</string>
     <string name="biometric_description">Posiziona il dito sul pulsante Home del dispositivo per verificare la tua identità</string>
 
-    <!-- YOUTUBE -->
-    <string name="youtube_title">YouTube</string>
-    <string name="youtube_version">YouTube version installed on this device: <xliff:g id="youtube_version">%1$s</xliff:g>.</string>
-    <string name="youtube_not_installed">YouTube is not installed on this device.</string>
-
-    <string name="search_title">Search\nYouTubePlayerView\nYouTubePlayerFragment</string>
-    <string name="player_title">Titolo: </string>
-    <string name="player_video_id">Video ID: </string>
-    <string name="player_description">Descrizione: </string>
-    <string name="full_screen_view">Full screen view</string>
-    <string name="landscape_fullscreen">Always fullscreen in landscape</string>
-    <string name="go_to_player_view">Go to PlayerView</string>
-    <string name="go_to_player_fragment">Go to PlayerFragment</string>
-    <string name="error_player">Failed to initialize Youtube Player (%1$s)</string>
-
-    <string name="video_wall">Video Wall</string>
-    <string name="error_thumbnail_view">Si è verificato un errore durante l\'inizializzazione di YouTubeThumbnailView (%1$s)</string>
-
-    <string name="video_list">Video List</string>
-    <string name="fullscreen_handling">Fullscreen Handling</string>
-    <string name="actionbar_overlay">ActionBar Overlay</string>
-
-    <string name="player_controls">Player Controls</string>
-    <string name="player_style">Player Style</string>
-    <string name="default_style">Default</string>
-    <string name="minimal_style">Minimal</string>
-    <string name="chromeless_style">Chromeless</string>
-    <string name="play">Play</string>
-    <string name="pause">Pause</string>
-    <string name="skip_to">Skip to</string>
-    <string name="seconds">seconds</string>
-
-    <string name="intent_controls">Intent Controls</string>
-    <string name="play_video">Play Video</string>
-    <string name="play_playlist">Play Playlist</string>
-    <string name="play_video_list">Play Video List</string>
-    <string name="choose_index">Choose Video List index</string>
-    <string name="choose_start_time">Choose Start Time (in seconds)</string>
-    <string name="autoplay">Autoplay</string>
-    <string name="box_mode">Box mode</string>
-
-    <string name="youtube_intents">YouTube App Launcher Intents</string>
-    <string name="intent_disabled">This intent is not supported with the currently installed version of YouTube.</string>
-
     <!-- FONTS -->
     <string name="fonts_title">Fonts</string>
     <string name="textview_textstyle_italic">TextView textStyle italic</string>
@@ -383,6 +339,9 @@
     <!-- MVVVM USERS -->
     <string name="users_title">MVVM Users</string>
     <string name="button_users">Get users</string>
+
+    <!-- COROUTINES -->
+    <string name="coroutines_title">Coroutines</string>
 
     <!-- MACHINE LEARNING -->
     <string name="machine_learning_title">Machine Learning</string>

@@ -170,17 +170,6 @@
     </issue>
 
     <issue
-        id="NotifyDataSetChanged"
-        message="It will always be more efficient to use more specific change events if you can. Rely on `notifyDataSetChanged` as a last resort."
-        errorLine1="        youtubeAdapter.notifyDataSetChanged()"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/it/giovanni/arkivio/fragments/detail/youtube/search/SearchVideoFragment.kt"
-            line="132"
-            column="9"/>
-    </issue>
-
-    <issue
         id="ObsoleteSdkInt"
         message="This folder configuration (`v24`) is unnecessary; `minSdkVersion` is 31. Merge all the resources in this folder into `drawable`.">
         <location
@@ -218,28 +207,6 @@
             file="src/main/java/it/giovanni/arkivio/fragments/homepage/LinkAreaFragment.kt"
             line="27"
             column="9"/>
-    </issue>
-
-    <issue
-        id="ViewHolder"
-        message="Unconditional layout inflation from view adapter: Should use View Holder pattern (use recycled view passed into this method as the second parameter) for smoother scrolling"
-        errorLine1="        val itemBinding = IntentsListItemBinding.inflate(LayoutInflater.from(context), null, false)"
-        errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/it/giovanni/arkivio/fragments/detail/youtube/intents/YouTubeIntentsAdapter.kt"
-            line="20"
-            column="27"/>
-    </issue>
-
-    <issue
-        id="HandlerLeak"
-        message="This `Handler` class should be static or leaks might occur (it.giovanni.arkivio.fragments.detail.youtube.videowall.VideoWallActivity.FlipDelayHandler)"
-        errorLine1="    private inner class FlipDelayHandler : Handler(Looper.getMainLooper()) {"
-        errorLine2="                        ~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/it/giovanni/arkivio/fragments/detail/youtube/videowall/VideoWallActivity.kt"
-            line="248"
-            column="25"/>
     </issue>
 
     <issue
@@ -3115,17 +3082,6 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.string.loggingTag` appears to be unused"
-        errorLine1="    &lt;string name=&quot;loggingTag&quot;>YoutubeAPIDemos&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values/constants.xml"
-            line="23"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
         message="The resource `R.dimen.lineSpacingExtra_negative` appears to be unused"
         errorLine1="    &lt;dimen name=&quot;lineSpacingExtra_negative&quot;>-5dp&lt;/dimen>"
         errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
@@ -3324,20 +3280,6 @@
         message="The resource `R.drawable.ico_touchid` appears to be unused">
         <location
             file="src/main/res/drawable-xhdpi/ico_touchid.png"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.drawable.ico_youtube_black_2` appears to be unused">
-        <location
-            file="src/main/res/drawable-xxhdpi/ico_youtube_black_2.png"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.drawable.ico_youtube_red_2` appears to be unused">
-        <location
-            file="src/main/res/drawable-xxhdpi/ico_youtube_red_2.png"/>
     </issue>
 
     <issue
@@ -3890,28 +3832,6 @@
         message="Missing density variation folders in `src\main\res`: drawable-hdpi, drawable-mdpi">
         <location
             file="src/main/res"/>
-    </issue>
-
-    <issue
-        id="ViewConstructor"
-        message="Custom view `FlippingView` is missing constructor used by tools: `(Context)` or `(Context,AttributeSet)` or `(Context,AttributeSet,int)`"
-        errorLine1="class FlippingView(context: Context?, private val listener: Listener, width: Int, height: Int) : FrameLayout(context!!) {"
-        errorLine2="      ~~~~~~~~~~~~">
-        <location
-            file="src/main/java/it/giovanni/arkivio/fragments/detail/youtube/videowall/FlippingView.kt"
-            line="17"
-            column="7"/>
-    </issue>
-
-    <issue
-        id="ViewConstructor"
-        message="Custom view `ImageWallView` is missing constructor used by tools: `(Context)` or `(Context,AttributeSet)` or `(Context,AttributeSet,int)`"
-        errorLine1="class ImageWallView(context: Context,"
-        errorLine2="      ~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/it/giovanni/arkivio/fragments/detail/youtube/videowall/ImageWallView.kt"
-            line="14"
-            column="7"/>
     </issue>
 
     <issue

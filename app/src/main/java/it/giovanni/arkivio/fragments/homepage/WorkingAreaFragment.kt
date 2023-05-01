@@ -96,9 +96,6 @@ class WorkingAreaFragment : HomeFragment() {
         binding?.labelCardIo?.setOnClickListener {
             currentActivity.openDetail(Globals.CARD_IO, null)
         }
-        binding?.labelYoutube?.setOnClickListener {
-            currentActivity.openDetail(Globals.YOUTUBE_MANAGER, null)
-        }
         binding?.labelFonts?.setOnClickListener {
             currentActivity.openDetail(Globals.FONTS, null)
         }

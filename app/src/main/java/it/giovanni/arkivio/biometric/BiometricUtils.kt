@@ -1,7 +1,6 @@
 package it.giovanni.arkivio.biometric
 
 import android.Manifest.permission.USE_BIOMETRIC
-import android.Manifest.permission.USE_FINGERPRINT
 import android.content.Context
 import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
@@ -30,7 +29,7 @@ class BiometricUtils {
         fun isPermissionGranted(context: Context): Boolean {
             return if (isBiometricPromptEnabled())
                 ActivityCompat.checkSelfPermission(context, USE_BIOMETRIC) == PackageManager.PERMISSION_GRANTED
-            else ActivityCompat.checkSelfPermission(context, USE_FINGERPRINT) == PackageManager.PERMISSION_GRANTED
+            else false
         }
     }
 }
