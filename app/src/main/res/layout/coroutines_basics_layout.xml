@@ -17,6 +17,15 @@
         android:clickable="true"
         android:focusable="true">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textAlignment="center"
+            android:text="@string/coroutines_basics_title"
+            android:textSize="24sp"
+            android:textColor="@color/colorPrimary" />
+
     </RelativeLayout>
 
 </layout>

@@ -107,7 +107,8 @@ lintDebug:
   stage: build
   script:
     - echo "run lintDebug"
-    # - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
+    - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
+  when: manual # To remove
 
 # Make Project
 assembleDebug:
@@ -119,24 +120,26 @@ assembleDebug:
     - echo "Your GitLab username is $GITLAB_USER_NAME"
     - echo "Il tuo nome completo è $GITLAB_NOME_COGNOME"
     - echo "run assembleDebug"
-    # - ./gradlew assembleDebug
+    - ./gradlew assembleDebug
   artifacts:
     paths:
       - app/build/outputs/
+  when: manual # To remove
 
 # Run all tests, if any fails, interrupt the pipeline (fail it)
-# testDebug:
-  # interruptible: true
-  # stage: test
-  # script:
-    # - echo "run testDebug"
-    # - ./gradlew -Pci --console=plain :app:testDebug
+testDebug:
+  interruptible: true
+  stage: test
+  script:
+    - echo "run testDebug"
+    - ./gradlew -Pci --console=plain :app:testDebug
+  when: manual # To remove
 
 release-patch-increment:
   stage: deploy
   artifacts:
-    # expire_in: 2 days
-    # when: always
+    expire_in: 2 days
+    when: always
     paths:
       - app/build/outputs/
   script:
@@ -148,4 +151,4 @@ release-patch-increment:
     - ./gradlew pushVersion
   # only:
   #   - /^release\/.*$/
-  # when: manual
+  when: manual

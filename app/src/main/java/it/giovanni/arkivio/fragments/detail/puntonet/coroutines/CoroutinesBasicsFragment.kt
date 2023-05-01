@@ -22,7 +22,7 @@ class CoroutinesBasicsFragment : DetailFragment() {
     private val binding get() = layoutBinding
 
     override fun getTitle(): Int {
-        return R.string.coroutines_title
+        return R.string.coroutines_basics_title
     }
 
     override fun getActionTitle(): Int {

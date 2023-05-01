@@ -81,8 +81,11 @@ class PuntoNetFragment : DetailFragment() {
         binding?.labelUsers?.setOnClickListener {
             currentActivity.openDetail(Globals.MVVM_USERS, null)
         }
-        binding?.labelCoroutines?.setOnClickListener {
-            currentActivity.openDetail(Globals.COROUTINES, null)
+        binding?.labelCoroutinesBasics?.setOnClickListener {
+            currentActivity.openDetail(Globals.COROUTINES_BASICS, null)
+        }
+        binding?.labelCoroutinesScopes?.setOnClickListener {
+            currentActivity.openDetail(Globals.COROUTINES_SCOPES, null)
         }
     }
 
