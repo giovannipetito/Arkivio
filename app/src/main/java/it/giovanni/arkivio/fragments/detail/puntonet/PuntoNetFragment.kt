@@ -90,6 +90,12 @@ class PuntoNetFragment : DetailFragment() {
         binding?.labelCoroutineJobsCancellation?.setOnClickListener {
             currentActivity.openDetail(Globals.COROUTINE_JOBS_CANCELLATION, null)
         }
+        binding?.labelCoroutineRunBlocking?.setOnClickListener {
+            currentActivity.openDetail(Globals.COROUTINE_RUN_BLOCKING, null)
+        }
+        binding?.labelCoroutineValues?.setOnClickListener {
+            currentActivity.openDetail(Globals.COROUTINE_VALUES, null)
+        }
     }
 
     override fun onDestroyView() {

@@ -344,6 +344,8 @@
     <string name="coroutine_basics_title">Coroutine Basics</string>
     <string name="coroutine_scopes_title">Coroutine Scopes</string>
     <string name="coroutine_jobs_cancellation_title">Coroutine Jobs and Cancellation</string>
+    <string name="coroutine_run_blocking_title">Coroutine runBlocking and withContext</string>
+    <string name="coroutine_values_title">Coroutine Values</string>
 
     <!-- MACHINE LEARNING -->
     <string name="machine_learning_title">Machine Learning</string>

@@ -23,6 +23,39 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.yield
 
+/**
+ * Il Job è responsabile del ciclo di vita della coroutine e delle relazioni tra padre e figlio,
+ * quindi possiamo utilizzare l'oggetto Job per cancellare la coroutine.
+ *
+ * Da documentazione: "Cancellation of coroutine code needs to be cooperative.", ciò significa che
+ * dobbiamo fare in modo che la nostra coroutine sia "Cancelable", e per fare ciò ci sono due modi
+ * possibili:
+ * 1. Controllando se la tua coroutine è ancora attiva prima di eseguire qualsiasi logica
+ *    all'interno del suo body.
+ * 2. Chiamando qualsiasi funzione di sospensione (suspending function) dalla libreria
+ *    kotlinx.coroutines (delay, yield(), ecc.).
+ *
+ * Queste funzioni di sospensione rendono la nostra coroutine Cancelable controllando se la coroutine
+ * che le chiama è cancellata, e in caso affermativo lanciano una CancellationException.
+ *
+ * Il Job State più importante è isActive perché, per rendere la nostra coroutine Cancelable,
+ * prima del blocco di codice che vogliamo eseguire all'interno della coroutine, dobbiamo prima
+ * controllare se la coroutine è attiva o no.
+ *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *                                 Job States                                    *
+ *                                                                               *
+ *  State                                  isActive   isCompleted   isCancelled  *
+ *                                                                               *
+ *  New         (optional initial state)   false      false         false        *
+ *  Active      (default initial state)    true       false         false        *
+ *  Completing  (transient state)          true       false         false        *
+ *  Cancelling  (transient state)          false      false         true         *
+ *  Cancelled   (final state)              false      true          true         *
+ *  Completed   (final state)              false      true          false        *
+ *                                                                               *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ */
 class CoroutineJobsCancellationFragment : DetailFragment() {
 
     private var layoutBinding: CoroutineJobsCancellationLayoutBinding? = null
@@ -79,20 +112,6 @@ class CoroutineJobsCancellationFragment : DetailFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
-
-        // Il Job è responsabile del ciclo di vita della coroutine e delle relazioni tra padre e
-        // figlio, quindi possiamo utilizzare l'oggetto Job per cancellare la coroutine.
-
-        // Da documentazione: "Cancellation of coroutine code needs to be cooperative.", ciò significa
-        // che dobbiamo fare in modo che la nostra coroutine sia "Cancelable", e per fare ciò ci sono
-        // due modi possibili:
-        // 1. Controllando se la tua coroutine è ancora attiva prima di eseguire qualsiasi logica
-        //    all'interno del suo body.
-        // 2. Chiamando qualsiasi funzione di sospensione (suspending function) dalla libreria
-        //    kotlinx.coroutines (delay, yield(), ecc.).
-
-        // Queste funzioni di sospensione rendono la nostra coroutine Cancelable controllando se la
-        // coroutine che le chiama è cancellata, e in caso affermativo lanciano una CancellationException.
 
         val job: Job = lifecycleScope.launch {
             delayExample(1000L)
@@ -155,13 +174,16 @@ class CoroutineJobsCancellationFragment : DetailFragment() {
             Log.i("[Coroutine]", "Job1 is canceled!")
         }
 
-        // Mostriamo che, in presenza di due job, quando cancelli un job, l'altro non sarà cancellato.
-        // Se abbiamo quindi più job all'interno di un coroutine scope e uno di questi job figlio è
-        // cancellato con CancellationException, ciò non vuol dire che gli altri job figlio saranno
-        // cancellati. Discorso a parte se invece di CancellationException viene lanciata qualsiasi
-        // altra eccezione, allora in quel caso anche gli altri job figlio verranno cancellati.
-        // Se invece cancelliamo lo scope padre (mainJob), allora tutti i job figlio all'interno
-        // dello scope verranno automaticamente cancellati.
+
+        /**
+         * Mostriamo che, in presenza di due job, quando cancelli un job, l'altro non sarà cancellato.
+         * Se abbiamo quindi più job all'interno di un coroutine scope e uno di questi job figlio è
+         * cancellato con CancellationException, ciò non vuol dire che gli altri job figlio saranno
+         * cancellati. Discorso a parte se invece di CancellationException viene lanciata qualsiasi
+         * altra eccezione, allora in quel caso anche gli altri job figlio verranno cancellati.
+         * Se invece cancelliamo lo scope padre (mainJob), allora tutti i job figlio all'interno
+         * dello scope verranno automaticamente cancellati.
+         */
         val mainJob: Job = scope.launch {
             val job1: Job = launch {
                 while (true) {
@@ -196,26 +218,6 @@ class CoroutineJobsCancellationFragment : DetailFragment() {
     private suspend fun delayExample(timeMillis: Long) {
         // throw CancellationException if needed and make job1 Cancelable
     }
-
-    // Il Job State più importante è isActive perché, per rendere la nostra coroutine Cancelable,
-    // prima del blocco di codice che vogliamo eseguire all'interno della coroutine, dobbiamo prima
-    // controllare se la coroutine è attiva o no.
-
-    /**
-     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-     *                                 Job States                                    *
-     *                                                                               *
-     *  State                                  isActive   isCompleted   isCancelled  *
-     *                                                                               *
-     *  New         (optional initial state)   false      false         false        *
-     *  Active      (default initial state)    true       false         false        *
-     *  Completing  (transient state)          true       false         false        *
-     *  Cancelling  (transient state)          false      false         true         *
-     *  Cancelled   (final state)              false      true          true         *
-     *  Completed   (final state)              false      true          false        *
-     *                                                                               *
-     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-     */
 
     override fun onDestroyView() {
         super.onDestroyView()

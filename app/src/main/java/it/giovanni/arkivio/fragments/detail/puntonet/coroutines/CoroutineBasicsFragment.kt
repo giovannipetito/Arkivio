@@ -16,6 +16,30 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+/**
+ * When we synchronously run the function networkRequestSync in the app, it will block the main
+ * thread and the UI might freeze and get unresponsive. That's all because the application will
+ * block the main thread until networkRequestSync function is done.
+ * All non-UI related stuff needs to be moved on a different thread.
+ *
+ * The Coroutines simplify asynchronous programming by writing syncronous code.
+ * Now we run our function asynchronously without blocking UI thread only making two small
+ * modifications for that:
+ * - The first one is adding the suspend keyword in front of the function.
+ * - The second one is optionally adding a withContext fun inside networkRequestAsync fun.
+ *
+ * The suspend keyword tells to Kotlin compiler that the function will run within a coroutine.
+ * The suspend functions should only be called from a coroutine or another suspend function.
+ * The withContext function is needed to specify on which thread the code inside it should run on.
+ *
+ * There a re four available dispatchers: Main, IO, Default, Unconfined.
+ * - The Main dispatcher is optimized for the UI code or non-blocking code that executes fast.
+ * - The IO dispatcher is optimized for network and disk operations.
+ * - The Default dispatcher is optimized for CPU-intensive tasks and some bigger computations.
+ *
+ * By saying suspended we mean the the corresponding computation can be paused, removed from the
+ * thread, and stored in memory. Meanwhile, the thread is free to be occupied with other activities.
+ */
 class CoroutineBasicsFragment : DetailFragment() {
 
     private var layoutBinding: CoroutineBasicsLayoutBinding? = null
@@ -128,12 +152,6 @@ class CoroutineBasicsFragment : DetailFragment() {
      * after that taskAsync1() was completed, then taskAsync2() was resumed.
      */
 
-    /**
-     * When we synchronously run the function networkRequestSync in the app, it will block the main
-     * thread and the UI might freeze and get unresponsive. That's all because the application will
-     * block the main thread until networkRequestSync function is done.
-     * All non-UI related stuff needs to be moved on a different thread.
-     */
     private fun getApiDataSync() {
         val response = networkRequestSync()
         println(response)
@@ -143,25 +161,6 @@ class CoroutineBasicsFragment : DetailFragment() {
         return response
     }
 
-    /**
-     * The Coroutines simplify asynchronous programming by writing syncronous code.
-     * Now we run our function asynchronously without blocking UI thread only making two small
-     * modifications for that:
-     * - The first one is adding the suspend keyword in front of the function.
-     * - The second one is optionally adding a withContext fun inside networkRequestAsync fun.
-     *
-     * The suspend keyword tells to Kotlin compiler that the function will run within a coroutine.
-     * The suspend functions should only be called from a coroutine or another suspend function.
-     * The withContext function is needed to specify on which thread the code inside it should run on.
-     *
-     * There a re four available dispatchers: Main, IO, Default, Unconfined.
-     * - The Main dispatcher is optimized for the UI code or non-blocking code that executes fast.
-     * - The IO dispatcher is optimized for network and disk operations.
-     * - The Default dispatcher is optimized for CPU-intensive tasks and some bigger computations.
-     *
-     * By saying suspended we mean the the corresponding computation can be paused, removed from the
-     * thread, and stored in memory. Meanwhile, the thread is free to be occupied with other activities.
-     */
     private suspend fun getApiDataAsync() {
         val response = networkRequestSync()
         println(response)

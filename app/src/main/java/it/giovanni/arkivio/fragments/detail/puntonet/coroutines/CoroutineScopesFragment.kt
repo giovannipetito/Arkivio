@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.CoroutineScopesLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
@@ -52,7 +51,6 @@ import kotlinx.coroutines.launch
  * viewModelScope, esso si ripulisce automaticamente quando viene chiamato un metodo non cancellato,
  * evitando così problemi di memory leak.
  */
-
 class CoroutineScopesFragment : DetailFragment() {
 
     private var layoutBinding: CoroutineScopesLayoutBinding? = null

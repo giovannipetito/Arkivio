@@ -9,8 +9,8 @@ class LoginInputViewModel : ViewModel() {
     val _user: MutableLiveData<User> = MutableLiveData<User>()
     private val _message: MutableLiveData<String> = MutableLiveData<String>()
 
-    val message: LiveData<String> = _message
     val user: LiveData<User> = _user
+    val message: LiveData<String> = _message
 
     // setValue()
     fun showMessage1() {
