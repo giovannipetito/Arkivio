@@ -12,6 +12,7 @@ import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.SharedPreferencesManager
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -114,7 +115,7 @@ class CoroutineJobsCancellationFragment : DetailFragment() {
         isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
 
         val job: Job = lifecycleScope.launch {
-            delayExample(1000L)
+            delayCustom(1000L)
             Log.i("[Coroutine]", "Job is running...")
         }
 
@@ -136,6 +137,7 @@ class CoroutineJobsCancellationFragment : DetailFragment() {
             Log.i("[Coroutine]", "Job1 is canceled!")
         }
 
+        /*
         // C'è un secondo modo per controllare se la nostra coroutine è attiva:
         scope.launch {
             val job1: Job = launch {
@@ -154,7 +156,9 @@ class CoroutineJobsCancellationFragment : DetailFragment() {
             job1.join()
             Log.i("[Coroutine]", "Job1 is canceled!")
         }
+        */
 
+        /*
         // C'è un terzo modo per controllare se la nostra coroutine è attiva:
         scope.launch {
             val job1: Job = launch {
@@ -173,7 +177,7 @@ class CoroutineJobsCancellationFragment : DetailFragment() {
             job1.join()
             Log.i("[Coroutine]", "Job1 is canceled!")
         }
-
+        */
 
         /**
          * Mostriamo che, in presenza di due job, quando cancelli un job, l'altro non sarà cancellato.
@@ -184,6 +188,8 @@ class CoroutineJobsCancellationFragment : DetailFragment() {
          * Se invece cancelliamo lo scope padre (mainJob), allora tutti i job figlio all'interno
          * dello scope verranno automaticamente cancellati.
          */
+
+        /*
         val mainJob: Job = scope.launch {
             val job1: Job = launch {
                 while (true) {
@@ -205,7 +211,9 @@ class CoroutineJobsCancellationFragment : DetailFragment() {
             job2.cancelAndJoin()
             Log.i("[Coroutine]", "Job2 is canceled!")
         }
+        */
 
+        /*
         // runBlocking è una coroutine.
         runBlocking {
             delay(2000L)
@@ -213,10 +221,15 @@ class CoroutineJobsCancellationFragment : DetailFragment() {
             mainJob.cancelAndJoin()
             Log.i("[Coroutine]", "mainJob is canceled!")
         }
+        */
     }
 
-    private suspend fun delayExample(timeMillis: Long) {
-        // throw CancellationException if needed and make job1 Cancelable
+    private suspend fun delayCustom(timeMillis: Long) {
+        try {
+            // Todo: write a code that throw a CancellationException if needed to make the job1 Cancelable.
+        } catch (ex : CancellationException) {
+            println(ex.message)
+        }
     }
 
     override fun onDestroyView() {

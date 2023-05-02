@@ -442,7 +442,7 @@ class MainActivity : BaseActivity(), IProgressLoader {
             Globals.COROUTINE_SCOPES -> {
                 baseFragment = CoroutineScopesFragment()
             }
-            Globals.COROUTINE_SCOPES -> {
+            Globals.COROUTINE_JOBS_CANCELLATION -> {
                 baseFragment = CoroutineJobsCancellationFragment()
             }
             Globals.COROUTINE_RUN_BLOCKING -> {

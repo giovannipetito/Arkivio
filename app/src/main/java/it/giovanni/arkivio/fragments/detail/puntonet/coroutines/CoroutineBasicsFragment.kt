@@ -32,7 +32,7 @@ import kotlinx.coroutines.withContext
  * The suspend functions should only be called from a coroutine or another suspend function.
  * The withContext function is needed to specify on which thread the code inside it should run on.
  *
- * There a re four available dispatchers: Main, IO, Default, Unconfined.
+ * There are four available dispatchers: Main, IO, Default, Unconfined.
  * - The Main dispatcher is optimized for the UI code or non-blocking code that executes fast.
  * - The IO dispatcher is optimized for network and disk operations.
  * - The Default dispatcher is optimized for CPU-intensive tasks and some bigger computations.
@@ -95,7 +95,7 @@ class CoroutineBasicsFragment : DetailFragment() {
 
         isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
 
-        mainSync()
+        // mainSync()
         mainAsync()
     }
 
@@ -131,19 +131,17 @@ class CoroutineBasicsFragment : DetailFragment() {
     }
     private suspend fun taskAsync2() {
         // Let's call the delay function to avoid the "World!Hello" output.
-        delay(1000L) // The delay function will be available only inside the suspend function (or the coroutine).
-        println("World!\n")
+        // delay(1000L) // The delay function will be available only inside the suspend function (or the coroutine).
+        // println("World!\n")
 
         // To prove that taskAsync2 is running on a different thread than taskAsync1.
-        println("taskAsync2() thread: " + Thread.currentThread().name + "\n")
+        // println("taskAsync2() thread: " + Thread.currentThread().name + "\n")
 
-        /*
         withContext(Dispatchers.IO) {
             delay(1000L)
             println("World!\n")
             println("taskAsync2() thread: " + Thread.currentThread().name + "\n")
         }
-        */
     }
 
     /**
@@ -162,7 +160,7 @@ class CoroutineBasicsFragment : DetailFragment() {
     }
 
     private suspend fun getApiDataAsync() {
-        val response = networkRequestSync()
+        val response = networkRequestAsync()
         println(response)
     }
     private suspend fun networkRequestAsync(): Response {
