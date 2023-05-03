@@ -96,6 +96,9 @@ class PuntoNetFragment : DetailFragment() {
         binding?.labelCoroutineValues?.setOnClickListener {
             currentActivity.openDetail(Globals.COROUTINE_VALUES, null)
         }
+        binding?.labelCoroutineChannels?.setOnClickListener {
+            currentActivity.openDetail(Globals.COROUTINE_CHANNELS, null)
+        }
     }
 
     override fun onDestroyView() {

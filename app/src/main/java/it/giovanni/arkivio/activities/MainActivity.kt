@@ -48,11 +48,7 @@ import it.giovanni.arkivio.fragments.detail.notification.NotificationFragment
 import it.giovanni.arkivio.fragments.detail.notification.NotificationHomeFragment
 import it.giovanni.arkivio.fragments.detail.permissions.PermissionsFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.PuntoNetFragment
-import it.giovanni.arkivio.fragments.detail.puntonet.coroutines.CoroutineBasicsFragment
-import it.giovanni.arkivio.fragments.detail.puntonet.coroutines.CoroutineJobsCancellationFragment
-import it.giovanni.arkivio.fragments.detail.puntonet.coroutines.CoroutineRunBlockingFragment
-import it.giovanni.arkivio.fragments.detail.puntonet.coroutines.CoroutineScopesFragment
-import it.giovanni.arkivio.fragments.detail.puntonet.coroutines.CoroutineValuesFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.coroutines.*
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.logininput.LoginInputFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.logininput.LoginResultFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.userinput.UserInputFragment
@@ -450,6 +446,9 @@ class MainActivity : BaseActivity(), IProgressLoader {
             }
             Globals.COROUTINE_VALUES -> {
                 baseFragment = CoroutineValuesFragment()
+            }
+            Globals.COROUTINE_CHANNELS -> {
+                baseFragment = CoroutineChannelsFragment()
             }
         }
 
