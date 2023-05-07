@@ -348,6 +348,9 @@
     <string name="coroutine_values_title">Coroutine Values</string>
     <string name="coroutine_channels_title">Coroutine Channels</string>
 
+    <!-- NBA RETROFIT -->
+    <string name="nba_retrofit_title">NBA Retrofit</string>
+
     <!-- MACHINE LEARNING -->
     <string name="machine_learning_title">Machine Learning</string>
     <string name="text_recognition_title">Riconoscimento del testo</string>

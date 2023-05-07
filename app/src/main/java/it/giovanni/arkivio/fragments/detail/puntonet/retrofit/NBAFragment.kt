@@ -1,31 +1,29 @@
-package it.giovanni.arkivio.fragments.detail.puntonet.coroutines
+package it.giovanni.arkivio.fragments.detail.puntonet.retrofit
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.databinding.CoroutineChannelsLayoutBinding
+import it.giovanni.arkivio.databinding.NbaLayoutBinding
+import it.giovanni.arkivio.databinding.NbaTeamItemBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.SharedPreferencesManager
 
-/**
- * The channels are used for asynchronous communication between the coroutines allowing to pass a
- * stream of values from one coroutine to another and the elements inside the channel are processed
- * in the same order as they arrive in.
- */
-class CoroutineChannelsFragment : DetailFragment() {
+class NBAFragment : DetailFragment() {
 
-    private var layoutBinding: CoroutineChannelsLayoutBinding? = null
+    private var layoutBinding: NbaLayoutBinding? = null
     private val binding get() = layoutBinding
 
-    private lateinit var viewModel: CoroutineChannelsViewModel
+    private lateinit var viewModel: NBAViewModel
 
     override fun getTitle(): Int {
-        return R.string.coroutine_channels_title
+        return R.string.nba_retrofit_title
     }
 
     override fun getActionTitle(): Int {
@@ -59,7 +57,7 @@ class CoroutineChannelsFragment : DetailFragment() {
     }
 
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
-        layoutBinding = CoroutineChannelsLayoutBinding.inflate(inflater, container, false)
+        layoutBinding = NbaLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this, requireContext())
         val model = DarkModeModel(requireContext())
@@ -74,7 +72,37 @@ class CoroutineChannelsFragment : DetailFragment() {
 
         isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
 
-        viewModel = ViewModelProvider(requireActivity())[CoroutineChannelsViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[NBAViewModel::class.java]
+
+        showProgressDialog()
+        viewModel.fetchTeams(0)
+
+        viewModel.list.observe(viewLifecycleOwner) { list ->
+            hideProgressDialog()
+            showUsers(list)
+        }
+    }
+
+    private fun showUsers(list: List<AllTeamsDataItem>) {
+        if (list.isEmpty())
+            return
+        for (team in list) {
+
+            val itemBinding: NbaTeamItemBinding = NbaTeamItemBinding.inflate(layoutInflater, binding?.nbaContainer, false)
+            val itemView: View = itemBinding.root
+
+            val labelNBATeamName: TextView = itemBinding.nbaTeamName
+            labelNBATeamName.text = team.name
+
+            if (isDarkMode) {
+                labelNBATeamName.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+            }
+            else {
+                labelNBATeamName.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
+            }
+
+            binding?.nbaContainer?.addView(itemView)
+        }
     }
 
     override fun onDestroyView() {

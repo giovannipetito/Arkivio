@@ -89,6 +89,7 @@ class CoroutineRunBlockingFragment : DetailFragment() {
 
         isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
 
+        /*
         runBlocking {
             // The first Log statement is blocking a coroutine, so it will block the thread until
             // the block inside is completed, and only after that the second Log will be printed too.
@@ -100,6 +101,7 @@ class CoroutineRunBlockingFragment : DetailFragment() {
             // The second Log statement will not be executed before this delay is completed.
             Log.i("[Coroutine]", "coroutineContext: " + this.coroutineContext.toString())
         }
+        */
 
         GlobalScope.launch(Dispatchers.IO) {
             Log.i("[Coroutine]", "coroutineContext: " + this.coroutineContext.toString())

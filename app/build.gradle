@@ -23,15 +23,19 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField "String", "CREDITS_PREFIX", "\"DEBUG\""
             debuggable true
             minifyEnabled false
             testCoverageEnabled true
+            buildConfigField "String", "CREDITS_PREFIX", "\"DEBUG\""
+            buildConfigField("String", "BASE_URL", "\"https://free-nba.p.rapidapi.com/\"")
+            buildConfigField("String", "API_KEY", "\"019bd4d229msh3acba05acc429ddp1d5cd8jsna65c0bb9b162\"")
         }
         release {
             debuggable false
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "BASE_URL", "\"https://free-nba.p.rapidapi.com/\"")
+            buildConfigField("String", "API_KEY", "\"019bd4d229msh3acba05acc429ddp1d5cd8jsna65c0bb9b162\"")
         }
     }
 
@@ -98,8 +102,8 @@ dependencies {
     kapt 'androidx.lifecycle:lifecycle-common-java8:2.6.1'
 
     // Coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.0'
 
     // Lifecycle Coroutines
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'

@@ -1,5 +1,6 @@
 package it.giovanni.arkivio.restclient.retrofit
 
+import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.utenti.api.Config
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,12 +36,11 @@ class MyRetrofitClient {
 
         fun getUsers(callback: IRetrofit) {
 
-            val url = "https://jsonplaceholder.typicode.com/"
-
             val retrofit: Retrofit? = Retrofit.Builder()
-                .baseUrl(url)
+                .baseUrl(Config.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
+
             val service: RetrofitService? = retrofit?.create(RetrofitService::class.java)
 
             service?.getUsers()?.enqueue(object : Callback<List<User?>?> {

@@ -99,6 +99,9 @@ class PuntoNetFragment : DetailFragment() {
         binding?.labelCoroutineChannels?.setOnClickListener {
             currentActivity.openDetail(Globals.COROUTINE_CHANNELS, null)
         }
+        binding?.labelNbaRetrofit?.setOnClickListener {
+            currentActivity.openDetail(Globals.NBA_RETROFIT, null)
+        }
     }
 
     override fun onDestroyView() {

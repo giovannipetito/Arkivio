@@ -114,11 +114,14 @@ class CoroutineJobsCancellationFragment : DetailFragment() {
 
         isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
 
+        /*
         val job: Job = lifecycleScope.launch {
             delayCustom(1000L)
             Log.i("[Coroutine]", "Job is running...")
         }
+        */
 
+        /*
         scope.launch {
             val job1: Job = launch {
                 while (isActive) {
@@ -136,6 +139,7 @@ class CoroutineJobsCancellationFragment : DetailFragment() {
             // quando lo stato sarà isCompleted, verrà eseguito il codice successivo a job1.join().
             Log.i("[Coroutine]", "Job1 is canceled!")
         }
+        */
 
         /*
         // C'è un secondo modo per controllare se la nostra coroutine è attiva:
@@ -189,7 +193,6 @@ class CoroutineJobsCancellationFragment : DetailFragment() {
          * dello scope verranno automaticamente cancellati.
          */
 
-        /*
         val mainJob: Job = scope.launch {
             val job1: Job = launch {
                 while (true) {
@@ -211,9 +214,7 @@ class CoroutineJobsCancellationFragment : DetailFragment() {
             job2.cancelAndJoin()
             Log.i("[Coroutine]", "Job2 is canceled!")
         }
-        */
 
-        /*
         // runBlocking è una coroutine.
         runBlocking {
             delay(2000L)
@@ -221,7 +222,6 @@ class CoroutineJobsCancellationFragment : DetailFragment() {
             mainJob.cancelAndJoin()
             Log.i("[Coroutine]", "mainJob is canceled!")
         }
-        */
     }
 
     private suspend fun delayCustom(timeMillis: Long) {

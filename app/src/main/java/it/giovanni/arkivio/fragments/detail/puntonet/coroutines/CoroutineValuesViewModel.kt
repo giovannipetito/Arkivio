@@ -5,7 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -17,6 +19,7 @@ import kotlinx.coroutines.withContext
  *
  * Inside the ViewModel we have access to viewModelScope.
  */
+@OptIn(ExperimentalCoroutinesApi::class)
 class CoroutineValuesViewModel : ViewModel() {
 
     private val _result1: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
@@ -40,7 +43,7 @@ class CoroutineValuesViewModel : ViewModel() {
 
         // With this code we are able to retrieve the value from the outside of the coroutine scope
         // and wait until the result is actually completed.
-        val res2 = viewModelScope.async {
+        val res2: Deferred<Boolean> = viewModelScope.async {
             delay(3000L)
             false
         }
