@@ -102,6 +102,9 @@ class PuntoNetFragment : DetailFragment() {
         binding?.labelNbaRetrofit?.setOnClickListener {
             currentActivity.openDetail(Globals.NBA_RETROFIT, null)
         }
+        binding?.labelGetPost?.setOnClickListener {
+            currentActivity.openDetail(Globals.GET_POST, null)
+        }
         binding?.labelPaging?.setOnClickListener {
             currentActivity.openDetail(Globals.PAGING, null)
         }

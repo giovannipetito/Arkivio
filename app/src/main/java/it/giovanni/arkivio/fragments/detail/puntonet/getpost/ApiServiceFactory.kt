@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.puntonet.retrofit
+package it.giovanni.arkivio.fragments.detail.puntonet.getpost
 
 import it.giovanni.arkivio.App.Companion.context
 import it.giovanni.arkivio.BuildConfig
@@ -16,8 +16,8 @@ import java.util.concurrent.TimeUnit
 /**
  * Questa classe fornisce una factory per la creazione e la configurazione delle istanze
  * dell'interfaccia Retrofit ApiService che viene utilizzata per effettuare richieste API
- * a un server back-end. Definisce inoltre una funzione getAllTeams che chiama il metodo
- * getAllTeams dell'interfaccia ApiService e restituisce la response come oggetto Result.
+ * a un server back-end. Definisce inoltre una funzione getListUsers che chiama il metodo
+ * getListUsers dell'interfaccia ApiService e restituisce la response come oggetto Result.
  *
  * - La keyword companion object viene usata per definire un oggetto singleton che ha lo stesso nome
  *   nome della classe che lo contiene (ApiServiceFactory). È possibile accedere a questo oggetto
@@ -38,13 +38,16 @@ import java.util.concurrent.TimeUnit
  *   GsonConverterFactory che converte le response JSON in oggetti Kotlin.
  * - createApiService() è una funzione che restituisce un'istanza dell'interfaccia ApiService creata
  *   dall'istanza Retrofit.
- * - getAllTeams(page: Int) è una funzione suspend che chiama il metodo getAllTeams dell'interfaccia
+ * - getListUsers(page: Int) è una funzione suspend che chiama il metodo getListUsers dell'interfaccia
  *   ApiService e restituisce la response come oggetto Result. Se viene generata un'eccezione durante
  *   la chiamata API, la funzione restituisce un risultato Error con il messaggio di errore localizzato.
  */
 class ApiServiceFactory {
 
     companion object {
+
+        private const val BASE_URL = "https://reqres.in"
+
         private val loggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
@@ -68,8 +71,8 @@ class ApiServiceFactory {
             .cache(cache)
             .addInterceptor { chain: Interceptor.Chain ->
                 val newRequest = chain.request().newBuilder()
-                    .addHeader("x-rapidapi-key", BuildConfig.API_KEY)
-                    .addHeader("x-rapidapi-host", "free-nba.p.rapidapi.com")
+                    // .addHeader("x-rapidapi-key", BuildConfig.API_KEY)
+                    .addHeader("x-rapidapi-host", "https://reqres.in")
                     // .header("User-Agent", Utils.getDeviceName()")
                     .addHeader("applicationId", BuildConfig.APPLICATION_ID)
                     .addHeader("app_version", BuildConfig.VERSION_NAME)
@@ -85,7 +88,7 @@ class ApiServiceFactory {
             .build()
 
         private val retrofit = Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
+            .baseUrl(BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
@@ -94,10 +97,19 @@ class ApiServiceFactory {
             return retrofit.create(ApiService::class.java)
         }
 
-        suspend fun getAllTeams(page: Int): Result<AllTeamsResponse> {
+        suspend fun getListUsers(page: Int): Result<ListUsersResponse> {
             return try {
-                val allTeamsResponse = createApiService().getAllTeams(page)
-                Result.Success(allTeamsResponse)
+                val listUsersResponse = createApiService().getListUsers(page)
+                Result.Success(listUsersResponse)
+            } catch (e: Exception) {
+                Result.Error(e.localizedMessage)
+            }
+        }
+
+        suspend fun addUser(user: User): Result<UserResponse> {
+            return try {
+                val userResponse = createApiService().addUser(user)
+                Result.Success(userResponse)
             } catch (e: Exception) {
                 Result.Error(e.localizedMessage)
             }

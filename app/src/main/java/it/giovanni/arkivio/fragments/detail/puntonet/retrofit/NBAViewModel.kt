@@ -47,18 +47,15 @@ class NBAViewModel : ViewModel() {
 
     fun fetchTeams(page: Int) {
         viewModelScope.launch {
-            // isLoading.value = true
             when (val result = ApiServiceFactory.getAllTeams(page)) {
                 is Result.Success<AllTeamsResponse> -> {
 
                     _listSer.value = result.data.teams
 
                     result.data.teams?.let { mapTeamsDataItem(it) }
-                    /// isLoading.value = false
                 }
                 is Result.Error -> {
-                    // isLoading.value = false
-                    // showToast.value = result.message
+                    // todo: show error message
                 }
             }
         }

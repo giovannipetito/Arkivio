@@ -29,7 +29,7 @@ object AppModule {
             .build()
     }
 
-    private val cacheSize = 10 * 1024 * 1024 // 10 MiB
+    private const val cacheSize = 10 * 1024 * 1024 // 10 MiB
     private val cacheDirectory = File(App.context.cacheDir, "cache")
     private val cache = Cache(cacheDirectory, cacheSize.toLong())
 

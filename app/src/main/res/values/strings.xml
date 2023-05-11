@@ -351,6 +351,11 @@
     <!-- NBA RETROFIT -->
     <string name="nba_retrofit_title">NBA Retrofit</string>
 
+    <!-- GET POST -->
+    <string name="get_post_title">GET and POST</string>
+    <string name="post_title">POST</string>
+    <string name="button_add_user">Add User</string>
+
     <!-- PAGINATION -->
     <string name="paging_title">Paging</string>
 

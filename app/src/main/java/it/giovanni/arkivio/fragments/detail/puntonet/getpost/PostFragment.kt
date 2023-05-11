@@ -1,29 +1,26 @@
-package it.giovanni.arkivio.fragments.detail.puntonet.retrofit
+package it.giovanni.arkivio.fragments.detail.puntonet.getpost
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.databinding.NbaLayoutBinding
-import it.giovanni.arkivio.databinding.NbaTeamItemBinding
+import it.giovanni.arkivio.databinding.PostLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.SharedPreferencesManager
 
-class NBAFragment : DetailFragment() {
+class PostFragment : DetailFragment() {
 
-    private var layoutBinding: NbaLayoutBinding? = null
+    private var layoutBinding: PostLayoutBinding? = null
     private val binding get() = layoutBinding
 
-    private lateinit var viewModel: NBAViewModel
+    private lateinit var viewModel: GetPostViewModel
 
     override fun getTitle(): Int {
-        return R.string.nba_retrofit_title
+        return R.string.post_title
     }
 
     override fun getActionTitle(): Int {
@@ -57,7 +54,7 @@ class NBAFragment : DetailFragment() {
     }
 
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
-        layoutBinding = NbaLayoutBinding.inflate(inflater, container, false)
+        layoutBinding = PostLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this, requireContext())
         val model = DarkModeModel(requireContext())
@@ -72,36 +69,16 @@ class NBAFragment : DetailFragment() {
 
         isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
 
-        viewModel = ViewModelProvider(requireActivity())[NBAViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[GetPostViewModel::class.java]
 
-        // showProgressDialog()
-        viewModel.fetchTeams(0)
+        showProgressDialog()
 
-        viewModel.list.observe(viewLifecycleOwner) { list ->
-            // hideProgressDialog()
-            showTeams(list)
-        }
-    }
+        val user = User("Giovanni", "Developer")
+        viewModel.createUser(user)
 
-    private fun showTeams(list: List<AllTeamsDataItem>) {
-        if (list.isEmpty())
-            return
-        for (team in list) {
-
-            val itemBinding: NbaTeamItemBinding = NbaTeamItemBinding.inflate(layoutInflater, binding?.nbaContainer, false)
-            val itemView: View = itemBinding.root
-
-            val labelNBATeamName: TextView = itemBinding.nbaTeamName
-            labelNBATeamName.text = team.name
-
-            if (isDarkMode) {
-                labelNBATeamName.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
-            }
-            else {
-                labelNBATeamName.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
-            }
-
-            binding?.nbaContainer?.addView(itemView)
+        viewModel.responseMsg.observe(viewLifecycleOwner) { message ->
+            hideProgressDialog()
+            binding?.addedUser?.text = message
         }
     }
 

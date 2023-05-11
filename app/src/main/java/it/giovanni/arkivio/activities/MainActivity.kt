@@ -49,6 +49,8 @@ import it.giovanni.arkivio.fragments.detail.notification.NotificationHomeFragmen
 import it.giovanni.arkivio.fragments.detail.permissions.PermissionsFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.PuntoNetFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.coroutines.*
+import it.giovanni.arkivio.fragments.detail.puntonet.getpost.GetPostFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.getpost.PostFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.logininput.LoginInputFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.logininput.LoginResultFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.userinput.UserInputFragment
@@ -454,6 +456,12 @@ class MainActivity : BaseActivity(), IProgressLoader {
             }
             Globals.NBA_RETROFIT -> {
                 baseFragment = NBAFragment()
+            }
+            Globals.GET_POST -> {
+                baseFragment = GetPostFragment()
+            }
+            Globals.POST -> {
+                baseFragment = PostFragment()
             }
             Globals.PAGING -> {
                 baseFragment = PagingFragment()
