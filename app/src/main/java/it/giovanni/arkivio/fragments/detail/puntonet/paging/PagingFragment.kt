@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.PagingLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
@@ -92,11 +92,22 @@ class PagingFragment : DetailFragment() {
         }
     }
 
-    private fun loadData() {
+    /**
+     * Il metodo loadData() carica i dati in un PagingDataAdapter utilizzando le coroutine Kotlin e
+     * il lifecycleScope. Nel dettaglio, imposta una coroutine che ascolta le modifiche nel PagingData
+     * emesso dal ViewModel e invia tali dati al PagingDataAdapter quando cambia.
 
+     * loadData() avvia una nuova coroutine utilizzando lifecycleScope.launch. All'interno della
+     * coroutine, raccoglie i PagingData emessi da viewModel.listData utilizzando la funzione collect.
+     *
+     * Quando collect riceve un nuovo valore, lo assegna a una variabile data di tipo PagingData<RickMorty>.
+     * Quindi, chiama la funzione submitData di characterAdapter con i dati come argomento.
+     */
+    private fun loadData() {
         lifecycleScope.launch {
             viewModel.listData.collect {
-                characterAdapter.submitData(it)
+                val data: PagingData<RickMorty> = it
+                characterAdapter.submitData(data)
             }
         }
     }
