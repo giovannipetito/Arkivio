@@ -1,29 +1,32 @@
-package it.giovanni.arkivio.fragments.detail.puntonet.retrofit
+package it.giovanni.arkivio.fragments.detail.puntonet.paging
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.databinding.NbaLayoutBinding
-import it.giovanni.arkivio.databinding.NbaTeamItemBinding
+import it.giovanni.arkivio.databinding.PagingLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.SharedPreferencesManager
+import kotlinx.coroutines.launch
 
-class NBAFragment : DetailFragment() {
+class PagingFragment : DetailFragment() {
 
-    private var layoutBinding: NbaLayoutBinding? = null
+    private var layoutBinding: PagingLayoutBinding? = null
     private val binding get() = layoutBinding
 
-    private lateinit var viewModel: NBAViewModel
+    private lateinit var characterAdapter: CharacterAdapter
+    private lateinit var viewModel: PagingViewModel
 
     override fun getTitle(): Int {
-        return R.string.nba_retrofit_title
+        return R.string.paging_title
     }
 
     override fun getActionTitle(): Int {
@@ -57,7 +60,7 @@ class NBAFragment : DetailFragment() {
     }
 
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
-        layoutBinding = NbaLayoutBinding.inflate(inflater, container, false)
+        layoutBinding = PagingLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this, requireContext())
         val model = DarkModeModel(requireContext())
@@ -72,36 +75,29 @@ class NBAFragment : DetailFragment() {
 
         isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
 
-        viewModel = ViewModelProvider(requireActivity())[NBAViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[PagingViewModel::class.java]
 
-        // showProgressDialog()
-        viewModel.fetchTeams(0)
+        setupRecyclerView()
+        loadData()
+    }
 
-        viewModel.list.observe(viewLifecycleOwner) { list ->
-            // hideProgressDialog()
-            showUsers(list)
+    private fun setupRecyclerView() {
+
+        characterAdapter = CharacterAdapter()
+
+        binding?.pagingRecyclerView?.apply {
+            adapter = characterAdapter
+            layoutManager = LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
+            setHasFixedSize(true)
         }
     }
 
-    private fun showUsers(list: List<AllTeamsDataItem>) {
-        if (list.isEmpty())
-            return
-        for (team in list) {
+    private fun loadData() {
 
-            val itemBinding: NbaTeamItemBinding = NbaTeamItemBinding.inflate(layoutInflater, binding?.nbaContainer, false)
-            val itemView: View = itemBinding.root
-
-            val labelNBATeamName: TextView = itemBinding.nbaTeamName
-            labelNBATeamName.text = team.name
-
-            if (isDarkMode) {
-                labelNBATeamName.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+        lifecycleScope.launch {
+            viewModel.listData.collect {
+                characterAdapter.submitData(it)
             }
-            else {
-                labelNBATeamName.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
-            }
-
-            binding?.nbaContainer?.addView(itemView)
         }
     }
 

@@ -351,6 +351,9 @@
     <!-- NBA RETROFIT -->
     <string name="nba_retrofit_title">NBA Retrofit</string>
 
+    <!-- PAGINATION -->
+    <string name="paging_title">Paging</string>
+
     <!-- MACHINE LEARNING -->
     <string name="machine_learning_title">Machine Learning</string>
     <string name="text_recognition_title">Riconoscimento del testo</string>

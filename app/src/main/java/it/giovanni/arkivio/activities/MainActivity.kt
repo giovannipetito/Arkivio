@@ -53,6 +53,7 @@ import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.logininput.LoginInput
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.logininput.LoginResultFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.userinput.UserInputFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.utenti.UsersFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.paging.PagingFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.retrofit.NBAFragment
 import it.giovanni.arkivio.fragments.detail.stickyheader.StickyHeaderFragment
 import it.giovanni.arkivio.utils.Globals
@@ -453,6 +454,9 @@ class MainActivity : BaseActivity(), IProgressLoader {
             }
             Globals.NBA_RETROFIT -> {
                 baseFragment = NBAFragment()
+            }
+            Globals.PAGING -> {
+                baseFragment = PagingFragment()
             }
         }
 

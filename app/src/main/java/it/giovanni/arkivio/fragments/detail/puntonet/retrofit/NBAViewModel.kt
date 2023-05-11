@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
  * Questo ViewModel è responsabile del recupero di una lista di team NBA da una API e del loro mapping
  * (trasformazione) in una lista di elementi di dati dell'interfaccia utente (UI data Items).
  *
- * La classe ha un'istanza MutableLiveData di una lista di AllTeamsDataItem. Questa lista è privato
+ * La classe ha un'istanza MutableLiveData di una lista di AllTeamsDataItem. Questa lista è privata
  * ed è accessibile tramite un'istanza pubblica di LiveData denominata list. Ciò consente ad altri
  * componenti di osservare le modifiche alla lista.
  *
@@ -41,11 +41,18 @@ class NBAViewModel : ViewModel() {
     val list: LiveData<List<AllTeamsDataItem>>
         get() = _list
 
+    private val _listSer: MutableLiveData<List<Team>> = MutableLiveData<List<Team>>()
+    val listSer: LiveData<List<Team>>
+        get() = _listSer
+
     fun fetchTeams(page: Int) {
         viewModelScope.launch {
             // isLoading.value = true
             when (val result = ApiServiceFactory.getAllTeams(page)) {
                 is Result.Success<AllTeamsResponse> -> {
+
+                    _listSer.value = result.data.teams
+
                     result.data.teams?.let { mapTeamsDataItem(it) }
                     /// isLoading.value = false
                 }
@@ -57,7 +64,7 @@ class NBAViewModel : ViewModel() {
         }
     }
 
-    private fun mapTeamsDataItem(teams: List<AllTeamsResponse.Team>) {
+    private fun mapTeamsDataItem(teams: List<Team>) {
         _list.value = teams.map {
             AllTeamsDataItem(
                 it.id!!,

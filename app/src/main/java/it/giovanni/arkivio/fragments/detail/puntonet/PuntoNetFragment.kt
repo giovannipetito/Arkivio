@@ -102,6 +102,9 @@ class PuntoNetFragment : DetailFragment() {
         binding?.labelNbaRetrofit?.setOnClickListener {
             currentActivity.openDetail(Globals.NBA_RETROFIT, null)
         }
+        binding?.labelPaging?.setOnClickListener {
+            currentActivity.openDetail(Globals.PAGING, null)
+        }
     }
 
     override fun onDestroyView() {
