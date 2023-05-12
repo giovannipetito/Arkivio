@@ -51,7 +51,7 @@ class GetPostViewModel : ViewModel() {
 
     fun fetchUsers(page: Int) {
         viewModelScope.launch {
-            when (val result = ApiServiceFactory.getListUsers(page)) {
+            when (val result: Result<ListUsersResponse> = ApiServiceFactory.getListUsers(page)) {
                 is Result.Success<ListUsersResponse> -> {
 
                     _listSer.value = result.data.data

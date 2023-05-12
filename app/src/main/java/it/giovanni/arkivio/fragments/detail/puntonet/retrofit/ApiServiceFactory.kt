@@ -42,65 +42,63 @@ import java.util.concurrent.TimeUnit
  *   ApiService e restituisce la response come oggetto Result. Se viene generata un'eccezione durante
  *   la chiamata API, la funzione restituisce un risultato Error con il messaggio di errore localizzato.
  */
-class ApiServiceFactory {
+object ApiServiceFactory {
 
-    companion object {
-        private val loggingInterceptor = HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        }
+    private val loggingInterceptor = HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.BODY
+    }
 
-        private val cacheInterceptor = Interceptor { chain ->
-            val response: Response = chain.proceed(chain.request())
-            val cacheControl = CacheControl.Builder()
-                .maxAge(30, TimeUnit.DAYS)
-                .build()
-            response.newBuilder()
-                .header("Cache-Control", cacheControl.toString())
-                .build()
-        }
-
-        private const val cacheSize = 10 * 1024 * 1024 // 10 MiB
-        private val cacheDirectory = File(context.cacheDir, "cache")
-        private val cache = Cache(cacheDirectory, cacheSize.toLong())
-
-        private val okHttpClient = OkHttpClient.Builder()
-            .addNetworkInterceptor(cacheInterceptor)
-            .cache(cache)
-            .addInterceptor { chain: Interceptor.Chain ->
-                val newRequest = chain.request().newBuilder()
-                    .addHeader("x-rapidapi-key", BuildConfig.API_KEY)
-                    .addHeader("x-rapidapi-host", "free-nba.p.rapidapi.com")
-                    // .header("User-Agent", Utils.getDeviceName()")
-                    .addHeader("applicationId", BuildConfig.APPLICATION_ID)
-                    .addHeader("app_version", BuildConfig.VERSION_NAME)
-                    .addHeader("os_version", android.os.Build.VERSION.RELEASE)
-                    .build()
-                chain.proceed(newRequest)
-            }
-            .apply {
-                if (BuildConfig.DEBUG) {
-                    addInterceptor(loggingInterceptor)
-                }
-            }
+    private val cacheInterceptor = Interceptor { chain ->
+        val response: Response = chain.proceed(chain.request())
+        val cacheControl = CacheControl.Builder()
+            .maxAge(30, TimeUnit.DAYS)
             .build()
-
-        private val retrofit = Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
-            .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
+        response.newBuilder()
+            .header("Cache-Control", cacheControl.toString())
             .build()
+    }
 
-        private fun createApiService(): ApiService {
-            return retrofit.create(ApiService::class.java)
+    private const val cacheSize = 10 * 1024 * 1024 // 10 MiB
+    private val cacheDirectory = File(context.cacheDir, "cache")
+    private val cache = Cache(cacheDirectory, cacheSize.toLong())
+
+    private val okHttpClient = OkHttpClient.Builder()
+        .addNetworkInterceptor(cacheInterceptor)
+        .cache(cache)
+        .addInterceptor { chain: Interceptor.Chain ->
+            val newRequest = chain.request().newBuilder()
+                .addHeader("x-rapidapi-key", BuildConfig.API_KEY)
+                .addHeader("x-rapidapi-host", "free-nba.p.rapidapi.com")
+                // .header("User-Agent", Utils.getDeviceName()")
+                .addHeader("applicationId", BuildConfig.APPLICATION_ID)
+                .addHeader("app_version", BuildConfig.VERSION_NAME)
+                .addHeader("os_version", android.os.Build.VERSION.RELEASE)
+                .build()
+            chain.proceed(newRequest)
         }
-
-        suspend fun getAllTeams(page: Int): Result<AllTeamsResponse> {
-            return try {
-                val allTeamsResponse = createApiService().getAllTeams(page)
-                Result.Success(allTeamsResponse)
-            } catch (e: Exception) {
-                Result.Error(e.localizedMessage)
+        .apply {
+            if (BuildConfig.DEBUG) {
+                addInterceptor(loggingInterceptor)
             }
+        }
+        .build()
+
+    private val retrofit = Retrofit.Builder()
+        .baseUrl(BuildConfig.BASE_URL)
+        .client(okHttpClient)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+    private fun createApiService(): ApiService {
+        return retrofit.create(ApiService::class.java)
+    }
+
+    suspend fun getAllTeams(page: Int): Result<AllTeamsResponse> {
+        return try {
+            val allTeamsResponse = createApiService().getAllTeams(page)
+            Result.Success(allTeamsResponse)
+        } catch (e: Exception) {
+            Result.Error(e.localizedMessage)
         }
     }
 }

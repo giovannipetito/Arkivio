@@ -4,6 +4,16 @@ import com.google.gson.annotations.SerializedName
 
 class Data {
 
+    constructor()
+
+    constructor(id: Int?, email: String?, firstName: String?, lastName: String?, avatar: String?) {
+        this.id = id
+        this.email = email
+        this.firstName = firstName
+        this.lastName = lastName
+        this.avatar = avatar
+    }
+
     @SerializedName("id")
     var id: Int? = null
 

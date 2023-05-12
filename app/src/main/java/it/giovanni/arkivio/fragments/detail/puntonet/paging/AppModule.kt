@@ -2,6 +2,7 @@ package it.giovanni.arkivio.fragments.detail.puntonet.paging
 
 import it.giovanni.arkivio.App
 import it.giovanni.arkivio.BuildConfig
+import it.giovanni.arkivio.utils.Config
 import okhttp3.Cache
 import okhttp3.CacheControl
 import okhttp3.Interceptor
@@ -38,7 +39,7 @@ object AppModule {
         .cache(cache)
         .addInterceptor { chain: Interceptor.Chain ->
             val newRequest = chain.request().newBuilder()
-                .addHeader("x-rapidapi-key", BuildConfig.API_KEY)
+                // .addHeader("x-rapidapi-key", BuildConfig.API_KEY)
                 .addHeader("x-rapidapi-host", "free-nba.p.rapidapi.com")
                 // .header("User-Agent", Utils.getDeviceName()")
                 .addHeader("applicationId", BuildConfig.APPLICATION_ID)
@@ -55,7 +56,7 @@ object AppModule {
         .build()
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl(Constants.BASE_URL)
+        .baseUrl(Config.BASE_URL2)
         .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
