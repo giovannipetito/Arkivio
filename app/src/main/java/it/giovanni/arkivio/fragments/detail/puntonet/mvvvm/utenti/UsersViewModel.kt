@@ -3,9 +3,10 @@ package it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.utenti
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.utenti.api.IUsers
-import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.utenti.api.UsersClient
+import it.giovanni.arkivio.restclient.retrofit.IRetrofit
+import it.giovanni.arkivio.restclient.retrofit.SimpleRetrofitClient
 import it.giovanni.arkivio.restclient.retrofit.User
+import it.giovanni.arkivio.restclient.retrofit.UsersResponse
 
 /**
  * La classe ViewModel è la classe dove definirai la logica che la tua app utilizzerà per interagire
@@ -21,20 +22,20 @@ import it.giovanni.arkivio.restclient.retrofit.User
  * Result.Success con i dati degli utenti. Se invece, durante la request viene rilevata un'eccezione,
  * restituiamo un oggetto Result.Error con l'eccezione rilevata (con il messaggio di eccezione).
  */
-class UsersViewModel : ViewModel(), IUsers {
+class UsersViewModel : ViewModel(), IRetrofit {
 
-    private val _utente: MutableLiveData<Utente> = MutableLiveData<Utente>()
-    val utente: LiveData<Utente> = _utente
+    private val _response: MutableLiveData<UsersResponse> = MutableLiveData<UsersResponse>()
+    val response: LiveData<UsersResponse> = _response
 
     fun getUsersData() {
-        UsersClient.getUsers(this)
+        SimpleRetrofitClient.getUsers(this)
     }
 
-    override fun onSuccess(message: String?, users: List<User?>?) {
-        _utente.postValue(Utente(message, users))
+    override fun onRetrofitSuccess(users: List<User?>?, message: String?) {
+        _response.postValue(UsersResponse(users, message))
     }
 
-    override fun onFailure(message: String?) {
-        _utente.postValue(Utente(message, null))
+    override fun onRetrofitFailure(message: String?) {
+        _response.postValue(UsersResponse(null, message))
     }
 }

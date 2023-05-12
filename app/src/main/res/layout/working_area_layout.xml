@@ -132,11 +132,11 @@
                     tools:background="@color/colorPrimary" />
 
                 <TextView
-                    android:id="@+id/label_retrofit"
+                    android:id="@+id/label_simple_retrofit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:text="@string/retrofit_title"
+                    android:text="@string/simple_retrofit_title"
                     android:textColor="@{temp.labelColor}"
                     android:textSize="16sp"
                     android:textAlignment="center"

@@ -1,6 +1,6 @@
 package it.giovanni.arkivio.restclient.retrofit
 
-import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.utenti.api.Config
+import it.giovanni.arkivio.utils.Config
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,29 +30,26 @@ import retrofit2.converter.gson.GsonConverterFactory
  * In onFailure, the failure message is passed to the onRetrofitFailure method of the callback interface.
  */
 
-class MyRetrofitClient {
+object SimpleRetrofitClient {
 
-    companion object {
+    fun getUsers(callback: IRetrofit) {
 
-        fun getUsers(callback: IRetrofit) {
+        val retrofit: Retrofit? = Retrofit.Builder()
+            .baseUrl(Config.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
 
-            val retrofit: Retrofit? = Retrofit.Builder()
-                .baseUrl(Config.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
+        val service: RetrofitService? = retrofit?.create(RetrofitService::class.java)
 
-            val service: RetrofitService? = retrofit?.create(RetrofitService::class.java)
+        service?.getUsers()?.enqueue(object : Callback<List<User?>?> {
+            override fun onResponse(call: Call<List<User?>?>, response: Response<List<User?>?>) {
+                val users: List<User?>? = response.body()
+                callback.onRetrofitSuccess(users, "onSuccess: Caricamento completato")
+            }
 
-            service?.getUsers()?.enqueue(object : Callback<List<User?>?> {
-                override fun onResponse(call: Call<List<User?>?>, response: Response<List<User?>?>) {
-                    val users: List<User?>? = response.body()
-                    callback.onRetrofitSuccess("onSuccess: Caricamento completato", users)
-                }
-
-                override fun onFailure(call: Call<List<User?>?>, t: Throwable) {
-                    callback.onRetrofitFailure("onFailure: Caricamento fallito")
-                }
-            })
-        }
+            override fun onFailure(call: Call<List<User?>?>, t: Throwable) {
+                callback.onRetrofitFailure("onFailure: Caricamento fallito")
+            }
+        })
     }
 }

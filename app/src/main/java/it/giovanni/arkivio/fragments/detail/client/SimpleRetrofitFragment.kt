@@ -9,22 +9,22 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.ClientItemBinding
-import it.giovanni.arkivio.databinding.RetrofitLayoutBinding
+import it.giovanni.arkivio.databinding.SimpleRetrofitLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.restclient.retrofit.IRetrofit
-import it.giovanni.arkivio.restclient.retrofit.MyRetrofitClient
+import it.giovanni.arkivio.restclient.retrofit.SimpleRetrofitClient
 import it.giovanni.arkivio.restclient.retrofit.User
 import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadDarkModeStateFromPreferences
 
-class RetrofitFragment: DetailFragment(), IRetrofit {
+class SimpleRetrofitFragment: DetailFragment(), IRetrofit {
 
-    private var layoutBinding: RetrofitLayoutBinding? = null
+    private var layoutBinding: SimpleRetrofitLayoutBinding? = null
     private val binding get() = layoutBinding
 
     override fun getTitle(): Int {
-        return R.string.retrofit_title
+        return R.string.simple_retrofit_title
     }
 
     override fun getActionTitle(): Int {
@@ -58,7 +58,7 @@ class RetrofitFragment: DetailFragment(), IRetrofit {
     }
 
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
-        layoutBinding = RetrofitLayoutBinding.inflate(inflater, container, false)
+        layoutBinding = SimpleRetrofitLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this, requireContext())
         val model = DarkModeModel(requireContext())
@@ -73,19 +73,19 @@ class RetrofitFragment: DetailFragment(), IRetrofit {
 
         isDarkMode = loadDarkModeStateFromPreferences()
 
-        MyRetrofitClient.getUsers(this)
+        SimpleRetrofitClient.getUsers(this)
         showProgressDialog()
     }
 
-    override fun onRetrofitSuccess(message: String?, list: List<User?>?) {
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+    override fun onRetrofitSuccess(users: List<User?>?, message: String?) {
         hideProgressDialog()
-        showUsers(list)
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+        showUsers(users)
     }
 
     override fun onRetrofitFailure(message: String?) {
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
         hideProgressDialog()
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 
     private fun showUsers(list: List<User?>?) {

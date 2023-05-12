@@ -69,8 +69,8 @@ class WorkingAreaFragment : HomeFragment() {
         binding?.labelEmail?.setOnClickListener {
             currentActivity.openDetail(Globals.EMAIL, null)
         }
-        binding?.labelRetrofit?.setOnClickListener {
-            currentActivity.openDetail(Globals.RETROFIT, null)
+        binding?.labelSimpleRetrofit?.setOnClickListener {
+            currentActivity.openDetail(Globals.SIMPLE_RETROFIT, null)
         }
         binding?.labelAsyncHttp?.setOnClickListener {
             currentActivity.openDetail(Globals.ASYNC_HTTP, null)

@@ -27,7 +27,7 @@ import it.giovanni.arkivio.deeplink.DeepLinkDescriptor
 import it.giovanni.arkivio.fragments.*
 import it.giovanni.arkivio.fragments.detail.cardio.CardIOFragment
 import it.giovanni.arkivio.fragments.detail.client.AsyncHttpFragment
-import it.giovanni.arkivio.fragments.detail.client.RetrofitFragment
+import it.giovanni.arkivio.fragments.detail.client.SimpleRetrofitFragment
 import it.giovanni.arkivio.fragments.detail.client.VolleyFragment
 import it.giovanni.arkivio.fragments.detail.datemanager.*
 import it.giovanni.arkivio.fragments.detail.email.EmailFragment
@@ -358,8 +358,8 @@ class MainActivity : BaseActivity(), IProgressLoader {
             Globals.EMAIL -> {
                 baseFragment = EmailFragment()
             }
-            Globals.RETROFIT -> {
-                baseFragment = RetrofitFragment()
+            Globals.SIMPLE_RETROFIT -> {
+                baseFragment = SimpleRetrofitFragment()
             }
             Globals.ASYNC_HTTP -> {
                 baseFragment = AsyncHttpFragment()

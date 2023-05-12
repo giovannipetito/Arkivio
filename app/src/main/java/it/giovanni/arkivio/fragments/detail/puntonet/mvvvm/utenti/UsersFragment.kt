@@ -5,11 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.ClientItemBinding
-import it.giovanni.arkivio.databinding.UsersLayoutBinding
+import it.giovanni.arkivio.databinding.SimpleRetrofitLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
@@ -27,7 +28,7 @@ import it.giovanni.arkivio.utils.SharedPreferencesManager
  */
 class UsersFragment : DetailFragment() {
 
-    private var layoutBinding: UsersLayoutBinding? = null
+    private var layoutBinding: SimpleRetrofitLayoutBinding? = null
     private val binding get() = layoutBinding
 
     private lateinit var viewModel: UsersViewModel
@@ -67,7 +68,7 @@ class UsersFragment : DetailFragment() {
     }
 
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
-        layoutBinding = UsersLayoutBinding.inflate(inflater, container, false)
+        layoutBinding = SimpleRetrofitLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this, requireContext())
         val model = DarkModeModel(requireContext())
@@ -84,15 +85,13 @@ class UsersFragment : DetailFragment() {
 
         viewModel = ViewModelProvider(requireActivity())[UsersViewModel::class.java]
 
-        binding?.buttonUsers?.setOnClickListener {
-            showProgressDialog()
-            viewModel.getUsersData()
-        }
+        showProgressDialog()
+        viewModel.getUsersData()
 
-        viewModel.utente.observe(viewLifecycleOwner) { utente ->
+        viewModel.response.observe(viewLifecycleOwner) { response ->
             hideProgressDialog()
-            binding?.labelMessage?.text = utente.message
-            showUsers(utente.users)
+            Toast.makeText(context, response.message, Toast.LENGTH_LONG).show()
+            showUsers(response.users)
         }
     }
 
@@ -103,7 +102,7 @@ class UsersFragment : DetailFragment() {
             return
         for (user in list) {
 
-            val itemBinding: ClientItemBinding = ClientItemBinding.inflate(layoutInflater, binding?.usersContainer, false)
+            val itemBinding: ClientItemBinding = ClientItemBinding.inflate(layoutInflater, binding?.retrofitUsersContainer, false)
             val itemView: View = itemBinding.root
 
             val labelUsername: TextView = itemBinding.clientText1
@@ -121,7 +120,7 @@ class UsersFragment : DetailFragment() {
                 labelEmail.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
             }
 
-            binding?.usersContainer?.addView(itemView)
+            binding?.retrofitUsersContainer?.addView(itemView)
         }
     }
 

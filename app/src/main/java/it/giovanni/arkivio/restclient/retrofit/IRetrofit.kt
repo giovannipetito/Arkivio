@@ -19,7 +19,6 @@ package it.giovanni.arkivio.restclient.retrofit
  */
 interface IRetrofit {
 
-    // fun onRetrofitSuccess(message: String?, response: Response?)
-    fun onRetrofitSuccess(message: String?, list: List<User?>?)
+    fun onRetrofitSuccess(users: List<User?>?, message: String?)
     fun onRetrofitFailure(message: String?)
 }
