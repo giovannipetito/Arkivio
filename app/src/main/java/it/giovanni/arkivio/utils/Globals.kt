@@ -47,9 +47,11 @@ class Globals {
         var COROUTINE_VALUES = "COROUTINE_VALUES"
         var COROUTINE_CHANNELS = "COROUTINE_CHANNELS"
         var NBA_RETROFIT = "NBA_RETROFIT"
-        var GET_POST = "GET_POST"
-        var POST = "POST"
         var PAGING = "PAGING"
+        var USERS_HOME = "USERS_HOME"
+        var USERS = "USERS"
+        var USERS_PAGING = "USERS_PAGING"
+        var USERS_DETAIL = "USERS_DETAIL"
 
         // BACK INTENT KEY PARAMS
         var BACK_PARAM_KEY_USER_SEARCH = "BACK_PARAM_KEY_USER_SEARCH"

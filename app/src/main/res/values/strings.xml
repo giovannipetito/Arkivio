@@ -337,24 +337,29 @@
     <string name="button_login_result">Go to Login Result</string>
 
     <!-- MVVVM USERS -->
-    <string name="users_title">MVVM Users</string>
-    <string name="button_users">Get users</string>
+    <string name="mvvm_users_title">MVVM Users</string>
 
     <!-- COROUTINES -->
     <string name="coroutine_basics_title">Coroutine Basics</string>
     <string name="coroutine_scopes_title">Coroutine Scopes</string>
-    <string name="coroutine_jobs_cancellation_title">Coroutine Jobs and Cancellation</string>
-    <string name="coroutine_run_blocking_title">Coroutine runBlocking and withContext</string>
+    <string name="coroutine_jobs_cancellation_title">Coroutine Jobs &amp; Cancellation</string>
+    <string name="coroutine_run_blocking_title">Coroutine runBlocking &amp; withContext</string>
     <string name="coroutine_values_title">Coroutine Values</string>
     <string name="coroutine_channels_title">Coroutine Channels</string>
 
     <!-- NBA RETROFIT -->
     <string name="nba_retrofit_title">NBA Retrofit</string>
 
-    <!-- GET POST -->
-    <string name="get_post_title">GET and POST</string>
-    <string name="post_title">POST</string>
-    <string name="button_add_user">Add User</string>
+    <!-- @GET/@POST RETROFIT - PAGING -->
+    <string name="users_home_title">Retrofit &amp; Paging</string>
+    <string name="users_title">Users</string>
+    <string name="users_paging_title">Users Paging</string>
+    <string name="users_detail_title">Users Detail</string>
+    <string name="button_get_users">Get Users (@GET)</string>
+    <string name="button_get_users_paging">Get Users (@GET) &amp; Paging</string>
+    <string name="button_add_user">Add User (@POST)</string>
+    <string name="edit_name">Add name</string>
+    <string name="edit_job">Add job</string>
 
     <!-- PAGINATION -->
     <string name="paging_title">Paging</string>

@@ -122,11 +122,11 @@
             tools:background="@color/colorPrimary" />
 
         <TextView
-            android:id="@+id/label_users"
+            android:id="@+id/label_mvvm_users"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="@string/users_title"
+            android:text="@string/mvvm_users_title"
             android:textSize="16sp"
             android:textColor="@{temp.labelColor}"
             android:textAlignment="center"
@@ -290,11 +290,11 @@
             tools:background="@color/colorPrimary" />
 
         <TextView
-            android:id="@+id/label_get_post"
+            android:id="@+id/label_paging"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="@string/get_post_title"
+            android:text="@string/paging_title"
             android:textSize="16sp"
             android:textColor="@{temp.labelColor}"
             android:textAlignment="center"
@@ -311,11 +311,11 @@
             tools:background="@color/colorPrimary" />
 
         <TextView
-            android:id="@+id/label_paging"
+            android:id="@+id/label_users_home"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="@string/paging_title"
+            android:text="@string/users_home_title"
             android:textSize="16sp"
             android:textColor="@{temp.labelColor}"
             android:textAlignment="center"

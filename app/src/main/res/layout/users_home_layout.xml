@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="temp"
+            type="it.giovanni.arkivio.model.DarkModeModel" />
+
+        <variable
+            name="presenter"
+            type="it.giovanni.arkivio.presenter.DarkModePresenter" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/button_get_users"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_24dp"
+                android:layout_marginEnd="@dimen/dimen_24dp"
+                android:layout_marginTop="@dimen/dimen_12dp"
+                android:layout_marginBottom="@dimen/dimen_12dp"
+                android:text="@string/button_get_users"
+                style="@style/ButtonNormalDarkMode" />
+
+            <Button
+                android:id="@+id/button_get_users_paging"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_24dp"
+                android:layout_marginEnd="@dimen/dimen_24dp"
+                android:layout_marginTop="@dimen/dimen_12dp"
+                android:layout_marginBottom="@dimen/dimen_12dp"
+                android:text="@string/button_get_users_paging"
+                style="@style/ButtonNormalDarkMode" />
+
+            <EditText
+                android:id="@+id/edit_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_12dp"
+                android:layout_marginStart="@dimen/dimen_24dp"
+                android:layout_marginEnd="@dimen/dimen_24dp"
+                android:layout_marginTop="@dimen/dimen_56dp"
+                android:layout_marginBottom="@dimen/dimen_12dp"
+                android:hint="@string/edit_name"
+                android:inputType="textPersonName"
+                android:autofillHints="@string/app_name"
+                android:background="@drawable/round_corner_1"
+                style="@style/EditText1" />
+
+            <EditText
+                android:id="@+id/edit_job"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_12dp"
+                android:layout_marginStart="@dimen/dimen_24dp"
+                android:layout_marginEnd="@dimen/dimen_24dp"
+                android:layout_marginTop="@dimen/dimen_12dp"
+                android:layout_marginBottom="@dimen/dimen_12dp"
+                android:hint="@string/edit_job"
+                android:inputType="textPassword"
+                android:autofillHints="@string/app_name"
+                android:background="@drawable/round_corner_1"
+                style="@style/EditText1" />
+
+            <Button
+                android:id="@+id/button_add_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_24dp"
+                android:layout_marginEnd="@dimen/dimen_24dp"
+                android:layout_marginTop="@dimen/dimen_12dp"
+                android:layout_marginBottom="@dimen/dimen_12dp"
+                android:text="@string/button_add_user"
+                style="@style/ButtonNormalDarkMode" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>

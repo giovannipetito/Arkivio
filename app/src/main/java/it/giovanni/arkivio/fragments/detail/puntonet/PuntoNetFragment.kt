@@ -78,7 +78,7 @@ class PuntoNetFragment : DetailFragment() {
         binding?.labelLoginInput?.setOnClickListener {
             currentActivity.openDetail(Globals.MVVM_LOGIN, null)
         }
-        binding?.labelUsers?.setOnClickListener {
+        binding?.labelMvvmUsers?.setOnClickListener {
             currentActivity.openDetail(Globals.MVVM_USERS, null)
         }
         binding?.labelCoroutineBasics?.setOnClickListener {
@@ -102,11 +102,11 @@ class PuntoNetFragment : DetailFragment() {
         binding?.labelNbaRetrofit?.setOnClickListener {
             currentActivity.openDetail(Globals.NBA_RETROFIT, null)
         }
-        binding?.labelGetPost?.setOnClickListener {
-            currentActivity.openDetail(Globals.GET_POST, null)
-        }
         binding?.labelPaging?.setOnClickListener {
             currentActivity.openDetail(Globals.PAGING, null)
+        }
+        binding?.labelUsersHome?.setOnClickListener {
+            currentActivity.openDetail(Globals.USERS_HOME, null)
         }
     }
 

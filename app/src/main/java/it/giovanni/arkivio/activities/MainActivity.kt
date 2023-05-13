@@ -49,14 +49,16 @@ import it.giovanni.arkivio.fragments.detail.notification.NotificationHomeFragmen
 import it.giovanni.arkivio.fragments.detail.permissions.PermissionsFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.PuntoNetFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.coroutines.*
-import it.giovanni.arkivio.fragments.detail.puntonet.getpost.GetPostFragment
-import it.giovanni.arkivio.fragments.detail.puntonet.getpost.PostFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging.UsersFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging.UsersDetailFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging.UsersHomeFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging.UsersPagingFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.logininput.LoginInputFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.logininput.LoginResultFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.userinput.UserInputFragment
-import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.utenti.UsersFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.users.MvvmUsersFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.paging.PagingFragment
-import it.giovanni.arkivio.fragments.detail.puntonet.retrofit.NBAFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.retrofit2.NBAFragment
 import it.giovanni.arkivio.fragments.detail.stickyheader.StickyHeaderFragment
 import it.giovanni.arkivio.utils.Globals
 import it.giovanni.arkivio.utils.UserFactory
@@ -434,7 +436,7 @@ class MainActivity : BaseActivity(), IProgressLoader {
                 baseFragment = LoginInputFragment()
             }
             Globals.MVVM_USERS -> {
-                baseFragment = UsersFragment()
+                baseFragment = MvvmUsersFragment()
             }
             Globals.COROUTINE_BASICS -> {
                 baseFragment = CoroutineBasicsFragment()
@@ -457,14 +459,20 @@ class MainActivity : BaseActivity(), IProgressLoader {
             Globals.NBA_RETROFIT -> {
                 baseFragment = NBAFragment()
             }
-            Globals.GET_POST -> {
-                baseFragment = GetPostFragment()
-            }
-            Globals.POST -> {
-                baseFragment = PostFragment()
-            }
             Globals.PAGING -> {
                 baseFragment = PagingFragment()
+            }
+            Globals.USERS_HOME -> {
+                baseFragment = UsersHomeFragment()
+            }
+            Globals.USERS -> {
+                baseFragment = UsersFragment()
+            }
+            Globals.USERS_PAGING -> {
+                baseFragment = UsersPagingFragment()
+            }
+            Globals.USERS_DETAIL -> {
+                baseFragment = UsersDetailFragment()
             }
         }
 

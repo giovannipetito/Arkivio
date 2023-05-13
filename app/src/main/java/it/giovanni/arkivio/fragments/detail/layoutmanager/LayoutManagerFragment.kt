@@ -136,8 +136,8 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
 
         Glide.with(requireContext())
             .load(R.drawable.giovanni)
-            .placeholder(R.mipmap.ic_launcher)
-            .error(R.mipmap.ic_launcher)
+            .placeholder(R.mipmap.logo_audioslave_blue)
+            .error(R.mipmap.logo_audioslave_blue)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .apply(RequestOptions.bitmapTransform(RoundedCorners(54)))
             .into(binding?.icon3!!)
@@ -146,13 +146,13 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
             .load(R.drawable.giovanni)
             .apply(RequestOptions()
                 .circleCrop()
-                .placeholder(R.mipmap.ic_launcher))
+                .placeholder(R.mipmap.logo_audioslave_blue))
             .into(binding?.icon4!!)
 
         Glide.with(requireContext())                     // Passing context.
             .load(R.drawable.giovanni)                   // Passing your url to load image.
-            .placeholder(R.mipmap.ic_launcher)           // The default image. It would be loaded at initial time and it will replace with your loaded image once Glide successfully load image using url.
-            .error(R.mipmap.ic_launcher)                 // In case of any Glide exception or not able to download then this image will be appear.
+            .placeholder(R.mipmap.logo_audioslave_blue)  // The default image. It would be loaded at initial time and it will replace with your loaded image once Glide successfully load image using url.
+            .error(R.mipmap.logo_audioslave_blue)        // In case of any Glide exception or not able to download then this image will be appear.
             .diskCacheStrategy(DiskCacheStrategy.ALL)    // Using to load into cache, then second time it will load fast.
             .apply(RequestOptions.circleCropTransform()) // This CircleTransform class help to crop an image as circle.
             // .animate(R.anim.fade_in)                  // When image (url) will be loaded by Glide, then this face in animation help to replace url image in the place of placeHolder image.

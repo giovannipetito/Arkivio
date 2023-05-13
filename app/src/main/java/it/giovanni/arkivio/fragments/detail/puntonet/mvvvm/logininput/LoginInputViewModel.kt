@@ -7,10 +7,16 @@ import androidx.lifecycle.ViewModel
 class LoginInputViewModel : ViewModel() {
 
     val _user: MutableLiveData<User> = MutableLiveData<User>()
-    private val _message: MutableLiveData<String> = MutableLiveData<String>()
-
     val user: LiveData<User> = _user
-    val message: LiveData<String> = _message
+
+    private val _message: MutableLiveData<String> = MutableLiveData<String>()
+    val message: LiveData<String>
+        get() = _message
+
+    /**
+    val list: LiveData<List<UserDataItem>>
+    get() = _list
+     */
 
     // setValue()
     fun showMessage1() {
