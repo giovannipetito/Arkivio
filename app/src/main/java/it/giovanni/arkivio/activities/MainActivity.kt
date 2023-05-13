@@ -58,7 +58,6 @@ import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.logininput.LoginResul
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.userinput.UserInputFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.users.MvvmUsersFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.paging.PagingFragment
-import it.giovanni.arkivio.fragments.detail.puntonet.retrofit2.NBAFragment
 import it.giovanni.arkivio.fragments.detail.stickyheader.StickyHeaderFragment
 import it.giovanni.arkivio.utils.Globals
 import it.giovanni.arkivio.utils.UserFactory
@@ -455,9 +454,6 @@ class MainActivity : BaseActivity(), IProgressLoader {
             }
             Globals.COROUTINE_CHANNELS -> {
                 baseFragment = CoroutineChannelsFragment()
-            }
-            Globals.NBA_RETROFIT -> {
-                baseFragment = NBAFragment()
             }
             Globals.PAGING -> {
                 baseFragment = PagingFragment()

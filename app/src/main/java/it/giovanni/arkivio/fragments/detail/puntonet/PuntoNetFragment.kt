@@ -99,9 +99,6 @@ class PuntoNetFragment : DetailFragment() {
         binding?.labelCoroutineChannels?.setOnClickListener {
             currentActivity.openDetail(Globals.COROUTINE_CHANNELS, null)
         }
-        binding?.labelNbaRetrofit?.setOnClickListener {
-            currentActivity.openDetail(Globals.NBA_RETROFIT, null)
-        }
         binding?.labelPaging?.setOnClickListener {
             currentActivity.openDetail(Globals.PAGING, null)
         }

@@ -27,14 +27,14 @@ android {
             minifyEnabled false
             testCoverageEnabled true
             buildConfigField "String", "CREDITS_PREFIX", "\"DEBUG\""
-            buildConfigField("String", "BASE_URL", "\"https://free-nba.p.rapidapi.com/\"")
+            buildConfigField("String", "BASE_URL", "\"https://reqres.in\"")
             buildConfigField("String", "API_KEY", "\"019bd4d229msh3acba05acc429ddp1d5cd8jsna65c0bb9b162\"")
         }
         release {
             debuggable false
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "BASE_URL", "\"https://free-nba.p.rapidapi.com/\"")
+            buildConfigField("String", "BASE_URL", "\"https://reqres.in\"")
             buildConfigField("String", "API_KEY", "\"019bd4d229msh3acba05acc429ddp1d5cd8jsna65c0bb9b162\"")
         }
     }

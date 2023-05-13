@@ -347,9 +347,6 @@
     <string name="coroutine_values_title">Coroutine Values</string>
     <string name="coroutine_channels_title">Coroutine Channels</string>
 
-    <!-- NBA RETROFIT -->
-    <string name="nba_retrofit_title">NBA Retrofit</string>
-
     <!-- @GET/@POST RETROFIT - PAGING -->
     <string name="users_home_title">Retrofit &amp; Paging</string>
     <string name="users_title">Users</string>

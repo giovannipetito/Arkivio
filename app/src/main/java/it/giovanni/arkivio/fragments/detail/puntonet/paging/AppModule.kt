@@ -40,7 +40,6 @@ object AppModule {
         .addInterceptor { chain: Interceptor.Chain ->
             val newRequest = chain.request().newBuilder()
                 // .addHeader("x-rapidapi-key", BuildConfig.API_KEY)
-                .addHeader("x-rapidapi-host", "free-nba.p.rapidapi.com")
                 // .header("User-Agent", Utils.getDeviceName()")
                 .addHeader("applicationId", BuildConfig.APPLICATION_ID)
                 .addHeader("app_version", BuildConfig.VERSION_NAME)
