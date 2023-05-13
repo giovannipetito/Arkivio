@@ -2,7 +2,6 @@ package it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging
 
 import it.giovanni.arkivio.App.Companion.context
 import it.giovanni.arkivio.BuildConfig
-import it.giovanni.arkivio.utils.Config
 import okhttp3.Cache
 import okhttp3.CacheControl
 import okhttp3.Interceptor

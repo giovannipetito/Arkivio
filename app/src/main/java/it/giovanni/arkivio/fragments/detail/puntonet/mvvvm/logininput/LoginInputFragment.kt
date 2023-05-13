@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import com.airbnb.paris.extensions.style
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.LoginInputLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
@@ -118,6 +119,15 @@ class LoginInputFragment : DetailFragment() {
 
         binding?.buttonLoginResult?.setOnClickListener {
             currentActivity.openDetail(Globals.MVVM_LOGIN_RESULT, null)
+        }
+
+        if (isDarkMode) {
+            binding?.buttonLogin?.style(R.style.ButtonNormalDarkMode)
+            binding?.buttonLoginResult?.style(R.style.ButtonNormalDarkMode)
+        }
+        else {
+            binding?.buttonLogin?.style(R.style.ButtonNormalLightMode)
+            binding?.buttonLoginResult?.style(R.style.ButtonNormalLightMode)
         }
     }
 

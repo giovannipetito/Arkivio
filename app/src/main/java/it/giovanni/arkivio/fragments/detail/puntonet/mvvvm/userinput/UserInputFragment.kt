@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import com.airbnb.paris.extensions.style
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.UserInputLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
@@ -89,6 +90,13 @@ class UserInputFragment : DetailFragment() {
 
         viewModel.result.observe(viewLifecycleOwner) { result ->
             binding?.labelResult?.text = result
+        }
+
+        if (isDarkMode) {
+            binding?.buttonCalculate?.style(R.style.ButtonNormalDarkMode)
+        }
+        else {
+            binding?.buttonCalculate?.style(R.style.ButtonNormalLightMode)
         }
     }
 

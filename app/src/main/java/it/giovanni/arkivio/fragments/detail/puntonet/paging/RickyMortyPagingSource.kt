@@ -33,17 +33,30 @@ class RickyMortyPagingSource : PagingSource<Int, RickMorty>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, RickMorty> {
 
         return try {
+            val data: List<RickMorty>
             val currentPage = params.key ?: 1
-            val response = AppModule.getCharacters(currentPage)
 
-            val responseData = mutableListOf<RickMorty>()
-            val data = response.body()?.results ?: emptyList()
-            responseData.addAll(data)
+            data = when (val result: Result<RickMortyResponse> = AppModule.getCharacters(currentPage)) {
+                is Result.Success<RickMortyResponse> -> {
+                    result.data.results
+                }
+
+                is Result.Error -> {
+                    // todo: show error message
+                    result.message
+                    result.statusCode
+
+                    emptyList()
+                }
+            }
+
+            val mutableListOfRickMorty = mutableListOf<RickMorty>()
+            mutableListOfRickMorty.addAll(data)
 
             LoadResult.Page(
-                data = responseData,
-                prevKey = if (currentPage == 1) null else -1,
-                nextKey = currentPage.plus(1)
+                data = mutableListOfRickMorty,
+                prevKey = if (currentPage == 1) null else currentPage.minus(1),
+                nextKey = if (data.isEmpty()) null else currentPage.plus(1)
             )
         } catch (e: Exception) {
             LoadResult.Error(e)

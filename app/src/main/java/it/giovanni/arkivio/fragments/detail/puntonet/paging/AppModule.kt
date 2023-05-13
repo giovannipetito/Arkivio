@@ -8,7 +8,6 @@ import okhttp3.CacheControl
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
@@ -64,7 +63,12 @@ object AppModule {
         return retrofit.create(ApiService::class.java)
     }
 
-    suspend fun getCharacters(page: Int): Response<RickMortyResponse> {
-        return createApiService().getAllCharacters(page)
+    suspend fun getCharacters(page: Int): Result<RickMortyResponse> {
+        return try {
+            val response = createApiService().getAllCharacters(page)
+            Result.Success(response)
+        } catch (e: Exception) {
+            Result.Error(e.localizedMessage)
+        }
     }
 }
