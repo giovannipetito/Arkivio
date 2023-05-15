@@ -437,6 +437,9 @@ class MainActivity : BaseActivity(), IProgressLoader {
             Globals.MVVM_USERS -> {
                 baseFragment = MvvmUsersFragment()
             }
+            Globals.COROUTINE -> {
+                baseFragment = CoroutineFragment()
+            }
             Globals.COROUTINE_BASICS -> {
                 baseFragment = CoroutineBasicsFragment()
             }

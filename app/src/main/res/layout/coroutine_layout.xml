@@ -22,7 +22,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/puntonet_title"
+            android:text="@string/coroutine_title"
             android:textSize="21sp"
             android:textColor="@{temp.labelColor}"
             android:textAlignment="center"
@@ -39,33 +39,11 @@
             tools:background="@color/colorPrimary" />
 
         <TextView
-            android:id="@+id/label_arklib"
+            android:id="@+id/label_coroutine_basics"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="@{temp.labelColor}"
-            android:textAlignment="center"
-            tools:text="@string/arklib_title"
-            tools:textColor="@color/colorPrimary" />
-
-        <View
-            android:layout_width="120dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="@{temp.labelColor}"
-            android:layout_gravity="center"
-            android:alpha=".4"
-            tools:background="@color/colorPrimary" />
-
-        <TextView
-            android:id="@+id/label_navigation_component"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:text="@string/navigation_component_title"
+            android:text="@string/coroutine_basics_title"
             android:textSize="16sp"
             android:textColor="@{temp.labelColor}"
             android:textAlignment="center"
@@ -82,11 +60,11 @@
             tools:background="@color/colorPrimary" />
 
         <TextView
-            android:id="@+id/label_user_input"
+            android:id="@+id/label_coroutine_scopes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="@string/user_input_title"
+            android:text="@string/coroutine_scopes_title"
             android:textSize="16sp"
             android:textColor="@{temp.labelColor}"
             android:textAlignment="center"
@@ -103,11 +81,11 @@
             tools:background="@color/colorPrimary" />
 
         <TextView
-            android:id="@+id/label_login_input"
+            android:id="@+id/label_coroutine_jobs_cancellation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="@string/login_input_title"
+            android:text="@string/coroutine_jobs_cancellation_title"
             android:textSize="16sp"
             android:textColor="@{temp.labelColor}"
             android:textAlignment="center"
@@ -124,11 +102,11 @@
             tools:background="@color/colorPrimary" />
 
         <TextView
-            android:id="@+id/label_mvvm_users"
+            android:id="@+id/label_coroutine_run_blocking"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="@string/mvvm_users_title"
+            android:text="@string/coroutine_run_blocking_title"
             android:textSize="16sp"
             android:textColor="@{temp.labelColor}"
             android:textAlignment="center"
@@ -145,11 +123,11 @@
             tools:background="@color/colorPrimary" />
 
         <TextView
-            android:id="@+id/label_coroutine"
+            android:id="@+id/label_coroutine_values"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="@string/coroutine_title"
+            android:text="@string/coroutine_values_title"
             android:textSize="16sp"
             android:textColor="@{temp.labelColor}"
             android:textAlignment="center"
@@ -166,32 +144,11 @@
             tools:background="@color/colorPrimary" />
 
         <TextView
-            android:id="@+id/label_paging"
+            android:id="@+id/label_coroutine_channels"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="@string/paging_title"
-            android:textSize="16sp"
-            android:textColor="@{temp.labelColor}"
-            android:textAlignment="center"
-            tools:textColor="@color/colorPrimary" />
-
-        <View
-            android:layout_width="120dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="@{temp.labelColor}"
-            android:layout_gravity="center"
-            android:alpha=".4"
-            tools:background="@color/colorPrimary" />
-
-        <TextView
-            android:id="@+id/label_users_home"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:text="@string/users_home_title"
+            android:text="@string/coroutine_channels_title"
             android:textSize="16sp"
             android:textColor="@{temp.labelColor}"
             android:textAlignment="center"

@@ -340,6 +340,7 @@
     <string name="mvvm_users_title">MVVM Users</string>
 
     <!-- COROUTINES -->
+    <string name="coroutine_title">Coroutines</string>
     <string name="coroutine_basics_title">Coroutine Basics</string>
     <string name="coroutine_scopes_title">Coroutine Scopes</string>
     <string name="coroutine_jobs_cancellation_title">Coroutine Jobs &amp; Cancellation</string>
