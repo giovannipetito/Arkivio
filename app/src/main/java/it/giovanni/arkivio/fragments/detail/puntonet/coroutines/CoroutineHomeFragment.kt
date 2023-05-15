@@ -1,26 +1,23 @@
-package it.giovanni.arkivio.fragments.detail.puntonet
+package it.giovanni.arkivio.fragments.detail.puntonet.coroutines
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import it.giovanni.archive.Toaster
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.activities.NavigationActivity
-import it.giovanni.arkivio.databinding.PuntonetLayoutBinding
+import it.giovanni.arkivio.databinding.CoroutineHomeLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.Globals
 
-class PuntoNetFragment : DetailFragment() {
+class CoroutineHomeFragment : DetailFragment() {
 
-    private var layoutBinding: PuntonetLayoutBinding? = null
+    private var layoutBinding: CoroutineHomeLayoutBinding? = null
     private val binding get() = layoutBinding
 
     override fun getTitle(): Int {
-        return R.string.puntonet_title
+        return R.string.coroutine_home_title
     }
 
     override fun getActionTitle(): Int {
@@ -54,7 +51,7 @@ class PuntoNetFragment : DetailFragment() {
     }
 
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
-        layoutBinding = PuntonetLayoutBinding.inflate(inflater, container, false)
+        layoutBinding = CoroutineHomeLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this, requireContext())
         val model = DarkModeModel(requireContext())
@@ -67,31 +64,23 @@ class PuntoNetFragment : DetailFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding?.labelArklib?.text = Toaster.getMessage()
-
-        binding?.labelNavigationComponent?.setOnClickListener {
-            startActivity(Intent(context, NavigationActivity::class.java))
+        binding?.labelCoroutineBasics?.setOnClickListener {
+            currentActivity.openDetail(Globals.COROUTINE_BASICS, null)
         }
-        binding?.labelUserInput?.setOnClickListener {
-            currentActivity.openDetail(Globals.MVVM_USER_INPUT, null)
+        binding?.labelCoroutineScopes?.setOnClickListener {
+            currentActivity.openDetail(Globals.COROUTINE_SCOPES, null)
         }
-        binding?.labelLoginInput?.setOnClickListener {
-            currentActivity.openDetail(Globals.MVVM_LOGIN, null)
+        binding?.labelCoroutineJobsCancellation?.setOnClickListener {
+            currentActivity.openDetail(Globals.COROUTINE_JOBS_CANCELLATION, null)
         }
-        binding?.labelMvvmUsers?.setOnClickListener {
-            currentActivity.openDetail(Globals.MVVM_USERS, null)
+        binding?.labelCoroutineRunBlocking?.setOnClickListener {
+            currentActivity.openDetail(Globals.COROUTINE_RUN_BLOCKING, null)
         }
-        binding?.labelCoroutineHome?.setOnClickListener {
-            currentActivity.openDetail(Globals.COROUTINE_HOME, null)
+        binding?.labelCoroutineValues?.setOnClickListener {
+            currentActivity.openDetail(Globals.COROUTINE_VALUES, null)
         }
-        binding?.labelPaging?.setOnClickListener {
-            currentActivity.openDetail(Globals.PAGING, null)
-        }
-        binding?.labelUsersHome?.setOnClickListener {
-            currentActivity.openDetail(Globals.USERS_HOME, null)
-        }
-        binding?.labelRxHome?.setOnClickListener {
-            currentActivity.openDetail(Globals.RX_HOME, null)
+        binding?.labelCoroutineChannels?.setOnClickListener {
+            currentActivity.openDetail(Globals.COROUTINE_CHANNELS, null)
         }
     }
 

@@ -102,8 +102,8 @@ dependencies {
     kapt 'androidx.lifecycle:lifecycle-common-java8:2.6.1'
 
     // Coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'
 
     // Lifecycle Coroutines
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
@@ -120,9 +120,9 @@ dependencies {
     implementation 'com.google.android.material:material:1.9.0'
 
     // Dagger
-    implementation 'com.google.dagger:dagger:2.46'
-    kapt 'com.google.dagger:dagger-compiler:2.46'
-    kapt 'com.google.dagger:dagger-android-processor:2.46'
+    implementation 'com.google.dagger:dagger:2.46.1'
+    kapt 'com.google.dagger:dagger-compiler:2.46.1'
+    kapt 'com.google.dagger:dagger-android-processor:2.46.1'
 
     // Navigation Component
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
@@ -159,8 +159,9 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.7'
     implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.7'
 
-    // rxandroid
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    // Reactive Extensions
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.21' // RxJava
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1' // RxAndroid
 
     // Volley
     implementation 'com.android.volley:volley:1.2.1'

@@ -19,16 +19,17 @@
         android:focusable="true">
 
         <TextView
+            android:id="@+id/label_rx"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginStart="@dimen/dimen_24dp"
             android:layout_marginEnd="@dimen/dimen_24dp"
             android:textAlignment="center"
-            android:text="@string/coroutine_scopes_title"
             android:textSize="24sp"
             android:textColor="@{temp.labelColor}"
-            tools:textColor="@color/colorPrimary" />
+            tools:textColor="@color/colorPrimary"
+            tools:text="@string/rx_home_title" />
 
     </RelativeLayout>
 

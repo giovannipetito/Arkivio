@@ -58,6 +58,11 @@ import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.logininput.LoginResul
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.userinput.UserInputFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.users.MvvmUsersFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.paging.RickMortyFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxExample1Fragment
+import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxExample2Fragment
+import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxExample3Fragment
+import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxExample4Fragment
+import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxHomeFragment
 import it.giovanni.arkivio.fragments.detail.stickyheader.StickyHeaderFragment
 import it.giovanni.arkivio.utils.Globals
 import it.giovanni.arkivio.utils.UserFactory
@@ -437,8 +442,8 @@ class MainActivity : BaseActivity(), IProgressLoader {
             Globals.MVVM_USERS -> {
                 baseFragment = MvvmUsersFragment()
             }
-            Globals.COROUTINE -> {
-                baseFragment = CoroutineFragment()
+            Globals.COROUTINE_HOME -> {
+                baseFragment = CoroutineHomeFragment()
             }
             Globals.COROUTINE_BASICS -> {
                 baseFragment = CoroutineBasicsFragment()
@@ -472,6 +477,21 @@ class MainActivity : BaseActivity(), IProgressLoader {
             }
             Globals.USERS_DETAIL -> {
                 baseFragment = UsersDetailFragment()
+            }
+            Globals.RX_HOME -> {
+                baseFragment = RxHomeFragment()
+            }
+            Globals.RX_EXAMPLE1 -> {
+                baseFragment = RxExample1Fragment()
+            }
+            Globals.RX_EXAMPLE2 -> {
+                baseFragment = RxExample2Fragment()
+            }
+            Globals.RX_EXAMPLE3 -> {
+                baseFragment = RxExample3Fragment()
+            }
+            Globals.RX_EXAMPLE4 -> {
+                baseFragment = RxExample4Fragment()
             }
         }
 

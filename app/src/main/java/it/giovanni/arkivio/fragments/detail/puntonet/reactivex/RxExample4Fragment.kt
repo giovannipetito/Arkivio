@@ -1,23 +1,22 @@
-package it.giovanni.arkivio.fragments.detail.puntonet.coroutines
+package it.giovanni.arkivio.fragments.detail.puntonet.reactivex
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.databinding.CoroutineLayoutBinding
+import it.giovanni.arkivio.databinding.RxExampleLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
-import it.giovanni.arkivio.utils.Globals
 
-class CoroutineFragment : DetailFragment() {
+class RxExample4Fragment : DetailFragment() {
 
-    private var layoutBinding: CoroutineLayoutBinding? = null
+    private var layoutBinding: RxExampleLayoutBinding? = null
     private val binding get() = layoutBinding
 
     override fun getTitle(): Int {
-        return R.string.coroutine_title
+        return R.string.rx_example4_title
     }
 
     override fun getActionTitle(): Int {
@@ -51,7 +50,7 @@ class CoroutineFragment : DetailFragment() {
     }
 
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
-        layoutBinding = CoroutineLayoutBinding.inflate(inflater, container, false)
+        layoutBinding = RxExampleLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this, requireContext())
         val model = DarkModeModel(requireContext())
@@ -63,25 +62,6 @@ class CoroutineFragment : DetailFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding?.labelCoroutineBasics?.setOnClickListener {
-            currentActivity.openDetail(Globals.COROUTINE_BASICS, null)
-        }
-        binding?.labelCoroutineScopes?.setOnClickListener {
-            currentActivity.openDetail(Globals.COROUTINE_SCOPES, null)
-        }
-        binding?.labelCoroutineJobsCancellation?.setOnClickListener {
-            currentActivity.openDetail(Globals.COROUTINE_JOBS_CANCELLATION, null)
-        }
-        binding?.labelCoroutineRunBlocking?.setOnClickListener {
-            currentActivity.openDetail(Globals.COROUTINE_RUN_BLOCKING, null)
-        }
-        binding?.labelCoroutineValues?.setOnClickListener {
-            currentActivity.openDetail(Globals.COROUTINE_VALUES, null)
-        }
-        binding?.labelCoroutineChannels?.setOnClickListener {
-            currentActivity.openDetail(Globals.COROUTINE_CHANNELS, null)
-        }
     }
 
     override fun onDestroyView() {

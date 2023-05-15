@@ -340,7 +340,7 @@
     <string name="mvvm_users_title">MVVM Users</string>
 
     <!-- COROUTINES -->
-    <string name="coroutine_title">Coroutines</string>
+    <string name="coroutine_home_title">Coroutines</string>
     <string name="coroutine_basics_title">Coroutine Basics</string>
     <string name="coroutine_scopes_title">Coroutine Scopes</string>
     <string name="coroutine_jobs_cancellation_title">Coroutine Jobs &amp; Cancellation</string>
@@ -360,8 +360,15 @@
     <string name="edit_job">Add job</string>
     <string name="footer_error">Error! Tap to retry.</string>
 
-    <!-- PAGINATION -->
+    <!-- PAGING -->
     <string name="paging_title">Paging</string>
+
+    <!-- RXJAVA & RXANDROID -->
+    <string name="rx_home_title">RxJava &amp; RxAndroid</string>
+    <string name="rx_example1_title">1</string>
+    <string name="rx_example2_title">2</string>
+    <string name="rx_example3_title">3</string>
+    <string name="rx_example4_title">4</string>
 
     <!-- MACHINE LEARNING -->
     <string name="machine_learning_title">Machine Learning</string>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -17,25 +18,17 @@
         android:clickable="true"
         android:focusable="true">
 
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen_24dp"
-                android:layout_marginEnd="@dimen/dimen_24dp"
-                android:layout_marginTop="@dimen/dimen_12dp"
-                android:layout_marginBottom="@dimen/dimen_12dp"
-                android:textAlignment="center"
-                android:text="@string/coroutine_channels_title"
-                android:textSize="24sp"
-                android:textColor="@color/colorPrimary" />
-
-        </LinearLayout>
+            android:layout_marginStart="@dimen/dimen_24dp"
+            android:layout_marginEnd="@dimen/dimen_24dp"
+            android:textAlignment="center"
+            android:text="@string/coroutine_channels_title"
+            android:textSize="24sp"
+            android:textColor="@{temp.labelColor}"
+            tools:textColor="@color/colorPrimary" />
 
     </RelativeLayout>
 

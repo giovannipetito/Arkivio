@@ -22,7 +22,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/coroutine_title"
+            android:text="@string/coroutine_home_title"
             android:textSize="21sp"
             android:textColor="@{temp.labelColor}"
             android:textAlignment="center"
