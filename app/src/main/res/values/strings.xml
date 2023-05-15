@@ -365,10 +365,10 @@
 
     <!-- RXJAVA & RXANDROID -->
     <string name="rx_home_title">RxJava &amp; RxAndroid</string>
-    <string name="rx_example1_title">1</string>
-    <string name="rx_example2_title">2</string>
-    <string name="rx_example3_title">3</string>
-    <string name="rx_example4_title">4</string>
+    <string name="rx_example1_title">Observable, Observer, Disposable</string>
+    <string name="rx_example2_title">filter()</string>
+    <string name="rx_example3_title">Multiple Observers &amp; CompositeDisposable</string>
+    <string name="rx_example4_title">Custom Data Type &amp; Operators</string>
 
     <!-- MACHINE LEARNING -->
     <string name="machine_learning_title">Machine Learning</string>
