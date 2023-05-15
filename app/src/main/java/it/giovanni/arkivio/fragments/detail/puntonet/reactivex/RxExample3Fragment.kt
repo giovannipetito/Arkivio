@@ -17,11 +17,17 @@ import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import java.util.Locale
 
+/**
+ * This class demonstrates how to create multiple observables, apply operators such as filter and map
+ * to transform and filter the emitted items, and manage subscriptions using a CompositeDisposable.
+ */
 class RxExample3Fragment : DetailFragment() {
 
     private var layoutBinding: RxExampleLayoutBinding? = null
     private val binding get() = layoutBinding
 
+    // disposable is an instance of CompositeDisposable, which is used to hold multiple disposables
+    // and dispose of them together.
     private val disposable = CompositeDisposable()
 
     private var message: String? = ""
@@ -74,12 +80,17 @@ class RxExample3Fragment : DetailFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val animalsObservable = getAnimalsObservable()
+        val animalsObservable: Observable<String> = getAnimalsObservable()
 
-        val animalsObserver = getAnimalsObserver()
+        val animalsObserver: DisposableObserver<String> = getAnimalsObserver()
 
-        val capitalAnimalsObserver: DisposableObserver<String> = getCapitalAnimalsObserver()
+        val capitalAnimalsObserver: DisposableObserver<String> = getAnimalsObserver()
 
+        // The disposable.add(...) method is used to add disposables to the CompositeDisposable for
+        // proper management of subscriptions.
+
+        // This block subscribes to animalsObservable, filters the items starting with the letter
+        // "b", and subscribes with animalsObserver.
         disposable.add(animalsObservable
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -88,9 +99,11 @@ class RxExample3Fragment : DetailFragment() {
                     Locale.getDefault()
                 ).startsWith("b")
             }
-            .subscribeWith(animalsObserver)
+            .subscribeWith(animalsObserver) // Operator used to subscribe to an observable and attach a specific observer to it.
         )
 
+        // This block subscribes to animalsObservable, filters the items starting with the letter
+        // "c", maps them to uppercase, and subscribes with capitalAnimalsObserver.
         disposable.add(animalsObservable
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -133,28 +146,6 @@ class RxExample3Fragment : DetailFragment() {
             override fun onComplete() {
                 val onCompleteMessage = "All items are emitted!"
                 message = message + onCompleteMessage + "\n"
-                binding?.labelRx?.text = message
-                Log.d("[RX]", "onCompleteMessage: $onCompleteMessage")
-            }
-        }
-    }
-
-    private fun getCapitalAnimalsObserver(): DisposableObserver<String> {
-
-        return object : DisposableObserver<String>() {
-
-            override fun onNext(name: String) {
-                message = message + name + "\n"
-                Log.d("[RX]", "Name: $name")
-            }
-
-            override fun onError(error: Throwable) {
-                Log.e("[RX]", "onError: " + error.message)
-            }
-
-            override fun onComplete() {
-                val onCompleteMessage = "All items are emitted!"
-                message += onCompleteMessage
                 binding?.labelRx?.text = message
                 Log.d("[RX]", "onCompleteMessage: $onCompleteMessage")
             }

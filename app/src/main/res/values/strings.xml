@@ -366,7 +366,7 @@
     <!-- RXJAVA & RXANDROID -->
     <string name="rx_home_title">RxJava &amp; RxAndroid</string>
     <string name="rx_example1_title">Observable, Observer, Disposable</string>
-    <string name="rx_example2_title">filter()</string>
+    <string name="rx_example2_title">filter operator</string>
     <string name="rx_example3_title">Multiple Observers &amp; CompositeDisposable</string>
     <string name="rx_example4_title">Custom Data Type &amp; Operators</string>
 

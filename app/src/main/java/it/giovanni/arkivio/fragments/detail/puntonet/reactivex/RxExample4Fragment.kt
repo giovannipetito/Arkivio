@@ -18,6 +18,11 @@ import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import java.util.Locale
 
+/**
+ * This class demonstrates how to transform emitted items using the map operator. It creates an
+ * Observable from a list of items and emits them one by one. Each emitted item is then transformed
+ * by converting the text to uppercase using map.
+ */
 class RxExample4Fragment : DetailFragment() {
 
     private var layoutBinding: RxExampleLayoutBinding? = null
@@ -90,6 +95,9 @@ class RxExample4Fragment : DetailFragment() {
         )
     }
 
+    // This function creates an Observable using Observable.create that emits individual Note objects
+    // from a list of Note items. It iterates through the list and calls onNext for each note. Finally,
+    // it calls onComplete to indicate the completion of emissions.
     private fun getNotesObservable(): Observable<Note> {
         val notes: List<Note> = getNotes()
         return Observable.create { emitter: ObservableEmitter<Note> ->
@@ -104,6 +112,7 @@ class RxExample4Fragment : DetailFragment() {
         }
     }
 
+    // This function returns a DisposableObserver implementation that handles the emitted Note objects.
     private fun getNotesObserver(): DisposableObserver<Note> {
         return object :
             DisposableObserver<Note>() {
@@ -129,10 +138,10 @@ class RxExample4Fragment : DetailFragment() {
 
     private fun getNotes(): List<Note> {
         val notes: MutableList<Note> = ArrayList()
-        notes.add(Note(1, "Buy tooth paste"))
+        notes.add(Note(1, "Wash the floor"))
         notes.add(Note(2, "Call mom"))
-        notes.add(Note(3, "Watch The Walking Dead tonight"))
-        notes.add(Note(4, "Pay power bill"))
+        notes.add(Note(3, "Prepare dinner"))
+        notes.add(Note(4, "Watch TV"))
         return notes
     }
 

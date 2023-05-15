@@ -17,6 +17,10 @@ import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import java.util.Locale
 
+/**
+ * This class demonstrates how to create an observable that emits a sequence of animal names
+ * and apply the filter operator to filter out items that meet a specific condition.
+ */
 class RxExample2Fragment : DetailFragment() {
 
     private var layoutBinding: RxExampleLayoutBinding? = null
@@ -78,6 +82,9 @@ class RxExample2Fragment : DetailFragment() {
 
         val observer: Observer<String> = getAnimalsObserver()
 
+        // The filter operator is applied to the observable and filters out only the items that
+        // satisfy the given condition. In this case, it checks if the lowercase version of the
+        // string starts with the letter "b". The filtered items are passed down the observable chain.
         observable
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -88,6 +95,7 @@ class RxExample2Fragment : DetailFragment() {
             .subscribe(observer)
     }
 
+    // This function returns an Observable that emits a sequence of animal names using Observable.fromArray().
     private fun getAnimalsObservable(): Observable<String> {
         return Observable.fromArray(
             "Ant", "Ape",
