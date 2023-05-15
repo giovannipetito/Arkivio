@@ -63,12 +63,7 @@ object AppModule {
         return retrofit.create(ApiService::class.java)
     }
 
-    suspend fun getCharacters(page: Int): Result<RickMortyResponse> {
-        return try {
-            val response = createApiService().getAllCharacters(page)
-            Result.Success(response)
-        } catch (e: Exception) {
-            Result.Error(e.localizedMessage)
-        }
+    suspend fun getCharacters(page: Int): RickMortyResponse {
+        return createApiService().getAllCharacters(page)
     }
 }

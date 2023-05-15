@@ -357,6 +357,7 @@
     <string name="button_add_user">Add User (@POST)</string>
     <string name="edit_name">Add name</string>
     <string name="edit_job">Add job</string>
+    <string name="footer_error">Error! Tap to retry.</string>
 
     <!-- PAGINATION -->
     <string name="paging_title">Paging</string>

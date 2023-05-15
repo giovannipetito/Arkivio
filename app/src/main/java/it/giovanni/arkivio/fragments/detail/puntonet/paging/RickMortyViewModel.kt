@@ -3,10 +3,12 @@ package it.giovanni.arkivio.fragments.detail.puntonet.paging
 import androidx.lifecycle.*
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import kotlinx.coroutines.flow.Flow
 
 /**
- * La classe PagingViewModel è un ViewModel che usa le classi Pager e PagingConfig della libreria
+ * La classe RickMortyViewModel è un ViewModel che usa le classi Pager e PagingConfig della libreria
  * AndroidX Paging per fornire un flusso di oggetti PagingData ai suoi osservatori.
  *
  * La proprietà listData è un flusso di oggetti PagingData<RickMorty>, che possono essere osservati
@@ -23,10 +25,16 @@ import androidx.paging.cachedIn
  * è possibile che questa funzione possa essere sottoposta a refactoring per utilizzare invece il
  * parametro apiService.
  */
-class PagingViewModel /* constructor(private val apiService: ApiService) */ : ViewModel() {
+class RickMortyViewModel /* constructor(private val apiService: ApiService) */ : ViewModel() {
 
-    val listData = Pager(PagingConfig(pageSize = 1)) {
-        RickyMortyPagingSource(/* apiService */)
+    fun getDataFlow(): Flow<PagingData<RickMorty>> {
 
-    }.flow.cachedIn(viewModelScope)
+        val dataFlow: Flow<PagingData<RickMorty>> = Pager(PagingConfig(pageSize = 1)) {
+
+            RickyMortyPagingSource(/* apiService */)
+
+        }.flow.cachedIn(viewModelScope)
+
+        return dataFlow
+    }
 }

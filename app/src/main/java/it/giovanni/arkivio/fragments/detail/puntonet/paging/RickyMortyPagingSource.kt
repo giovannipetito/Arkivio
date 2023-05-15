@@ -2,6 +2,8 @@ package it.giovanni.arkivio.fragments.detail.puntonet.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import retrofit2.HttpException
+import java.io.IOException
 
 /**
  * Questa è una classe che estende la classe astratta PagingSource, che è un componente chiave
@@ -33,37 +35,26 @@ class RickyMortyPagingSource : PagingSource<Int, RickMorty>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, RickMorty> {
 
         return try {
-            val data: List<RickMorty>
             val currentPage = params.key ?: 1
-
-            data = when (val result: Result<RickMortyResponse> = AppModule.getCharacters(currentPage)) {
-                is Result.Success<RickMortyResponse> -> {
-                    result.data.results
-                }
-
-                is Result.Error -> {
-                    // todo: show error message
-                    result.message
-                    result.statusCode
-
-                    emptyList()
-                }
-            }
+            val response: RickMortyResponse = AppModule.getCharacters(currentPage)
 
             val mutableListOfRickMorty = mutableListOf<RickMorty>()
-            mutableListOfRickMorty.addAll(data)
+            mutableListOfRickMorty.addAll(response.results)
 
             LoadResult.Page(
                 data = mutableListOfRickMorty,
                 prevKey = if (currentPage == 1) null else currentPage.minus(1),
-                nextKey = if (data.isEmpty()) null else currentPage.plus(1)
+                nextKey = if (response.results.isEmpty()) null else currentPage.plus(1)
             )
-        } catch (e: Exception) {
-            LoadResult.Error(e)
+        } catch (exception: IOException) {
+            val error = IOException("Please Check Internet Connection")
+            LoadResult.Error(error)
+        } catch (exception: HttpException) {
+            LoadResult.Error(exception)
         }
     }
 
     override fun getRefreshKey(state: PagingState<Int, RickMorty>): Int? {
-        return null
+        return state.anchorPosition
     }
 }

@@ -57,7 +57,7 @@ import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.logininput.LoginInput
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.logininput.LoginResultFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.userinput.UserInputFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.users.MvvmUsersFragment
-import it.giovanni.arkivio.fragments.detail.puntonet.paging.PagingFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.paging.RickMortyFragment
 import it.giovanni.arkivio.fragments.detail.stickyheader.StickyHeaderFragment
 import it.giovanni.arkivio.utils.Globals
 import it.giovanni.arkivio.utils.UserFactory
@@ -456,7 +456,7 @@ class MainActivity : BaseActivity(), IProgressLoader {
                 baseFragment = CoroutineChannelsFragment()
             }
             Globals.PAGING -> {
-                baseFragment = PagingFragment()
+                baseFragment = RickMortyFragment()
             }
             Globals.USERS_HOME -> {
                 baseFragment = UsersHomeFragment()

@@ -4,26 +4,33 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.databinding.PagingLayoutBinding
+import it.giovanni.arkivio.databinding.RickMortyLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.SharedPreferencesManager
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class PagingFragment : DetailFragment() {
+class RickMortyFragment : DetailFragment() {
 
-    private var layoutBinding: PagingLayoutBinding? = null
+    private var layoutBinding: RickMortyLayoutBinding? = null
     private val binding get() = layoutBinding
 
+    private lateinit var viewModel: RickMortyViewModel
+
     private lateinit var characterAdapter: CharacterAdapter
-    private lateinit var viewModel: PagingViewModel
+
+    private var job: Job? = null
 
     override fun getTitle(): Int {
         return R.string.paging_title
@@ -60,7 +67,7 @@ class PagingFragment : DetailFragment() {
     }
 
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
-        layoutBinding = PagingLayoutBinding.inflate(inflater, container, false)
+        layoutBinding = RickMortyLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this, requireContext())
         val model = DarkModeModel(requireContext())
@@ -75,20 +82,57 @@ class PagingFragment : DetailFragment() {
 
         isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
 
-        viewModel = ViewModelProvider(requireActivity())[PagingViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[RickMortyViewModel::class.java]
 
-        setupRecyclerView()
+        setupAdapter()
         loadData()
+
+        binding?.includeErrorSmile?.errorSmile?.setOnClickListener {
+            characterAdapter.refresh()
+        }
     }
 
-    private fun setupRecyclerView() {
+    private fun setupAdapter() {
 
-        characterAdapter = CharacterAdapter()
+        characterAdapter = CharacterAdapter {
+            onItemClicked(it)
+        }
 
         binding?.pagingRecyclerView?.apply {
-            adapter = characterAdapter
             layoutManager = LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
             setHasFixedSize(true)
+        }
+
+        binding?.pagingRecyclerView?.adapter = characterAdapter.withLoadStateFooter(
+            footer = FooterAdapter {
+                retry()
+            }
+        )
+
+        characterAdapter.addLoadStateListener { loadState ->
+                if (loadState.refresh is LoadState.Loading) {
+                    if (characterAdapter.snapshot().isEmpty()) {
+                        showProgressDialog()
+                    }
+                    binding?.includeErrorSmile?.errorSmile?.visibility = View.GONE
+                } else {
+                    hideProgressDialog()
+
+                    val error = when {
+                        loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
+                        loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+                        loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+
+                        else -> null
+                    }
+                    error?.let {
+                        if (characterAdapter.snapshot().isEmpty()) {
+                            binding?.includeErrorSmile?.errorSmile?.visibility = View.VISIBLE
+                            binding?.includeErrorSmile?.errorMessageSmile?.text = it.error.localizedMessage
+                        }
+                    }
+                }
+
         }
     }
 
@@ -104,12 +148,21 @@ class PagingFragment : DetailFragment() {
      * Quindi, chiama la funzione submitData di characterAdapter con i dati come argomento.
      */
     private fun loadData() {
-        lifecycleScope.launch {
-            viewModel.listData.collect {
-                val data: PagingData<RickMorty> = it
-                characterAdapter.submitData(data)
+        job?.cancel()
+        job = lifecycleScope.launch {
+            viewModel.getDataFlow().collectLatest {
+                val pagingData: PagingData<RickMorty> = it
+                characterAdapter.submitData(pagingData)
             }
         }
+    }
+
+    private fun retry() {
+        characterAdapter.retry()
+    }
+
+    private fun onItemClicked(rickMorty: RickMorty) {
+        Toast.makeText(requireContext(), rickMorty.name, Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {
