@@ -77,7 +77,7 @@ class RxExample1Fragment : DetailFragment() {
 
         loadData()
 
-        viewModel.message.observe(viewLifecycleOwner) {
+        viewModel.message1.observe(viewLifecycleOwner) {
             binding?.labelRx?.text = it
         }
     }
@@ -88,10 +88,10 @@ class RxExample1Fragment : DetailFragment() {
       UI in modo da poter eseguire qualsiasi azione relativa alla UI.
     */
     private fun loadData() {
-        viewModel.observable
+        viewModel.getAnimalsObservable()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(viewModel.observer)
+            .subscribe(viewModel.getAnimalsObserver(1))
     }
 
     // This method is called when the fragment's view is destroyed. It clears the layoutBinding

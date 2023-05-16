@@ -1,15 +1,12 @@
 package it.giovanni.arkivio.fragments.detail.puntonet.reactivex
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.reactivex.Observable
-import io.reactivex.ObservableEmitter
+import androidx.lifecycle.ViewModelProvider
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.RxExampleLayoutBinding
@@ -28,9 +25,9 @@ class RxExample4Fragment : DetailFragment() {
     private var layoutBinding: RxExampleLayoutBinding? = null
     private val binding get() = layoutBinding
 
-    private val disposable = CompositeDisposable()
+    private lateinit var viewModel: RxViewModel
 
-    private var message: String? = ""
+    private val compositeDisposable = CompositeDisposable()
 
     override fun getTitle(): Int {
         return R.string.rx_example4_title
@@ -80,76 +77,31 @@ class RxExample4Fragment : DetailFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        disposable.add(
-            getNotesObservable()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map { note: Note ->
+        viewModel = ViewModelProvider(requireActivity())[RxViewModel::class.java]
 
-                    note.note = note.note.uppercase(Locale.getDefault())
+        getNotes()
 
-                    // return
-                    note
-                }
-                .subscribeWith(getNotesObserver())
+        viewModel.message4.observe(viewLifecycleOwner) {
+            binding?.labelRx?.text = it
+        }
+    }
+
+    private fun getNotes() {
+        compositeDisposable.add(viewModel.getNotesObservable()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map { note: RxViewModel.Note ->
+                note.note = note.note.uppercase(Locale.getDefault())
+                // return
+                note
+            }
+            .subscribeWith(viewModel.getNotesDisposableObserver())
         )
     }
-
-    // This function creates an Observable using Observable.create that emits individual Note objects
-    // from a list of Note items. It iterates through the list and calls onNext for each note. Finally,
-    // it calls onComplete to indicate the completion of emissions.
-    private fun getNotesObservable(): Observable<Note> {
-        val notes: List<Note> = getNotes()
-        return Observable.create { emitter: ObservableEmitter<Note> ->
-            for (note in notes) {
-                if (!emitter.isDisposed) {
-                    emitter.onNext(note)
-                }
-            }
-            if (!emitter.isDisposed) {
-                emitter.onComplete()
-            }
-        }
-    }
-
-    // This function returns a DisposableObserver implementation that handles the emitted Note objects.
-    private fun getNotesObserver(): DisposableObserver<Note> {
-        return object :
-            DisposableObserver<Note>() {
-            override fun onNext(note: Note) {
-
-                message = message + note.note + "\n"
-
-                Log.d("[RX]", "Note: " + note.note)
-            }
-
-            override fun onError(error: Throwable) {
-                Log.e("[RX]", "onError: " + error.message)
-            }
-
-            override fun onComplete() {
-                val onCompleteMessage = "All notes are emitted!"
-                message += onCompleteMessage
-                binding?.labelRx?.text = message
-                Log.d("[RX]", "onCompleteMessage: $onCompleteMessage")
-            }
-        }
-    }
-
-    private fun getNotes(): List<Note> {
-        val notes: MutableList<Note> = ArrayList()
-        notes.add(Note(1, "Wash the floor"))
-        notes.add(Note(2, "Call mom"))
-        notes.add(Note(3, "Prepare dinner"))
-        notes.add(Note(4, "Watch TV"))
-        return notes
-    }
-
-    internal class Note(var id: Int, var note: String)
 
     override fun onDestroyView() {
         super.onDestroyView()
         layoutBinding = null
-        disposable.dispose()
+        compositeDisposable.dispose()
     }
 }

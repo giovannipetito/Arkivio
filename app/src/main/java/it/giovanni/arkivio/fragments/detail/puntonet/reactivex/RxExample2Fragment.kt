@@ -77,7 +77,7 @@ class RxExample2Fragment : DetailFragment() {
 
         loadFilteredData()
 
-        viewModel.message.observe(viewLifecycleOwner) {
+        viewModel.message2.observe(viewLifecycleOwner) {
             binding?.labelRx?.text = it
         }
     }
@@ -88,14 +88,14 @@ class RxExample2Fragment : DetailFragment() {
       with the letter "b". The filtered items are passed down the observable chain.
     */
     private fun loadFilteredData() {
-        viewModel.observable
+        viewModel.getAnimalsObservable()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .filter { string: String ->
-                Log.i("RX", "string: $string")
+                Log.i("[RX]", "string: $string")
                 string.lowercase().startsWith("b")
             }
-            .subscribe(viewModel.observer)
+            .subscribe(viewModel.getAnimalsObserver(2))
     }
 
     override fun onDestroyView() {

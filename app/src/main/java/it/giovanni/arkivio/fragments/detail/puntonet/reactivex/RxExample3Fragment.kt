@@ -5,10 +5,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.reactivex.Observable
+import androidx.lifecycle.ViewModelProvider
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.RxExampleLayoutBinding
@@ -26,11 +25,11 @@ class RxExample3Fragment : DetailFragment() {
     private var layoutBinding: RxExampleLayoutBinding? = null
     private val binding get() = layoutBinding
 
-    // disposable is an instance of CompositeDisposable, which is used to hold multiple disposables
-    // and dispose of them together.
-    private val disposable = CompositeDisposable()
+    private lateinit var viewModel: RxViewModel
 
-    private var message: String? = ""
+    // compositeDisposable is an instance of CompositeDisposable, which is used to hold multiple
+    // disposables and dispose of them together.
+    private val compositeDisposable = CompositeDisposable()
 
     override fun getTitle(): Int {
         return R.string.rx_example3_title
@@ -80,18 +79,24 @@ class RxExample3Fragment : DetailFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val animalsObservable: Observable<String> = getAnimalsObservable()
+        viewModel = ViewModelProvider(requireActivity())[RxViewModel::class.java]
 
-        val animalsObserver: DisposableObserver<String> = getAnimalsObserver()
+        loadFilteredData()
 
-        val capitalAnimalsObserver: DisposableObserver<String> = getAnimalsObserver()
+        loadFilteredMappedData()
 
-        // The disposable.add(...) method is used to add disposables to the CompositeDisposable for
-        // proper management of subscriptions.
+        viewModel.message3.observe(viewLifecycleOwner) {
+            binding?.labelRx?.text = it
+        }
+    }
 
-        // This block subscribes to animalsObservable, filters the items starting with the letter
-        // "b", and subscribes with animalsObserver.
-        disposable.add(animalsObservable
+    private fun loadFilteredData() {
+        // The compositeDisposable.add(...) method is used to add disposables to the
+        // CompositeDisposable for proper management of subscriptions.
+
+        // This block subscribes to getAnimalsObservable(), filters the items starting with the letter
+        // "b", and subscribes with getAnimalsDisposableObserver().
+        compositeDisposable.add(viewModel.getAnimalsObservable()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .filter { string: String ->
@@ -99,12 +104,14 @@ class RxExample3Fragment : DetailFragment() {
                     Locale.getDefault()
                 ).startsWith("b")
             }
-            .subscribeWith(animalsObserver) // Operator used to subscribe to an observable and attach a specific observer to it.
+            .subscribeWith(viewModel.getAnimalsDisposableObserver()) // Operator used to subscribe to an observable and attach a specific observer to it.
         )
+    }
 
-        // This block subscribes to animalsObservable, filters the items starting with the letter
-        // "c", maps them to uppercase, and subscribes with capitalAnimalsObserver.
-        disposable.add(animalsObservable
+    private fun loadFilteredMappedData() {
+        // This block subscribes to getAnimalsObservable(), filters the items starting with the letter
+        // "c", maps them to uppercase, and subscribes with getAnimalsDisposableObserver().
+        compositeDisposable.add(viewModel.getAnimalsObservable()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .filter { string: String ->
@@ -116,45 +123,13 @@ class RxExample3Fragment : DetailFragment() {
                 Log.i("[RX]", "string: $string")
                 string.uppercase(Locale.getDefault())
             }
-            .subscribeWith(capitalAnimalsObserver)
+            .subscribeWith(viewModel.getAnimalsDisposableObserver())
         )
-    }
-
-    private fun getAnimalsObservable(): Observable<String> {
-        return Observable.fromArray(
-            "Ant", "Ape",
-            "Bat", "Bee", "Bear", "Butterfly",
-            "Cat", "Crab", "Cod",
-            "Dog", "Dove",
-            "Fox", "Frog"
-        )
-    }
-
-    private fun getAnimalsObserver(): DisposableObserver<String> {
-
-        return object : DisposableObserver<String>() {
-
-            override fun onNext(name: String) {
-                message = message + name + "\n"
-                Log.d("[RX]", "Name: $name")
-            }
-
-            override fun onError(error: Throwable) {
-                Log.e("[RX]", "onError: " + error.message)
-            }
-
-            override fun onComplete() {
-                val onCompleteMessage = "All items are emitted!"
-                message = message + onCompleteMessage + "\n"
-                binding?.labelRx?.text = message
-                Log.d("[RX]", "onCompleteMessage: $onCompleteMessage")
-            }
-        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         layoutBinding = null
-        disposable.dispose()
+        compositeDisposable.dispose()
     }
 }
