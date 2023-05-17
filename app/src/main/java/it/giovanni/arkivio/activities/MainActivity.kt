@@ -63,6 +63,7 @@ import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxExample2Fragmen
 import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxExample3Fragment
 import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxExample4Fragment
 import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxHomeFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxRetrofitFragment
 import it.giovanni.arkivio.fragments.detail.stickyheader.StickyHeaderFragment
 import it.giovanni.arkivio.utils.Globals
 import it.giovanni.arkivio.utils.UserFactory
@@ -492,6 +493,9 @@ class MainActivity : BaseActivity(), IProgressLoader {
             }
             Globals.RX_EXAMPLE4 -> {
                 baseFragment = RxExample4Fragment()
+            }
+            Globals.RX_RETROFIT -> {
+                baseFragment = RxRetrofitFragment()
             }
         }
 

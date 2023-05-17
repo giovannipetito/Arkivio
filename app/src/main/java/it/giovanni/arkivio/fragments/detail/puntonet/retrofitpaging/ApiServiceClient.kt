@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit
  * getListUsers dell'interfaccia ApiService e restituisce la response come oggetto Result.
  *
  * - La keyword companion object viene usata per definire un oggetto singleton che ha lo stesso nome
- *   nome della classe che lo contiene (ApiServiceFactory). È possibile accedere a questo oggetto
+ *   nome della classe che lo contiene (ApiServiceClient). È possibile accedere a questo oggetto
  *   dall'esterno della classe senza creare un'istanza della classe e si può accedere direttamente
  *   ai suoi membri come se fossero membri statici della classe in Java.
  * - loggingInterceptor è un'istanza di HttpLoggingInterceptor che logga i dati di request e
@@ -42,7 +42,7 @@ import java.util.concurrent.TimeUnit
  *   ApiService e restituisce la response come oggetto Result. Se viene generata un'eccezione durante
  *   la chiamata API, la funzione restituisce un risultato Error con il messaggio di errore localizzato.
  */
-object ApiServiceFactory {
+object ApiServiceClient {
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
@@ -95,8 +95,8 @@ object ApiServiceFactory {
 
     suspend fun getUsers(page: Int): Result<UsersResponse> {
         return try {
-            val listUsersResponse = createApiService().getUsers(page)
-            Result.Success(listUsersResponse)
+            val usersResponse: UsersResponse = createApiService().getUsers(page)
+            Result.Success(usersResponse)
         } catch (e: Exception) {
             Result.Error(e.localizedMessage)
         }
@@ -104,7 +104,7 @@ object ApiServiceFactory {
 
     suspend fun addUser(user: User): Result<UserResponse> {
         return try {
-            val userResponse = createApiService().addUser(user)
+            val userResponse: UserResponse = createApiService().addUser(user)
             Result.Success(userResponse)
         } catch (e: Exception) {
             Result.Error(e.localizedMessage)

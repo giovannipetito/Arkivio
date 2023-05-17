@@ -57,6 +57,7 @@ class Globals {
         var RX_EXAMPLE2 = "RX_EXAMPLE2"
         var RX_EXAMPLE3 = "RX_EXAMPLE3"
         var RX_EXAMPLE4 = "RX_EXAMPLE4"
+        var RX_RETROFIT = "RX_RETROFIT"
 
         // BACK INTENT KEY PARAMS
         var BACK_PARAM_KEY_USER_SEARCH = "BACK_PARAM_KEY_USER_SEARCH"

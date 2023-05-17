@@ -369,6 +369,7 @@
     <string name="rx_example2_title">filter operator</string>
     <string name="rx_example3_title">Multiple Observers &amp; CompositeDisposable</string>
     <string name="rx_example4_title">Custom Data Type &amp; Operators</string>
+    <string name="rx_retrofit_title">RxJava Retrofit</string>
 
     <!-- MACHINE LEARNING -->
     <string name="machine_learning_title">Machine Learning</string>

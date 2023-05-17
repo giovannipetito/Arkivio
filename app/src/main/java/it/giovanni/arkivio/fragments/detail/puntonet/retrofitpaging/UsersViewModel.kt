@@ -28,7 +28,7 @@ import kotlinx.coroutines.launch
  * ciclo di vita del ViewModel e annulla automaticamente tutte le coroutine quando il ViewModel non
  * è più in uso.
  *
- * All'interno della coroutine, chiama il metodo ApiServiceFactory.getListUsers(page) per recuperare i
+ * All'interno della coroutine, chiama il metodo ApiServiceClient.getListUsers(page) per recuperare i
  * dati dall'API. Questo metodo restituisce un oggetto Result, che può essere un'istanza Success o Error.
  *
  * Se il risultato è un'istanza Success, mappa l'elenco di users in un elenco di UserDataItem
@@ -60,7 +60,7 @@ class UsersViewModel : ViewModel() {
         get() = _usersDataItem
 
     private val _users: MutableLiveData<List<Data>> = MutableLiveData<List<Data>>()
-    val listSer: LiveData<List<Data>>
+    val users: LiveData<List<Data>>
         get() = _users
 
     val _user: MutableLiveData<User> = MutableLiveData<User>()
@@ -76,7 +76,7 @@ class UsersViewModel : ViewModel() {
      */
     fun fetchUsers(page: Int) {
         viewModelScope.launch {
-            when (val result: Result<UsersResponse> = ApiServiceFactory.getUsers(page)) {
+            when (val result: Result<UsersResponse> = ApiServiceClient.getUsers(page)) {
                 is Result.Success<UsersResponse> -> {
 
                     result.data.data?.let {
@@ -106,7 +106,7 @@ class UsersViewModel : ViewModel() {
      */
     fun addUser(user: User) {
         viewModelScope.launch {
-            when (val result = ApiServiceFactory.addUser(user)) {
+            when (val result = ApiServiceClient.addUser(user)) {
                 is Result.Success<UserResponse> -> {
 
                     val info = "name: " + result.data.name + "\n" +

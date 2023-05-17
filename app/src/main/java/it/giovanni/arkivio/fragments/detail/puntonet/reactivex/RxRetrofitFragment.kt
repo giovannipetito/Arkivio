@@ -4,20 +4,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.databinding.RxHomeLayoutBinding
+import it.giovanni.arkivio.databinding.RxRetrofitLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging.Data
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
-import it.giovanni.arkivio.utils.Globals
 
-class RxHomeFragment : DetailFragment() {
+class RxRetrofitFragment : DetailFragment(), UsersAdapter.OnItemViewClicked {
 
-    private var layoutBinding: RxHomeLayoutBinding? = null
+    private var layoutBinding: RxRetrofitLayoutBinding? = null
     private val binding get() = layoutBinding
 
+    private lateinit var viewModel: RxRetrofitViewModel
+
+    private lateinit var adapter: UsersAdapter
+
     override fun getTitle(): Int {
-        return R.string.rx_home_title
+        return R.string.rx_retrofit_title
     }
 
     override fun getActionTitle(): Int {
@@ -51,7 +58,7 @@ class RxHomeFragment : DetailFragment() {
     }
 
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
-        layoutBinding = RxHomeLayoutBinding.inflate(inflater, container, false)
+        layoutBinding = RxRetrofitLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this, requireContext())
         val model = DarkModeModel(requireContext())
@@ -64,25 +71,35 @@ class RxHomeFragment : DetailFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding?.labelRxExample1?.setOnClickListener {
-            currentActivity.openDetail(Globals.RX_EXAMPLE1, null)
+        viewModel = ViewModelProvider(requireActivity())[RxRetrofitViewModel::class.java]
+
+        setupAdapter()
+
+        showProgressDialog()
+        viewModel.fetchUsersV1(0)
+
+        viewModel.users.observe(viewLifecycleOwner) { list ->
+            hideProgressDialog()
+            adapter.setList(list)
+            adapter.notifyItemChanged(0)
+            adapter.notifyDataSetChanged()
         }
-        binding?.labelRxExample2?.setOnClickListener {
-            currentActivity.openDetail(Globals.RX_EXAMPLE2, null)
-        }
-        binding?.labelRxExample3?.setOnClickListener {
-            currentActivity.openDetail(Globals.RX_EXAMPLE3, null)
-        }
-        binding?.labelRxExample4?.setOnClickListener {
-            currentActivity.openDetail(Globals.RX_EXAMPLE4, null)
-        }
-        binding?.labelRxRetrofit?.setOnClickListener {
-            currentActivity.openDetail(Globals.RX_RETROFIT, null)
-        }
+    }
+
+    private fun setupAdapter() {
+        adapter = UsersAdapter(this)
+        binding?.rxRetrofitRecyclerView?.setHasFixedSize(true)
+        binding?.rxRetrofitRecyclerView?.layoutManager = LinearLayoutManager(activity)
+        binding?.rxRetrofitRecyclerView?.adapter = adapter
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         layoutBinding = null
+        viewModel.disposable?.dispose()
+    }
+
+    override fun onItemInfoClicked(user: Data) {
+        Toast.makeText(requireContext(), user.email, Toast.LENGTH_SHORT).show()
     }
 }

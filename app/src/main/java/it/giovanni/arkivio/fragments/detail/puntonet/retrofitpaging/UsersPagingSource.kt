@@ -36,7 +36,7 @@ class UsersPagingSource : PagingSource<Int, Data>() {
             val data: List<Data>
             val currentPage = params.key ?: 1
 
-            data = when (val result: Result<UsersResponse> = ApiServiceFactory.getUsers(currentPage)) {
+            data = when (val result: Result<UsersResponse> = ApiServiceClient.getUsers(currentPage)) {
                 is Result.Success<UsersResponse> -> {
                     result.data.data ?: emptyList()
                 }
