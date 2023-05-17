@@ -85,14 +85,16 @@ object ApiServiceClient {
         return retrofit.create(ApiService::class.java)
     }
 
+    // Lascia la gestione di Success/Error a RxJava2
     fun getUsersV1(page: Int): Single<UsersResponse> {
         val response: Single<UsersResponse> = createApiService().getUsers(page)
         return response
     }
 
+    // Lascia la gestione di Success/Error a Result
     fun getUsersV2(page: Int): Result<Single<UsersResponse>> {
         return try {
-            val response = createApiService().getUsers(page)
+            val response: Single<UsersResponse> = createApiService().getUsers(page)
             Result.Success(response)
         } catch (e: Exception) {
             Result.Error(e.localizedMessage)

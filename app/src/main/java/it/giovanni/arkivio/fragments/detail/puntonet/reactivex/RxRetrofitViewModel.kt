@@ -35,7 +35,8 @@ class RxRetrofitViewModel : ViewModel() {
         disposable = observable
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ response ->
+            .subscribe(
+                { response ->
                 _users.postValue(response.data)
             }, { error ->
                 Log.e("[RX]", "error: " + error.message)

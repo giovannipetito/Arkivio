@@ -83,9 +83,9 @@ class RxExample2Fragment : DetailFragment() {
     }
 
     /*
-    - The filter operator is applied to the observable and filters out only the items that satisfy
-      the given condition. In this case, it checks if the lowercase version of the string starts
-      with the letter "b". The filtered items are passed down the observable chain.
+    The filter operator is applied to the observable and filters out only the items that satisfy
+    the given condition. In this case, it checks if the lowercase version of the string starts
+    with the letter "b". The filtered items are passed down the observable chain.
     */
     private fun loadFilteredData() {
         viewModel.getAnimalsObservable()
@@ -94,6 +94,11 @@ class RxExample2Fragment : DetailFragment() {
             .filter { string: String ->
                 Log.i("[RX]", "string: $string")
                 string.lowercase().startsWith("b")
+                string.lowercase().startsWith("c")
+            }
+            .filter { string: String ->
+                Log.i("[RX]", "string: $string")
+                string.lowercase().endsWith("a")
             }
             .subscribe(viewModel.getAnimalsObserver(2))
     }
