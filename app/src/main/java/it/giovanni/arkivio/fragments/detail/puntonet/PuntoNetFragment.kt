@@ -93,6 +93,9 @@ class PuntoNetFragment : DetailFragment() {
         binding?.labelRxHome?.setOnClickListener {
             currentActivity.openDetail(Globals.RX_HOME, null)
         }
+        binding?.labelDependencyInjection?.setOnClickListener {
+            currentActivity.openDetail(Globals.DEPENDENCY_INJECTION, null)
+        }
     }
 
     override fun onDestroyView() {

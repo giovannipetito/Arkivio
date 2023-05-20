@@ -49,6 +49,7 @@ import it.giovanni.arkivio.fragments.detail.notification.NotificationHomeFragmen
 import it.giovanni.arkivio.fragments.detail.permissions.PermissionsFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.PuntoNetFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.coroutines.*
+import it.giovanni.arkivio.fragments.detail.puntonet.dependencyinjection.DependencyInjectionFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging.UsersFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging.UsersDetailFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging.UsersHomeFragment
@@ -496,6 +497,9 @@ class MainActivity : BaseActivity(), IProgressLoader {
             }
             Globals.RX_RETROFIT -> {
                 baseFragment = RxRetrofitFragment()
+            }
+            Globals.DEPENDENCY_INJECTION -> {
+                baseFragment = DependencyInjectionFragment()
             }
         }
 

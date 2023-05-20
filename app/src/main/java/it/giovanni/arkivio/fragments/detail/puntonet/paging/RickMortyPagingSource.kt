@@ -9,7 +9,7 @@ import java.io.IOException
  * Questa è una classe che estende la classe astratta PagingSource, che è un componente chiave
  * della libreria Paging3 in Android.
  *
- * RickyMortyPagingSource recupera i dati da un'API in modo impaginato. Il metodo load viene
+ * RickMortyPagingSource recupera i dati da un'API in modo impaginato. Il metodo load viene
  * chiamato ogni volta che RecyclerView necessita di più dati da visualizzare e accetta un
  * oggetto LoadParams come argomento, che contiene informazioni sullo stato di caricamento
  * corrente (come il numero di pagina).
@@ -30,7 +30,7 @@ import java.io.IOException
  * Qui viene implementato anche il metodo getRefreshKey, che in questo caso restituisce null,
  * indicando che non è necessario aggiornare i dati.
  */
-class RickyMortyPagingSource : PagingSource<Int, RickMorty>() {
+class RickMortyPagingSource : PagingSource<Int, RickMorty>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, RickMorty> {
 
