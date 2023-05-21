@@ -18,7 +18,7 @@ abstract class HomeFragment : BaseFragment(SectionType.HOME), IDarkMode.View {
 
         layoutBinding = HomeLayoutBinding.inflate(inflater, container, false)
 
-        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val darkModePresenter = DarkModePresenter(this)
         val model = DarkModeModel(requireContext())
         binding?.temp = model
         binding?.presenter = darkModePresenter

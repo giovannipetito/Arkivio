@@ -54,7 +54,7 @@ class DateFragment : DetailFragment() {
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
         layoutBinding = DateLayoutBinding.inflate(inflater, container, false)
 
-        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val darkModePresenter = DarkModePresenter(this)
         val model = DarkModeModel(requireContext())
         binding?.presenter = darkModePresenter
         binding?.temp = model

@@ -45,7 +45,7 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
 
         layoutBinding = DetailLayoutBinding.inflate(inflater, container, false)
 
-        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val darkModePresenter = DarkModePresenter(this)
         val model = DarkModeModel(requireContext())
         detailLayoutBinding?.temp = model
         detailLayoutBinding?.presenter = darkModePresenter

@@ -1,7 +1,6 @@
 package it.giovanni.arkivio.fragments.detail.puntonet.dependencyinjection
 
 import android.util.Log
-import javax.inject.Inject
 
 /**
  * DEPENDENCY INJECTION
@@ -15,7 +14,7 @@ import javax.inject.Inject
  * all your different objects that your code needs allowing you to focus on writing the code that
  * does the work. So, a class does require references to other classes to work.
 
- * With the NoInjection class implementation, the classes PC and Motherboard are tightly coupled and
+ * With the Standard class implementation, the classes PC and Motherboard are tightly coupled and
  * no subclasses or alternative implementations can easily be used, so that's where the Dependency
  * Injection comes in. With DI we can change the code by removing the instance of the Motherboard
  * class from the PC class itself and moving that class inside the constructor instead. That way,
@@ -31,10 +30,9 @@ import javax.inject.Inject
  *   so the CI is not possible. And that's where FI comes into play.
  */
 
-object Injection {
+object ConstructorInjection {
 
-    @Inject
-    fun main(): String? {
+    fun main(): String {
         val asusMotherboard = AsusMotherboard()
         val fakeMotherboard = FakeMotherboard()
 
@@ -43,8 +41,8 @@ object Injection {
     }
 
     class PC(private val motherBoard: Motherboard? = null) {
-        fun start(): String? {
-            return motherBoard?.powerOn()
+        fun start(): String {
+            return motherBoard?.powerOn()!!
         }
     }
 

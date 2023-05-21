@@ -52,7 +52,7 @@ class DependencyInjectionFragment : DetailFragment() {
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
         layoutBinding = DependencyInjectionLayoutBinding.inflate(inflater, container, false)
 
-        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val darkModePresenter = DarkModePresenter(this)
         val model = DarkModeModel(requireContext())
         binding?.presenter = darkModePresenter
         binding?.temp = model
@@ -63,8 +63,9 @@ class DependencyInjectionFragment : DetailFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding?.labelNoInjection?.text = NoInjection.main()
-        binding?.labelInjection?.text = Injection.main()
+        binding?.labelStandard?.text = Standard.main()
+        binding?.labelConstructorInjection?.text = ConstructorInjection.main()
+        // binding?.labelFieldInjection?.text = FieldInjection().main()
     }
 
     override fun onDestroyView() {

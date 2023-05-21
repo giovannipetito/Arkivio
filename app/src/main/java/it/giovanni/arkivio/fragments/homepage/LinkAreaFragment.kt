@@ -60,7 +60,7 @@ class LinkAreaFragment : HomeFragment() {
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
         layoutBinding = LinkAreaLayoutBinding.inflate(inflater, container, false)
 
-        val darkModePresenter = DarkModePresenter(this, requireContext())
+        val darkModePresenter = DarkModePresenter(this)
         val model = DarkModeModel(requireContext())
         linkAreaLayoutBinding?.presenter = darkModePresenter
         linkAreaLayoutBinding?.temp = model

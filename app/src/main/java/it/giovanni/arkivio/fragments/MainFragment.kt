@@ -104,7 +104,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
 
         view = binding?.root
 
-        darkModePresenter = DarkModePresenter(this, requireContext())
+        darkModePresenter = DarkModePresenter(this)
         model = DarkModeModel(requireContext())
         binding?.temp = model
         binding?.presenter = darkModePresenter

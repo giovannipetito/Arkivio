@@ -17,7 +17,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/label_no_injection"
+            android:id="@+id/label_standard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -28,10 +28,22 @@
             tools:text="@string/dependency_injection_title" />
 
         <TextView
-            android:id="@+id/label_injection"
+            android:id="@+id/label_constructor_injection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/label_no_injection"
+            android:layout_below="@+id/label_standard"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/dimen_24dp"
+            android:textSize="24sp"
+            android:textColor="@{temp.labelColor}"
+            tools:textColor="@color/colorPrimary"
+            tools:text="@string/dependency_injection_title" />
+
+        <TextView
+            android:id="@+id/label_field_injection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/label_constructor_injection"
             android:layout_centerHorizontal="true"
             android:layout_margin="@dimen/dimen_24dp"
             android:textSize="24sp"

@@ -2,7 +2,7 @@ package it.giovanni.arkivio.fragments.detail.puntonet.dependencyinjection
 
 import android.util.Log
 
-object NoInjection {
+object Standard {
 
     fun main(): String {
         val pc = PC()
