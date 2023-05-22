@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -11,17 +12,26 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging.Data
 import it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging.UsersResponse
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class DIViewModel @Inject constructor(private val apiService: ApiService) : ViewModel() {
 
-    var disposable: Disposable? = null
+    // var disposable: Disposable? = null
 
     private val _users: MutableLiveData<List<Data>> = MutableLiveData<List<Data>>()
     val users: LiveData<List<Data>>
         get() = _users
 
+    fun fetchUsers(page: Int) {
+        viewModelScope.launch {
+            val response: UsersResponse = apiService.getUsers(page)
+            _users.postValue(response.data)
+        }
+    }
+
+    /*
     fun fetchUsers(page: Int) {
 
         val observable: Single<UsersResponse> = apiService.getUsers(page)
@@ -36,4 +46,5 @@ class DIViewModel @Inject constructor(private val apiService: ApiService) : View
                 Log.e("[RX]", "error: " + error.message)
             })
     }
+    */
 }

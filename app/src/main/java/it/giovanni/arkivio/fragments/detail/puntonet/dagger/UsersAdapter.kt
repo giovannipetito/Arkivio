@@ -12,9 +12,9 @@ import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.UserCardBinding
 import it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging.Data
 
-class UsersAdapter(/* onItemClicked: OnItemViewClicked */) : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
+class UsersAdapter(onItemClicked: OnItemViewClicked) : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
 
-    // private var onItemViewClicked : OnItemViewClicked? = onItemClicked
+    private var onItemViewClicked : OnItemViewClicked? = onItemClicked
     private var users : List<Data>? = null
 
     fun setList(list: List<Data>?) {
@@ -37,11 +37,9 @@ class UsersAdapter(/* onItemClicked: OnItemViewClicked */) : RecyclerView.Adapte
             .load(imageUrl)
             .into(holder.avatar)
 
-        /*
         holder.userCard.setOnClickListener {
             onItemViewClicked?.onItemInfoClicked(user)
         }
-        */
     }
 
     override fun getItemViewType(position: Int): Int {

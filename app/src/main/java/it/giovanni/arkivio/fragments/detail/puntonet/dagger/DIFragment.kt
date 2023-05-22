@@ -5,9 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import dagger.hilt.android.AndroidEntryPoint
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.RxRetrofitLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
@@ -15,7 +13,7 @@ import it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging.Data
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 
-class DIFragment : DetailFragment() /* UsersAdapter.OnItemViewClicked */ {
+class DIFragment : DetailFragment(), UsersAdapter.OnItemViewClicked {
 
     private var layoutBinding: RxRetrofitLayoutBinding? = null
     private val binding get() = layoutBinding
@@ -89,7 +87,7 @@ class DIFragment : DetailFragment() /* UsersAdapter.OnItemViewClicked */ {
     }
 
     private fun setupAdapter() {
-        adapter = UsersAdapter()
+        adapter = UsersAdapter(this)
         binding?.rxRetrofitRecyclerView?.setHasFixedSize(true)
         binding?.rxRetrofitRecyclerView?.layoutManager = LinearLayoutManager(activity)
         binding?.rxRetrofitRecyclerView?.adapter = adapter
@@ -98,12 +96,10 @@ class DIFragment : DetailFragment() /* UsersAdapter.OnItemViewClicked */ {
     override fun onDestroyView() {
         super.onDestroyView()
         layoutBinding = null
-        currentActivity.viewModel.disposable?.dispose()
+        // currentActivity.viewModel.disposable?.dispose()
     }
 
-    /*
     override fun onItemInfoClicked(user: Data) {
         Toast.makeText(requireContext(), user.email, Toast.LENGTH_SHORT).show()
     }
-    */
 }
