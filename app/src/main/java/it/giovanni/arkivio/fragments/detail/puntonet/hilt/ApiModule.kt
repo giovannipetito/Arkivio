@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.puntonet.dagger
+package it.giovanni.arkivio.fragments.detail.puntonet.hilt
 
 import dagger.Module
 import dagger.Provides
@@ -18,9 +18,17 @@ import java.io.File
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
+/**
+ * La classe ApiModule è un modulo Dagger che fornisce dipendenze per le richieste network di
+ * un'applicazione Android usando Retrofit e OkHttp.
+ * - L'annotazione @Module indica che questa classe è un modulo Dagger.
+ * - L'annotazione @InstallIn(SingletonComponent::class) specifica che il modulo deve essere
+ *   installato in SingletonComponent, che è il componente Hilt per le dipendenze con ambito singleton.
+ * - I metodi annotati con @Provides forniscono le diverse dipendenze.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
-object ApiModule {
+class ApiModule {
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
@@ -46,6 +54,11 @@ object ApiModule {
     }
     */
 
+    /**
+     * provideCache() crea e fornisce un'istanza della classe Cache dalla libreria OkHttp. Specifica
+     * la dimensione della cache e la directory in cui verranno archiviate le response memorizzate
+     * nella cache.
+     */
     @Provides
     @Singleton
     fun provideCache(): Cache {
@@ -54,8 +67,15 @@ object ApiModule {
         return Cache(cacheDirectory, cacheSize.toLong())
     }
 
-    @Singleton
+    /**
+     * provideOkHttpClient() crea e fornisce un'istanza della classe OkHttpClient dalla libreria
+     * OkHttp. Configura vari interceptor e header, come l'interceptor della cache, l'interceptor
+     * di rete e header di request aggiuntive. LoggingInterceptor registra la request e la response
+     * HTTP a scopo di debug. La condizione if (BuildConfig.DEBUG) garantisce che l'interceptor di
+     * log venga aggiunto solo nelle build di debug.
+     */
     @Provides
+    @Singleton
     fun provideOkHttpClient(cache: Cache): OkHttpClient {
         val builder = OkHttpClient.Builder()
             .addNetworkInterceptor(cacheInterceptor)
@@ -80,6 +100,11 @@ object ApiModule {
         return builder.build()
     }
 
+    /**
+     * provideRetrofit() crea e fornisce un'istanza della classe Retrofit. Specifica la Base URL per
+     * l'API, l'istanza OkHttpClient da utilizzare per le richieste di rete e GsonConverterFactory
+     * per convertire le response JSON in oggetti.
+     */
     @Provides
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
@@ -90,6 +115,10 @@ object ApiModule {
             .build()
     }
 
+    /**
+     * provideApiService() crea e fornisce un'istanza dell'interfaccia ApiService.
+     * Utilizza l'istanza Retrofit per creare un'implementazione dell'interfaccia.
+     */
     @Provides
     @Singleton
     fun provideApiService(retrofit: Retrofit): ApiService {

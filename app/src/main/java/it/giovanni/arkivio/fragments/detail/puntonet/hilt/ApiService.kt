@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.puntonet.dagger
+package it.giovanni.arkivio.fragments.detail.puntonet.hilt
 
 import io.reactivex.Single
 import it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging.UsersResponse

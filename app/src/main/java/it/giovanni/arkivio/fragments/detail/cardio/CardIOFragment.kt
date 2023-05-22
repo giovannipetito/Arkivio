@@ -33,7 +33,7 @@ class CardIOFragment : DetailFragment(), AppCompatSpinnerCustom.OnSpinnerEventsL
     private val binding get() = layoutBinding
 
     private var creditCard: CreditCard? = null
-    private var cardType : CardType? = null
+    private var cardType: CardType? = null
     private var cardTypeImage: Bitmap? = null
     private var cardInfo: String? = null
     private var unblurredDigits: Int? = null

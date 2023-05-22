@@ -250,11 +250,11 @@
             tools:background="@color/colorPrimary" />
 
         <TextView
-            android:id="@+id/label_dagger"
+            android:id="@+id/label_dagger_hilt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="@string/dagger_title"
+            android:text="@string/dagger_hilt_title"
             android:textSize="16sp"
             android:textColor="@{temp.labelColor}"
             android:textAlignment="center"

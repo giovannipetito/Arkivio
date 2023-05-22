@@ -96,8 +96,8 @@ class PuntoNetFragment : DetailFragment() {
         binding?.labelDependencyInjection?.setOnClickListener {
             currentActivity.openDetail(Globals.DEPENDENCY_INJECTION, null)
         }
-        binding?.labelDagger?.setOnClickListener {
-            currentActivity.openDetail(Globals.DAGGER, null)
+        binding?.labelDaggerHilt?.setOnClickListener {
+            currentActivity.openDetail(Globals.DAGGER_HILT, null)
         }
     }
 

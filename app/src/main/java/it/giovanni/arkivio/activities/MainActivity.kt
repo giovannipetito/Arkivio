@@ -51,8 +51,8 @@ import it.giovanni.arkivio.fragments.detail.notification.NotificationHomeFragmen
 import it.giovanni.arkivio.fragments.detail.permissions.PermissionsFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.PuntoNetFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.coroutines.*
-import it.giovanni.arkivio.fragments.detail.puntonet.dagger.DIFragment
-import it.giovanni.arkivio.fragments.detail.puntonet.dagger.DIViewModel
+import it.giovanni.arkivio.fragments.detail.puntonet.hilt.HiltFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.hilt.HiltViewModel
 import it.giovanni.arkivio.fragments.detail.puntonet.dependencyinjection.DependencyInjectionFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging.UsersFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging.UsersDetailFragment
@@ -78,6 +78,14 @@ import it.giovanni.arkivio.viewinterfaces.IProgressLoader
 import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadDarkModeStateFromPreferences
 import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadRememberMeFromPreferences
 
+/**
+ * MainActivity è annotata con @AndroidEntryPoint, ciò indica che è idonea
+ * per l'inserimento di dipendenze (dependency injection) tramite Hilt.
+ *
+ * L'annotazione @AndroidEntryPoint è fornita da Hilt. Indica che MainActivity è un punto di
+ * ingresso per la dependency injection di Hilt. Questa annotazione consente a Hilt di generare
+ * il codice necessario per inserire le dipendenze in questa activity e nei fragment associati.
+ */
 @AndroidEntryPoint
 class MainActivity : BaseActivity(), IProgressLoader {
 
@@ -85,7 +93,7 @@ class MainActivity : BaseActivity(), IProgressLoader {
         var running = false
     }
 
-    val viewModel: DIViewModel by viewModels()
+    val viewModel: HiltViewModel by viewModels()
 
     private var layoutBinding: ActivityMainBinding? = null
     val binding: ActivityMainBinding? get() = layoutBinding
@@ -508,8 +516,8 @@ class MainActivity : BaseActivity(), IProgressLoader {
             Globals.DEPENDENCY_INJECTION -> {
                 baseFragment = DependencyInjectionFragment()
             }
-            Globals.DAGGER -> {
-                baseFragment = DIFragment()
+            Globals.DAGGER_HILT -> {
+                baseFragment = HiltFragment()
             }
         }
 

@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.puntonet.dagger
+package it.giovanni.arkivio.fragments.detail.puntonet.hilt
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,17 +13,17 @@ import it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging.Data
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 
-class DIFragment : DetailFragment(), UsersAdapter.OnItemViewClicked {
+class HiltFragment : DetailFragment(), UsersAdapter.OnItemViewClicked {
 
     private var layoutBinding: RxRetrofitLayoutBinding? = null
     private val binding get() = layoutBinding
 
-    // private val viewModel: DIViewModel by viewModels()
+    // private val viewModel: HiltViewModel by viewModels()
 
     private lateinit var adapter: UsersAdapter
 
     override fun getTitle(): Int {
-        return R.string.dagger_title
+        return R.string.dagger_hilt_title
     }
 
     override fun getActionTitle(): Int {
@@ -70,7 +70,7 @@ class DIFragment : DetailFragment(), UsersAdapter.OnItemViewClicked {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // viewModel = ViewModelProvider(requireActivity())[DIViewModel::class.java]
+        // viewModel = ViewModelProvider(requireActivity())[HiltViewModel::class.java]
 
         setupAdapter()
 

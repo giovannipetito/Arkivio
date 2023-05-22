@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.puntonet.dagger
+package it.giovanni.arkivio.fragments.detail.puntonet.hilt
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,10 +12,10 @@ import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.UserCardBinding
 import it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging.Data
 
-class UsersAdapter(onItemClicked: OnItemViewClicked) : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
+class UsersAdapter(onItemClicked: OnItemViewClicked): RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
 
-    private var onItemViewClicked : OnItemViewClicked? = onItemClicked
-    private var users : List<Data>? = null
+    private var onItemViewClicked: OnItemViewClicked? = onItemClicked
+    private var users: List<Data>? = null
 
     fun setList(list: List<Data>?) {
         users = list
@@ -28,7 +28,7 @@ class UsersAdapter(onItemClicked: OnItemViewClicked) : RecyclerView.Adapter<User
 
     override fun onBindViewHolder(holder: UsersViewHolder, position: Int) {
 
-        val user : Data = users!![position]
+        val user: Data = users!![position]
         holder.firstName.text = user.firstName
         holder.lastName.text = user.lastName
 
@@ -51,7 +51,7 @@ class UsersAdapter(onItemClicked: OnItemViewClicked) : RecyclerView.Adapter<User
         else users?.size!!
     }
 
-    inner class UsersViewHolder(userCardBinding: UserCardBinding) : RecyclerView.ViewHolder(userCardBinding.root) {
+    inner class UsersViewHolder(userCardBinding: UserCardBinding): RecyclerView.ViewHolder(userCardBinding.root) {
 
         internal var userCard: CardView = userCardBinding.userCard
         internal var firstName: TextView = userCardBinding.getPostUserFirstName
