@@ -26,7 +26,6 @@ import java.util.concurrent.TimeUnit
  * Ti consente di utilizzare i tipi reattivi di RxJava (Observable, Single, Completable, ecc.) come
  * tipi restituiti (return) per i tuoi metodi API.
  */
-
 object ApiServiceClient {
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
@@ -53,7 +52,7 @@ object ApiServiceClient {
         .addInterceptor { chain: Interceptor.Chain ->
             val newRequest = chain.request().newBuilder()
                 // .addHeader("x-rapidapi-key", BuildConfig.API_KEY)
-                .addHeader("x-rapidapi-host", "https://reqres.in")
+                .addHeader("x-rapidapi-host", BuildConfig.BASE_URL)
                 // .header("User-Agent", Utils.getDeviceName()")
                 .addHeader("applicationId", BuildConfig.APPLICATION_ID)
                 .addHeader("app_version", BuildConfig.VERSION_NAME)

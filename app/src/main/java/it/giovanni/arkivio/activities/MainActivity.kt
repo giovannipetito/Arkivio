@@ -16,9 +16,11 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import dagger.hilt.android.AndroidEntryPoint
 import it.giovanni.arkivio.*
 import it.giovanni.arkivio.App.Companion.context
 import it.giovanni.arkivio.databinding.ActivityMainBinding
@@ -49,6 +51,8 @@ import it.giovanni.arkivio.fragments.detail.notification.NotificationHomeFragmen
 import it.giovanni.arkivio.fragments.detail.permissions.PermissionsFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.PuntoNetFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.coroutines.*
+import it.giovanni.arkivio.fragments.detail.puntonet.dagger.DIFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.dagger.DIViewModel
 import it.giovanni.arkivio.fragments.detail.puntonet.dependencyinjection.DependencyInjectionFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging.UsersFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging.UsersDetailFragment
@@ -74,11 +78,14 @@ import it.giovanni.arkivio.viewinterfaces.IProgressLoader
 import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadDarkModeStateFromPreferences
 import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadRememberMeFromPreferences
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity(), IProgressLoader {
 
     companion object {
         var running = false
     }
+
+    val viewModel: DIViewModel by viewModels()
 
     private var layoutBinding: ActivityMainBinding? = null
     val binding: ActivityMainBinding? get() = layoutBinding
@@ -500,6 +507,9 @@ class MainActivity : BaseActivity(), IProgressLoader {
             }
             Globals.DEPENDENCY_INJECTION -> {
                 baseFragment = DependencyInjectionFragment()
+            }
+            Globals.DAGGER -> {
+                baseFragment = DIFragment()
             }
         }
 

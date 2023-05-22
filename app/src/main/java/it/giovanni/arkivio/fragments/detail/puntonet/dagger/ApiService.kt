@@ -1,0 +1,14 @@
+package it.giovanni.arkivio.fragments.detail.puntonet.dagger
+
+import io.reactivex.Single
+import it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging.UsersResponse
+import retrofit2.http.GET
+import retrofit2.http.Query
+
+interface ApiService {
+
+    @GET("/api/users")
+    fun getUsers(
+        @Query("page") page: Int,
+    ): Single<UsersResponse>
+}

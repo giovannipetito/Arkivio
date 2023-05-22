@@ -2,9 +2,11 @@ package it.giovanni.arkivio
 
 import android.app.Application
 import android.content.Context
+import dagger.hilt.android.HiltAndroidApp
 import it.giovanni.arkivio.persistence.UserPreferencesRepository
 import it.giovanni.arkivio.utils.Typekit
 
+@HiltAndroidApp
 class App : Application() {
 
     companion object {

@@ -52,7 +52,6 @@ import kotlinx.coroutines.launch
  * In questo caso, UsersPagingSource viene utilizzato come PagingSource. Questa classe estende
  * la classe PagingSource ed è responsabile del caricamento dei dati nel flusso PagingData.
  */
-
 class UsersViewModel : ViewModel() {
 
     private val _usersDataItem: MutableLiveData<List<UserDataItem>> = MutableLiveData<List<UserDataItem>>()

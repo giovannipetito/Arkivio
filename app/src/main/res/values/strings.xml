@@ -373,6 +373,7 @@
 
     <!-- DEPENDENCY INJECTION -->
     <string name="dependency_injection_title">Dependency Injection</string>
+    <string name="dagger_title">Dagger</string>
 
     <!-- MACHINE LEARNING -->
     <string name="machine_learning_title">Machine Learning</string>

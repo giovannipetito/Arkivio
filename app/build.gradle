@@ -2,10 +2,13 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-parcelize'
+    id 'kotlin-kapt'
     id 'com.google.devtools.ksp'
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'com.google.dagger.hilt.android'
+    // id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -76,9 +79,11 @@ android {
     }
 }
 
+/*
 repositories {
     mavenCentral()
 }
+*/
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
     kotlinOptions {
@@ -127,11 +132,11 @@ dependencies {
     // Material
     implementation 'com.google.android.material:material:1.9.0'
 
-    // Dagger 2 - Dependendcy Injection
-    implementation 'com.google.dagger:dagger:2.46.1'
-    implementation 'com.google.dagger:dagger-android-support:2.46.1'
-    ksp 'com.google.dagger:dagger-compiler:2.46.1'
-    ksp 'com.google.dagger:dagger-android-processor:2.46.1'
+    // Dependendcy Injection: Dagger Hilt
+    implementation 'com.google.dagger:hilt-android:2.46.1'
+    kapt 'com.google.dagger:hilt-android-compiler:2.46.1'
+    // implementation "com.google.dagger:hilt-android:2.44"
+    // kapt "com.google.dagger:hilt-compiler:2.44"
 
     // Navigation Component
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
@@ -145,14 +150,14 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:21.0.1'
     implementation 'com.google.android.gms:play-services-analytics:18.0.2'
 
-    // Import the BoM for the Firebase platform. When using the BoM, you don't specify versions in
-    // Firebase library dependencies
-    implementation platform('com.google.firebase:firebase-bom:32.0.0')
-    implementation 'com.loopj.android:android-async-http:1.4.11' // Firebase Realtime Database
+    // Firebase
     implementation 'com.google.firebase:firebase-database-ktx:20.2.1'
     implementation 'com.google.firebase:firebase-analytics-ktx:21.2.2'
     implementation 'com.google.firebase:firebase-messaging-ktx:23.1.2'
     implementation 'com.google.firebase:firebase-crashlytics-ktx:18.3.7'
+
+    // async-http
+    implementation 'com.loopj.android:android-async-http:1.4.11'
 
     // GSON
     implementation 'com.google.code.gson:gson:2.10.1'
@@ -193,9 +198,6 @@ dependencies {
     // Flexbox
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
 
-    // Blur View
-    // implementation 'com.github.mmin18:realtimeblurview:1.2.1'
-
     // Machine Learning
     implementation 'com.google.mlkit:face-detection:16.1.5'
     implementation 'com.google.android.gms:play-services-mlkit-text-recognition:19.0.0'
@@ -211,10 +213,13 @@ dependencies {
 
     // Test
     testImplementation 'junit:junit:4.13.2' // Libreria che gestisce gli unit test.
-    testImplementation 'org.hamcrest:hamcrest-library:2.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    // Nota. hamcrest: libreria che pianifica una strategia di test molto più estesa degli unit test.
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes true
 }
 
 task cleanBuildCache(type: Delete) {
