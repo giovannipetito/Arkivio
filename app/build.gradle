@@ -130,7 +130,12 @@ dependencies {
     // Material
     implementation 'com.google.android.material:material:1.9.0'
 
-    // Dependendcy Injection: Dagger Hilt
+    // Dependendcy Injection - Dagger
+    implementation 'com.google.dagger:dagger:2.46.1'
+    kapt 'com.google.dagger:dagger-compiler:2.46.1'
+    kapt 'com.google.dagger:dagger-android-processor:2.46.1'
+
+    // Dependendcy Injection - Hilt
     implementation 'com.google.dagger:hilt-android:2.46.1'
     kapt 'com.google.dagger:hilt-android-compiler:2.46.1'
 

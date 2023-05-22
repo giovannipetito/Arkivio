@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BaseObservable
+import it.giovanni.arkivio.BR
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadDarkModeStateFromPreferences
 
@@ -47,6 +48,7 @@ class DarkModeModel(context: Context) : BaseObservable() {
 
     fun setLabelColor(labelColor: Int?) {
         this.labelColor = labelColor
+        // notifyPropertyChanged(BR.labelColor)
     }
 
     fun getBottomBarColor(): Int? {
