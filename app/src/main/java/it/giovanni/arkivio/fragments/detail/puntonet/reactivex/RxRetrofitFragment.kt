@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.RxRetrofitLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
-import it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging.Data
+import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.Data
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 

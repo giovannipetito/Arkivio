@@ -1,29 +1,26 @@
-package it.giovanni.arkivio.fragments.detail.puntonet.hilt
+package it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.lifecycle.ViewModelProvider
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.databinding.RxRetrofitLayoutBinding
+import it.giovanni.arkivio.databinding.UsersDetailLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
-import it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging.Data
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
+import it.giovanni.arkivio.utils.SharedPreferencesManager
 
-class HiltFragment : DetailFragment(), UsersAdapter.OnItemViewClicked {
+class UsersDetailFragment : DetailFragment() {
 
-    private var layoutBinding: RxRetrofitLayoutBinding? = null
+    private var layoutBinding: UsersDetailLayoutBinding? = null
     private val binding get() = layoutBinding
 
-    // private val viewModel: HiltViewModel by viewModels()
-
-    private lateinit var adapter: UsersAdapter
+    private lateinit var viewModel: UsersViewModel
 
     override fun getTitle(): Int {
-        return R.string.dagger_hilt_title
+        return R.string.users_detail_title
     }
 
     override fun getActionTitle(): Int {
@@ -57,7 +54,7 @@ class HiltFragment : DetailFragment(), UsersAdapter.OnItemViewClicked {
     }
 
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
-        layoutBinding = RxRetrofitLayoutBinding.inflate(inflater, container, false)
+        layoutBinding = UsersDetailLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this)
         val model = DarkModeModel(requireContext())
@@ -70,36 +67,24 @@ class HiltFragment : DetailFragment(), UsersAdapter.OnItemViewClicked {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // viewModel = ViewModelProvider(requireActivity())[HiltViewModel::class.java]
+        isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
 
-        setupAdapter()
+        viewModel = ViewModelProvider(requireActivity())[UsersViewModel::class.java]
 
         showProgressDialog()
 
-        currentActivity.viewModel.fetchUsers(0)
-
-        currentActivity.viewModel.users.observe(viewLifecycleOwner) { list ->
-            hideProgressDialog()
-            adapter.setList(list)
-            adapter.notifyItemChanged(0)
-            adapter.notifyDataSetChanged()
+        viewModel.user.observe(viewLifecycleOwner) {user ->
+            viewModel.addUser(user)
         }
-    }
 
-    private fun setupAdapter() {
-        adapter = UsersAdapter(this)
-        binding?.rxRetrofitRecyclerView?.setHasFixedSize(true)
-        binding?.rxRetrofitRecyclerView?.layoutManager = LinearLayoutManager(activity)
-        binding?.rxRetrofitRecyclerView?.adapter = adapter
+        viewModel.message.observe(viewLifecycleOwner) { message ->
+            hideProgressDialog()
+            binding?.labelUserDetail?.text = message
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         layoutBinding = null
-        // currentActivity.viewModel.disposable?.dispose()
-    }
-
-    override fun onItemInfoClicked(user: Data) {
-        Toast.makeText(requireContext(), user.email, Toast.LENGTH_SHORT).show()
     }
 }

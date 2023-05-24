@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import it.giovanni.arkivio.App.Companion.context
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.UserCardBinding
-import it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging.Data
+import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.Data
 
 class UsersAdapter(onItemClicked: OnItemViewClicked) : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
 

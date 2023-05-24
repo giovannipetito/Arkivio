@@ -3,8 +3,8 @@ package it.giovanni.arkivio.fragments.detail.puntonet.reactivex
 import io.reactivex.Single
 import it.giovanni.arkivio.App.Companion.context
 import it.giovanni.arkivio.BuildConfig
-import it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging.Result
-import it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging.UsersResponse
+import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.Result
+import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.UsersResponse
 import okhttp3.Cache
 import okhttp3.CacheControl
 import okhttp3.Interceptor

@@ -1,9 +1,10 @@
-package it.giovanni.arkivio.fragments.detail.puntonet.paging
+package it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import retrofit2.HttpException
 import java.io.IOException
+import javax.inject.Inject
 
 /**
  * Questa è una classe che estende la classe astratta PagingSource, che è un componente chiave
@@ -27,16 +28,16 @@ import java.io.IOException
  * successiva. Se non esiste una pagina precedente o successiva, queste proprietà vengono impostate
  * su null.
  *
- * Qui viene implementato anche il metodo getRefreshKey, che in questo caso restituisce null,
- * indicando che non è necessario aggiornare i dati.
+ * Qui viene implementato anche il metodo getRefreshKey, che se restituisce null indica che non è
+ * necessario aggiornare i dati.
  */
-class RickMortyPagingSource : PagingSource<Int, RickMorty>() {
+class RickMortyPagingSource @Inject constructor(private val apiService: ApiService) : PagingSource<Int, RickMorty>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, RickMorty> {
 
         return try {
             val currentPage = params.key ?: 1
-            val response: RickMortyResponse = AppModule.getCharacters(currentPage)
+            val response: RickMortyResponse = apiService.getAllCharacters(currentPage)
 
             val mutableListOfRickMorty = mutableListOf<RickMorty>()
             mutableListOfRickMorty.addAll(response.results)

@@ -1,11 +1,10 @@
-package it.giovanni.arkivio.fragments.detail.puntonet.paging
+package it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.paging.PagingData
@@ -26,14 +25,14 @@ class RickMortyFragment : DetailFragment() {
     private var layoutBinding: RickMortyLayoutBinding? = null
     private val binding get() = layoutBinding
 
-    private lateinit var viewModel: RickMortyViewModel
+    // private lateinit var viewModel: RickMortyViewModel
 
     private lateinit var characterAdapter: CharacterAdapter
 
     private var job: Job? = null
 
     override fun getTitle(): Int {
-        return R.string.paging_title
+        return R.string.clean_architecture_title
     }
 
     override fun getActionTitle(): Int {
@@ -82,7 +81,7 @@ class RickMortyFragment : DetailFragment() {
 
         isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
 
-        viewModel = ViewModelProvider(requireActivity())[RickMortyViewModel::class.java]
+        // viewModel = ViewModelProvider(requireActivity())[RickMortyViewModel::class.java]
 
         setupAdapter()
         loadData()
@@ -110,29 +109,28 @@ class RickMortyFragment : DetailFragment() {
         )
 
         characterAdapter.addLoadStateListener { loadState ->
-                if (loadState.refresh is LoadState.Loading) {
+            if (loadState.refresh is LoadState.Loading) {
+                if (characterAdapter.snapshot().isEmpty()) {
+                    showProgressDialog()
+                }
+                binding?.includeErrorSmile?.errorSmile?.visibility = View.GONE
+            } else {
+                hideProgressDialog()
+
+                val error = when {
+                    loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
+                    loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+                    loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+
+                    else -> null
+                }
+                error?.let {
                     if (characterAdapter.snapshot().isEmpty()) {
-                        showProgressDialog()
-                    }
-                    binding?.includeErrorSmile?.errorSmile?.visibility = View.GONE
-                } else {
-                    hideProgressDialog()
-
-                    val error = when {
-                        loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
-                        loadState.append is LoadState.Error -> loadState.append as LoadState.Error
-                        loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
-
-                        else -> null
-                    }
-                    error?.let {
-                        if (characterAdapter.snapshot().isEmpty()) {
-                            binding?.includeErrorSmile?.errorSmile?.visibility = View.VISIBLE
-                            binding?.includeErrorSmile?.errorMessageSmile?.text = it.error.localizedMessage
-                        }
+                        binding?.includeErrorSmile?.errorSmile?.visibility = View.VISIBLE
+                        binding?.includeErrorSmile?.errorMessageSmile?.text = it.error.localizedMessage
                     }
                 }
-
+            }
         }
     }
 
@@ -150,7 +148,7 @@ class RickMortyFragment : DetailFragment() {
     private fun loadData() {
         job?.cancel()
         job = lifecycleScope.launch {
-            viewModel.getDataFlow().collectLatest {
+            currentActivity.viewModel.getDataFlow().collectLatest {
                 val pagingData: PagingData<RickMorty> = it
                 characterAdapter.submitData(pagingData)
             }

@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.puntonet.paging
+package it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture
 
 data class RickMortyResponse(
 

@@ -348,20 +348,14 @@
     <string name="coroutine_values_title">Coroutine Values</string>
     <string name="coroutine_channels_title">Coroutine Channels</string>
 
-    <!-- @GET/@POST RETROFIT - PAGING -->
-    <string name="users_home_title">Retrofit &amp; Paging</string>
+    <!-- RETROFIT @GET & @POST -->
+    <string name="users_home_title">Retrofit @GET &amp; @POST</string>
     <string name="users_title">Users</string>
-    <string name="users_paging_title">Users Paging</string>
     <string name="users_detail_title">Users Detail</string>
     <string name="button_get_users">Get Users (@GET)</string>
-    <string name="button_get_users_paging">Get Users (@GET) &amp; Paging</string>
     <string name="button_add_user">Add User (@POST)</string>
     <string name="edit_name">Add name</string>
     <string name="edit_job">Add job</string>
-    <string name="footer_error">Error! Tap to retry.</string>
-
-    <!-- PAGING -->
-    <string name="paging_title">Paging</string>
 
     <!-- RXJAVA & RXANDROID -->
     <string name="rx_home_title">RxJava &amp; RxAndroid</string>
@@ -371,9 +365,10 @@
     <string name="rx_example4_title">Custom Data Type &amp; Operators</string>
     <string name="rx_retrofit_title">RxJava Retrofit</string>
 
-    <!-- DEPENDENCY INJECTION -->
+    <!-- CLEAN ARCHITECTURE - DEPENDENCY INJECTION HILT - PAGING -->
     <string name="dependency_injection_title">Dependency Injection</string>
-    <string name="dagger_hilt_title">Dagger Hilt</string>
+    <string name="clean_architecture_title">Clean Architecture &amp; Dependency Injection Hilt &amp; Paging</string>
+    <string name="footer_error">Error! Tap to retry.</string>
 
     <!-- MACHINE LEARNING -->
     <string name="machine_learning_title">Machine Learning</string>

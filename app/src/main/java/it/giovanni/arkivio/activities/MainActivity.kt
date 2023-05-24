@@ -51,18 +51,16 @@ import it.giovanni.arkivio.fragments.detail.notification.NotificationHomeFragmen
 import it.giovanni.arkivio.fragments.detail.permissions.PermissionsFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.PuntoNetFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.coroutines.*
-import it.giovanni.arkivio.fragments.detail.puntonet.hilt.HiltFragment
-import it.giovanni.arkivio.fragments.detail.puntonet.hilt.HiltViewModel
 import it.giovanni.arkivio.fragments.detail.puntonet.dependencyinjection.DependencyInjectionFragment
-import it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging.UsersFragment
-import it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging.UsersDetailFragment
-import it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging.UsersHomeFragment
-import it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging.UsersPagingFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.UsersFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.UsersDetailFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.UsersHomeFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.logininput.LoginInputFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.logininput.LoginResultFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.userinput.UserInputFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.users.MvvmUsersFragment
-import it.giovanni.arkivio.fragments.detail.puntonet.paging.RickMortyFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.RickMortyFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.RickMortyViewModel
 import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxExample1Fragment
 import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxExample2Fragment
 import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxExample3Fragment
@@ -93,7 +91,7 @@ class MainActivity : BaseActivity(), IProgressLoader {
         var running = false
     }
 
-    val viewModel: HiltViewModel by viewModels()
+    val viewModel: RickMortyViewModel by viewModels()
 
     private var layoutBinding: ActivityMainBinding? = null
     val binding: ActivityMainBinding? get() = layoutBinding
@@ -480,17 +478,11 @@ class MainActivity : BaseActivity(), IProgressLoader {
             Globals.COROUTINE_CHANNELS -> {
                 baseFragment = CoroutineChannelsFragment()
             }
-            Globals.PAGING -> {
-                baseFragment = RickMortyFragment()
-            }
             Globals.USERS_HOME -> {
                 baseFragment = UsersHomeFragment()
             }
             Globals.USERS -> {
                 baseFragment = UsersFragment()
-            }
-            Globals.USERS_PAGING -> {
-                baseFragment = UsersPagingFragment()
             }
             Globals.USERS_DETAIL -> {
                 baseFragment = UsersDetailFragment()
@@ -516,8 +508,8 @@ class MainActivity : BaseActivity(), IProgressLoader {
             Globals.DEPENDENCY_INJECTION -> {
                 baseFragment = DependencyInjectionFragment()
             }
-            Globals.DAGGER_HILT -> {
-                baseFragment = HiltFragment()
+            Globals.CLEAN_ARCHITECTURE -> {
+                baseFragment = RickMortyFragment()
             }
         }
 

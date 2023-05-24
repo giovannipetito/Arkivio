@@ -1,7 +1,7 @@
 package it.giovanni.arkivio.fragments.detail.puntonet.reactivex
 
 import io.reactivex.Single
-import it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging.UsersResponse
+import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.UsersResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

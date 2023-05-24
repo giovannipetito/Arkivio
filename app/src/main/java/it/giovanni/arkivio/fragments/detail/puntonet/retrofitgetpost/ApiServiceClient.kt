@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging
+package it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost
 
 import it.giovanni.arkivio.App.Companion.context
 import it.giovanni.arkivio.BuildConfig

@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging
+package it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost
 
 import android.os.Parcel
 import android.os.Parcelable

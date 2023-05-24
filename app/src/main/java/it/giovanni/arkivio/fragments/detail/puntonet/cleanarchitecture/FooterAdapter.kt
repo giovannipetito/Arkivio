@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.puntonet.paging
+package it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture
 
 import android.view.LayoutInflater
 import android.view.View

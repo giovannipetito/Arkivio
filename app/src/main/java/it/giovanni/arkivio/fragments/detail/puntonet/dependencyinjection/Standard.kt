@@ -1,10 +1,8 @@
 package it.giovanni.arkivio.fragments.detail.puntonet.dependencyinjection
 
-import android.util.Log
-
 object Standard {
 
-    fun main(): String {
+    fun run(): String {
         val pc = PC()
         return pc.start()
     }
@@ -18,9 +16,7 @@ object Standard {
 
     class Motherboard {
         fun powerOn(): String {
-            val output = "Motherboard turning on the computer..."
-            Log.i("[DI]", output)
-            return output
+            return "Motherboard turning on the computer..."
         }
     }
 }

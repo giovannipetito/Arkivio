@@ -1,26 +1,28 @@
-package it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging
+package it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import com.airbnb.paris.extensions.style
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.databinding.UsersDetailLayoutBinding
+import it.giovanni.arkivio.databinding.UsersHomeLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
+import it.giovanni.arkivio.utils.Globals
 import it.giovanni.arkivio.utils.SharedPreferencesManager
 
-class UsersDetailFragment : DetailFragment() {
+class UsersHomeFragment : DetailFragment() {
 
-    private var layoutBinding: UsersDetailLayoutBinding? = null
+    private var layoutBinding: UsersHomeLayoutBinding? = null
     private val binding get() = layoutBinding
 
     private lateinit var viewModel: UsersViewModel
 
     override fun getTitle(): Int {
-        return R.string.users_detail_title
+        return R.string.users_home_title
     }
 
     override fun getActionTitle(): Int {
@@ -54,7 +56,7 @@ class UsersDetailFragment : DetailFragment() {
     }
 
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
-        layoutBinding = UsersDetailLayoutBinding.inflate(inflater, container, false)
+        layoutBinding = UsersHomeLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this)
         val model = DarkModeModel(requireContext())
@@ -71,15 +73,28 @@ class UsersDetailFragment : DetailFragment() {
 
         viewModel = ViewModelProvider(requireActivity())[UsersViewModel::class.java]
 
-        showProgressDialog()
-
-        viewModel.user.observe(viewLifecycleOwner) {user ->
-            viewModel.addUser(user)
+        binding?.buttonGetUsers?.setOnClickListener {
+            currentActivity.openDetail(Globals.USERS, null)
         }
 
-        viewModel.message.observe(viewLifecycleOwner) { message ->
-            hideProgressDialog()
-            binding?.labelUserDetail?.text = message
+        binding?.buttonAddUser?.setOnClickListener {
+            val name: String = binding?.editName?.text.toString()
+            val job: String = binding?.editJob?.text.toString()
+
+            val user = User(name, job)
+            viewModel._user.value = user
+
+            if (name.isNotEmpty() && job.isNotEmpty())
+                currentActivity.openDetail(Globals.USERS_DETAIL, null)
+        }
+
+        if (isDarkMode) {
+            binding?.buttonGetUsers?.style(R.style.ButtonNormalDarkMode)
+            binding?.buttonAddUser?.style(R.style.ButtonNormalDarkMode)
+        }
+        else {
+            binding?.buttonGetUsers?.style(R.style.ButtonNormalLightMode)
+            binding?.buttonAddUser?.style(R.style.ButtonNormalLightMode)
         }
     }
 

@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging
+package it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost
 
 /**
  * La classe sealed Result è uno pattern comune in Kotlin che viene utilizzato per rappresentare il

@@ -1,20 +1,15 @@
-package it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging
+package it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 /**
  * UsersViewModel estende la classe ViewModel dal package androidx.lifecycle. Ciò significa che avrà
- * un ciclo di vita legato a una activity o a un fragment e sarà in grado di conservare i dati ed
- * eseguire azioni che sopravvivono alle modifiche della configurazione (come le rotazioni dello schermo).
+ * un ciclo di vita legato a un'activity o fragment e sarà in grado di conservare i dati ed eseguire
+ * azioni che sopravvivono alle modifiche della configurazione (come le rotazioni dello schermo).
  *
  * Questo ViewModel è responsabile del recupero di una lista di users da una API e del loro mapping
  * (trasformazione) in una lista di elementi di dati dell'interfaccia utente (UI data Items).
@@ -28,29 +23,16 @@ import kotlinx.coroutines.launch
  * ciclo di vita del ViewModel e annulla automaticamente tutte le coroutine quando il ViewModel non
  * è più in uso.
  *
- * All'interno della coroutine, chiama il metodo ApiServiceClient.getListUsers(page) per recuperare i
- * dati dall'API. Questo metodo restituisce un oggetto Result, che può essere un'istanza Success o Error.
+ * All'interno della coroutine, chiama il metodo ApiServiceClient.getListUsers per recuperare i dati
+ * dall'API. Questo metodo restituisce un oggetto Result, che può essere un'istanza Success o Error.
  *
  * Se il risultato è un'istanza Success, mappa l'elenco di users in un elenco di UserDataItem
  * chiamando il metodo mapUsersDataItem. Questo metodo crea una nuova lista di data items mappando
  * ogni user a un'istanza di UserDataItem. Questo nuovo elenco viene quindi impostato sulla
  * variabile _list utilizzando la property value.
  *
- * Se il risultato è un'istanza Error, non modifica la lista e può potenzialmente mostrare un messaggio
- * di errore (che è attualmente commentato).
- *
- * * * * * * * * * * * * * * * * * * * * * PAGING LIBRARY * * * * * * * * * * * * * * * * * * * * *
- *
- * UsersViewModel inoltre usa le classi Pager e PagingConfig della libreria AndroidX Paging per
- * fornire un flusso di oggetti PagingData ai suoi osservatori.
- *
- * La proprietà listData è un flusso di oggetti PagingData<Data>, che possono essere osservati da
- * view o altri componenti nell'app Android. La funzione Pager viene usata per creare un flusso
- * PagingData basato su un PagingSource. L'oggetto PagingConfig specifica il comportamento di
- * paging, ad esempio le dimensioni della pagina e la distanza di prelettura.
- *
- * In questo caso, UsersPagingSource viene utilizzato come PagingSource. Questa classe estende
- * la classe PagingSource ed è responsabile del caricamento dei dati nel flusso PagingData.
+ * Se il risultato è un'istanza Error, non modifica la lista e può potenzialmente mostrare un
+ * messaggio di errore (che è attualmente commentato).
  */
 class UsersViewModel : ViewModel() {
 
@@ -58,7 +40,16 @@ class UsersViewModel : ViewModel() {
     val usersDataItem: LiveData<List<UserDataItem>>
         get() = _usersDataItem
 
+    /**
+     * _users è un'istanza MutableLiveData che contiene una lista di oggetti Data. Rappresenta
+     * la versione mutabile di LiveData che può essere aggiornata all'interno di ViewModel.
+     */
     private val _users: MutableLiveData<List<Data>> = MutableLiveData<List<Data>>()
+
+    /**
+     * users è un'istanza LiveData derivata da _users. Fornisce accesso in sola lettura alla lista
+     * di oggetti Data ai componenti di osservazione.
+     */
     val users: LiveData<List<Data>>
         get() = _users
 
@@ -72,6 +63,12 @@ class UsersViewModel : ViewModel() {
 
     /**
      * Get Users (@GET)
+     * fetchUsers() è responsabile del recupero degli utenti. Utilizza le coroutine Kotlin e
+     * viewModelScope per lanciare una nuova coroutine. All'interno della coroutine, chiama il
+     * metodo getUsers() dall'apiService per recuperare la response degli utenti per la pagina
+     * specificata. Quindi, aggiorna _users inviando il nuovo valore di response.data utilizzando il
+     * metodo postValue(). Poiché questo aggiornamento viene eseguito all'interno di viewModelScope,
+     * verrà automaticamente annullato quando il ViewModel viene cancellato.
      */
     fun fetchUsers(page: Int) {
         viewModelScope.launch {
@@ -91,14 +88,6 @@ class UsersViewModel : ViewModel() {
             }
         }
     }
-
-    /**
-     * Get Users (@GET) & Paging
-     */
-    val listData: Flow<PagingData<Data>> = Pager(PagingConfig(pageSize = 1)) {
-        UsersPagingSource(/* apiService */)
-
-    }.flow.cachedIn(viewModelScope)
 
     /**
      * Add User (@POST)

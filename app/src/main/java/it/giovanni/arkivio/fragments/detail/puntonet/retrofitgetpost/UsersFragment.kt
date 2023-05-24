@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging
+package it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost
 
 import android.os.Bundle
 import android.view.LayoutInflater

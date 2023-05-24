@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.puntonet.hilt
+package it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture
 
 import dagger.Module
 import dagger.Provides
@@ -6,6 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import it.giovanni.arkivio.App.Companion.context
 import it.giovanni.arkivio.BuildConfig
+import it.giovanni.arkivio.utils.Config
 import okhttp3.Cache
 import okhttp3.CacheControl
 import okhttp3.Interceptor
@@ -19,7 +20,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 /**
- * La classe ApiModule è un modulo Dagger che fornisce dipendenze per le richieste network di
+ * La classe AppModule è un modulo Dagger che fornisce dipendenze per le richieste network di
  * un'applicazione Android usando Retrofit e OkHttp.
  * - L'annotazione @Module indica che questa classe è un modulo Dagger.
  * - L'annotazione @InstallIn(SingletonComponent::class) specifica che il modulo deve essere
@@ -28,7 +29,7 @@ import javax.inject.Singleton
  */
 @Module
 @InstallIn(SingletonComponent::class)
-class ApiModule {
+class AppModule {
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
@@ -83,7 +84,7 @@ class ApiModule {
             .addInterceptor { chain: Interceptor.Chain ->
                 val newRequest = chain.request().newBuilder()
                     // .addHeader("x-rapidapi-key", BuildConfig.API_KEY)
-                    .addHeader("x-rapidapi-host", BuildConfig.BASE_URL)
+                    .addHeader("x-rapidapi-host", Config.BASE_URL2)
                     // .header("User-Agent", Utils.getDeviceName()")
                     .addHeader("applicationId", BuildConfig.APPLICATION_ID)
                     .addHeader("app_version", BuildConfig.VERSION_NAME)
@@ -109,7 +110,7 @@ class ApiModule {
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
+            .baseUrl(Config.BASE_URL2)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

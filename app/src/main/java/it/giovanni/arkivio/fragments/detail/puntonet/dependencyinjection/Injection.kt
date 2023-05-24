@@ -1,17 +1,14 @@
 package it.giovanni.arkivio.fragments.detail.puntonet.dependencyinjection
 
-import android.util.Log
-
 /**
- * Dependency Injection (DI) è un design pattern (modello di progettazione) utilizzato nello sviluppo
- * software per migliorare la qualità e la manutenibilità del codice. DI è un modo per strutturare
- * il codice, in modo che sia più facile mantenerlo, testarlo e modificarlo nel tempo. Il suo scopo
- * principale è ridurre l'accoppiamento tra diversi componenti nel codice. Ciò significa che invece
- * di creare e gestire oggetti direttamente all'interno del codice, si delega tale responsabilità a
- * un componente separato chiamato Dependency Injection Container (DIP). Questo container si occupa
- * di creare e gestire tutti i tuoi diversi oggetti di cui il tuo codice ha bisogno, permettendoti
- * di concentrarti sulla scrittura della business logic. Quindi, una classe richiederà i riferimenti
- * altre classi per funzionare.
+ * Dependency Injection (DI) è un design pattern utilizzato nello sviluppo software per migliorare
+ * la qualità e la manutenibilità del codice. DI è un modo per strutturare il codice, in modo che
+ * sia più facile mantenerlo, testarlo e modificarlo nel tempo. Il suo scopo principale è ridurre
+ * l'accoppiamento tra diversi componenti nel codice. Ciò significa che invece di creare e gestire
+ * oggetti direttamente all'interno del codice, si delega tale responsabilità a un componente
+ * separato chiamato Dependency Injection Container (DIP) che si occupa di creare e gestire tutti
+ * i diversi oggetti di cui il tuo codice ha bisogno, permettendoti di concentrarti sulla scrittura
+ * della business logic. Quindi, una classe richiederà i riferimenti di altre classi per funzionare.
  *
  * Con l'implementazione della classe Standard, le classi PC e Motherboard sono strettamente
  * accoppiate e non è possibile utilizzare facilmente sottoclassi o implementazioni alternative,
@@ -29,13 +26,10 @@ import android.util.Log
  *   non è possibile.
  */
 
-object ConstructorInjection {
+object Injection {
 
-    fun main(): String {
-        val asusMotherboard = AsusMotherboard()
-        val fakeMotherboard = FakeMotherboard()
-
-        val pc = PC(motherBoard = asusMotherboard)
+    fun run(motherBoard: Motherboard): String {
+        val pc = PC(motherBoard = motherBoard)
         return pc.start()
     }
 
@@ -47,17 +41,13 @@ object ConstructorInjection {
 
     class AsusMotherboard: Motherboard {
         override fun powerOn(): String {
-            val output = "Asus Motherboard turning on the computer..."
-            Log.i("[DI]", output)
-            return output
+            return "Asus Motherboard turning on the computer..."
         }
     }
 
-    class FakeMotherboard: Motherboard {
+    class TestMotherboard: Motherboard {
         override fun powerOn(): String {
-            val output = "Fake Motherboard turning on the computer..."
-            Log.i("[DI]", output)
-            return output
+            return "Test Motherboard turning on the computer..."
         }
     }
 

@@ -28,7 +28,7 @@
             tools:text="@string/dependency_injection_title" />
 
         <TextView
-            android:id="@+id/label_constructor_injection"
+            android:id="@+id/label_injection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/label_standard"
@@ -40,10 +40,10 @@
             tools:text="@string/dependency_injection_title" />
 
         <TextView
-            android:id="@+id/label_field_injection"
+            android:id="@+id/label_injection_test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/label_constructor_injection"
+            android:layout_below="@+id/label_injection"
             android:layout_centerHorizontal="true"
             android:layout_margin="@dimen/dimen_24dp"
             android:textSize="24sp"

@@ -9,9 +9,9 @@ import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging.Data
-import it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging.Result
-import it.giovanni.arkivio.fragments.detail.puntonet.retrofitpaging.UsersResponse
+import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.Data
+import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.Result
+import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.UsersResponse
 
 class RxRetrofitViewModel : ViewModel() {
 

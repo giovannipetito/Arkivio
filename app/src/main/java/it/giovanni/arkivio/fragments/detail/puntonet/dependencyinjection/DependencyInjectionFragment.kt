@@ -63,9 +63,9 @@ class DependencyInjectionFragment : DetailFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding?.labelStandard?.text = Standard.main()
-        binding?.labelConstructorInjection?.text = ConstructorInjection.main()
-        // binding?.labelFieldInjection?.text = FieldInjection().main()
+        binding?.labelStandard?.text = Standard.run()
+        binding?.labelInjection?.text = Injection.run(Injection.AsusMotherboard())
+        binding?.labelInjectionTest?.text = Injection.run(Injection.TestMotherboard())
     }
 
     override fun onDestroyView() {

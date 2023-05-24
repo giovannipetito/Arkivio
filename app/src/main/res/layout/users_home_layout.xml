@@ -32,17 +32,6 @@
                 android:text="@string/button_get_users"
                 style="@style/ButtonNormalDarkMode" />
 
-            <Button
-                android:id="@+id/button_get_users_paging"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen_24dp"
-                android:layout_marginEnd="@dimen/dimen_24dp"
-                android:layout_marginTop="@dimen/dimen_12dp"
-                android:layout_marginBottom="@dimen/dimen_12dp"
-                android:text="@string/button_get_users_paging"
-                style="@style/ButtonNormalDarkMode" />
-
             <EditText
                 android:id="@+id/edit_name"
                 android:layout_width="match_parent"

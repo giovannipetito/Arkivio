@@ -84,9 +84,6 @@ class PuntoNetFragment : DetailFragment() {
         binding?.labelCoroutineHome?.setOnClickListener {
             currentActivity.openDetail(Globals.COROUTINE_HOME, null)
         }
-        binding?.labelPaging?.setOnClickListener {
-            currentActivity.openDetail(Globals.PAGING, null)
-        }
         binding?.labelUsersHome?.setOnClickListener {
             currentActivity.openDetail(Globals.USERS_HOME, null)
         }
@@ -96,8 +93,8 @@ class PuntoNetFragment : DetailFragment() {
         binding?.labelDependencyInjection?.setOnClickListener {
             currentActivity.openDetail(Globals.DEPENDENCY_INJECTION, null)
         }
-        binding?.labelDaggerHilt?.setOnClickListener {
-            currentActivity.openDetail(Globals.DAGGER_HILT, null)
+        binding?.labelCleanArchitecture?.setOnClickListener {
+            currentActivity.openDetail(Globals.CLEAN_ARCHITECTURE, null)
         }
     }
 
