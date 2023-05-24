@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture
+package it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.presentation.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,6 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.RickMortyLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.model.RickMorty
+import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.presentation.adapter.CharacterAdapter
+import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.presentation.adapter.FooterAdapter
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.SharedPreferencesManager

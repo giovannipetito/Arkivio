@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture
+package it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.di
 
 import dagger.Module
 import dagger.Provides
@@ -6,6 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import it.giovanni.arkivio.App.Companion.context
 import it.giovanni.arkivio.BuildConfig
+import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.ApiService
 import it.giovanni.arkivio.utils.Config
 import okhttp3.Cache
 import okhttp3.CacheControl

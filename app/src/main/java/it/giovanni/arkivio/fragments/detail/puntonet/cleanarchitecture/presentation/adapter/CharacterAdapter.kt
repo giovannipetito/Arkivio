@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture
+package it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.Glide
 import it.giovanni.arkivio.App
 import it.giovanni.arkivio.databinding.RickMortyItemBinding
+import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.model.RickMorty
+import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.presentation.viewholder.CharacterViewHolder
 
 /**
  * CharacterAdapter è un RecyclerView Adapter per la visualizzazione della lista di characters

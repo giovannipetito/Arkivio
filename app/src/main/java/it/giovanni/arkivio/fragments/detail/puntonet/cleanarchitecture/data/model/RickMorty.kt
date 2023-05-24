@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture
+package it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.model
 
 data class RickMorty(
     val created: String,

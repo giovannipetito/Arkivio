@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture
+package it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.presentation.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
 import it.giovanni.arkivio.databinding.RickMortyItemBinding

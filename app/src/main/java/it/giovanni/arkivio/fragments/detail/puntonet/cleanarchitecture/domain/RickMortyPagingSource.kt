@@ -1,7 +1,10 @@
-package it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture
+package it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.domain
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.model.RickMorty
+import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.datasource.remote.RickMortyDataSource
+import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.response.RickMortyResponse
 import retrofit2.HttpException
 import java.io.IOException
 

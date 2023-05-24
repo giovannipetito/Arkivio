@@ -59,8 +59,8 @@ import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.logininput.LoginInput
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.logininput.LoginResultFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.userinput.UserInputFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.users.MvvmUsersFragment
-import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.RickMortyFragment
-import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.RickMortyViewModel
+import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.presentation.fragment.RickMortyFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.presentation.viewmodel.RickMortyViewModel
 import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxExample1Fragment
 import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxExample2Fragment
 import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxExample3Fragment

@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture
+package it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.presentation.viewmodel
 
 import androidx.lifecycle.*
 import androidx.paging.Pager
@@ -6,6 +6,9 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
+import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.model.RickMorty
+import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.datasource.remote.RickMortyDataSource
+import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.domain.RickMortyPagingSource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
