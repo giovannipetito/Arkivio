@@ -4,7 +4,6 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import retrofit2.HttpException
 import java.io.IOException
-import javax.inject.Inject
 
 /**
  * Questa è una classe che estende la classe astratta PagingSource, che è un componente chiave
@@ -31,13 +30,13 @@ import javax.inject.Inject
  * Qui viene implementato anche il metodo getRefreshKey, che se restituisce null indica che non è
  * necessario aggiornare i dati.
  */
-class RickMortyPagingSource @Inject constructor(private val apiService: ApiService) : PagingSource<Int, RickMorty>() {
+class RickMortyPagingSource constructor(private val rickMortyDataSource: RickMortyDataSource) : PagingSource<Int, RickMorty>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, RickMorty> {
 
         return try {
             val currentPage = params.key ?: 1
-            val response: RickMortyResponse = apiService.getAllCharacters(currentPage)
+            val response: RickMortyResponse = rickMortyDataSource.getAllCharactersV1(currentPage)
 
             val mutableListOfRickMorty = mutableListOf<RickMorty>()
             mutableListOfRickMorty.addAll(response.results)

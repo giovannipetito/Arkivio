@@ -29,13 +29,13 @@ import javax.inject.Inject
  * parametro del costruttore, che verrà iniettato da Hilt.
  */
 @HiltViewModel
-class RickMortyViewModel @Inject constructor(private val apiService: ApiService) : ViewModel() {
+class RickMortyViewModel @Inject constructor(private val rickMortyDataSource: RickMortyDataSource) : ViewModel() {
 
     fun getDataFlow(): Flow<PagingData<RickMorty>> {
 
         val dataFlow: Flow<PagingData<RickMorty>> = Pager(PagingConfig(pageSize = 1)) {
 
-            RickMortyPagingSource(apiService)
+            RickMortyPagingSource(rickMortyDataSource)
 
         }.flow.cachedIn(viewModelScope)
 
