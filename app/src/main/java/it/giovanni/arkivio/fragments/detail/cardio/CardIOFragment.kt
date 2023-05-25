@@ -125,8 +125,7 @@ class CardIOFragment : DetailFragment(), AppCompatSpinnerCustom.OnSpinnerEventsL
             drawableBar = GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
                 intArrayOf(ContextCompat.getColor(requireContext(), R.color.verde), ContextCompat.getColor(requireContext(), R.color.verde)))
             binding?.buttonScan?.style(R.style.ButtonNormalDarkMode)
-        }
-        else {
+        } else {
             drawableBar = GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
                 intArrayOf(ContextCompat.getColor(requireContext(), R.color.rosso), ContextCompat.getColor(requireContext(), R.color.rosso)))
             binding?.buttonScan?.style(R.style.ButtonNormalLightMode)

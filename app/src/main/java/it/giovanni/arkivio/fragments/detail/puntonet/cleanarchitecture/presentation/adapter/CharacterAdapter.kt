@@ -55,7 +55,7 @@ class CharacterAdapter(private val clicked: (RickMorty) -> Unit) :
                     val imageUrl: String? = rickMorty?.image
                     Glide.with(App.context)
                         .load(imageUrl)
-                        .into(it.characterImageView)
+                        .into(it.characterImage)
 
                     it.root.setOnClickListener {
                         if (rickMorty != null)

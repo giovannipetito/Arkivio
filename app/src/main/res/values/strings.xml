@@ -365,10 +365,19 @@
     <string name="rx_example4_title">Custom Data Type &amp; Operators</string>
     <string name="rx_retrofit_title">RxJava Retrofit</string>
 
-    <!-- CLEAN ARCHITECTURE - DEPENDENCY INJECTION HILT - PAGING -->
+    <!-- DEPENDENCY INJECTION -->
     <string name="dependency_injection_title">Dependency Injection</string>
-    <string name="clean_architecture_title">Clean Architecture &amp; Dependency Injection Hilt &amp; Paging</string>
+
+    <!-- CLEAN ARCHITECTURE & HILT -->
+    <string name="clean_architecture_home_title">Clean Architecture &amp; Hilt</string>
+    <string name="clean_architecture_paging_title">Paging &amp; Coroutines</string>
+    <string name="clean_architecture_rxjava_title">RxJava</string>
+    <string name="button_paging_coroutines">Get data with Paging &amp; Coroutines</string>
+    <string name="button_rxjava">Get data with RxJava</string>
     <string name="footer_error">Error! Tap to retry.</string>
+
+    <!-- WORKMANAGER -->
+    <string name="work_manager_title">WorkManager</string>
 
     <!-- MACHINE LEARNING -->
     <string name="machine_learning_title">Machine Learning</string>

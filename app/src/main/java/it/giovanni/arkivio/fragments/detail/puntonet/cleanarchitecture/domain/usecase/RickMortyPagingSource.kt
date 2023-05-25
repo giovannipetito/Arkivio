@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.domain
+package it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.domain.usecase
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState

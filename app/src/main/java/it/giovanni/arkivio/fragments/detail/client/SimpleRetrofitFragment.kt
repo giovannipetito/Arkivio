@@ -107,8 +107,7 @@ class SimpleRetrofitFragment: DetailFragment(), IRetrofit {
             if (isDarkMode) {
                 labelUsername.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
                 labelEmail.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
-            }
-            else {
+            } else {
                 labelUsername.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
                 labelEmail.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
             }

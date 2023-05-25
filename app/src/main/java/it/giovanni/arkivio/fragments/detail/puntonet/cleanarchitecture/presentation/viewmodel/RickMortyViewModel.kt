@@ -1,14 +1,20 @@
 package it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.*
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.model.RickMorty
 import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.datasource.remote.RickMortyDataSource
-import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.domain.RickMortyPagingSource
+import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.response.RickMortyResponse
+import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.domain.usecase.RickMortyPagingSource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -34,6 +40,12 @@ import javax.inject.Inject
 @HiltViewModel
 class RickMortyViewModel @Inject constructor(private val rickMortyDataSource: RickMortyDataSource) : ViewModel() {
 
+    var disposable: Disposable? = null
+
+    private val _characters: MutableLiveData<List<RickMorty>> = MutableLiveData<List<RickMorty>>()
+    val characters: LiveData<List<RickMorty>>
+        get() = _characters
+
     fun getDataFlow(): Flow<PagingData<RickMorty>> {
 
         val dataFlow: Flow<PagingData<RickMorty>> = Pager(PagingConfig(pageSize = 1)) {
@@ -43,5 +55,19 @@ class RickMortyViewModel @Inject constructor(private val rickMortyDataSource: Ri
         }.flow.cachedIn(viewModelScope)
 
         return dataFlow
+    }
+
+    fun getCharacters(page: Int) {
+        val observable: Single<RickMortyResponse> = rickMortyDataSource.getAllCharactersV4(page)
+
+        disposable = observable
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { response ->
+                    _characters.postValue(response.results)
+                }, { error ->
+                    Log.e("[RX]", "error: " + error.message)
+                })
     }
 }

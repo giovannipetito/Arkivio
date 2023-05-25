@@ -114,8 +114,7 @@ class UsersFragment : DetailFragment() {
             if (isDarkMode) {
                 labelFirstName.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
                 labelLastName.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
-            }
-            else {
+            } else {
                 labelFirstName.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
                 labelLastName.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
             }

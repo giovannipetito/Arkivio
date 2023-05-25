@@ -124,8 +124,7 @@ class LoginInputFragment : DetailFragment() {
         if (isDarkMode) {
             binding?.buttonLogin?.style(R.style.ButtonNormalDarkMode)
             binding?.buttonLoginResult?.style(R.style.ButtonNormalDarkMode)
-        }
-        else {
+        } else {
             binding?.buttonLogin?.style(R.style.ButtonNormalLightMode)
             binding?.buttonLoginResult?.style(R.style.ButtonNormalLightMode)
         }

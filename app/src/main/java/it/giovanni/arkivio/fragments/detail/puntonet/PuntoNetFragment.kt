@@ -93,8 +93,11 @@ class PuntoNetFragment : DetailFragment() {
         binding?.labelDependencyInjection?.setOnClickListener {
             currentActivity.openDetail(Globals.DEPENDENCY_INJECTION, null)
         }
-        binding?.labelCleanArchitecture?.setOnClickListener {
-            currentActivity.openDetail(Globals.CLEAN_ARCHITECTURE, null)
+        binding?.labelCleanArchitectureHome?.setOnClickListener {
+            currentActivity.openDetail(Globals.CLEAN_ARCHITECTURE_HOME, null)
+        }
+        binding?.labelWorkManager?.setOnClickListener {
+            currentActivity.openDetail(Globals.WORKMANAGER, null)
         }
     }
 

@@ -60,6 +60,8 @@ import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.logininput.LoginResul
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.userinput.UserInputFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.users.MvvmUsersFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.presentation.fragment.RickMortyFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.presentation.fragment.RickMortyHomeFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.presentation.fragment.RickMortyPagingFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.presentation.viewmodel.RickMortyViewModel
 import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxExample1Fragment
 import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxExample2Fragment
@@ -67,6 +69,7 @@ import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxExample3Fragmen
 import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxExample4Fragment
 import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxHomeFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxRetrofitFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.workmanager.WorkManagerFragment
 import it.giovanni.arkivio.fragments.detail.stickyheader.StickyHeaderFragment
 import it.giovanni.arkivio.utils.Globals
 import it.giovanni.arkivio.utils.UserFactory
@@ -508,8 +511,17 @@ class MainActivity : BaseActivity(), IProgressLoader {
             Globals.DEPENDENCY_INJECTION -> {
                 baseFragment = DependencyInjectionFragment()
             }
-            Globals.CLEAN_ARCHITECTURE -> {
+            Globals.CLEAN_ARCHITECTURE_HOME -> {
+                baseFragment = RickMortyHomeFragment()
+            }
+            Globals.CLEAN_ARCHITECTURE_PAGING -> {
+                baseFragment = RickMortyPagingFragment()
+            }
+            Globals.CLEAN_ARCHITECTURE_RXJAVA -> {
                 baseFragment = RickMortyFragment()
+            }
+            Globals.WORKMANAGER -> {
+                baseFragment = WorkManagerFragment()
             }
         }
 

@@ -104,13 +104,15 @@ dependencies {
     implementation 'androidx.core:core-role:1.1.0-rc01'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.biometric:biometric:1.1.0'
-    implementation 'androidx.work:work-runtime-ktx:2.8.1'
     implementation 'androidx.preference:preference-ktx:1.2.0'
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     ksp 'androidx.lifecycle:lifecycle-common-java8:2.6.1'
+
+    // WorkManager
+    implementation "androidx.work:work-runtime-ktx:2.8.1"
 
     // Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1'

@@ -235,8 +235,7 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback, IRealtime {
             binding?.initButton?.style(R.style.ButtonEmptyDarkMode)
             binding?.jsonButton?.style(R.style.ButtonEmptyDarkMode)
             binding?.realtimeButton?.style(R.style.ButtonEmptyDarkMode)
-        }
-        else {
+        } else {
             binding?.initButton?.style(R.style.ButtonEmptyLightMode)
             binding?.jsonButton?.style(R.style.ButtonEmptyLightMode)
             binding?.realtimeButton?.style(R.style.ButtonEmptyLightMode)

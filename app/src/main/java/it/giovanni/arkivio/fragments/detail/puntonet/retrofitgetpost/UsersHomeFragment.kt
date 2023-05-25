@@ -91,8 +91,7 @@ class UsersHomeFragment : DetailFragment() {
         if (isDarkMode) {
             binding?.buttonGetUsers?.style(R.style.ButtonNormalDarkMode)
             binding?.buttonAddUser?.style(R.style.ButtonNormalDarkMode)
-        }
-        else {
+        } else {
             binding?.buttonGetUsers?.style(R.style.ButtonNormalLightMode)
             binding?.buttonAddUser?.style(R.style.ButtonNormalLightMode)
         }

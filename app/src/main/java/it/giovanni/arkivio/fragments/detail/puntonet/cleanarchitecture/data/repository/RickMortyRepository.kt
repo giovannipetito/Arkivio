@@ -1,5 +1,6 @@
 package it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.repository
 
+import io.reactivex.Single
 import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.ApiService
 import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.Result
 import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.datasource.remote.RickMortyDataSource
@@ -44,5 +45,10 @@ class RickMortyRepository @Inject constructor(private val apiService: ApiService
         val response: RickMortyResponse = apiService.getAllCharacters(page)
         val results: List<RickMorty> = response.results
         return results
+    }
+
+    override fun getAllCharactersV4(page: Int): Single<RickMortyResponse> {
+        val observable: Single<RickMortyResponse> = apiService.getAllCharactersV4(page)
+        return observable
     }
 }

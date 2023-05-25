@@ -92,12 +92,10 @@ class UserInputFragment : DetailFragment() {
             binding?.labelResult?.text = result
         }
 
-        if (isDarkMode) {
+        if (isDarkMode)
             binding?.buttonCalculate?.style(R.style.ButtonNormalDarkMode)
-        }
-        else {
+        else
             binding?.buttonCalculate?.style(R.style.ButtonNormalLightMode)
-        }
     }
 
     override fun onDestroyView() {
