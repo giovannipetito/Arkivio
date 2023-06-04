@@ -2,7 +2,7 @@ package it.giovanni.arkivio.fragments.detail.puntonet.workmanager.workers
 
 import android.content.Context
 import android.util.Log
-import androidx.work.Worker
+import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import it.giovanni.arkivio.fragments.detail.puntonet.workmanager.OUTPUT_PATH
 import java.io.File
@@ -10,9 +10,9 @@ import java.io.File
 /**
  * Cleans up temporary files generated during blurring process
  */
-class CleanupWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
+class CleanupWorker(context: Context, params: WorkerParameters) : CoroutineWorker(context, params) {
 
-    override fun doWork(): Result {
+    override suspend fun doWork(): Result {
         return try {
             val outputDirectory = File(applicationContext.filesDir, OUTPUT_PATH)
             if (outputDirectory.exists()) {

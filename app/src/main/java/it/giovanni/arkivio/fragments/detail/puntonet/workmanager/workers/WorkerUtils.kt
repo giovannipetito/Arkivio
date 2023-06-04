@@ -9,7 +9,6 @@ import android.renderscript.RenderScript
 import android.renderscript.ScriptIntrinsicBlur
 import android.util.Log
 import androidx.annotation.WorkerThread
-import it.giovanni.arkivio.fragments.detail.puntonet.workmanager.DELAY_TIME_MILLIS
 import it.giovanni.arkivio.fragments.detail.puntonet.workmanager.OUTPUT_PATH
 import java.io.File
 import java.io.FileNotFoundException
@@ -22,7 +21,7 @@ import java.util.UUID
  */
 fun sleep() {
     try {
-        Thread.sleep(DELAY_TIME_MILLIS, 0)
+        Thread.sleep(3000, 0)
     } catch (e: InterruptedException) {
         Log.e("[WORKER]", e.message.toString())
     }

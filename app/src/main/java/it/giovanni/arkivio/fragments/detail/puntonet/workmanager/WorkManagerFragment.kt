@@ -14,6 +14,7 @@ import com.airbnb.paris.extensions.style
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.WorkManagerLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.workmanager.workers.SimpleWorker
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.SharedPreferencesManager
@@ -96,7 +97,7 @@ class WorkManagerFragment : DetailFragment() {
          */
 
         binding?.buttonRunWork?.setOnClickListener {
-            viewModel.applyBlur(blurLevel)
+            viewModel.applyBlur(3)
         }
 
         // Setup view output image file button
@@ -114,7 +115,7 @@ class WorkManagerFragment : DetailFragment() {
             viewModel.cancelWork()
         }
 
-        viewModel.outputWorkInfos.observe(viewLifecycleOwner, workInfosObserver())
+        viewModel.workInfos.observe(viewLifecycleOwner, workInfosObserver())
     }
 
     private fun workInfosObserver(): Observer<List<WorkInfo>> {
@@ -143,7 +144,7 @@ class WorkManagerFragment : DetailFragment() {
                 // If there is an output file show "See File" button
                 if (!outputImageUri.isNullOrEmpty()) {
                     viewModel.setOutputUri(outputImageUri)
-                    binding?.buttonSeeFile?.visibility = View.VISIBLE
+                    binding?.buttonSeeFile?.isEnabled = true
                 }
             } else {
                 showWorkInProgress()
@@ -156,28 +157,19 @@ class WorkManagerFragment : DetailFragment() {
      */
     private fun showWorkInProgress() {
         binding?.progressBar?.visibility = View.VISIBLE
-        binding?.buttonCancel?.visibility = View.VISIBLE
-        binding?.buttonRunWork?.visibility = View.GONE
-        binding?.buttonSeeFile?.visibility = View.GONE
+        binding?.buttonCancel?.isEnabled = true
+        binding?.buttonRunWork?.isEnabled = false
+        binding?.buttonSeeFile?.isEnabled = false
     }
 
     /**
      * Shows and hides views for when the Activity is done processing an image
      */
     private fun showWorkFinished() {
-        binding?.progressBar?.visibility = View.GONE
-        binding?.buttonCancel?.visibility = View.GONE
-        binding?.buttonRunWork?.visibility = View.VISIBLE
+        binding?.progressBar?.visibility = View.INVISIBLE
+        binding?.buttonCancel?.isEnabled = false
+        binding?.buttonRunWork?.isEnabled = true
     }
-
-    private val blurLevel: Int
-        get() =
-            when (binding?.radioBlurGroup?.checkedRadioButtonId) {
-                R.id.radio_blur_lv_1 -> 1
-                R.id.radio_blur_lv_2 -> 2
-                R.id.radio_blur_lv_3 -> 3
-                else -> 1
-            }
 
     private fun setViewStyle() {
         isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()

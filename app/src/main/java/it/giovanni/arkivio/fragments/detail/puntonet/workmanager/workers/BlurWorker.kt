@@ -5,14 +5,14 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.text.TextUtils
 import android.util.Log
-import androidx.work.Worker
+import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import it.giovanni.arkivio.fragments.detail.puntonet.workmanager.KEY_IMAGE_URI
 
-class BlurWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
+class BlurWorker(context: Context, params: WorkerParameters) : CoroutineWorker(context, params) {
 
-    override fun doWork(): Result {
+    override suspend fun doWork(): Result {
 
         val appContext = applicationContext
 

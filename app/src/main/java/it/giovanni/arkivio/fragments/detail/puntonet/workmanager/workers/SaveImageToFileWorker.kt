@@ -5,8 +5,8 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.provider.MediaStore
 import android.util.Log
+import androidx.work.CoroutineWorker
 import androidx.work.workDataOf
-import androidx.work.Worker
 import androidx.work.WorkerParameters
 import it.giovanni.arkivio.fragments.detail.puntonet.workmanager.KEY_IMAGE_URI
 import java.text.SimpleDateFormat
@@ -16,12 +16,12 @@ import java.util.Locale
 /**
  * Saves the image to a permanent file.
  */
-class SaveImageToFileWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
+class SaveImageToFileWorker(context: Context, params: WorkerParameters) : CoroutineWorker(context, params) {
 
     private val Title = "Blurred Image"
     private val dateFormatter = SimpleDateFormat("yyyy.MM.dd 'at' HH:mm:ss z", Locale.getDefault())
 
-    override fun doWork(): Result {
+    override suspend fun doWork(): Result {
 
         // todo: send a notifification
 

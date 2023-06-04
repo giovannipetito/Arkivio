@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.puntonet.workmanager
+package it.giovanni.arkivio.fragments.detail.puntonet.workmanager.workers
 
 import android.content.Context
 import android.util.Log
