@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import androidx.work.workDataOf
+import it.giovanni.arkivio.fragments.detail.puntonet.workmanager.KEY_SIMPLE_MESSAGE
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -21,12 +23,18 @@ class SimpleWorker(context: Context, params: WorkerParameters) : CoroutineWorker
 
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         try {
-            Log.d("WorkManager", "Doing some work...")
             // Simulate work by sleeping for 3 seconds
             Thread.sleep(3000)
-            Result.success()
+            val message = "Simple work is finished!"
+            Log.d("WorkManager", message)
+            val outputData = workDataOf(KEY_SIMPLE_MESSAGE to message)
+
+            return@withContext Result.success(outputData)
         } catch (e: Exception) {
-            Result.failure()
+            val message = "Simple work is failed!"
+            Log.e("WorkManager", message)
+            val outputData = workDataOf(KEY_SIMPLE_MESSAGE to message)
+            return@withContext Result.failure(outputData)
         }
     }
 }

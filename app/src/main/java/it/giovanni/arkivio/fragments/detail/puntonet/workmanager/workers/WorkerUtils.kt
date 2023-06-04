@@ -9,7 +9,7 @@ import android.renderscript.RenderScript
 import android.renderscript.ScriptIntrinsicBlur
 import android.util.Log
 import androidx.annotation.WorkerThread
-import it.giovanni.arkivio.fragments.detail.puntonet.workmanager.OUTPUT_PATH
+import it.giovanni.arkivio.fragments.detail.puntonet.workmanager.OUTPUT_BLUR_PATH
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
@@ -68,7 +68,7 @@ fun blurBitmap(bitmap: Bitmap, applicationContext: Context): Bitmap {
 @Throws(FileNotFoundException::class)
 fun writeBitmapToFile(applicationContext: Context, bitmap: Bitmap): Uri {
     val name = String.format("blur-filter-output-%s.png", UUID.randomUUID().toString())
-    val outputDir = File(applicationContext.filesDir, OUTPUT_PATH)
+    val outputDir = File(applicationContext.filesDir, OUTPUT_BLUR_PATH)
     if (!outputDir.exists()) {
         outputDir.mkdirs() // should succeed
     }

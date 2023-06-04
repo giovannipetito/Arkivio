@@ -70,6 +70,8 @@ import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxExample3Fragmen
 import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxExample4Fragment
 import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxHomeFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxRetrofitFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.workmanager.BlurWorkerFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.workmanager.SimpleWorkerFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.workmanager.WorkManagerFragment
 import it.giovanni.arkivio.fragments.detail.stickyheader.StickyHeaderFragment
 import it.giovanni.arkivio.utils.Globals
@@ -529,6 +531,12 @@ class MainActivity : BaseActivity(), IProgressLoader {
             }
             Globals.WORKMANAGER -> {
                 baseFragment = WorkManagerFragment()
+            }
+            Globals.SIMPLE_WORKER -> {
+                baseFragment = SimpleWorkerFragment()
+            }
+            Globals.BLUR_WORKER -> {
+                baseFragment = BlurWorkerFragment()
             }
         }
 

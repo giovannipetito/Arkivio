@@ -4,20 +4,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.work.WorkInfo
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.databinding.WorkManagerLayoutBinding
+import it.giovanni.arkivio.databinding.SimpleWorkerLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
-import it.giovanni.arkivio.utils.Globals
 
-class WorkManagerFragment : DetailFragment() {
+class SimpleWorkerFragment : DetailFragment() {
 
-    private var layoutBinding: WorkManagerLayoutBinding? = null
+    private var layoutBinding: SimpleWorkerLayoutBinding? = null
     private val binding get() = layoutBinding
 
+    private val viewModel: SimpleWorkerViewModel by viewModels {
+        ViewModelProviderFactory(currentActivity.application)
+    }
+
     override fun getTitle(): Int {
-        return R.string.work_manager_title
+        return R.string.simple_worker_title
     }
 
     override fun getActionTitle(): Int {
@@ -51,7 +57,7 @@ class WorkManagerFragment : DetailFragment() {
     }
 
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
-        layoutBinding = WorkManagerLayoutBinding.inflate(inflater, container, false)
+        layoutBinding = SimpleWorkerLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this)
         val model = DarkModeModel(requireContext())
@@ -64,11 +70,29 @@ class WorkManagerFragment : DetailFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding?.labelSimpleWorker?.setOnClickListener {
-            currentActivity.openDetail(Globals.SIMPLE_WORKER, null)
-        }
-        binding?.labelBlurWorker?.setOnClickListener {
-            currentActivity.openDetail(Globals.BLUR_WORKER, null)
+        viewModel.workInfos.observe(viewLifecycleOwner, workInfosObserver())
+    }
+
+    private fun workInfosObserver(): Observer<List<WorkInfo>> {
+        return Observer { listOfWorkInfo ->
+
+            if (listOfWorkInfo.isEmpty()) {
+                return@Observer
+            }
+
+            val workInfo = listOfWorkInfo[0]
+
+            if (workInfo.state.isFinished) {
+
+                val outputMessage = workInfo.outputData.getString(KEY_SIMPLE_MESSAGE)
+
+                if (!outputMessage.isNullOrEmpty()) {
+                    binding?.labelSimpleWorker?.text = outputMessage
+                }
+            } else {
+                val errorMessage = "Single work is running!"
+                binding?.labelSimpleWorker?.text = errorMessage
+            }
         }
     }
 

@@ -12,70 +12,74 @@
             type="it.giovanni.arkivio.presenter.DarkModePresenter" />
     </data>
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:focusable="true"
+        android:clickable="true">
 
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:text="@string/work_manager_title"
+            android:textSize="21sp"
+            android:textColor="@{temp.labelColor}"
+            android:textAlignment="center"
+            tools:textColor="@color/colorPrimary" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:src="@drawable/ico_cupcake"
-                android:contentDescription="@string/app_name" />
+        <View
+            android:layout_width="120dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp"
+            android:background="@{temp.labelColor}"
+            android:layout_gravity="center"
+            android:alpha=".4"
+            tools:background="@color/colorPrimary" />
 
-            <ProgressBar
-                android:id="@+id/progress_bar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="@dimen/dimen_16dp"
-                android:visibility="invisible"
-                tools:visibility="visible" />
+        <TextView
+            android:id="@+id/label_simple_worker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/simple_worker_title"
+            android:textSize="16sp"
+            android:textColor="@{temp.labelColor}"
+            android:textAlignment="center"
+            tools:textColor="@color/colorPrimary" />
 
-            <Button
-                android:id="@+id/button_run_work"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/dimen_8dp"
-                android:layout_marginStart="@dimen/dimen_16dp"
-                android:layout_marginEnd="@dimen/dimen_16dp"
-                android:layout_marginBottom="@dimen/dimen_8dp"
-                android:text="@string/button_run_work"
-                style="@style/ButtonNormalDarkMode" />
+        <View
+            android:layout_width="120dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@{temp.labelColor}"
+            android:layout_gravity="center"
+            android:alpha=".4"
+            tools:background="@color/colorPrimary" />
 
-            <Button
-                android:id="@+id/button_cancel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/dimen_8dp"
-                android:layout_marginStart="@dimen/dimen_16dp"
-                android:layout_marginEnd="@dimen/dimen_16dp"
-                android:layout_marginBottom="@dimen/dimen_8dp"
-                android:text="@string/button_cancel_work"
-                android:enabled="false"
-                style="@style/ButtonNormalDarkMode" />
+        <TextView
+            android:id="@+id/label_blur_worker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/blur_worker_title"
+            android:textSize="16sp"
+            android:textColor="@{temp.labelColor}"
+            android:textAlignment="center"
+            tools:textColor="@color/colorPrimary" />
 
-            <Button
-                android:id="@+id/button_see_file"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/dimen_8dp"
-                android:layout_marginStart="@dimen/dimen_16dp"
-                android:layout_marginEnd="@dimen/dimen_16dp"
-                android:layout_marginBottom="@dimen/dimen_8dp"
-                android:text="@string/button_see_file"
-                android:enabled="false"
-                style="@style/ButtonNormalDarkMode" />
+        <View
+            android:layout_width="120dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@{temp.labelColor}"
+            android:layout_gravity="center"
+            android:alpha=".4"
+            tools:background="@color/colorPrimary" />
 
-        </LinearLayout>
-
-    </ScrollView>
+    </LinearLayout>
 
 </layout>
