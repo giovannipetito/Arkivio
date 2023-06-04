@@ -12,22 +12,131 @@
             type="it.giovanni.arkivio.presenter.DarkModePresenter" />
     </data>
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <TextView
-            android:id="@+id/label_work_manager"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="@dimen/dimen_24dp"
-            android:layout_marginEnd="@dimen/dimen_24dp"
-            android:textSize="24sp"
-            android:textColor="@{temp.labelColor}"
-            tools:textColor="@color/colorPrimary"
-            tools:text="@string/work_manager_title" />
+            android:padding="8dp"
+            android:orientation="vertical">
 
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/image_view"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:src="@drawable/ico_cupcake"
+                android:scaleType="fitCenter"
+                android:contentDescription="@string/app_name" />
+
+            <TextView
+                android:id="@+id/filters_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/work_manager_title"
+                android:textSize="24sp"
+                android:textColor="@{temp.labelColor}"
+                tools:textColor="@color/colorPrimary" />
+
+            <RadioGroup
+                android:id="@+id/radio_blur_group"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:checkedButton="@+id/radio_blur_lv_1">
+
+                <RadioButton
+                    android:id="@+id/radio_blur_lv_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/blur_lv_1"
+                    android:textColor="@{temp.labelColor}"
+                    tools:textColor="@color/colorPrimary" />
+
+                <RadioButton
+                    android:id="@+id/radio_blur_lv_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/blur_lv_2"
+                    android:textColor="@{temp.labelColor}"
+                    tools:textColor="@color/colorPrimary" />
+
+                <RadioButton
+                    android:id="@+id/radio_blur_lv_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/blur_lv_3"
+                    android:textColor="@{temp.labelColor}"
+                    tools:textColor="@color/colorPrimary" />
+
+            </RadioGroup>
+
+            <RadioGroup
+                android:id="@+id/destinations"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </RadioGroup>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/button_cancel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/button_cancel_work"
+                        android:visibility="gone"
+                        style="@style/ButtonNormalDarkMode" />
+
+                    <ProgressBar
+                        android:id="@+id/progress_bar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:visibility="gone"
+                        android:backgroundTint="@{temp.backgroundColor}"
+                        tools:backgroundTint="@color/colorPrimary" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/button_run_work"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_6dp"
+                    android:layout_marginEnd="@dimen/dimen_6dp"
+                    android:text="@string/button_run_work"
+                    style="@style/ButtonNormalDarkMode" />
+
+                <Button
+                    android:id="@+id/button_see_file"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_6dp"
+                    android:layout_marginEnd="@dimen/dimen_6dp"
+                    android:text="@string/button_see_file"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    style="@style/ButtonNormalDarkMode" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </layout>

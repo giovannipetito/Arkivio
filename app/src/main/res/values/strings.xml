@@ -378,6 +378,16 @@
 
     <!-- WORKMANAGER -->
     <string name="work_manager_title">WorkManager</string>
+    <string name="button_run_work">Run Work</string>
+    <string name="button_see_file">See File</string>
+    <string name="button_cancel_work">Cancel Work</string>
+    <string name="blur_lv_1">Little blurred</string>
+    <string name="blur_lv_2">Blurred</string>
+    <string name="blur_lv_3">Very blurred</string>
+
+    <!-- Messages -->
+    <string name="set_permissions_in_settings">Go to Settings -> Apps and Notifications ->
+        WorkManager Demo -> App Permissions and grant access to Storage.</string>
 
     <!-- MACHINE LEARNING -->
     <string name="machine_learning_title">Machine Learning</string>

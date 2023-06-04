@@ -16,10 +16,10 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import dagger.hilt.android.AndroidEntryPoint
 import it.giovanni.arkivio.*
 import it.giovanni.arkivio.App.Companion.context
@@ -50,6 +50,7 @@ import it.giovanni.arkivio.fragments.detail.notification.NotificationFragment
 import it.giovanni.arkivio.fragments.detail.notification.NotificationHomeFragment
 import it.giovanni.arkivio.fragments.detail.permissions.PermissionsFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.PuntoNetFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.presentation.factory.ViewModelProviderFactory
 import it.giovanni.arkivio.fragments.detail.puntonet.coroutines.*
 import it.giovanni.arkivio.fragments.detail.puntonet.dependencyinjection.DependencyInjectionFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.UsersFragment
@@ -78,6 +79,7 @@ import it.giovanni.arkivio.utils.Utils.Companion.isOnline
 import it.giovanni.arkivio.viewinterfaces.IProgressLoader
 import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadDarkModeStateFromPreferences
 import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadRememberMeFromPreferences
+import javax.inject.Inject
 
 /**
  * MainActivity è annotata con @AndroidEntryPoint, ciò indica che è idonea
@@ -94,7 +96,12 @@ class MainActivity : BaseActivity(), IProgressLoader {
         var running = false
     }
 
-    val viewModel: RickMortyViewModel by viewModels()
+    // val viewModel: RickMortyViewModel by viewModels()
+
+    @Inject
+    lateinit var factory: ViewModelProviderFactory
+    val viewModel: RickMortyViewModel
+        get() = ViewModelProvider(this, factory)[RickMortyViewModel::class.java]
 
     private var layoutBinding: ActivityMainBinding? = null
     val binding: ActivityMainBinding? get() = layoutBinding

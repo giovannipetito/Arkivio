@@ -102,7 +102,11 @@ class NotificationService4 : Service() {
         // Bluetooth
         registerReceiver(receiver, IntentFilter(BluetoothDevice.ACTION_FOUND))
 
-        val pendingIntent = PendingIntent.getActivity(this, requestCode, Intent(this, MainActivity::class.java), 0)
+        val pendingIntent = PendingIntent.getActivity(
+            this,
+            requestCode,
+            Intent(this, MainActivity::class.java), PendingIntent.FLAG_IMMUTABLE
+        )
 
         val logo : Bitmap = BitmapFactory.decodeResource(
             App.context.resources,

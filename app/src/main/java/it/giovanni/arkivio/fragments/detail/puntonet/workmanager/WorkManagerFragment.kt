@@ -1,34 +1,32 @@
 package it.giovanni.arkivio.fragments.detail.puntonet.workmanager
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.work.ExistingWorkPolicy
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.work.OneTimeWorkRequest
-import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
+import com.airbnb.paris.extensions.style
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.WorkManagerLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
-import java.util.concurrent.Executors
+import it.giovanni.arkivio.utils.SharedPreferencesManager
 import java.util.concurrent.TimeUnit
 
-/**
- * Pianifica il lavoro: nel tuo fragment, pianifica il lavoro da eseguire utilizzando l'API di
- * WorkManager. Ad esempio, pianifichiamo l'esecuzione di SimpleWorker una volta dopo un delay.
- *
- * In questo esempio, SimpleWorker verrà pianificato per essere eseguito una volta con un ritardo
- * iniziale di 5 secondi. Una volta trascorso il ritardo, il metodo doWork() del SimpleWorker
- * verrà eseguito in background.
- */
 class WorkManagerFragment : DetailFragment() {
 
     private var layoutBinding: WorkManagerLayoutBinding? = null
     private val binding get() = layoutBinding
+
+    private val viewModel: BlurViewModel by viewModels {
+        BlurViewModelProviderFactory(currentActivity.application)
+    }
 
     override fun getTitle(): Int {
         return R.string.work_manager_title
@@ -78,6 +76,14 @@ class WorkManagerFragment : DetailFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setViewStyle()
+
+        /**
+         * ------------------ SIMPLE EXAMPLE ------------------
+         * In questo esempio, SimpleWorker verrà pianificato per essere eseguito una volta con un
+         * ritardo iniziale di 5 secondi. Una volta trascorso il ritardo, il metodo doWork() del
+         * SimpleWorker verrà eseguito in background.
+         */
         // Create a WorkRequest
         val workRequest = OneTimeWorkRequest.Builder(SimpleWorker::class.java)
             .setInitialDelay(5, TimeUnit.SECONDS)
@@ -85,47 +91,106 @@ class WorkManagerFragment : DetailFragment() {
 
         // Enqueue the WorkRequest
         WorkManager.getInstance(requireContext()).enqueue(workRequest)
-
         /**
-         * Gestisci il risultato del lavoro: se è necessario gestire il risultato del lavoro, è
-         * possibile aggiungere una callback di WorkManager utilizzando l'API di WorkManager. Questa
-         * callback verrà richiamata al termine del lavoro e potrai gestire il risultato di conseguenza.
+         * ---------------- END SIMPLE EXAMPLE ----------------
          */
-        // Enqueue the WorkRequest and add a callback
-        /*
-        WorkManager.getInstance(requireContext())
-            .enqueue(workRequest)
-            .result.addListener({
-                // Handle the work result
-                val isSuccess = it.isSuccessful
-                // ...
-            }, Executors.newSingleThreadExecutor())
-        */
 
-        // Enqueue the work request and get a unique tag
-        /*
-        val workRequest = OneTimeWorkRequestBuilder<SimpleWorker>()
-            .setInputData(workData)
-            .build()
+        binding?.buttonRunWork?.setOnClickListener {
+            viewModel.applyBlur(blurLevel)
+        }
 
-        val workTag = "my_unique_work_tag"
-        WorkManager.getInstance(context).enqueueUniqueWork(workTag, ExistingWorkPolicy.REPLACE, workRequest)
-
-        // Observe the work status
-        val workManager = WorkManager.getInstance(context)
-        val workInfoLiveData = workManager.getWorkInfoByTagLiveData(workTag)
-        workInfoLiveData.observe(owner) { workInfo ->
-            if (workInfo != null) {
-                val state = workInfo.state
-                // Handle the work state, e.g., WorkInfo.State.RUNNING, WorkInfo.State.SUCCEEDED, etc.
-                if (state == WorkInfo.State.SUCCEEDED) {
-                    // Work completed successfully
-                    val result = workInfo.outputData.getString("result")
-                    // Do something with the result
+        // Setup view output image file button
+        binding?.buttonSeeFile?.setOnClickListener {
+            viewModel.outputUri?.let { currentUri ->
+                val actionView = Intent(Intent.ACTION_VIEW, currentUri)
+                actionView.resolveActivity(currentActivity.packageManager)?.run {
+                    startActivity(actionView)
                 }
             }
         }
-        */
+
+        // Hookup the Cancel button
+        binding?.buttonCancel?.setOnClickListener {
+            viewModel.cancelWork()
+        }
+
+        viewModel.outputWorkInfos.observe(viewLifecycleOwner, workInfosObserver())
+    }
+
+    private fun workInfosObserver(): Observer<List<WorkInfo>> {
+        return Observer { listOfWorkInfo ->
+
+            // Note that these next few lines grab a single WorkInfo if it exists
+            // This code could be in a Transformation in the ViewModel; they are included here
+            // so that the entire process of displaying a WorkInfo is in one location.
+
+            // If there are no matching work info, do nothing
+            if (listOfWorkInfo.isEmpty()) {
+                return@Observer
+            }
+
+            // We only care about the one output status.
+            // Every continuation has only one worker tagged TAG_OUTPUT
+            val workInfo = listOfWorkInfo[0]
+
+            if (workInfo.state.isFinished) {
+                showWorkFinished()
+
+                // Normally this processing, which is not directly related to drawing views on
+                // screen would be in the ViewModel. For simplicity we are keeping it here.
+                val outputImageUri = workInfo.outputData.getString(KEY_IMAGE_URI)
+
+                // If there is an output file show "See File" button
+                if (!outputImageUri.isNullOrEmpty()) {
+                    viewModel.setOutputUri(outputImageUri)
+                    binding?.buttonSeeFile?.visibility = View.VISIBLE
+                }
+            } else {
+                showWorkInProgress()
+            }
+        }
+    }
+
+    /**
+     * Shows and hides views for when the Activity is processing an image
+     */
+    private fun showWorkInProgress() {
+        binding?.progressBar?.visibility = View.VISIBLE
+        binding?.buttonCancel?.visibility = View.VISIBLE
+        binding?.buttonRunWork?.visibility = View.GONE
+        binding?.buttonSeeFile?.visibility = View.GONE
+    }
+
+    /**
+     * Shows and hides views for when the Activity is done processing an image
+     */
+    private fun showWorkFinished() {
+        binding?.progressBar?.visibility = View.GONE
+        binding?.buttonCancel?.visibility = View.GONE
+        binding?.buttonRunWork?.visibility = View.VISIBLE
+    }
+
+    private val blurLevel: Int
+        get() =
+            when (binding?.radioBlurGroup?.checkedRadioButtonId) {
+                R.id.radio_blur_lv_1 -> 1
+                R.id.radio_blur_lv_2 -> 2
+                R.id.radio_blur_lv_3 -> 3
+                else -> 1
+            }
+
+    private fun setViewStyle() {
+        isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
+
+        if (isDarkMode) {
+            binding?.buttonRunWork?.style(R.style.ButtonNormalDarkMode)
+            binding?.buttonCancel?.style(R.style.ButtonNormalDarkMode)
+            binding?.buttonSeeFile?.style(R.style.ButtonNormalDarkMode)
+        } else {
+            binding?.buttonRunWork?.style(R.style.ButtonNormalLightMode)
+            binding?.buttonCancel?.style(R.style.ButtonNormalLightMode)
+            binding?.buttonSeeFile?.style(R.style.ButtonNormalLightMode)
+        }
     }
 
     override fun onDestroyView() {
