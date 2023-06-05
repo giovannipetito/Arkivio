@@ -46,6 +46,9 @@ class RickMortyViewModel @Inject constructor(private val rickMortyDataSource: Ri
     val characters: LiveData<List<RickMorty>>
         get() = _characters
 
+    /**
+     * Get data with Paging & Coroutines
+     */
     fun getDataFlow(): Flow<PagingData<RickMorty>> {
 
         val dataFlow: Flow<PagingData<RickMorty>> = Pager(PagingConfig(pageSize = 1)) {
@@ -57,6 +60,9 @@ class RickMortyViewModel @Inject constructor(private val rickMortyDataSource: Ri
         return dataFlow
     }
 
+    /**
+     * Get data with RxJava
+     */
     fun getCharacters(page: Int) {
         val observable: Single<RickMortyResponse> = rickMortyDataSource.getAllCharactersV4(page)
 
@@ -68,6 +74,11 @@ class RickMortyViewModel @Inject constructor(private val rickMortyDataSource: Ri
                     _characters.postValue(response.results)
                 }, { error ->
                     Log.e("[RX]", "error: " + error.message)
-                })
+                }
+            )
     }
+
+    /**
+     * Get data with WorkManager
+     */
 }

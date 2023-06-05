@@ -23,8 +23,8 @@ class SimpleWorker(context: Context, params: WorkerParameters) : CoroutineWorker
 
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         try {
-            // Simulate work by sleeping for 3 seconds
-            Thread.sleep(3000)
+            // Simulate work by sleeping for 5 seconds
+            Thread.sleep(5000)
             val message = "Simple work is finished!"
             Log.d("WorkManager", message)
             val outputData = workDataOf(KEY_SIMPLE_MESSAGE to message)
@@ -34,6 +34,7 @@ class SimpleWorker(context: Context, params: WorkerParameters) : CoroutineWorker
             val message = "Simple work is failed!"
             Log.e("WorkManager", message)
             val outputData = workDataOf(KEY_SIMPLE_MESSAGE to message)
+
             return@withContext Result.failure(outputData)
         }
     }

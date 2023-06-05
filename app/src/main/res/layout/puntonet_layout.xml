@@ -229,11 +229,11 @@
             tools:background="@color/colorPrimary" />
 
         <TextView
-            android:id="@+id/label_clean_architecture_home"
+            android:id="@+id/label_work_manager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="@string/clean_architecture_home_title"
+            android:text="@string/work_manager_title"
             android:textSize="16sp"
             android:textColor="@{temp.labelColor}"
             android:textAlignment="center"
@@ -250,11 +250,11 @@
             tools:background="@color/colorPrimary" />
 
         <TextView
-            android:id="@+id/label_work_manager"
+            android:id="@+id/label_clean_architecture_home"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="@string/work_manager_title"
+            android:text="@string/clean_architecture_home_title"
             android:textSize="16sp"
             android:textColor="@{temp.labelColor}"
             android:textAlignment="center"

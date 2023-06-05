@@ -1,29 +1,24 @@
-package it.giovanni.arkivio.fragments.detail.puntonet.workmanager
+package it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.presentation.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.work.WorkInfo
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.databinding.SimpleWorkerLayoutBinding
+import it.giovanni.arkivio.databinding.RickMortyWorkerLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 
-class SimpleWorkerFragment : DetailFragment() {
+class RickMortyWorkerFragment : DetailFragment() {
 
-    private var layoutBinding: SimpleWorkerLayoutBinding? = null
+    private var layoutBinding: RickMortyWorkerLayoutBinding? = null
     private val binding get() = layoutBinding
 
-    private val viewModel: SimpleWorkerViewModel by viewModels {
-        ViewModelProviderFactory(currentActivity.application)
-    }
-
     override fun getTitle(): Int {
-        return R.string.simple_worker_title
+        return R.string.clean_architecture_worker_title
     }
 
     override fun getActionTitle(): Int {
@@ -57,7 +52,7 @@ class SimpleWorkerFragment : DetailFragment() {
     }
 
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
-        layoutBinding = SimpleWorkerLayoutBinding.inflate(inflater, container, false)
+        layoutBinding = RickMortyWorkerLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this)
         val model = DarkModeModel(requireContext())
@@ -70,34 +65,25 @@ class SimpleWorkerFragment : DetailFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.workInfos.observe(viewLifecycleOwner, workInfosObserver())
+        loadData()
+
+        // currentActivity.viewModel.workInfos.observe(viewLifecycleOwner, workInfosObserver())
+    }
+
+    private fun loadData() {
+        showProgressDialog()
+        // currentActivity.viewModel.runWork(1)
     }
 
     private fun workInfosObserver(): Observer<List<WorkInfo>> {
         return Observer { listOfWorkInfo ->
 
-            if (listOfWorkInfo.isEmpty()) {
-                return@Observer
-            }
-
-            val workInfo = listOfWorkInfo[0]
-
-            if (workInfo.state.isFinished) {
-
-                val outputMessage = workInfo.outputData.getString(KEY_SIMPLE_MESSAGE)
-
-                if (!outputMessage.isNullOrEmpty()) {
-                    binding?.labelSimpleWorker?.text = outputMessage
-                }
-            } else {
-                val runningMessage = "Single work is running!"
-                binding?.labelSimpleWorker?.text = runningMessage
-            }
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         layoutBinding = null
+        currentActivity.viewModel.disposable?.dispose()
     }
 }

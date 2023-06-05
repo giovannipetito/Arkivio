@@ -14,7 +14,6 @@ import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.model.RickMorty
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
-import it.giovanni.arkivio.utils.SharedPreferencesManager
 
 class RickMortyFragment : DetailFragment() {
 
@@ -68,10 +67,6 @@ class RickMortyFragment : DetailFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
-
-        // viewModel = ViewModelProvider(requireActivity())[RickMortyViewModel::class.java]
 
         loadData()
 

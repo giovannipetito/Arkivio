@@ -23,12 +23,12 @@ class SimpleWorkerViewModel(application: Application) : ViewModel() {
     private fun runWork() {
         /**
          * In questo esempio, SimpleWorker verrà pianificato per essere eseguito una volta
-         * con un ritardo iniziale di 5 secondi. Una volta trascorso il ritardo, il metodo
+         * con un ritardo iniziale di 3 secondi. Una volta trascorso il ritardo, il metodo
          * doWork() del SimpleWorker verrà eseguito in background.
          */
         // Crea una WorkRequest
         val workRequest: OneTimeWorkRequest = OneTimeWorkRequestBuilder<SimpleWorker>()
-            .setInitialDelay(5, TimeUnit.SECONDS)
+            .setInitialDelay(3, TimeUnit.SECONDS)
             .addTag(TAG_SIMPLE_MESSAGE_OUTPUT)
             .build()
 

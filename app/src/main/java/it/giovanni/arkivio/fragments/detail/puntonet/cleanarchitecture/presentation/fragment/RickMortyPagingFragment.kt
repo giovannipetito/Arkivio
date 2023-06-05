@@ -18,7 +18,6 @@ import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.presentat
 import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.presentation.adapter.FooterAdapter
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
-import it.giovanni.arkivio.utils.SharedPreferencesManager
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -27,8 +26,6 @@ class RickMortyPagingFragment : DetailFragment() {
 
     private var layoutBinding: RickMortyPagingLayoutBinding? = null
     private val binding get() = layoutBinding
-
-    // private lateinit var viewModel: RickMortyViewModel
 
     private lateinit var characterAdapter: CharacterAdapter
 
@@ -81,10 +78,6 @@ class RickMortyPagingFragment : DetailFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
-
-        // viewModel = ViewModelProvider(requireActivity())[RickMortyViewModel::class.java]
 
         setupAdapter()
         loadPagingData()

@@ -16,9 +16,11 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import dagger.hilt.android.AndroidEntryPoint
 import it.giovanni.arkivio.*
@@ -63,6 +65,7 @@ import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.users.MvvmUsersFragme
 import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.presentation.fragment.RickMortyFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.presentation.fragment.RickMortyHomeFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.presentation.fragment.RickMortyPagingFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.presentation.fragment.RickMortyWorkerFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.presentation.viewmodel.RickMortyViewModel
 import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxExample1Fragment
 import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxExample2Fragment
@@ -72,6 +75,7 @@ import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxHomeFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxRetrofitFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.workmanager.BlurWorkerFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.workmanager.SimpleWorkerFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.workmanager.SimpleWorkerViewModel
 import it.giovanni.arkivio.fragments.detail.puntonet.workmanager.WorkManagerFragment
 import it.giovanni.arkivio.fragments.detail.stickyheader.StickyHeaderFragment
 import it.giovanni.arkivio.utils.Globals
@@ -103,7 +107,7 @@ class MainActivity : BaseActivity(), IProgressLoader {
     @Inject
     lateinit var factory: ViewModelProviderFactory
     val viewModel: RickMortyViewModel
-        get() = ViewModelProvider(this, factory)[RickMortyViewModel::class.java]
+        get() = ViewModelProvider(this, factory.apply { application })[RickMortyViewModel::class.java]
 
     private var layoutBinding: ActivityMainBinding? = null
     val binding: ActivityMainBinding? get() = layoutBinding
@@ -520,6 +524,15 @@ class MainActivity : BaseActivity(), IProgressLoader {
             Globals.DEPENDENCY_INJECTION -> {
                 baseFragment = DependencyInjectionFragment()
             }
+            Globals.WORKMANAGER -> {
+                baseFragment = WorkManagerFragment()
+            }
+            Globals.SIMPLE_WORKER -> {
+                baseFragment = SimpleWorkerFragment()
+            }
+            Globals.BLUR_WORKER -> {
+                baseFragment = BlurWorkerFragment()
+            }
             Globals.CLEAN_ARCHITECTURE_HOME -> {
                 baseFragment = RickMortyHomeFragment()
             }
@@ -529,14 +542,8 @@ class MainActivity : BaseActivity(), IProgressLoader {
             Globals.CLEAN_ARCHITECTURE_RXJAVA -> {
                 baseFragment = RickMortyFragment()
             }
-            Globals.WORKMANAGER -> {
-                baseFragment = WorkManagerFragment()
-            }
-            Globals.SIMPLE_WORKER -> {
-                baseFragment = SimpleWorkerFragment()
-            }
-            Globals.BLUR_WORKER -> {
-                baseFragment = BlurWorkerFragment()
+            Globals.CLEAN_ARCHITECTURE_WORKER -> {
+                baseFragment = RickMortyWorkerFragment()
             }
         }
 

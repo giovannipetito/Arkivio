@@ -1,44 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <variable
-            name="temp"
-            type="it.giovanni.arkivio.model.DarkModeModel" />
+<data>
+    <variable
+        name="temp"
+        type="it.giovanni.arkivio.model.DarkModeModel" />
 
-        <variable
-            name="presenter"
-            type="it.giovanni.arkivio.presenter.DarkModePresenter" />
-    </data>
+    <variable
+        name="presenter"
+        type="it.giovanni.arkivio.presenter.DarkModePresenter" />
+</data>
 
-    <RelativeLayout
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:focusable="true"
+    android:clickable="true">
+
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:text="@string/clean_architecture_home_title"
+        android:textSize="21sp"
+        android:textColor="@{temp.labelColor}"
+        android:textAlignment="center"
+        tools:textColor="@color/colorPrimary" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:orientation="vertical">
+    <View
+        android:layout_width="120dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="16dp"
+        android:background="@{temp.labelColor}"
+        android:layout_gravity="center"
+        android:alpha=".4"
+        tools:background="@color/colorPrimary" />
 
-            <Button
-                android:id="@+id/button_paging_coroutines"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimen_24dp"
-                android:text="@string/button_paging_coroutines"
-                style="@style/ButtonNormalDarkMode" />
+    <TextView
+        android:id="@+id/label_paging_coroutines"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="@string/label_paging_coroutines"
+        android:textSize="16sp"
+        android:textColor="@{temp.labelColor}"
+        android:textAlignment="center"
+        tools:textColor="@color/colorPrimary" />
 
-            <Button
-                android:id="@+id/button_rxjava"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimen_24dp"
-                android:text="@string/button_rxjava"
-                style="@style/ButtonNormalDarkMode" />
+    <View
+        android:layout_width="120dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@{temp.labelColor}"
+        android:layout_gravity="center"
+        android:alpha=".4"
+        tools:background="@color/colorPrimary" />
 
-        </LinearLayout>
+    <TextView
+        android:id="@+id/label_rxjava"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="@string/label_rxjava"
+        android:textSize="16sp"
+        android:textColor="@{temp.labelColor}"
+        android:textAlignment="center"
+        tools:textColor="@color/colorPrimary" />
 
-    </RelativeLayout>
+    <View
+        android:layout_width="120dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@{temp.labelColor}"
+        android:layout_gravity="center"
+        android:alpha=".4"
+        tools:background="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/label_work_manager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="@string/label_work_manager"
+        android:textSize="16sp"
+        android:textColor="@{temp.labelColor}"
+        android:textAlignment="center"
+        tools:textColor="@color/colorPrimary" />
+
+    <View
+        android:layout_width="120dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@{temp.labelColor}"
+        android:layout_gravity="center"
+        android:alpha=".4"
+        tools:background="@color/colorPrimary" />
+
+</LinearLayout>
 
 </layout>

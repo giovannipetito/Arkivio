@@ -4,14 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.airbnb.paris.extensions.style
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.RickMortyHomeLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.Globals
-import it.giovanni.arkivio.utils.SharedPreferencesManager
 
 class RickMortyHomeFragment : DetailFragment() {
 
@@ -66,26 +64,14 @@ class RickMortyHomeFragment : DetailFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setViewStyle()
-
-        binding?.buttonPagingCoroutines?.setOnClickListener {
+        binding?.labelPagingCoroutines?.setOnClickListener {
             currentActivity.openDetail(Globals.CLEAN_ARCHITECTURE_PAGING, null)
         }
-
-        binding?.buttonRxjava?.setOnClickListener {
+        binding?.labelRxjava?.setOnClickListener {
             currentActivity.openDetail(Globals.CLEAN_ARCHITECTURE_RXJAVA, null)
         }
-    }
-
-    private fun setViewStyle() {
-        isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
-        if (isDarkMode) {
-            binding?.buttonPagingCoroutines?.style(R.style.ButtonNormalDarkMode)
-            binding?.buttonRxjava?.style(R.style.ButtonNormalDarkMode)
-        }
-        else {
-            binding?.buttonPagingCoroutines?.style(R.style.ButtonNormalLightMode)
-            binding?.buttonRxjava?.style(R.style.ButtonNormalLightMode)
+        binding?.labelWorkManager?.setOnClickListener {
+            currentActivity.openDetail(Globals.CLEAN_ARCHITECTURE_WORKER, null)
         }
     }
 
