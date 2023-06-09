@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 /**
  * Entity: ogni classe di questo tipo rappresenta una tabella del database.
  * All’interno delle classi Entity predisporremo tante variabili d’istanza quanti sono i campi
- * previsti dallo schema della tabella, più altri eventuali membri che si renderanno necessari;
+ * previsti dallo schema della tabella, più altri eventuali membri che si renderanno necessari.
  */
 @Entity(tableName = "UserPreferences")
 class UserPreferencesEntity(

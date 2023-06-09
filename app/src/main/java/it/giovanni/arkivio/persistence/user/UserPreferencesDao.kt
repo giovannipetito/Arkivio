@@ -27,7 +27,7 @@ interface UserPreferencesDao {
 
     /**
      * Insert a user in the database. If the user already exists, replace it.
-     * @param preference the preferenc key value to be inserted.
+     * @param preference the preference key value to be inserted.
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertPreference(preference: UserPreferencesEntity)

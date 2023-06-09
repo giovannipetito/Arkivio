@@ -47,7 +47,7 @@ class RickMortyViewModel @Inject constructor(private val rickMortyDataSource: Ri
         get() = _characters
 
     /**
-     * Get data with Paging & Coroutines
+     * Get data with Coroutines & Paging
      */
     fun getDataFlow(): Flow<PagingData<RickMorty>> {
 

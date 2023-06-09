@@ -10,7 +10,7 @@ import it.giovanni.arkivio.persistence.user.UserPreferencesEntity
 
 class UserPreferencesRepository(context: Context) {
 
-    private val dbName = "giovannideveloper.db"
+    private val dbName = "databasearkivio.db"
     private var prefereces: List<UserPreferencesEntity> = ArrayList()
     var appRoomDatabase: AppRoomDatabase? = null
 
