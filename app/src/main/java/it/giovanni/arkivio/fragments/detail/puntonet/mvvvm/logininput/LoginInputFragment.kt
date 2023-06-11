@@ -82,7 +82,7 @@ class LoginInputFragment : DetailFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
+        setViewStyle()
 
         viewModel = ViewModelProvider(requireActivity())[LoginInputViewModel::class.java]
 
@@ -120,7 +120,10 @@ class LoginInputFragment : DetailFragment() {
         binding?.buttonLoginResult?.setOnClickListener {
             currentActivity.openDetail(Globals.MVVM_LOGIN_RESULT, null)
         }
+    }
 
+    private fun setViewStyle() {
+        isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
         if (isDarkMode) {
             binding?.buttonLogin?.style(R.style.ButtonNormalDarkMode)
             binding?.buttonLoginResult?.style(R.style.ButtonNormalDarkMode)

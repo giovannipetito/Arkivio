@@ -99,6 +99,12 @@ class PuntoNetFragment : DetailFragment() {
         binding?.labelCleanArchitectureHome?.setOnClickListener {
             currentActivity.openDetail(Globals.CLEAN_ARCHITECTURE_HOME, null)
         }
+        binding?.labelRoomCoroutines?.setOnClickListener {
+            currentActivity.openDetail(Globals.ROOM_COROUTINES, null)
+        }
+        binding?.labelRoomRxjava?.setOnClickListener {
+            currentActivity.openDetail(Globals.ROOM_RXJAVA, null)
+        }
     }
 
     override fun onDestroyView() {

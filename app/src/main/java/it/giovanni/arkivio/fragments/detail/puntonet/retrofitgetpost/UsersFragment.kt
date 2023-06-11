@@ -105,8 +105,8 @@ class UsersFragment : DetailFragment() {
                 .apply(RequestOptions.bitmapTransform(RoundedCorners(54)))
                 .into(itemBinding.userAvatar)
 
-            val labelFirstName: TextView = itemBinding.getPostUserFirstName
-            val labelLastName: TextView = itemBinding.getPostUserLastName
+            val labelFirstName: TextView = itemBinding.userFirstName
+            val labelLastName: TextView = itemBinding.userLastName
 
             labelFirstName.text = user.firstName
             labelLastName.text = user.lastName

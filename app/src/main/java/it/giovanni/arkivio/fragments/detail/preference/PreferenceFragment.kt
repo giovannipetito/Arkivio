@@ -25,7 +25,7 @@ class PreferenceFragment: DetailFragment(), IPreference.UpdatesView {
     var presenter: IPreference.UserEvents? = null
 
     override fun getTitle(): Int {
-        return R.string.preference_title
+        return R.string.room_asynctask_title
     }
 
     override fun getActionTitle(): Int {

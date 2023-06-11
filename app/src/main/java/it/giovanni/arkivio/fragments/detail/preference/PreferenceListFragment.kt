@@ -35,7 +35,7 @@ class PreferenceListFragment: DetailFragment(), PreferenceListAdapter.OnItemView
     private var isButtonClicked: Boolean? = false
 
     override fun getTitle(): Int {
-        return R.string.preference_title
+        return R.string.room_asynctask_title
     }
 
     override fun getActionTitle(): Int {

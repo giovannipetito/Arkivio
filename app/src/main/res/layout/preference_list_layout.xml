@@ -25,7 +25,7 @@
                     android:id="@+id/search_checkbox_recyclerview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingBottom="60dp"
+                    android:paddingBottom="@dimen/dimen_80dp"
                     android:clipToPadding="false" />
 
         </LinearLayout>
@@ -43,7 +43,7 @@
 
             <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/dimen_80dp"
                     android:layout_below="@+id/top_shadow"
                     android:background="@{temp.bottomBarColor}"
                     tools:background="@color/rosso">

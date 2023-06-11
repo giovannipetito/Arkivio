@@ -42,11 +42,11 @@
                     android:contentDescription="@string/app_name" />
 
                 <TextView
-                    android:id="@+id/get_post_user_first_name"
+                    android:id="@+id/user_first_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="24dp"
+                    android:layout_marginStart="@dimen/dimen_24dp"
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:textColor="@color/colorPrimaryDark"
@@ -55,17 +55,30 @@
                     tools:text="Giovanni" />
 
                 <TextView
-                    android:id="@+id/get_post_user_last_name"
+                    android:id="@+id/user_last_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="24dp"
+                    android:layout_marginStart="@dimen/dimen_6dp"
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18sp"
                     android:fontFamily="@font/montserrat_medium"
                     tools:text="Petito" />
+
+                <TextView
+                    android:id="@+id/user_age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dimen_12dp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/montserrat_medium"
+                    tools:text="35" />
 
             </LinearLayout>
 

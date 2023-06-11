@@ -16,11 +16,9 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import dagger.hilt.android.AndroidEntryPoint
 import it.giovanni.arkivio.*
@@ -73,9 +71,10 @@ import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxExample3Fragmen
 import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxExample4Fragment
 import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxHomeFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxRetrofitFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.room.fragment.RoomCoroutinesFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.room.fragment.RoomRxJavaFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.workmanager.BlurWorkerFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.workmanager.SimpleWorkerFragment
-import it.giovanni.arkivio.fragments.detail.puntonet.workmanager.SimpleWorkerViewModel
 import it.giovanni.arkivio.fragments.detail.puntonet.workmanager.WorkManagerFragment
 import it.giovanni.arkivio.fragments.detail.stickyheader.StickyHeaderFragment
 import it.giovanni.arkivio.utils.Globals
@@ -425,7 +424,7 @@ class MainActivity : BaseActivity(), IProgressLoader {
             Globals.DIALOG_FLOW -> {
                 baseFragment = DialogFlowFragment()
             }
-            Globals.PREFERENCE -> {
+            Globals.ROOM_ASYNCTASK -> {
                 baseFragment = PreferenceFragment()
             }
             Globals.PREFERENCE_LIST -> {
@@ -544,6 +543,12 @@ class MainActivity : BaseActivity(), IProgressLoader {
             }
             Globals.CLEAN_ARCHITECTURE_WORKER -> {
                 baseFragment = RickMortyWorkerFragment()
+            }
+            Globals.ROOM_COROUTINES -> {
+                baseFragment = RoomCoroutinesFragment()
+            }
+            Globals.ROOM_RXJAVA -> {
+                baseFragment = RoomRxJavaFragment()
             }
         }
 

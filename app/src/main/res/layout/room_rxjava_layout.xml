@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="temp"
+            type="it.giovanni.arkivio.model.DarkModeModel" />
+
+        <variable
+            name="presenter"
+            type="it.giovanni.arkivio.presenter.DarkModePresenter" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.4"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/edit_first_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_6dp"
+                android:layout_margin="@dimen/dimen_6dp"
+                android:hint="@string/edit_first_name"
+                android:inputType="textPersonName"
+                android:autofillHints="@string/app_name"
+                android:background="@drawable/round_corner_1"
+                style="@style/EditText1" />
+
+            <EditText
+                android:id="@+id/edit_last_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_6dp"
+                android:layout_margin="@dimen/dimen_6dp"
+                android:hint="@string/edit_last_name"
+                android:inputType="textPersonName"
+                android:autofillHints="@string/app_name"
+                android:background="@drawable/round_corner_1"
+                style="@style/EditText1" />
+
+            <EditText
+                android:id="@+id/edit_age"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_6dp"
+                android:layout_margin="@dimen/dimen_6dp"
+                android:hint="@string/edit_age"
+                android:inputType="textPhonetic"
+                android:autofillHints="@string/app_name"
+                android:background="@drawable/round_corner_1"
+                style="@style/EditText1" />
+
+            <Button
+                android:id="@+id/button_insert_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_6dp"
+                android:text="@string/button_insert_user"
+                android:enabled="false"
+                style="@style/ButtonEmptyDarkMode" />
+
+            <Button
+                android:id="@+id/button_show_users"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_6dp"
+                android:text="@string/button_show_users"
+                style="@style/ButtonEmptyDarkMode" />
+
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.6">
+
+            <LinearLayout
+                android:id="@+id/users_rxjava_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</layout>

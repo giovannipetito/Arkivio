@@ -28,12 +28,12 @@ class BlurWorkerFragment : DetailFragment() {
 
     /**
      * La variabile viewModel è un'istanza di BlurWorkerViewModel ottenuta utilizzando il delegate
-     * "by viewModels". Usa ViewModelProviderFactory per creare l'istanza del ViewModel,
+     * "by viewModels". Usa WorkerViewModelProviderFactory per creare l'istanza del ViewModel,
      * passando currentActivity.application come argomento. Ciò consente al fragment di avere
      * accesso all'istanza di ViewModel condivisa.
      */
     private val viewModel: BlurWorkerViewModel by viewModels {
-        ViewModelProviderFactory(currentActivity.application)
+        WorkerViewModelProviderFactory(currentActivity.application)
     }
 
     override fun getTitle(): Int {

@@ -6,10 +6,10 @@ import it.giovanni.arkivio.persistence.user.UserPreferencesEntity
 import it.giovanni.arkivio.persistence.user.UserPreferencesDao
 
 /**
- * The Room Database that contains the Users table.
+ * Il database Room che contiene la tabella Users.
  * Room Database rappresenta l’astrazione del database su cui vogliamo lavorare.
- * Verrà creata una classe di questo tipo che costituirà il centro di accesso ai
- * dati: qualsiasi operazione da svolgere passerà di qui;
+ * Verrà creata una classe di questo tipo che costituirà il punto di accesso ai
+ * dati: qualsiasi operazione da svolgere passerà di qui.
  */
 @Database(entities = [UserPreferencesEntity::class], version = 1, exportSchema = false)
 abstract class AppRoomDatabase : RoomDatabase() {

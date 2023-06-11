@@ -19,7 +19,7 @@ class SimpleWorkerFragment : DetailFragment() {
     private val binding get() = layoutBinding
 
     private val viewModel: SimpleWorkerViewModel by viewModels {
-        ViewModelProviderFactory(currentActivity.application)
+        WorkerViewModelProviderFactory(currentActivity.application)
     }
 
     override fun getTitle(): Int {

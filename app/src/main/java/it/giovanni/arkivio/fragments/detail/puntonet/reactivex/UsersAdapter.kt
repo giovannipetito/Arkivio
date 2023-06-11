@@ -54,8 +54,8 @@ class UsersAdapter(onItemClicked: OnItemViewClicked) : RecyclerView.Adapter<User
     inner class UsersViewHolder(userCardBinding: UserCardBinding) : RecyclerView.ViewHolder(userCardBinding.root) {
 
         internal var userCard: CardView = userCardBinding.userCard
-        internal var firstName: TextView = userCardBinding.getPostUserFirstName
-        internal var lastName: TextView = userCardBinding.getPostUserLastName
+        internal var firstName: TextView = userCardBinding.userFirstName
+        internal var lastName: TextView = userCardBinding.userLastName
         internal var avatar: ImageView = userCardBinding.userAvatar
     }
 

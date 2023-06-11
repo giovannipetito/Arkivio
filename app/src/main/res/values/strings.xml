@@ -229,8 +229,13 @@
     <string name="insert_email">Inserisci la tua Email</string>
     <string name="change_style">Change Style</string>
 
-    <!-- PREFERENCE -->
-    <string name="preference_title">Preference</string>
+    <!-- ROOM DATABASE -->
+    <string name="room_asynctask_title">Room with AsyncTask</string>
+    <string name="room_coroutines_title">Room with Coroutines</string>
+    <string name="room_rxjava_title">Room with RxJava</string>
+    <string name="edit_age">Inserisci la tua età</string>
+    <string name="button_insert_user">Inserisci l\'utente</string>
+    <string name="button_show_users">Mostra gli utenti</string>
 
     <!-- STICKY HEADER -->
     <string name="sticky_header_title">Sticky Header</string>
