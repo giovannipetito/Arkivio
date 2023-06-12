@@ -15,6 +15,7 @@
     <dimen name="dimen_8dp">8dp</dimen>
     <dimen name="dimen_6dp">6dp</dimen>
     <dimen name="dimen_4dp">4dp</dimen>
+    <dimen name="dimen_3dp">3dp</dimen>
 
     <dimen name="lineSpacingExtra">0dp</dimen>
     <dimen name="lineSpacingExtra_negative">-5dp</dimen>

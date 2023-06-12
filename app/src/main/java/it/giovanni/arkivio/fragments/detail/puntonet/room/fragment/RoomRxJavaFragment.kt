@@ -1,8 +1,7 @@
 package it.giovanni.arkivio.fragments.detail.puntonet.room.fragment
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +11,15 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.airbnb.paris.extensions.style
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.customview.popup.CustomDialogPopup
+import it.giovanni.arkivio.customview.popup.EditDialogPopup
 import it.giovanni.arkivio.databinding.RoomRxjavaLayoutBinding
 import it.giovanni.arkivio.databinding.UserCardBinding
 import it.giovanni.arkivio.fragments.DetailFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.room.EditUserListener
+import it.giovanni.arkivio.fragments.detail.puntonet.room.KEY_AGE
+import it.giovanni.arkivio.fragments.detail.puntonet.room.KEY_FIRST_NAME
+import it.giovanni.arkivio.fragments.detail.puntonet.room.KEY_LAST_NAME
 import it.giovanni.arkivio.fragments.detail.puntonet.room.entity.User
 import it.giovanni.arkivio.fragments.detail.puntonet.room.viewmodel.RoomRxJavaViewModel
 import it.giovanni.arkivio.model.DarkModeModel
@@ -28,12 +33,18 @@ import it.giovanni.arkivio.utils.SharedPreferencesManager
  * osservOn(AndroidSchedulers.mainThread()). Gli aggiornamenti possono essere osservati con
  * LiveData o gestiti in altri modi a seconda dell'architettura dell'applicazione.
  */
-class RoomRxJavaFragment : DetailFragment() {
+class RoomRxJavaFragment : DetailFragment(), EditUserListener {
 
     private var layoutBinding: RoomRxjavaLayoutBinding? = null
     private val binding get() = layoutBinding
 
     private lateinit var viewModel: RoomRxJavaViewModel
+
+    private lateinit var editDialogPopup: EditDialogPopup
+
+    private lateinit var customDialogPopup: CustomDialogPopup
+
+    private lateinit var selectedUser: User
 
     override fun getTitle(): Int {
         return R.string.room_rxjava_title
@@ -87,52 +98,35 @@ class RoomRxJavaFragment : DetailFragment() {
 
         setViewStyle()
 
-        handleInsertButtonEnabling()
-
-        binding?.buttonInsertUser?.setOnClickListener {
-            val firstName: String = binding?.editFirstName?.text.toString()
-            val lastName: String = binding?.editLastName?.text.toString()
-            val age: String = binding?.editAge?.text.toString()
-
-            val newUser = User(0, firstName, lastName, age.toInt())
-            viewModel.addUser(newUser)
-
+        binding?.fabInsertUser?.setOnClickListener {
+            showInsertUserDialog()
             // Device File Explorer/data/data/it.giovanni.arkivio/databases/arkivio_database
-            Toast.makeText(requireContext(), "Utente " + newUser.firstName + " aggiunto con successo!", Toast.LENGTH_SHORT).show()
-
-            clearEditText()
         }
 
         binding?.buttonGetUsers?.setOnClickListener {
-            showProgressDialog()
-            viewModel.getUsers()
-
-            viewModel.users.observe(viewLifecycleOwner) { users ->
-                if (users.isNotEmpty()) {
-                    hideProgressDialog()
-                    showUsers(users)
-                    Toast.makeText(requireContext(), "Utenti caricati con successo!", Toast.LENGTH_SHORT).show()
-                }
-            }
+            updateView()
         }
 
-        binding?.buttonDeleteUsers?.setOnClickListener {
-
+        binding?.buttonDeleteAllUsers?.setOnClickListener {
+            showDeleteAllUsersDialog()
         }
     }
 
-    private fun clearEditText() {
-        binding?.editFirstName?.setText("")
-        binding?.editLastName?.setText("")
-        binding?.editAge?.setText("")
+    private fun updateView() {
+        showProgressDialog()
+        viewModel.getUsers()
+        viewModel.users.observe(viewLifecycleOwner) { users ->
+            hideProgressDialog()
+            showUsers(users)
+        }
     }
 
     private fun showUsers(list: List<User>) {
 
+        binding?.usersRxjavaContainer?.removeAllViews()
+
         if (list.isEmpty())
             return
-
-        binding?.usersRxjavaContainer?.removeAllViews()
 
         for (user in list) {
 
@@ -147,8 +141,16 @@ class RoomRxJavaFragment : DetailFragment() {
             labelId.text = user.id.toString()
             labelFirstName.text = user.firstName
             labelLastName.text = user.lastName
-            val age = user.age.toString() + " anni"
+            val age = user.age + " anni"
             labelAge.text = age
+
+            itemBinding.icoUpdateUser.setOnClickListener {
+                showUpdateUserDialog(user)
+            }
+
+            itemBinding.icoDeleteUser.setOnClickListener {
+                showDeleteUserDialog(user)
+            }
 
             if (isDarkMode) {
                 labelFirstName.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
@@ -164,68 +166,141 @@ class RoomRxJavaFragment : DetailFragment() {
         }
     }
 
-    private fun handleInsertButtonEnabling() {
+    private fun showInsertUserDialog() {
 
-        binding?.editFirstName?.addTextChangedListener(object : TextWatcher {
+        selectedUser = User(0, "", "", "")
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        val map: HashMap<String, Any> = HashMap()
+        map[KEY_FIRST_NAME] = selectedUser.firstName
+        map[KEY_LAST_NAME] = selectedUser.lastName
+        map[KEY_AGE] = selectedUser.age
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        editDialogPopup = EditDialogPopup(currentActivity, R.style.PopupTheme)
+        editDialogPopup.setCancelable(false)
+        editDialogPopup.setTitle(resources.getString(R.string.insert_user_title_dialog))
+        editDialogPopup.setMessage(resources.getString(R.string.insert_user_message_dialog))
+        editDialogPopup.setEditLabels(map, this)
 
-            override fun afterTextChanged(s: Editable?) {
-                binding?.buttonInsertUser?.isEnabled =
-                    binding?.editFirstName?.text?.trim()?.isNotEmpty()!! &&
-                            binding?.editFirstName?.text?.trim()?.isNotEmpty()!! &&
-                            binding?.editAge?.text?.trim()?.isNotEmpty()!!
+        editDialogPopup.setButtons(resources.getString(R.string.button_confirm), {
+
+            if (selectedUser.firstName == "" || selectedUser.lastName == "" || selectedUser.age == "") {
+                Toast.makeText(requireContext(), "Riempi tutti i campi!", Toast.LENGTH_SHORT).show()
+            } else {
+                viewModel.addUser(selectedUser)
+                editDialogPopup.dismiss()
+                updateView()
             }
-        })
-
-        binding?.editLastName?.addTextChangedListener(object : TextWatcher {
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-            override fun afterTextChanged(s: Editable?) {
-                binding?.buttonInsertUser?.isEnabled =
-                    binding?.editFirstName?.text?.trim()?.isNotEmpty()!! &&
-                            binding?.editFirstName?.text?.trim()?.isNotEmpty()!! &&
-                            binding?.editAge?.text?.trim()?.isNotEmpty()!!
+        },
+            resources.getString(R.string.button_cancel), {
+                editDialogPopup.dismiss()
             }
-        })
+        )
+        editDialogPopup.show()
+    }
 
-        binding?.editAge?.addTextChangedListener(object : TextWatcher {
+    private fun showUpdateUserDialog(user: User) {
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        selectedUser = User(user.id, user.firstName, user.lastName, user.age)
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        val map: HashMap<String, Any> = HashMap()
+        map[KEY_FIRST_NAME] = selectedUser.firstName
+        map[KEY_LAST_NAME] = selectedUser.lastName
+        map[KEY_AGE] = selectedUser.age
 
-            override fun afterTextChanged(s: Editable?) {
-                binding?.buttonInsertUser?.isEnabled =
-                    binding?.editFirstName?.text?.trim()?.isNotEmpty()!! &&
-                            binding?.editFirstName?.text?.trim()?.isNotEmpty()!! &&
-                            binding?.editAge?.text?.trim()?.isNotEmpty()!!
+        editDialogPopup = EditDialogPopup(currentActivity, R.style.PopupTheme)
+        editDialogPopup.setCancelable(false)
+        editDialogPopup.setTitle(resources.getString(R.string.update_user_title_dialog))
+        editDialogPopup.setMessage(resources.getString(R.string.update_user_message_dialog))
+        editDialogPopup.setEditLabels(map, this)
+
+        editDialogPopup.setButtons(resources.getString(R.string.button_confirm), {
+
+            if (selectedUser.firstName == user.firstName && selectedUser.lastName == user.lastName && selectedUser.age == user.age) {
+                Toast.makeText(requireContext(), "L'utente " + selectedUser.firstName + " non ha subito alcuna modifica!", Toast.LENGTH_SHORT).show()
+            } else if (selectedUser.firstName == "" || selectedUser.lastName == "" || selectedUser.age == "") {
+                Toast.makeText(requireContext(), "Riempi tutti i campi!", Toast.LENGTH_SHORT).show()
+            } else {
+                viewModel.updateUser(selectedUser)
+                editDialogPopup.dismiss()
+                updateView()
             }
-        })
+        },
+            resources.getString(R.string.button_cancel), {
+                editDialogPopup.dismiss()
+            }
+        )
+        editDialogPopup.show()
+    }
+
+    private fun showDeleteUserDialog(user: User) {
+
+        selectedUser = User(user.id, user.firstName, user.lastName, user.age)
+
+        customDialogPopup = CustomDialogPopup(currentActivity, R.style.PopupTheme)
+        customDialogPopup.setCancelable(false)
+        customDialogPopup.setTitle(resources.getString(R.string.delete_user_title_dialog))
+        customDialogPopup.setMessage(resources.getString(R.string.delete_user_message_dialog))
+
+        customDialogPopup.setButtons(resources.getString(R.string.button_confirm), {
+            viewModel.deleteUser(selectedUser)
+            customDialogPopup.dismiss()
+            updateView()
+        },
+            resources.getString(R.string.button_cancel), {
+                customDialogPopup.dismiss()
+            }
+        )
+        customDialogPopup.show()
+    }
+
+    private fun showDeleteAllUsersDialog() {
+
+        customDialogPopup = CustomDialogPopup(currentActivity, R.style.PopupTheme)
+        customDialogPopup.setCancelable(false)
+        customDialogPopup.setTitle(resources.getString(R.string.delete_all_users_title_dialog))
+        customDialogPopup.setMessage(resources.getString(R.string.delete_all_users_message_dialog))
+
+        customDialogPopup.setButtons(resources.getString(R.string.button_confirm), {
+            viewModel.deleteUsers()
+            customDialogPopup.dismiss()
+            updateView()
+        },
+            resources.getString(R.string.button_cancel), {
+                customDialogPopup.dismiss()
+            }
+        )
+        customDialogPopup.show()
+    }
+
+    override fun onAddFirstNameChangedListener(input: String) {
+        Log.i("[ROOM]", "$KEY_FIRST_NAME: $input")
+        selectedUser.firstName = input
+    }
+
+    override fun onAddLastNameChangedListener(input: String) {
+        Log.i("[ROOM]", "$KEY_LAST_NAME: $input")
+        selectedUser.lastName = input
+    }
+
+    override fun onAddAgeChangedListener(input: String) {
+        Log.i("[ROOM]", "$KEY_AGE: $input")
+        selectedUser.age = input
     }
 
     private fun setViewStyle() {
         isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
         if (isDarkMode) {
-            binding?.buttonInsertUser?.style(R.style.ButtonEmptyDarkMode)
             binding?.buttonGetUsers?.style(R.style.ButtonEmptyDarkMode)
-            binding?.buttonDeleteUsers?.style(R.style.ButtonEmptyDarkMode)
+            binding?.buttonDeleteAllUsers?.style(R.style.ButtonEmptyDarkMode)
         }
         else {
-            binding?.buttonInsertUser?.style(R.style.ButtonEmptyLightMode)
             binding?.buttonGetUsers?.style(R.style.ButtonEmptyLightMode)
-            binding?.buttonDeleteUsers?.style(R.style.ButtonEmptyLightMode)
+            binding?.buttonDeleteAllUsers?.style(R.style.ButtonEmptyLightMode)
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         layoutBinding = null
-        viewModel.disposable?.dispose()
     }
 }

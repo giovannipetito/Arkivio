@@ -319,7 +319,7 @@ class MainActivity : BaseActivity(), IProgressLoader {
     }
 
     override fun hideProgressDialog() {
-        handler6?.postDelayed(m6Runnable, delayTime2)
+        handler6?.postDelayed(m6Runnable, delayTime1)
     }
 
     fun openMainFragment() {

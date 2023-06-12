@@ -390,13 +390,16 @@
     <string name="room_coroutines_title">Room with Coroutines</string>
     <string name="room_rxjava_title">Room with RxJava</string>
     <string name="edit_age">Inserisci la tua età</string>
-    <string name="button_insert_user">Inserisci l\'utente</string>
     <string name="button_get_all_users">Recupera gli utenti</string>
     <string name="button_delete_users">Rimuovi gli utenti</string>
+    <string name="insert_user_title_dialog">Inserisci l\'utente</string>
+    <string name="insert_user_message_dialog">Clicca Conferma per inserire l\'utente</string>
     <string name="update_user_title_dialog">Modifica l\'utente</string>
     <string name="update_user_message_dialog">Clicca Conferma per modificare l\'utente</string>
     <string name="delete_user_title_dialog">Rimuovi l\'utente</string>
     <string name="delete_user_message_dialog">Clicca Conferma per rimuovere l\'utente</string>
+    <string name="delete_all_users_title_dialog">Rimuovi tutti gli utenti</string>
+    <string name="delete_all_users_message_dialog">Clicca Conferma per rimuovere tutti gli utenti</string>
 
     <!-- MACHINE LEARNING -->
     <string name="machine_learning_title">Machine Learning</string>

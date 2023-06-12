@@ -42,21 +42,6 @@ class WorkingAreaFragment : HomeFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var oldPostion = 0
-
-        if (binding?.scrollView != null) {
-            binding?.scrollView?.viewTreeObserver?.addOnScrollChangedListener {
-                if (binding?.scrollView != null) {
-                    if (binding?.scrollView?.scrollY!! > oldPostion) {
-                        binding?.fab?.hide()
-                    } else if (binding?.scrollView?.scrollY!! < oldPostion || binding?.scrollView?.scrollY!! <= 0) {
-                        binding?.fab?.show()
-                    }
-                    oldPostion = binding?.scrollView?.scrollY!!
-                }
-            }
-        }
-
         binding?.labelPuntonet?.setOnClickListener {
             currentActivity.openDetail(Globals.PUNTONET, null)
         }

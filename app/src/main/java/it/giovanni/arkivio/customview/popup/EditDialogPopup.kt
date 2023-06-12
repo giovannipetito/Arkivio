@@ -25,7 +25,7 @@ class EditDialogPopup(activity: Activity, @StyleRes themeResId: Int) : CustomDia
 
     fun setEditLabels(map: HashMap<String, Any>, callback: EditUserListener) {
         labelList.visibility = View.VISIBLE
-        titleDialog.visibility = View.GONE
+        titleDialog.visibility = View.VISIBLE
         subtitleDialog.visibility = View.GONE
         messageDialog.visibility = View.VISIBLE
         buttonsContainer.visibility = View.VISIBLE
