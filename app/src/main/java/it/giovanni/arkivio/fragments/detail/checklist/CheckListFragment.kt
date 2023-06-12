@@ -1,6 +1,5 @@
-package it.giovanni.arkivio.fragments.detail.preference
+package it.giovanni.arkivio.fragments.detail.checklist
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,19 +10,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.airbnb.paris.extensions.style
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.model.Persona
-import it.giovanni.arkivio.databinding.PreferenceListLayoutBinding
+import it.giovanni.arkivio.databinding.ChecklistLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.fragments.adapter.PreferenceListAdapter
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
-import it.giovanni.arkivio.utils.Globals
 import it.giovanni.arkivio.utils.SharedPreferencesManager
 import it.giovanni.arkivio.utils.Utils.Companion.turnArrayListToString
 import kotlin.collections.ArrayList
 
-class PreferenceListFragment: DetailFragment(), PreferenceListAdapter.OnItemViewClicked {
+class CheckListFragment: DetailFragment(), PreferenceListAdapter.OnItemViewClicked {
 
-    private var layoutBinding: PreferenceListLayoutBinding? = null
+    private var layoutBinding: ChecklistLayoutBinding? = null
     private val binding get() = layoutBinding
 
     private var threshold = 3
@@ -31,11 +29,9 @@ class PreferenceListFragment: DetailFragment(), PreferenceListAdapter.OnItemView
     private var checkedList: ArrayList<Persona>? = null
     private var clonedList: ArrayList<Persona>? = null
     private var checkedContacts: ArrayList<String>? = null
-    private var contacts: String? = null
-    private var isButtonClicked: Boolean? = false
 
     override fun getTitle(): Int {
-        return R.string.room_asynctask_title
+        return R.string.checklist_title
     }
 
     override fun getActionTitle(): Int {
@@ -69,7 +65,7 @@ class PreferenceListFragment: DetailFragment(), PreferenceListAdapter.OnItemView
     }
 
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
-        layoutBinding = PreferenceListLayoutBinding.inflate(inflater, container, false)
+        layoutBinding = ChecklistLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this)
         val model = DarkModeModel(requireContext())
@@ -84,9 +80,8 @@ class PreferenceListFragment: DetailFragment(), PreferenceListAdapter.OnItemView
 
         setViewStyle()
 
-        isButtonClicked = false
         val recyclerView = binding?.searchCheckboxRecyclerview
-        button = binding?.buttonUserPreference
+        button = binding?.buttonChecklist
 
         val list = init()
         checkedList = ArrayList()
@@ -99,9 +94,9 @@ class PreferenceListFragment: DetailFragment(), PreferenceListAdapter.OnItemView
         adapter.setList(list)
         adapter.notifyDataSetChanged()
 
-        binding?.buttonUserPreference?.setOnClickListener {
-            isButtonClicked = true
-            currentActivity.onBackPressed()
+        binding?.buttonChecklist?.setOnClickListener {
+            val contacts: String = turnArrayListToString(checkedContacts!!)
+            Toast.makeText(requireContext(), contacts, Toast.LENGTH_SHORT).show()
         }
 
         // Attraverso il metodo cloneListaPersone() e la logica presente nella classe Persona, gli elementi della lista
@@ -127,16 +122,6 @@ class PreferenceListFragment: DetailFragment(), PreferenceListAdapter.OnItemView
         }
 
         return true
-    }
-
-    override fun getResultBack(): Intent {
-
-        val backIntent = Intent()
-        if (isButtonClicked!!) {
-            contacts = turnArrayListToString(checkedContacts!!)
-            backIntent.putExtra(Globals.BACK_PARAM_KEY_USER_PREFERENCE, contacts)
-        }
-        return backIntent
     }
 
     private fun cloneList(list: ArrayList<Persona>?): ArrayList<Persona>? {
@@ -174,9 +159,9 @@ class PreferenceListFragment: DetailFragment(), PreferenceListAdapter.OnItemView
     private fun setViewStyle() {
         isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
         if (isDarkMode)
-            binding?.buttonUserPreference?.style(R.style.ButtonNormalDarkMode)
+            binding?.buttonChecklist?.style(R.style.ButtonNormalDarkMode)
         else
-            binding?.buttonUserPreference?.style(R.style.ButtonNormalLightMode)
+            binding?.buttonChecklist?.style(R.style.ButtonNormalLightMode)
     }
 
     override fun onDestroyView() {

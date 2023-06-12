@@ -87,8 +87,8 @@ class WorkingAreaFragment : HomeFragment() {
         binding?.labelLayoutManager?.setOnClickListener {
             currentActivity.openDetail(Globals.LAYOUT_MANAGER, null)
         }
-        binding?.labelRoomAsynctask?.setOnClickListener {
-            currentActivity.openDetail(Globals.ROOM_ASYNCTASK, null)
+        binding?.labelChecklist?.setOnClickListener {
+            currentActivity.openDetail(Globals.CHECKLIST, null)
         }
         binding?.labelStickyHeader?.setOnClickListener {
             currentActivity.openDetail(Globals.STICKY_HEADER, null)

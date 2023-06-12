@@ -10,6 +10,7 @@ class Globals {
         var VOLLEY = "VOLLEY"
         var CARD_IO = "CARD_IO"
         var WEB_VIEW = "WEB_VIEW"
+        var CHECKLIST = "CHECKLIST"
         var EXOPLAYER = "EXOPLAYER"
         var ASYNC_HTTP = "ASYNC_HTTP"
         var DATE_FORMAT = "DATE_FORMAT"
@@ -22,9 +23,7 @@ class Globals {
         var STICKY_HEADER = "STICKY_HEADER"
         var RUBRICA_DETAIL = "RUBRICA_DETAIL"
         var LAYOUT_MANAGER = "LAYOUT_MANAGER"
-        var ROOM_ASYNCTASK = "ROOM_ASYNCTASK"
         var LOGCAT_PROJECTS = "LOGCAT_PROJECTS"
-        var PREFERENCE_LIST = "PREFERENCE_LIST"
         var SIMPLE_RETROFIT = "SIMPLE_RETROFIT"
         var MACHINE_LEARNING = "MACHINE_LEARNING"
         var TEXT_RECOGNITION = "TEXT_RECOGNITION"
@@ -69,10 +68,8 @@ class Globals {
 
         // BACK INTENT KEY PARAMS
         var BACK_PARAM_KEY_USER_SEARCH = "BACK_PARAM_KEY_USER_SEARCH"
-        var BACK_PARAM_KEY_USER_PREFERENCE = "BACK_PARAM_KEY_USER_PREFERENCE"
 
         // Request code
-        var REQUEST_CODE_USER_PREFERENCE = 1001
         var REQUEST_CODE_EVENT_USER_SEARCH = 1002
     }
 }

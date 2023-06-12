@@ -21,7 +21,6 @@ class UserFactory {
         var listLinkSide : ArrayList<LinkSide>? = null
         var matricola : String? = null
         var isLogged = false
-        var contacts: String? = null
 
         var objectID: String? = null
         var givenName: String? = null
@@ -54,7 +53,6 @@ class UserFactory {
             listLinkSide = null
             matricola = ""
             isLogged = false
-            contacts = ""
 
             objectID = ""
             givenName = ""

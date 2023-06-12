@@ -40,8 +40,7 @@ import it.giovanni.arkivio.fragments.detail.logcat.LogcatFragment
 import it.giovanni.arkivio.fragments.detail.machinelearning.MachineLearningFragment
 import it.giovanni.arkivio.fragments.detail.machinelearning.facialdetection.FacialDetectionFragment
 import it.giovanni.arkivio.fragments.detail.machinelearning.textrecognition.TextRecognitionFragment
-import it.giovanni.arkivio.fragments.detail.preference.PreferenceFragment
-import it.giovanni.arkivio.fragments.detail.preference.PreferenceListFragment
+import it.giovanni.arkivio.fragments.detail.checklist.CheckListFragment
 import it.giovanni.arkivio.fragments.detail.rubrica.RubricaDetailFragment
 import it.giovanni.arkivio.fragments.detail.rubrica.RubricaHomeFragment
 import it.giovanni.arkivio.fragments.detail.rubrica.RubricaListFragment
@@ -189,9 +188,6 @@ class MainActivity : BaseActivity(), IProgressLoader {
         handler4 = Handler(Looper.getMainLooper())
         handler5 = Handler(Looper.getMainLooper())
         handler6 = Handler(Looper.getMainLooper())
-
-        // Room: Load user preferences.
-        App.getRepository()?.loadPreferences()
 
         rememberMe = loadRememberMeFromPreferences()
 
@@ -424,11 +420,8 @@ class MainActivity : BaseActivity(), IProgressLoader {
             Globals.DIALOG_FLOW -> {
                 baseFragment = DialogFlowFragment()
             }
-            Globals.ROOM_ASYNCTASK -> {
-                baseFragment = PreferenceFragment()
-            }
-            Globals.PREFERENCE_LIST -> {
-                baseFragment = PreferenceListFragment()
+            Globals.CHECKLIST -> {
+                baseFragment = CheckListFragment()
             }
             Globals.STICKY_HEADER -> {
                 baseFragment = StickyHeaderFragment()

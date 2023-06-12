@@ -229,18 +229,8 @@
     <string name="insert_email">Inserisci la tua Email</string>
     <string name="change_style">Change Style</string>
 
-    <!-- ROOM DATABASE -->
-    <string name="room_asynctask_title">Room with AsyncTask</string>
-    <string name="room_coroutines_title">Room with Coroutines</string>
-    <string name="room_rxjava_title">Room with RxJava</string>
-    <string name="edit_age">Inserisci la tua età</string>
-    <string name="button_insert_user">Inserisci l\'utente</string>
-    <string name="button_get_all_users">Recupera gli utenti</string>
-    <string name="button_delete_users">Rimuovi gli utenti</string>
-    <string name="update_user_title_dialog">Modifica l\'utente</string>
-    <string name="update_user_message_dialog">Clicca Conferma per modificare l\'utente</string>
-    <string name="delete_user_title_dialog">Rimuovi l\'utente</string>
-    <string name="delete_user_message_dialog">Clicca Conferma per rimuovere l\'utente</string>
+    <!-- CHECKLIST -->
+    <string name="checklist_title">CheckList</string>
 
     <!-- STICKY HEADER -->
     <string name="sticky_header_title">Sticky Header</string>
@@ -395,6 +385,18 @@
     <string name="label_rxjava">Get data with RxJava</string>
     <string name="label_work_manager">Get data with WorkManager</string>
     <string name="footer_error">Error! Tap to retry.</string>
+
+    <!-- ROOM DATABASE -->
+    <string name="room_coroutines_title">Room with Coroutines</string>
+    <string name="room_rxjava_title">Room with RxJava</string>
+    <string name="edit_age">Inserisci la tua età</string>
+    <string name="button_insert_user">Inserisci l\'utente</string>
+    <string name="button_get_all_users">Recupera gli utenti</string>
+    <string name="button_delete_users">Rimuovi gli utenti</string>
+    <string name="update_user_title_dialog">Modifica l\'utente</string>
+    <string name="update_user_message_dialog">Clicca Conferma per modificare l\'utente</string>
+    <string name="delete_user_title_dialog">Rimuovi l\'utente</string>
+    <string name="delete_user_message_dialog">Clicca Conferma per rimuovere l\'utente</string>
 
     <!-- MACHINE LEARNING -->
     <string name="machine_learning_title">Machine Learning</string>
