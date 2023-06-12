@@ -20,7 +20,6 @@ import it.giovanni.arkivio.databinding.CustomDialogPopupBinding
 open class CustomDialogPopup : AlertDialog.Builder {
 
     private val dialogInterfaceKey = 1258932039
-    private lateinit var elementList: LinearLayout
     protected lateinit var labelList: LinearLayout
     protected lateinit var titleDialog: TextViewCustom
     protected lateinit var subtitleDialog: TextViewCustom
@@ -72,7 +71,6 @@ open class CustomDialogPopup : AlertDialog.Builder {
         val binding = CustomDialogPopupBinding.inflate(LayoutInflater.from(context), null, false)
         dialogView = binding.root
 
-        elementList = binding.elementList
         labelList = binding.labelList
 
         titleDialog = binding.titleDialog

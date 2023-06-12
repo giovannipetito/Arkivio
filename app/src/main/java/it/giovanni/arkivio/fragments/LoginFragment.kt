@@ -27,7 +27,7 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
     private val binding get() = layoutBinding
 
     private var biometricManager: BiometricManager? = null
-    private var customPopup: CustomDialogPopup? = null
+    private var customDialogPopup: CustomDialogPopup? = null
     private var hasPermission: Boolean = false
     private var rememberMe: Boolean = false
     private var action: Action? = null
@@ -131,22 +131,22 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
 
     override fun onBiometricAuthenticationNotAvailable() {
 
-        customPopup = CustomDialogPopup(currentActivity, R.style.PopupTheme)
-        customPopup?.setCancelable(false)
-        customPopup?.setTitle("")
-        customPopup?.setMessage(getString(R.string.biometric_error_fingerprint))
+        customDialogPopup = CustomDialogPopup(currentActivity, R.style.PopupTheme)
+        customDialogPopup?.setCancelable(false)
+        customDialogPopup?.setTitle("")
+        customDialogPopup?.setMessage(getString(R.string.biometric_error_fingerprint))
 
-        customPopup?.setButtons(
+        customDialogPopup?.setButtons(
             resources.getString(R.string.button_register), {
                 action = Action.REGISTER
                 askPermission()
-                customPopup?.dismiss()
+                customDialogPopup?.dismiss()
             },
             resources.getString(R.string.button_cancel), {
-                customPopup?.dismiss()
+                customDialogPopup?.dismiss()
             }
         )
-        customPopup?.show()
+        customDialogPopup?.show()
     }
 
     private fun askPermission() {

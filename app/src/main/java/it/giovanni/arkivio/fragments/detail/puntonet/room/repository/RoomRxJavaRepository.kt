@@ -29,4 +29,7 @@ class RoomRxJavaRepository(private val userDao: UserRxJavaDao) {
     fun deleteUser(user: User): Completable {
         return userDao.deleteUser(user)
     }
+    fun deleteUsers(): Completable {
+        return userDao.deleteUsers()
+    }
 }

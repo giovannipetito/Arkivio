@@ -53,7 +53,7 @@
                 android:padding="@dimen/dimen_6dp"
                 android:layout_margin="@dimen/dimen_6dp"
                 android:hint="@string/edit_age"
-                android:inputType="textPhonetic"
+                android:inputType="number"
                 android:autofillHints="@string/app_name"
                 android:background="@drawable/round_corner_1"
                 style="@style/EditText1" />
@@ -67,13 +67,30 @@
                 android:enabled="false"
                 style="@style/ButtonEmptyDarkMode" />
 
-            <Button
-                android:id="@+id/button_show_users"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimen_6dp"
-                android:text="@string/button_show_users"
-                style="@style/ButtonEmptyDarkMode" />
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button_get_users"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:layout_margin="@dimen/dimen_6dp"
+                    android:text="@string/button_get_all_users"
+                    style="@style/ButtonEmptyDarkMode" />
+
+                <Button
+                    android:id="@+id/button_delete_users"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:layout_margin="@dimen/dimen_6dp"
+                    android:text="@string/button_delete_users"
+                    style="@style/ButtonEmptyDarkMode" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

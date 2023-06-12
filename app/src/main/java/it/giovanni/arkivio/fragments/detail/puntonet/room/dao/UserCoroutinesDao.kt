@@ -35,4 +35,7 @@ interface UserCoroutinesDao {
 
     @Delete
     suspend fun deleteUser(user: User)
+
+    @Query("DELETE FROM users_table")
+    suspend fun deleteUsers()
 }

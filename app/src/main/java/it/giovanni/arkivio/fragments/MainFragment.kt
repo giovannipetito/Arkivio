@@ -89,7 +89,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
     private val extType = "ext"
     private var bundleDeepLink: Bundle = Bundle()
 
-    private lateinit var customPopup: CustomDialogPopup
+    private lateinit var customDialogPopup: CustomDialogPopup
     private var compress: Boolean = false
 
     override fun getTitle(): Int {
@@ -161,7 +161,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
     private fun draw() {
 
         val displayMetrics = DisplayMetrics()
-        currentActivity.windowManager.defaultDisplay.getMetrics(displayMetrics) // Todo: considera di usare: context?.display?.getMetrics(displayMetrics)
+        currentActivity.windowManager.defaultDisplay.getMetrics(displayMetrics)
 
         listLink =
             if (UserFactory.getInstance().listLink != null)
@@ -284,24 +284,24 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
         binding?.drawerLayout?.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
         binding?.navHeader?.settings?.setOnClickListener {
-            customPopup = CustomDialogPopup(currentActivity, R.style.PopupTheme)
-            customPopup.setCancelable(false)
-            customPopup.setTitle(context?.resources?.getString(R.string.settings)!!, "")
-            customPopup.setMessage(context?.resources?.getString(R.string.settings_message)!!)
+            customDialogPopup = CustomDialogPopup(currentActivity, R.style.PopupTheme)
+            customDialogPopup.setCancelable(false)
+            customDialogPopup.setTitle(context?.resources?.getString(R.string.settings)!!, "")
+            customDialogPopup.setMessage(context?.resources?.getString(R.string.settings_message)!!)
 
-            customPopup.setButtons(
+            customDialogPopup.setButtons(
                 resources.getString(R.string.button_yes), {
                     compress = true
                     saveCompressStateToPreferences(compress)
-                    customPopup.dismiss()
+                    customDialogPopup.dismiss()
                 },
                 resources.getString(R.string.button_no), {
                     compress = false
                     saveCompressStateToPreferences(compress)
-                    customPopup.dismiss()
+                    customDialogPopup.dismiss()
                 }
             )
-            customPopup.show()
+            customDialogPopup.show()
         }
 
         binding?.navHeader?.logout?.setOnClickListener {

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.airbnb.paris.extensions.style
@@ -93,36 +94,61 @@ class RoomRxJavaFragment : DetailFragment() {
             val lastName: String = binding?.editLastName?.text.toString()
             val age: String = binding?.editAge?.text.toString()
 
-            val newUser = User(1, firstName, lastName, age.toInt())
+            val newUser = User(0, firstName, lastName, age.toInt())
             viewModel.addUser(newUser)
+
+            // Device File Explorer/data/data/it.giovanni.arkivio/databases/arkivio_database
+            Toast.makeText(requireContext(), "Utente " + newUser.firstName + " aggiunto con successo!", Toast.LENGTH_SHORT).show()
+
+            clearEditText()
         }
 
-        binding?.buttonShowUsers?.setOnClickListener {
+        binding?.buttonGetUsers?.setOnClickListener {
             showProgressDialog()
             viewModel.getUsers()
+
+            viewModel.users.observe(viewLifecycleOwner) { users ->
+                if (users.isNotEmpty()) {
+                    hideProgressDialog()
+                    showUsers(users)
+                    Toast.makeText(requireContext(), "Utenti caricati con successo!", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
 
-        viewModel.users.observe(viewLifecycleOwner) { users ->
-            hideProgressDialog()
-            showUsers(users)
+        binding?.buttonDeleteUsers?.setOnClickListener {
+
         }
     }
 
+    private fun clearEditText() {
+        binding?.editFirstName?.setText("")
+        binding?.editLastName?.setText("")
+        binding?.editAge?.setText("")
+    }
+
     private fun showUsers(list: List<User>) {
+
         if (list.isEmpty())
             return
+
+        binding?.usersRxjavaContainer?.removeAllViews()
+
         for (user in list) {
 
             val itemBinding: UserCardBinding = UserCardBinding.inflate(layoutInflater, binding?.usersRxjavaContainer, false)
             val itemView: View = itemBinding.root
 
+            val labelId: TextView = itemBinding.userId
             val labelFirstName: TextView = itemBinding.userFirstName
             val labelLastName: TextView = itemBinding.userLastName
             val labelAge: TextView = itemBinding.userAge
 
+            labelId.text = user.id.toString()
             labelFirstName.text = user.firstName
             labelLastName.text = user.lastName
-            labelAge.text = user.age.toString()
+            val age = user.age.toString() + " anni"
+            labelAge.text = age
 
             if (isDarkMode) {
                 labelFirstName.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
@@ -147,7 +173,10 @@ class RoomRxJavaFragment : DetailFragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
             override fun afterTextChanged(s: Editable?) {
-                binding?.buttonInsertUser?.isEnabled = binding?.editFirstName?.text?.trim()?.isNotEmpty()!! && binding?.editFirstName?.text?.trim()?.isNotEmpty()!! && binding?.editAge?.text?.trim()?.isNotEmpty()!!
+                binding?.buttonInsertUser?.isEnabled =
+                    binding?.editFirstName?.text?.trim()?.isNotEmpty()!! &&
+                            binding?.editFirstName?.text?.trim()?.isNotEmpty()!! &&
+                            binding?.editAge?.text?.trim()?.isNotEmpty()!!
             }
         })
 
@@ -158,7 +187,10 @@ class RoomRxJavaFragment : DetailFragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
             override fun afterTextChanged(s: Editable?) {
-                binding?.buttonInsertUser?.isEnabled = binding?.editFirstName?.text?.trim()?.isNotEmpty()!! && binding?.editFirstName?.text?.trim()?.isNotEmpty()!! && binding?.editAge?.text?.trim()?.isNotEmpty()!!
+                binding?.buttonInsertUser?.isEnabled =
+                    binding?.editFirstName?.text?.trim()?.isNotEmpty()!! &&
+                            binding?.editFirstName?.text?.trim()?.isNotEmpty()!! &&
+                            binding?.editAge?.text?.trim()?.isNotEmpty()!!
             }
         })
 
@@ -169,7 +201,10 @@ class RoomRxJavaFragment : DetailFragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
             override fun afterTextChanged(s: Editable?) {
-                binding?.buttonInsertUser?.isEnabled = binding?.editFirstName?.text?.trim()?.isNotEmpty()!! && binding?.editFirstName?.text?.trim()?.isNotEmpty()!! && binding?.editAge?.text?.trim()?.isNotEmpty()!!
+                binding?.buttonInsertUser?.isEnabled =
+                    binding?.editFirstName?.text?.trim()?.isNotEmpty()!! &&
+                            binding?.editFirstName?.text?.trim()?.isNotEmpty()!! &&
+                            binding?.editAge?.text?.trim()?.isNotEmpty()!!
             }
         })
     }
@@ -177,12 +212,14 @@ class RoomRxJavaFragment : DetailFragment() {
     private fun setViewStyle() {
         isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
         if (isDarkMode) {
-            binding?.buttonInsertUser?.style(R.style.ButtonNormalDarkMode)
-            binding?.buttonShowUsers?.style(R.style.ButtonNormalDarkMode)
+            binding?.buttonInsertUser?.style(R.style.ButtonEmptyDarkMode)
+            binding?.buttonGetUsers?.style(R.style.ButtonEmptyDarkMode)
+            binding?.buttonDeleteUsers?.style(R.style.ButtonEmptyDarkMode)
         }
         else {
-            binding?.buttonInsertUser?.style(R.style.ButtonNormalLightMode)
-            binding?.buttonShowUsers?.style(R.style.ButtonNormalLightMode)
+            binding?.buttonInsertUser?.style(R.style.ButtonEmptyLightMode)
+            binding?.buttonGetUsers?.style(R.style.ButtonEmptyLightMode)
+            binding?.buttonDeleteUsers?.style(R.style.ButtonEmptyLightMode)
         }
     }
 

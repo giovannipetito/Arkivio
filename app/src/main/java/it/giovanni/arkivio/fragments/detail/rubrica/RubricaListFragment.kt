@@ -50,7 +50,7 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
     private var list: ArrayList<User>? = null
     private var filtered: ArrayList<User>? = null
     private var updatedList: ArrayList<User>? = null
-    private lateinit var customDialog: CustomDialogPopup
+    private lateinit var customDialogPopup: CustomDialogPopup
     private var reallyGoOut: Boolean = false
     private var labelIsClicked: Boolean = false
     private var sentence: String? = null
@@ -93,21 +93,21 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
     override fun beforeClosing(): Boolean {
         if (!labelIsClicked) {
             if (!reallyGoOut) {
-                customDialog = CustomDialogPopup(currentActivity, R.style.PopupTheme)
-                customDialog.setCancelable(false)
-                customDialog.setTitle("Rubrica", "Prima di uscire...")
-                customDialog.setMessage("Confermi di voler annullare l'inserimento dei contatti?")
+                customDialogPopup = CustomDialogPopup(currentActivity, R.style.PopupTheme)
+                customDialogPopup.setCancelable(false)
+                customDialogPopup.setTitle("Rubrica", "Prima di uscire...")
+                customDialogPopup.setMessage("Confermi di voler annullare l'inserimento dei contatti?")
 
-                customDialog.setButtons(resources.getString(R.string.button_confirm), {
+                customDialogPopup.setButtons(resources.getString(R.string.button_confirm), {
                     reallyGoOut = true
-                    customDialog.dismiss()
+                    customDialogPopup.dismiss()
                     currentActivity.onBackPressed()
                 },
                     resources.getString(R.string.button_cancel), {
-                        customDialog.dismiss()
+                        customDialogPopup.dismiss()
                     }
                 )
-                customDialog.show()
+                customDialogPopup.show()
                 return false
             } else {
                 return true

@@ -235,7 +235,12 @@
     <string name="room_rxjava_title">Room with RxJava</string>
     <string name="edit_age">Inserisci la tua età</string>
     <string name="button_insert_user">Inserisci l\'utente</string>
-    <string name="button_show_users">Mostra gli utenti</string>
+    <string name="button_get_all_users">Recupera gli utenti</string>
+    <string name="button_delete_users">Rimuovi gli utenti</string>
+    <string name="update_user_title_dialog">Modifica l\'utente</string>
+    <string name="update_user_message_dialog">Clicca Conferma per modificare l\'utente</string>
+    <string name="delete_user_title_dialog">Rimuovi l\'utente</string>
+    <string name="delete_user_message_dialog">Clicca Conferma per rimuovere l\'utente</string>
 
     <!-- STICKY HEADER -->
     <string name="sticky_header_title">Sticky Header</string>

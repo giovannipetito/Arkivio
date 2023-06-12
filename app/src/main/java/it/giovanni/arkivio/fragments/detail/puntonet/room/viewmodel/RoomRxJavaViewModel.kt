@@ -55,4 +55,11 @@ class RoomRxJavaViewModel(application: Application) : AndroidViewModel(applicati
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe()
     }
+
+    fun deleteUsers() {
+        repository.deleteUsers()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe()
+    }
 }

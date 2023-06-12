@@ -27,4 +27,8 @@ class RoomCoroutinesRepository(private val userDao: UserCoroutinesDao) {
     suspend fun deleteUser(user: User) {
         userDao.deleteUser(user)
     }
+
+    suspend fun deleteUsers() {
+        userDao.deleteUsers()
+    }
 }

@@ -58,4 +58,7 @@ interface UserRxJavaDao {
 
     @Delete
     fun deleteUser(user: User): Completable
+
+    @Query("DELETE FROM users_table")
+    fun deleteUsers(): Completable
 }

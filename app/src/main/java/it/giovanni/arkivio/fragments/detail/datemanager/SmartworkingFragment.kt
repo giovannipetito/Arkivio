@@ -291,8 +291,7 @@ class SmartworkingFragment: DetailFragment() {
                             if (badge.isVisible) {
 
                                 if (!editingMode) {
-                                    val customPopup =
-                                        CustomDialogPopup(currentActivity, R.style.PopupTheme)
+                                    val customPopup = CustomDialogPopup(currentActivity, R.style.PopupTheme)
                                     customPopup.setCancelable(false)
                                     customPopup.setTitle("", "")
                                     customPopup.setMessage(resources.getString(R.string.smartworking_message_modify))

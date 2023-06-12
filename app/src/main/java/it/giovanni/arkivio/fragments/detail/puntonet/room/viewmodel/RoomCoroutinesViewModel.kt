@@ -19,16 +19,6 @@ class RoomCoroutinesViewModel(application: Application) : AndroidViewModel(appli
     val users: LiveData<List<User>>
         get() = _users
 
-    /*
-    private val _user: MutableLiveData<User> = MutableLiveData<User>()
-    val user: LiveData<User>
-        get() = _user
-
-    private val _message: MutableLiveData<String> = MutableLiveData<String>()
-    val message: LiveData<String>
-        get() = _message
-    */
-
     init {
         val userDao = ArkivioDatabase.getDatabase(application).userCoroutinesDao()
         repository = RoomCoroutinesRepository(userDao)
@@ -55,6 +45,12 @@ class RoomCoroutinesViewModel(application: Application) : AndroidViewModel(appli
     fun deleteUser(user: User) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteUser(user)
+        }
+    }
+
+    fun deleteUsers() {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteUsers()
         }
     }
 }

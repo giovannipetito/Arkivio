@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/label_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_6dp"
+        android:layout_margin="@dimen/dimen_6dp"
+        android:hint="@string/app_name"
+        android:inputType="textPersonName"
+        android:autofillHints="@string/app_name"
+        android:background="@drawable/round_corner_1"
+        style="@style/EditText1" />
+
+</RelativeLayout>
