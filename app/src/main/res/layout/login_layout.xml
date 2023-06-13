@@ -89,15 +89,15 @@
                         android:textSize="16sp"
                         style="@style/CustomLoginCheckBox" />
 
-                    <ImageView
+                    <com.airbnb.lottie.LottieAnimationView
                         android:id="@+id/image_fingerprint"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
+                        android:layout_width="@dimen/dimen_48dp"
+                        android:layout_height="@dimen/dimen_48dp"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="12dp"
-                        android:background="@drawable/ico_fingerprint"
-                        android:contentDescription="@string/app_name"
-                        android:backgroundTint="@color/colorPrimary" />
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="false"
+                        app:lottie_imageAssetsFolder="images"
+                        app:lottie_fileName="fingerprint.json" />
 
                 </RelativeLayout>
 

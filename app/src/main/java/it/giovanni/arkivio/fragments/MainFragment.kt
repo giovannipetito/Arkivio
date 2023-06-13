@@ -538,7 +538,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
             binding?.mainContent?.tabMenu?.setImageDrawable(
                 ContextCompat.getDrawable(
                     requireContext(),
-                    R.drawable.ico_close_menu
+                    R.drawable.ico_bottom_close
                 )
             )
         }

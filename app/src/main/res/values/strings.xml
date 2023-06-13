@@ -35,7 +35,6 @@
     <string name="api_version">Your device is running Android API version <xliff:g id="current_version">%1$s</xliff:g>.</string>
 
     <!-- SIDE BAR -->
-    <string name="feedback">Feedback</string>
     <string name="label_logout">Logout</string>
     <string name="settings">Impostazioni</string>
     <string name="app_version">Versione app:</string>

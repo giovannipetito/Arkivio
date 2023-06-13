@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.drawable.AnimationDrawable
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
@@ -14,7 +13,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -113,8 +111,6 @@ class MainActivity : BaseActivity(), IProgressLoader {
     private val delayTime1: Long = 1000
     private val delayTime2: Long = 3000
     private var progressDialog: Dialog? = null
-    private var spinnerLogo: ImageView? = null
-    private var spinnerAnimation: AnimationDrawable? = null
 
     private var mSplashFragment: String = "SPLASH_FRAGMENT"
     private var mLoginFragment: String = "LOGIN_FRAGMENT"
@@ -122,7 +118,6 @@ class MainActivity : BaseActivity(), IProgressLoader {
     private var mDialogFlowFragment: String = "DIALOG_FLOW_FRAGMENT"
 
     private var mainFragment: MainFragment? = null
-    private var pushBundle: Bundle? = null
     private var deepLinkEvent: DeepLinkDescriptor? = null
 
     private var rememberMe: Boolean = false
@@ -169,8 +164,6 @@ class MainActivity : BaseActivity(), IProgressLoader {
     private val m6Runnable: Runnable = Runnable {
         try {
             progressDialog?.dismiss()
-            if (spinnerAnimation != null)
-                spinnerAnimation?.stop()
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -194,10 +187,8 @@ class MainActivity : BaseActivity(), IProgressLoader {
         progressDialog = Dialog(this, R.style.DialogTheme)
         progressDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        val progressDialogCustomBinding = ProgressDialogCustomBinding.inflate(LayoutInflater.from(context))
-        val view = progressDialogCustomBinding.root
+        val view: View = ProgressDialogCustomBinding.inflate(LayoutInflater.from(context)).root
 
-        spinnerLogo = progressDialogCustomBinding.spinnerImageView
         progressDialog?.setContentView(view)
         progressDialog?.setCancelable(true)
 
@@ -307,14 +298,6 @@ class MainActivity : BaseActivity(), IProgressLoader {
     override fun showProgressDialog() {
         if (!progressDialog?.isShowing!!) {
             progressDialog?.show()
-            spinnerAnimation = (spinnerLogo?.background as AnimationDrawable)
-            spinnerLogo?.post {
-                try {
-                    spinnerAnimation?.start()
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
         }
     }
 
@@ -639,7 +622,7 @@ class MainActivity : BaseActivity(), IProgressLoader {
     }
 
     fun setStatusBarTransparent() {
-        window.statusBarColor = Color.TRANSPARENT // Oppure: ContextCompat.getColor(App.context, android.R.color.transparent)
+        window.statusBarColor = Color.TRANSPARENT // Oppure: ContextCompat.getColor(context, android.R.color.transparent)
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
     }
 
@@ -655,22 +638,11 @@ class MainActivity : BaseActivity(), IProgressLoader {
     override fun onResume() {
         super.onResume()
         hideProgressDialog()
-
-        // check if is resumed by a push
-        if (pushBundle != null) {
-            /*
-            if (pushBundle?.containsKey(EmployeeFirebaseMessagingService.KEY_CAMPAIGN_ID)) {
-                openDetail(Globals.FRAGMENT_GREEN_GRASS_DETAIL, pushBundle, mainFragment, Globals.REQUEST_CODE_GREEN_GRASS_DETAIL)
-            }
-            */
-            pushBundle = null
-        } else {
-            if (UserFactory.getInstance().isLogged) {
-                // manage deeplink
-                if (deepLinkEvent != null && deepLinkEvent?.deeplink != null) {
-                    openDeepLink(deepLinkEvent?.deeplink!!)
-                    clearDeepLinkEvent()
-                }
+        if (UserFactory.getInstance().isLogged) {
+            // Manage deeplink.
+            if (deepLinkEvent != null && deepLinkEvent?.deeplink != null) {
+                openDeepLink(deepLinkEvent?.deeplink!!)
+                clearDeepLinkEvent()
             }
         }
     }
