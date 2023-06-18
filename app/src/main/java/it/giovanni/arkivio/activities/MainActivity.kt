@@ -84,10 +84,10 @@ import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadRemember
 import javax.inject.Inject
 
 /**
- * MainActivity è annotata con @AndroidEntryPoint, ciò indica che è idonea
- * per l'inserimento di dipendenze (dependency injection) tramite Hilt.
+ * MainActivity è annotata con @AndroidEntryPoint, ciò indica che è idonea per l'inserimento di
+ * dipendenze (dependency injection) tramite Hilt.
  *
- * L'annotazione @AndroidEntryPoint è fornita da Hilt. Indica che MainActivity è un punto di
+ * L'annotazione @AndroidEntryPoint è fornita da Hilt ed indica che MainActivity è un punto di
  * ingresso per la dependency injection di Hilt. Questa annotazione consente a Hilt di generare
  * il codice necessario per inserire le dipendenze in questa activity e nei fragment associati.
  */
@@ -97,8 +97,6 @@ class MainActivity : BaseActivity(), IProgressLoader {
     companion object {
         var running = false
     }
-
-    // val viewModel: RickMortyViewModel by viewModels()
 
     @Inject
     lateinit var factory: ViewModelProviderFactory

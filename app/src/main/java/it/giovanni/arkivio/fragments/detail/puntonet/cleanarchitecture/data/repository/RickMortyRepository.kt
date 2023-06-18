@@ -24,8 +24,7 @@ import javax.inject.Singleton
  * ad un consumatore del repository, come il ViewModel, in un formato semplice da usare.
  */
 @Singleton
-class RickMortyRepository @Inject constructor(private val apiService: ApiService) :
-    RickMortyDataSource {
+class RickMortyRepository @Inject constructor(private val apiService: ApiService) : RickMortyDataSource {
 
     override suspend fun getAllCharactersV1(page: Int): RickMortyResponse {
         val response: RickMortyResponse = apiService.getAllCharacters(page)

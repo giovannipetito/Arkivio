@@ -12,12 +12,10 @@ class ViewModelProviderFactory @Inject constructor(private val rickMortyDataSour
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
-            // ViewModel 1
             modelClass.isAssignableFrom(RickMortyViewModel::class.java) -> {
                 RickMortyViewModel(rickMortyDataSource) as T
             }
             /*
-            Eventual ViewModel 2
             modelClass.isAssignableFrom(RickMorty2ViewModel::class.java) -> {
                 RickMorty2ViewModel() as T
             }
