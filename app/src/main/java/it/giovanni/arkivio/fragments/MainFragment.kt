@@ -320,10 +320,12 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
     }
 
     private fun addLinkViews(listLink: ArrayList<Link>?) {
-        if (listLink == null)
+
+        linkAreaLayoutBinding?.linkUtiliContainer?.removeAllViews()
+
+        if (listLink.isNullOrEmpty())
             return
-        if (listLink.size == 0)
-            return
+
         for (item in listLink) {
 
             val itemBinding = LinkDynamicItemBinding.inflate(LayoutInflater.from(context), linkAreaLayoutBinding?.linkUtiliContainer, false)
@@ -368,10 +370,12 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
     }
 
     private fun addSideViews(listLinkSide: ArrayList<LinkSide>?) {
-        if (listLinkSide == null)
+
+        binding?.navHeader?.navHeaderContainer?.removeAllViews()
+
+        if (listLinkSide.isNullOrEmpty())
             return
-        if (listLinkSide.size == 0)
-            return
+
         for (item in listLinkSide) {
 
             val itemBinding = NavHeaderItemBinding.inflate(LayoutInflater.from(context), binding?.navHeader?.navHeaderContainer, false)

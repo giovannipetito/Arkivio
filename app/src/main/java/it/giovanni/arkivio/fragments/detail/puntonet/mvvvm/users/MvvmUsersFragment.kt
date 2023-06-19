@@ -96,10 +96,12 @@ class MvvmUsersFragment : DetailFragment() {
     }
 
     private fun showUsers(list: List<User?>?) {
-        if (list == null)
+
+        binding?.retrofitUsersContainer?.removeAllViews()
+
+        if (list.isNullOrEmpty())
             return
-        if (list.isEmpty())
-            return
+
         for (user in list) {
 
             val itemBinding: ClientItemBinding = ClientItemBinding.inflate(layoutInflater, binding?.retrofitUsersContainer, false)

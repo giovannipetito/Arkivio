@@ -88,8 +88,12 @@ class UsersFragment : DetailFragment() {
     }
 
     private fun showUsers(list: List<UserDataItem>) {
+
+        binding?.usersContainer?.removeAllViews()
+
         if (list.isEmpty())
             return
+
         for (user in list) {
 
             val itemBinding: UserCardBinding = UserCardBinding.inflate(layoutInflater, binding?.usersContainer, false)

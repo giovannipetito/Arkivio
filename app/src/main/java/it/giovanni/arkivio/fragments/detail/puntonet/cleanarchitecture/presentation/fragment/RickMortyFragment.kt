@@ -82,10 +82,12 @@ class RickMortyFragment : DetailFragment() {
     }
 
     private fun showCharacters(list: List<RickMorty?>?) {
-        if (list == null)
+
+        binding?.charactersContainer?.removeAllViews()
+
+        if (list.isNullOrEmpty())
             return
-        if (list.isEmpty())
-            return
+
         for (character in list) {
 
             val itemBinding: RickMortyItemBinding = RickMortyItemBinding.inflate(layoutInflater, binding?.charactersContainer, false)
