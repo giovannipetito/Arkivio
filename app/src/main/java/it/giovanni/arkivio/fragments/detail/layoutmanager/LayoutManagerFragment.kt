@@ -10,8 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
-import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -126,8 +126,7 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
             bar?.translationX = newVal.toFloat()
         }
 
-        // binding?.icon1?.background = resources.getDrawable(R.drawable.giovanni)
-        binding?.icon1?.setBackgroundDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.giovanni))
+        binding?.icon1?.background = ResourcesCompat.getDrawable(resources, R.drawable.giovanni, null)
 
         Glide.with(requireContext())
             .load(R.drawable.giovanni)
