@@ -1,5 +1,6 @@
 package it.giovanni.arkivio.fragments.detail.puntonet.room.repository
 
+import androidx.lifecycle.LiveData
 import it.giovanni.arkivio.fragments.detail.puntonet.room.dao.UserCoroutinesDao
 import it.giovanni.arkivio.fragments.detail.puntonet.room.entity.User
 
@@ -14,6 +15,16 @@ class RoomCoroutinesRepository(private val userDao: UserCoroutinesDao) {
 
     suspend fun getUsers(): List<User> {
         return userDao.getUsers()
+    }
+
+    // Used just for testing.
+    fun getUsers1(): LiveData<List<User>> {
+        return userDao.getUsers1()
+    }
+
+    // Used just for testing.
+    fun getUsers2(): List<User> {
+        return userDao.getUsers2()
     }
 
     suspend fun insertUser(user: User) {

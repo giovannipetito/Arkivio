@@ -1,5 +1,6 @@
 package it.giovanni.arkivio.fragments.detail.puntonet.room.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -23,6 +24,12 @@ interface UserCoroutinesDao {
      */
     @Query("SELECT * FROM users_table ORDER BY id ASC")
     suspend fun getUsers(): List<User>
+
+    @Query("SELECT * FROM users_table ORDER BY id ASC")
+    fun getUsers1(): LiveData<List<User>>
+
+    @Query("SELECT * FROM users_table ORDER BY id ASC")
+    fun getUsers2(): List<User>
 
     /**
      * Inserisce un utente nel database. Se l'utente esiste già, lo ignora.

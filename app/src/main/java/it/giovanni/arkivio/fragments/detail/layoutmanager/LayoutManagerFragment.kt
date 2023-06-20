@@ -189,10 +189,11 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (checkEmail(binding?.editEmail?.text.toString()))
-                    Toast.makeText(context, "Email valida", Toast.LENGTH_LONG).show()
+
+                if (checkEmail(p0.toString()))
+                    binding?.editEmail?.setTextColor(ContextCompat.getColor(context!!, R.color.green_A700))
                 else
-                    Toast.makeText(context, "Email errata", Toast.LENGTH_LONG).show()
+                    binding?.editEmail?.setTextColor(ContextCompat.getColor(context!!, R.color.red_A700))
             }
 
             override fun afterTextChanged(p0: Editable?) {}
