@@ -10,7 +10,7 @@ import androidx.room.Update
 import it.giovanni.arkivio.fragments.detail.puntonet.room.entity.User
 
 /**
- * DAO (Data Access Object): un DAO è un'interfaccia che definisce le operazioni del database
+ * DAO (User Access Object): un DAO è un'interfaccia che definisce le operazioni del database
  * (ad esempio: insert, update, delete, query). Annotando i metodi nell'interfaccia DAO, si
  * specificano le query SQL o le operazioni da eseguire sul database. Room genera automaticamente
  * il codice di implementazione necessario per questi metodi.

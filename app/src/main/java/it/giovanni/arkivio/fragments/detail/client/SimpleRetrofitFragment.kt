@@ -7,15 +7,20 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.databinding.ClientItemBinding
+import it.giovanni.arkivio.databinding.UserCardBinding
 import it.giovanni.arkivio.databinding.SimpleRetrofitLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.User
+import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.UsersResponse
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.restclient.retrofit.IRetrofit
 import it.giovanni.arkivio.restclient.retrofit.SimpleRetrofitClient
-import it.giovanni.arkivio.restclient.retrofit.User
 import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadDarkModeStateFromPreferences
 
 class SimpleRetrofitFragment: DetailFragment(), IRetrofit {
@@ -77,15 +82,15 @@ class SimpleRetrofitFragment: DetailFragment(), IRetrofit {
         showProgressDialog()
     }
 
-    override fun onRetrofitSuccess(users: List<User?>?, message: String?) {
+    override fun onRetrofitSuccess(usersResponse: UsersResponse?, message: String) {
         hideProgressDialog()
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
-        showUsers(users)
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        showUsers(usersResponse?.users)
     }
 
-    override fun onRetrofitFailure(message: String?) {
+    override fun onRetrofitFailure(message: String) {
         hideProgressDialog()
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
     private fun showUsers(list: List<User?>?) {
@@ -97,21 +102,31 @@ class SimpleRetrofitFragment: DetailFragment(), IRetrofit {
 
         for (user in list) {
 
-            val itemBinding: ClientItemBinding = ClientItemBinding.inflate(layoutInflater, binding?.retrofitUsersContainer, false)
+            val itemBinding: UserCardBinding = UserCardBinding.inflate(layoutInflater, binding?.retrofitUsersContainer, false)
             val itemView: View = itemBinding.root
 
-            val labelUsername: TextView = itemBinding.clientText1
-            labelUsername.text = user?.username
+            val imageUrl: String? = user?.avatar
 
-            val labelEmail: TextView = itemBinding.clientText2
-            labelEmail.text = user?.email
+            Glide.with(requireActivity())
+                .load(imageUrl)
+                .placeholder(R.mipmap.logo_audioslave_blue)
+                .error(R.mipmap.logo_audioslave_blue)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .apply(RequestOptions.bitmapTransform(RoundedCorners(54)))
+                .into(itemBinding.userAvatar)
+
+            val labelFirstName: TextView = itemBinding.userFirstName
+            val labelLastName: TextView = itemBinding.userLastName
+
+            labelFirstName.text = user?.firstName
+            labelLastName.text = user?.lastName
 
             if (isDarkMode) {
-                labelUsername.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
-                labelEmail.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+                labelFirstName.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+                labelLastName.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
             } else {
-                labelUsername.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
-                labelEmail.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
+                labelFirstName.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
+                labelLastName.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
             }
 
             binding?.retrofitUsersContainer?.addView(itemView)

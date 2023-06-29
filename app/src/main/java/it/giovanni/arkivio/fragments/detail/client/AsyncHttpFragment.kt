@@ -73,13 +73,13 @@ class AsyncHttpFragment: DetailFragment(), IAsyncHttpClient {
 
     override fun onAsyncHttpSuccess(message: String?, response: Response?) {
         val resulMessage = message + ", IP: " + response?.ip
-        Toast.makeText(context, resulMessage, Toast.LENGTH_LONG).show()
+        Toast.makeText(context, resulMessage, Toast.LENGTH_SHORT).show()
         binding?.labelIp?.text = resulMessage
         hideProgressDialog()
     }
 
     override fun onAsyncHttpFailure(message: String?) {
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         binding?.labelIp?.text = message
         hideProgressDialog()
     }

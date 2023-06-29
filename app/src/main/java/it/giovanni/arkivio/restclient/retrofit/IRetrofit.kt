@@ -1,5 +1,7 @@
 package it.giovanni.arkivio.restclient.retrofit
 
+import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.UsersResponse
+
 /**
  * IRetrofit is an interface used to define callback methods for handling successful and failed
  * Retrofit network requests.
@@ -19,6 +21,7 @@ package it.giovanni.arkivio.restclient.retrofit
  */
 interface IRetrofit {
 
-    fun onRetrofitSuccess(users: List<User?>?, message: String?)
-    fun onRetrofitFailure(message: String?)
+    fun onRetrofitSuccess(usersResponse: UsersResponse?, message: String)
+
+    fun onRetrofitFailure(message: String)
 }

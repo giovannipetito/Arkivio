@@ -2,7 +2,7 @@ package it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.rep
 
 import io.reactivex.Single
 import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.ApiService
-import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.Result
+import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.ApiResult
 import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.datasource.remote.RickMortyDataSource
 import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.response.RickMortyResponse
 import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.model.RickMorty
@@ -18,7 +18,7 @@ import javax.inject.Singleton
  * - Il costruttore della classe RickMortyRepository riceve un'istanza di ApiService tramite dependency
  *   injection (@Inject), utilizza poi l'apiService iniettato per recuperare e restituire la response.
  *
- * Questa repository class funge da ponte o intermediario tra il Data Layer e i livelli superiori
+ * Questa repository class funge da ponte o intermediario tra il User Layer e i livelli superiori
  * dell'app come il ViewModel, fornisce cioè un livello di astrazione tra ViewModel e datasource.
  * Recupera i dati da un datasource remoto rappresentato dall'interfaccia ApiService e li fornisce
  * ad un consumatore del repository, come il ViewModel, in un formato semplice da usare.
@@ -31,12 +31,12 @@ class RickMortyRepository @Inject constructor(private val apiService: ApiService
         return response
     }
 
-    override suspend fun getAllCharactersV2(page: Int): Result<RickMortyResponse> {
+    override suspend fun getAllCharactersV2(page: Int): ApiResult<RickMortyResponse> {
         return try {
             val response: RickMortyResponse = apiService.getAllCharacters(page)
-            Result.Success(response)
+            ApiResult.Success(response)
         } catch (e: Exception) {
-            Result.Error(e.localizedMessage)
+            ApiResult.Error(e.localizedMessage)
         }
     }
 

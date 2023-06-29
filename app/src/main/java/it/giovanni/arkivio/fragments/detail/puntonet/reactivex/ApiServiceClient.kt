@@ -3,7 +3,7 @@ package it.giovanni.arkivio.fragments.detail.puntonet.reactivex
 import io.reactivex.Single
 import it.giovanni.arkivio.App.Companion.context
 import it.giovanni.arkivio.BuildConfig
-import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.Result
+import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.ApiResult
 import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.UsersResponse
 import okhttp3.Cache
 import okhttp3.CacheControl
@@ -90,13 +90,13 @@ object ApiServiceClient {
         return response
     }
 
-    // Lascia la gestione di Success/Error a Result
-    fun getUsersV2(page: Int): Result<Single<UsersResponse>> {
+    // Lascia la gestione di Success/Error a ApiResult
+    fun getUsersV2(page: Int): ApiResult<Single<UsersResponse>> {
         return try {
             val response: Single<UsersResponse> = createApiService().getUsers(page)
-            Result.Success(response)
+            ApiResult.Success(response)
         } catch (e: Exception) {
-            Result.Error(e.localizedMessage)
+            ApiResult.Error(e.localizedMessage)
         }
     }
 }

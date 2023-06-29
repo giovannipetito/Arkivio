@@ -211,7 +211,7 @@ class Utils {
             try {
                 context.startActivity(Intent.createChooser(intent, "Send mail..."))
             } catch (ex: ActivityNotFoundException) {
-                Toast.makeText(context, "There is no email client installed.", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "There is no email client installed.", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -227,7 +227,7 @@ class Utils {
                 context.startActivity(Intent.createChooser(intent, "Send mail..."))
                 // currentActivity.finish()
             } catch (ex: ActivityNotFoundException) {
-                Toast.makeText(context, "There is no email client installed.", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "There is no email client installed.", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -243,7 +243,7 @@ class Utils {
                 context.startActivity(gmailIntent)
             } catch (ex: ActivityNotFoundException) {
                 // There is no Gmail client installed.
-                Toast.makeText(context, "There is no Gmail client installed.", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "There is no Gmail client installed.", Toast.LENGTH_SHORT).show()
                 val intent = Intent(Intent.ACTION_SENDTO)
                 intent.data = Uri.parse("mailto:")
                 intent.putExtra(Intent.EXTRA_EMAIL, to)
@@ -253,7 +253,7 @@ class Utils {
                 try {
                     context.startActivity(Intent.createChooser(intent, "Send mail..."))
                 } catch (ex: ActivityNotFoundException) {
-                    Toast.makeText(context, "There is no email client installed.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "There is no email client installed.", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -270,7 +270,7 @@ class Utils {
                 context.startActivity(outlookIntent)
             } catch (ex: ActivityNotFoundException) {
                 // There is no Outlook client installed.
-                Toast.makeText(context, "There is no Outlook client installed.", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "There is no Outlook client installed.", Toast.LENGTH_SHORT).show()
                 val intent = Intent(Intent.ACTION_SENDTO)
                 intent.data = Uri.parse("mailto:")
                 intent.putExtra(Intent.EXTRA_EMAIL, to)
@@ -280,7 +280,7 @@ class Utils {
                 try {
                     context.startActivity(Intent.createChooser(intent, "Send mail..."))
                 } catch (ex: ActivityNotFoundException) {
-                    Toast.makeText(context, "There is no email client installed.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "There is no email client installed.", Toast.LENGTH_SHORT).show()
                 }
             }
         }

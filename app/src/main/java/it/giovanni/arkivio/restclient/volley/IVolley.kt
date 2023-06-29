@@ -5,11 +5,11 @@ package it.giovanni.arkivio.restclient.volley
  *
  * onVolleyGetSuccess(message: String?): This method is called when the GET request to the server
  * is successful. The parameter message is a string that contains the success message, such as
- * "Data fetched successfully."
+ * "User fetched successfully."
  *
  * onVolleyPostSuccess(message: String?): This method is called when the POST request to the server
  * is successful. The parameter message is a string that contains the success message, such as
- * "Data posted successfully."
+ * "User posted successfully."
  *
  * onVolleyFailure(message: String?): This method is called when the request to the server fails.
  * The parameter message is a string that contains the error message, such as "Network error occurred."

@@ -16,7 +16,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/characters_container"
+            android:id="@+id/users_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />

@@ -81,8 +81,8 @@ class UsersHomeFragment : DetailFragment() {
             val name: String = binding?.editName?.text.toString()
             val job: String = binding?.editJob?.text.toString()
 
-            val user = User(name, job)
-            viewModel._user.value = user
+            val utente = Utente(name, job)
+            viewModel._utente.value = utente
 
             if (name.isNotEmpty() && job.isNotEmpty())
                 currentActivity.openDetail(Globals.USERS_DETAIL, null)

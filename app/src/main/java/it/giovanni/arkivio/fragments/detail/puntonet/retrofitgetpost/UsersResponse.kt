@@ -3,21 +3,18 @@ package it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost
 import com.google.gson.annotations.SerializedName
 
 /**
- * Questa è una data class che rappresenta la response di una chiamata API per ottenere una lista
- * di team di basket. Utilizza l'annotazione @SerializedName della libreria Gson per mappare le
- * chiavi JSON alle properties della classe.
+ * La classe UsersResponse rappresenta la response di una chiamata API per ottenere una lista di
+ * utenti sotto forma di oggetto JSON. Viene utilizzata come wrapper per la lista di oggetti User
+ * restituiti dalla chiamata API, permettendo a tale lista di essere facilmente utilizzata nel
+ * codice dell'applicazione.
  *
- * La classe UsersResponse ha due classi interne, Data e Support, che rappresentano rispettivamente
- * l'oggetto team e le support informazioni. La property data è una lista di oggetti Data, mentre la
- * property support è un'istanza della classe Support.
+ * Utilizza l'annotazione @SerializedName per mappare le chiavi JSON alle properties corrispondenti
+ * della classe e implementa l'interfaccia Serializable della libreria gson per serializzare e
+ * deserializzare la classe stessa in modo che possa essere passata tra diversi componenti di
+ * un'applicazione Android.
  *
- * Ogni property nella classe Data è annotata con @SerializedName ed è mappata a una chiave nella
- * response JSON. La classe Support ha properties che rappresentano i metadati per l'impaginazione come
- * total_pages, current_page, next_page, per_page e total_count.
- *
- * Questa classe viene in genere utilizzata con Retrofit per deserializzare la response JSON in un
- * oggetto Kotlin. L'annotazione @SerializedName viene utilizzata per mappare le chiavi JSON alla
- * property corrispondente nella classe.
+ * Ha due classi interne, User e Support, annotate rispettivamente dalla property data che indica
+ * una lista di oggetti User, e dalla property support che indica un'istanza della classe Support.
  */
 class UsersResponse {
 
@@ -34,8 +31,24 @@ class UsersResponse {
     var totalPages = 0
 
     @SerializedName("data")
-    var data: List<Data>? = null
-
-    @SerializedName("support")
-    var support: Support? = null
+    var users: List<User>? = null
 }
+
+/*
+class UsersResponse(
+    @SerializedName("page")
+    var page: Int,
+
+    @SerializedName("per_page")
+    var perPage: Int,
+
+    @SerializedName("total")
+    var total: Int,
+
+    @SerializedName("total_pages")
+    var totalPages: Int,
+
+    @SerializedName("data")
+    var users: List<User> = null,
+): Serializable
+*/

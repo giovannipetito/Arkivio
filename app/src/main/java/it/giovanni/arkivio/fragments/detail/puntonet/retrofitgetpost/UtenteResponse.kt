@@ -2,7 +2,7 @@ package it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost
 
 import com.google.gson.annotations.SerializedName
 
-class UserResponse {
+class UtenteResponse {
 
     @SerializedName("name")
     var name: String? = null

@@ -1,7 +1,7 @@
-package it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost
+package it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data
 
 /**
- * La classe sealed Result è uno pattern comune in Kotlin che viene utilizzato per rappresentare il
+ * La classe sealed ApiResult è uno pattern comune in Kotlin che viene utilizzato per rappresentare il
  * risultato di un'operazione che può avere esito positivo o negativo.
  *
  * La classe ha due sottoclassi: Success ed Error. La sottoclasse Success contiene il risultato
@@ -22,7 +22,7 @@ package it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost
  * utilizzare un'espressione when per gestire sia i casi di Success che quelli di Error in modo
  * conciso e indipendente dai tipi.
  */
-sealed class Result<out T : Any> {
-    data class Success<out T : Any>(val data: T) : Result<T>()
-    data class Error(val message: String?, val statusCode: Int? = null) : Result<Nothing>()
+sealed class ApiResult<out T : Any> {
+    data class Success<out T : Any>(val data: T) : ApiResult<T>()
+    data class Error(val message: String?, val statusCode: Int? = null) : ApiResult<Nothing>()
 }

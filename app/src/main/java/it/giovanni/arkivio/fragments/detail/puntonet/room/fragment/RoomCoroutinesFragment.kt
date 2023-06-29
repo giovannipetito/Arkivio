@@ -102,7 +102,7 @@ class RoomCoroutinesFragment : DetailFragment(), EditUserListener {
             // Device File Explorer/data/data/it.giovanni.arkivio/databases/arkivio_database
         }
 
-        binding?.buttonGetUsers?.setOnClickListener {
+        binding?.buttonGetCoroutinesUsers?.setOnClickListener {
             updateView()
         }
 
@@ -289,11 +289,11 @@ class RoomCoroutinesFragment : DetailFragment(), EditUserListener {
     private fun setViewStyle() {
         isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
         if (isDarkMode) {
-            binding?.buttonGetUsers?.style(R.style.ButtonEmptyDarkMode)
+            binding?.buttonGetCoroutinesUsers?.style(R.style.ButtonEmptyDarkMode)
             binding?.buttonDeleteAllUsers?.style(R.style.ButtonEmptyDarkMode)
         }
         else {
-            binding?.buttonGetUsers?.style(R.style.ButtonEmptyLightMode)
+            binding?.buttonGetCoroutinesUsers?.style(R.style.ButtonEmptyLightMode)
             binding?.buttonDeleteAllUsers?.style(R.style.ButtonEmptyLightMode)
         }
     }

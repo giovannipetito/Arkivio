@@ -10,14 +10,14 @@ import com.bumptech.glide.Glide
 import it.giovanni.arkivio.App.Companion.context
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.UserCardBinding
-import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.Data
+import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.User
 
 class UsersAdapter(onItemClicked: OnItemViewClicked) : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
 
     private var onItemViewClicked : OnItemViewClicked? = onItemClicked
-    private var users : List<Data>? = null
+    private var users : List<User?>? = null
 
-    fun setList(list: List<Data>?) {
+    fun setList(list: List<User?>?) {
         users = list
     }
 
@@ -28,11 +28,11 @@ class UsersAdapter(onItemClicked: OnItemViewClicked) : RecyclerView.Adapter<User
 
     override fun onBindViewHolder(holder: UsersViewHolder, position: Int) {
 
-        val user : Data = users!![position]
-        holder.firstName.text = user.firstName
-        holder.lastName.text = user.lastName
+        val user : User? = users?.get(position)
+        holder.firstName.text = user?.firstName
+        holder.lastName.text = user?.lastName
 
-        val imageUrl: String = user.avatar
+        val imageUrl: String = user?.avatar!!
         Glide.with(context)
             .load(imageUrl)
             .into(holder.avatar)
@@ -60,6 +60,6 @@ class UsersAdapter(onItemClicked: OnItemViewClicked) : RecyclerView.Adapter<User
     }
 
     interface OnItemViewClicked {
-        fun onItemInfoClicked(user: Data)
+        fun onItemInfoClicked(user: User)
     }
 }

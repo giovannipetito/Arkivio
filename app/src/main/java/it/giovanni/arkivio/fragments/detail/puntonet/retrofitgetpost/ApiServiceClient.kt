@@ -12,12 +12,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.util.concurrent.TimeUnit
+import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.ApiResult
 
 /**
  * Questa classe fornisce una factory per la creazione e la configurazione delle istanze
  * dell'interfaccia Retrofit ApiService che viene utilizzata per effettuare richieste API
  * a un server back-end. Definisce inoltre una funzione getListUsers che chiama il metodo
- * getListUsers dell'interfaccia ApiService e restituisce la response come oggetto Result.
+ * getListUsers dell'interfaccia ApiService e restituisce la response come oggetto ApiResult.
  *
  * - La keyword companion object viene usata per definire un oggetto singleton che ha lo stesso nome
  *   nome della classe che lo contiene (ApiServiceClient). È possibile accedere a questo oggetto
@@ -39,7 +40,7 @@ import java.util.concurrent.TimeUnit
  * - createApiService() è una funzione che restituisce un'istanza dell'interfaccia ApiService creata
  *   dall'istanza Retrofit.
  * - getListUsers(page: Int) è una funzione suspend che chiama il metodo getListUsers dell'interfaccia
- *   ApiService e restituisce la response come oggetto Result. Se viene generata un'eccezione durante
+ *   ApiService e restituisce la response come oggetto ApiResult. Se viene generata un'eccezione durante
  *   la chiamata API, la funzione restituisce un risultato Error con il messaggio di errore localizzato.
  */
 object ApiServiceClient {
@@ -68,7 +69,7 @@ object ApiServiceClient {
         .addInterceptor { chain: Interceptor.Chain ->
             val newRequest = chain.request().newBuilder()
                 // .addHeader("x-rapidapi-key", BuildConfig.API_KEY)
-                .addHeader("x-rapidapi-host", "https://reqres.in")
+                .addHeader("x-rapidapi-host", BuildConfig.BASE_URL)
                 // .header("User-Agent", Utils.getDeviceName()")
                 .addHeader("applicationId", BuildConfig.APPLICATION_ID)
                 .addHeader("app_version", BuildConfig.VERSION_NAME)
@@ -93,21 +94,21 @@ object ApiServiceClient {
         return retrofit.create(ApiService::class.java)
     }
 
-    suspend fun getUsers(page: Int): Result<UsersResponse> {
+    suspend fun getUsers(page: Int): ApiResult<UsersResponse> {
         return try {
             val usersResponse: UsersResponse = createApiService().getUsers(page)
-            Result.Success(usersResponse)
+            ApiResult.Success(usersResponse)
         } catch (e: Exception) {
-            Result.Error(e.localizedMessage)
+            ApiResult.Error(e.localizedMessage)
         }
     }
 
-    suspend fun addUser(user: User): Result<UserResponse> {
+    suspend fun addUser(utente: Utente): ApiResult<UtenteResponse> {
         return try {
-            val userResponse: UserResponse = createApiService().addUser(user)
-            Result.Success(userResponse)
+            val utenteResponse: UtenteResponse = createApiService().addUser(utente)
+            ApiResult.Success(utenteResponse)
         } catch (e: Exception) {
-            Result.Error(e.localizedMessage)
+            ApiResult.Error(e.localizedMessage)
         }
     }
 }

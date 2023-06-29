@@ -93,7 +93,7 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
                 showProgressDialog()
                 currentActivity.openMainFragment()
             } else
-                Toast.makeText(context,"Errore di connessione", Toast.LENGTH_LONG).show()
+                Toast.makeText(context,"Errore di connessione", Toast.LENGTH_SHORT).show()
         }
 
         binding?.imageFingerprint?.setOnClickListener {
@@ -122,11 +122,11 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
     }
 
     override fun onSdkVersionNotSupported() {
-        Toast.makeText(context, getString(R.string.biometric_error_sdk), Toast.LENGTH_LONG).show()
+        Toast.makeText(context, getString(R.string.biometric_error_sdk), Toast.LENGTH_SHORT).show()
     }
 
     override fun onBiometricAuthenticationNotSupported() {
-        Toast.makeText(context, getString(R.string.biometric_error_hardware), Toast.LENGTH_LONG).show()
+        Toast.makeText(context, getString(R.string.biometric_error_hardware), Toast.LENGTH_SHORT).show()
     }
 
     override fun onBiometricAuthenticationNotAvailable() {
@@ -178,35 +178,35 @@ class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, Permis
     }
 
     override fun onBiometricAuthenticationPermissionNotGranted() {
-        Toast.makeText(context, getString(R.string.biometric_error_permission), Toast.LENGTH_LONG).show()
+        Toast.makeText(context, getString(R.string.biometric_error_permission), Toast.LENGTH_SHORT).show()
     }
 
     override fun onBiometricAuthenticationInternalError(error: String) {
-        Toast.makeText(context, error, Toast.LENGTH_LONG).show()
+        Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
     }
 
     override fun onAuthenticationFailed() {
-        Toast.makeText(context, getString(R.string.biometric_failure), Toast.LENGTH_LONG).show()
+        Toast.makeText(context, getString(R.string.biometric_failure), Toast.LENGTH_SHORT).show()
     }
 
     override fun onAuthenticationCancelled() {
-        Toast.makeText(context, getString(R.string.biometric_cancelled), Toast.LENGTH_LONG).show()
+        Toast.makeText(context, getString(R.string.biometric_cancelled), Toast.LENGTH_SHORT).show()
         biometricManager?.cancelAuthentication()
     }
 
     override fun onAuthenticationSuccessful() {
-        Toast.makeText(context, getString(R.string.biometric_success), Toast.LENGTH_LONG).show()
+        Toast.makeText(context, getString(R.string.biometric_success), Toast.LENGTH_SHORT).show()
 
         showProgressDialog()
         currentActivity.openMainFragment()
     }
 
     override fun onAuthenticationHelp(helpCode: Int, helpString: CharSequence) {
-        Toast.makeText(context, helpString, Toast.LENGTH_LONG).show()
+        Toast.makeText(context, helpString, Toast.LENGTH_SHORT).show()
     }
 
     override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
-        Toast.makeText(context, errString, Toast.LENGTH_LONG).show()
+        Toast.makeText(context, errString, Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {

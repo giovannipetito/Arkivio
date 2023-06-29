@@ -13,11 +13,6 @@ class LoginInputViewModel : ViewModel() {
     val message: LiveData<String>
         get() = _message
 
-    /**
-    val list: LiveData<List<UserDataItem>>
-    get() = _list
-     */
-
     // setValue()
     fun showMessage1() {
         _message.value = if (_user.value?.password?.isEmpty()!!)

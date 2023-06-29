@@ -121,7 +121,7 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback, IRealtime {
             if (loadUsersFromPreferences() != null)
                 currentActivity.openDetail(Globals.RUBRICA_LIST, bundle, this@RubricaHomeFragment, Globals.REQUEST_CODE_EVENT_USER_SEARCH)
             else
-                Toast.makeText(context, "Inizializza la lista di utenti.", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Inizializza la lista di utenti.", Toast.LENGTH_SHORT).show()
         }
 
         binding?.flexboxLayoutUsers?.setOnClickListener {
@@ -218,7 +218,7 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback, IRealtime {
         mResponse = Response()
         mResponse?.users = response?.users
         saveUsersToPreferences(mResponse)
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
     override fun onRealtimeFailure(message: String?) {
@@ -226,7 +226,7 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback, IRealtime {
         mResponse = Response()
         mResponse?.users = getUsersFromJson()
         saveUsersToPreferences(mResponse)
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
     private fun setViewStyle() {

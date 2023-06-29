@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat
 import com.airbnb.paris.extensions.style
 import it.giovanni.arkivio.App
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.databinding.ClientItemBinding
+import it.giovanni.arkivio.databinding.UserCardBinding
 import it.giovanni.arkivio.databinding.VolleyLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
@@ -91,10 +91,10 @@ class VolleyFragment: DetailFragment(), IVolley {
 
         hideProgressDialog()
 
-        val itemBinding: ClientItemBinding = ClientItemBinding.inflate(layoutInflater, binding?.volleyUsersContainer, false)
+        val itemBinding: UserCardBinding = UserCardBinding.inflate(layoutInflater, binding?.volleyUsersContainer, false)
         val itemView: View = itemBinding.root
 
-        val label: TextView = itemBinding.clientText1
+        val label: TextView = itemBinding.userFirstName
         label.text = message
 
         if (isDarkMode)
@@ -115,12 +115,12 @@ class VolleyFragment: DetailFragment(), IVolley {
 
     override fun onVolleyPostSuccess(message: String?) {
         hideProgressDialog()
-        Toast.makeText(App.context, message, Toast.LENGTH_LONG).show()
+        Toast.makeText(App.context, message, Toast.LENGTH_SHORT).show()
     }
 
     override fun onVolleyFailure(message: String?) {
         hideProgressDialog()
-        Toast.makeText(App.context, message, Toast.LENGTH_LONG).show()
+        Toast.makeText(App.context, message, Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {

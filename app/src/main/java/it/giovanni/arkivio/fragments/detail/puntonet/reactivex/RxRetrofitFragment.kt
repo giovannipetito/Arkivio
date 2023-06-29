@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.RxRetrofitLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
-import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.Data
+import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.User
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 
@@ -99,7 +99,7 @@ class RxRetrofitFragment : DetailFragment(), UsersAdapter.OnItemViewClicked {
         viewModel.disposable?.dispose()
     }
 
-    override fun onItemInfoClicked(user: Data) {
+    override fun onItemInfoClicked(user: User) {
         Toast.makeText(requireContext(), user.email, Toast.LENGTH_SHORT).show()
     }
 }

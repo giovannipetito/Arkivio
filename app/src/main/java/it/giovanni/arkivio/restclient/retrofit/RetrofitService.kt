@@ -1,7 +1,9 @@
 package it.giovanni.arkivio.restclient.retrofit
 
+import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.UsersResponse
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 /**
  * This interface defines a Retrofit service and is annotated with @GET("users") to specify the
@@ -22,9 +24,8 @@ import retrofit2.http.GET
  * The onFailure() method is called when the network request fails due to an error, and it receives a
  * Throwable object that describes the error.
  */
-
 interface RetrofitService {
 
-    @GET("users")
-    fun getUsers(): Call<List<User?>?>?
+    @GET("/api/users")
+    fun getUsers(@Query("page") page: Int): Call<UsersResponse>
 }

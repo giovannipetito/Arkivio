@@ -57,14 +57,14 @@ class CleanupWorker(context: Context, params: WorkerParameters) : CoroutineWorke
             }
             /**
              * Se il processo di pulizia viene completato senza alcuna eccezione, il worker
-             * restituisce Result.success() per indicare il completamento corretto del lavoro.
+             * restituisce ApiResult.success() per indicare il completamento corretto del lavoro.
              */
             return@withContext Result.success()
         } catch (exception: Exception) {
             /**
              * Gestione degli errori: se si verifica un'eccezione durante il processo di pulizia,
              * viene rilevata, viene stampata l'analisi dello stack e il worker restituisce
-             * Result.failure() per indicare un errore nel lavoro.
+             * ApiResult.failure() per indicare un errore nel lavoro.
              */
             exception.printStackTrace()
             return@withContext Result.failure()

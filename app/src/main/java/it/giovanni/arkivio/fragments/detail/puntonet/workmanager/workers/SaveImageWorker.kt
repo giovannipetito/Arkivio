@@ -78,7 +78,7 @@ class SaveImageWorker(context: Context, params: WorkerParameters) : CoroutineWor
                 /**
                  * Restituzione del risultato: se l'immagine viene salvata correttamente, il worker
                  * crea un oggetto dati di output utilizzando workDataOf con la chiave KEY_IMAGE_URI
-                 * e l'URL come valore. Restituisce Result.success(output) per indicare il
+                 * e l'URL come valore. Restituisce ApiResult.success(output) per indicare il
                  * completamento con successo del lavoro.
                  */
                 val output = workDataOf(KEY_IMAGE_URI to imageUrl)
@@ -87,7 +87,7 @@ class SaveImageWorker(context: Context, params: WorkerParameters) : CoroutineWor
                 /**
                  * Gestione degli errori: se si verificano eccezioni durante il processo di
                  * decodifica o salvataggio dell'immagine, queste vengono rilevate, viene stampata
-                 * lo stack trace e il worker restituisce Result.failure() per indicare un errore
+                 * lo stack trace e il worker restituisce ApiResult.failure() per indicare un errore
                  * nel lavoro.
                  */
                 Log.e("[WORKER]", "Writing to MediaStore failed")

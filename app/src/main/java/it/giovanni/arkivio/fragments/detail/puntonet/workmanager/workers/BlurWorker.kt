@@ -6,6 +6,7 @@ import android.net.Uri
 import android.text.TextUtils
 import android.util.Log
 import androidx.work.CoroutineWorker
+import androidx.work.Data
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import it.giovanni.arkivio.fragments.detail.puntonet.workmanager.KEY_IMAGE_URI
@@ -77,18 +78,18 @@ class BlurWorker(context: Context, params: WorkerParameters) : CoroutineWorker(c
              * outputData: la funzione workDataOf crea un oggetto Data per contenere i dati di output.
              * In questo caso associa la chiave KEY_IMAGE_URI all'URI dell'immagine sfocata.
              */
-            val outputData = workDataOf(KEY_IMAGE_URI to outputUri.toString())
+            val outputData: Data = workDataOf(KEY_IMAGE_URI to outputUri.toString())
 
             /**
-             * Result.success: se il processo di sfocatura viene completato correttamente, il worker
-             * restituisce un Result.success con i dati di output contenenti l'URI dell'immagine sfocata.
+             * ApiResult.success: se il processo di sfocatura viene completato correttamente, il worker
+             * restituisce un ApiResult.success con i dati di output contenenti l'URI dell'immagine sfocata.
              */
             return@withContext Result.success(outputData)
         } catch (throwable: Throwable) {
             /**
              * Gestione degli errori: se si verifica un errore durante il processo di sfocatura, il
              * worker rileva l'eccezione, registra un messaggio di errore, stampa l'analisi dello
-             * stack e restituisce Result.failure per indicare l'errore del lavoro.
+             * stack e restituisce ApiResult.failure per indicare l'errore del lavoro.
              */
             Log.e("[WORKER]", "Error applying blur")
             throwable.printStackTrace()

@@ -73,7 +73,7 @@ class UsersDetailFragment : DetailFragment() {
 
         showProgressDialog()
 
-        viewModel.user.observe(viewLifecycleOwner) {user ->
+        viewModel.utente.observe(viewLifecycleOwner) { user ->
             viewModel.addUser(user)
         }
 

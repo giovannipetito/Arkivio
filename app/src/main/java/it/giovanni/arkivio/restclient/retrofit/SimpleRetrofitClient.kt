@@ -1,6 +1,8 @@
 package it.giovanni.arkivio.restclient.retrofit
 
-import it.giovanni.arkivio.utils.Config
+import android.util.Log
+import it.giovanni.arkivio.BuildConfig
+import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.UsersResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,19 +37,21 @@ object SimpleRetrofitClient {
     fun getUsers(callback: IRetrofit) {
 
         val retrofit: Retrofit? = Retrofit.Builder()
-            .baseUrl(Config.BASE_URL)
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
         val service: RetrofitService? = retrofit?.create(RetrofitService::class.java)
 
-        service?.getUsers()?.enqueue(object : Callback<List<User?>?> {
-            override fun onResponse(call: Call<List<User?>?>, response: Response<List<User?>?>) {
-                val users: List<User?>? = response.body()
-                callback.onRetrofitSuccess(users, "onSuccess: Caricamento completato")
+        service?.getUsers(0)?.enqueue(object : Callback<UsersResponse> {
+            override fun onResponse(call: Call<UsersResponse>, response: Response<UsersResponse>) {
+                val usersResponse: UsersResponse? = response.body()
+                callback.onRetrofitSuccess(usersResponse, "onSuccess: Caricamento completato")
             }
 
-            override fun onFailure(call: Call<List<User?>?>, t: Throwable) {
+            override fun onFailure(call: Call<UsersResponse>, t: Throwable) {
+                t.printStackTrace()
+                Log.e("[Throwable]", "Throwable: $t")
                 callback.onRetrofitFailure("onFailure: Caricamento fallito")
             }
         })

@@ -1,20 +1,29 @@
 package it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.presentation.viewmodel
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import androidx.work.Data
+import androidx.work.OneTimeWorkRequest
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkInfo
+import androidx.work.WorkManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.KEY_USERS
+import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.TAG_USERS_OUTPUT
 import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.model.RickMorty
 import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.datasource.remote.RickMortyDataSource
 import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.response.RickMortyResponse
 import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.domain.usecase.RickMortyPagingSource
+import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.domain.worker.UsersWorker
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -78,7 +87,28 @@ class RickMortyViewModel @Inject constructor(private val rickMortyDataSource: Ri
             )
     }
 
+    lateinit var workInfos: LiveData<List<WorkInfo>>
+
     /**
      * Get data with WorkManager
      */
+    fun getWorkerUsers(application: Application, page: Int) {
+
+        val workManager = WorkManager.getInstance(application)
+        workInfos = workManager.getWorkInfosByTagLiveData(TAG_USERS_OUTPUT)
+
+        val workRequestBuilder: OneTimeWorkRequest.Builder = OneTimeWorkRequestBuilder<UsersWorker>()
+            .addTag(TAG_USERS_OUTPUT)
+            .setInputData(createInputData(page))
+
+        workManager.enqueue(workRequestBuilder.build())
+    }
+
+    private fun createInputData(page: Int): Data {
+        val builder = Data.Builder()
+        page.let {
+            builder.putInt(KEY_USERS, page)
+        }
+        return builder.build()
+    }
 }

@@ -24,12 +24,12 @@ import retrofit2.http.Query
  * request HTTP GET all'URL specificato con il parametro di query fornito. Il server risponderà
  * quindi con un payload JSON che verrà deserializzato in un oggetto UsersResponse da Gson (una
  * libreria di serializzazione/deserializzazione JSON per Java). L'oggetto UsersResponse contiene
- * una lista di oggetti Data che rappresentano gli utenti.
+ * una lista di oggetti User che rappresentano gli utenti.
  *
  * L'interfaccia inoltre ha un metodo, addUser, annotato con @POST("/api/users") per specificare
  * l'URL dell'endpoint relativo per la richiesta POST. L'annotazione @Body viene utilizzata per
  * specificare il corpo della richiesta come oggetto User, che viene passato come parametro al
- * metodo. Il metodo restituisce un oggetto UserResponse, che è una response dal server dopo
+ * metodo. Il metodo restituisce un oggetto UtenteResponse, che è una response dal server dopo
  * l'aggiunta dell'user. La keyword suspend viene utilizzata per contrassegnare il metodo come
  * coroutine e consentirne la chiamata da una funzione di sospensione (suspend).
  */
@@ -41,5 +41,5 @@ interface ApiService {
     ): UsersResponse
 
     @POST("/api/users")
-    suspend fun addUser(@Body user: User): UserResponse
+    suspend fun addUser(@Body utente: Utente): UtenteResponse
 }

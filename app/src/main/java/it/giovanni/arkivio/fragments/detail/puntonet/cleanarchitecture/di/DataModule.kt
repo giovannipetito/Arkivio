@@ -10,7 +10,7 @@ import javax.inject.Singleton
 
 /**
  * - DataModule è un modulo Dagger (@Module) responsabile della fornitura di dipendenze relative
- *   al Data Layer.
+ *   al User Layer.
  * - La funzione provideRickMortyDataSource è annotata con @Provides e @Singleton. Fornisce
  *   un'istanza di RickMortyDataSource iniettando RickMortyRepository. RickMortyDataSource è
  *   un'implementazione di RickMortyRepository che recupera i dati dall'API remota. Specifica

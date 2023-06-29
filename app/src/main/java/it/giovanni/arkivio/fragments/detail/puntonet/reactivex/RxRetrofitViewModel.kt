@@ -9,16 +9,16 @@ import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.Data
-import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.Result
+import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.User
+import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.ApiResult
 import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.UsersResponse
 
 class RxRetrofitViewModel : ViewModel() {
 
     var disposable: Disposable? = null
 
-    private val _users: MutableLiveData<List<Data>> = MutableLiveData<List<Data>>()
-    val users: LiveData<List<Data>>
+    private val _users: MutableLiveData<List<User?>> = MutableLiveData<List<User?>>()
+    val users: LiveData<List<User?>>
         get() = _users
 
     /**
@@ -37,27 +37,27 @@ class RxRetrofitViewModel : ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { response ->
-                _users.postValue(response.data)
+                _users.postValue(response.users)
             }, { error ->
                 Log.e("[RX]", "error: " + error.message)
             })
     }
 
     /**
-     * In questo esempio, il metodo getUsersV2 restituisce un Result<Single<UsersResponse>>.
+     * In questo esempio, il metodo getUsersV2 restituisce un ApiResult<Single<UsersResponse>>.
      */
     fun fetchUsersV2(page: Int) {
-        when (val result: Result<Single<UsersResponse>> = ApiServiceClient.getUsersV2(page)) {
-            is Result.Success<Single<UsersResponse>> -> {
+        when (val apiResult: ApiResult<Single<UsersResponse>> = ApiServiceClient.getUsersV2(page)) {
+            is ApiResult.Success<Single<UsersResponse>> -> {
 
-                val observable: Single<UsersResponse> = result.data
+                val observable: Single<UsersResponse> = apiResult.data
 
                 observable
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(getUsersSingleObserver())
             }
-            is Result.Error -> {
+            is ApiResult.Error -> {
                 // todo: show error message
             }
         }
@@ -75,7 +75,7 @@ class RxRetrofitViewModel : ViewModel() {
             }
 
             override fun onSuccess(response: UsersResponse) {
-                _users.postValue(response.data)
+                _users.postValue(response.users)
             }
         }
     }

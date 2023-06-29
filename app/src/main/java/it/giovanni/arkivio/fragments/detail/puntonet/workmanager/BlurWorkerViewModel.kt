@@ -108,8 +108,8 @@ class BlurWorkerViewModel(application: Application) : ViewModel() {
     }
 
     /**
-     * La funzione createInputDataForUri crea un oggetto Data che contiene l'input. Crea il bundle
-     * di dati di input che include l'URI per operare su @return Data che contengono l'URI della
+     * La funzione createInputDataForUri crea un oggetto User che contiene l'input. Crea il bundle
+     * di dati di input che include l'URI per operare su @return User che contengono l'URI della
      * immagine come stringa.
      */
     private fun createInputDataForUri(): Data {

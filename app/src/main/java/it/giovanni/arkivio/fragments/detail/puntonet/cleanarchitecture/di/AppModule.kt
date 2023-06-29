@@ -86,7 +86,7 @@ class AppModule {
             .addInterceptor { chain: Interceptor.Chain ->
                 val newRequest = chain.request().newBuilder()
                     // .addHeader("x-rapidapi-key", BuildConfig.API_KEY)
-                    .addHeader("x-rapidapi-host", Config.BASE_URL2)
+                    .addHeader("x-rapidapi-host", Config.BASE_URL)
                     // .header("User-Agent", Utils.getDeviceName()")
                     .addHeader("applicationId", BuildConfig.APPLICATION_ID)
                     .addHeader("app_version", BuildConfig.VERSION_NAME)
@@ -112,7 +112,7 @@ class AppModule {
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(Config.BASE_URL2)
+            .baseUrl(Config.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

@@ -5,24 +5,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.databinding.ClientItemBinding
+import it.giovanni.arkivio.databinding.UserCardBinding
 import it.giovanni.arkivio.databinding.SimpleRetrofitLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.User
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
-import it.giovanni.arkivio.restclient.retrofit.User
 import it.giovanni.arkivio.utils.SharedPreferencesManager
 
 /**
- * La classe View (activity o fragment) è dove definirai l'interfaccia utente (UI) che la tua app
- * mostrerà all'utente legando i vari elementi della UI (TextView, EditText, Button, ecc.) al ViewModel.
+ * La classe View (activity o fragment) rappresenta l'interfaccia utente (UI) che l'applicazione
+ * genererà legando i vari elementi della UI (TextView, EditText, Button, ecc.) al ViewModel.
  *
- * Il ViewModel osserva un oggetto LiveData chiamato utente, che viene aggiornato quando viene
- * chiamato getUsersData(). La View quindi osserva l'oggetto utente e aggiorna la UI quando cambia.
+ * Il ViewModel osserva un oggetto LiveData chiamato response, che viene aggiornato quando viene
+ * chiamato getUsers(). La View quindi osserva l'oggetto response e aggiorna la UI quando cambia.
  * Ciò consente di separare il codice della UI dalla business logic e semplifica il test e la
  * manutenzione del codice.
  */
@@ -86,16 +89,15 @@ class MvvmUsersFragment : DetailFragment() {
         viewModel = ViewModelProvider(requireActivity())[MvvmUsersViewModel::class.java]
 
         showProgressDialog()
-        viewModel.getUsersData()
+        viewModel.getUsers()
 
         viewModel.response.observe(viewLifecycleOwner) { response ->
             hideProgressDialog()
-            Toast.makeText(context, response.message, Toast.LENGTH_LONG).show()
-            showUsers(response.users)
+            showUsers(response?.users)
         }
     }
 
-    private fun showUsers(list: List<User?>?) {
+    private fun showUsers(list: List<User>?) {
 
         binding?.retrofitUsersContainer?.removeAllViews()
 
@@ -104,21 +106,31 @@ class MvvmUsersFragment : DetailFragment() {
 
         for (user in list) {
 
-            val itemBinding: ClientItemBinding = ClientItemBinding.inflate(layoutInflater, binding?.retrofitUsersContainer, false)
+            val itemBinding: UserCardBinding = UserCardBinding.inflate(layoutInflater, binding?.retrofitUsersContainer, false)
             val itemView: View = itemBinding.root
 
-            val labelUsername: TextView = itemBinding.clientText1
-            labelUsername.text = user?.username
+            val imageUrl: String = user.avatar
 
-            val labelEmail: TextView = itemBinding.clientText2
-            labelEmail.text = user?.email
+            Glide.with(requireActivity())
+                .load(imageUrl)
+                .placeholder(R.mipmap.logo_audioslave_blue)
+                .error(R.mipmap.logo_audioslave_blue)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .apply(RequestOptions.bitmapTransform(RoundedCorners(54)))
+                .into(itemBinding.userAvatar)
+
+            val labelFirstName: TextView = itemBinding.userFirstName
+            val labelLastName: TextView = itemBinding.userLastName
+
+            labelFirstName.text = user.firstName
+            labelLastName.text = user.lastName
 
             if (isDarkMode) {
-                labelUsername.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
-                labelEmail.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+                labelFirstName.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+                labelLastName.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
             } else {
-                labelUsername.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
-                labelEmail.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
+                labelFirstName.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
+                labelLastName.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
             }
 
             binding?.retrofitUsersContainer?.addView(itemView)

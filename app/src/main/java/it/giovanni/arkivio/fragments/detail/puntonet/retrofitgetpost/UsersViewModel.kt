@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.ApiResult
 import kotlinx.coroutines.launch
 
 /**
@@ -24,7 +25,7 @@ import kotlinx.coroutines.launch
  * è più in uso.
  *
  * All'interno della coroutine, chiama il metodo ApiServiceClient.getListUsers per recuperare i dati
- * dall'API. Questo metodo restituisce un oggetto Result, che può essere un'istanza Success o Error.
+ * dall'API. Questo metodo restituisce un oggetto ApiResult, che può essere un'istanza Success o Error.
  *
  * Se il risultato è un'istanza Success, mappa l'elenco di users in un elenco di UserDataItem
  * chiamando il metodo mapUsersDataItem. Questo metodo crea una nuova lista di data items mappando
@@ -41,21 +42,21 @@ class UsersViewModel : ViewModel() {
         get() = _usersDataItem
 
     /**
-     * _users è un'istanza MutableLiveData che contiene una lista di oggetti Data. Rappresenta
+     * _users è un'istanza MutableLiveData che contiene una lista di oggetti User. Rappresenta
      * la versione mutabile di LiveData che può essere aggiornata all'interno di ViewModel.
      */
-    private val _users: MutableLiveData<List<Data>> = MutableLiveData<List<Data>>()
+    private val _users: MutableLiveData<List<User>> = MutableLiveData<List<User>>()
 
     /**
      * users è un'istanza LiveData derivata da _users. Fornisce accesso in sola lettura alla lista
-     * di oggetti Data ai componenti di osservazione.
+     * di oggetti User ai componenti di osservazione.
      */
-    val users: LiveData<List<Data>>
+    val users: LiveData<List<User>>
         get() = _users
 
-    val _user: MutableLiveData<User> = MutableLiveData<User>()
-    val user: LiveData<User>
-        get() = _user
+    val _utente: MutableLiveData<Utente> = MutableLiveData<Utente>()
+    val utente: LiveData<Utente>
+        get() = _utente
 
     private val _message: MutableLiveData<String> = MutableLiveData<String>()
     val message: LiveData<String>
@@ -72,17 +73,17 @@ class UsersViewModel : ViewModel() {
      */
     fun fetchUsers(page: Int) {
         viewModelScope.launch {
-            when (val result: Result<UsersResponse> = ApiServiceClient.getUsers(page)) {
-                is Result.Success<UsersResponse> -> {
+            when (val apiResult: ApiResult<UsersResponse> = ApiServiceClient.getUsers(page)) {
+                is ApiResult.Success<UsersResponse> -> {
 
-                    result.data.data?.let {
+                    apiResult.data.users?.let {
                         mapUsersDataItem(it)
                     }
 
                     // Oppure, semplicemente:
-                    _users.value = result.data.data
+                    _users.value = apiResult.data.users
                 }
-                is Result.Error -> {
+                is ApiResult.Error -> {
                     // todo: show error message
                 }
             }
@@ -92,10 +93,10 @@ class UsersViewModel : ViewModel() {
     /**
      * Add User (@POST)
      */
-    fun addUser(user: User) {
+    fun addUser(utente: Utente) {
         viewModelScope.launch {
-            when (val result = ApiServiceClient.addUser(user)) {
-                is Result.Success<UserResponse> -> {
+            when (val result = ApiServiceClient.addUser(utente)) {
+                is ApiResult.Success<UtenteResponse> -> {
 
                     val info = "name: " + result.data.name + "\n" +
                             "job: " + result.data.job + "\n" +
@@ -104,15 +105,15 @@ class UsersViewModel : ViewModel() {
 
                     _message.value = info
                 }
-                is Result.Error -> {
+                is ApiResult.Error -> {
                     // todo: show error message
                 }
             }
         }
     }
 
-    private fun mapUsersDataItem(data: List<Data>) {
-        _usersDataItem.value = data.map {
+    private fun mapUsersDataItem(users: List<User>) {
+        _usersDataItem.value = users.map {
             UserDataItem(
                 it.id,
                 it.email,

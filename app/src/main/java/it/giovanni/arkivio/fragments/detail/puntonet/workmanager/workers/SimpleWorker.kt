@@ -3,6 +3,7 @@ package it.giovanni.arkivio.fragments.detail.puntonet.workmanager.workers
 import android.content.Context
 import android.util.Log
 import androidx.work.CoroutineWorker
+import androidx.work.Data
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import it.giovanni.arkivio.fragments.detail.puntonet.workmanager.KEY_SIMPLE_MESSAGE
@@ -27,13 +28,13 @@ class SimpleWorker(context: Context, params: WorkerParameters) : CoroutineWorker
             Thread.sleep(5000)
             val message = "Simple work is finished!"
             Log.d("WorkManager", message)
-            val outputData = workDataOf(KEY_SIMPLE_MESSAGE to message)
+            val outputData: Data = workDataOf(KEY_SIMPLE_MESSAGE to message)
 
             return@withContext Result.success(outputData)
         } catch (e: Exception) {
             val message = "Simple work is failed!"
             Log.e("WorkManager", message)
-            val outputData = workDataOf(KEY_SIMPLE_MESSAGE to message)
+            val outputData: Data = workDataOf(KEY_SIMPLE_MESSAGE to message)
 
             return@withContext Result.failure(outputData)
         }

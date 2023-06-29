@@ -72,13 +72,13 @@ class CoroutineValuesFragment : DetailFragment() {
         viewModel = ViewModelProvider(requireActivity())[CoroutineValuesViewModel::class.java]
 
         viewModel.result1.observe(viewLifecycleOwner) { result ->
-            val result1 = "Result 1: $result"
-            binding?.labelResult1?.text = result1
+            val apiResult1 = "ApiResult 1: $result"
+            binding?.labelResult1?.text = apiResult1
         }
 
         viewModel.result2.observe(viewLifecycleOwner) { result ->
-            val result2 = "Result 2: $result"
-            binding?.labelResult2?.text = result2
+            val apiResult2 = "ApiResult 2: $result"
+            binding?.labelResult2?.text = apiResult2
         }
     }
 

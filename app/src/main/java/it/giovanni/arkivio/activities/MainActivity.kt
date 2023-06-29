@@ -60,7 +60,7 @@ import it.giovanni.arkivio.fragments.detail.puntonet.mvvvm.users.MvvmUsersFragme
 import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.presentation.fragment.RickMortyFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.presentation.fragment.RickMortyHomeFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.presentation.fragment.RickMortyPagingFragment
-import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.presentation.fragment.RickMortyWorkerFragment
+import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.presentation.fragment.UsersWorkerFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.presentation.viewmodel.RickMortyViewModel
 import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxExample1Fragment
 import it.giovanni.arkivio.fragments.detail.puntonet.reactivex.RxExample2Fragment
@@ -202,7 +202,7 @@ class MainActivity : BaseActivity(), IProgressLoader {
                 if (isOnline())
                     handler2?.postDelayed(m2Runnable, delayTime2)
                 else
-                    Toast.makeText(context,"Errore di connessione", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context,"Errore di connessione", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -516,7 +516,7 @@ class MainActivity : BaseActivity(), IProgressLoader {
                 baseFragment = RickMortyFragment()
             }
             Globals.CLEAN_ARCHITECTURE_WORKER -> {
-                baseFragment = RickMortyWorkerFragment()
+                baseFragment = UsersWorkerFragment()
             }
             Globals.ROOM_COROUTINES -> {
                 baseFragment = RoomCoroutinesFragment()
