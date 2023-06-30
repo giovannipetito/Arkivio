@@ -38,6 +38,8 @@ class User: Serializable {
     @Expose
     var isVisible: Boolean? = null
 
+    constructor()
+
     constructor(nome: String,
                 cognome: String,
                 fisso: String,

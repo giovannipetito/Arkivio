@@ -10,7 +10,6 @@ import com.airbnb.paris.extensions.style
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.model.user.Response
 import it.giovanni.arkivio.model.user.User
 import it.giovanni.arkivio.model.user.UserResponse
 import it.giovanni.arkivio.customview.Brick
@@ -19,12 +18,12 @@ import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.restclient.realtime.IRealtime
-import it.giovanni.arkivio.restclient.realtime.MyRealtimeClient.Companion.callRealtimeDatabase
+import it.giovanni.arkivio.restclient.realtime.MyRealtimeClient.callRealtimeDatabase
 import it.giovanni.arkivio.viewinterfaces.IFlexBoxCallback
 import it.giovanni.arkivio.utils.Globals
 import it.giovanni.arkivio.utils.SharedPreferencesManager
-import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadUsersFromPreferences
-import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.saveUsersToPreferences
+import it.giovanni.arkivio.utils.SharedPreferencesManager.loadUsersFromPreferences
+import it.giovanni.arkivio.utils.SharedPreferencesManager.saveUsersToPreferences
 import it.giovanni.arkivio.utils.Utils
 import kotlin.math.roundToInt
 
@@ -33,7 +32,7 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback, IRealtime {
     private var layoutBinding: RubricaHomeLayoutBinding? = null
     private val binding get() = layoutBinding
 
-    private var mResponse: Response? = null
+    private var userResponse: UserResponse? = null
     private var users: ArrayList<User>? = null
 
     override fun getTitle(): Int {
@@ -86,17 +85,17 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback, IRealtime {
 
         setViewStyle()
 
-        mResponse = Response()
+        userResponse = UserResponse()
         users = ArrayList()
 
         binding?.initButton?.setOnClickListener {
-            mResponse?.users = initUsers()
-            saveUsersToPreferences(mResponse)
+            userResponse?.users = initUsers()
+            saveUsersToPreferences(userResponse)
         }
 
         binding?.jsonButton?.setOnClickListener {
-            mResponse?.users = getUsersFromJson()
-            saveUsersToPreferences(mResponse)
+            userResponse?.users = getUsersFromJson()
+            saveUsersToPreferences(userResponse)
         }
 
         binding?.realtimeButton?.setOnClickListener {
@@ -204,28 +203,28 @@ class RubricaHomeFragment: DetailFragment(), IFlexBoxCallback, IRealtime {
         return list
     }
 
-    private fun getUsersFromJson(): ArrayList<User> {
+    private fun getUsersFromJson(): ArrayList<User>? {
 
         val jsonObject: String? = Utils.getJsonFromAssets(requireContext(), "user.json")
         val gson: Gson? = GsonBuilder().serializeNulls().create()
         val userResponse: UserResponse? = gson?.fromJson(jsonObject, UserResponse::class.java)
 
-        return userResponse?.response?.users!!
+        return userResponse?.users
     }
 
-    override fun onRealtimeSuccess(message: String?, response: Response?) {
+    override fun onRealtimeSuccess(message: String?, response: UserResponse?) {
         hideProgressDialog()
-        mResponse = Response()
-        mResponse?.users = response?.users
-        saveUsersToPreferences(mResponse)
+        userResponse = UserResponse()
+        userResponse?.users = response?.users
+        saveUsersToPreferences(userResponse)
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
     override fun onRealtimeFailure(message: String?) {
         hideProgressDialog()
-        mResponse = Response()
-        mResponse?.users = getUsersFromJson()
-        saveUsersToPreferences(mResponse)
+        userResponse = UserResponse()
+        userResponse?.users = getUsersFromJson()
+        saveUsersToPreferences(userResponse)
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 

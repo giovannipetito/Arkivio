@@ -6,7 +6,7 @@ import java.io.Serializable
 
 class UserResponse: Serializable {
 
-    @SerializedName("response")
+    @SerializedName("users")
     @Expose
-    var response : Response? = null
+    var users : ArrayList<User>? = null
 }

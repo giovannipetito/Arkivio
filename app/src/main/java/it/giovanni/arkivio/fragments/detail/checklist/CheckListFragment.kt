@@ -16,7 +16,7 @@ import it.giovanni.arkivio.fragments.adapter.PreferenceListAdapter
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.SharedPreferencesManager
-import it.giovanni.arkivio.utils.Utils.Companion.turnArrayListToString
+import it.giovanni.arkivio.utils.Utils.turnArrayListToString
 import kotlin.collections.ArrayList
 
 class CheckListFragment: DetailFragment(), PreferenceListAdapter.OnItemViewClicked {

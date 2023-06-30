@@ -17,7 +17,7 @@ import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.restclient.volley.IVolley
 import it.giovanni.arkivio.restclient.volley.MyVolleyClient
-import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadDarkModeStateFromPreferences
+import it.giovanni.arkivio.utils.SharedPreferencesManager.loadDarkModeStateFromPreferences
 
 class VolleyFragment: DetailFragment(), IVolley {
 
@@ -94,7 +94,7 @@ class VolleyFragment: DetailFragment(), IVolley {
         val itemBinding: UserCardBinding = UserCardBinding.inflate(layoutInflater, binding?.volleyUsersContainer, false)
         val itemView: View = itemBinding.root
 
-        val label: TextView = itemBinding.userFirstName
+        val label: TextView = itemBinding.userAge
         label.text = message
 
         if (isDarkMode)

@@ -85,12 +85,15 @@
                 android:id="@+id/user_age"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxWidth="200dp"
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/user_container"
                 android:layout_marginStart="@dimen/dimen_12dp"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="14sp"
                 android:fontFamily="@font/montserrat_medium"
+                android:maxLines="1"
+                android:ellipsize="end"
                 tools:text="35 anni" />
 
             <ImageView

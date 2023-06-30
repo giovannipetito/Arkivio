@@ -32,51 +32,48 @@ import org.json.JSONObject
  * JSON representation of the new post. If the request succeeds, the ID of the new post is retrieved
  * from the response and passed to the onVolleyPostSuccess callback function.
  */
-class MyVolleyClient {
+object MyVolleyClient {
 
-    companion object {
+    const val url = "https://jsonplaceholder.typicode.com/posts"
+    private val mRequestQueue: RequestQueue = Volley.newRequestQueue(context)
 
-        const val url = "https://jsonplaceholder.typicode.com/posts"
-        private val mRequestQueue: RequestQueue = Volley.newRequestQueue(context)
-
-        fun getPosts(callBack: IVolley) {
-            val jsonArrayRequest = JsonArrayRequest(url, { response ->
-                for (i in 0 until response.length()) {
-                    try {
-                        val jsonObject = response.getJSONObject(i)
-                        val title: String = jsonObject.getString("title")
-
-                        callBack.onVolleyGetSuccess(title)
-
-                    } catch (e: JSONException) {
-                        e.printStackTrace()
-                    }
-                }
-            }, {
-                callBack.onVolleyFailure("Errore di rete")
-            })
-            mRequestQueue.add(jsonArrayRequest)
-        }
-
-        fun addPosts(title: String?, text: String?, callBack: IVolley) {
-            val jsonObject = JSONObject()
-            try {
-                jsonObject.put("title", title)
-                jsonObject.put("body", text)
-            } catch (e: JSONException) {
-                e.printStackTrace()
-            }
-            val jsonObjectRequest = JsonObjectRequest(url, jsonObject, { response ->
+    fun getPosts(callBack: IVolley) {
+        val jsonArrayRequest = JsonArrayRequest(url, { response ->
+            for (i in 0 until response.length()) {
                 try {
-                    val id = response.getString("id")
-                    callBack.onVolleyPostSuccess("Elemento registrato con id $id")
+                    val jsonObject = response.getJSONObject(i)
+                    val title: String = jsonObject.getString("title")
+
+                    callBack.onVolleyGetSuccess(title)
+
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
-            }, {
-                callBack.onVolleyFailure("Errore di rete")
-            })
-            mRequestQueue.add(jsonObjectRequest)
+            }
+        }, {
+            callBack.onVolleyFailure("Errore di rete")
+        })
+        mRequestQueue.add(jsonArrayRequest)
+    }
+
+    fun addPosts(title: String?, text: String?, callBack: IVolley) {
+        val jsonObject = JSONObject()
+        try {
+            jsonObject.put("title", title)
+            jsonObject.put("body", text)
+        } catch (e: JSONException) {
+            e.printStackTrace()
         }
+        val jsonObjectRequest = JsonObjectRequest(url, jsonObject, { response ->
+            try {
+                val id = response.getString("id")
+                callBack.onVolleyPostSuccess("Elemento registrato con id $id")
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+        }, {
+            callBack.onVolleyFailure("Errore di rete")
+        })
+        mRequestQueue.add(jsonObjectRequest)
     }
 }

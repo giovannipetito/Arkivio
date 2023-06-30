@@ -12,7 +12,7 @@ import it.giovanni.arkivio.databinding.WebviewLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
-import it.giovanni.arkivio.utils.Utils.Companion.setTextWebview
+import it.giovanni.arkivio.utils.Utils.setTextWebview
 
 class WebViewFragment : DetailFragment() {
 

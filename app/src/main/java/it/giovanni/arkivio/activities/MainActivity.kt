@@ -77,10 +77,10 @@ import it.giovanni.arkivio.fragments.detail.stickyheader.StickyHeaderFragment
 import it.giovanni.arkivio.utils.Globals
 import it.giovanni.arkivio.utils.UserFactory
 import it.giovanni.arkivio.utils.Utils
-import it.giovanni.arkivio.utils.Utils.Companion.isOnline
+import it.giovanni.arkivio.utils.Utils.isOnline
 import it.giovanni.arkivio.viewinterfaces.IProgressLoader
-import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadDarkModeStateFromPreferences
-import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadRememberMeFromPreferences
+import it.giovanni.arkivio.utils.SharedPreferencesManager.loadDarkModeStateFromPreferences
+import it.giovanni.arkivio.utils.SharedPreferencesManager.loadRememberMeFromPreferences
 import javax.inject.Inject
 
 /**
@@ -215,7 +215,7 @@ class MainActivity : BaseActivity(), IProgressLoader {
                 val uri = bundle?.getParcelable<Uri>(DeepLinkActivity.DEEP_LINK_URI)
                 if (uri != null)
                     Log.i(TAG, "HOST:" + uri.host + "| path" + uri.path)
-                deepLinkEvent = DeepLinkDescriptor()
+                deepLinkEvent = DeepLinkDescriptor
                 deepLinkEvent?.deeplink = uri
             }
         }

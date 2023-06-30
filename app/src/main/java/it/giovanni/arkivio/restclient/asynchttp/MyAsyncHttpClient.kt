@@ -22,41 +22,38 @@ import cz.msebera.android.httpclient.Header
  * di ricevere ed inviare informazioni attraverso uno specifico formato. Ad esempio è possibile
  * richiedere al server i dati di un utente ed esso risponderà con un file JSON.
  */
-class MyAsyncHttpClient {
+object MyAsyncHttpClient {
 
-    companion object {
-        /**
-         * Viene fatta una richiesta asincrona con il server che restituirà una risposta in formato
-         * JSON che verrà convertito in un oggetto Java di tipo Reponse, grazie alla libreria GSON.
-         */
+    /**
+     * Viene fatta una richiesta asincrona con il server che restituirà una risposta in formato
+     * JSON che verrà convertito in un oggetto Java di tipo Reponse, grazie alla libreria GSON.
+     */
+    fun getIp(callback: IAsyncHttpClient) {
+        val url = "https://api.ipify.org/?format=json"
+        // val client = AsyncHttpClient()
+        val client = AsyncHttpClient(true, 80, 443)
+        val params = RequestParams()
+        // params.put("key", "value")
+        // params.put("more", "data")
 
-        fun getIp(callback: IAsyncHttpClient) {
-            val url = "https://api.ipify.org/?format=json"
-            // val client = AsyncHttpClient()
-            val client = AsyncHttpClient(true, 80, 443)
-            val params = RequestParams()
-            // params.put("key", "value")
-            // params.put("more", "data")
+        client[url, params, object : TextHttpResponseHandler() {
+            /*
+            override fun onStart() {
+                super.onStart()
+            }
+            */
 
-            client[url, params, object : TextHttpResponseHandler() {
-                /*
-                override fun onStart() {
-                    super.onStart()
-                }
-                */
+            override fun onSuccess(statusCode: Int, headers: Array<Header?>?, jsonResponse: String?) {
+                // called when response HTTP status is: 200
+                val gson = Gson()
+                val response = gson.fromJson(jsonResponse, Response::class.java)
+                callback.onAsyncHttpSuccess("onSuccess: Caricamento completato", response)
+            }
 
-                override fun onSuccess(statusCode: Int, headers: Array<Header?>?, jsonResponse: String?) {
-                    // called when response HTTP status is: 200
-                    val gson = Gson()
-                    val response = gson.fromJson(jsonResponse, Response::class.java)
-                    callback.onAsyncHttpSuccess("onSuccess: Caricamento completato", response)
-                }
-
-                override fun onFailure(statusCode: Int, headers: Array<Header?>?, jsonResponse: String?, t: Throwable?) {
-                    // called when response HTTP status is: 401, 403, 404, ecc.
-                    callback.onAsyncHttpFailure("onFailure: Caricamento fallito")
-                }
-            }]
-        }
+            override fun onFailure(statusCode: Int, headers: Array<Header?>?, jsonResponse: String?, t: Throwable?) {
+                // called when response HTTP status is: 401, 403, 404, ecc.
+                callback.onAsyncHttpFailure("onFailure: Caricamento fallito")
+            }
+        }]
     }
 }

@@ -34,11 +34,11 @@ import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.DateManager
 import it.giovanni.arkivio.utils.DateManager.Companion.getSimpleMonth2
 import it.giovanni.arkivio.utils.DateManager.Companion.getUpperSimpleDate3
-import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadDarkModeStateFromPreferences
-import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadSelectedDaysFromPreferences
-import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.saveSelectedDaysToPreferences
+import it.giovanni.arkivio.utils.SharedPreferencesManager.loadDarkModeStateFromPreferences
+import it.giovanni.arkivio.utils.SharedPreferencesManager.loadSelectedDaysFromPreferences
+import it.giovanni.arkivio.utils.SharedPreferencesManager.saveSelectedDaysToPreferences
 import it.giovanni.arkivio.utils.UserFactory
-import it.giovanni.arkivio.utils.Utils.Companion.turnArrayListToString
+import it.giovanni.arkivio.utils.Utils.turnArrayListToString
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.time.LocalDate

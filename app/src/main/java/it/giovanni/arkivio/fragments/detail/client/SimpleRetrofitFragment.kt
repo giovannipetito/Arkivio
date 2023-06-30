@@ -21,7 +21,7 @@ import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.restclient.retrofit.IRetrofit
 import it.giovanni.arkivio.restclient.retrofit.SimpleRetrofitClient
-import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadDarkModeStateFromPreferences
+import it.giovanni.arkivio.utils.SharedPreferencesManager.loadDarkModeStateFromPreferences
 
 class SimpleRetrofitFragment: DetailFragment(), IRetrofit {
 

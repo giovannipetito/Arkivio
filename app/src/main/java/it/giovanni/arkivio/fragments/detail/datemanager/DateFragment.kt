@@ -10,7 +10,7 @@ import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.Globals
-import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.resetSelectedDays
+import it.giovanni.arkivio.utils.SharedPreferencesManager.resetSelectedDays
 
 class DateFragment : DetailFragment() {
 

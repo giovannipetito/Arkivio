@@ -18,8 +18,7 @@ import android.os.Parcelable
  * newArray viene utilizzato per creare un array della classe UserDataItem, utilizzato dal
  * sistema per contenere più istanze della classe.
  */
-
-class UserDataItem(
+data class UserDataItem(
     val id: Int,
     val email: String?,
     val firstName: String?,

@@ -8,7 +8,7 @@ import android.view.ViewTreeObserver
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadDarkModeStateFromPreferences
+import it.giovanni.arkivio.utils.SharedPreferencesManager.loadDarkModeStateFromPreferences
 import it.giovanni.arkivio.utils.Utils
 
 class AvatarImageView(context: Context, attrs: AttributeSet) : AppCompatImageView(context, attrs) {

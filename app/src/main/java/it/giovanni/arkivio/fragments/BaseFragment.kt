@@ -9,7 +9,7 @@ import it.giovanni.arkivio.customview.popup.CustomDialogPopup
 import it.giovanni.arkivio.viewinterfaces.IProgressLoader
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.activities.MainActivity
-import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadDarkModeStateFromPreferences
+import it.giovanni.arkivio.utils.SharedPreferencesManager.loadDarkModeStateFromPreferences
 
 abstract class BaseFragment(private var sectionType: SectionType) : Fragment() {
 

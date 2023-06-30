@@ -9,10 +9,10 @@ import it.giovanni.arkivio.databinding.EmailLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
-import it.giovanni.arkivio.utils.Utils.Companion.sendFilledOutMail
-import it.giovanni.arkivio.utils.Utils.Companion.sendGmailMail
-import it.giovanni.arkivio.utils.Utils.Companion.sendOutlookMail
-import it.giovanni.arkivio.utils.Utils.Companion.sendSimpleMail
+import it.giovanni.arkivio.utils.Utils.sendFilledOutMail
+import it.giovanni.arkivio.utils.Utils.sendGmailMail
+import it.giovanni.arkivio.utils.Utils.sendOutlookMail
+import it.giovanni.arkivio.utils.Utils.sendSimpleMail
 
 class EmailFragment: DetailFragment() {
 

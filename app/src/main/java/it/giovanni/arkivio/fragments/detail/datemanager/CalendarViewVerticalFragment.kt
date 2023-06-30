@@ -31,8 +31,8 @@ import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.SharedPreferencesManager
-import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadSelectedDaysFromPreferences
-import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.saveSelectedDaysToPreferences
+import it.giovanni.arkivio.utils.SharedPreferencesManager.loadSelectedDaysFromPreferences
+import it.giovanni.arkivio.utils.SharedPreferencesManager.saveSelectedDaysToPreferences
 import it.giovanni.arkivio.utils.Utils
 import java.time.LocalDate
 import java.time.YearMonth

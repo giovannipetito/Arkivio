@@ -25,9 +25,9 @@ import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.PermissionManager
 import it.giovanni.arkivio.utils.Utils
-import it.giovanni.arkivio.utils.Utils.Companion.callContact1
-import it.giovanni.arkivio.utils.Utils.Companion.callContact2
-import it.giovanni.arkivio.utils.Utils.Companion.sendSimpleMail
+import it.giovanni.arkivio.utils.Utils.callContact1
+import it.giovanni.arkivio.utils.Utils.callContact2
+import it.giovanni.arkivio.utils.Utils.sendSimpleMail
 import java.io.ByteArrayOutputStream
 
 class RubricaDetailFragment : DetailFragment(), View.OnClickListener, PermissionManager.PermissionListener {

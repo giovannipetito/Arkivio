@@ -27,7 +27,7 @@ import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.viewinterfaces.IFlexBoxCallback
 import it.giovanni.arkivio.utils.Globals
-import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadUsersFromPreferences
+import it.giovanni.arkivio.utils.SharedPreferencesManager.loadUsersFromPreferences
 import it.giovanni.arkivio.utils.Utils
 import kotlin.collections.ArrayList
 import kotlin.math.hypot

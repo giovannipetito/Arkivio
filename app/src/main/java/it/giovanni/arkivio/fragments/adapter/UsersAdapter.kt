@@ -9,8 +9,8 @@ import it.giovanni.arkivio.R
 import it.giovanni.arkivio.model.user.User
 import it.giovanni.arkivio.databinding.RubricaItemBinding
 import it.giovanni.arkivio.fragments.viewholder.UsersViewHolder
-import it.giovanni.arkivio.utils.ColorGenerator.Companion.generate
-import it.giovanni.arkivio.utils.Utils.Companion.turnArrayListToString
+import it.giovanni.arkivio.utils.ColorGenerator.generate
+import it.giovanni.arkivio.utils.Utils.turnArrayListToString
 
 class UsersAdapter(onItemClicked: OnItemViewClicked) : RecyclerView.Adapter<UsersViewHolder>() {
 

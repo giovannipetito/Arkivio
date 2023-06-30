@@ -16,10 +16,10 @@ import it.giovanni.arkivio.biometric.BiometricManager
 import it.giovanni.arkivio.customview.popup.CustomDialogPopup
 import it.giovanni.arkivio.databinding.LoginLayoutBinding
 import it.giovanni.arkivio.utils.PermissionManager
-import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadRememberMeFromPreferences
-import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.saveRememberMeToPreferences
-import it.giovanni.arkivio.utils.Utils.Companion.clearCache
-import it.giovanni.arkivio.utils.Utils.Companion.isOnline
+import it.giovanni.arkivio.utils.SharedPreferencesManager.loadRememberMeFromPreferences
+import it.giovanni.arkivio.utils.SharedPreferencesManager.saveRememberMeToPreferences
+import it.giovanni.arkivio.utils.Utils.clearCache
+import it.giovanni.arkivio.utils.Utils.isOnline
 
 class LoginFragment : BaseFragment(SectionType.LOGIN), BiometricCallback, PermissionManager.PermissionListener {
 

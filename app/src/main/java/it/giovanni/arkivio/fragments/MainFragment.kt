@@ -36,12 +36,12 @@ import it.giovanni.arkivio.fragments.homepage.LinkAreaFragment.Companion.linkAre
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.Globals
-import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.loadCompressStateFromPreferences
-import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.saveCompressStateToPreferences
-import it.giovanni.arkivio.utils.SharedPreferencesManager.Companion.saveDarkModeStateToPreferences
+import it.giovanni.arkivio.utils.SharedPreferencesManager.loadCompressStateFromPreferences
+import it.giovanni.arkivio.utils.SharedPreferencesManager.saveCompressStateToPreferences
+import it.giovanni.arkivio.utils.SharedPreferencesManager.saveDarkModeStateToPreferences
 import it.giovanni.arkivio.utils.UserFactory
-import it.giovanni.arkivio.utils.Utils.Companion.getRoundBitmap
-import it.giovanni.arkivio.utils.Utils.Companion.setBitmapFromUrl
+import it.giovanni.arkivio.utils.Utils.getRoundBitmap
+import it.giovanni.arkivio.utils.Utils.setBitmapFromUrl
 import it.giovanni.arkivio.viewinterfaces.IDarkMode
 
 class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
