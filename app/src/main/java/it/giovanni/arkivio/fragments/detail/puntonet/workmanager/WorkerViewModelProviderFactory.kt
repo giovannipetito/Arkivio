@@ -3,6 +3,7 @@ package it.giovanni.arkivio.fragments.detail.puntonet.workmanager
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.presentation.viewmodel.UsersWorkerViewModel
 
 class WorkerViewModelProviderFactory constructor(private val application: Application) : ViewModelProvider.NewInstanceFactory() {
 
@@ -13,6 +14,9 @@ class WorkerViewModelProviderFactory constructor(private val application: Applic
             }
             modelClass.isAssignableFrom(SimpleWorkerViewModel::class.java) -> {
                 SimpleWorkerViewModel(application) as T
+            }
+            modelClass.isAssignableFrom(UsersWorkerViewModel::class.java) -> {
+                UsersWorkerViewModel(application) as T
             }
             else -> {
                 throw IllegalArgumentException("Unknown ViewModel class: "  + modelClass.name)

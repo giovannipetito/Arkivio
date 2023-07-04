@@ -1,7 +1,6 @@
 package it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.domain.worker
 
 import android.content.Context
-import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.Data
 import androidx.work.WorkerParameters
@@ -9,17 +8,32 @@ import androidx.work.workDataOf
 import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.KEY_USERS
 import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.ApiResult
 import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.ApiServiceClient
+import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.User
 import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.UsersResponse
+import it.giovanni.arkivio.fragments.detail.puntonet.room.database.ArkivioDatabase
+import it.giovanni.arkivio.fragments.detail.puntonet.room.repository.UsersWorkerRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class UsersWorker constructor(context: Context, params: WorkerParameters) : CoroutineWorker(context, params) {
+
+    private val application = context.applicationContext
+
+    private val repository: UsersWorkerRepository
+
+    init {
+        val usersDao = ArkivioDatabase.getDatabase(application).usersWorkerDao()
+        repository = UsersWorkerRepository(usersDao)
+    }
 
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
 
         val page = inputData.getInt(KEY_USERS, 1)
 
         try {
+            // Simulate work by sleeping for 20 seconds
+            Thread.sleep(20000)
+
             val usersResponse: UsersResponse? =
                 when (val apiResult: ApiResult<UsersResponse> = ApiServiceClient.getUsers(page)) {
                     is ApiResult.Success<UsersResponse> -> {
@@ -31,11 +45,13 @@ class UsersWorker constructor(context: Context, params: WorkerParameters) : Coro
                     }
                 }
 
-            val outputData: Data = workDataOf(KEY_USERS to usersResponse.toString())
+            val users: List<User> = usersResponse?.users!!
+            repository.insertUsers(users)
+
+            val outputData: Data = workDataOf(KEY_USERS to "users retrieved successfully!")
 
             return@withContext Result.success(outputData)
         } catch (throwable: Throwable) {
-            Log.e("[WORKER]", "UsersWorker Error!")
             throwable.printStackTrace()
             return@withContext Result.failure()
         }

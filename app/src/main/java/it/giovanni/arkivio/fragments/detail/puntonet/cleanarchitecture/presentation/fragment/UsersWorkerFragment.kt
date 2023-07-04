@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.work.Data
 import androidx.work.WorkInfo
@@ -16,8 +17,9 @@ import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.UserCardBinding
 import it.giovanni.arkivio.databinding.UsersWorkerLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
-import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.KEY_USERS
+import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.presentation.viewmodel.UsersWorkerViewModel
 import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.UsersResponse
+import it.giovanni.arkivio.fragments.detail.puntonet.workmanager.WorkerViewModelProviderFactory
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 
@@ -25,6 +27,10 @@ class UsersWorkerFragment : DetailFragment() {
 
     private var layoutBinding: UsersWorkerLayoutBinding? = null
     private val binding get() = layoutBinding
+
+    private val viewModel: UsersWorkerViewModel by viewModels {
+        WorkerViewModelProviderFactory(currentActivity.application)
+    }
 
     override fun getTitle(): Int {
         return R.string.clean_architecture_worker_title
@@ -76,19 +82,12 @@ class UsersWorkerFragment : DetailFragment() {
 
         loadData()
 
-        currentActivity.viewModel.workInfos.observe(viewLifecycleOwner, workInfosObserver())
+        viewModel.workInfos.observe(viewLifecycleOwner, workInfosObserver())
     }
-
-    /*
-    override fun onResume() {
-        super.onResume()
-        currentActivity.viewModel.workInfos.observe(viewLifecycleOwner, workInfosObserver())
-    }
-    */
 
     private fun loadData() {
         showProgressDialog()
-        currentActivity.viewModel.getWorkerUsers(currentActivity.application, 1)
+        viewModel.getWorkerUsers(currentActivity.application, 1)
     }
 
     private fun workInfosObserver(): Observer<List<WorkInfo>> {
@@ -103,10 +102,10 @@ class UsersWorkerFragment : DetailFragment() {
             if (workInfo.state.isFinished) {
                 hideProgressDialog()
 
-                val usersResponse: UsersResponse? = workInfo.outputData.getUsers(KEY_USERS)
+                viewModel.getUsers()
 
-                if (usersResponse != null) {
-                    showUsers(usersResponse.users)
+                viewModel.users.observe(viewLifecycleOwner) { users ->
+                    showUsers(users)
                 }
 
             } else {

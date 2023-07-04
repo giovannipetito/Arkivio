@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import it.giovanni.arkivio.fragments.detail.puntonet.room.dao.UserCoroutinesDao
 import it.giovanni.arkivio.fragments.detail.puntonet.room.dao.UserRxJavaDao
+import it.giovanni.arkivio.fragments.detail.puntonet.room.dao.UsersWorkerDao
 import it.giovanni.arkivio.fragments.detail.puntonet.room.entity.User
 
 /**
@@ -37,12 +38,14 @@ import it.giovanni.arkivio.fragments.detail.puntonet.room.entity.User
  * Room.databaseBuilder, specificando il context, la classe ArkivioDatabase e il nome del
  * database. Una volta creata l'istanza, la assegna alla variabile INSTANCE e la restituisce.
  */
-@Database(entities = [User::class], version = 1)
+@Database(entities = [User::class, it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.User::class], version = 1)
 abstract class ArkivioDatabase : RoomDatabase() {
 
     abstract fun userCoroutinesDao(): UserCoroutinesDao
 
     abstract fun userRxJavaDao(): UserRxJavaDao
+
+    abstract fun usersWorkerDao(): UsersWorkerDao
 
     companion object {
 
