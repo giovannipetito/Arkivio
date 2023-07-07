@@ -36,7 +36,7 @@ class UsersWorkerViewModel(application: Application) : ViewModel() {
     /**
      * Get data with WorkManager
      */
-    fun getWorkerUsers(application: Application, page: Int) {
+    fun getUsersFromWorkManager(application: Application, page: Int) {
 
         val workManager = WorkManager.getInstance(application)
         workInfos = workManager.getWorkInfosByTagLiveData(TAG_USERS_OUTPUT)
@@ -56,7 +56,7 @@ class UsersWorkerViewModel(application: Application) : ViewModel() {
         return builder.build()
     }
 
-    fun getUsers() {
+    fun getUsersFromDatabase() {
         viewModelScope.launch {
             _users.value = repository.getUsers()
         }

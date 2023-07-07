@@ -1,6 +1,7 @@
 package it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.presentation.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -80,36 +81,44 @@ class UsersWorkerFragment : DetailFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        loadData()
-
-        viewModel.workInfos.observe(viewLifecycleOwner, workInfosObserver())
-    }
-
-    private fun loadData() {
         showProgressDialog()
-        viewModel.getWorkerUsers(currentActivity.application, 1)
+
+        viewModel.getUsersFromDatabase()
+        viewModel.users.observe(viewLifecycleOwner) { users ->
+            if (users.isNullOrEmpty()) {
+                Log.i("[WORKER]", "1) ENTRO QUI")
+                viewModel.getUsersFromWorkManager(currentActivity.application, 1)
+                viewModel.workInfos.observe(viewLifecycleOwner, workInfosObserver())
+            }
+            else {
+                Log.i("[WORKER]", "2) ENTRO QUI")
+                hideProgressDialog()
+                showUsers(users)
+            }
+        }
     }
 
     private fun workInfosObserver(): Observer<List<WorkInfo>> {
         return Observer { listOfWorkInfo ->
 
             if (listOfWorkInfo.isEmpty()) {
+                Log.i("[WORKER]", "3) ENTRO QUI")
                 return@Observer
             }
 
             val workInfo = listOfWorkInfo[0]
 
             if (workInfo.state.isFinished) {
-                hideProgressDialog()
-
-                viewModel.getUsers()
-
+                Log.i("[WORKER]", "4) ENTRO QUI")
+                viewModel.getUsersFromDatabase()
                 viewModel.users.observe(viewLifecycleOwner) { users ->
-                    showUsers(users)
+                    Log.i("[WORKER]", "5) ENTRO QUI")
+                    if (!users.isNullOrEmpty()) {
+                        Log.i("[WORKER]", "6) ENTRO QUI")
+                        hideProgressDialog()
+                        showUsers(users)
+                    }
                 }
-
-            } else {
-                showProgressDialog()
             }
         }
     }

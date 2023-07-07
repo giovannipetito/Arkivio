@@ -382,7 +382,7 @@
     <string name="clean_architecture_worker_title">WorkManager</string>
     <string name="label_paging_coroutines">Get data with Paging &amp; Coroutines</string>
     <string name="label_rxjava">Get data with RxJava</string>
-    <string name="label_work_manager">Get data with WorkManager</string>
+    <string name="label_work_manager">Get data with WorkManager and Room</string>
     <string name="footer_error">Error! Tap to retry.</string>
 
     <!-- ROOM DATABASE -->
