@@ -1,7 +1,7 @@
 package it.giovanni.arkivio.fragments.detail.puntonet.room.repository
 
-import io.reactivex.Completable
-import io.reactivex.Flowable
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Flowable
 import it.giovanni.arkivio.fragments.detail.puntonet.room.dao.UserRxJavaDao
 import it.giovanni.arkivio.fragments.detail.puntonet.room.entity.User
 

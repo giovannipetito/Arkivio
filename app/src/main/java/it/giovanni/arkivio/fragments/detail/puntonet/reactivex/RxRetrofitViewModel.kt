@@ -4,11 +4,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import io.reactivex.Single
-import io.reactivex.SingleObserver
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.core.SingleObserver
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.User
 import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.ApiResult
 import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.UsersResponse
@@ -22,7 +22,7 @@ class RxRetrofitViewModel : ViewModel() {
         get() = _users
 
     /**
-     * Utilizzando RxJava2CallAdapterFactory in ApiServiceClient e il tipo restituito
+     * Utilizzando RxJava3CallAdapterFactory in ApiServiceClient e il tipo restituito
      * Single<UsersResponse> per getUsers, è quindi possibile utilizzare gli operatori
      * e i metodi di RxJava per manipolare ed elaborare i dati emessi.
      *

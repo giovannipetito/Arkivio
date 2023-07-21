@@ -1,6 +1,6 @@
 package it.giovanni.arkivio.fragments.detail.puntonet.reactivex
 
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.UsersResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -23,13 +23,13 @@ import retrofit2.http.Query
  * The return type of the method is Single<UsersResponse>, indicating that it will emit a
  * UsersResponse object wrapped in a Single.
  *
- * Quando aggiungi RxJava2CallAdapterFactory alla tua istanza di Retrofit utilizzando il metodo
+ * Quando aggiungi RxJava3CallAdapterFactory alla tua istanza di Retrofit utilizzando il metodo
  * addCallAdapterFactory() in ApiServiceClient, Retrofit eseguirà automaticamente il wrapping
- * delle risposte alla chiamata API nel tipo RxJava2 appropriato.
+ * delle risposte alla chiamata API nel tipo RxJava3 appropriato.
  *
- * Se ad esempio non utilizzassi RxJava2CallAdapterFactory, il tipo restituito del metodo getUsers
+ * Se ad esempio non utilizzassi RxJava3CallAdapterFactory, il tipo restituito del metodo getUsers
  * sarebbe Call<UsersResponse>, che è il tipo predefinito di Retrofit. Tuttavia, quando aggiungi
- * RxJava2CallAdapterFactory, Retrofit modificherà il tipo restituito in Single<UsersResponse>,
+ * RxJava3CallAdapterFactory, Retrofit modificherà il tipo restituito in Single<UsersResponse>,
  * che è un tipo reattivo fornito da RxJava.
  *
  * Il tipo Single rappresenta un singolo valore o un errore. In questo caso, rappresenta un singolo

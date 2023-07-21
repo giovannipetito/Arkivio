@@ -1,6 +1,6 @@
 package it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data
 
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.response.RickMortyResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
