@@ -42,9 +42,9 @@ class AvatarImageView(context: Context, attrs: AttributeSet) : AppCompatImageVie
     }
 
     @Override
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        canvas?.drawCircle(center, center, size, drawPaint)
+        canvas.drawCircle(center, center, size, drawPaint)
     }
 
     private fun removeOnGlobalLayoutListener(listener: ViewTreeObserver.OnGlobalLayoutListener) {
