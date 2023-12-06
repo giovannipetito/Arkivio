@@ -1,6 +1,6 @@
 package it.giovanni.arkivio.fragments.detail.puntonet.reactivex
 
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 import it.giovanni.arkivio.App.Companion.context
 import it.giovanni.arkivio.BuildConfig
 import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.ApiResult
@@ -12,17 +12,17 @@ import okhttp3.OkHttpClient
 import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.util.concurrent.TimeUnit
 
 /**
- * Utilizzando RxJava2CallAdapterFactory, puoi sfruttare la potenza del modello di programmazione
+ * Utilizzando RxJava3CallAdapterFactory, puoi sfruttare la potenza del modello di programmazione
  * reattiva di RxJava per gestire le richieste API asincrone, le trasformazioni dei dati e la
  * gestione degli errori in modo conciso e componibile.
  *
- * RxJava2CallAdapterFactory è una classe factory fornita da Retrofit che integra RxJava2 con Retrofit.
+ * RxJava3CallAdapterFactory è una classe factory fornita da Retrofit che integra RxJava3 con Retrofit.
  * Ti consente di utilizzare i tipi reattivi di RxJava (Observable, Single, Completable, ecc.) come
  * tipi restituiti (return) per i tuoi metodi API.
  */
@@ -71,20 +71,20 @@ object ApiServiceClient {
      * La property retrofit è un'istanza di Retrofit creata utilizzando Retrofit.Builder. Imposta
      * l'URL di base per le richieste API, assegna okHttpClient come client per effettuare le
      * richieste e aggiunge i factory converter e call adapter necessari (GsonConverterFactory e
-     * RxJava2CallAdapterFactory) per gestire la conversione dei dati e l'integrazione RxJava.
+     * RxJava3CallAdapterFactory) per gestire la conversione dei dati e l'integrazione RxJava.
      */
     private val retrofit = Retrofit.Builder()
         .baseUrl(BuildConfig.BASE_URL)
         .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
         .build()
 
     private fun createApiService(): ApiService {
         return retrofit.create(ApiService::class.java)
     }
 
-    // Lascia la gestione di Success/Error a RxJava2
+    // Lascia la gestione di Success/Error a RxJava3
     fun getUsersV1(page: Int): Single<UsersResponse> {
         val response: Single<UsersResponse> = createApiService().getUsers(page)
         return response

@@ -8,7 +8,7 @@ buildscript {
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.21'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.9'
         classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.7.5'
-        classpath 'com.google.devtools.ksp:symbol-processing-gradle-plugin:1.9.10-1.0.13' // Replace with the appropriate version
+        classpath 'com.google.devtools.ksp:symbol-processing-gradle-plugin:1.9.10-1.0.13'
     }
     repositories {
         google()

@@ -5,17 +5,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import it.giovanni.arkivio.customview.popup.CustomDialogPopup
-import it.giovanni.arkivio.viewinterfaces.IProgressLoader
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.activities.MainActivity
+import it.giovanni.arkivio.customview.popup.CustomDialogPopup
 import it.giovanni.arkivio.utils.SharedPreferencesManager.loadDarkModeStateFromPreferences
+import it.giovanni.arkivio.viewinterfaces.IProgressLoader
 
 abstract class BaseFragment(private var sectionType: SectionType) : Fragment() {
 
     lateinit var currentActivity: MainActivity
+
     protected var popupError: CustomDialogPopup? = null
+
     var isDarkMode = false
+
+    /**
+     * auto disposable that will dispose all registered subscription when the fragment lifecycle emits an ON_STOP Event
+     */
+    // protected var onStop: Disposer? = null
 
     companion object {
         // var NO_LAYOUT: Int = -1

@@ -1,6 +1,6 @@
 package it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.datasource.remote
 
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.ApiResult
 import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.response.RickMortyResponse
 import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.data.model.RickMorty
