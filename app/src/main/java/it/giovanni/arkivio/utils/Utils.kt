@@ -120,13 +120,6 @@ object Utils {
                                 .load(imageUrl)
                                 .into(imageView)
 
-                            /*
-                            Glide.with(context)
-                                .load(url)
-                                .apply(RequestOptions.bitmapTransform(RoundedCorners(14)))
-                                .into(imageView)
-                            */
-
                             imageView.setImageBitmap(bitmap)
                         }
                     } catch (ex: FileNotFoundException) {
@@ -164,8 +157,6 @@ object Utils {
         return bitmap
     }
 
-    // Su W3B questo metodo viene utilizzato nella classe NotificationDetailFragment per
-    // trasformare in stringa un testo Html.
     fun fromHtml(htmlMessage: String?): Spanned {
         var html = htmlMessage
         if (html == null)
@@ -220,7 +211,6 @@ object Utils {
         intent.putExtra(Intent.EXTRA_CC, cc)
         intent.putExtra(Intent.EXTRA_SUBJECT, subject) // Email subject.
         intent.putExtra(Intent.EXTRA_TEXT, text) // Email text.
-        // intent.putExtra(Intent.EXTRA_HTML_TEXT, text) // If you are using HTML in your body text.
         try {
             context.startActivity(Intent.createChooser(intent, "Send mail..."))
             // currentActivity.finish()
@@ -379,14 +369,6 @@ object Utils {
         return FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider", file)
     }
 
-    /*
-    fun isAutologinEnabled(): Boolean {
-        return if (PermissionManager.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE))
-            isOnline() && isOnMobileConnection() && isSimKena()
-        else false
-    }
-    */
-
     fun isOnline(): Boolean {
         var status = false
         val manager: ConnectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -541,32 +523,6 @@ object Utils {
                 "<html>$head<body style=\"font-family: Fira\">$body</body></html>"
         webview.settings.textSize = WebSettings.TextSize.NORMAL
 
-        /*
-        val fontSize = context.resources.getDimension(R.dimen.dimen_16dp)
-        webview.settings.defaultFontSize = fontSize.toInt()
-
-        webview.settings.setRenderPriority(WebSettings.RenderPriority.HIGH)
-        webview.settings.cacheMode = WebSettings.LOAD_NO_CACHE
-        webview.settings.loadsImagesAutomatically = true
-        webview.settings.setGeolocationEnabled(false)
-        webview.settings.setNeedInitialFocus(false)
-        webview.settings.setAppCacheEnabled(false)
-        webview.settings.blockNetworkImage = true
-        webview.settings.saveFormData = false
-        */
-
-        /*
-        if (Build.MODEL.startsWith("FIG-LX1")) {
-            webview.webViewClient = object : WebViewClient() {
-                override fun shouldOverrideUrlLoading(wView: WebView?, url: String?): Boolean {
-                    val catchedUri = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                    catchedUri.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    context.startActivity(catchedUri)
-                    return true
-                }
-            }
-        }
-        */
         webview.setPadding(0, 0, 0, 0)
         webview.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent))
         webview.loadDataWithBaseURL("", text, "text/html", "utf-8", "")
@@ -592,12 +548,6 @@ object Utils {
     }
 
     fun clearCache(context: Context?) {
-        /*
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
-            context?.dataDir?.deleteRecursively()
-            context?.dataDir?.delete()
-        }
-        */
         context?.dataDir?.deleteRecursively()
         context?.dataDir?.delete()
         context?.cacheDir?.deleteRecursively()

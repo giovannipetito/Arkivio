@@ -53,7 +53,7 @@ class StickyHeaderFragment : DetailFragment() {
     override fun editIconClick() {
     }
 
-    override fun onActionSearch(search_string: String) {
+    override fun onActionSearch(searchString: String) {
     }
 
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
@@ -79,7 +79,6 @@ class StickyHeaderFragment : DetailFragment() {
         recyclerView?.adapter = adapter
         recyclerView?.setHasFixedSize(true)
 
-        // recyclerView?.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         recyclerView?.addItemDecoration(StickyHeaderItemDecoration())
     }
 

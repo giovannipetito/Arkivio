@@ -87,7 +87,7 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
     override fun editIconClick() {
     }
 
-    override fun onActionSearch(search_string: String) {
+    override fun onActionSearch(searchString: String) {
     }
 
     override fun beforeClosing(): Boolean {
@@ -234,23 +234,6 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
                         email = email.substring(0, email.length - 1)
                         addBrick(email, email)
                         binding?.editSearch?.setText("")
-                        /*
-                        email = email.substring(0, email.length - 1)
-                        if (Utils.checkEmail(email)) {
-                            if (list?.size != 0) {
-                                if (list != null && list?.isNotEmpty()!!) {
-
-                                    if (email == list!![0].email) {
-                                        addBrick(list!![0].nome, email)
-                                        binding?.editSearch?.setText("")
-                                    }
-                                }
-                            } else {
-                                addBrick(email, email)
-                                binding?.editSearch?.setText("")
-                            }
-                        }
-                        */
                     }
                 } else if (binding?.editSearch?.text?.isEmpty()!!) {
                     binding?.closeAction?.visibility = View.GONE
@@ -355,10 +338,6 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
     }
 
     private fun filter() {
-        /*
-        if (sentence != null && sentence.equals(binding?.editSearch?.text.toString(), ignoreCase = true))
-            return
-        */
         sentence = binding?.editSearch?.text.toString()
         if (sentence?.isEmpty()!!) {
             sentence = null

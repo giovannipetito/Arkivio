@@ -98,7 +98,7 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
     override fun editIconClick() {
     }
 
-    override fun onActionSearch(search_string: String) {
+    override fun onActionSearch(searchString: String) {
     }
 
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
@@ -135,8 +135,6 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
         binding?.labelExploresPdf?.setOnClickListener {
 
             val intent = Intent(Intent.ACTION_VIEW)
-            // intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            // intent.action = Intent.ACTION_VIEW
             intent.type = "application/pdf"
             try {
                 startActivity(intent)
@@ -344,7 +342,11 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
                     }
                 }
             }
-            context?.registerReceiver(receiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
+            context?.registerReceiver(
+                receiver,
+                IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE),
+                Context.RECEIVER_NOT_EXPORTED
+            )
             manager.enqueue(request) // Enqueue the request
         }
     }

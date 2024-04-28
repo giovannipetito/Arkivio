@@ -101,18 +101,8 @@ class LinkAreaFragment : HomeFragment() {
             val intent = Intent(context, WebViewActivity::class.java)
             intent.putExtra("bundle_video", bundleVideo)
 
-            // 1)
             startActivity(intent)
             activity?.overridePendingTransition(R.anim.left_to_right_2, R.anim.right_to_left_2)
-
-            // 2)
-            // val options = ActivityOptions.makeCustomAnimation(context, R.anim.left_to_right_2, R.anim.right_to_left_2)
-            // startActivity(intent, options.toBundle())
-
-            // Nota: La 1) e la 2) sono equivalenti e permettono l'animazione da destra a sinistra delle activities.
-
-            // startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle())
-            // Nota: ActivityOptions.makeSceneTransitionAnimation(activity).toBundle() crea un effetto dissolvenza.
         }
 
         linkAreaLayoutBinding?.labelWebviewText?.setOnClickListener {

@@ -118,17 +118,6 @@ class WebViewActivity: AppCompatActivity() {
             }
 
             override fun onReceivedHttpError(view: WebView?, request: WebResourceRequest?, errorResponse: WebResourceResponse?) {
-                /*
-                if (errorResponse != null) {
-                    val statusCode = errorResponse.statusCode
-                    val params = Bundle()
-                    params.putString(Mapping.WAW3Key.WAW3_TYPE, Mapping.WAW3KeyValue.ERROR_HTTP_STATUS_TYPE)
-                    params.putInt(Mapping.WAW3Key.WAW3_ERROR_CODE, statusCode)
-                    params.putString(Mapping.WAW3Key.WAW3_SECTION, getUrl())
-                    trackError(params)
-                    gAnalytics.sendEvent(Mapping.GAnalyticsKey.CATEGORY_ERROR, "Opening_WebView", getUrl() + "|" + statusCode, null)
-                }
-                */
                 super.onReceivedHttpError(view, request, errorResponse)
             }
         }

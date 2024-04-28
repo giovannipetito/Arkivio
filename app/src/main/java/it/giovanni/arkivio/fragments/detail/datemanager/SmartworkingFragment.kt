@@ -97,7 +97,7 @@ class SmartworkingFragment: DetailFragment() {
     override fun editIconClick() {
     }
 
-    override fun onActionSearch(search_string: String) {
+    override fun onActionSearch(searchString: String) {
     }
 
     override fun beforeClosing(): Boolean {
@@ -267,7 +267,6 @@ class SmartworkingFragment: DetailFragment() {
                 itemText.text = day.date.dayOfMonth.toString()
 
                 if (day.owner == DayOwner.THIS_MONTH) {
-
                     if (badges != null) {
                         val mBadges = badges!![day.date]
                         if (mBadges != null) {
@@ -278,7 +277,6 @@ class SmartworkingFragment: DetailFragment() {
 
                     when {
                         selectedDates.contains(day.date) -> {
-
                             val year = day.date.year.toString()
                             val month = day.date.monthValue.toString()
                             val dayOfMonth = day.date.dayOfMonth.toString()
@@ -289,7 +287,6 @@ class SmartworkingFragment: DetailFragment() {
                             }
 
                             if (badge.isVisible) {
-
                                 if (!editingMode) {
                                     val customPopup = CustomDialogPopup(currentActivity, R.style.PopupTheme)
                                     customPopup.setCancelable(false)
@@ -409,7 +406,6 @@ class SmartworkingFragment: DetailFragment() {
         binding?.calendarview?.monthHeaderBinder = object : MonthHeaderFooterBinder<MonthViewContainer> {
             override fun create(view: View) = MonthViewContainer(view)
             override fun bind(container: MonthViewContainer, month: CalendarMonth) {
-
                 if (isDarkMode) {
                     container.monthHeader.setTextColor(ContextCompat.getColor(context!!, R.color.white))
                     container.yearHeader.setTextColor(ContextCompat.getColor(context!!, R.color.white))
@@ -475,27 +471,19 @@ class SmartworkingFragment: DetailFragment() {
 
         binding?.smartworkingButton?.setOnClickListener {
             if (items != null) {
-
                 val sortedDates: ArrayList<Date> = sortItems(items)
                 var sortedItems: ArrayList<String>? = turnDatesToStrings(sortedDates)
                 sortedItems = showLastDayOfMonth(sortedItems)
-                // val contiguousItems = groupContiguousItems(sortedItems)
-                // val mSortedItems = turnArrayListToString(sortedItems!!)
 
                 val sortedSelectedDates: ArrayList<Date> = sortItems(selectedItems)
                 var sortedSelectedItems: ArrayList<String>? = turnDatesToStrings(sortedSelectedDates)
                 sortedSelectedItems = showLastDayOfMonth(sortedSelectedItems)
                 val contiguousSelectedItems = groupContiguousItems(sortedSelectedItems)
-                // val mSortedSelectedItems = turnArrayListToString(sortedSelectedItems!!)
 
                 val sortedDeselectedDates: ArrayList<Date> = sortItems(deselectedItems)
                 var sortedDeselectedItems: ArrayList<String>? = turnDatesToStrings(sortedDeselectedDates)
                 sortedDeselectedItems = showLastDayOfMonth(sortedDeselectedItems)
                 val contiguousDeselectedItems = groupContiguousItems(sortedDeselectedItems)
-                // val mSortedDeselectedItems = turnArrayListToString(sortedDeselectedItems!!)
-
-                // Log.i(TAG, "contiguousItems: $contiguousItems\ncontiguousSelectedItems: $contiguousSelectedItems\ncontiguousDeselectedItems: $contiguousDeselectedItems")
-                // Log.i(TAG, "mSortedItems: $mSortedItems\nmSortedSelectedItems: $mSortedSelectedItems\nmSortedDeselectedItems: $mSortedDeselectedItems")
 
                 if (sortedItems.isNotEmpty() && sortedSelectedItems.isEmpty() && sortedDeselectedItems.isEmpty()) {
                     Log.i(TAG, "Non mando alcuna segnalazione.")
@@ -637,7 +625,6 @@ class SmartworkingFragment: DetailFragment() {
     }
 
     private fun groupContiguousItems(sortedItems: ArrayList<String>?): String {
-
         val sdf = SimpleDateFormat("MM", Locale.getDefault())
         val contiguousItems: ArrayList<String> = ArrayList()
         var firstDay: String
@@ -695,7 +682,6 @@ class SmartworkingFragment: DetailFragment() {
     }
 
     private fun onSendSmartworkingCommunicationSuccess() {
-
         val selectedDaysResponse = SelectedDaysResponse()
         selectedDaysResponse.selectedDays = items
         saveSelectedDaysToPreferences(selectedDaysResponse)

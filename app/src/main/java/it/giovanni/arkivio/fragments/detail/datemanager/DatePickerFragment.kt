@@ -90,7 +90,7 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
     override fun editIconClick() {
     }
 
-    override fun onActionSearch(search_string: String) {
+    override fun onActionSearch(searchString: String) {
     }
 
     override fun isRefreshEnabled(): Boolean {
@@ -201,12 +201,6 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
 
         datePickerDialog.setCancelable(false)
         datePickerDialog.show()
-        /*
-        datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE)?.setOnClickListener {
-            Toast.makeText(context, "DatePickerDialog dismissed", Toast.LENGTH_SHORT).show()
-            datePickerDialog.dismiss()
-        }
-        */
     }
 
     override fun onDateSet(datePicker: DatePicker, year: Int, month: Int, day: Int) {
@@ -454,8 +448,6 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
         endDate = DateManager(Date(Date().time + (60 * 60 * 1000)))
 
         initDate()
-        // startDate?.setIntervalTimeDate(calendar?.get(Calendar.HOUR_OF_DAY)!!, calendar?.get(Calendar.MINUTE)!!)
-        // endDate?.setIntervalTimeDate(calendar?.get(Calendar.HOUR_OF_DAY)!! + 1, calendar?.get(Calendar.MINUTE)!!)
 
         timepickerBinding.startTimeValue.text = startDate?.getFormatTime()
         timepickerBinding.endTimeValue.text = endDate?.getFormatTime()
@@ -486,27 +478,6 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
         timepickerBinding.rangeTimeOk.setOnClickListener {
 
             if (startDate?.getFormatDate3() == startCurrentDate?.getFormatDate3()) {
-
-                /*
-                if (startDate?.getDatePickerHour()!! < startCurrentDate?.getDatePickerHour()!! ||
-                    endDate?.getDatePickerHour()!! < startCurrentDate?.getDatePickerHour()!! ||
-                    endDate?.getDatePickerHour()!! < startDate?.getDatePickerHour()!! ||
-                    (startDate?.getDatePickerHour()!! == startCurrentDate?.getDatePickerHour()!! &&
-                            startDate?.getDatePickerMinute()!! <= startCurrentDate?.getDatePickerMinute()!!) ||
-                    (startDate?.getDatePickerHour() == endDate?.getDatePickerHour() &&
-                            startDate?.getDatePickerMinute()!! >= endDate?.getDatePickerMinute()!!)) {
-
-                    initDate()
-
-                    showPopupError("Intervallo di tempo non valido.") {
-                        popupError?.dismiss()
-                    }
-                } else {
-                    val result = "Dalle " + startDate?.getFormatTime() + " alle " + endDate?.getFormatTime()
-                    binding?.rangeTimePicker2?.text = result
-                }
-                */
-
                 if (startDate?.getDatePickerHour()!! < startCurrentDate?.getDatePickerHour()!! ||
                     (startDate?.getDatePickerHour() == startCurrentDate?.getDatePickerHour() &&
                             startDate?.getDatePickerMinute()!! < startCurrentDate?.getDatePickerMinute()!!)) {
@@ -528,9 +499,7 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
                     val result = "Dalle " + startDate?.getFormatTime() + " alle " + endDate?.getFormatTime()
                     binding?.rangeTimePicker2?.text = result
                 }
-
             } else {
-
                 if (startDate?.getDatePickerHour()!! > endDate?.getDatePickerHour()!! ||
                     (startDate?.getDatePickerHour() == endDate?.getDatePickerHour() &&
                             startDate?.getDatePickerMinute()!! > endDate?.getDatePickerMinute()!!)) {
@@ -546,22 +515,6 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
                     val result = "Dalle " + startDate?.getFormatTime() + " alle " + endDate?.getFormatTime()
                     binding?.rangeTimePicker2?.text = result
                 }
-
-                /*
-                if (endDate?.getDatePickerHour()!! < startDate?.getDatePickerHour()!! ||
-                    (startDate?.getDatePickerHour() == endDate?.getDatePickerHour() &&
-                            startDate?.getDatePickerMinute()!! >= endDate?.getDatePickerMinute()!!)) {
-
-                    initDate()
-
-                    showPopupError("Intervallo di tempo non valido.") {
-                        popupError?.dismiss()
-                    }
-                } else {
-                    val result = "Dalle " + startDate?.getFormatTime() + " alle " + endDate?.getFormatTime()
-                    binding?.rangeTimePicker2?.text = result
-                }
-                */
             }
 
             dialog.dismiss()

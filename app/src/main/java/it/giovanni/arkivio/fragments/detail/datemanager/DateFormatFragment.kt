@@ -84,7 +84,7 @@ class DateFormatFragment : DetailFragment() {
     override fun editIconClick() {
     }
 
-    override fun onActionSearch(search_string: String) {
+    override fun onActionSearch(searchString: String) {
     }
 
     override fun isRefreshEnabled(): Boolean {

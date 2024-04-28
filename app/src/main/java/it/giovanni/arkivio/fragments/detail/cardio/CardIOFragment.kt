@@ -72,7 +72,7 @@ class CardIOFragment : DetailFragment(), AppCompatSpinnerCustom.OnSpinnerEventsL
     override fun editIconClick() {
     }
 
-    override fun onActionSearch(search_string: String) {
+    override fun onActionSearch(searchString: String) {
     }
 
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
@@ -219,36 +219,11 @@ class CardIOFragment : DetailFragment(), AppCompatSpinnerCustom.OnSpinnerEventsL
                 languages.add(locale.name)
         }
 
-        // TODO) Potrei passare all'adapter anche l'Array arraylanguages invece dell'ArrayList languages.
-        // var arraylanguages: Array<String> = arrayOf("de", "en", "es", "fr", "it", "pt", "ru")
-
         val adapter = ArrayAdapter(requireContext(), R.layout.spinner_dropdown_item, languages) // arraylanguages
-
-        // TODO) Nota: Per l'adapter ho definito un item custom (spinner_dropdown_item), ma avrei anche potuto utilizzare un item nativo di Android (simple_dropdown_item_1line):
-        // val adapter = ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, languages)
 
         binding?.languageSpinner?.adapter = adapter
         binding?.languageSpinner?.setSelection(adapter.getPosition("it"))
         binding?.languageSpinner?.setSpinnerEventsListener(this)
-
-        /*
-        binding?.languageSpinner?.setOnTouchListener { _, event ->
-            if (event.action == MotionEvent.ACTION_UP) {
-                binding?.languageSpinner?.setBackgroundResource(R.drawable.spinner_background_up)
-            }
-            false
-        }
-
-        binding?.languageSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                if (position == 1) {
-                    binding?.languageSpinner?.setBackgroundResource(R.drawable.spinner_background_down)
-                }
-            }
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
-        }
-        */
     }
 
     private fun setPickerInterval() {

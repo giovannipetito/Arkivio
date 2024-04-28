@@ -16,7 +16,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
-import it.giovanni.arkivio.App
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.customview.TimelineView
 import it.giovanni.arkivio.databinding.LayoutManagerLayoutBinding
@@ -64,7 +63,7 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
     override fun editIconClick() {
     }
 
-    override fun onActionSearch(search_string: String) {
+    override fun onActionSearch(searchString: String) {
     }
 
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
@@ -98,23 +97,10 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
         val drawableBar: Drawable = gradientDrawableBar.current // Oppure: gradientDrawableBar.mutate()
         progressBar?.background = drawableBar
 
-        /*
-        var progressbarwidth: Int? = null
-        binding?.root?.viewTreeObserver?.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-            override fun onGlobalLayout() {
-                view.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                if (progressBarContainer != null)
-                    progressbarwidth = progressBarContainer?.width!! * 1000 / 5
-            }
-        })
-        binding?.root?.requestLayout()
-        */
-
         binding?.multiSpinnerView?.setValues(104F, 140F, 104F, 20F)
         binding?.numberPicker1?.minValue = 104
         binding?.numberPicker1?.maxValue = 167
         binding?.numberPicker1?.value = 104
-        // binding?.numberPicker1?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
         binding?.numberPicker1?.setOnValueChangedListener { _, _, newVal ->
 
             binding?.multiSpinnerView?.setValues(newVal.toFloat(), 140F, 104F, 20F)
@@ -212,18 +198,6 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
     private fun processSelectedValue() {
         if (selectedValue.isEmpty())
             return
-
-        /*
-        var index = -1
-        for (i in list.indices) {
-            if (list[i].equals(selectedValue, ignoreCase = true)) {
-                index = i
-            }
-        }
-        if (index > -1) {
-            topUpViewModel.pickedTopUpValue.postValue(topUpViewModel.creditCardPrices.value?.get(index))
-        }
-        */
     }
 
     private fun getPreviousValue(list: List<String>): String {
@@ -248,21 +222,6 @@ class LayoutManagerFragment: DetailFragment(), TimelineView.TimelineViewListener
             }
         }
         return list[0]
-    }
-
-    private fun setStatusBarColor() {
-        // currentActivity.window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        currentActivity.window.statusBarColor = ContextCompat.getColor(
-            App.context,
-            android.R.color.transparent
-        )
-        // currentActivity.window.navigationBarColor = currentActivity.resources.getColor(android.R.color.transparent)
-        currentActivity.window.setBackgroundDrawable(
-            ContextCompat.getDrawable(
-                App.context,
-                R.drawable.background_dark_mode
-            )
-        )
     }
 
     override fun onDestroyView() {

@@ -23,9 +23,6 @@ class SecondFragment : Fragment(), View.OnClickListener {
         // Inflate the layout for this fragment
         layoutBinding = FragmentSecondBinding.inflate(inflater, container, false)
         return binding?.root
-
-        // val view = inflater.inflate(R.layout.fragment_second, container, false)
-        // return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,7 +45,6 @@ class SecondFragment : Fragment(), View.OnClickListener {
                 navController.navigate(action)
             }
             R.id.third_button -> {
-                // navController.navigate(R.id.action_secondFragment_to_listFragment)
                 val action = SecondFragmentDirections.actionSecondFragmentToListFragment()
                 findNavController().navigate(action)
             }

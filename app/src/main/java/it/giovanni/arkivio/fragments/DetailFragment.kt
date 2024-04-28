@@ -131,18 +131,6 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
         }
     }
 
-    fun actionLabelText(label: String) {
-        detailLayoutBinding?.actionLabel?.text = label
-    }
-
-    fun actionLabelVisibility(visibility: Int) {
-        detailLayoutBinding?.actionLabel?.visibility = visibility
-    }
-
-    fun actionLabelClickListener(listener:View.OnClickListener) {
-        detailLayoutBinding?.actionLabel?.setOnClickListener(listener)
-    }
-
     private var arrowGoBackClickListener = View.OnClickListener {
         currentActivity.onBackPressed()
         hideSoftKeyboard()
@@ -180,7 +168,7 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
         detailLayoutBinding?.detailTitle?.visibility = View.GONE
     }
 
-    abstract fun onActionSearch(search_string: String)
+    abstract fun onActionSearch(searchString: String)
 
     private fun showDetailSoftKeyboard() {
         val imm = currentActivity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -197,11 +185,6 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
         imm.hideSoftInputFromWindow(currentActivity.currentFocus?.windowToken, 0)
     }
 
-    fun hideSoftKeyboard2() {
-        val imm = currentActivity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(currentActivity.currentFocus?.windowToken, InputMethodManager.RESULT_UNCHANGED_SHOWN)
-    }
-
     open fun isRefreshEnabled(): Boolean {
         return false
     }
@@ -215,11 +198,6 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
             detailLayoutBinding?.swipeRefreshLayout?.destroyDrawingCache()
             detailLayoutBinding?.swipeRefreshLayout?.clearAnimation()
         }
-    }
-
-    protected fun startSwipeRefresh() {
-        if (detailLayoutBinding?.swipeRefreshLayout != null && !detailLayoutBinding?.swipeRefreshLayout?.isRefreshing!!)
-            detailLayoutBinding?.swipeRefreshLayout?.isRefreshing = true
     }
 
     override fun hidePullToRefresh() {

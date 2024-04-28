@@ -19,13 +19,7 @@ abstract class BaseFragment(private var sectionType: SectionType) : Fragment() {
 
     var isDarkMode = false
 
-    /**
-     * auto disposable that will dispose all registered subscription when the fragment lifecycle emits an ON_STOP Event
-     */
-    // protected var onStop: Disposer? = null
-
     companion object {
-        // var NO_LAYOUT: Int = -1
         var NO_TITLE: Int = -1
     }
 

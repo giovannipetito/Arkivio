@@ -36,14 +36,6 @@ class NotificationReceiver1: BroadcastReceiver() {
         val eggImage = BitmapFactory.decodeResource(context.resources, R.drawable.cooked_egg)
         val bigPictureStyle = NotificationCompat.BigPictureStyle().bigPicture(eggImage).bigLargeIcon(eggImage)
 
-        /*
-        Get an instance of NotificationCompat.Builder
-        Starting with API level 26, all notifications must be assigned to a channel.
-        Notification Channels are a way to group notifications. By grouping together similar types
-        of notifications, developers and users can control all of the notifications in the channel.
-        Once a channel is created, it can be used to deliver any number of notifications.
-        */
-
         // Build the notification
         val builder = NotificationCompat.Builder(context,
             context.getString(R.string.egg_time_channel_id_1))
@@ -55,13 +47,6 @@ class NotificationReceiver1: BroadcastReceiver() {
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
-
-        /*
-        Call notify
-        notificationId represents the current notification instance and is needed for updating or
-        canceling this notification. Since your app will only have one active notification at a
-        given time, you can use the same ID for all your notifications.
-        */
 
         notify(notificationId, builder.build())
     }

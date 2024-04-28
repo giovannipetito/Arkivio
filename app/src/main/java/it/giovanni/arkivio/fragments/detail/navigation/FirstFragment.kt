@@ -18,9 +18,6 @@ class FirstFragment : Fragment() {
         // Inflate the layout for this fragment
         layoutBinding = FragmentFirstBinding.inflate(inflater, container, false)
         return binding?.root
-
-        // val view = inflater.inflate(R.layout.fragment_first, container, false)
-        // return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

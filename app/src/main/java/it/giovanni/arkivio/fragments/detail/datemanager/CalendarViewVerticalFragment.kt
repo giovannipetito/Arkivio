@@ -87,7 +87,7 @@ class CalendarViewVerticalFragment : DetailFragment() {
     override fun editIconClick() {
     }
 
-    override fun onActionSearch(search_string: String) {
+    override fun onActionSearch(searchString: String) {
     }
 
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
@@ -326,64 +326,6 @@ class CalendarViewVerticalFragment : DetailFragment() {
                 }
             }
         }
-
-        /*
-        binding?.calendarview?.monthHeaderBinder = object : MonthHeaderFooterBinder<MonthViewContainerLegend> {
-
-            override fun create(view: View) = MonthViewContainerLegend(view)
-
-            override fun bind(container: MonthViewContainerLegend, month: CalendarMonth) {
-
-                container.calendarviewVerticalLegend.children.forEachIndexed { index, mView ->
-                    (mView as TextViewCustom).apply {
-                        if (daysOfWeek[index].name == DaysOfWeek.MONDAY.name) {
-                            setText(R.string.monday)
-                            if (isDarkMode)
-                                setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
-                            else
-                                setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
-                        }
-                        if (daysOfWeek[index].name == DaysOfWeek.TUESDAY.name) {
-                            setText(R.string.tuesday)
-                            if (isDarkMode)
-                                setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
-                            else
-                                setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
-                        }
-                        if (daysOfWeek[index].name == DaysOfWeek.WEDNESDAY.name) {
-                            setText(R.string.wednesday)
-                            if (isDarkMode)
-                                setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
-                            else
-                                setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
-                        }
-                        if (daysOfWeek[index].name == DaysOfWeek.THURSDAY.name) {
-                            setText(R.string.thursday)
-                            if (isDarkMode)
-                                setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
-                            else
-                                setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
-                        }
-                        if (daysOfWeek[index].name == DaysOfWeek.FRIDAY.name) {
-                            setText(R.string.friday)
-                            if (isDarkMode)
-                                setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
-                            else
-                                setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
-                        }
-                        if (daysOfWeek[index].name == DaysOfWeek.SATURDAY.name) {
-                            setText(R.string.saturday)
-                            setTextColor(ContextCompat.getColor(context, R.color.rosso))
-                        }
-                        if (daysOfWeek[index].name == DaysOfWeek.SUNDAY.name) {
-                            setText(R.string.sunday)
-                            setTextColor(ContextCompat.getColor(context, R.color.rosso))
-                        }
-                    }
-                }
-            }
-        }
-        */
 
         binding?.calendarview?.monthScrollListener = { _ ->
             selectedDate?.let {

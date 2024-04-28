@@ -90,7 +90,7 @@ class WebViewFragment : DetailFragment() {
     override fun editIconClick() {
     }
 
-    override fun onActionSearch(search_string: String) {
+    override fun onActionSearch(searchString: String) {
     }
 
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
@@ -160,17 +160,6 @@ class WebViewFragment : DetailFragment() {
 
         binding?.webview?.webViewClient = object : WebViewClient() {
             override fun onReceivedHttpError(view: WebView?, request: WebResourceRequest?, errorResponse: WebResourceResponse?) {
-                if (errorResponse != null) {
-                    /*
-                    val statusCode = errorResponse.statusCode
-                    val params = Bundle()
-                    params.putString(Mapping.WAW3Key.WAW3_TYPE, Mapping.WAW3KeyValue.ERROR_HTTP_STATUS_TYPE)
-                    params.putInt(Mapping.WAW3Key.WAW3_ERROR_CODE, statusCode)
-                    params.putString(Mapping.WAW3Key.WAW3_SECTION, getUrl())
-                    trackError(params)
-                    gAnalytics.sendEvent(Mapping.GAnalyticsKey.CATEGORY_ERROR, "Opening_WebView", getUrl() + "|" + statusCode, null)
-                    */
-                }
                 super.onReceivedHttpError(view, request, errorResponse)
             }
         }
@@ -216,17 +205,6 @@ class WebViewFragment : DetailFragment() {
         return if (requireArguments().containsKey(key) && requireArguments().getString(key) != null) {
             arguments?.getString(key)!!
         } else ""
-    }
-
-    private fun getUrl(): String {
-        return when {
-            urlGitHub != "" -> urlGitHub
-            urlDriveW3B != "" -> urlDriveW3B
-            urlDriveWAW3 != "" -> urlDriveWAW3
-            urlDeeplink != "" -> urlDeeplink
-            urlHtml != "" -> urlHtml
-            else -> ""
-        }
     }
 
     override fun onDestroyView() {

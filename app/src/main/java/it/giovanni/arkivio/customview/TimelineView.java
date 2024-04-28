@@ -20,6 +20,8 @@ import java.util.List;
 
 import static androidx.core.content.ContextCompat.getColor;
 
+import androidx.annotation.NonNull;
+
 public class TimelineView extends View {
 
     public static final int DISCRETE = 1;
@@ -153,7 +155,7 @@ public class TimelineView extends View {
         this.paintProgressIndicator.setShadowLayer(6.0F, 0.0F, 2.0F, this.indicatorShadowColor);
     }
 
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(@NonNull Canvas canvas) {
         super.onDraw(canvas);
         this.left = (float) this.getPaddingLeft();
         this.right = (float) (this.getMeasuredWidth() - this.getPaddingRight());
@@ -176,7 +178,7 @@ public class TimelineView extends View {
     }
 
     private float getXRight() {
-        if (this.values != null && this.values.size() > 0) {
+        if (this.values != null && !this.values.isEmpty()) {
             int lastIndex = this.values.size() - 1;
             this.paintText.getTextBounds(this.values.get(lastIndex), 0, this.values.get(lastIndex).length(), this.rectText);
             return (float) (this.getMeasuredWidth() - this.getPaddingRight()) + (float) this.rectText.width() / 2.0F;
@@ -205,7 +207,7 @@ public class TimelineView extends View {
 
     private void drawTexts(Canvas canvas, float yTop, float xLeft, float length) {
         float ySection = yTop - (float) this.rectText.height();
-        this.sectionOffset = (length - this.paddingStart - this.paddingEnd) * 1.0F / (float) (this.values.size() - 1);
+        this.sectionOffset = (length - this.paddingStart - this.paddingEnd) / (float) (this.values.size() - 1);
 
         for (int i = 0; i < this.values.size(); ++i) {
             this.paintText.getTextBounds(this.values.get(i), 0, this.values.get(i).length(), this.rectText);
@@ -219,7 +221,7 @@ public class TimelineView extends View {
     }
 
     public void setValue(String value, int type) {
-        if (this.values != null && this.values.size() != 0) {
+        if (this.values != null && !this.values.isEmpty()) {
             this.indexValue = 0;
 
             for (int i = 0; i < this.values.size(); ++i) {
