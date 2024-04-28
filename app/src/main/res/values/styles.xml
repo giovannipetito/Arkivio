@@ -164,22 +164,10 @@
         <item name="android:textAllCaps">true</item>
     </style>
 
-    <style name="BaseBottomSheetDialog" parent="@style/Theme.Design.Light.BottomSheetDialog">
-        <item name="android:windowIsFloating">true</item>
-        <item name="bottomSheetStyle">@style/BottomSheet</item>
-    </style>
-
-    <!-- set the rounded drawable as background to your bottom sheet -->
-    <style name="BottomSheet" parent="@style/Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@drawable/background_biometric_bottom_sheet</item>
-    </style>
-
-    <style name="BottomSheetDialogTheme1" parent="BaseBottomSheetDialog" />
-
     <!--Il metodo setStyle seguente è da chiamare nel metodo onCreate() della classe astratta che-->
     <!--estende BottomSheetDialogFragment()-->
-    <!--setStyle(STYLE_NORMAL, R.style.PendingBottomSheetDialogTheme2)-->
-    <style name="BottomSheetDialogTheme2" parent="Theme.Design.Light.BottomSheetDialog">
+    <!--setStyle(STYLE_NORMAL, R.style.PendingBottomSheetDialogTheme)-->
+    <style name="BottomSheetDialogTheme1" parent="Theme.Design.Light.BottomSheetDialog">
         <!--<item name="android:colorBackground">@android:color/transparent</item>-->
         <item name="android:windowBackground">@color/white_transparent</item>
         <item name="android:windowCloseOnTouchOutside">false</item>
@@ -192,7 +180,7 @@
         <item name="android:windowIsFloating">false</item>
     </style>
 
-    <style name="BottomSheetDialogTheme3" parent="Theme.Design.Light.BottomSheetDialog">
+    <style name="BottomSheetDialogTheme2" parent="Theme.Design.Light.BottomSheetDialog">
         <!--<item name="android:colorBackground">@android:color/transparent</item>-->
         <item name="android:windowCloseOnTouchOutside">false</item>
         <item name="android:windowIsTranslucent">true</item>
