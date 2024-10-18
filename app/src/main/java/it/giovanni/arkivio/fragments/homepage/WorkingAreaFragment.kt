@@ -93,6 +93,9 @@ class WorkingAreaFragment : HomeFragment() {
         binding?.labelExoplayer?.setOnClickListener {
             currentActivity.openDetail(Globals.EXOPLAYER, null)
         }
+        binding?.labelFavorites?.setOnClickListener {
+            currentActivity.openDetail(Globals.FAVORITES, null)
+        }
     }
 
     override fun onDestroyView() {
