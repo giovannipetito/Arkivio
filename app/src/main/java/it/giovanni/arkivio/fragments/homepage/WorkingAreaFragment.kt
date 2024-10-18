@@ -84,9 +84,6 @@ class WorkingAreaFragment : HomeFragment() {
         binding?.labelFonts?.setOnClickListener {
             currentActivity.openDetail(Globals.FONTS, null)
         }
-        binding?.labelNotificationHome?.setOnClickListener {
-            currentActivity.openDetail(Globals.NOTIFICATION_HOME, null)
-        }
         binding?.labelMachineLearning?.setOnClickListener {
             currentActivity.openDetail(Globals.MACHINE_LEARNING, null)
         }

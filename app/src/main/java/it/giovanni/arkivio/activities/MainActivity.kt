@@ -43,8 +43,6 @@ import it.giovanni.arkivio.fragments.detail.rubrica.RubricaDetailFragment
 import it.giovanni.arkivio.fragments.detail.rubrica.RubricaHomeFragment
 import it.giovanni.arkivio.fragments.detail.rubrica.RubricaListFragment
 import it.giovanni.arkivio.fragments.detail.webview.WebViewFragment
-import it.giovanni.arkivio.fragments.detail.notification.NotificationFragment
-import it.giovanni.arkivio.fragments.detail.notification.NotificationHomeFragment
 import it.giovanni.arkivio.fragments.detail.permissions.PermissionsFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.PuntoNetFragment
 import it.giovanni.arkivio.fragments.detail.puntonet.cleanarchitecture.presentation.factory.ViewModelProviderFactory
@@ -412,12 +410,6 @@ class MainActivity : BaseActivity(), IProgressLoader {
             }
             Globals.FONTS -> {
                 baseFragment = FontsFragment()
-            }
-            Globals.NOTIFICATION_HOME -> {
-                baseFragment = NotificationHomeFragment()
-            }
-            Globals.NOTIFICATION -> {
-                baseFragment = NotificationFragment()
             }
             Globals.MACHINE_LEARNING -> {
                 baseFragment = MachineLearningFragment()
