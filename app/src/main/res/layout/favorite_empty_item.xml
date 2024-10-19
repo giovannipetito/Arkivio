@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/item"
-    android:layout_width="96dp"
-    android:layout_height="96dp"
-    app:cardBackgroundColor="@color/blue_grey_800"
-    app:cardCornerRadius="8dp"
-    app:cardUseCompatPadding="true">
+    android:layout_width="76dp"
+    android:layout_height="76dp"
+    android:layout_marginBottom="8dp"
+    android:gravity="center">
 
-</androidx.cardview.widget.CardView>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:scaleType="fitCenter"
+        android:background="@drawable/circle_item"
+        android:contentDescription="Favorite background" />
+
+</RelativeLayout>

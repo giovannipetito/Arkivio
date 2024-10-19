@@ -89,12 +89,12 @@ class FavoritesFragment : DetailFragment(), FavoritesAdapter.OnAdapterListener {
 
         // Set up top RecyclerView
         topAdapter = FavoritesAdapter(isSwappable = true, onAdapterListener = this)
-        topRecyclerView?.layoutManager = GridLayoutManager(requireContext(), 3)
+        topRecyclerView?.layoutManager = GridLayoutManager(requireContext(), 4)
         topRecyclerView?.adapter = topAdapter
 
         // Set up bottom RecyclerView
         bottomAdapter = FavoritesAdapter(isSwappable = true, onAdapterListener = this)
-        bottomRecyclerView?.layoutManager = GridLayoutManager(requireContext(), 3)
+        bottomRecyclerView?.layoutManager = GridLayoutManager(requireContext(), 4)
         bottomRecyclerView?.adapter = bottomAdapter
     }
 
