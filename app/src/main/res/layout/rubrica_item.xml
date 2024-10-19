@@ -15,7 +15,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
-                android:src="@drawable/round"
+                android:src="@drawable/circle_item_small"
                 android:contentDescription="@string/app_name"
                 app:tint="@color/blu"/>
 

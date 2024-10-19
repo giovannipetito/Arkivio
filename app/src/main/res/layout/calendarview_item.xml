@@ -22,7 +22,7 @@
             android:layout_marginTop="2dp"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/item_text"
-            android:src="@drawable/round"
+            android:src="@drawable/circle_item_small"
             android:visibility="invisible"
             android:contentDescription="@string/app_name" />
 
