@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import it.giovanni.arkivio.databinding.FavoriteAvailableItemBinding
-import it.giovanni.arkivio.databinding.DragDropEmptyCardBinding
+import it.giovanni.arkivio.databinding.FavoriteEmptyItemBinding
 import it.giovanni.arkivio.databinding.FavoritePersonalItemBinding
 
 class FavoritesAdapter(
@@ -43,7 +43,7 @@ class FavoritesAdapter(
         }
     }
 
-    inner class EmptyViewHolder(private val binding: DragDropEmptyCardBinding) :
+    inner class EmptyViewHolder(private val binding: FavoriteEmptyItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind() {
             binding.item.setOnDragListener(dragListener)
@@ -57,7 +57,7 @@ class FavoritesAdapter(
         return when (viewType) {
             EMPTY_TYPE -> {
                 EmptyViewHolder(
-                    DragDropEmptyCardBinding.inflate(
+                    FavoriteEmptyItemBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
                         false

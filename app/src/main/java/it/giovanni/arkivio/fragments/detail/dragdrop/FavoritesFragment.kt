@@ -71,11 +71,11 @@ class FavoritesFragment : DetailFragment(), FavoritesAdapter.OnAdapterListener {
         setupRecyclerViews()
 
         // Observe ViewModel data
-        viewModel.topData.observe(viewLifecycleOwner) { topData -> // TODO: è NECESSARIO?
+        viewModel.topData.observe(viewLifecycleOwner) { topData ->
             topAdapter.submitList(topData)
         }
 
-        viewModel.bottomData.observe(viewLifecycleOwner) { bottomData -> // TODO: è NECESSARIO?
+        viewModel.bottomData.observe(viewLifecycleOwner) { bottomData ->
             bottomAdapter.submitList(bottomData)
         }
 
