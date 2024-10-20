@@ -18,13 +18,13 @@ class FavoritesFragment : DetailFragment(), FavoritesAdapter.OnAdapterListener {
     private var layoutBinding: FavoritesLayoutBinding? = null
     private val binding get() = layoutBinding
 
-    private var topRecyclerView: RecyclerView? = null
-    private var bottomRecyclerView: RecyclerView? = null
-
     private val viewModel: FavoritesViewModel by viewModels()
 
-    private lateinit var topAdapter: FavoritesAdapter
-    private lateinit var bottomAdapter: FavoritesAdapter
+    private var personalRecyclerView: RecyclerView? = null
+    private var availableRecyclerView: RecyclerView? = null
+
+    private lateinit var personalAdapter: FavoritesAdapter
+    private lateinit var availableAdapter: FavoritesAdapter
 
     override fun getTitle(): Int {
         return R.string.favorites_title
@@ -70,13 +70,12 @@ class FavoritesFragment : DetailFragment(), FavoritesAdapter.OnAdapterListener {
 
         setupRecyclerViews()
 
-        // Observe ViewModel data
-        viewModel.topData.observe(viewLifecycleOwner) { topData ->
-            topAdapter.submitList(topData)
+        viewModel.personalFavorites.observe(viewLifecycleOwner) { personalFavorites ->
+            personalAdapter.submitList(personalFavorites)
         }
 
-        viewModel.bottomData.observe(viewLifecycleOwner) { bottomData ->
-            bottomAdapter.submitList(bottomData)
+        viewModel.availableFavorites.observe(viewLifecycleOwner) { availableFavorites ->
+            availableAdapter.submitList(availableFavorites)
         }
 
         return binding?.root
@@ -84,18 +83,18 @@ class FavoritesFragment : DetailFragment(), FavoritesAdapter.OnAdapterListener {
 
     private fun setupRecyclerViews() {
 
-        topRecyclerView = binding?.topRecyclerView
-        bottomRecyclerView = binding?.bottomRecyclerView
+        personalRecyclerView = binding?.personalRecyclerView
+        availableRecyclerView = binding?.availableRecyclerView
 
-        // Set up top RecyclerView
-        topAdapter = FavoritesAdapter(isSwappable = true, onAdapterListener = this)
-        topRecyclerView?.layoutManager = GridLayoutManager(requireContext(), 4)
-        topRecyclerView?.adapter = topAdapter
+        // Set up personal RecyclerView
+        personalAdapter = FavoritesAdapter(isSwappable = true, onAdapterListener = this)
+        personalRecyclerView?.layoutManager = GridLayoutManager(requireContext(), 4)
+        personalRecyclerView?.adapter = personalAdapter
 
-        // Set up bottom RecyclerView
-        bottomAdapter = FavoritesAdapter(isSwappable = true, onAdapterListener = this)
-        bottomRecyclerView?.layoutManager = GridLayoutManager(requireContext(), 4)
-        bottomRecyclerView?.adapter = bottomAdapter
+        // Set up available RecyclerView
+        availableAdapter = FavoritesAdapter(isSwappable = true, onAdapterListener = this)
+        availableRecyclerView?.layoutManager = GridLayoutManager(requireContext(), 4)
+        availableRecyclerView?.adapter = availableAdapter
     }
 
     // Implement OnAdapterListener methods

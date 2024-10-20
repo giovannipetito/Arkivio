@@ -68,13 +68,13 @@ class DialogFlowFragment : BaseFragment(SectionType.DIALOG_FLOW) {
     private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
             val data: Intent? = result.data
-            val array = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+            val array: ArrayList<String>? = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
             binding?.speechText?.text = array!![0]
 
             binding?.speechContainer?.visibility = View.VISIBLE
             binding?.suggestionsContainer?.visibility = View.GONE
 
-            if (array[0].contains("rubrica")) {
+            if (array!![0].contains("rubrica")) {
                 currentActivity.openDetail(Globals.RUBRICA_REALTIME, null)
             } else if (array[0].contains("Giovanni")) {
                 val contact = Bundle()

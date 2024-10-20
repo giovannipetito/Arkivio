@@ -27,14 +27,13 @@ abstract class DragDropAdapter<T, VH : RecyclerView.ViewHolder>(
                         if (targetRecyclerView !is RecyclerView) {
                             return false
                         }
-                        val targetAdapter =
-                            targetRecyclerView.adapter as DragDropAdapter<T, VH>
+                        val targetAdapter = targetRecyclerView.adapter as DragDropAdapter<T, VH>
                         val targetPosition = if (targetView is RecyclerView) {
                             targetAdapter.currentList.size
                         } else {
                             targetRecyclerView.getChildAdapterPosition(targetView)
                         }
-                        //if same Recyclerview swap two item
+                        // If same Recyclerview swap two item
                         if (sourceRecyclerView.id == targetRecyclerView.id) {
                             if (isSwappable) {
                                 if (targetPosition >= 0 && sourceAdapter.currentList[targetPosition] != null) {

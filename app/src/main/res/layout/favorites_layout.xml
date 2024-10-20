@@ -17,21 +17,21 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/top_recycler_view"
+            android:id="@+id/personal_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintHeight_percent="0.5"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/bottom_recycler_view" />
+            app:layout_constraintBottom_toTopOf="@+id/available_recycler_view" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/bottom_recycler_view"
+            android:id="@+id/available_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintHeight_percent="0.5"
-            app:layout_constraintTop_toBottomOf="@+id/top_recycler_view"
+            app:layout_constraintTop_toBottomOf="@+id/personal_recycler_view"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
