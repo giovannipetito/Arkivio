@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutAnimal"
+    android:layout_width="76dp"
+    android:layout_height="76dp"
+    android:layout_margin="4dp"
+    android:gravity="center">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:scaleType="fitCenter"
+        android:background="@drawable/circle_item"
+        android:backgroundTint="@color/blue_A700"
+        android:contentDescription="Favorite background" />
+
+    <TextView
+        android:id="@+id/txtAnimalName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
+        android:textColor="#eeeeee"
+        android:textSize="16sp"
+        android:textAlignment="center"
+        android:layout_centerInParent="true"
+        android:maxLines="2"
+        android:ellipsize="end"
+        tools:text="@string/app_name" />
+
+</RelativeLayout>

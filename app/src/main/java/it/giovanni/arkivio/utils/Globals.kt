@@ -10,7 +10,11 @@ object Globals {
     var WEB_VIEW = "WEB_VIEW"
     var CHECKLIST = "CHECKLIST"
     var EXOPLAYER = "EXOPLAYER"
+
     var FAVORITES = "FAVORITES"
+    var DRAG = "DRAG"
+    var DROP = "DROP"
+
     var ASYNC_HTTP = "ASYNC_HTTP"
     var DATE_FORMAT = "DATE_FORMAT"
     var DATE_PICKER = "DATE_PICKER"
