@@ -14,21 +14,42 @@ class FavoritesViewModel : ViewModel() {
     val availableFavorites: LiveData<List<Favorite?>> = _availableFavorites
 
     private var remotePersonalFavorites: MutableList<Favorite?> = arrayListOf(
-        Favorite("1", true, false),
-        Favorite("2", true, false),
-        Favorite("3", true, false),
-        Favorite("4", true, false),
-        Favorite("5", true, false),
+        Favorite("1", true),
+        Favorite("2", true),
+        Favorite("3", true),
+        Favorite("4", true),
+        Favorite("5", true),
         null,
         null
     )
 
     private val remoteAvailableFavorites: MutableList<Favorite> = arrayListOf(
-        Favorite("A", false, true),
-        Favorite("B", false, true),
-        Favorite("C", false, true),
-        Favorite("D", false, true),
-        Favorite("E", false, true),
+        Favorite("A", false),
+        Favorite("B", false),
+        Favorite("C", false),
+        Favorite("D", false),
+        Favorite("E", false),
+        Favorite("F", false),
+        Favorite("G", false),
+        Favorite("H", false),
+        Favorite("I", false),
+        Favorite("J", false),
+        Favorite("K", false),
+        Favorite("L", false),
+        Favorite("M", false),
+        Favorite("N", false),
+        Favorite("O", false),
+        Favorite("P", false),
+        Favorite("Q", false),
+        Favorite("R", false),
+        Favorite("S", false),
+        Favorite("T", false),
+        Favorite("U", false),
+        Favorite("V", false),
+        Favorite("W", false),
+        Favorite("X", false),
+        Favorite("Y", false),
+        Favorite("Z", false)
     )
 
     init {
