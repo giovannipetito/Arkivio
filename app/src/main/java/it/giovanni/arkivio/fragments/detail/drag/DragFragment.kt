@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.DragLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
@@ -63,9 +62,6 @@ class DragFragment : DetailFragment(), Listener {
         setTopRecyclerView()
         setBottomRecyclerView()
 
-        // binding?.tvEmptyListTop?.visibility = View.GONE
-        // binding?.tvEmptyListBottom?.visibility = View.GONE
-
         return binding?.root
     }
 
@@ -80,12 +76,12 @@ class DragFragment : DetailFragment(), Listener {
         topList.add("F")
 
         val topListAdapter = MainAdapter(topList, this)
-        binding?.rvTop?.setHasFixedSize(true)
-        binding?.rvTop?.layoutManager = GridLayoutManager(requireContext(), 4)
-        binding?.rvTop?.adapter = topListAdapter
+        binding?.topList?.setHasFixedSize(true)
+        binding?.topList?.layoutManager = GridLayoutManager(requireContext(), 4)
+        binding?.topList?.adapter = topListAdapter
 
-        binding?.tvEmptyListTop?.setOnDragListener(topListAdapter.dragInstance)
-        binding?.rvTop?.setOnDragListener(topListAdapter.dragInstance)
+        binding?.topListContainer?.setOnDragListener(topListAdapter.dragInstance)
+        binding?.topList?.setOnDragListener(topListAdapter.dragInstance)
     }
 
     private fun setBottomRecyclerView() {
@@ -99,24 +95,20 @@ class DragFragment : DetailFragment(), Listener {
         bottomList.add("6")
 
         val bottomListAdapter = MainAdapter(bottomList, this)
-        binding?.rvBottom?.setHasFixedSize(true)
-        binding?.rvBottom?.layoutManager = GridLayoutManager(requireContext(), 4)
-        binding?.rvBottom?.adapter = bottomListAdapter
+        binding?.bottomList?.setHasFixedSize(true)
+        binding?.bottomList?.layoutManager = GridLayoutManager(requireContext(), 4)
+        binding?.bottomList?.adapter = bottomListAdapter
 
-        binding?.tvEmptyListBottom?.setOnDragListener(bottomListAdapter.dragInstance)
-        binding?.rvBottom?.setOnDragListener(bottomListAdapter.dragInstance)
+        binding?.bottomListContainer?.setOnDragListener(bottomListAdapter.dragInstance)
+        binding?.bottomList?.setOnDragListener(bottomListAdapter.dragInstance)
     }
 
-    override fun setEmptyListTop(visibility: Boolean) {
-        Toast.makeText(requireContext(), "Top List Empty", Toast.LENGTH_SHORT).show()
-        binding?.tvEmptyListTop?.visibility = if (visibility) View.VISIBLE else View.GONE
-        binding?.rvTop?.visibility = if (visibility) View.GONE else View.VISIBLE
+    override fun notifyTopListEmpty() {
+        Toast.makeText(requireContext(), "Top list is empty.", Toast.LENGTH_SHORT).show()
     }
 
-    override fun setEmptyListBottom(visibility: Boolean) {
-        Toast.makeText(requireContext(), "Bottom List Empty", Toast.LENGTH_SHORT).show()
-        binding?.tvEmptyListBottom?.visibility = if (visibility) View.VISIBLE else View.GONE
-        binding?.rvBottom?.visibility = if (visibility) View.GONE else View.VISIBLE
+    override fun notifyBottomListEmpty() {
+        Toast.makeText(requireContext(), "Bottom list is empty.", Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {

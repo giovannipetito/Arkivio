@@ -16,53 +16,39 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tvEmptyListTop"
-            android:layout_width="match_parent"
-            android:layout_height="110dp"
-            android:background="#cccccc"
-            android:gravity="center"
-            android:text="Top List is Empty!"
-            android:textSize="20sp"
-            android:visibility="gone"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/rvTop" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvTop"
+        <RelativeLayout
+            android:id="@+id/top_list_container"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             app:layout_constraintHeight_percent="0.5"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/rvBottom" />
+            app:layout_constraintBottom_toTopOf="@+id/bottom_list_container">
 
-        <TextView
-            android:id="@+id/tvEmptyListBottom"
-            android:layout_width="match_parent"
-            android:layout_height="110dp"
-            android:background="#cccccc"
-            android:gravity="center"
-            android:text="Bottom List is Empty!"
-            android:textSize="20sp"
-            android:visibility="gone"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/rvBottom" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/top_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvBottom"
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/bottom_list_container"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             app:layout_constraintHeight_percent="0.5"
-            app:layout_constraintTop_toBottomOf="@+id/rvTop"
+            app:layout_constraintTop_toBottomOf="@+id/top_list_container"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/bottom_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </RelativeLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

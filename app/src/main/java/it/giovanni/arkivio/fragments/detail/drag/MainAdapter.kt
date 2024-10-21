@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import it.giovanni.arkivio.R
 
 class MainAdapter(
-    var list: List<String>,
+    var list: MutableList<String>,
     private val listener: Listener?
 ) : RecyclerView.Adapter<MainAdapter.ListViewHolder>(), OnTouchListener {
 
@@ -24,12 +24,11 @@ class MainAdapter(
         return ListViewHolder(view)
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        holder.tvGrid.text = list[position]
-        holder.cvGrid.tag = position
-        holder.cvGrid.setOnTouchListener(this)
-        holder.cvGrid.setOnDragListener(DragListener(listener))
+        holder.dragIcon.tag = position
+        holder.dragIcon.setOnTouchListener(this)
+        holder.dragIcon.setOnDragListener(DragListener(listener))
+        holder.dragTitle.text = list[position]
     }
 
     override fun getItemCount(): Int {
@@ -51,7 +50,7 @@ class MainAdapter(
         return false
     }
 
-    fun updateList(list: List<String>) {
+    fun updateList(list: MutableList<String>) {
         this.list = list
     }
 
@@ -63,7 +62,7 @@ class MainAdapter(
         }
 
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var tvGrid: TextView = itemView.findViewById(R.id.tv_grid)
-        var cvGrid: RelativeLayout = itemView.findViewById(R.id.cv_grid)
+        var dragIcon: RelativeLayout = itemView.findViewById(R.id.drag_icon)
+        var dragTitle: TextView = itemView.findViewById(R.id.drag_title)
     }
 }
