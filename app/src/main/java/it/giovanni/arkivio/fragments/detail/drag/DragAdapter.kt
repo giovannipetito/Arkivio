@@ -18,14 +18,19 @@ import it.giovanni.arkivio.fragments.detail.dragdrop.Favorite
 class DragAdapter(
     var list: MutableList<Favorite>,
     private val listener: Listener?
-) : RecyclerView.Adapter<DragAdapter.ListViewHolder>(), OnTouchListener {
+) : RecyclerView.Adapter<DragAdapter.PersonalViewHolder>(), OnTouchListener {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.drag_item, parent, false)
-        return ListViewHolder(view)
+    inner class PersonalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var dragIcon: RelativeLayout = itemView.findViewById(R.id.item)
+        var dragTitle: TextView = itemView.findViewById(R.id.title)
     }
 
-    override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonalViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.favorite_personal_item, parent, false)
+        return PersonalViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: PersonalViewHolder, position: Int) {
         holder.dragIcon.tag = position
         holder.dragIcon.setOnTouchListener(this)
         holder.dragIcon.setOnDragListener(DragListener(listener))
@@ -62,8 +67,8 @@ class DragAdapter(
             null
         }
 
-    inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var dragIcon: RelativeLayout = itemView.findViewById(R.id.drag_icon)
-        var dragTitle: TextView = itemView.findViewById(R.id.drag_title)
+    companion object {
+        private const val PERSONAL_TYPE = 1
+        private const val AVAILABLE_TYPE = 2
     }
 }

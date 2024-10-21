@@ -69,12 +69,12 @@ class DragFragment : DetailFragment(), Listener {
     private fun setTopRecyclerView() {
 
         val topList: MutableList<Favorite> = arrayListOf(
-            Favorite("A", false),
-            Favorite("B", false),
-            Favorite("C", false),
-            Favorite("D", false),
-            Favorite("E", false),
-            Favorite("F", false)
+            Favorite("A", true),
+            Favorite("B", true),
+            Favorite("C", true),
+            Favorite("D", true),
+            Favorite("E", true),
+            Favorite("F", true)
         )
 
         val topListAdapter = DragAdapter(topList, this)

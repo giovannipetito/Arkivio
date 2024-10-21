@@ -45,7 +45,7 @@ class DragListener(private val listener: Listener?) : OnDragListener {
 
             val viewSource: View = event.localState as View
             val viewId: Int = view.id
-            val dragIcon: Int = R.id.drag_icon
+            val dragIcon: Int = R.id.item
 
             val topListContainer: Int = R.id.top_list_container
             val bottomListContainer: Int = R.id.bottom_list_container

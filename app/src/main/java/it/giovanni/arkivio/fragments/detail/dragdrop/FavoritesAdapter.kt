@@ -15,10 +15,9 @@ class FavoritesAdapter(
     private val onAdapterListener: OnAdapterListener
 ) : DragDropAdapter<Favorite, RecyclerView.ViewHolder>(diffUtil) {
 
-    inner class PersonalViewHolder(private val binding: FavoritePersonalItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(text: Favorite) {
-            binding.title.text = text.title
+    inner class PersonalViewHolder(private val binding: FavoritePersonalItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(favorite: Favorite) {
+            binding.title.text = favorite.title
             binding.root.setOnLongClickListener { view ->
                 val data = ClipData.newPlainText("", "")
                 val shadowBuilder = View.DragShadowBuilder(view)
@@ -31,8 +30,8 @@ class FavoritesAdapter(
 
     inner class AvailableViewHolder(private val binding: FavoriteAvailableItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(text: Favorite) {
-            binding.title.text = text.title
+        fun bind(favorite: Favorite) {
+            binding.title.text = favorite.title
             binding.root.setOnLongClickListener { view ->
                 val data = ClipData.newPlainText("", "")
                 val shadowBuilder = View.DragShadowBuilder(view)
@@ -90,11 +89,11 @@ class FavoritesAdapter(
             EMPTY_TYPE -> {
                 (holder as EmptyViewHolder).bind()
             }
-            AVAILABLE_TYPE -> {
-                (holder as AvailableViewHolder).bind(getItem(position))
-            }
             PERSONAL_TYPE -> {
                 (holder as PersonalViewHolder).bind(getItem(position))
+            }
+            AVAILABLE_TYPE -> {
+                (holder as AvailableViewHolder).bind(getItem(position))
             }
         }
     }
