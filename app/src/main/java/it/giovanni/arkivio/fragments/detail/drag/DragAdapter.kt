@@ -15,10 +15,10 @@ import androidx.recyclerview.widget.RecyclerView
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.fragments.detail.dragdrop.Favorite
 
-class MainAdapter(
+class DragAdapter(
     var list: MutableList<Favorite>,
     private val listener: Listener?
-) : RecyclerView.Adapter<MainAdapter.ListViewHolder>(), OnTouchListener {
+) : RecyclerView.Adapter<DragAdapter.ListViewHolder>(), OnTouchListener {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.drag_item, parent, false)

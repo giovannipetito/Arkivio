@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.DropLayoutBinding
@@ -14,23 +13,20 @@ import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 
-class DropFragment : DetailFragment(), MyRecyclerviewAdaptor.OnClickListener {
+class DropFragment : DetailFragment(), DropAdapter.OnClickListener {
 
     private var layoutBinding: DropLayoutBinding? = null
     private val binding get() = layoutBinding
 
-    private lateinit var myRecyclerviewLeft: RecyclerView
-    private lateinit var myRecyclerviewRight: RecyclerView
+    private lateinit var dropListTop: RecyclerView
+    private lateinit var dropListBottom: RecyclerView
 
-    private lateinit var myRecyclerviewAdaptorLeft: MyRecyclerviewAdaptor
-    private lateinit var myRecyclerviewAdaptorRight: MyRecyclerviewAdaptor
+    private lateinit var dropAdapterTop: DropAdapter
+    private lateinit var dropAdapterBottom: DropAdapter
 
-    // private lateinit var myViewManagerLeft: RecyclerView.LayoutManager
-    // private lateinit var myViewManagerRight: RecyclerView.LayoutManager
-
-    private val dragListener = MyDragListener()
-    private val testDataLeft = mutableListOf<Any>("cat", "dog", "rabbit", "horse", "elephant", "eagle", "bear", "cow", "chicken", "dear")
-    private val testDataRight = mutableListOf<Any>("fish", "jellyfish", "whale", "turtle", "seahorse", "coral", "octopus", "frog", "screw", "starfish")
+    private val dragListener = DropListener()
+    private val topList = mutableListOf<Any>("cat", "dog", "rabbit", "horse", "elephant", "eagle", "bear", "cow", "chicken", "dear")
+    private val bottomList = mutableListOf<Any>("fish", "jellyfish", "whale", "turtle", "seahorse", "coral", "octopus", "frog", "screw", "starfish")
 
     override fun getTitle(): Int {
         return R.string.favorites_title
@@ -74,18 +70,16 @@ class DropFragment : DetailFragment(), MyRecyclerviewAdaptor.OnClickListener {
         binding?.presenter = darkModePresenter
         binding?.temp = model
 
-        // Inflate the layout for this fragment
-        // myViewManagerLeft = LinearLayoutManager(activity)
-        myRecyclerviewAdaptorLeft = MyRecyclerviewAdaptor()
-        myRecyclerviewAdaptorLeft.setClickListener(this)
-        myRecyclerviewAdaptorLeft.setDragListener(dragListener)
-        // myViewManagerRight = LinearLayoutManager(activity)
-        myRecyclerviewAdaptorRight = MyRecyclerviewAdaptor()
-        myRecyclerviewAdaptorRight.setClickListener(this)
-        myRecyclerviewAdaptorRight.setDragListener(dragListener)
+        dropAdapterTop = DropAdapter()
+        dropAdapterTop.setClickListener(this)
+        dropAdapterTop.setDragListener(dragListener)
 
-        myRecyclerviewLeft = binding?.recyclerviewLeft!!
-        myRecyclerviewLeft
+        dropAdapterBottom = DropAdapter()
+        dropAdapterBottom.setClickListener(this)
+        dropAdapterBottom.setDragListener(dragListener)
+
+        dropListTop = binding?.recyclerviewLeft!!
+        dropListTop
             .apply {
                 // use this setting to improve performance if you know that changes
                 // in content do not change the layout size of the RecyclerView
@@ -94,11 +88,11 @@ class DropFragment : DetailFragment(), MyRecyclerviewAdaptor.OnClickListener {
                 layoutManager = GridLayoutManager(requireContext(), 4)
 
                 // specify an viewAdapter (see also next example)
-                adapter = myRecyclerviewAdaptorLeft
+                adapter = dropAdapterTop
             }
 
-        myRecyclerviewRight = binding?.recyclerviewRight!!
-        myRecyclerviewRight
+        dropListBottom = binding?.recyclerviewRight!!
+        dropListBottom
             .apply {
                 // use this setting to improve performance if you know that changes
                 // in content do not change the layout size of the RecyclerView
@@ -107,7 +101,7 @@ class DropFragment : DetailFragment(), MyRecyclerviewAdaptor.OnClickListener {
                 layoutManager = GridLayoutManager(requireContext(), 4)
 
                 // specify an viewAdapter (see also next example)
-                adapter = myRecyclerviewAdaptorRight
+                adapter = dropAdapterBottom
             }
 
         return binding?.root
@@ -115,8 +109,8 @@ class DropFragment : DetailFragment(), MyRecyclerviewAdaptor.OnClickListener {
 
     override fun onStart() {
         super.onStart()
-        myRecyclerviewAdaptorLeft.setData(testDataLeft)
-        myRecyclerviewAdaptorRight.setData(testDataRight)
+        dropAdapterTop.setData(topList)
+        dropAdapterBottom.setData(bottomList)
     }
 
     override fun recyclerviewClick(name: String) {

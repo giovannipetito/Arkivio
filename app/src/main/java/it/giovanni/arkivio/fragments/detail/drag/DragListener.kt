@@ -1,5 +1,6 @@
 package it.giovanni.arkivio.fragments.detail.drag
 
+import android.util.Log
 import android.view.DragEvent
 import android.view.View
 import android.view.View.OnDragListener
@@ -12,6 +13,31 @@ class DragListener(private val listener: Listener?) : OnDragListener {
     private var isDropped: Boolean = false
 
     override fun onDrag(view: View, event: DragEvent): Boolean {
+
+        if (event.action == DragEvent.ACTION_DRAG_STARTED) {
+            Log.i("[DRAGDROP]", "ACTION_DRAG_STARTED")
+        }
+
+        if (event.action == DragEvent.ACTION_DRAG_ENTERED) {
+            Log.i("[DRAGDROP]", "ACTION_DRAG_ENTERED")
+        }
+
+        if (event.action == DragEvent.ACTION_DRAG_LOCATION) {
+            // Log.i("[DRAGDROP]", "ACTION_DRAG_LOCATION")
+        }
+
+        if (event.action == DragEvent.ACTION_DROP) {
+            Log.i("[DRAGDROP]", "ACTION_DROP")
+        }
+
+        if (event.action == DragEvent.ACTION_DRAG_ENDED) {
+            Log.i("[DRAGDROP]", "ACTION_DRAG_ENDED")
+        }
+
+        if (event.action == DragEvent.ACTION_DRAG_EXITED) {
+            Log.i("[DRAGDROP]", "ACTION_DRAG_EXITED")
+        }
+
         if (event.action == DragEvent.ACTION_DROP) {
 
             isDropped = true
@@ -48,8 +74,8 @@ class DragListener(private val listener: Listener?) : OnDragListener {
                 val positionSource = viewSource.tag as Int
                 val sourceId = source.id
 
-                val sourceAdapter = source.adapter as MainAdapter?
-                val targetAdapter = target.adapter as MainAdapter?
+                val sourceAdapter = source.adapter as DragAdapter?
+                val targetAdapter = target.adapter as DragAdapter?
 
                 if (sourceAdapter != null && targetAdapter != null) {
                     val favorite: Favorite = sourceAdapter.list[positionSource]
@@ -79,6 +105,12 @@ class DragListener(private val listener: Listener?) : OnDragListener {
                 }
             }
         }
+
+        /*
+        if (!isDropped && event.localState != null) {
+            (event.localState as View).visibility = View.VISIBLE
+        }
+        */
 
         return true
     }

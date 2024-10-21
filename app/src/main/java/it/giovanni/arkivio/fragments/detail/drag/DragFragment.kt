@@ -77,7 +77,7 @@ class DragFragment : DetailFragment(), Listener {
             Favorite("F", false)
         )
 
-        val topListAdapter = MainAdapter(topList, this)
+        val topListAdapter = DragAdapter(topList, this)
         binding?.topList?.setHasFixedSize(true)
         binding?.topList?.layoutManager = GridLayoutManager(requireContext(), 4)
         binding?.topList?.adapter = topListAdapter
@@ -97,7 +97,7 @@ class DragFragment : DetailFragment(), Listener {
             Favorite("6", false)
         )
 
-        val bottomListAdapter = MainAdapter(bottomList, this)
+        val bottomListAdapter = DragAdapter(bottomList, this)
         binding?.bottomList?.setHasFixedSize(true)
         binding?.bottomList?.layoutManager = GridLayoutManager(requireContext(), 4)
         binding?.bottomList?.adapter = bottomListAdapter
