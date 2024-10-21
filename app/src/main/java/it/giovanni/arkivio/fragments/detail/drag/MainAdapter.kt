@@ -13,9 +13,10 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.fragments.detail.dragdrop.Favorite
 
 class MainAdapter(
-    var list: MutableList<String>,
+    var list: MutableList<Favorite>,
     private val listener: Listener?
 ) : RecyclerView.Adapter<MainAdapter.ListViewHolder>(), OnTouchListener {
 
@@ -28,7 +29,7 @@ class MainAdapter(
         holder.dragIcon.tag = position
         holder.dragIcon.setOnTouchListener(this)
         holder.dragIcon.setOnDragListener(DragListener(listener))
-        holder.dragTitle.text = list[position]
+        holder.dragTitle.text = list[position].title
     }
 
     override fun getItemCount(): Int {
@@ -50,7 +51,7 @@ class MainAdapter(
         return false
     }
 
-    fun updateList(list: MutableList<String>) {
+    fun updateList(list: MutableList<Favorite>) {
         this.list = list
     }
 

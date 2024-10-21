@@ -5,6 +5,7 @@ import android.view.View
 import android.view.View.OnDragListener
 import androidx.recyclerview.widget.RecyclerView
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.fragments.detail.dragdrop.Favorite
 
 class DragListener(private val listener: Listener?) : OnDragListener {
 
@@ -51,18 +52,18 @@ class DragListener(private val listener: Listener?) : OnDragListener {
                 val targetAdapter = target.adapter as MainAdapter?
 
                 if (sourceAdapter != null && targetAdapter != null) {
-                    val item: String = sourceAdapter.list[positionSource]
-                    val sourceList: MutableList<String> = sourceAdapter.list
-                    val targetList: MutableList<String> = targetAdapter.list
+                    val favorite: Favorite = sourceAdapter.list[positionSource]
+                    val sourceList: MutableList<Favorite> = sourceAdapter.list
+                    val targetList: MutableList<Favorite> = targetAdapter.list
 
                     sourceList.removeAt(positionSource)
                     sourceAdapter.updateList(sourceList)
                     sourceAdapter.notifyDataSetChanged()
 
                     if (positionTarget >= 0) {
-                        targetList.add(positionTarget, item)
+                        targetList.add(positionTarget, favorite)
                     } else {
-                        targetList.add(item)
+                        targetList.add(favorite)
                     }
 
                     targetAdapter.updateList(targetList)

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.DragLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
+import it.giovanni.arkivio.fragments.detail.dragdrop.Favorite
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 
@@ -67,13 +68,14 @@ class DragFragment : DetailFragment(), Listener {
 
     private fun setTopRecyclerView() {
 
-        val topList: MutableList<String> = ArrayList()
-        topList.add("A")
-        topList.add("B")
-        topList.add("C")
-        topList.add("D")
-        topList.add("E")
-        topList.add("F")
+        val topList: MutableList<Favorite> = arrayListOf(
+            Favorite("A", false),
+            Favorite("B", false),
+            Favorite("C", false),
+            Favorite("D", false),
+            Favorite("E", false),
+            Favorite("F", false)
+        )
 
         val topListAdapter = MainAdapter(topList, this)
         binding?.topList?.setHasFixedSize(true)
@@ -86,13 +88,14 @@ class DragFragment : DetailFragment(), Listener {
 
     private fun setBottomRecyclerView() {
 
-        val bottomList: MutableList<String> = ArrayList()
-        bottomList.add("1")
-        bottomList.add("2")
-        bottomList.add("3")
-        bottomList.add("4")
-        bottomList.add("5")
-        bottomList.add("6")
+        val bottomList: MutableList<Favorite> = arrayListOf(
+            Favorite("1", false),
+            Favorite("2", false),
+            Favorite("3", false),
+            Favorite("4", false),
+            Favorite("5", false),
+            Favorite("6", false)
+        )
 
         val bottomListAdapter = MainAdapter(bottomList, this)
         binding?.bottomList?.setHasFixedSize(true)
