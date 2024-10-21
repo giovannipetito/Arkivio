@@ -47,21 +47,21 @@ class DragListener(private val listener: Listener?) : OnDragListener {
             val viewId: Int = view.id
             val dragIcon: Int = R.id.item
 
-            val topListContainer: Int = R.id.top_list_container
-            val bottomListContainer: Int = R.id.bottom_list_container
+            val topRecyclerviewContainer: Int = R.id.top_recyclerview_container
+            val bottomRecyclerviewContainer: Int = R.id.bottom_recyclerview_container
 
-            val topList: Int = R.id.top_list
-            val bottomList: Int = R.id.bottom_list
+            val topRecyclerview: Int = R.id.top_recyclerview
+            val bottomRecyclerview: Int = R.id.bottom_recyclerview
 
             val target: RecyclerView
 
-            if (viewId == dragIcon || viewId == topListContainer || viewId == bottomListContainer || viewId == topList || viewId == bottomList) {
+            if (viewId == dragIcon || viewId == topRecyclerviewContainer || viewId == bottomRecyclerviewContainer || viewId == topRecyclerview || viewId == bottomRecyclerview) {
                 when (viewId) {
-                    topListContainer, topList -> {
-                        target = view.rootView.findViewById(topList)
+                    topRecyclerviewContainer, topRecyclerview -> {
+                        target = view.rootView.findViewById(topRecyclerview)
                     }
-                    bottomListContainer, bottomList -> {
-                        target = view.rootView.findViewById(bottomList)
+                    bottomRecyclerviewContainer, bottomRecyclerview -> {
+                        target = view.rootView.findViewById(bottomRecyclerview)
                     }
                     else -> {
                         target = view.parent as RecyclerView
@@ -95,11 +95,11 @@ class DragListener(private val listener: Listener?) : OnDragListener {
                     targetAdapter.updateList(targetList)
                     targetAdapter.notifyDataSetChanged()
 
-                    if ((sourceId == bottomList && sourceAdapter.itemCount < 1) || viewId == bottomListContainer) {
+                    if ((sourceId == bottomRecyclerview && sourceAdapter.itemCount < 1) || viewId == bottomRecyclerviewContainer) {
                         listener?.notifyBottomListEmpty()
                     }
 
-                    if ((sourceId == topList && sourceAdapter.itemCount < 1) || viewId == topListContainer) {
+                    if ((sourceId == topRecyclerview && sourceAdapter.itemCount < 1) || viewId == topRecyclerviewContainer) {
                         listener?.notifyTopListEmpty()
                     }
                 }

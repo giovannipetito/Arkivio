@@ -13,28 +13,58 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.databinding.FavoriteAvailableItemBinding
+import it.giovanni.arkivio.databinding.FavoritePersonalItemBinding
 import it.giovanni.arkivio.fragments.detail.dragdrop.Favorite
 
 class DragAdapter(
     var list: MutableList<Favorite>,
     private val listener: Listener?
-) : RecyclerView.Adapter<DragAdapter.PersonalViewHolder>(), OnTouchListener {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), OnTouchListener {
 
-    inner class PersonalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var dragIcon: RelativeLayout = itemView.findViewById(R.id.item)
-        var dragTitle: TextView = itemView.findViewById(R.id.title)
+    inner class PersonalViewHolder(private val binding: FavoritePersonalItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(favorite: Favorite) {
+            binding.title.text = favorite.title
+            binding.item.tag = adapterPosition // position
+            binding.item.setOnTouchListener(this@DragAdapter)
+            binding.item.setOnDragListener(DragListener(listener))
+        }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonalViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.favorite_personal_item, parent, false)
-        return PersonalViewHolder(view)
+    inner class AvailableViewHolder(private val binding: FavoriteAvailableItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(favorite: Favorite) {
+            binding.title.text = favorite.title
+            binding.item.tag = adapterPosition // position
+            binding.item.setOnTouchListener(this@DragAdapter)
+            binding.item.setOnDragListener(DragListener(listener))
+        }
     }
 
-    override fun onBindViewHolder(holder: PersonalViewHolder, position: Int) {
-        holder.dragIcon.tag = position
-        holder.dragIcon.setOnTouchListener(this)
-        holder.dragIcon.setOnDragListener(DragListener(listener))
-        holder.dragTitle.text = list[position].title
+    override fun getItemViewType(position: Int): Int {
+        return if (list[position].isPersonal)
+            PERSONAL_TYPE
+        else
+            AVAILABLE_TYPE
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (viewType == PERSONAL_TYPE) {
+            val binding = FavoritePersonalItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            PersonalViewHolder(binding)
+        } else {
+            val binding = FavoriteAvailableItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            AvailableViewHolder(binding)
+        }
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val favorite = list[position]
+
+        if (holder is PersonalViewHolder) {
+            holder.bind(favorite)
+        } else if (holder is AvailableViewHolder) {
+            holder.bind(favorite)
+        }
     }
 
     override fun getItemCount(): Int {

@@ -52,7 +52,7 @@ class DragFragment : DetailFragment(), Listener {
     override fun onActionSearch(searchString: String) {
     }
 
-    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+    override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         layoutBinding = DragLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this)
@@ -60,13 +60,13 @@ class DragFragment : DetailFragment(), Listener {
         binding?.presenter = darkModePresenter
         binding?.temp = model
 
-        setTopRecyclerView()
-        setBottomRecyclerView()
+        setPersonalRecyclerView()
+        setAvailableRecyclerView()
 
         return binding?.root
     }
 
-    private fun setTopRecyclerView() {
+    private fun setPersonalRecyclerView() {
 
         val topList: MutableList<Favorite> = arrayListOf(
             Favorite("A", true),
@@ -78,15 +78,15 @@ class DragFragment : DetailFragment(), Listener {
         )
 
         val topListAdapter = DragAdapter(topList, this)
-        binding?.topList?.setHasFixedSize(true)
-        binding?.topList?.layoutManager = GridLayoutManager(requireContext(), 4)
-        binding?.topList?.adapter = topListAdapter
+        binding?.topRecyclerview?.setHasFixedSize(true)
+        binding?.topRecyclerview?.layoutManager = GridLayoutManager(requireContext(), 4)
+        binding?.topRecyclerview?.adapter = topListAdapter
 
-        binding?.topListContainer?.setOnDragListener(topListAdapter.dragInstance)
-        binding?.topList?.setOnDragListener(topListAdapter.dragInstance)
+        binding?.topRecyclerviewContainer?.setOnDragListener(topListAdapter.dragInstance)
+        binding?.topRecyclerview?.setOnDragListener(topListAdapter.dragInstance)
     }
 
-    private fun setBottomRecyclerView() {
+    private fun setAvailableRecyclerView() {
 
         val bottomList: MutableList<Favorite> = arrayListOf(
             Favorite("1", false),
@@ -98,12 +98,12 @@ class DragFragment : DetailFragment(), Listener {
         )
 
         val bottomListAdapter = DragAdapter(bottomList, this)
-        binding?.bottomList?.setHasFixedSize(true)
-        binding?.bottomList?.layoutManager = GridLayoutManager(requireContext(), 4)
-        binding?.bottomList?.adapter = bottomListAdapter
+        binding?.bottomRecyclerview?.setHasFixedSize(true)
+        binding?.bottomRecyclerview?.layoutManager = GridLayoutManager(requireContext(), 4)
+        binding?.bottomRecyclerview?.adapter = bottomListAdapter
 
-        binding?.bottomListContainer?.setOnDragListener(bottomListAdapter.dragInstance)
-        binding?.bottomList?.setOnDragListener(bottomListAdapter.dragInstance)
+        binding?.bottomRecyclerviewContainer?.setOnDragListener(bottomListAdapter.dragInstance)
+        binding?.bottomRecyclerview?.setOnDragListener(bottomListAdapter.dragInstance)
     }
 
     override fun notifyTopListEmpty() {

@@ -17,36 +17,38 @@
         android:layout_height="match_parent">
 
         <RelativeLayout
-            android:id="@+id/top_list_container"
-            android:layout_width="wrap_content"
+            android:id="@+id/top_recyclerview_container"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintHeight_percent="0.5"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/bottom_list_container">
+            app:layout_constraintBottom_toTopOf="@+id/bottom_recyclerview_container">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/top_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:id="@+id/top_recyclerview"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true" />
 
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/bottom_list_container"
-            android:layout_width="wrap_content"
+            android:id="@+id/bottom_recyclerview_container"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintHeight_percent="0.5"
-            app:layout_constraintTop_toBottomOf="@+id/top_list_container"
+            app:layout_constraintTop_toBottomOf="@+id/top_recyclerview_container"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/bottom_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:id="@+id/bottom_recyclerview"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true" />
 
         </RelativeLayout>
 
