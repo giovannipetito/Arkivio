@@ -96,11 +96,11 @@ class DragListener(private val listener: Listener?) : OnDragListener {
 
                     // Notify listener when list is empty
                     if ((sourceId == bottomRecyclerview && sourceAdapter.itemCount < 1) || viewId == bottomRecyclerviewContainer) {
-                        listener?.notifyBottomListEmpty()
+                        listener?.notifyAvailableFavoritesEmpty()
                     }
 
                     if ((sourceId == topRecyclerview && sourceAdapter.itemCount < 1) || viewId == topRecyclerviewContainer) {
-                        listener?.notifyTopListEmpty()
+                        listener?.notifyPersonalFavoritesEmpty()
                     }
                 }
             }
