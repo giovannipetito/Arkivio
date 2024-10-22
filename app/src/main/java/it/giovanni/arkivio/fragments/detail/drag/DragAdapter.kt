@@ -9,10 +9,7 @@ import android.view.View
 import android.view.View.DragShadowBuilder
 import android.view.View.OnTouchListener
 import android.view.ViewGroup
-import android.widget.RelativeLayout
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.FavoriteAvailableItemBinding
 import it.giovanni.arkivio.databinding.FavoritePersonalItemBinding
 import it.giovanni.arkivio.fragments.detail.dragdrop.Favorite

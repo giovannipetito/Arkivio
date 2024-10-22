@@ -1,6 +1,5 @@
 package it.giovanni.arkivio.fragments.detail.drag
 
-import android.util.Log
 import android.view.DragEvent
 import android.view.View
 import android.view.View.OnDragListener
@@ -13,30 +12,6 @@ class DragListener(private val listener: Listener?) : OnDragListener {
     private var isDropped: Boolean = false
 
     override fun onDrag(view: View, event: DragEvent): Boolean {
-
-        if (event.action == DragEvent.ACTION_DRAG_STARTED) {
-            Log.i("[DRAGDROP]", "ACTION_DRAG_STARTED")
-        }
-
-        if (event.action == DragEvent.ACTION_DRAG_ENTERED) {
-            Log.i("[DRAGDROP]", "ACTION_DRAG_ENTERED")
-        }
-
-        if (event.action == DragEvent.ACTION_DRAG_LOCATION) {
-            // Log.i("[DRAGDROP]", "ACTION_DRAG_LOCATION")
-        }
-
-        if (event.action == DragEvent.ACTION_DROP) {
-            Log.i("[DRAGDROP]", "ACTION_DROP")
-        }
-
-        if (event.action == DragEvent.ACTION_DRAG_ENDED) {
-            Log.i("[DRAGDROP]", "ACTION_DRAG_ENDED")
-        }
-
-        if (event.action == DragEvent.ACTION_DRAG_EXITED) {
-            Log.i("[DRAGDROP]", "ACTION_DRAG_EXITED")
-        }
 
         if (event.action == DragEvent.ACTION_DROP) {
 
@@ -82,19 +57,44 @@ class DragListener(private val listener: Listener?) : OnDragListener {
                     val sourceList: MutableList<Favorite> = sourceAdapter.list
                     val targetList: MutableList<Favorite> = targetAdapter.list
 
-                    sourceList.removeAt(positionSource)
-                    sourceAdapter.updateList(sourceList)
-                    sourceAdapter.notifyDataSetChanged()
+                    // Check if the item is being moved within the same list
+                    if (sourceId == target.id) {
+                        // Same list, no need to update the isPersonal flag
+                        sourceList.removeAt(positionSource)
+                        sourceAdapter.updateList(sourceList)
+                        sourceAdapter.notifyDataSetChanged()
 
-                    if (positionTarget >= 0) {
-                        targetList.add(positionTarget, favorite)
+                        if (positionTarget >= 0) {
+                            targetList.add(positionTarget, favorite)
+                        } else {
+                            targetList.add(favorite)
+                        }
+
+                        targetAdapter.updateList(targetList)
+                        targetAdapter.notifyDataSetChanged()
                     } else {
-                        targetList.add(favorite)
+                        // Item is being moved to a different list, update the isPersonal flag
+                        if (sourceId == topRecyclerview) {
+                            favorite.isPersonal = false // Item moving to bottom list
+                        } else if (sourceId == bottomRecyclerview) {
+                            favorite.isPersonal = true // Item moving to top list
+                        }
+
+                        sourceList.removeAt(positionSource)
+                        sourceAdapter.updateList(sourceList)
+                        sourceAdapter.notifyDataSetChanged()
+
+                        if (positionTarget >= 0) {
+                            targetList.add(positionTarget, favorite)
+                        } else {
+                            targetList.add(favorite)
+                        }
+
+                        targetAdapter.updateList(targetList)
+                        targetAdapter.notifyDataSetChanged()
                     }
 
-                    targetAdapter.updateList(targetList)
-                    targetAdapter.notifyDataSetChanged()
-
+                    // Notify listener when list is empty
                     if ((sourceId == bottomRecyclerview && sourceAdapter.itemCount < 1) || viewId == bottomRecyclerviewContainer) {
                         listener?.notifyBottomListEmpty()
                     }
@@ -105,12 +105,6 @@ class DragListener(private val listener: Listener?) : OnDragListener {
                 }
             }
         }
-
-        /*
-        if (!isDropped && event.localState != null) {
-            (event.localState as View).visibility = View.VISIBLE
-        }
-        */
 
         return true
     }
