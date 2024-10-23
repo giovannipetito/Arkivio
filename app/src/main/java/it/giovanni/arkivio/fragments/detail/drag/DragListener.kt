@@ -5,7 +5,7 @@ import android.view.View
 import android.view.View.OnDragListener
 import androidx.recyclerview.widget.RecyclerView
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.fragments.detail.dragdrop.Favorite
+import it.giovanni.arkivio.model.favorite.Available
 
 class DragListener(private val listener: Listener?) : OnDragListener {
 
@@ -53,44 +53,44 @@ class DragListener(private val listener: Listener?) : OnDragListener {
                 val targetAdapter = target.adapter as DragAdapter?
 
                 if (sourceAdapter != null && targetAdapter != null) {
-                    val favorite: Favorite = sourceAdapter.list[positionSource]
-                    val sourceList: MutableList<Favorite> = sourceAdapter.list
-                    val targetList: MutableList<Favorite> = targetAdapter.list
+                    val available: Available = sourceAdapter.availables[positionSource]
+                    val sourceList: MutableList<Available> = sourceAdapter.availables
+                    val targetList: MutableList<Available> = targetAdapter.availables
 
                     // Check if the item is being moved within the same list
                     if (sourceId == target.id) {
                         // Same list, no need to update the isPersonal flag
                         sourceList.removeAt(positionSource)
-                        sourceAdapter.updateList(sourceList)
+                        sourceAdapter.updateAvailableFavorites(sourceList)
                         sourceAdapter.notifyDataSetChanged()
 
                         if (positionTarget >= 0) {
-                            targetList.add(positionTarget, favorite)
+                            targetList.add(positionTarget, available)
                         } else {
-                            targetList.add(favorite)
+                            targetList.add(available)
                         }
 
-                        targetAdapter.updateList(targetList)
+                        targetAdapter.updateAvailableFavorites(targetList)
                         targetAdapter.notifyDataSetChanged()
                     } else {
                         // Item is being moved to a different list, update the isPersonal flag
                         if (sourceId == topRecyclerview) {
-                            favorite.isPersonal = false // Item moving to bottom list
+                            // available.isPersonal = false // Item moving to bottom list
                         } else if (sourceId == bottomRecyclerview) {
-                            favorite.isPersonal = true // Item moving to top list
+                            // available.isPersonal = true // Item moving to top list
                         }
 
                         sourceList.removeAt(positionSource)
-                        sourceAdapter.updateList(sourceList)
+                        sourceAdapter.updateAvailableFavorites(sourceList)
                         sourceAdapter.notifyDataSetChanged()
 
                         if (positionTarget >= 0) {
-                            targetList.add(positionTarget, favorite)
+                            targetList.add(positionTarget, available)
                         } else {
-                            targetList.add(favorite)
+                            targetList.add(available)
                         }
 
-                        targetAdapter.updateList(targetList)
+                        targetAdapter.updateAvailableFavorites(targetList)
                         targetAdapter.notifyDataSetChanged()
                     }
 

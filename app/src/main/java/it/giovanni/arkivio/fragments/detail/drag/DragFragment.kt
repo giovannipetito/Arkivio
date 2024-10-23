@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.DragLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
-import it.giovanni.arkivio.fragments.detail.dragdrop.Favorite
 import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.model.favorite.FavoriteUtils
 import it.giovanni.arkivio.presenter.DarkModePresenter
 
 class DragFragment : DetailFragment(), Listener {
@@ -70,39 +71,57 @@ class DragFragment : DetailFragment(), Listener {
     }
 
     private fun setPersonalRecyclerView() {
-
         viewModel.personalFavorites.observe(viewLifecycleOwner) { personalFavorites ->
-            val topListAdapter = DragAdapter(personalFavorites.toMutableList(), this)
+            val personalFavoritesAdapter = DragAdapter(
+                personalFavorites.toMutableList(),
+                FavoriteUtils.getEmptyAvailableFavorites().toMutableList(),
+                this
+            )
             binding?.topRecyclerview?.apply {
                 setHasFixedSize(true)
                 layoutManager = GridLayoutManager(requireContext(), 4)
-                adapter = topListAdapter
-                setOnDragListener(topListAdapter.dragInstance)
+                adapter = personalFavoritesAdapter
+                setOnDragListener(personalFavoritesAdapter.dragInstance)
             }
-            binding?.topRecyclerviewContainer?.setOnDragListener(topListAdapter.dragInstance)
+            binding?.topRecyclerviewContainer?.setOnDragListener(personalFavoritesAdapter.dragInstance)
         }
     }
 
     private fun setAvailableRecyclerView() {
-
         viewModel.availableFavorites.observe(viewLifecycleOwner) { availableFavorites ->
-            val bottomListAdapter = DragAdapter(availableFavorites.toMutableList(), this)
+            val availableFavoritesAdapter = DragAdapter(
+                FavoriteUtils.getEmptyPersonalFavorites().toMutableList(),
+                availableFavorites.toMutableList(),
+                this
+            )
             binding?.bottomRecyclerview?.apply {
                 setHasFixedSize(true)
-                layoutManager = GridLayoutManager(requireContext(), 5)
-                adapter = bottomListAdapter
-                setOnDragListener(bottomListAdapter.dragInstance)
+
+                val gridLayoutManager = GridLayoutManager(requireContext(), 5)
+                gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                    override fun getSpanSize(position: Int): Int {
+                        return when (availableFavoritesAdapter.getItemViewType(position)) {
+                            DragAdapter.HEADER_TYPE -> gridLayoutManager.spanCount // Span all columns for headers
+                            else -> 1 // Normal items take 1 span
+                        }
+                    }
+                }
+
+                layoutManager = gridLayoutManager
+
+                adapter = availableFavoritesAdapter
+                setOnDragListener(availableFavoritesAdapter.dragInstance)
             }
-            binding?.bottomRecyclerviewContainer?.setOnDragListener(bottomListAdapter.dragInstance)
+            binding?.bottomRecyclerviewContainer?.setOnDragListener(availableFavoritesAdapter.dragInstance)
         }
     }
 
     override fun notifyPersonalFavoritesEmpty() {
-        Toast.makeText(requireContext(), "Top list is empty.", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "Personal favorites list is empty.", Toast.LENGTH_SHORT).show()
     }
 
     override fun notifyAvailableFavoritesEmpty() {
-        Toast.makeText(requireContext(), "Bottom list is empty.", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "Available favorites list is empty.", Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {
