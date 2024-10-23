@@ -2,7 +2,6 @@ package it.giovanni.arkivio.model.favorite
 
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import it.giovanni.arkivio.R
 
@@ -32,12 +31,25 @@ object FavoriteUtils {
         }
     }
 
-    fun getEmptyPersonalFavorites(): List<Personal> {
-        return emptyList()
-    }
+    fun convertAvailableToPersonal(availableList: List<Available>): List<Personal> {
+        val personalList = mutableListOf<Personal>()
 
-    fun getEmptyAvailableFavorites(): List<Available> {
-        return emptyList()
+        for (available in availableList) {
+            for (child in available.children) {
+                val personal = Personal(
+                    domain = child.domain,
+                    identifier = child.identifier,
+                    kind = child.kind,
+                    title = child.title,
+                    contentPath = child.contentPath,
+                    images = child.images,
+                    availableTitle = available.title
+                )
+                personalList.add(personal)
+            }
+        }
+
+        return personalList
     }
 
     fun getPersonalFavorites(): List<Personal> {

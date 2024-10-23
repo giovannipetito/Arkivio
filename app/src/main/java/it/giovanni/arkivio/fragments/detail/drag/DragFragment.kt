@@ -72,25 +72,23 @@ class DragFragment : DetailFragment(), Listener {
 
     private fun setPersonalRecyclerView() {
         viewModel.personalFavorites.observe(viewLifecycleOwner) { personalFavorites ->
-            val personalFavoritesAdapter = DragAdapter(
+            val dragAdapter = DragTopAdapter(
                 personalFavorites.toMutableList(),
-                FavoriteUtils.getEmptyAvailableFavorites().toMutableList(),
                 this
             )
             binding?.topRecyclerview?.apply {
                 setHasFixedSize(true)
                 layoutManager = GridLayoutManager(requireContext(), 4)
-                adapter = personalFavoritesAdapter
-                setOnDragListener(personalFavoritesAdapter.dragInstance)
+                adapter = dragAdapter
+                setOnDragListener(dragAdapter.dragInstance)
             }
-            binding?.topRecyclerviewContainer?.setOnDragListener(personalFavoritesAdapter.dragInstance)
+            binding?.topRecyclerviewContainer?.setOnDragListener(dragAdapter.dragInstance)
         }
     }
 
     private fun setAvailableRecyclerView() {
         viewModel.availableFavorites.observe(viewLifecycleOwner) { availableFavorites ->
-            val availableFavoritesAdapter = DragAdapter(
-                FavoriteUtils.getEmptyPersonalFavorites().toMutableList(),
+            val dragAdapter = DragAdapter(
                 availableFavorites.toMutableList(),
                 this
             )
@@ -100,8 +98,8 @@ class DragFragment : DetailFragment(), Listener {
                 val gridLayoutManager = GridLayoutManager(requireContext(), 5)
                 gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                     override fun getSpanSize(position: Int): Int {
-                        return when (availableFavoritesAdapter.getItemViewType(position)) {
-                            DragAdapter.HEADER_TYPE -> gridLayoutManager.spanCount // Span all columns for headers
+                        return when (dragAdapter.getItemViewType(position)) {
+                            DragAdapter.VIEW_TYPE_HEADER -> gridLayoutManager.spanCount // Span all columns for headers
                             else -> 1 // Normal items take 1 span
                         }
                     }
@@ -109,10 +107,10 @@ class DragFragment : DetailFragment(), Listener {
 
                 layoutManager = gridLayoutManager
 
-                adapter = availableFavoritesAdapter
-                setOnDragListener(availableFavoritesAdapter.dragInstance)
+                adapter = dragAdapter
+                setOnDragListener(dragAdapter.dragInstance)
             }
-            binding?.bottomRecyclerviewContainer?.setOnDragListener(availableFavoritesAdapter.dragInstance)
+            binding?.bottomRecyclerviewContainer?.setOnDragListener(dragAdapter.dragInstance)
         }
     }
 

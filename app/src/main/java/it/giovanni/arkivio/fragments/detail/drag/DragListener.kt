@@ -6,6 +6,7 @@ import android.view.View.OnDragListener
 import androidx.recyclerview.widget.RecyclerView
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.model.favorite.Available
+import it.giovanni.arkivio.model.favorite.Personal
 
 class DragListener(private val listener: Listener?) : OnDragListener {
 
@@ -52,10 +53,11 @@ class DragListener(private val listener: Listener?) : OnDragListener {
                 val sourceAdapter = source.adapter as DragAdapter?
                 val targetAdapter = target.adapter as DragAdapter?
 
+                /*
                 if (sourceAdapter != null && targetAdapter != null) {
-                    val available: Available = sourceAdapter.availables[positionSource]
-                    val sourceList: MutableList<Available> = sourceAdapter.availables
-                    val targetList: MutableList<Available> = targetAdapter.availables
+                    val available: Personal = sourceAdapter.availables[positionSource]
+                    val sourceList: MutableList<Personal> = sourceAdapter.availables
+                    val targetList: MutableList<Personal> = targetAdapter.availables
 
                     // Check if the item is being moved within the same list
                     if (sourceId == target.id) {
@@ -103,6 +105,7 @@ class DragListener(private val listener: Listener?) : OnDragListener {
                         listener?.notifyPersonalFavoritesEmpty()
                     }
                 }
+                */
             }
         }
 

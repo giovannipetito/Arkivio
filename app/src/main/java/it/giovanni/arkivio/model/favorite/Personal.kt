@@ -6,5 +6,6 @@ data class Personal(
     val kind: String,
     val title: String,
     val contentPath: String,
-    val images: List<Image>
+    val images: List<Image>,
+    val availableTitle: String? = null
 )
