@@ -19,7 +19,7 @@ class DragAdapter(
     private val listener: Listener?
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var isEditMode = false // Flag to track if edit mode is enabled
+    private var isEditMode = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -59,10 +59,8 @@ class DragAdapter(
 
     override fun getItemViewType(position: Int): Int {
         if (isPersonalList) {
-            // If it's the personals list, there are no headers
             return VIEW_TYPE_PERSONAL
         } else {
-            // For available items, check if the current item is a header
             if (position == 0 || favorites[position].availableTitle != favorites[position - 1].availableTitle) {
                 return VIEW_TYPE_HEADER
             }
@@ -91,10 +89,9 @@ class DragAdapter(
             FavoriteUtils.setImageByContentPath(binding.personalImage, personal.images?.get(0)?.contentPath)
             binding.item.tag = adapterPosition
 
-            // Check if it's the "edit" item
-            if (personal.identifier == "edit") {
+            if (personal.identifier == EDIT_IDENTIFIER) {
                 binding.item.setOnClickListener {
-                    // Remove the edit item and enable edit mode
+                    // Remove the edit item and enable edit mode.
                     val newFavorites = favorites.toMutableList().apply {
                         removeAt(adapterPosition)
                     }
@@ -103,11 +100,11 @@ class DragAdapter(
                     notifyDataSetChanged()
                 }
             } else {
-                // For all other items, toggle border based on isEditMode flag
+                // For all other items, toggle border based on isEditMode flag.
                 if (isEditMode) {
-                    binding.itemBorder.visibility = View.VISIBLE // Show the border
-                    // binding.item.setOnTouchListener(this@DragAdapter) // Enable touch listener
+                    binding.itemBorder.visibility = View.VISIBLE
 
+                    // Enable the long click listener.
                     binding.root.setOnLongClickListener { view ->
                         val data = ClipData.newPlainText("", "")
                         val shadowBuilder = DragShadowBuilder(view)
@@ -120,8 +117,8 @@ class DragAdapter(
                     }
                     binding.item.setOnDragListener(DragListener(listener))
                 } else {
-                    binding.itemBorder.visibility = View.GONE // Hide the border
-                    // binding.item.setOnTouchListener(null) // Disable touch listener
+                    // Consider to disable the long click listener.
+                    binding.itemBorder.visibility = View.GONE
                 }
             }
         }
@@ -133,7 +130,6 @@ class DragAdapter(
             FavoriteUtils.setImageByContentPath(binding.availableImage, personal.images?.get(0)?.contentPath)
             binding.item.tag = adapterPosition
 
-            // binding.item.setOnTouchListener(this@DragAdapter)
             binding.root.setOnLongClickListener { view ->
                 val data = ClipData.newPlainText("", "")
                 val shadowBuilder = DragShadowBuilder(view)
@@ -158,5 +154,7 @@ class DragAdapter(
         const val VIEW_TYPE_PERSONAL = 0
         const val VIEW_TYPE_AVAILABLE = 1
         const val VIEW_TYPE_HEADER = 2
+
+        const val EDIT_IDENTIFIER = "edit"
     }
 }

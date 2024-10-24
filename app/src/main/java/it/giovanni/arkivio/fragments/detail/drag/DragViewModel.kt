@@ -3,6 +3,7 @@ package it.giovanni.arkivio.fragments.detail.drag
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import it.giovanni.arkivio.fragments.detail.drag.DragAdapter.Companion.EDIT_IDENTIFIER
 import it.giovanni.arkivio.model.favorite.FavoriteUtils
 import it.giovanni.arkivio.model.favorite.Personal
 
@@ -24,7 +25,7 @@ class DragViewModel : ViewModel() {
 
         val editItem = Personal()
         editItem.title = "Edit"
-        editItem.identifier = "edit"
+        editItem.identifier = EDIT_IDENTIFIER
 
         uiPersonalFavorites.add(editItem)
 
