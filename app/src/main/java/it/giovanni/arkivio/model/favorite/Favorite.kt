@@ -1,6 +1,6 @@
 package it.giovanni.arkivio.model.favorite
 
-data class Personal(
+data class Favorite(
     var domain: String? = null,
     var identifier: String? = null,
     var kind: String? = null,

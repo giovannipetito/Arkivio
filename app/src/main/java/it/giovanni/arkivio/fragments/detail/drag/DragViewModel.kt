@@ -5,38 +5,38 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import it.giovanni.arkivio.fragments.detail.drag.DragAdapter.Companion.EDIT_IDENTIFIER
 import it.giovanni.arkivio.model.favorite.FavoriteUtils
-import it.giovanni.arkivio.model.favorite.Personal
+import it.giovanni.arkivio.model.favorite.Favorite
 
 class DragViewModel : ViewModel() {
 
-    private val _personalFavorites = MutableLiveData<List<Personal>>()
-    val personalFavorites: LiveData<List<Personal>> get() = _personalFavorites
+    private val _favorites = MutableLiveData<List<Favorite>>()
+    val favorites: LiveData<List<Favorite>> get() = _favorites
 
-    private val _availableFavorites = MutableLiveData<List<Personal>>()
-    val availableFavorites: LiveData<List<Personal>> get() = _availableFavorites
+    private val _availables = MutableLiveData<List<Favorite>>()
+    val availables: LiveData<List<Favorite>> get() = _availables
 
     init {
-        val responsePersonalFavorites: MutableList<Personal> = FavoriteUtils.getPersonalFavorites()
-        val uiPersonalFavorites: MutableList<Personal> =
-            if (responsePersonalFavorites.size > 7)
-                responsePersonalFavorites.take(7).toMutableList()
+        val responseFavorites: MutableList<Favorite> = FavoriteUtils.getFavorites()
+        val editableFavorites: MutableList<Favorite> =
+            if (responseFavorites.size > 7)
+                responseFavorites.take(7).toMutableList()
             else
-                responsePersonalFavorites
+                responseFavorites
 
-        val editItem = Personal()
+        val editItem = Favorite()
         editItem.title = "Edit"
         editItem.identifier = EDIT_IDENTIFIER
 
-        uiPersonalFavorites.add(editItem)
+        editableFavorites.add(editItem)
 
-        val responseAvailableFavorites: MutableList<Personal> = FavoriteUtils.convertAvailableToPersonal(FavoriteUtils.getAvailableFavorites())
+        val responseAvailables: MutableList<Favorite> = FavoriteUtils.convertAvailableToFavorite(FavoriteUtils.getAvailables())
 
-        val uiAvailableFavorites: MutableList<Personal> = responseAvailableFavorites.filter { availableItem ->
-            uiPersonalFavorites.none { personalItem -> personalItem.identifier == availableItem.identifier }
+        val filteredAvailables: MutableList<Favorite> = responseAvailables.filter { available ->
+            editableFavorites.none { favorite -> favorite.identifier == available.identifier }
         }.toMutableList()
 
-        _personalFavorites.value = uiPersonalFavorites
+        _favorites.value = editableFavorites
 
-        _availableFavorites.value = uiAvailableFavorites
+        _availables.value = filteredAvailables
     }
 }

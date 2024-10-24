@@ -62,37 +62,37 @@ class DragFragment : DetailFragment(), Listener {
         binding?.presenter = darkModePresenter
         binding?.temp = model
 
-        setPersonalRecyclerView()
+        setFavoriteRecyclerView()
         setAvailableRecyclerView()
 
         return binding?.root
     }
 
-    private fun setPersonalRecyclerView() {
-        viewModel.personalFavorites.observe(viewLifecycleOwner) { personalFavorites ->
+    private fun setFavoriteRecyclerView() {
+        viewModel.favorites.observe(viewLifecycleOwner) { favorites ->
             val dragAdapter = DragAdapter(
                 true,
-                personalFavorites.toMutableList(),
+                favorites.toMutableList(),
                 this
             )
-            binding?.topRecyclerview?.apply {
+            binding?.favoritesRecyclerview?.apply {
                 // setHasFixedSize(true)
                 layoutManager = GridLayoutManager(requireContext(), 4)
                 adapter = dragAdapter
                 setOnDragListener(dragAdapter.dragInstance)
             }
-            binding?.topRecyclerviewContainer?.setOnDragListener(dragAdapter.dragInstance)
+            binding?.favoritesContainer?.setOnDragListener(dragAdapter.dragInstance)
         }
     }
 
     private fun setAvailableRecyclerView() {
-        viewModel.availableFavorites.observe(viewLifecycleOwner) { availableFavorites ->
+        viewModel.availables.observe(viewLifecycleOwner) { availables ->
             val dragAdapter = DragAdapter(
                 false,
-                availableFavorites.toMutableList(),
+                availables.toMutableList(),
                 this
             )
-            binding?.bottomRecyclerview?.apply {
+            binding?.availablesRecyclerview?.apply {
                 // setHasFixedSize(true)
                 val gridLayoutManager = GridLayoutManager(requireContext(), 5)
                 gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
@@ -109,16 +109,16 @@ class DragFragment : DetailFragment(), Listener {
                 adapter = dragAdapter
                 setOnDragListener(dragAdapter.dragInstance)
             }
-            binding?.bottomRecyclerviewContainer?.setOnDragListener(dragAdapter.dragInstance)
+            binding?.availablesContainer?.setOnDragListener(dragAdapter.dragInstance)
         }
     }
 
-    override fun notifyPersonalFavoritesEmpty() {
-        Toast.makeText(requireContext(), "Personal favorites list is empty.", Toast.LENGTH_SHORT).show()
+    override fun notifyEmptyFavorites() {
+        Toast.makeText(requireContext(), "Favorite list is empty.", Toast.LENGTH_SHORT).show()
     }
 
-    override fun notifyAvailableFavoritesEmpty() {
-        Toast.makeText(requireContext(), "Available favorites list is empty.", Toast.LENGTH_SHORT).show()
+    override fun notifyEmptyAvailables() {
+        Toast.makeText(requireContext(), "Available list is empty.", Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {

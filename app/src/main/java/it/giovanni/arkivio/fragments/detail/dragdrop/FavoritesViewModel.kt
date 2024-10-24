@@ -7,33 +7,33 @@ import java.util.Collections
 
 class FavoritesViewModel : ViewModel() {
 
-    private val _personalFavorites: MutableLiveData<List<Favorite?>> = MutableLiveData()
-    val personalFavorites: LiveData<List<Favorite?>> = _personalFavorites
+    private val _personalFavorites: MutableLiveData<List<OldFavorite?>> = MutableLiveData()
+    val personalFavorites: LiveData<List<OldFavorite?>> = _personalFavorites
 
-    private val _availableFavorites: MutableLiveData<List<Favorite?>> = MutableLiveData()
-    val availableFavorites: LiveData<List<Favorite?>> = _availableFavorites
+    private val _availableFavorites: MutableLiveData<List<OldFavorite?>> = MutableLiveData()
+    val availableFavorites: LiveData<List<OldFavorite?>> = _availableFavorites
 
-    private var remotePersonalFavorites: MutableList<Favorite?> = arrayListOf(
-        Favorite("1", "", true),
-        Favorite("2", "", true),
-        Favorite("3", "", true),
-        Favorite("4", "", true),
-        Favorite("5", "", true),
+    private var remotePersonalFavorites: MutableList<OldFavorite?> = arrayListOf(
+        OldFavorite("1", "", true),
+        OldFavorite("2", "", true),
+        OldFavorite("3", "", true),
+        OldFavorite("4", "", true),
+        OldFavorite("5", "", true),
         null,
         null
     )
 
-    private val remoteAvailableFavorites: MutableList<Favorite> = arrayListOf(
-        Favorite("A", "", false),
-        Favorite("B", "", false),
-        Favorite("C", "", false),
-        Favorite("D", "", false),
-        Favorite("E", "", false),
-        Favorite("F", "", false),
-        Favorite("G", "", false),
-        Favorite("H", "", false),
-        Favorite("I", "", false),
-        Favorite("J", "", false)
+    private val remoteAvailableFavorites: MutableList<OldFavorite> = arrayListOf(
+        OldFavorite("A", "", false),
+        OldFavorite("B", "", false),
+        OldFavorite("C", "", false),
+        OldFavorite("D", "", false),
+        OldFavorite("E", "", false),
+        OldFavorite("F", "", false),
+        OldFavorite("G", "", false),
+        OldFavorite("H", "", false),
+        OldFavorite("I", "", false),
+        OldFavorite("J", "", false)
     )
 
     init {
@@ -41,10 +41,10 @@ class FavoritesViewModel : ViewModel() {
         _availableFavorites.value = remoteAvailableFavorites
     }
 
-    fun onSet(targetIndex: Int, sourceIndex: Int, targetItem: Favorite) {
+    fun onSet(targetIndex: Int, sourceIndex: Int, targetItem: OldFavorite) {
 
-        val tempPersonalFavorites: MutableList<Favorite?>? = _personalFavorites.value?.toMutableList()
-        val tempAvailableFavorites: MutableList<Favorite?>? = _availableFavorites.value?.toMutableList()
+        val tempPersonalFavorites: MutableList<OldFavorite?>? = _personalFavorites.value?.toMutableList()
+        val tempAvailableFavorites: MutableList<OldFavorite?>? = _availableFavorites.value?.toMutableList()
 
         if (targetItem.isPersonal) {
             val favorite = tempAvailableFavorites?.get(sourceIndex)?.copy(isPersonal = true)
@@ -70,11 +70,11 @@ class FavoritesViewModel : ViewModel() {
         _personalFavorites.value = tempPersonalFavorites?.toList()
     }
 
-    fun onRemove(item: Favorite) {
+    fun onRemove(item: OldFavorite) {
         if (item.isPersonal) {
             _personalFavorites.value?.let { personalFavorites ->
-                val tempPersonalFavorites: MutableList<Favorite?> = personalFavorites.toMutableList()
-                val tempAvailableFavorites: MutableList<Favorite?>? = _availableFavorites.value?.toMutableList()
+                val tempPersonalFavorites: MutableList<OldFavorite?> = personalFavorites.toMutableList()
+                val tempAvailableFavorites: MutableList<OldFavorite?>? = _availableFavorites.value?.toMutableList()
                 for (i in tempPersonalFavorites.indices) {
                     if (tempPersonalFavorites[i] == item) {
                         tempPersonalFavorites[i] = null
@@ -87,8 +87,8 @@ class FavoritesViewModel : ViewModel() {
             }
         } else {
             _availableFavorites.value?.let { availableFavorites ->
-                val tempPersonalFavorites: MutableList<Favorite?>? = _personalFavorites.value?.toMutableList()
-                val tempAvailableFavorites: MutableList<Favorite?> = availableFavorites.toMutableList()
+                val tempPersonalFavorites: MutableList<OldFavorite?>? = _personalFavorites.value?.toMutableList()
+                val tempAvailableFavorites: MutableList<OldFavorite?> = availableFavorites.toMutableList()
                 tempAvailableFavorites.remove(item)
                 _availableFavorites.value = tempAvailableFavorites.toList()
                 for (i in tempPersonalFavorites?.indices!!) {
@@ -103,11 +103,11 @@ class FavoritesViewModel : ViewModel() {
         }
     }
 
-    fun onAdd(favorite: Favorite) {
+    fun onAdd(favorite: OldFavorite) {
         if (!favorite.isPersonal) {
             _personalFavorites.value?.let { personalFavorites ->
-                val tempPersonalFavorites: MutableList<Favorite?> = personalFavorites.toMutableList()
-                val tempAvailableFavorites: MutableList<Favorite?>? = _availableFavorites.value?.toMutableList()
+                val tempPersonalFavorites: MutableList<OldFavorite?> = personalFavorites.toMutableList()
+                val tempAvailableFavorites: MutableList<OldFavorite?>? = _availableFavorites.value?.toMutableList()
 
                 // if (tempPersonalFavorites.filterNotNull().size < TOP_DATA_MAX_SIZE) {
                     for (i in tempPersonalFavorites.indices) {
@@ -123,8 +123,8 @@ class FavoritesViewModel : ViewModel() {
             }
         } else {
             _availableFavorites.value?.let { availableFavorites ->
-                val tempPersonalFavorites: MutableList<Favorite?>? = _personalFavorites.value?.toMutableList()
-                val tempAvailableFavorites: MutableList<Favorite?> = availableFavorites.toMutableList()
+                val tempPersonalFavorites: MutableList<OldFavorite?>? = _personalFavorites.value?.toMutableList()
+                val tempAvailableFavorites: MutableList<OldFavorite?> = availableFavorites.toMutableList()
 
                 tempAvailableFavorites.add(favorite.copy(isPersonal = false))
                 _availableFavorites.value = tempAvailableFavorites.toList()
@@ -139,13 +139,13 @@ class FavoritesViewModel : ViewModel() {
     fun onSwap(isPersonal: Boolean, from: Int, to: Int) {
         if (isPersonal) {
             _personalFavorites.value?.let { personalFavorites ->
-                val tempPersonalFavorites: MutableList<Favorite?> = personalFavorites.toMutableList()
+                val tempPersonalFavorites: MutableList<OldFavorite?> = personalFavorites.toMutableList()
                 Collections.swap(tempPersonalFavorites, from, to)
                 _personalFavorites.value = tempPersonalFavorites.toList()
             }
         } else {
             _availableFavorites.value?.let { availableFavorites ->
-                val tempAvailableFavorites: MutableList<Favorite?> = availableFavorites.toMutableList()
+                val tempAvailableFavorites: MutableList<OldFavorite?> = availableFavorites.toMutableList()
                 Collections.swap(tempAvailableFavorites, from, to)
                 _availableFavorites.value = tempAvailableFavorites.toList()
             }

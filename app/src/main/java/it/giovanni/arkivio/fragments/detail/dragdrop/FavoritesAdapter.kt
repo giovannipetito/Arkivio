@@ -8,37 +8,37 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import it.giovanni.arkivio.databinding.FavoriteAvailableItemBinding
 import it.giovanni.arkivio.databinding.FavoriteEmptyItemBinding
-import it.giovanni.arkivio.databinding.FavoritePersonalItemBinding
+import it.giovanni.arkivio.databinding.FavoriteItemBinding
 
 class FavoritesAdapter(
     override val isSwappable: Boolean,
     private val onAdapterListener: OnAdapterListener
-) : DragDropAdapter<Favorite, RecyclerView.ViewHolder>(diffUtil) {
+) : DragDropAdapter<OldFavorite, RecyclerView.ViewHolder>(diffUtil) {
 
-    inner class PersonalViewHolder(private val binding: FavoritePersonalItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(favorite: Favorite) {
-            binding.title.text = favorite.title
+    inner class PersonalViewHolder(private val binding: FavoriteItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(favorite: OldFavorite) {
+            binding.favoriteTitle.text = favorite.title
             binding.root.setOnLongClickListener { view ->
                 val data = ClipData.newPlainText("", "")
                 val shadowBuilder = View.DragShadowBuilder(view)
                 view?.startDragAndDrop(data, shadowBuilder, view, 0)
                 false
             }
-            binding.item.setOnDragListener(dragListener)
+            binding.favoriteItem.setOnDragListener(dragListener)
         }
     }
 
     inner class AvailableViewHolder(private val binding: FavoriteAvailableItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(favorite: Favorite) {
-            binding.title.text = favorite.title
+        fun bind(favorite: OldFavorite) {
+            binding.availableTitle.text = favorite.title
             binding.root.setOnLongClickListener { view ->
                 val data = ClipData.newPlainText("", "")
                 val shadowBuilder = View.DragShadowBuilder(view)
                 view?.startDragAndDrop(data, shadowBuilder, view, 0)
                 false
             }
-            binding.item.setOnDragListener(dragListener)
+            binding.availableItem.setOnDragListener(dragListener)
         }
     }
 
@@ -65,7 +65,7 @@ class FavoritesAdapter(
             }
             PERSONAL_TYPE -> {
                 PersonalViewHolder(
-                    FavoritePersonalItemBinding.inflate(
+                    FavoriteItemBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
                         false
@@ -105,9 +105,9 @@ class FavoritesAdapter(
     }
 
     interface OnAdapterListener {
-        fun onAdd(favorite: Favorite)
-        fun onRemove(favorite: Favorite)
-        fun onSet(targetIndex: Int, sourceIndex: Int, favorite: Favorite)
+        fun onAdd(favorite: OldFavorite)
+        fun onRemove(favorite: OldFavorite)
+        fun onSet(targetIndex: Int, sourceIndex: Int, favorite: OldFavorite)
         fun onSwap(isPersonal: Boolean, from: Int, to: Int)
     }
 
@@ -117,22 +117,22 @@ class FavoritesAdapter(
         private const val PERSONAL_TYPE = 1
         private const val AVAILABLE_TYPE = 2
 
-        val diffUtil = object : DiffUtil.ItemCallback<Favorite>() {
-            override fun areItemsTheSame(oldItem: Favorite, newItem: Favorite): Boolean {
+        val diffUtil = object : DiffUtil.ItemCallback<OldFavorite>() {
+            override fun areItemsTheSame(oldItem: OldFavorite, newItem: OldFavorite): Boolean {
                 return oldItem.title == newItem.title
             }
 
-            override fun areContentsTheSame(oldItem: Favorite, newItem: Favorite): Boolean {
+            override fun areContentsTheSame(oldItem: OldFavorite, newItem: OldFavorite): Boolean {
                 return oldItem == newItem
             }
         }
     }
 
-    override fun onAdd(item: Favorite) {
+    override fun onAdd(item: OldFavorite) {
         onAdapterListener.onAdd(item)
     }
 
-    override fun onRemove(item: Favorite) {
+    override fun onRemove(item: OldFavorite) {
         onAdapterListener.onRemove(item)
     }
 
@@ -148,7 +148,7 @@ class FavoritesAdapter(
     override fun onSet(
         targetIndex: Int,
         sourceIndex: Int,
-        targetItem: Favorite,
+        targetItem: OldFavorite,
     ) {
         onAdapterListener.onSet(targetIndex, sourceIndex, targetItem)
     }

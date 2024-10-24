@@ -31,12 +31,12 @@ object FavoriteUtils {
         }
     }
 
-    fun convertAvailableToPersonal(availableList: MutableList<Available>): MutableList<Personal> {
-        val personalList = mutableListOf<Personal>()
+    fun convertAvailableToFavorite(availables: MutableList<Available>): MutableList<Favorite> {
+        val favorites: MutableList<Favorite> = mutableListOf()
 
-        for (available in availableList) {
+        for (available in availables) {
             for (child in available.children) {
-                val personal = Personal(
+                val personal = Favorite(
                     domain = child.domain,
                     identifier = child.identifier,
                     kind = child.kind,
@@ -45,16 +45,16 @@ object FavoriteUtils {
                     images = child.images,
                     availableTitle = available.title
                 )
-                personalList.add(personal)
+                favorites.add(personal)
             }
         }
 
-        return personalList
+        return favorites
     }
 
-    fun getPersonalFavorites(): MutableList<Personal> {
+    fun getFavorites(): MutableList<Favorite> {
         return mutableListOf(
-            Personal(
+            Favorite(
                 domain = "Galaxy",
                 identifier = "mytv",
                 kind = "World",
@@ -67,7 +67,7 @@ object FavoriteUtils {
                     )
                 )
             ),
-            Personal(
+            Favorite(
                 domain = "Galaxy",
                 identifier = "films",
                 kind = "World",
@@ -80,7 +80,7 @@ object FavoriteUtils {
                     )
                 )
             ),
-            Personal(
+            Favorite(
                 domain = "Galaxy",
                 identifier = "bluesport/home-de",
                 kind = "CatalogStorePage",
@@ -93,7 +93,7 @@ object FavoriteUtils {
                     )
                 )
             ),
-            Personal(
+            Favorite(
                 domain = "Galaxy",
                 identifier = "kids",
                 kind = "World",
@@ -106,7 +106,7 @@ object FavoriteUtils {
                     )
                 )
             ),
-            Personal(
+            Favorite(
                 domain = "Galaxy",
                 identifier = "replayguide",
                 kind = "LandingPage",
@@ -119,7 +119,7 @@ object FavoriteUtils {
                     )
                 )
             ),
-            Personal(
+            Favorite(
                 domain = "Galaxy",
                 identifier = "music-de",
                 kind = "Dossier",
@@ -132,7 +132,7 @@ object FavoriteUtils {
                     )
                 )
             ),
-            Personal(
+            Favorite(
                 domain = "Galaxy",
                 identifier = "comedy",
                 kind = "World",
@@ -145,7 +145,7 @@ object FavoriteUtils {
                     )
                 )
             ),
-            Personal(
+            Favorite(
                 domain = "Galaxy",
                 identifier = "krimi",
                 kind = "World",
@@ -158,7 +158,7 @@ object FavoriteUtils {
                     )
                 )
             ),
-            Personal(
+            Favorite(
                 domain = "Galaxy",
                 identifier = "adventure",
                 kind = "World",
@@ -171,7 +171,7 @@ object FavoriteUtils {
                     )
                 )
             ),
-            Personal(
+            Favorite(
                 domain = "Galaxy",
                 identifier = "series",
                 kind = "World",
@@ -184,7 +184,7 @@ object FavoriteUtils {
                     )
                 )
             ),
-            Personal(
+            Favorite(
                 domain = "Galaxy",
                 identifier = "documentaries",
                 kind = "World",
@@ -197,7 +197,7 @@ object FavoriteUtils {
                     )
                 )
             ),
-            Personal(
+            Favorite(
                 domain = "Galaxy",
                 identifier = "drama",
                 kind = "World",
@@ -210,7 +210,7 @@ object FavoriteUtils {
                     )
                 )
             ),
-            Personal(
+            Favorite(
                 domain = "Galaxy",
                 identifier = "scifi",
                 kind = "World",
@@ -223,7 +223,7 @@ object FavoriteUtils {
                     )
                 )
             ),
-            Personal(
+            Favorite(
                 domain = "Galaxy",
                 identifier = "horror",
                 kind = "World",
@@ -236,7 +236,7 @@ object FavoriteUtils {
                     )
                 )
             ),
-            Personal(
+            Favorite(
                 domain = "Galaxy",
                 identifier = "western",
                 kind = "World",
@@ -249,7 +249,7 @@ object FavoriteUtils {
                     )
                 )
             ),
-            Personal(
+            Favorite(
                 domain = "Galaxy",
                 identifier = "nature",
                 kind = "World",
@@ -262,7 +262,7 @@ object FavoriteUtils {
                     )
                 )
             ),
-            Personal(
+            Favorite(
                 domain = "Galaxy",
                 identifier = "history",
                 kind = "World",
@@ -275,7 +275,7 @@ object FavoriteUtils {
                     )
                 )
             ),
-            Personal(
+            Favorite(
                 domain = "Galaxy",
                 identifier = "technology",
                 kind = "World",
@@ -288,7 +288,7 @@ object FavoriteUtils {
                     )
                 )
             ),
-            Personal(
+            Favorite(
                 domain = "Galaxy",
                 identifier = "entertainment",
                 kind = "World",
@@ -301,7 +301,7 @@ object FavoriteUtils {
                     )
                 )
             ),
-            Personal(
+            Favorite(
                 domain = "Galaxy",
                 identifier = "newsdiscussion",
                 kind = "World",
@@ -314,7 +314,7 @@ object FavoriteUtils {
                     )
                 )
             ),
-            Personal(
+            Favorite(
                 domain = "Galaxy",
                 identifier = "soap",
                 kind = "World",
@@ -327,7 +327,7 @@ object FavoriteUtils {
                     )
                 )
             ),
-            Personal(
+            Favorite(
                 domain = "Galaxy",
                 identifier = "lifestyle",
                 kind = "World",
@@ -343,7 +343,7 @@ object FavoriteUtils {
         )
     }
 
-    fun getAvailableFavorites(): MutableList<Available> {
+    fun getAvailables(): MutableList<Available> {
         return mutableListOf(
             Available(
                 domain = "Galaxy",

@@ -9,13 +9,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import it.giovanni.arkivio.databinding.FavoriteAvailableItemBinding
 import it.giovanni.arkivio.databinding.FavoriteHeaderItemBinding
-import it.giovanni.arkivio.databinding.FavoritePersonalItemBinding
+import it.giovanni.arkivio.databinding.FavoriteItemBinding
 import it.giovanni.arkivio.model.favorite.FavoriteUtils
-import it.giovanni.arkivio.model.favorite.Personal
+import it.giovanni.arkivio.model.favorite.Favorite
 
 class DragAdapter(
-    private val isPersonalList: Boolean,
-    var favorites: MutableList<Personal>,
+    private val isFavoriteList: Boolean,
+    var favorites: MutableList<Favorite>,
     private val listener: Listener?
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -23,9 +23,9 @@ class DragAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            VIEW_TYPE_PERSONAL -> {
-                val binding = FavoritePersonalItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                PersonalViewHolder(binding)
+            VIEW_TYPE_FAVORITE -> {
+                val binding = FavoriteItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                FavoriteViewHolder(binding)
             }
             VIEW_TYPE_HEADER -> {
                 val binding = FavoriteHeaderItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -42,24 +42,24 @@ class DragAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val favorite = favorites[position]
         when (holder) {
-            is PersonalViewHolder -> {
-                if (isPersonalList)
+            is FavoriteViewHolder -> {
+                if (isFavoriteList)
                 holder.bind(favorite)
             }
             is AvailableViewHolder -> {
-                if (!isPersonalList)
+                if (!isFavoriteList)
                     holder.bind(favorite)
             }
             is HeaderViewHolder -> {
-                if (!isPersonalList)
+                if (!isFavoriteList)
                     holder.bind(favorite.availableTitle)
             }
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (isPersonalList) {
-            return VIEW_TYPE_PERSONAL
+        if (isFavoriteList) {
+            return VIEW_TYPE_FAVORITE
         } else {
             if (position == 0 || favorites[position].availableTitle != favorites[position - 1].availableTitle) {
                 return VIEW_TYPE_HEADER
@@ -72,7 +72,7 @@ class DragAdapter(
         return favorites.size
     }
 
-    fun updateFavorites(list: MutableList<Personal>) {
+    fun updateFavorites(list: MutableList<Favorite>) {
         this.favorites = list
     }
 
@@ -83,14 +83,14 @@ class DragAdapter(
             null
         }
 
-    inner class PersonalViewHolder(private val binding: FavoritePersonalItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(personal: Personal) {
-            binding.title.text = personal.title
-            FavoriteUtils.setImageByContentPath(binding.personalImage, personal.images?.get(0)?.contentPath)
-            binding.item.tag = adapterPosition
+    inner class FavoriteViewHolder(private val binding: FavoriteItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(favorite: Favorite) {
+            binding.favoriteTitle.text = favorite.title
+            FavoriteUtils.setImageByContentPath(binding.favoritePoster, favorite.images?.get(0)?.contentPath)
+            binding.favoriteItem.tag = adapterPosition
 
-            if (personal.identifier == EDIT_IDENTIFIER) {
-                binding.item.setOnClickListener {
+            if (favorite.identifier == EDIT_IDENTIFIER) {
+                binding.favoriteItem.setOnClickListener {
                     // Remove the edit item and enable edit mode.
                     val newFavorites = favorites.toMutableList().apply {
                         removeAt(adapterPosition)
@@ -102,7 +102,7 @@ class DragAdapter(
             } else {
                 // For all other items, toggle border based on isEditMode flag.
                 if (isEditMode) {
-                    binding.itemBorder.visibility = View.VISIBLE
+                    binding.favoriteBorder.visibility = View.VISIBLE
 
                     // Enable the long click listener.
                     binding.root.setOnLongClickListener { view ->
@@ -115,20 +115,20 @@ class DragAdapter(
                         }
                         false
                     }
-                    binding.item.setOnDragListener(DragListener(listener))
+                    binding.favoriteItem.setOnDragListener(DragListener(listener))
                 } else {
                     // Consider to disable the long click listener.
-                    binding.itemBorder.visibility = View.GONE
+                    binding.favoriteBorder.visibility = View.GONE
                 }
             }
         }
     }
 
     inner class AvailableViewHolder(private val binding: FavoriteAvailableItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(personal: Personal) {
-            binding.title.text = personal.title
-            FavoriteUtils.setImageByContentPath(binding.availableImage, personal.images?.get(0)?.contentPath)
-            binding.item.tag = adapterPosition
+        fun bind(favorite: Favorite) {
+            binding.availableTitle.text = favorite.title
+            FavoriteUtils.setImageByContentPath(binding.availablePoster, favorite.images?.get(0)?.contentPath)
+            binding.availableItem.tag = adapterPosition
 
             binding.root.setOnLongClickListener { view ->
                 val data = ClipData.newPlainText("", "")
@@ -140,7 +140,7 @@ class DragAdapter(
                 }
                 false
             }
-            binding.item.setOnDragListener(DragListener(listener))
+            binding.availableItem.setOnDragListener(DragListener(listener))
         }
     }
 
@@ -151,7 +151,7 @@ class DragAdapter(
     }
 
     companion object {
-        const val VIEW_TYPE_PERSONAL = 0
+        const val VIEW_TYPE_FAVORITE = 0
         const val VIEW_TYPE_AVAILABLE = 1
         const val VIEW_TYPE_HEADER = 2
 

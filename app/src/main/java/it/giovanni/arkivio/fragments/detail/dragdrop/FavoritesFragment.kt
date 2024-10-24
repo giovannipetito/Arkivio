@@ -98,15 +98,15 @@ class FavoritesFragment : DetailFragment(), FavoritesAdapter.OnAdapterListener {
     }
 
     // Implement OnAdapterListener methods
-    override fun onAdd(favorite: Favorite) {
+    override fun onAdd(favorite: OldFavorite) {
         viewModel.onAdd(favorite)
     }
 
-    override fun onRemove(favorite: Favorite) {
+    override fun onRemove(favorite: OldFavorite) {
         viewModel.onRemove(favorite)
     }
 
-    override fun onSet(targetIndex: Int, sourceIndex: Int, favorite: Favorite) {
+    override fun onSet(targetIndex: Int, sourceIndex: Int, favorite: OldFavorite) {
         viewModel.onSet(targetIndex, sourceIndex, favorite)
     }
 
