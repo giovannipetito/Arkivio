@@ -1,6 +1,6 @@
 package it.giovanni.arkivio.model.favorite
 
 data class Image(
-    val role: String,
-    val contentPath: String
+    var role: String? = null,
+    var contentPath: String? = null
 )

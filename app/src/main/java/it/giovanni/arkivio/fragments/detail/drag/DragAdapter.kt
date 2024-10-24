@@ -12,16 +12,24 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import it.giovanni.arkivio.databinding.FavoriteAvailableItemBinding
 import it.giovanni.arkivio.databinding.FavoriteHeaderItemBinding
+import it.giovanni.arkivio.databinding.FavoritePersonalItemBinding
 import it.giovanni.arkivio.model.favorite.FavoriteUtils
 import it.giovanni.arkivio.model.favorite.Personal
 
 class DragAdapter(
-    private var availables: MutableList<Personal>,
+    private val isPersonalList: Boolean,
+    var favorites: MutableList<Personal>,
     private val listener: Listener?
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), OnTouchListener {
 
+    private var isEditMode = false // Flag to track if edit mode is enabled
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
+            VIEW_TYPE_PERSONAL -> {
+                val binding = FavoritePersonalItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                PersonalViewHolder(binding)
+            }
             VIEW_TYPE_HEADER -> {
                 val binding = FavoriteHeaderItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 HeaderViewHolder(binding)
@@ -35,23 +43,38 @@ class DragAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val available = availables[position]
+        val favorite = favorites[position]
         when (holder) {
-            is AvailableViewHolder -> holder.bind(available)
-            is HeaderViewHolder -> holder.bind(available.availableTitle)
+            is PersonalViewHolder -> {
+                if (isPersonalList)
+                holder.bind(favorite)
+            }
+            is AvailableViewHolder -> {
+                if (!isPersonalList)
+                    holder.bind(favorite)
+            }
+            is HeaderViewHolder -> {
+                if (!isPersonalList)
+                    holder.bind(favorite.availableTitle)
+            }
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        // If the current item is the first one of its group (based on availableTitle), treat it as a header.
-        if (position == 0 || availables[position].availableTitle != availables[position - 1].availableTitle) {
-            return VIEW_TYPE_HEADER
+        if (isPersonalList) {
+            // If it's the personals list, there are no headers
+            return VIEW_TYPE_PERSONAL
+        } else {
+            // For available items, check if the current item is a header
+            if (position == 0 || favorites[position].availableTitle != favorites[position - 1].availableTitle) {
+                return VIEW_TYPE_HEADER
+            }
+            return VIEW_TYPE_AVAILABLE
         }
-        return VIEW_TYPE_AVAILABLE
     }
 
     override fun getItemCount(): Int {
-        return availables.size
+        return favorites.size
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -69,8 +92,8 @@ class DragAdapter(
         return false
     }
 
-    fun updateAvailableFavorites(list: MutableList<Personal>) {
-        this.availables = list
+    fun updateFavorites(list: MutableList<Personal>) {
+        this.favorites = list
     }
 
     val dragInstance: DragListener?
@@ -80,10 +103,40 @@ class DragAdapter(
             null
         }
 
+    inner class PersonalViewHolder(private val binding: FavoritePersonalItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(personal: Personal) {
+            binding.title.text = personal.title
+            FavoriteUtils.setImageByContentPath(binding.personalImage, personal.images?.get(0)?.contentPath)
+            binding.item.tag = adapterPosition
+
+            // Check if it's the "edit" item
+            if (personal.identifier == "edit") {
+                binding.item.setOnClickListener {
+                    // Remove the edit item and enable edit mode
+                    val newFavorites = favorites.toMutableList().apply {
+                        removeAt(adapterPosition)
+                    }
+                    updateFavorites(newFavorites)
+                    isEditMode = true
+                    notifyDataSetChanged()
+                }
+            } else {
+                // For all other items, toggle border and touch listener based on isEditMode flag
+                if (isEditMode) {
+                    binding.itemBorder.visibility = View.VISIBLE // Show the border
+                    binding.item.setOnTouchListener(this@DragAdapter) // Enable touch listener
+                } else {
+                    binding.itemBorder.visibility = View.GONE // Hide the border
+                    binding.item.setOnTouchListener(null) // Disable touch listener
+                }
+            }
+        }
+    }
+
     inner class AvailableViewHolder(private val binding: FavoriteAvailableItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(personal: Personal) {
             binding.title.text = personal.title
-            FavoriteUtils.setImageByContentPath(binding.availableImage, personal.images[0].contentPath)
+            FavoriteUtils.setImageByContentPath(binding.availableImage, personal.images?.get(0)?.contentPath)
             binding.item.tag = adapterPosition
             binding.item.setOnTouchListener(this@DragAdapter)
             binding.item.setOnDragListener(DragListener(listener))
@@ -97,7 +150,8 @@ class DragAdapter(
     }
 
     companion object {
-        const val VIEW_TYPE_AVAILABLE = 0
-        const val VIEW_TYPE_HEADER = 1
+        const val VIEW_TYPE_PERSONAL = 0
+        const val VIEW_TYPE_AVAILABLE = 1
+        const val VIEW_TYPE_HEADER = 2
     }
 }

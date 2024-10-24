@@ -15,8 +15,27 @@ class DragViewModel : ViewModel() {
     val availableFavorites: LiveData<List<Personal>> get() = _availableFavorites
 
     init {
-        _personalFavorites.value = FavoriteUtils.getPersonalFavorites()
+        val responsePersonalFavorites: MutableList<Personal> = FavoriteUtils.getPersonalFavorites()
+        val uiPersonalFavorites: MutableList<Personal> =
+            if (responsePersonalFavorites.size > 7)
+                responsePersonalFavorites.take(7).toMutableList()
+            else
+                responsePersonalFavorites
 
-        _availableFavorites.value = FavoriteUtils.convertAvailableToPersonal(FavoriteUtils.getAvailableFavorites())
+        val editItem = Personal()
+        editItem.title = "Edit"
+        editItem.identifier = "edit"
+
+        uiPersonalFavorites.add(editItem)
+
+        val responseAvailableFavorites: MutableList<Personal> = FavoriteUtils.convertAvailableToPersonal(FavoriteUtils.getAvailableFavorites())
+
+        val uiAvailableFavorites: MutableList<Personal> = responseAvailableFavorites.filter { availableItem ->
+            uiPersonalFavorites.none { personalItem -> personalItem.identifier == availableItem.identifier }
+        }.toMutableList()
+
+        _personalFavorites.value = uiPersonalFavorites
+
+        _availableFavorites.value = uiAvailableFavorites
     }
 }

@@ -5,7 +5,6 @@ import android.view.View
 import android.view.View.OnDragListener
 import androidx.recyclerview.widget.RecyclerView
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.model.favorite.Available
 import it.giovanni.arkivio.model.favorite.Personal
 
 class DragListener(private val listener: Listener?) : OnDragListener {
@@ -53,17 +52,16 @@ class DragListener(private val listener: Listener?) : OnDragListener {
                 val sourceAdapter = source.adapter as DragAdapter?
                 val targetAdapter = target.adapter as DragAdapter?
 
-                /*
                 if (sourceAdapter != null && targetAdapter != null) {
-                    val available: Personal = sourceAdapter.availables[positionSource]
-                    val sourceList: MutableList<Personal> = sourceAdapter.availables
-                    val targetList: MutableList<Personal> = targetAdapter.availables
+                    val available: Personal = sourceAdapter.favorites[positionSource]
+                    val sourceList: MutableList<Personal> = sourceAdapter.favorites
+                    val targetList: MutableList<Personal> = targetAdapter.favorites
 
                     // Check if the item is being moved within the same list
                     if (sourceId == target.id) {
                         // Same list, no need to update the isPersonal flag
                         sourceList.removeAt(positionSource)
-                        sourceAdapter.updateAvailableFavorites(sourceList)
+                        sourceAdapter.updateFavorites(sourceList)
                         sourceAdapter.notifyDataSetChanged()
 
                         if (positionTarget >= 0) {
@@ -72,7 +70,7 @@ class DragListener(private val listener: Listener?) : OnDragListener {
                             targetList.add(available)
                         }
 
-                        targetAdapter.updateAvailableFavorites(targetList)
+                        targetAdapter.updateFavorites(targetList)
                         targetAdapter.notifyDataSetChanged()
                     } else {
                         // Item is being moved to a different list, update the isPersonal flag
@@ -83,7 +81,7 @@ class DragListener(private val listener: Listener?) : OnDragListener {
                         }
 
                         sourceList.removeAt(positionSource)
-                        sourceAdapter.updateAvailableFavorites(sourceList)
+                        sourceAdapter.updateFavorites(sourceList)
                         sourceAdapter.notifyDataSetChanged()
 
                         if (positionTarget >= 0) {
@@ -92,7 +90,7 @@ class DragListener(private val listener: Listener?) : OnDragListener {
                             targetList.add(available)
                         }
 
-                        targetAdapter.updateAvailableFavorites(targetList)
+                        targetAdapter.updateFavorites(targetList)
                         targetAdapter.notifyDataSetChanged()
                     }
 
@@ -105,7 +103,6 @@ class DragListener(private val listener: Listener?) : OnDragListener {
                         listener?.notifyPersonalFavoritesEmpty()
                     }
                 }
-                */
             }
         }
 

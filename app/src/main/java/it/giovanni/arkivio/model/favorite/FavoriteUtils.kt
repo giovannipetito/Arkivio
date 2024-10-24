@@ -31,7 +31,7 @@ object FavoriteUtils {
         }
     }
 
-    fun convertAvailableToPersonal(availableList: List<Available>): List<Personal> {
+    fun convertAvailableToPersonal(availableList: MutableList<Available>): MutableList<Personal> {
         val personalList = mutableListOf<Personal>()
 
         for (available in availableList) {
@@ -52,8 +52,8 @@ object FavoriteUtils {
         return personalList
     }
 
-    fun getPersonalFavorites(): List<Personal> {
-        return listOf(
+    fun getPersonalFavorites(): MutableList<Personal> {
+        return mutableListOf(
             Personal(
                 domain = "Galaxy",
                 identifier = "mytv",
@@ -343,8 +343,8 @@ object FavoriteUtils {
         )
     }
 
-    fun getAvailableFavorites(): List<Available> {
-        return listOf(
+    fun getAvailableFavorites(): MutableList<Available> {
+        return mutableListOf(
             Available(
                 domain = "Galaxy",
                 identifier = "CategoryWorlds",

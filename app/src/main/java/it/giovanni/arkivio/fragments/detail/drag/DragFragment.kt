@@ -7,12 +7,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.DragLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
-import it.giovanni.arkivio.model.favorite.FavoriteUtils
 import it.giovanni.arkivio.presenter.DarkModePresenter
 
 class DragFragment : DetailFragment(), Listener {
@@ -72,12 +70,13 @@ class DragFragment : DetailFragment(), Listener {
 
     private fun setPersonalRecyclerView() {
         viewModel.personalFavorites.observe(viewLifecycleOwner) { personalFavorites ->
-            val dragAdapter = DragTopAdapter(
+            val dragAdapter = DragAdapter(
+                true,
                 personalFavorites.toMutableList(),
                 this
             )
             binding?.topRecyclerview?.apply {
-                setHasFixedSize(true)
+                // setHasFixedSize(true)
                 layoutManager = GridLayoutManager(requireContext(), 4)
                 adapter = dragAdapter
                 setOnDragListener(dragAdapter.dragInstance)
@@ -89,12 +88,12 @@ class DragFragment : DetailFragment(), Listener {
     private fun setAvailableRecyclerView() {
         viewModel.availableFavorites.observe(viewLifecycleOwner) { availableFavorites ->
             val dragAdapter = DragAdapter(
+                false,
                 availableFavorites.toMutableList(),
                 this
             )
             binding?.bottomRecyclerview?.apply {
-                setHasFixedSize(true)
-
+                // setHasFixedSize(true)
                 val gridLayoutManager = GridLayoutManager(requireContext(), 5)
                 gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                     override fun getSpanSize(position: Int): Int {

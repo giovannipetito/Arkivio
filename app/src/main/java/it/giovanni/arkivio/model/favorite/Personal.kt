@@ -1,11 +1,11 @@
 package it.giovanni.arkivio.model.favorite
 
 data class Personal(
-    val domain: String,
-    val identifier: String,
-    val kind: String,
-    val title: String,
-    val contentPath: String,
-    val images: List<Image>,
-    val availableTitle: String? = null
+    var domain: String? = null,
+    var identifier: String? = null,
+    var kind: String? = null,
+    var title: String? = null,
+    var contentPath: String? = null,
+    var images: List<Image>? = null,
+    var availableTitle: String? = null
 )
