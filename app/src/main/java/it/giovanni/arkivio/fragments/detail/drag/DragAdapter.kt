@@ -74,6 +74,7 @@ class DragAdapter(
 
     fun updateFavorites(list: MutableList<Favorite>) {
         this.favorites = list
+        notifyDataSetChanged()
     }
 
     val dragInstance: DragListener?
