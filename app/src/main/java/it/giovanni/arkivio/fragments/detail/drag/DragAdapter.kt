@@ -1,13 +1,10 @@
 package it.giovanni.arkivio.fragments.detail.drag
 
-import android.annotation.SuppressLint
 import android.content.ClipData
 import android.os.Build
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.View.DragShadowBuilder
-import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import it.giovanni.arkivio.databinding.FavoriteAvailableItemBinding
@@ -20,7 +17,7 @@ class DragAdapter(
     private val isPersonalList: Boolean,
     var favorites: MutableList<Personal>,
     private val listener: Listener?
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), OnTouchListener {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var isEditMode = false // Flag to track if edit mode is enabled
 
@@ -77,21 +74,6 @@ class DragAdapter(
         return favorites.size
     }
 
-    @SuppressLint("ClickableViewAccessibility")
-    override fun onTouch(view: View, event: MotionEvent): Boolean {
-        if (event.action == MotionEvent.ACTION_DOWN) {
-            val data = ClipData.newPlainText("", "")
-            val shadowBuilder = DragShadowBuilder(view)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                view.startDragAndDrop(data, shadowBuilder, view, 0)
-            } else {
-                view.startDrag(data, shadowBuilder, view, 0)
-            }
-            return true
-        }
-        return false
-    }
-
     fun updateFavorites(list: MutableList<Personal>) {
         this.favorites = list
     }
@@ -121,13 +103,25 @@ class DragAdapter(
                     notifyDataSetChanged()
                 }
             } else {
-                // For all other items, toggle border and touch listener based on isEditMode flag
+                // For all other items, toggle border based on isEditMode flag
                 if (isEditMode) {
                     binding.itemBorder.visibility = View.VISIBLE // Show the border
-                    binding.item.setOnTouchListener(this@DragAdapter) // Enable touch listener
+                    // binding.item.setOnTouchListener(this@DragAdapter) // Enable touch listener
+
+                    binding.root.setOnLongClickListener { view ->
+                        val data = ClipData.newPlainText("", "")
+                        val shadowBuilder = DragShadowBuilder(view)
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            view.startDragAndDrop(data, shadowBuilder, view, 0)
+                        } else {
+                            view.startDrag(data, shadowBuilder, view, 0)
+                        }
+                        false
+                    }
+                    binding.item.setOnDragListener(DragListener(listener))
                 } else {
                     binding.itemBorder.visibility = View.GONE // Hide the border
-                    binding.item.setOnTouchListener(null) // Disable touch listener
+                    // binding.item.setOnTouchListener(null) // Disable touch listener
                 }
             }
         }
@@ -138,7 +132,18 @@ class DragAdapter(
             binding.title.text = personal.title
             FavoriteUtils.setImageByContentPath(binding.availableImage, personal.images?.get(0)?.contentPath)
             binding.item.tag = adapterPosition
-            binding.item.setOnTouchListener(this@DragAdapter)
+
+            // binding.item.setOnTouchListener(this@DragAdapter)
+            binding.root.setOnLongClickListener { view ->
+                val data = ClipData.newPlainText("", "")
+                val shadowBuilder = DragShadowBuilder(view)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    view.startDragAndDrop(data, shadowBuilder, view, 0)
+                } else {
+                    view.startDrag(data, shadowBuilder, view, 0)
+                }
+                false
+            }
             binding.item.setOnDragListener(DragListener(listener))
         }
     }

@@ -96,9 +96,6 @@ class WorkingAreaFragment : HomeFragment() {
         binding?.labelDrag?.setOnClickListener {
             currentActivity.openDetail(Globals.DRAG, null)
         }
-        binding?.labelDrop?.setOnClickListener {
-            currentActivity.openDetail(Globals.DROP, null)
-        }
     }
 
     override fun onDestroyView() {
