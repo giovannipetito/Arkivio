@@ -112,15 +112,18 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
     }
 
     override fun onSet(targetIndex: Int, sourceIndex: Int, targetFavorite: Favorite) {
-        viewModel.onSet(targetIndex, sourceIndex, targetFavorite)
+        val isFavorite = targetFavorite.availableTitle == null
+        viewModel.onSet(isFavorite, targetIndex, sourceIndex, targetFavorite)
     }
 
     override fun onAdd(favorite: Favorite) {
-        viewModel.onAdd(favorite)
+        val isFavorite = favorite.availableTitle == null
+        viewModel.onAdd(isFavorite, favorite)
     }
 
     override fun onRemove(favorite: Favorite) {
-        viewModel.onRemove(favorite)
+        val isFavorite = favorite.availableTitle == null
+        viewModel.onRemove(isFavorite, favorite)
     }
 
     override fun onSwap(isFavorite: Boolean, from: Int, to: Int) {
