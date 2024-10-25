@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import it.giovanni.arkivio.fragments.detail.favorites.FavoritesAdapter.Companion.EDIT_IDENTIFIER
-import it.giovanni.arkivio.model.favorite.FavoriteUtils
+import it.giovanni.arkivio.utils.FavoriteUtils
 import it.giovanni.arkivio.model.favorite.Favorite
 import java.util.Collections
 
@@ -30,7 +30,8 @@ class FavoritesViewModel : ViewModel() {
 
         editableFavorites.add(editItem)
 
-        val responseAvailables: MutableList<Favorite> = FavoriteUtils.convertAvailableToFavorite(FavoriteUtils.getAvailables())
+        val responseAvailables: MutableList<Favorite> = FavoriteUtils.convertAvailableToFavorite(
+            FavoriteUtils.getAvailables())
 
         val filteredAvailables: MutableList<Favorite> = responseAvailables.filter { available ->
             editableFavorites.none { favorite -> favorite.identifier == available.identifier }
@@ -143,12 +144,16 @@ class FavoritesViewModel : ViewModel() {
                 Collections.swap(tempFavorites, from, to)
                 _favorites.value = tempFavorites.toList()
             }
-        } else {
+        }
+        /*
+        Available items must not be swappable.
+        else {
             _availables.value?.let { availables ->
                 val tempAvailables: MutableList<Favorite?> = availables.toMutableList()
                 Collections.swap(tempAvailables, from, to)
                 _availables.value = tempAvailables.toList()
             }
         }
+        */
     }
 }

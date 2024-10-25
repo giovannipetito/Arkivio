@@ -1,7 +1,6 @@
 package it.giovanni.arkivio.fragments.detail.favorites
 
 import android.content.ClipData
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.DragShadowBuilder
@@ -12,10 +11,10 @@ import it.giovanni.arkivio.databinding.FavoriteAvailableItemBinding
 import it.giovanni.arkivio.databinding.FavoriteHeaderItemBinding
 import it.giovanni.arkivio.databinding.FavoriteItemBinding
 import it.giovanni.arkivio.model.favorite.Favorite
-import it.giovanni.arkivio.model.favorite.FavoriteUtils
+import it.giovanni.arkivio.utils.FavoriteUtils
 
 class FavoritesAdapter(
-    private val isFavoriteList: Boolean,
+    private val isFavorite: Boolean,
     private val onAdapterListener: OnAdapterListener
 ) : DragListAdapter<Favorite, RecyclerView.ViewHolder>(diffUtil) {
 
@@ -43,15 +42,15 @@ class FavoritesAdapter(
         val favorite = getItem(position)
         when (holder) {
             is FavoriteViewHolder -> {
-                if (isFavoriteList)
+                if (isFavorite)
                     holder.bind(favorite)
             }
             is AvailableViewHolder -> {
-                if (!isFavoriteList)
+                if (!isFavorite)
                     holder.bind(favorite)
             }
             is HeaderViewHolder -> {
-                if (!isFavoriteList)
+                if (!isFavorite)
                     holder.bind(favorite.availableTitle)
             }
         }
@@ -59,7 +58,7 @@ class FavoritesAdapter(
 
     override fun getItemViewType(position: Int): Int {
         val favorite = getItem(position)
-        if (isFavoriteList) {
+        if (isFavorite) {
             return VIEW_TYPE_FAVORITE
         } else {
             if (position == 0 || favorite.availableTitle != getItem(position - 1).availableTitle) {
@@ -82,18 +81,13 @@ class FavoritesAdapter(
     }
 
     override fun onSwap(from: Int, to: Int) {
-        if (currentList.any { it.availableTitle == null }) {
-            onAdapterListener.onSwap(true, from, to)
-        } else {
-            onAdapterListener.onSwap(false, from, to)
-        }
+        onAdapterListener.onSwap(isFavorite = isFavorite, from, to)
     }
 
     inner class FavoriteViewHolder(private val binding: FavoriteItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(favorite: Favorite) {
             binding.favoriteTitle.text = favorite.title
             FavoriteUtils.setImageByContentPath(binding.favoritePoster, favorite.images?.get(0)?.contentPath)
-            Log.i("[DRAG]", "DragAdapter - bindingAdapterPosition: $bindingAdapterPosition")
 
             if (favorite.identifier == EDIT_IDENTIFIER) {
                 binding.root.setOnClickListener {

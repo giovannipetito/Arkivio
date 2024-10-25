@@ -1,9 +1,13 @@
-package it.giovanni.arkivio.model.favorite
+package it.giovanni.arkivio.utils
 
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.model.favorite.Available
+import it.giovanni.arkivio.model.favorite.Child
+import it.giovanni.arkivio.model.favorite.Favorite
+import it.giovanni.arkivio.model.favorite.Image
 
 object FavoriteUtils {
 
