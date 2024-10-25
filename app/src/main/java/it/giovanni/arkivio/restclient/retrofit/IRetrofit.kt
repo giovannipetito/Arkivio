@@ -1,6 +1,6 @@
 package it.giovanni.arkivio.restclient.retrofit
 
-import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.UsersResponse
+import it.giovanni.arkivio.puntonet.retrofitgetpost.UsersResponse
 
 /**
  * IRetrofit is an interface used to define callback methods for handling successful and failed

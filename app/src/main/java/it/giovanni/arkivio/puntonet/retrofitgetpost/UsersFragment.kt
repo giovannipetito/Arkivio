@@ -1,35 +1,33 @@
-package it.giovanni.arkivio.fragments.detail.client
+package it.giovanni.arkivio.puntonet.retrofitgetpost
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.databinding.UsersLayoutBinding
 import it.giovanni.arkivio.databinding.UserCardBinding
-import it.giovanni.arkivio.databinding.SimpleRetrofitLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
-import it.giovanni.arkivio.puntonet.retrofitgetpost.User
-import it.giovanni.arkivio.puntonet.retrofitgetpost.UsersResponse
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
-import it.giovanni.arkivio.restclient.retrofit.IRetrofit
-import it.giovanni.arkivio.restclient.retrofit.SimpleRetrofitClient
-import it.giovanni.arkivio.utils.SharedPreferencesManager.loadDarkModeStateFromPreferences
+import it.giovanni.arkivio.utils.SharedPreferencesManager
 
-class SimpleRetrofitFragment: DetailFragment(), IRetrofit {
+class UsersFragment : DetailFragment() {
 
-    private var layoutBinding: SimpleRetrofitLayoutBinding? = null
+    private var layoutBinding: UsersLayoutBinding? = null
     private val binding get() = layoutBinding
 
+    private lateinit var viewModel: UsersViewModel
+
     override fun getTitle(): Int {
-        return R.string.simple_retrofit_title
+        return R.string.users_title
     }
 
     override fun getActionTitle(): Int {
@@ -63,7 +61,7 @@ class SimpleRetrofitFragment: DetailFragment(), IRetrofit {
     }
 
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
-        layoutBinding = SimpleRetrofitLayoutBinding.inflate(inflater, container, false)
+        layoutBinding = UsersLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this)
         val model = DarkModeModel(requireContext())
@@ -76,36 +74,32 @@ class SimpleRetrofitFragment: DetailFragment(), IRetrofit {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        isDarkMode = loadDarkModeStateFromPreferences()
+        isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
 
-        SimpleRetrofitClient.getUsers(this)
+        viewModel = ViewModelProvider(requireActivity())[UsersViewModel::class.java]
+
         showProgressDialog()
+        viewModel.fetchUsers(0)
+
+        viewModel.usersDataItem.observe(viewLifecycleOwner) { list ->
+            hideProgressDialog()
+            showUsers(list)
+        }
     }
 
-    override fun onRetrofitSuccess(usersResponse: UsersResponse?, message: String) {
-        hideProgressDialog()
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-        showUsers(usersResponse?.users)
-    }
+    private fun showUsers(list: List<UserDataItem>) {
 
-    override fun onRetrofitFailure(message: String) {
-        hideProgressDialog()
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-    }
+        binding?.usersContainer?.removeAllViews()
 
-    private fun showUsers(list: List<User?>?) {
-
-        binding?.retrofitUsersContainer?.removeAllViews()
-
-        if (list.isNullOrEmpty())
+        if (list.isEmpty())
             return
 
         for (user in list) {
 
-            val itemBinding: UserCardBinding = UserCardBinding.inflate(layoutInflater, binding?.retrofitUsersContainer, false)
+            val itemBinding: UserCardBinding = UserCardBinding.inflate(layoutInflater, binding?.usersContainer, false)
             val itemView: View = itemBinding.root
 
-            val imageUrl: String? = user?.avatar
+            val imageUrl: String? = user.avatar
 
             Glide.with(requireActivity())
                 .load(imageUrl)
@@ -118,8 +112,8 @@ class SimpleRetrofitFragment: DetailFragment(), IRetrofit {
             val labelFirstName: TextView = itemBinding.userFirstName
             val labelLastName: TextView = itemBinding.userLastName
 
-            labelFirstName.text = user?.firstName
-            labelLastName.text = user?.lastName
+            labelFirstName.text = user.firstName
+            labelLastName.text = user.lastName
 
             if (isDarkMode) {
                 labelFirstName.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
@@ -129,7 +123,7 @@ class SimpleRetrofitFragment: DetailFragment(), IRetrofit {
                 labelLastName.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
             }
 
-            binding?.retrofitUsersContainer?.addView(itemView)
+            binding?.usersContainer?.addView(itemView)
         }
     }
 

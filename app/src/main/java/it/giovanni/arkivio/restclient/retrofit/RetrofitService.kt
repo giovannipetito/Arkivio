@@ -1,6 +1,6 @@
 package it.giovanni.arkivio.restclient.retrofit
 
-import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.UsersResponse
+import it.giovanni.arkivio.puntonet.retrofitgetpost.UsersResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

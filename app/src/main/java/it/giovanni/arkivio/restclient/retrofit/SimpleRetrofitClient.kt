@@ -2,7 +2,7 @@ package it.giovanni.arkivio.restclient.retrofit
 
 import android.util.Log
 import it.giovanni.arkivio.BuildConfig
-import it.giovanni.arkivio.fragments.detail.puntonet.retrofitgetpost.UsersResponse
+import it.giovanni.arkivio.puntonet.retrofitgetpost.UsersResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

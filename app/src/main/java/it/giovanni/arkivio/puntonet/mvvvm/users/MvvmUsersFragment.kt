@@ -1,12 +1,12 @@
-package it.giovanni.arkivio.fragments.detail.client
+package it.giovanni.arkivio.puntonet.mvvvm.users
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -16,20 +16,28 @@ import it.giovanni.arkivio.databinding.UserCardBinding
 import it.giovanni.arkivio.databinding.SimpleRetrofitLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.puntonet.retrofitgetpost.User
-import it.giovanni.arkivio.puntonet.retrofitgetpost.UsersResponse
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
-import it.giovanni.arkivio.restclient.retrofit.IRetrofit
-import it.giovanni.arkivio.restclient.retrofit.SimpleRetrofitClient
-import it.giovanni.arkivio.utils.SharedPreferencesManager.loadDarkModeStateFromPreferences
+import it.giovanni.arkivio.utils.SharedPreferencesManager
 
-class SimpleRetrofitFragment: DetailFragment(), IRetrofit {
+/**
+ * La classe View (activity o fragment) rappresenta l'interfaccia utente (UI) che l'applicazione
+ * genererà legando i vari elementi della UI (TextView, EditText, Button, ecc.) al ViewModel.
+ *
+ * Il ViewModel osserva un oggetto LiveData chiamato response, che viene aggiornato quando viene
+ * chiamato getUsers(). La View quindi osserva l'oggetto response e aggiorna la UI quando cambia.
+ * Ciò consente di separare il codice della UI dalla business logic e semplifica il test e la
+ * manutenzione del codice.
+ */
+class MvvmUsersFragment : DetailFragment() {
 
     private var layoutBinding: SimpleRetrofitLayoutBinding? = null
     private val binding get() = layoutBinding
 
+    private lateinit var viewModel: MvvmUsersViewModel
+
     override fun getTitle(): Int {
-        return R.string.simple_retrofit_title
+        return R.string.mvvm_users_title
     }
 
     override fun getActionTitle(): Int {
@@ -76,24 +84,20 @@ class SimpleRetrofitFragment: DetailFragment(), IRetrofit {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        isDarkMode = loadDarkModeStateFromPreferences()
+        isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
 
-        SimpleRetrofitClient.getUsers(this)
+        viewModel = ViewModelProvider(requireActivity())[MvvmUsersViewModel::class.java]
+
         showProgressDialog()
+        viewModel.getUsers()
+
+        viewModel.response.observe(viewLifecycleOwner) { response ->
+            hideProgressDialog()
+            showUsers(response?.users)
+        }
     }
 
-    override fun onRetrofitSuccess(usersResponse: UsersResponse?, message: String) {
-        hideProgressDialog()
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-        showUsers(usersResponse?.users)
-    }
-
-    override fun onRetrofitFailure(message: String) {
-        hideProgressDialog()
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun showUsers(list: List<User?>?) {
+    private fun showUsers(list: List<User>?) {
 
         binding?.retrofitUsersContainer?.removeAllViews()
 
@@ -105,7 +109,7 @@ class SimpleRetrofitFragment: DetailFragment(), IRetrofit {
             val itemBinding: UserCardBinding = UserCardBinding.inflate(layoutInflater, binding?.retrofitUsersContainer, false)
             val itemView: View = itemBinding.root
 
-            val imageUrl: String? = user?.avatar
+            val imageUrl: String = user.avatar
 
             Glide.with(requireActivity())
                 .load(imageUrl)
@@ -118,8 +122,8 @@ class SimpleRetrofitFragment: DetailFragment(), IRetrofit {
             val labelFirstName: TextView = itemBinding.userFirstName
             val labelLastName: TextView = itemBinding.userLastName
 
-            labelFirstName.text = user?.firstName
-            labelLastName.text = user?.lastName
+            labelFirstName.text = user.firstName
+            labelLastName.text = user.lastName
 
             if (isDarkMode) {
                 labelFirstName.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))

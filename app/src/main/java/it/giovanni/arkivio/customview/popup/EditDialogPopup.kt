@@ -9,10 +9,10 @@ import android.view.View
 import androidx.annotation.StyleRes
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.PopupEditElementBinding
-import it.giovanni.arkivio.fragments.detail.puntonet.room.EditUserListener
-import it.giovanni.arkivio.fragments.detail.puntonet.room.KEY_AGE
-import it.giovanni.arkivio.fragments.detail.puntonet.room.KEY_FIRST_NAME
-import it.giovanni.arkivio.fragments.detail.puntonet.room.KEY_LAST_NAME
+import it.giovanni.arkivio.puntonet.room.EditUserListener
+import it.giovanni.arkivio.puntonet.room.KEY_AGE
+import it.giovanni.arkivio.puntonet.room.KEY_FIRST_NAME
+import it.giovanni.arkivio.puntonet.room.KEY_LAST_NAME
 
 class EditDialogPopup(activity: Activity, @StyleRes themeResId: Int) : CustomDialogPopup(activity, themeResId) {
 
