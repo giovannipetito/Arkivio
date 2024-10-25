@@ -23,7 +23,7 @@ class FavoritesFragment : DetailFragment(), FavoritesAdapter.OnAdapterListener {
     private var favoritesRecyclerview: RecyclerView? = null
     private var availablesRecyclerView: RecyclerView? = null
 
-    private lateinit var personalAdapter: FavoritesAdapter
+    private lateinit var favoriteAdapter: FavoritesAdapter
     private lateinit var availableAdapter: FavoritesAdapter
 
     override fun getTitle(): Int {
@@ -70,12 +70,12 @@ class FavoritesFragment : DetailFragment(), FavoritesAdapter.OnAdapterListener {
 
         setupRecyclerViews()
 
-        viewModel.personalFavorites.observe(viewLifecycleOwner) { personalFavorites ->
-            personalAdapter.submitList(personalFavorites)
+        viewModel.favorites.observe(viewLifecycleOwner) { favorites ->
+            favoriteAdapter.submitList(favorites)
         }
 
-        viewModel.availableFavorites.observe(viewLifecycleOwner) { availableFavorites ->
-            availableAdapter.submitList(availableFavorites)
+        viewModel.availables.observe(viewLifecycleOwner) { availables ->
+            availableAdapter.submitList(availables)
         }
 
         return binding?.root
@@ -86,10 +86,10 @@ class FavoritesFragment : DetailFragment(), FavoritesAdapter.OnAdapterListener {
         favoritesRecyclerview = binding?.favoritesRecyclerview
         availablesRecyclerView = binding?.availablesRecyclerview
 
-        // Set up personal RecyclerView
-        personalAdapter = FavoritesAdapter(onAdapterListener = this)
+        // Set up favorite RecyclerView
+        favoriteAdapter = FavoritesAdapter(onAdapterListener = this)
         favoritesRecyclerview?.layoutManager = GridLayoutManager(requireContext(), 4)
-        favoritesRecyclerview?.adapter = personalAdapter
+        favoritesRecyclerview?.adapter = favoriteAdapter
 
         // Set up available RecyclerView
         availableAdapter = FavoritesAdapter(onAdapterListener = this)
@@ -110,8 +110,8 @@ class FavoritesFragment : DetailFragment(), FavoritesAdapter.OnAdapterListener {
         viewModel.onSet(targetIndex, sourceIndex, favorite)
     }
 
-    override fun onSwap(isPersonal: Boolean, from: Int, to: Int) {
-        viewModel.onSwap(isPersonal, from, to)
+    override fun onSwap(isFavorite: Boolean, from: Int, to: Int) {
+        viewModel.onSwap(isFavorite, from, to)
     }
 
     override fun onDestroyView() {

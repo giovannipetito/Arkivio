@@ -7,14 +7,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import it.giovanni.arkivio.databinding.FavoriteAvailableItemBinding
-import it.giovanni.arkivio.databinding.FavoriteEmptyItemBinding
 import it.giovanni.arkivio.databinding.FavoriteItemBinding
 
 class FavoritesAdapter(
     private val onAdapterListener: OnAdapterListener
 ) : DragDropAdapter<OldFavorite, RecyclerView.ViewHolder>(diffUtil) {
 
-    inner class PersonalViewHolder(private val binding: FavoriteItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class FavoriteViewHolder(private val binding: FavoriteItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(favorite: OldFavorite) {
             binding.favoriteTitle.text = favorite.title
             binding.root.setOnLongClickListener { view ->
@@ -41,29 +40,13 @@ class FavoritesAdapter(
         }
     }
 
-    inner class EmptyViewHolder(private val binding: FavoriteEmptyItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind() {
-            binding.item.setOnDragListener(dragListener)
-        }
-    }
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): RecyclerView.ViewHolder {
         return when (viewType) {
-            EMPTY_TYPE -> {
-                EmptyViewHolder(
-                    FavoriteEmptyItemBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
-                    )
-                )
-            }
-            PERSONAL_TYPE -> {
-                PersonalViewHolder(
+            VIEW_TYPE_FAVORITE -> {
+                FavoriteViewHolder(
                     FavoriteItemBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
@@ -85,36 +68,31 @@ class FavoritesAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (getItemViewType(position)) {
-            EMPTY_TYPE -> {
-                (holder as EmptyViewHolder).bind()
+            VIEW_TYPE_FAVORITE -> {
+                (holder as FavoriteViewHolder).bind(getItem(position))
             }
-            PERSONAL_TYPE -> {
-                (holder as PersonalViewHolder).bind(getItem(position))
-            }
-            AVAILABLE_TYPE -> {
+            VIEW_TYPE_AVAILABLE -> {
                 (holder as AvailableViewHolder).bind(getItem(position))
             }
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (currentList[position] == null) EMPTY_TYPE
-        else if (currentList[position].isPersonal) PERSONAL_TYPE
-        else AVAILABLE_TYPE
+        return if (currentList[position].isFavorite) VIEW_TYPE_FAVORITE
+        else VIEW_TYPE_AVAILABLE
     }
 
     interface OnAdapterListener {
         fun onAdd(favorite: OldFavorite)
         fun onRemove(favorite: OldFavorite)
         fun onSet(targetIndex: Int, sourceIndex: Int, favorite: OldFavorite)
-        fun onSwap(isPersonal: Boolean, from: Int, to: Int)
+        fun onSwap(isFavorite: Boolean, from: Int, to: Int)
     }
 
     companion object {
 
-        private const val EMPTY_TYPE = 0
-        private const val PERSONAL_TYPE = 1
-        private const val AVAILABLE_TYPE = 2
+        private const val VIEW_TYPE_FAVORITE = 0
+        private const val VIEW_TYPE_AVAILABLE = 1
 
         val diffUtil = object : DiffUtil.ItemCallback<OldFavorite>() {
             override fun areItemsTheSame(oldItem: OldFavorite, newItem: OldFavorite): Boolean {
@@ -137,7 +115,7 @@ class FavoritesAdapter(
 
 
     override fun onSwap(from: Int, to: Int) {
-        if (currentList.any { it.isPersonal }) {
+        if (currentList.any { it.isFavorite }) {
             onAdapterListener.onSwap(true, from, to)
         } else {
             onAdapterListener.onSwap(false, from, to)

@@ -7,147 +7,149 @@ import java.util.Collections
 
 class FavoritesViewModel : ViewModel() {
 
-    private val _personalFavorites: MutableLiveData<List<OldFavorite?>> = MutableLiveData()
-    val personalFavorites: LiveData<List<OldFavorite?>> = _personalFavorites
+    private val _favorites: MutableLiveData<List<OldFavorite?>> = MutableLiveData()
+    val favorites: LiveData<List<OldFavorite?>> = _favorites
 
-    private val _availableFavorites: MutableLiveData<List<OldFavorite?>> = MutableLiveData()
-    val availableFavorites: LiveData<List<OldFavorite?>> = _availableFavorites
+    private val _availables: MutableLiveData<List<OldFavorite?>> = MutableLiveData()
+    val availables: LiveData<List<OldFavorite?>> = _availables
 
-    private var remotePersonalFavorites: MutableList<OldFavorite?> = arrayListOf(
-        OldFavorite("1", "", true),
-        OldFavorite("2", "", true),
-        OldFavorite("3", "", true),
-        OldFavorite("4", "", true),
-        OldFavorite("5", "", true),
-        null,
-        null
+    private var responseFavorites: MutableList<OldFavorite?> = arrayListOf(
+        OldFavorite("1", true),
+        OldFavorite("2", true),
+        OldFavorite("3", true),
+        OldFavorite("4", true),
+        OldFavorite("5", true),
+        OldFavorite("6", true),
+        OldFavorite("7", true)
     )
 
-    private val remoteAvailableFavorites: MutableList<OldFavorite> = arrayListOf(
-        OldFavorite("A", "", false),
-        OldFavorite("B", "", false),
-        OldFavorite("C", "", false),
-        OldFavorite("D", "", false),
-        OldFavorite("E", "", false),
-        OldFavorite("F", "", false),
-        OldFavorite("G", "", false),
-        OldFavorite("H", "", false),
-        OldFavorite("I", "", false),
-        OldFavorite("J", "", false)
+    private val responseAvailables: MutableList<OldFavorite> = arrayListOf(
+        OldFavorite("A", false),
+        OldFavorite("B", false),
+        OldFavorite("C", false),
+        OldFavorite("D", false),
+        OldFavorite("E", false),
+        OldFavorite("F", false),
+        OldFavorite("G", false),
+        OldFavorite("H", false),
+        OldFavorite("I", false),
+        OldFavorite("J", false),
+        OldFavorite("K", false),
+        OldFavorite("L", false)
     )
 
     init {
-        _personalFavorites.value = remotePersonalFavorites
-        _availableFavorites.value = remoteAvailableFavorites
+        _favorites.value = responseFavorites
+        _availables.value = responseAvailables
     }
 
     fun onSet(targetIndex: Int, sourceIndex: Int, targetItem: OldFavorite) {
 
-        val tempPersonalFavorites: MutableList<OldFavorite?>? = _personalFavorites.value?.toMutableList()
-        val tempAvailableFavorites: MutableList<OldFavorite?>? = _availableFavorites.value?.toMutableList()
+        val tempFavorites: MutableList<OldFavorite?>? = _favorites.value?.toMutableList()
+        val tempAvailables: MutableList<OldFavorite?>? = _availables.value?.toMutableList()
 
-        if (targetItem.isPersonal) {
-            val favorite = tempAvailableFavorites?.get(sourceIndex)?.copy(isPersonal = true)
-            tempPersonalFavorites?.let {
+        if (targetItem.isFavorite) {
+            val favorite = tempAvailables?.get(sourceIndex)?.copy(isFavorite = true)
+            tempFavorites?.let {
                 it[targetIndex] = favorite
             }
 
-            tempAvailableFavorites?.let {
-                it[sourceIndex] = targetItem.copy(isPersonal = false)
+            tempAvailables?.let {
+                it[sourceIndex] = targetItem.copy(isFavorite = false)
             }
         } else {
-            val favorite = tempPersonalFavorites?.get(targetIndex)?.copy(isPersonal = false)
-            tempPersonalFavorites?.let {
-                it[targetIndex] = targetItem.copy(isPersonal = true)
+            val favorite = tempFavorites?.get(targetIndex)?.copy(isFavorite = false)
+            tempFavorites?.let {
+                it[targetIndex] = targetItem.copy(isFavorite = true)
             }
 
-            tempAvailableFavorites?.let {
+            tempAvailables?.let {
                 it[sourceIndex] = favorite
             }
         }
 
-        _availableFavorites.value = tempAvailableFavorites?.toList()
-        _personalFavorites.value = tempPersonalFavorites?.toList()
+        _availables.value = tempAvailables?.toList()
+        _favorites.value = tempFavorites?.toList()
     }
 
     fun onRemove(item: OldFavorite) {
-        if (item.isPersonal) {
-            _personalFavorites.value?.let { personalFavorites ->
-                val tempPersonalFavorites: MutableList<OldFavorite?> = personalFavorites.toMutableList()
-                val tempAvailableFavorites: MutableList<OldFavorite?>? = _availableFavorites.value?.toMutableList()
-                for (i in tempPersonalFavorites.indices) {
-                    if (tempPersonalFavorites[i] == item) {
-                        tempPersonalFavorites[i] = null
+        if (item.isFavorite) {
+            _favorites.value?.let { favorites ->
+                val tempFavorites: MutableList<OldFavorite?> = favorites.toMutableList()
+                val tempAvailables: MutableList<OldFavorite?>? = _availables.value?.toMutableList()
+                for (i in tempFavorites.indices) {
+                    if (tempFavorites[i] == item) {
+                        tempFavorites[i] = null
                         break
                     }
                 }
-                _personalFavorites.value = tempPersonalFavorites.toList()
-                tempAvailableFavorites?.add(item.copy(isPersonal = false))
-                _availableFavorites.value = tempAvailableFavorites?.toList()
+                _favorites.value = tempFavorites.toList()
+                tempAvailables?.add(item.copy(isFavorite = false))
+                _availables.value = tempAvailables?.toList()
             }
         } else {
-            _availableFavorites.value?.let { availableFavorites ->
-                val tempPersonalFavorites: MutableList<OldFavorite?>? = _personalFavorites.value?.toMutableList()
-                val tempAvailableFavorites: MutableList<OldFavorite?> = availableFavorites.toMutableList()
-                tempAvailableFavorites.remove(item)
-                _availableFavorites.value = tempAvailableFavorites.toList()
-                for (i in tempPersonalFavorites?.indices!!) {
-                    if (tempPersonalFavorites[i] == null) {
-                        tempPersonalFavorites[i] = item.copy(isPersonal = true)
+            _availables.value?.let { availables ->
+                val tempFavorites: MutableList<OldFavorite?>? = _favorites.value?.toMutableList()
+                val tempAvailables: MutableList<OldFavorite?> = availables.toMutableList()
+                tempAvailables.remove(item)
+                _availables.value = tempAvailables.toList()
+                for (i in tempFavorites?.indices!!) {
+                    if (tempFavorites[i] == null) {
+                        tempFavorites[i] = item.copy(isFavorite = true)
                         break
                     }
                 }
-                tempPersonalFavorites.sortWith(Comparator.nullsLast(null))
-                _personalFavorites.value = tempPersonalFavorites.toList()
+                tempFavorites.sortWith(Comparator.nullsLast(null))
+                _favorites.value = tempFavorites.toList()
             }
         }
     }
 
     fun onAdd(favorite: OldFavorite) {
-        if (!favorite.isPersonal) {
-            _personalFavorites.value?.let { personalFavorites ->
-                val tempPersonalFavorites: MutableList<OldFavorite?> = personalFavorites.toMutableList()
-                val tempAvailableFavorites: MutableList<OldFavorite?>? = _availableFavorites.value?.toMutableList()
+        if (!favorite.isFavorite) {
+            _favorites.value?.let { favorites ->
+                val tempFavorites: MutableList<OldFavorite?> = favorites.toMutableList()
+                val tempAvailables: MutableList<OldFavorite?>? = _availables.value?.toMutableList()
 
-                // if (tempPersonalFavorites.filterNotNull().size < TOP_DATA_MAX_SIZE) {
-                    for (i in tempPersonalFavorites.indices) {
-                        if (tempPersonalFavorites[i] == null) {
-                            tempPersonalFavorites[i] = favorite.copy(isPersonal = true)
+                // if (tempFavorites.filterNotNull().size < TOP_DATA_MAX_SIZE) {
+                    for (i in tempFavorites.indices) {
+                        if (tempFavorites[i] == null) {
+                            tempFavorites[i] = favorite.copy(isFavorite = true)
                             break
                         }
                     }
-                    _personalFavorites.value = tempPersonalFavorites.toList()
-                    tempAvailableFavorites?.remove(favorite)
-                    _availableFavorites.value = tempAvailableFavorites?.toList()
+                    _favorites.value = tempFavorites.toList()
+                    tempAvailables?.remove(favorite)
+                    _availables.value = tempAvailables?.toList()
                 // }
             }
         } else {
-            _availableFavorites.value?.let { availableFavorites ->
-                val tempPersonalFavorites: MutableList<OldFavorite?>? = _personalFavorites.value?.toMutableList()
-                val tempAvailableFavorites: MutableList<OldFavorite?> = availableFavorites.toMutableList()
+            _availables.value?.let { availables ->
+                val tempFavorites: MutableList<OldFavorite?>? = _favorites.value?.toMutableList()
+                val tempAvailables: MutableList<OldFavorite?> = availables.toMutableList()
 
-                tempAvailableFavorites.add(favorite.copy(isPersonal = false))
-                _availableFavorites.value = tempAvailableFavorites.toList()
-                tempPersonalFavorites?.remove(favorite)
-                tempPersonalFavorites?.add(null)
-                tempPersonalFavorites?.sortWith(Comparator.nullsLast(null))
-                _personalFavorites.value = tempPersonalFavorites?.toList()
+                tempAvailables.add(favorite.copy(isFavorite = false))
+                _availables.value = tempAvailables.toList()
+                tempFavorites?.remove(favorite)
+                tempFavorites?.add(null)
+                tempFavorites?.sortWith(Comparator.nullsLast(null))
+                _favorites.value = tempFavorites?.toList()
             }
         }
     }
 
-    fun onSwap(isPersonal: Boolean, from: Int, to: Int) {
-        if (isPersonal) {
-            _personalFavorites.value?.let { personalFavorites ->
-                val tempPersonalFavorites: MutableList<OldFavorite?> = personalFavorites.toMutableList()
-                Collections.swap(tempPersonalFavorites, from, to)
-                _personalFavorites.value = tempPersonalFavorites.toList()
+    fun onSwap(isFavorite: Boolean, from: Int, to: Int) {
+        if (isFavorite) {
+            _favorites.value?.let { favorites ->
+                val tempFavorites: MutableList<OldFavorite?> = favorites.toMutableList()
+                Collections.swap(tempFavorites, from, to)
+                _favorites.value = tempFavorites.toList()
             }
         } else {
-            _availableFavorites.value?.let { availableFavorites ->
-                val tempAvailableFavorites: MutableList<OldFavorite?> = availableFavorites.toMutableList()
-                Collections.swap(tempAvailableFavorites, from, to)
-                _availableFavorites.value = tempAvailableFavorites.toList()
+            _availables.value?.let { availables ->
+                val tempAvailables: MutableList<OldFavorite?> = availables.toMutableList()
+                Collections.swap(tempAvailables, from, to)
+                _availables.value = tempAvailables.toList()
             }
         }
     }

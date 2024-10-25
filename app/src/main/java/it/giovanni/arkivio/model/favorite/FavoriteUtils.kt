@@ -36,7 +36,7 @@ object FavoriteUtils {
 
         for (available in availables) {
             for (child in available.children) {
-                val personal = Favorite(
+                val favorite = Favorite(
                     domain = child.domain,
                     identifier = child.identifier,
                     kind = child.kind,
@@ -45,7 +45,7 @@ object FavoriteUtils {
                     images = child.images,
                     availableTitle = available.title
                 )
-                favorites.add(personal)
+                favorites.add(favorite)
             }
         }
 
