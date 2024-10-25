@@ -1,25 +1,23 @@
 package it.giovanni.arkivio.fragments.detail.drag
 
 import android.content.ClipData
-import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.DragShadowBuilder
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import it.giovanni.arkivio.databinding.FavoriteAvailableItemBinding
 import it.giovanni.arkivio.databinding.FavoriteHeaderItemBinding
 import it.giovanni.arkivio.databinding.FavoriteItemBinding
-import it.giovanni.arkivio.model.favorite.FavoriteUtils
 import it.giovanni.arkivio.model.favorite.Favorite
+import it.giovanni.arkivio.model.favorite.FavoriteUtils
 
 class DragAdapter(
     private val isFavoriteList: Boolean,
-    private val listener: Listener?
-) : ListAdapter<Favorite, RecyclerView.ViewHolder>(diffUtil) {
+    private val onAdapterListener: OnAdapterListener
+) : DragListAdapter<Favorite, RecyclerView.ViewHolder>(diffUtil) {
 
     private var isEditMode = false
 
@@ -71,9 +69,29 @@ class DragAdapter(
         }
     }
 
+    override fun onAdd(item: Favorite) {
+        onAdapterListener.onAdd(item)
+    }
+
+    override fun onRemove(item: Favorite) {
+        onAdapterListener.onRemove(item)
+    }
+
+
+    override fun onSwap(from: Int, to: Int) {
+        if (currentList.any { it.availableTitle == null }) {
+            onAdapterListener.onSwap(true, from, to)
+        } else {
+            onAdapterListener.onSwap(false, from, to)
+        }
+    }
+
+    override fun onSet(targetIndex: Int, sourceIndex: Int, targetItem: Favorite) {
+        onAdapterListener.onSet(targetIndex, sourceIndex, targetItem)
+    }
+
     inner class FavoriteViewHolder(private val binding: FavoriteItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(favorite: Favorite) {
-            binding.root.tag = bindingAdapterPosition
             binding.favoriteTitle.text = favorite.title
             FavoriteUtils.setImageByContentPath(binding.favoritePoster, favorite.images?.get(0)?.contentPath)
             Log.i("[DRAG]", "DragAdapter - bindingAdapterPosition: $bindingAdapterPosition")
@@ -94,14 +112,10 @@ class DragAdapter(
                     binding.root.setOnLongClickListener { view ->
                         val data = ClipData.newPlainText("", "")
                         val shadowBuilder = DragShadowBuilder(view)
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            view.startDragAndDrop(data, shadowBuilder, view, 0)
-                        } else {
-                            view.startDrag(data, shadowBuilder, view, 0)
-                        }
+                        view.startDragAndDrop(data, shadowBuilder, view, 0)
                         false
                     }
-                    binding.root.setOnDragListener(DragListener(listener))
+                    binding.root.setOnDragListener(dragListener)
                 } else {
                     binding.favoriteBorder.visibility = View.GONE
                 }
@@ -111,21 +125,16 @@ class DragAdapter(
 
     inner class AvailableViewHolder(private val binding: FavoriteAvailableItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(favorite: Favorite) {
-            binding.root.tag = bindingAdapterPosition
             binding.availableTitle.text = favorite.title
             FavoriteUtils.setImageByContentPath(binding.availablePoster, favorite.images?.get(0)?.contentPath)
 
             binding.root.setOnLongClickListener { view ->
                 val data = ClipData.newPlainText("", "")
                 val shadowBuilder = DragShadowBuilder(view)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    view.startDragAndDrop(data, shadowBuilder, view, 0)
-                } else {
-                    view.startDrag(data, shadowBuilder, view, 0)
-                }
+                view.startDragAndDrop(data, shadowBuilder, view, 0)
                 false
             }
-            binding.root.setOnDragListener(DragListener(listener))
+            binding.root.setOnDragListener(dragListener)
         }
     }
 
@@ -133,6 +142,13 @@ class DragAdapter(
         fun bind(headerTitle: String?) {
             binding.headerTitle.text = headerTitle
         }
+    }
+
+    interface OnAdapterListener {
+        fun onAdd(favorite: Favorite)
+        fun onRemove(favorite: Favorite)
+        fun onSet(targetIndex: Int, sourceIndex: Int, favorite: Favorite)
+        fun onSwap(isFavorite: Boolean, from: Int, to: Int)
     }
 
     companion object {

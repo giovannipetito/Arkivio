@@ -6,14 +6,15 @@ import androidx.lifecycle.ViewModel
 import it.giovanni.arkivio.fragments.detail.drag.DragAdapter.Companion.EDIT_IDENTIFIER
 import it.giovanni.arkivio.model.favorite.FavoriteUtils
 import it.giovanni.arkivio.model.favorite.Favorite
+import java.util.Collections
 
 class DragViewModel : ViewModel() {
 
-    private val _favorites = MutableLiveData<List<Favorite>>()
-    val favorites: LiveData<List<Favorite>> get() = _favorites
+    private val _favorites = MutableLiveData<List<Favorite?>>()
+    val favorites: LiveData<List<Favorite?>> get() = _favorites
 
-    private val _availables = MutableLiveData<List<Favorite>>()
-    val availables: LiveData<List<Favorite>> get() = _availables
+    private val _availables = MutableLiveData<List<Favorite?>>()
+    val availables: LiveData<List<Favorite?>> get() = _availables
 
     init {
         val responseFavorites: MutableList<Favorite> = FavoriteUtils.getFavorites()
@@ -38,5 +39,116 @@ class DragViewModel : ViewModel() {
         _favorites.value = editableFavorites
 
         _availables.value = filteredAvailables
+    }
+
+    fun onSet(targetIndex: Int, sourceIndex: Int, targetItem: Favorite) {
+
+        val tempFavorites: MutableList<Favorite?> = _favorites.value?.toMutableList()!!
+        val tempAvailables: MutableList<Favorite?> = _availables.value?.toMutableList()!!
+
+        if (targetItem.availableTitle == null) {
+            val favorite = tempAvailables[sourceIndex]?.copy(availableTitle = null)
+            tempFavorites.let {
+                it[targetIndex] = favorite
+            }
+
+            tempAvailables.let {
+                it[sourceIndex] = targetItem.copy(availableTitle = "")
+            }
+        } else {
+            val favorite = tempFavorites[targetIndex]?.copy(availableTitle = "")
+            tempFavorites.let {
+                it[targetIndex] = targetItem.copy(availableTitle = null)
+            }
+
+            tempAvailables.let {
+                it[sourceIndex] = favorite
+            }
+        }
+
+        _availables.value = tempAvailables.toList()
+        _favorites.value = tempFavorites.toList()
+    }
+
+    fun onRemove(item: Favorite) {
+        if (item.availableTitle == null) {
+            _favorites.value?.let { favorites ->
+                val tempFavorites: MutableList<Favorite?> = favorites.toMutableList()
+                val tempAvailables: MutableList<Favorite?> = _availables.value?.toMutableList()!!
+                for (i in tempFavorites.indices) {
+                    if (tempFavorites[i] == item) {
+                        tempFavorites[i] = null
+                        break
+                    }
+                }
+                _favorites.value = tempFavorites.toList()
+                tempAvailables.add(item.copy(availableTitle = ""))
+                _availables.value = tempAvailables.toList()
+            }
+        } else {
+            _availables.value?.let { availables ->
+                val tempFavorites: MutableList<Favorite?> = _favorites.value?.toMutableList()!!
+                val tempAvailables: MutableList<Favorite?> = availables.toMutableList()
+                tempAvailables.remove(item)
+                _availables.value = tempAvailables.toList()
+                for (i in tempFavorites.indices) {
+                    if (tempFavorites[i] == null) {
+                        tempFavorites[i] = item.copy(availableTitle = null)
+                        break
+                    }
+                }
+                tempFavorites.sortWith(Comparator.nullsLast(null))
+                _favorites.value = tempFavorites.toList()
+            }
+        }
+    }
+
+    fun onAdd(favorite: Favorite) {
+        if (favorite.availableTitle != null) {
+            _favorites.value?.let { favorites ->
+                val tempFavorites: MutableList<Favorite?> = favorites.toMutableList()
+                val tempAvailables: MutableList<Favorite?> = _availables.value?.toMutableList()!!
+
+                // if (tempFavorites.filterNotNull().size < TOP_DATA_MAX_SIZE) {
+                for (i in tempFavorites.indices) {
+                    if (tempFavorites[i] == null) {
+                        tempFavorites[i] = favorite.copy(availableTitle = null)
+                        break
+                    }
+                }
+                _favorites.value = tempFavorites.toList()
+                tempAvailables.remove(favorite)
+                _availables.value = tempAvailables.toList()
+                // }
+            }
+        } else {
+            _availables.value?.let { availables ->
+                val tempFavorites: MutableList<Favorite?> = _favorites.value?.toMutableList()!!
+                val tempAvailables: MutableList<Favorite?> = availables.toMutableList()
+
+                tempAvailables.add(favorite.copy(availableTitle = ""))
+                _availables.value = tempAvailables.toList()
+                tempFavorites.remove(favorite)
+                tempFavorites.add(null)
+                tempFavorites.sortWith(Comparator.nullsLast(null))
+                _favorites.value = tempFavorites.toList()
+            }
+        }
+    }
+
+    fun onSwap(isFavorite: Boolean, from: Int, to: Int) {
+        if (isFavorite) {
+            _favorites.value?.let { favorites ->
+                val tempFavorites: MutableList<Favorite?> = favorites.toMutableList()
+                Collections.swap(tempFavorites, from, to)
+                _favorites.value = tempFavorites.toList()
+            }
+        } else {
+            _availables.value?.let { availables ->
+                val tempAvailables: MutableList<Favorite?> = availables.toMutableList()
+                Collections.swap(tempAvailables, from, to)
+                _availables.value = tempAvailables.toList()
+            }
+        }
     }
 }

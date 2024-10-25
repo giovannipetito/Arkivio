@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.dragdrop
+package it.giovanni.arkivio.fragments.detail.drag
 
 import android.view.DragEvent
 import android.view.View
@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class DragDropAdapter<T, VH : RecyclerView.ViewHolder>(
+abstract class DragListAdapter<T, VH : RecyclerView.ViewHolder>(
     diffUtil: DiffUtil.ItemCallback<T>
 ) : ListAdapter<T, VH>(diffUtil) {
 
@@ -16,7 +16,7 @@ abstract class DragDropAdapter<T, VH : RecyclerView.ViewHolder>(
                 if (it.action == DragEvent.ACTION_DROP) {
                     val sourceView = it.localState as View
                     val sourceRecyclerView = sourceView.parent as RecyclerView
-                    val sourceAdapter = sourceRecyclerView.adapter as DragDropAdapter<T, VH>
+                    val sourceAdapter = sourceRecyclerView.adapter as DragListAdapter<T, VH>
                     val sourcePosition = sourceRecyclerView.getChildAdapterPosition(sourceView)
                     view?.let { targetView ->
                         var targetRecyclerView: RecyclerView? = targetView as? RecyclerView
@@ -26,7 +26,7 @@ abstract class DragDropAdapter<T, VH : RecyclerView.ViewHolder>(
                         if (targetRecyclerView !is RecyclerView) {
                             return false
                         }
-                        val targetAdapter = targetRecyclerView.adapter as DragDropAdapter<T, VH>
+                        val targetAdapter = targetRecyclerView.adapter as DragListAdapter<T, VH>
                         val targetPosition = if (targetView is RecyclerView) {
                             targetAdapter.currentList.size
                         } else {

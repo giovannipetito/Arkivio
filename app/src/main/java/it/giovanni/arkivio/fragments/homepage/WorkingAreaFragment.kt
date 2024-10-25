@@ -93,9 +93,6 @@ class WorkingAreaFragment : HomeFragment() {
         binding?.labelFavorites?.setOnClickListener {
             currentActivity.openDetail(Globals.FAVORITES, null)
         }
-        binding?.labelDrag?.setOnClickListener {
-            currentActivity.openDetail(Globals.DRAG, null)
-        }
     }
 
     override fun onDestroyView() {
