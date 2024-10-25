@@ -20,8 +20,8 @@ class FavoritesFragment : DetailFragment(), FavoritesAdapter.OnAdapterListener {
 
     private val viewModel: FavoritesViewModel by viewModels()
 
-    private var personalRecyclerView: RecyclerView? = null
-    private var availableRecyclerView: RecyclerView? = null
+    private var favoritesRecyclerview: RecyclerView? = null
+    private var availablesRecyclerView: RecyclerView? = null
 
     private lateinit var personalAdapter: FavoritesAdapter
     private lateinit var availableAdapter: FavoritesAdapter
@@ -83,18 +83,18 @@ class FavoritesFragment : DetailFragment(), FavoritesAdapter.OnAdapterListener {
 
     private fun setupRecyclerViews() {
 
-        personalRecyclerView = binding?.personalRecyclerView
-        availableRecyclerView = binding?.availableRecyclerView
+        favoritesRecyclerview = binding?.favoritesRecyclerview
+        availablesRecyclerView = binding?.availablesRecyclerview
 
         // Set up personal RecyclerView
-        personalAdapter = FavoritesAdapter(isSwappable = true, onAdapterListener = this)
-        personalRecyclerView?.layoutManager = GridLayoutManager(requireContext(), 4)
-        personalRecyclerView?.adapter = personalAdapter
+        personalAdapter = FavoritesAdapter(onAdapterListener = this)
+        favoritesRecyclerview?.layoutManager = GridLayoutManager(requireContext(), 4)
+        favoritesRecyclerview?.adapter = personalAdapter
 
         // Set up available RecyclerView
-        availableAdapter = FavoritesAdapter(isSwappable = true, onAdapterListener = this)
-        availableRecyclerView?.layoutManager = GridLayoutManager(requireContext(), 4)
-        availableRecyclerView?.adapter = availableAdapter
+        availableAdapter = FavoritesAdapter(onAdapterListener = this)
+        availablesRecyclerView?.layoutManager = GridLayoutManager(requireContext(), 4)
+        availablesRecyclerView?.adapter = availableAdapter
     }
 
     // Implement OnAdapterListener methods

@@ -10,7 +10,6 @@ abstract class DragDropAdapter<T, VH : RecyclerView.ViewHolder>(
     diffUtil: DiffUtil.ItemCallback<T>
 ) : ListAdapter<T, VH>(diffUtil) {
 
-    abstract val isSwappable: Boolean
     val dragListener = object : View.OnDragListener {
         override fun onDrag(view: View?, event: DragEvent?): Boolean {
             event?.let {
@@ -35,16 +34,14 @@ abstract class DragDropAdapter<T, VH : RecyclerView.ViewHolder>(
                         }
                         // If same Recyclerview swap two item
                         if (sourceRecyclerView.id == targetRecyclerView.id) {
-                            if (isSwappable) {
-                                if (targetPosition >= 0 && sourceAdapter.currentList[targetPosition] != null) {
-                                    if (targetPosition >= 0) {
-                                        sourceAdapter.onSwap(sourcePosition, targetPosition)
-                                    } else {
-                                        sourceAdapter.onSwap(
-                                            sourcePosition,
-                                            sourceAdapter.currentList.size - 1
-                                        )
-                                    }
+                            if (targetPosition >= 0 && sourceAdapter.currentList[targetPosition] != null) {
+                                if (targetPosition >= 0) {
+                                    sourceAdapter.onSwap(sourcePosition, targetPosition)
+                                } else {
+                                    sourceAdapter.onSwap(
+                                        sourcePosition,
+                                        sourceAdapter.currentList.size - 1
+                                    )
                                 }
                             }
                         } else {

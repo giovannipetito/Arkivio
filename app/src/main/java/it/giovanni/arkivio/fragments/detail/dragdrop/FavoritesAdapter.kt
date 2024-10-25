@@ -11,7 +11,6 @@ import it.giovanni.arkivio.databinding.FavoriteEmptyItemBinding
 import it.giovanni.arkivio.databinding.FavoriteItemBinding
 
 class FavoritesAdapter(
-    override val isSwappable: Boolean,
     private val onAdapterListener: OnAdapterListener
 ) : DragDropAdapter<OldFavorite, RecyclerView.ViewHolder>(diffUtil) {
 
