@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.drag
+package it.giovanni.arkivio.fragments.detail.favorites
 
 import android.content.ClipData
 import android.util.Log
@@ -14,7 +14,7 @@ import it.giovanni.arkivio.databinding.FavoriteItemBinding
 import it.giovanni.arkivio.model.favorite.Favorite
 import it.giovanni.arkivio.model.favorite.FavoriteUtils
 
-class DragAdapter(
+class FavoritesAdapter(
     private val isFavoriteList: Boolean,
     private val onAdapterListener: OnAdapterListener
 ) : DragListAdapter<Favorite, RecyclerView.ViewHolder>(diffUtil) {
@@ -69,6 +69,10 @@ class DragAdapter(
         }
     }
 
+    override fun onSet(targetIndex: Int, sourceIndex: Int, targetItem: Favorite) {
+        onAdapterListener.onSet(targetIndex, sourceIndex, targetItem)
+    }
+
     override fun onAdd(item: Favorite) {
         onAdapterListener.onAdd(item)
     }
@@ -77,17 +81,12 @@ class DragAdapter(
         onAdapterListener.onRemove(item)
     }
 
-
     override fun onSwap(from: Int, to: Int) {
         if (currentList.any { it.availableTitle == null }) {
             onAdapterListener.onSwap(true, from, to)
         } else {
             onAdapterListener.onSwap(false, from, to)
         }
-    }
-
-    override fun onSet(targetIndex: Int, sourceIndex: Int, targetItem: Favorite) {
-        onAdapterListener.onSet(targetIndex, sourceIndex, targetItem)
     }
 
     inner class FavoriteViewHolder(private val binding: FavoriteItemBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -142,13 +141,6 @@ class DragAdapter(
         fun bind(headerTitle: String?) {
             binding.headerTitle.text = headerTitle
         }
-    }
-
-    interface OnAdapterListener {
-        fun onAdd(favorite: Favorite)
-        fun onRemove(favorite: Favorite)
-        fun onSet(targetIndex: Int, sourceIndex: Int, favorite: Favorite)
-        fun onSwap(isFavorite: Boolean, from: Int, to: Int)
     }
 
     companion object {

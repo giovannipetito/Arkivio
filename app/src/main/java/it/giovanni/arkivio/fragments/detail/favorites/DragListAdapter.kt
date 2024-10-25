@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.drag
+package it.giovanni.arkivio.fragments.detail.favorites
 
 import android.view.DragEvent
 import android.view.View
@@ -68,11 +68,11 @@ abstract class DragListAdapter<T, VH : RecyclerView.ViewHolder>(
         }
     }
 
+    abstract fun onSet(targetIndex: Int, sourceIndex: Int, targetItem: T)
+
     abstract fun onAdd(item: T)
 
     abstract fun onRemove(item: T)
-
-    abstract fun onSet(targetIndex: Int, sourceIndex: Int, targetItem: T)
 
     abstract fun onSwap(from: Int, to: Int)
 }
