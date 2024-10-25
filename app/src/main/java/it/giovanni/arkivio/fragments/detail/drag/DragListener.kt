@@ -32,64 +32,74 @@ class DragListener(private val listener: Listener?) : OnDragListener {
             val favoritesRecyclerview: Int = R.id.favorites_recyclerview
             val availablesRecyclerview: Int = R.id.availables_recyclerview
 
-            val target: RecyclerView
-
-            when (viewId) {
+            val target: RecyclerView = when (viewId) {
                 favoritesContainer, favoritesRecyclerview -> {
-                    target = view.rootView.findViewById(favoritesRecyclerview)
+                    view.rootView.findViewById(favoritesRecyclerview)
                 }
+
                 availablesContainer, availablesRecyclerview -> {
-                    target = view.rootView.findViewById(availablesRecyclerview)
+                    view.rootView.findViewById(availablesRecyclerview)
                 }
+
                 else -> {
-                    target = view.parent as RecyclerView
+                    view.parent as RecyclerView
                 }
             }
 
             val source = viewSource.parent as RecyclerView
-            val positionSource = viewSource.tag as Int
+            val sourcePosition = viewSource.tag as Int
             val sourceAdapter = source.adapter as DragAdapter?
             val targetAdapter = target.adapter as DragAdapter?
 
             if (sourceAdapter != null && targetAdapter != null) {
-                val favorite: Favorite = sourceAdapter.favorites[positionSource]
-                val sourceList: MutableList<Favorite> = sourceAdapter.favorites
-                val targetList: MutableList<Favorite> = targetAdapter.favorites
+                val favorite: Favorite = sourceAdapter.currentList[sourcePosition]
+                val sourceList: MutableList<Favorite> = sourceAdapter.currentList.toMutableList()
+                val targetList: MutableList<Favorite> = targetAdapter.currentList.toMutableList()
+
+                Log.i("[DRAG]", "1) sourcePosition: $sourcePosition")
+                Log.i("[DRAG]", "1) sourceList: " + sourceList.toList())
+                Log.i("[DRAG]", "1) targetList: " + targetList.toList())
 
                 // Rule 1: Reordering within the same favoritesRecyclerview
                 if (source.id == favoritesRecyclerview && target.id == favoritesRecyclerview) {
                     // Swap items at positionSource and target position
-                    val positionTarget = target.getChildAdapterPosition(view)
+                    val targetPosition = target.getChildAdapterPosition(view)
 
-                    if (positionTarget != RecyclerView.NO_POSITION && positionSource != positionTarget) {
-                        Collections.swap(sourceList, positionSource, positionTarget)
-                        sourceAdapter.updateFavorites(sourceList)
-                        targetAdapter.updateFavorites(sourceList) // Same list for both since it's a reordering
+                    if (targetPosition != RecyclerView.NO_POSITION && sourcePosition != targetPosition) {
+                        Collections.swap(sourceList, sourcePosition, targetPosition)
 
-                        Log.i("[DRAG]", "Rule 1) Swapped positions: $positionSource with $positionTarget. Updated sourceList size: ${sourceList.size}")
+                        // Update the list in the adapter
+                        val newSourceList = sourceList.toList() // Create a new list instance
+                        sourceAdapter.submitList(newSourceList)
+                        // sourceAdapter.submitList(sourceList)
+                        // targetAdapter.submitList(sourceList) // Same list for both since it's a reordering
+
+                        Log.i("[DRAG]", "2) sourcePosition: $sourcePosition, targetPosition: $targetPosition")
+                        Log.i("[DRAG]", "2) sourceList: " + sourceList.toList())
+                        Log.i("[DRAG]", "2) targetList: " + targetList.toList())
                     }
                 }
 
                 // Rule 2: Moving from availables to favorites
                 if (source.id == availablesRecyclerview && target.id == favoritesRecyclerview) {
                     // Remove from availables, add to favorites
-                    sourceList.removeAt(positionSource)
+                    sourceList.removeAt(sourcePosition)
                     targetList.add(favorite)
-                    sourceAdapter.updateFavorites(sourceList)
-                    targetAdapter.updateFavorites(targetList)
+                    sourceAdapter.submitList(sourceList)
+                    targetAdapter.submitList(targetList)
 
-                    Log.i("[DRAG]", "Rule 2) sourceList.size: " + sourceList.size + ", targetList.size: " + targetList.size)
+                    Log.i("[DRAG]", "Rule 2) sourceList.size: ${sourceList.size}, targetList.size: ${targetList.size}")
                 }
 
                 // Rule 3: Moving from favorites to availables
                 if (source.id == favoritesRecyclerview && target.id == availablesRecyclerview) {
                     // Remove from favorites, add to availables
-                    sourceList.removeAt(positionSource)
+                    sourceList.removeAt(sourcePosition)
                     targetList.add(favorite)
-                    sourceAdapter.updateFavorites(sourceList)
-                    targetAdapter.updateFavorites(targetList)
+                    sourceAdapter.submitList(sourceList)
+                    targetAdapter.submitList(targetList)
 
-                    Log.i("[DRAG]", "Rule 3) sourceList.size: " + sourceList.size + ", targetList.size: " + targetList.size)
+                    Log.i("[DRAG]", "Rule 3) sourceList.size: ${sourceList.size}, targetList.size: ${targetList.size}")
                 }
 
                 // Notify the listener when the list is empty

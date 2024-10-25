@@ -24,7 +24,7 @@ class FavoritesAdapter(
                 view?.startDragAndDrop(data, shadowBuilder, view, 0)
                 false
             }
-            binding.favoriteItem.setOnDragListener(dragListener)
+            binding.root.setOnDragListener(dragListener)
         }
     }
 
@@ -38,7 +38,7 @@ class FavoritesAdapter(
                 view?.startDragAndDrop(data, shadowBuilder, view, 0)
                 false
             }
-            binding.availableItem.setOnDragListener(dragListener)
+            binding.root.setOnDragListener(dragListener)
         }
     }
 

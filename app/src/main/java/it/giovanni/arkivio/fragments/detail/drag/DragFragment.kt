@@ -72,16 +72,14 @@ class DragFragment : DetailFragment(), Listener {
         viewModel.favorites.observe(viewLifecycleOwner) { favorites ->
             val dragAdapter = DragAdapter(
                 true,
-                favorites.toMutableList(),
                 this
             )
             binding?.favoritesRecyclerview?.apply {
-                // setHasFixedSize(true)
+                setHasFixedSize(true)
                 layoutManager = GridLayoutManager(requireContext(), 4)
                 adapter = dragAdapter
-                setOnDragListener(dragAdapter.dragInstance)
             }
-            binding?.favoritesContainer?.setOnDragListener(dragAdapter.dragInstance)
+            dragAdapter.submitList(favorites)
         }
     }
 
@@ -89,11 +87,10 @@ class DragFragment : DetailFragment(), Listener {
         viewModel.availables.observe(viewLifecycleOwner) { availables ->
             val dragAdapter = DragAdapter(
                 false,
-                availables.toMutableList(),
                 this
             )
             binding?.availablesRecyclerview?.apply {
-                // setHasFixedSize(true)
+                setHasFixedSize(true)
                 val gridLayoutManager = GridLayoutManager(requireContext(), 5)
                 gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                     override fun getSpanSize(position: Int): Int {
@@ -107,9 +104,8 @@ class DragFragment : DetailFragment(), Listener {
                 layoutManager = gridLayoutManager
 
                 adapter = dragAdapter
-                setOnDragListener(dragAdapter.dragInstance)
             }
-            binding?.availablesContainer?.setOnDragListener(dragAdapter.dragInstance)
+            dragAdapter.submitList(availables)
         }
     }
 
