@@ -21,10 +21,10 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
 
     private val viewModel: FavoritesViewModel by viewModels()
 
-    private var favoritesRecyclerview: RecyclerView? = null
+    private var personalsRecyclerview: RecyclerView? = null
     private var availablesRecyclerView: RecyclerView? = null
 
-    private lateinit var favoritesAdapter: FavoritesAdapter
+    private lateinit var personalsAdapter: FavoritesAdapter
     private lateinit var availablesAdapter: FavoritesAdapter
 
     override fun getTitle(): Int {
@@ -71,8 +71,8 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
 
         setupRecyclerViews()
 
-        viewModel.favorites.observe(viewLifecycleOwner) { favorites ->
-            favoritesAdapter.submitList(favorites)
+        viewModel.personals.observe(viewLifecycleOwner) { personals ->
+            personalsAdapter.submitList(personals)
         }
 
         viewModel.availables.observe(viewLifecycleOwner) { availables ->
@@ -84,14 +84,14 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
 
     private fun setupRecyclerViews() {
 
-        favoritesRecyclerview = binding?.favoritesRecyclerview
+        personalsRecyclerview = binding?.personalsRecyclerview
         availablesRecyclerView = binding?.availablesRecyclerview
 
-        favoritesAdapter = FavoritesAdapter(true, onAdapterListener = this)
-        favoritesRecyclerview?.apply {
+        personalsAdapter = FavoritesAdapter(true, onAdapterListener = this)
+        personalsRecyclerview?.apply {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(requireContext(), 4)
-            adapter = favoritesAdapter
+            adapter = personalsAdapter
         }
 
         availablesAdapter = FavoritesAdapter(false, onAdapterListener = this)
@@ -111,23 +111,20 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
         }
     }
 
-    override fun onSet(targetIndex: Int, sourceIndex: Int, targetFavorite: Favorite) {
-        val isFavorite = targetFavorite.availableTitle == null
-        viewModel.onSet(isFavorite, targetIndex, sourceIndex, targetFavorite)
+    override fun onSet(isPersonal: Boolean, targetIndex: Int, sourceIndex: Int, targetFavorite: Favorite) {
+        viewModel.onSet(isPersonal, targetIndex, sourceIndex, targetFavorite)
     }
 
-    override fun onAdd(favorite: Favorite) {
-        val isFavorite = favorite.availableTitle == null
-        viewModel.onAdd(isFavorite, favorite)
+    override fun onAdd(isPersonal: Boolean, favorite: Favorite) {
+        viewModel.onAdd(isPersonal, favorite)
     }
 
-    override fun onRemove(favorite: Favorite) {
-        val isFavorite = favorite.availableTitle == null
-        viewModel.onRemove(isFavorite, favorite)
+    override fun onRemove(isPersonal: Boolean, favorite: Favorite) {
+        viewModel.onRemove(isPersonal, favorite)
     }
 
-    override fun onSwap(isFavorite: Boolean, from: Int, to: Int) {
-        viewModel.onSwap(isFavorite, from, to)
+    override fun onSwap(isPersonal: Boolean, from: Int, to: Int) {
+        viewModel.onSwap(isPersonal, from, to)
     }
 
     override fun onDestroyView() {

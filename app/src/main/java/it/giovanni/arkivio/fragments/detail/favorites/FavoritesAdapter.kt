@@ -9,12 +9,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import it.giovanni.arkivio.databinding.FavoriteAvailableItemBinding
 import it.giovanni.arkivio.databinding.FavoriteHeaderItemBinding
-import it.giovanni.arkivio.databinding.FavoriteItemBinding
+import it.giovanni.arkivio.databinding.FavoritePersonalItemBinding
 import it.giovanni.arkivio.model.favorite.Favorite
 import it.giovanni.arkivio.utils.FavoriteUtils
 
 class FavoritesAdapter(
-    private val isFavorite: Boolean,
+    private val isPersonal: Boolean,
     private val onAdapterListener: OnAdapterListener
 ) : DragListAdapter<Favorite, RecyclerView.ViewHolder>(diffUtil) {
 
@@ -22,9 +22,9 @@ class FavoritesAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            VIEW_TYPE_FAVORITE -> {
-                val binding = FavoriteItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                FavoriteViewHolder(binding)
+            VIEW_TYPE_PERSONAL -> {
+                val binding = FavoritePersonalItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                PersonalViewHolder(binding)
             }
             VIEW_TYPE_HEADER -> {
                 val binding = FavoriteHeaderItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -41,16 +41,16 @@ class FavoritesAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val favorite = getItem(position)
         when (holder) {
-            is FavoriteViewHolder -> {
-                if (isFavorite)
+            is PersonalViewHolder -> {
+                if (isPersonal)
                     holder.bind(favorite)
             }
             is AvailableViewHolder -> {
-                if (!isFavorite)
+                if (!isPersonal)
                     holder.bind(favorite)
             }
             is HeaderViewHolder -> {
-                if (!isFavorite)
+                if (!isPersonal)
                     holder.bind(favorite.availableTitle)
             }
         }
@@ -58,8 +58,8 @@ class FavoritesAdapter(
 
     override fun getItemViewType(position: Int): Int {
         val favorite = getItem(position)
-        if (isFavorite) {
-            return VIEW_TYPE_FAVORITE
+        if (isPersonal) {
+            return VIEW_TYPE_PERSONAL
         } else {
             if (position == 0 || favorite.availableTitle != getItem(position - 1).availableTitle) {
                 return VIEW_TYPE_HEADER
@@ -69,39 +69,39 @@ class FavoritesAdapter(
     }
 
     override fun onSet(targetIndex: Int, sourceIndex: Int, targetItem: Favorite) {
-        onAdapterListener.onSet(targetIndex, sourceIndex, targetItem)
+        onAdapterListener.onSet(isPersonal = isPersonal, targetIndex, sourceIndex, targetItem)
     }
 
     override fun onAdd(item: Favorite) {
-        onAdapterListener.onAdd(item)
+        onAdapterListener.onAdd(isPersonal = isPersonal, item)
     }
 
     override fun onRemove(item: Favorite) {
-        onAdapterListener.onRemove(item)
+        onAdapterListener.onRemove(isPersonal = isPersonal, item)
     }
 
     override fun onSwap(from: Int, to: Int) {
-        onAdapterListener.onSwap(isFavorite = isFavorite, from, to)
+        onAdapterListener.onSwap(isPersonal = isPersonal, from, to)
     }
 
-    inner class FavoriteViewHolder(private val binding: FavoriteItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(favorite: Favorite) {
-            binding.favoriteTitle.text = favorite.title
-            FavoriteUtils.setImageByContentPath(binding.favoritePoster, favorite.images?.get(0)?.contentPath)
+    inner class PersonalViewHolder(private val binding: FavoritePersonalItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(personal: Favorite) {
+            binding.personalTitle.text = personal.title
+            FavoriteUtils.setImageByContentPath(binding.personalPoster, personal.images?.get(0)?.contentPath)
 
-            if (favorite.identifier == EDIT_IDENTIFIER) {
+            if (personal.identifier == EDIT_IDENTIFIER) {
                 binding.root.setOnClickListener {
                     // Remove the edit item and enable edit mode.
-                    val newFavorites = currentList.toMutableList().apply {
+                    val newPersonals = currentList.toMutableList().apply {
                         removeAt(bindingAdapterPosition)
                     }
                     notifyDataSetChanged()
-                    submitList(newFavorites)
+                    submitList(newPersonals)
                     isEditMode = true
                 }
             } else {
                 if (isEditMode) {
-                    binding.favoriteBorder.visibility = View.VISIBLE
+                    binding.personalBorder.visibility = View.VISIBLE
                     binding.root.setOnLongClickListener { view ->
                         val data = ClipData.newPlainText("", "")
                         val shadowBuilder = DragShadowBuilder(view)
@@ -110,16 +110,16 @@ class FavoritesAdapter(
                     }
                     binding.root.setOnDragListener(dragListener)
                 } else {
-                    binding.favoriteBorder.visibility = View.GONE
+                    binding.personalBorder.visibility = View.GONE
                 }
             }
         }
     }
 
     inner class AvailableViewHolder(private val binding: FavoriteAvailableItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(favorite: Favorite) {
-            binding.availableTitle.text = favorite.title
-            FavoriteUtils.setImageByContentPath(binding.availablePoster, favorite.images?.get(0)?.contentPath)
+        fun bind(available: Favorite) {
+            binding.availableTitle.text = available.title
+            FavoriteUtils.setImageByContentPath(binding.availablePoster, available.images?.get(0)?.contentPath)
 
             binding.root.setOnLongClickListener { view ->
                 val data = ClipData.newPlainText("", "")
@@ -138,7 +138,7 @@ class FavoritesAdapter(
     }
 
     companion object {
-        const val VIEW_TYPE_FAVORITE = 0
+        const val VIEW_TYPE_PERSONAL = 0
         const val VIEW_TYPE_AVAILABLE = 1
         const val VIEW_TYPE_HEADER = 2
         const val EDIT_IDENTIFIER = "edit"

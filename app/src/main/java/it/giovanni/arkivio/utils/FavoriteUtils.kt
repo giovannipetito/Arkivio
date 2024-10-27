@@ -56,7 +56,7 @@ object FavoriteUtils {
         return favorites
     }
 
-    fun getFavorites(): MutableList<Favorite> {
+    fun getPersonals(): MutableList<Favorite> {
         return mutableListOf(
             Favorite(
                 domain = "Galaxy",
