@@ -90,16 +90,21 @@ class FavoritesAdapter(
             FavoriteUtils.setImageByContentPath(binding.personalPoster, personal.images?.get(0)?.contentPath)
 
             if (personal.identifier == EDIT_IDENTIFIER) {
+                binding.root.visibility = if (isEditMode) View.GONE else View.VISIBLE
+
                 binding.root.setOnClickListener {
-                    // Remove the edit item and enable edit mode.
-                    val newPersonals = currentList.toMutableList().apply {
-                        removeAt(bindingAdapterPosition)
+                    if (!isEditMode) {
+                        val newPersonals = currentList.toMutableList().apply {
+                            removeAt(bindingAdapterPosition)
+                        }
+                        isEditMode = true
+                        submitList(newPersonals)
+                        notifyItemRangeChanged(0, newPersonals.size)
                     }
-                    notifyDataSetChanged()
-                    submitList(newPersonals)
-                    isEditMode = true
                 }
             } else {
+                binding.root.visibility = View.VISIBLE
+
                 if (isEditMode) {
                     binding.personalBorder.visibility = View.VISIBLE
                     binding.root.setOnLongClickListener { view ->
@@ -111,6 +116,8 @@ class FavoritesAdapter(
                     binding.root.setOnDragListener(dragListener)
                 } else {
                     binding.personalBorder.visibility = View.GONE
+                    binding.root.setOnLongClickListener(null)
+                    binding.root.setOnDragListener(null)
                 }
             }
         }
@@ -120,14 +127,15 @@ class FavoritesAdapter(
         fun bind(available: Favorite) {
             binding.availableTitle.text = available.title
             FavoriteUtils.setImageByContentPath(binding.availablePoster, available.images?.get(0)?.contentPath)
-
-            binding.root.setOnLongClickListener { view ->
-                val data = ClipData.newPlainText("", "")
-                val shadowBuilder = DragShadowBuilder(view)
-                view.startDragAndDrop(data, shadowBuilder, view, 0)
-                false
+            if (isEditMode) {
+                binding.root.setOnLongClickListener { view ->
+                    val data = ClipData.newPlainText("", "")
+                    val shadowBuilder = DragShadowBuilder(view)
+                    view.startDragAndDrop(data, shadowBuilder, view, 0)
+                    false
+                }
+                binding.root.setOnDragListener(dragListener)
             }
-            binding.root.setOnDragListener(dragListener)
         }
     }
 
