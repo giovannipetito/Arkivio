@@ -1,10 +1,17 @@
 package it.giovanni.arkivio.fragments.detail.favorites
 
+import android.animation.ArgbEvaluator
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.content.ClipData
+import android.content.Context
+import android.graphics.drawable.GradientDrawable
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.DragShadowBuilder
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import it.giovanni.arkivio.databinding.FavoriteAvailableItemBinding
@@ -12,6 +19,7 @@ import it.giovanni.arkivio.databinding.FavoriteHeaderItemBinding
 import it.giovanni.arkivio.databinding.FavoritePersonalItemBinding
 import it.giovanni.arkivio.model.favorite.Favorite
 import it.giovanni.arkivio.utils.FavoriteUtils
+import it.giovanni.arkivio.R
 
 class FavoritesAdapter(
     private val isPersonal: Boolean,
@@ -85,6 +93,9 @@ class FavoritesAdapter(
     }
 
     inner class PersonalViewHolder(private val binding: FavoritePersonalItemBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        private var borderValueAnimator: ValueAnimator? = null
+
         fun bind(personal: Favorite) {
             binding.personalTitle.text = personal.title
             FavoriteUtils.setImageByContentPath(binding.personalPoster, personal.images?.get(0)?.contentPath)
@@ -107,6 +118,8 @@ class FavoritesAdapter(
 
                 if (isEditMode) {
                     binding.personalBorder.visibility = View.VISIBLE
+                    startShimmerEffect(borderValueAnimator, binding)
+
                     binding.root.setOnLongClickListener { view ->
                         val data = ClipData.newPlainText("", "")
                         val shadowBuilder = DragShadowBuilder(view)
@@ -116,6 +129,8 @@ class FavoritesAdapter(
                     binding.root.setOnDragListener(dragListener)
                 } else {
                     binding.personalBorder.visibility = View.GONE
+                    stopShimmerEffect(borderValueAnimator, binding)
+
                     binding.root.setOnLongClickListener(null)
                     binding.root.setOnDragListener(null)
                 }
@@ -143,6 +158,47 @@ class FavoritesAdapter(
         fun bind(headerTitle: String?) {
             binding.headerTitle.text = headerTitle
         }
+    }
+
+    private fun startShimmerEffect(borderAnimator: ValueAnimator?, binding: FavoritePersonalItemBinding) {
+        var animator = borderAnimator
+        if (animator == null || !animator.isRunning) {
+            val startColor = ContextCompat.getColor(binding.root.context, R.color.white)
+            val endColor = ContextCompat.getColor(binding.root.context, R.color.grey_3)
+
+            animator = ValueAnimator.ofArgb(startColor, endColor).apply {
+                duration = 1000L
+                repeatCount = ValueAnimator.INFINITE
+                repeatMode = ValueAnimator.REVERSE
+
+                addUpdateListener { animator ->
+                    val animatedValue = animator.animatedValue as Int
+                    val background = binding.personalBorder.background
+                    if (background is GradientDrawable) {
+                        background.setStroke(2.dpToPx(binding.root.context), animatedValue)
+                    }
+                }
+                start()
+            }
+        }
+    }
+
+    private fun stopShimmerEffect(borderAnimator: ValueAnimator?, binding: FavoritePersonalItemBinding) {
+        var animator = borderAnimator
+        animator?.cancel()
+        val background = binding.personalBorder.background
+        if (background is GradientDrawable) {
+            background.setStroke(2.dpToPx(binding.root.context), ContextCompat.getColor(binding.root.context, R.color.white))
+        }
+        animator = null
+    }
+
+    fun Int.dpToPx(context: Context): Int {
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            this.toFloat(),
+            context.resources.displayMetrics
+        ).toInt()
     }
 
     companion object {

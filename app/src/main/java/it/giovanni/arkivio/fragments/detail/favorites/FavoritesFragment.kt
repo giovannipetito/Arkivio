@@ -21,7 +21,7 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
 
     private val viewModel: FavoritesViewModel by viewModels()
 
-    private var personalsRecyclerview: RecyclerView? = null
+    private var personalsRecyclerView: RecyclerView? = null
     private var availablesRecyclerView: RecyclerView? = null
 
     private lateinit var personalsAdapter: FavoritesAdapter
@@ -69,7 +69,11 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
         binding?.presenter = darkModePresenter
         binding?.temp = model
 
+        personalsRecyclerView = binding?.personalsRecyclerview
+        availablesRecyclerView = binding?.availablesRecyclerview
+
         setupRecyclerViews()
+        // attachScrollListeners()
 
         viewModel.personals.observe(viewLifecycleOwner) { personals ->
             personalsAdapter.submitList(personals)
@@ -84,11 +88,8 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
 
     private fun setupRecyclerViews() {
 
-        personalsRecyclerview = binding?.personalsRecyclerview
-        availablesRecyclerView = binding?.availablesRecyclerview
-
         personalsAdapter = FavoritesAdapter(true, onAdapterListener = this)
-        personalsRecyclerview?.apply {
+        personalsRecyclerView?.apply {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(requireContext(), 4)
             adapter = personalsAdapter
@@ -109,6 +110,22 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
             layoutManager = gridLayoutManager
             adapter = availablesAdapter
         }
+    }
+
+    private fun attachScrollListeners() {
+        personalsRecyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                // Scroll the other RecyclerView with the same distance
+                availablesRecyclerView?.scrollBy(dx, dy)
+            }
+        })
+
+        availablesRecyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                // Scroll the other RecyclerView with the same distance
+                personalsRecyclerView?.scrollBy(dx, dy)
+            }
+        })
     }
 
     override fun onSet(isPersonal: Boolean, targetIndex: Int, sourceIndex: Int, targetFavorite: Favorite) {

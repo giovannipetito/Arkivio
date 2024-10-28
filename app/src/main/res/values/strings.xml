@@ -380,5 +380,6 @@
 
     <!-- DRAG & DROP -->
     <string name="favorites_title">Drag &amp; Drop Favorites</string>
+    <string name="personals">Personali</string>
 
 </resources>

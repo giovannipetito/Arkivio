@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="76dp"
     android:layout_height="76dp"
-    android:layout_margin="4dp"
+    android:layout_marginHorizontal="4dp"
+    android:layout_marginVertical="4dp"
     android:gravity="center">
 
     <ImageView
@@ -14,7 +15,7 @@
         android:scaleType="fitCenter"
         android:background="@drawable/circle_item"
         android:backgroundTint="@color/red_A700"
-        android:contentDescription="Favorite poster" />
+        android:contentDescription="Personal poster" />
 
     <it.giovanni.arkivio.customview.TextViewCustom
         android:id="@+id/personal_title"

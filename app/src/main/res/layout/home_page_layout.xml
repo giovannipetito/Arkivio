@@ -38,26 +38,47 @@
                         android:layout_gravity="center"
                         android:src="@drawable/ico_avatar" />
 
-                <TextView
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/label_greeting_shimmer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_12dp"
+                    android:layout_gravity="center"
+                    app:shimmer_duration="1500"
+                    app:shimmer_base_alpha="1"
+                    app:shimmer_highlight_alpha="0.1">
+
+                    <it.giovanni.arkivio.customview.TextViewCustom
                         android:id="@+id/label_greeting"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_12dp"
-                        android:layout_gravity="center"
                         android:textColor="@{temp.labelColor}"
                         android:textSize="21sp"
                         tools:text="@string/good_moorning_title"
                         tools:textColor="@color/colorPrimary" />
 
-                <TextView
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/label_giovanni_shimmer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:shimmer_duration="1500"
+                    app:shimmer_base_alpha="1"
+                    app:shimmer_highlight_alpha="0.1">
+
+                    <it.giovanni.arkivio.customview.TextViewCustom
+                        android:id="@+id/label_giovanni"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
                         android:text="@string/name_title"
                         android:textColor="@{temp.labelColor}"
                         android:textSize="28sp"
                         android:textStyle="bold"
                         tools:textColor="@color/colorPrimary" />
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
 
             </LinearLayout>
 
@@ -87,7 +108,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                    <TextView
+                    <it.giovanni.arkivio.customview.TextViewCustom
                             android:id="@+id/label_day"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -97,7 +118,7 @@
                             tools:text="Sabato"
                             tools:textColor="@color/colorPrimary" />
 
-                    <TextView
+                    <it.giovanni.arkivio.customview.TextViewCustom
                             android:id="@+id/label_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -107,7 +128,7 @@
                             tools:text="06 Febbraio 1988"
                             tools:textColor="@color/colorPrimary" />
 
-                    <TextView
+                    <it.giovanni.arkivio.customview.TextViewCustom
                             android:id="@+id/label_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -143,7 +164,7 @@
 
             </LinearLayout>
 
-            <TextView
+            <it.giovanni.arkivio.customview.TextViewCustom
                     android:id="@+id/label_battery_level"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

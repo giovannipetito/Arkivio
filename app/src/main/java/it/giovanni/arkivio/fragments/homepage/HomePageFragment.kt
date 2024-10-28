@@ -210,6 +210,9 @@ class HomePageFragment : HomeFragment() {
             binding?.labelGreeting?.setText(R.string.good_evening_title)
         }
 
+        binding?.labelGreetingShimmer?.startShimmer()
+        binding?.labelGiovanniShimmer?.startShimmer()
+
         val batteryLevel = "Livello della batteria: " + getBatteryCapacity(requireContext()) + " %"
         binding?.labelBatteryLevel?.text = batteryLevel
     }
