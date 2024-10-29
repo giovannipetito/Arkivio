@@ -1,7 +1,5 @@
 package it.giovanni.arkivio.fragments.detail.favorites
 
-import android.animation.ArgbEvaluator
-import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.ClipData
 import android.content.Context
