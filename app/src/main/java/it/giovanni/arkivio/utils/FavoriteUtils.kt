@@ -56,6 +56,21 @@ object FavoriteUtils {
         return favorites
     }
 
+    fun addAvailableHeaders(availables: MutableList<Favorite?>): MutableList<Favorite?> {
+        val availableHeaders = mutableListOf<Favorite?>()
+        val titles = mutableSetOf<String>()
+
+        availables.forEach { favorite ->
+            if (favorite?.availableTitle !in titles) {
+                availableHeaders.add(Favorite(availableTitle = favorite?.availableTitle))
+                titles.add(favorite?.availableTitle!!)
+            }
+            availableHeaders.add(favorite)
+        }
+
+        return availableHeaders
+    }
+
     fun getPersonals(): MutableList<Favorite> {
         return mutableListOf(
             Favorite(

@@ -33,13 +33,15 @@ class FavoritesViewModel : ViewModel() {
         val responseAvailables: MutableList<Favorite> = FavoriteUtils.convertAvailableToFavorite(
             FavoriteUtils.getAvailables())
 
-        val filteredAvailables: MutableList<Favorite> = responseAvailables.filter { available ->
+        val filteredAvailables: MutableList<Favorite?> = responseAvailables.filter { available ->
             editablePersonals.none { personal -> personal.identifier == available.identifier }
         }.toMutableList()
 
         _personals.value = editablePersonals
 
-        _availables.value = filteredAvailables
+        val headerAvailables: MutableList<Favorite?> = FavoriteUtils.addAvailableHeaders(filteredAvailables)
+
+        _availables.value = headerAvailables
     }
 
     fun onSet(isPersonal: Boolean, targetIndex: Int, sourceIndex: Int, targetFavorite: Favorite) {
