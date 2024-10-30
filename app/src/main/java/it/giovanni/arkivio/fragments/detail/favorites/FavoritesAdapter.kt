@@ -48,9 +48,11 @@ class FavoritesAdapter(
         val favorite = getItem(position)
         when (holder) {
             is PersonalViewHolder -> {
-                holder.bind(favorite, isEditMode)
-                holder.itemView.setOnClickListener {
-                    onAdapterListener.onEditModeChanged(true)
+                if (isPersonal) {
+                    holder.bind(favorite, isEditMode)
+                    holder.itemView.setOnClickListener {
+                        onAdapterListener.onEditModeChanged(true)
+                    }
                 }
             }
             is AvailableViewHolder -> {
@@ -181,11 +183,7 @@ class FavoritesAdapter(
     }
 
     private fun Int.dpToPx(context: Context): Int {
-        return TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP,
-            this.toFloat(),
-            context.resources.displayMetrics
-        ).toInt()
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this.toFloat(), context.resources.displayMetrics).toInt()
     }
 
     override fun onSet(targetIndex: Int, sourceIndex: Int, targetItem: Favorite) {
