@@ -7,4 +7,5 @@ interface OnAdapterListener {
     fun onAdd(isPersonal: Boolean, favorite: Favorite)
     fun onRemove(isPersonal: Boolean, favorite: Favorite)
     fun onSwap(isPersonal: Boolean, from: Int, to: Int)
+    fun onEditModeChanged(isEditMode: Boolean)
 }

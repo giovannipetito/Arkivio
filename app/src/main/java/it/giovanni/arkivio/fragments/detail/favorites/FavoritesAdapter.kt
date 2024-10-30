@@ -48,12 +48,14 @@ class FavoritesAdapter(
         val favorite = getItem(position)
         when (holder) {
             is PersonalViewHolder -> {
-                if (isPersonal)
-                    holder.bind(favorite)
+                holder.bind(favorite, isEditMode)
+                holder.itemView.setOnClickListener {
+                    onAdapterListener.onEditModeChanged(true)
+                }
             }
             is AvailableViewHolder -> {
                 if (!isPersonal)
-                    holder.bind(favorite)
+                    holder.bind(favorite, isEditMode)
             }
             is HeaderViewHolder -> {
                 if (!isPersonal)
@@ -74,27 +76,11 @@ class FavoritesAdapter(
         }
     }
 
-    override fun onSet(targetIndex: Int, sourceIndex: Int, targetItem: Favorite) {
-        onAdapterListener.onSet(isPersonal = isPersonal, targetIndex, sourceIndex, targetItem)
-    }
-
-    override fun onAdd(item: Favorite) {
-        onAdapterListener.onAdd(isPersonal = isPersonal, item)
-    }
-
-    override fun onRemove(item: Favorite) {
-        onAdapterListener.onRemove(isPersonal = isPersonal, item)
-    }
-
-    override fun onSwap(from: Int, to: Int) {
-        onAdapterListener.onSwap(isPersonal = isPersonal, from, to)
-    }
-
     inner class PersonalViewHolder(private val binding: FavoritePersonalItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         private var borderValueAnimator: ValueAnimator? = null
 
-        fun bind(personal: Favorite) {
+        fun bind(personal: Favorite, isEditMode: Boolean) {
             binding.personalTitle.text = personal.title
             FavoriteUtils.setImageByContentPath(binding.personalPoster, personal.images?.get(0)?.contentPath)
 
@@ -106,7 +92,6 @@ class FavoritesAdapter(
                         val newPersonals = currentList.toMutableList().apply {
                             removeAt(bindingAdapterPosition)
                         }
-                        isEditMode = true
                         submitList(newPersonals)
                         notifyItemRangeChanged(0, newPersonals.size)
                     }
@@ -137,7 +122,7 @@ class FavoritesAdapter(
     }
 
     inner class AvailableViewHolder(private val binding: FavoriteAvailableItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(available: Favorite) {
+        fun bind(available: Favorite, isEditMode: Boolean) {
             binding.availableTitle.text = available.title
             FavoriteUtils.setImageByContentPath(binding.availablePoster, available.images?.get(0)?.contentPath)
             if (isEditMode) {
@@ -148,6 +133,9 @@ class FavoritesAdapter(
                     false
                 }
                 binding.root.setOnDragListener(dragListener)
+            } else {
+                binding.root.setOnLongClickListener(null)
+                binding.root.setOnDragListener(null)
             }
         }
     }
@@ -182,21 +170,43 @@ class FavoritesAdapter(
     }
 
     private fun stopShimmerEffect(borderAnimator: ValueAnimator?, binding: FavoritePersonalItemBinding) {
-        var animator = borderAnimator
-        animator?.cancel()
+        borderAnimator?.cancel()
         val background = binding.personalBorder.background
         if (background is GradientDrawable) {
-            background.setStroke(2.dpToPx(binding.root.context), ContextCompat.getColor(binding.root.context, R.color.white))
+            background.setStroke(
+                2.dpToPx(binding.root.context),
+                ContextCompat.getColor(binding.root.context, R.color.white)
+            )
         }
-        animator = null
     }
 
-    fun Int.dpToPx(context: Context): Int {
+    private fun Int.dpToPx(context: Context): Int {
         return TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
             this.toFloat(),
             context.resources.displayMetrics
         ).toInt()
+    }
+
+    override fun onSet(targetIndex: Int, sourceIndex: Int, targetItem: Favorite) {
+        onAdapterListener.onSet(isPersonal = isPersonal, targetIndex, sourceIndex, targetItem)
+    }
+
+    override fun onAdd(item: Favorite) {
+        onAdapterListener.onAdd(isPersonal = isPersonal, item)
+    }
+
+    override fun onRemove(item: Favorite) {
+        onAdapterListener.onRemove(isPersonal = isPersonal, item)
+    }
+
+    override fun onSwap(from: Int, to: Int) {
+        onAdapterListener.onSwap(isPersonal = isPersonal, from, to)
+    }
+
+    fun setEditMode(isEditMode: Boolean) {
+        this.isEditMode = isEditMode
+        notifyDataSetChanged()
     }
 
     companion object {

@@ -1,5 +1,6 @@
 package it.giovanni.arkivio.fragments.detail.favorites
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -50,6 +51,7 @@ class FavoritesViewModel : ViewModel() {
         val tempAvailables: MutableList<Favorite?> = _availables.value?.toMutableList()!!
 
         if (isPersonal) {
+            Log.i("[FAVORITES]", "onSet personal")
             val tempAvailable = tempAvailables[sourceIndex]
             tempPersonals.let {
                 it[targetIndex] = tempAvailable
@@ -59,6 +61,7 @@ class FavoritesViewModel : ViewModel() {
                 it[sourceIndex] = targetFavorite
             }
         } else {
+            Log.i("[FAVORITES]", "onSet available")
             val tempPersonal = tempPersonals[targetIndex]
             tempPersonals.let {
                 it[targetIndex] = targetFavorite
@@ -75,6 +78,7 @@ class FavoritesViewModel : ViewModel() {
 
     fun onAdd(isPersonal: Boolean, favorite: Favorite) {
         if (isPersonal) {
+            Log.i("[FAVORITES]", "onAdd personal")
             _availables.value?.let { availables ->
                 val tempPersonals: MutableList<Favorite?> = _personals.value?.toMutableList()!!
                 val tempAvailables: MutableList<Favorite?> = availables.toMutableList()
@@ -87,6 +91,7 @@ class FavoritesViewModel : ViewModel() {
                 _personals.value = tempPersonals.toList()
             }
         } else {
+            Log.i("[FAVORITES]", "onAdd available")
             _personals.value?.let { personals ->
                 val tempPersonals: MutableList<Favorite?> = personals.toMutableList()
                 val tempAvailables: MutableList<Favorite?> = _availables.value?.toMutableList()!!
@@ -108,6 +113,7 @@ class FavoritesViewModel : ViewModel() {
 
     fun onRemove(isPersonal: Boolean, favorite: Favorite) {
         if (isPersonal) {
+            Log.i("[FAVORITES]", "onRemove personal")
             _personals.value?.let { personals ->
                 val tempPersonals: MutableList<Favorite?> = personals.toMutableList()
                 val tempAvailables: MutableList<Favorite?> = _availables.value?.toMutableList()!!
@@ -122,6 +128,7 @@ class FavoritesViewModel : ViewModel() {
                 _availables.value = tempAvailables.toList()
             }
         } else {
+            Log.i("[FAVORITES]", "onRemove available")
             _availables.value?.let { availables ->
                 val tempPersonals: MutableList<Favorite?> = _personals.value?.toMutableList()!!
                 val tempAvailables: MutableList<Favorite?> = availables.toMutableList()
