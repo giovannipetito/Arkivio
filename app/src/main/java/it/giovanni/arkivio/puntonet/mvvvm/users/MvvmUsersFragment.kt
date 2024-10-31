@@ -113,8 +113,8 @@ class MvvmUsersFragment : DetailFragment() {
 
             Glide.with(requireActivity())
                 .load(imageUrl)
-                .placeholder(R.mipmap.logo_audioslave_blue)
-                .error(R.mipmap.logo_audioslave_blue)
+                .placeholder(R.drawable.logo_audioslave_blue)
+                .error(R.drawable.logo_audioslave_blue)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .apply(RequestOptions.bitmapTransform(RoundedCorners(54)))
                 .into(itemBinding.userAvatar)

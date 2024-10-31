@@ -45,8 +45,15 @@ abstract class DragListAdapter<T, VH : RecyclerView.ViewHolder>(
                                 }
                             }
                         } else {
-                            targetAdapter.currentList[targetPosition]?.let {
-                                sourceAdapter.onSet(targetPosition, sourcePosition)
+                            try {
+                                targetAdapter.currentList[targetPosition]?.let {
+                                    sourceAdapter.onSet(targetPosition, sourcePosition)
+                                } ?: run {
+                                    // targetAdapter.onAdd(sourceAdapter.currentList[sourcePosition])
+                                }
+                            } catch (e: IndexOutOfBoundsException) {
+                                // sourceAdapter.onRemove(sourceAdapter.currentList[sourcePosition])
+                                println(e.message)
                             }
                         }
                     } ?: run {
@@ -59,6 +66,10 @@ abstract class DragListAdapter<T, VH : RecyclerView.ViewHolder>(
     }
 
     abstract fun onSet(targetIndex: Int, sourceIndex: Int)
+
+    // abstract fun onAdd(sourceItem: T)
+
+    // abstract fun onRemove(sourceItem: T)
 
     abstract fun onSwap(from: Int, to: Int)
 }
