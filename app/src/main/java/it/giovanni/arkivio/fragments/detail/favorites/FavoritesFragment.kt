@@ -1,5 +1,6 @@
 package it.giovanni.arkivio.fragments.detail.favorites
 
+import android.animation.LayoutTransition
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -88,6 +89,29 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
             availablesAdapter.submitList(availables)
             availablesAdapter.notifyDataSetChanged()
         }
+
+        // handle a smooth animation usin ItemAnimator
+        personalsRecyclerView?.viewTreeObserver?.addOnGlobalLayoutListener {
+            val layoutManager = personalsRecyclerView?.layoutManager as? GridLayoutManager
+            val totalItemCount = personalsAdapter.itemCount
+            val spanCount = layoutManager?.spanCount ?: 1
+            val rowCount = if (spanCount > 0) (totalItemCount + spanCount - 1) / spanCount else 0
+
+            // Convert the personal item height of 84dp to pixels.
+            personalsRecyclerView?.layoutParams?.height = (84 * resources.displayMetrics.density).toInt() * rowCount
+            personalsRecyclerView?.requestLayout()
+        }
+
+        /*
+        personalsRecyclerView?.let { recyclerView ->
+            if (recyclerView is RecyclerView) {
+                val layoutTransition = LayoutTransition()
+                layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+                layoutTransition.setDuration(LayoutTransition.CHANGING, 500) // Set duration in milliseconds
+                recyclerView.layoutTransition = layoutTransition
+            }
+        }
+        */
 
         return binding?.root
     }
