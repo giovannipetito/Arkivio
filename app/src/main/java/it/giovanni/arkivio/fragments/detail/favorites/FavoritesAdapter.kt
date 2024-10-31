@@ -4,7 +4,6 @@ import android.animation.ValueAnimator
 import android.content.ClipData
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
-import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -177,8 +176,8 @@ class FavoritesAdapter(
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this.toFloat(), context.resources.displayMetrics).toInt()
     }
 
-    override fun onSet(targetIndex: Int, sourceIndex: Int, targetItem: Favorite) {
-        onAdapterListener.onSet(isPersonal = isPersonal, targetIndex, sourceIndex, targetItem)
+    override fun onSet(targetIndex: Int, sourceIndex: Int) {
+        onAdapterListener.onSet(isPersonal = isPersonal, targetIndex, sourceIndex)
     }
 
     override fun onSwap(from: Int, to: Int) {

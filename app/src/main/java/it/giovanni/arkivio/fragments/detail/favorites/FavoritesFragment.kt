@@ -12,7 +12,6 @@ import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.FavoritesLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
-import it.giovanni.arkivio.model.favorite.Favorite
 import it.giovanni.arkivio.presenter.DarkModePresenter
 
 class FavoritesFragment : DetailFragment(), OnAdapterListener {
@@ -81,11 +80,13 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
         viewModel.personals.observe(viewLifecycleOwner) { personals ->
             Log.i("[FAVORITES]", "1) personals.size: " + personals.size)
             personalsAdapter.submitList(personals)
+            personalsAdapter.notifyDataSetChanged()
         }
 
         viewModel.availables.observe(viewLifecycleOwner) { availables ->
             Log.i("[FAVORITES]", "1) availables.size: " + availables.size)
             availablesAdapter.submitList(availables)
+            availablesAdapter.notifyDataSetChanged()
         }
 
         return binding?.root
@@ -133,8 +134,8 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
         })
     }
 
-    override fun onSet(isPersonal: Boolean, targetIndex: Int, sourceIndex: Int, targetFavorite: Favorite) {
-        viewModel.onSet(isPersonal, targetIndex, sourceIndex, targetFavorite)
+    override fun onSet(isPersonal: Boolean, targetIndex: Int, sourceIndex: Int) {
+        viewModel.onSet(isPersonal, targetIndex, sourceIndex)
     }
 
     override fun onSwap(isPersonal: Boolean, from: Int, to: Int) {

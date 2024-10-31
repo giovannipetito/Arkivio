@@ -46,11 +46,7 @@ abstract class DragListAdapter<T, VH : RecyclerView.ViewHolder>(
                             }
                         } else {
                             targetAdapter.currentList[targetPosition]?.let {
-                                sourceAdapter.onSet(
-                                    targetPosition,
-                                    sourcePosition,
-                                    targetAdapter.currentList[targetPosition]
-                                )
+                                sourceAdapter.onSet(targetPosition, sourcePosition)
                             }
                         }
                     } ?: run {
@@ -62,7 +58,7 @@ abstract class DragListAdapter<T, VH : RecyclerView.ViewHolder>(
         }
     }
 
-    abstract fun onSet(targetIndex: Int, sourceIndex: Int, targetItem: T)
+    abstract fun onSet(targetIndex: Int, sourceIndex: Int)
 
     abstract fun onSwap(from: Int, to: Int)
 }
