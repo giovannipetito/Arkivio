@@ -1,9 +1,11 @@
 package it.giovanni.arkivio.fragments.detail.favorites
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import it.giovanni.arkivio.App.Companion.context
 import it.giovanni.arkivio.fragments.detail.favorites.FavoritesAdapter.Companion.EDIT_IDENTIFIER
 import it.giovanni.arkivio.utils.FavoriteUtils
 import it.giovanni.arkivio.model.favorite.Favorite
@@ -17,13 +19,12 @@ class FavoritesViewModel : ViewModel() {
     private val _availables = MutableLiveData<List<Favorite?>>()
     val availables: LiveData<List<Favorite?>> get() = _availables
 
+    private var responseAvailables: MutableList<Favorite?>
+
     init {
-        val responsePersonals: MutableList<Favorite> = FavoriteUtils.getPersonals()
-        val editablePersonals: MutableList<Favorite> =
-            if (responsePersonals.size > 7)
-                responsePersonals.take(7).toMutableList()
-            else
-                responsePersonals
+        val responsePersonals: MutableList<Favorite?> = FavoriteUtils.getPersonals()
+        // val editablePersonals: MutableList<Favorite?> = if (responsePersonals.size > 7) responsePersonals.take(7).toMutableList() else responsePersonals
+        val editablePersonals: MutableList<Favorite?> = responsePersonals.filterNotNull().take(7).toMutableList()
 
         val editItem = Favorite()
         editItem.title = "Edit"
@@ -31,11 +32,10 @@ class FavoritesViewModel : ViewModel() {
 
         editablePersonals.add(editItem)
 
-        val responseAvailables: MutableList<Favorite> = FavoriteUtils.convertAvailableToFavorite(
-            FavoriteUtils.getAvailables())
+        responseAvailables = FavoriteUtils.convertAvailableToFavorite(FavoriteUtils.getAvailables())
 
         val filteredAvailables: MutableList<Favorite?> = responseAvailables.filter { available ->
-            editablePersonals.none { personal -> personal.identifier == available.identifier }
+            editablePersonals.none { personal -> personal?.identifier == available?.identifier }
         }.toMutableList()
 
         _personals.value = editablePersonals
@@ -46,102 +46,47 @@ class FavoritesViewModel : ViewModel() {
     }
 
     fun onSet(isPersonal: Boolean, targetIndex: Int, sourceIndex: Int, targetFavorite: Favorite) {
-
-        val tempPersonals: MutableList<Favorite?> = _personals.value?.toMutableList()!!
-        val tempAvailables: MutableList<Favorite?> = _availables.value?.toMutableList()!!
-
         if (isPersonal) {
-            Log.i("[FAVORITES]", "onSet personal")
-            val tempAvailable = tempAvailables[sourceIndex]
-            tempPersonals.let {
-                it[targetIndex] = tempAvailable
-            }
+            Log.i("[FAVORITES]", "onSet personal to available")
 
-            tempAvailables.let {
-                it[sourceIndex] = targetFavorite
-            }
-        } else {
-            Log.i("[FAVORITES]", "onSet available")
-            val tempPersonal = tempPersonals[targetIndex]
-            tempPersonals.let {
-                it[targetIndex] = targetFavorite
-            }
-
-            tempAvailables.let {
-                it[sourceIndex] = tempPersonal
-            }
-        }
-
-        _availables.value = tempAvailables.toList()
-        _personals.value = tempPersonals.toList()
-    }
-
-    fun onAdd(isPersonal: Boolean, favorite: Favorite) {
-        if (isPersonal) {
-            Log.i("[FAVORITES]", "onAdd personal")
-            _availables.value?.let { availables ->
-                val tempPersonals: MutableList<Favorite?> = _personals.value?.toMutableList()!!
-                val tempAvailables: MutableList<Favorite?> = availables.toMutableList()
-
-                tempAvailables.add(favorite)
-                _availables.value = tempAvailables.toList()
-                tempPersonals.remove(favorite)
-                tempPersonals.add(null)
-                tempPersonals.sortWith(Comparator.nullsLast(null))
-                _personals.value = tempPersonals.toList()
-            }
-        } else {
-            Log.i("[FAVORITES]", "onAdd available")
             _personals.value?.let { personals ->
-                val tempPersonals: MutableList<Favorite?> = personals.toMutableList()
-                val tempAvailables: MutableList<Favorite?> = _availables.value?.toMutableList()!!
+                val updatedPersonals: MutableList<Favorite?> = personals.toMutableList()
+                updatedPersonals.removeAt(sourceIndex)
+                _personals.value = updatedPersonals
 
-                // if (tempPersonals.filterNotNull().size < PERSONALS_MAX_SIZE) {
-                for (i in tempPersonals.indices) {
-                    if (tempPersonals[i] == null) {
-                        tempPersonals[i] = favorite
-                        break
-                    }
-                }
-                _personals.value = tempPersonals.toList()
-                tempAvailables.remove(favorite)
-                _availables.value = tempAvailables.toList()
-                // }
-            }
-        }
-    }
+                val filteredAvailables: MutableList<Favorite?> = responseAvailables.filter { available ->
+                    updatedPersonals.none { personal -> personal?.identifier == available?.identifier }
+                }.toMutableList()
 
-    fun onRemove(isPersonal: Boolean, favorite: Favorite) {
-        if (isPersonal) {
-            Log.i("[FAVORITES]", "onRemove personal")
-            _personals.value?.let { personals ->
-                val tempPersonals: MutableList<Favorite?> = personals.toMutableList()
-                val tempAvailables: MutableList<Favorite?> = _availables.value?.toMutableList()!!
-                for (i in tempPersonals.indices) {
-                    if (tempPersonals[i] == favorite) {
-                        tempPersonals[i] = null
-                        break
-                    }
-                }
-                _personals.value = tempPersonals.toList()
-                tempAvailables.add(favorite)
-                _availables.value = tempAvailables.toList()
+                val headerAvailables: MutableList<Favorite?> = FavoriteUtils.addAvailableHeaders(filteredAvailables)
+
+                _availables.value = headerAvailables
             }
         } else {
-            Log.i("[FAVORITES]", "onRemove available")
-            _availables.value?.let { availables ->
-                val tempPersonals: MutableList<Favorite?> = _personals.value?.toMutableList()!!
-                val tempAvailables: MutableList<Favorite?> = availables.toMutableList()
-                tempAvailables.remove(favorite)
-                _availables.value = tempAvailables.toList()
-                for (i in tempPersonals.indices) {
-                    if (tempPersonals[i] == null) {
-                        tempPersonals[i] = favorite
-                        break
-                    }
+            Log.i("[FAVORITES]", "onSet available to personal")
+
+            _personals.value?.let { personals ->
+                // Check if personals has space (i.e., less than 7 items)
+                if (personals.size < 7) {
+                    val updatedPersonals: MutableList<Favorite?> = personals.toMutableList()
+
+                    // Insert targetFavorite at the specified targetIndex
+                    updatedPersonals.add(targetIndex, targetFavorite)
+
+                    // Remove the item from availables
+                    responseAvailables.remove(targetFavorite)
+
+                    // Update _personals to reflect the changes
+                    _personals.value = updatedPersonals.take(7)  // Ensure limit of 7 items
+
+                    // Update _availables with headers after removal
+                    val filteredAvailables: MutableList<Favorite?> = responseAvailables.filter { available ->
+                        updatedPersonals.none { personal -> personal?.identifier == available?.identifier }
+                    }.toMutableList()
+
+                    val headerAvailables: MutableList<Favorite?> = FavoriteUtils.addAvailableHeaders(filteredAvailables)
+                    _availables.value = headerAvailables
                 }
-                tempPersonals.sortWith(Comparator.nullsLast(null))
-                _personals.value = tempPersonals.toList()
             }
         }
     }
@@ -164,5 +109,14 @@ class FavoritesViewModel : ViewModel() {
             }
         }
         */
+    }
+
+    fun removeEditItem(position: Int) {
+        _personals.value?.let { personals ->
+            val updatedPersonals: MutableList<Favorite?> = personals.toMutableList().apply {
+                removeAt(position)
+            }
+            _personals.value = updatedPersonals
+        }
     }
 }

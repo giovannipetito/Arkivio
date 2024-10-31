@@ -1,6 +1,7 @@
 package it.giovanni.arkivio.fragments.detail.favorites
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -78,10 +79,12 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
         // attachScrollListeners()
 
         viewModel.personals.observe(viewLifecycleOwner) { personals ->
+            Log.i("[FAVORITES]", "1) personals.size: " + personals.size)
             personalsAdapter.submitList(personals)
         }
 
         viewModel.availables.observe(viewLifecycleOwner) { availables ->
+            Log.i("[FAVORITES]", "1) availables.size: " + availables.size)
             availablesAdapter.submitList(availables)
         }
 
@@ -134,14 +137,6 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
         viewModel.onSet(isPersonal, targetIndex, sourceIndex, targetFavorite)
     }
 
-    override fun onAdd(isPersonal: Boolean, favorite: Favorite) {
-        viewModel.onAdd(isPersonal, favorite)
-    }
-
-    override fun onRemove(isPersonal: Boolean, favorite: Favorite) {
-        viewModel.onRemove(isPersonal, favorite)
-    }
-
     override fun onSwap(isPersonal: Boolean, from: Int, to: Int) {
         viewModel.onSwap(isPersonal, from, to)
     }
@@ -150,6 +145,10 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
         this.isEditMode = isEditMode
         personalsAdapter.setEditMode(isEditMode)
         availablesAdapter.setEditMode(isEditMode)
+    }
+
+    override fun onEditModeRemoved(position: Int) {
+        viewModel.removeEditItem(position)
     }
 
     override fun onDestroyView() {

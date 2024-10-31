@@ -4,6 +4,7 @@ import android.animation.ValueAnimator
 import android.content.ClipData
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
+import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -49,15 +50,12 @@ class FavoritesAdapter(
         when (holder) {
             is PersonalViewHolder -> {
                 if (isPersonal) {
-                    holder.bind(favorite, isEditMode)
-                    holder.itemView.setOnClickListener {
-                        onAdapterListener.onEditModeChanged(true)
-                    }
+                    holder.bind(favorite)
                 }
             }
             is AvailableViewHolder -> {
                 if (!isPersonal)
-                    holder.bind(favorite, isEditMode)
+                    holder.bind(favorite)
             }
             is HeaderViewHolder -> {
                 if (!isPersonal)
@@ -82,25 +80,18 @@ class FavoritesAdapter(
 
         private var borderValueAnimator: ValueAnimator? = null
 
-        fun bind(personal: Favorite, isEditMode: Boolean) {
+        fun bind(personal: Favorite) {
             binding.personalTitle.text = personal.title
             FavoriteUtils.setImageByContentPath(binding.personalPoster, personal.images?.get(0)?.contentPath)
 
             if (personal.identifier == EDIT_IDENTIFIER) {
-                binding.root.visibility = if (isEditMode) View.GONE else View.VISIBLE
-
                 binding.root.setOnClickListener {
                     if (!isEditMode) {
-                        val newPersonals = currentList.toMutableList().apply {
-                            removeAt(bindingAdapterPosition)
-                        }
-                        submitList(newPersonals)
-                        notifyItemRangeChanged(0, newPersonals.size)
+                        onAdapterListener.onEditModeRemoved(bindingAdapterPosition)
+                        onAdapterListener.onEditModeChanged(true)
                     }
                 }
             } else {
-                binding.root.visibility = View.VISIBLE
-
                 if (isEditMode) {
                     binding.personalBorder.visibility = View.VISIBLE
                     startShimmerEffect(borderValueAnimator, binding)
@@ -124,7 +115,7 @@ class FavoritesAdapter(
     }
 
     inner class AvailableViewHolder(private val binding: FavoriteAvailableItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(available: Favorite, isEditMode: Boolean) {
+        fun bind(available: Favorite) {
             binding.availableTitle.text = available.title
             FavoriteUtils.setImageByContentPath(binding.availablePoster, available.images?.get(0)?.contentPath)
             if (isEditMode) {
@@ -188,14 +179,6 @@ class FavoritesAdapter(
 
     override fun onSet(targetIndex: Int, sourceIndex: Int, targetItem: Favorite) {
         onAdapterListener.onSet(isPersonal = isPersonal, targetIndex, sourceIndex, targetItem)
-    }
-
-    override fun onAdd(item: Favorite) {
-        onAdapterListener.onAdd(isPersonal = isPersonal, item)
-    }
-
-    override fun onRemove(item: Favorite) {
-        onAdapterListener.onRemove(isPersonal = isPersonal, item)
     }
 
     override fun onSwap(from: Int, to: Int) {

@@ -35,8 +35,8 @@ object FavoriteUtils {
         }
     }
 
-    fun convertAvailableToFavorite(availables: MutableList<Available>): MutableList<Favorite> {
-        val favorites: MutableList<Favorite> = mutableListOf()
+    fun convertAvailableToFavorite(availables: MutableList<Available>): MutableList<Favorite?> {
+        val favorites: MutableList<Favorite?> = mutableListOf()
 
         for (available in availables) {
             for (child in available.children) {
@@ -71,7 +71,7 @@ object FavoriteUtils {
         return availableHeaders
     }
 
-    fun getPersonals(): MutableList<Favorite> {
+    fun getPersonals(): MutableList<Favorite?> {
         return mutableListOf(
             Favorite(
                 domain = "Galaxy",
