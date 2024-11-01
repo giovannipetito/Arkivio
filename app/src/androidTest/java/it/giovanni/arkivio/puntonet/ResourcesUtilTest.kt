@@ -30,8 +30,8 @@ class ResourcesUtilTest {
     @Test
     fun isEqualTest() {
         val context = ApplicationProvider.getApplicationContext<Context>()
-        val result1 = resourcesUtil.isEqual(context, R.string.app_name, "Arkivio")
-        val result2 = resourcesUtil.isEqual(context, R.string.app_name, "Archivio")
+        val result1 = resourcesUtil.isEqual(context, R.string.app_name, "Core")
+        val result2 = resourcesUtil.isEqual(context, R.string.app_name, "Hub")
         Truth.assertThat(result1).isTrue()
         Truth.assertThat(result2).isFalse()
     }

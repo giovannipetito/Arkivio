@@ -10,7 +10,7 @@ import it.giovanni.arkivio.puntonet.cleanarchitecture.data.ApiResult
 import it.giovanni.arkivio.puntonet.retrofitgetpost.ApiServiceClient
 import it.giovanni.arkivio.puntonet.retrofitgetpost.User
 import it.giovanni.arkivio.puntonet.retrofitgetpost.UsersResponse
-import it.giovanni.arkivio.puntonet.room.database.ArkivioDatabase
+import it.giovanni.arkivio.puntonet.room.database.CoreDatabase
 import it.giovanni.arkivio.puntonet.room.repository.UsersWorkerRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -22,7 +22,7 @@ class UsersWorker constructor(context: Context, params: WorkerParameters) : Coro
     private val repository: UsersWorkerRepository
 
     init {
-        val usersDao = ArkivioDatabase.getDatabase(application).usersWorkerDao()
+        val usersDao = CoreDatabase.getDatabase(application).usersWorkerDao()
         repository = UsersWorkerRepository(usersDao)
     }
 

@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import it.giovanni.arkivio.puntonet.room.database.ArkivioDatabase
+import it.giovanni.arkivio.puntonet.room.database.CoreDatabase
 import it.giovanni.arkivio.puntonet.room.entity.User
 import it.giovanni.arkivio.puntonet.room.repository.RoomCoroutinesRepository
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +20,7 @@ class RoomCoroutinesViewModel(application: Application) : AndroidViewModel(appli
         get() = _users
 
     init {
-        val userDao = ArkivioDatabase.getDatabase(application).userCoroutinesDao()
+        val userDao = CoreDatabase.getDatabase(application).userCoroutinesDao()
         repository = RoomCoroutinesRepository(userDao)
     }
 

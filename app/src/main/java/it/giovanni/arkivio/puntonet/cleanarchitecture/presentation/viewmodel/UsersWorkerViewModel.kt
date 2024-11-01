@@ -14,7 +14,7 @@ import it.giovanni.arkivio.puntonet.cleanarchitecture.KEY_USERS
 import it.giovanni.arkivio.puntonet.cleanarchitecture.TAG_USERS_OUTPUT
 import it.giovanni.arkivio.puntonet.cleanarchitecture.domain.worker.UsersWorker
 import it.giovanni.arkivio.puntonet.retrofitgetpost.User
-import it.giovanni.arkivio.puntonet.room.database.ArkivioDatabase
+import it.giovanni.arkivio.puntonet.room.database.CoreDatabase
 import it.giovanni.arkivio.puntonet.room.repository.UsersWorkerRepository
 import kotlinx.coroutines.launch
 
@@ -29,7 +29,7 @@ class UsersWorkerViewModel(application: Application) : ViewModel() {
         get() = _users
 
     init {
-        val usersDao = ArkivioDatabase.getDatabase(application).usersWorkerDao()
+        val usersDao = CoreDatabase.getDatabase(application).usersWorkerDao()
         repository = UsersWorkerRepository(usersDao)
     }
 

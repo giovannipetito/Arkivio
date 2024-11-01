@@ -10,7 +10,7 @@ import it.giovanni.arkivio.puntonet.room.dao.UsersWorkerDao
 import it.giovanni.arkivio.puntonet.room.entity.User
 
 /**
- * Database: la classe ArkivioDatabase è una classe astratta che estende RoomDatabase e rappresenta
+ * Database: la classe CoreDatabase è una classe astratta che estende RoomDatabase e rappresenta
  * il database Room nell'applicazione. Funge perciò da punto di ingresso principale per l'accesso
  * al database SQLite sottostante.
  *
@@ -25,21 +25,21 @@ import it.giovanni.arkivio.puntonet.room.entity.User
  * singleton, e Room genera il codice di implementazione necessario per la creazione e la gestione
  * dell'istanza del database.
  *
- * INSTANCE è una variabile volatile che contiene l'istanza singleton di ArkivioDatabase. @Volatile
+ * INSTANCE è una variabile volatile che contiene l'istanza singleton di CoreDatabase. @Volatile
  * garantisce che il valore di INSTANCE sia sempre aggiornato e visibile a tutti i thread.
  *
- * getDatabase è un metodo statico che fornisce l'accesso all'istanza di ArkivioDatabase. Prende un
- * context come parametro e restituisce un'istanza di ArkivioDatabase. Segue il modello singleton,
+ * getDatabase è un metodo statico che fornisce l'accesso all'istanza di CoreDatabase. Prende un
+ * context come parametro e restituisce un'istanza di CoreDatabase. Segue il modello singleton,
  * il che significa che garantisce la creazione di una sola istanza del database. All'interno del
  * metodo, controlla innanzitutto se esiste un'istanza esistente del database (tempInstance).
  * Se c'è, restituisce quell'istanza. Se non esiste un'istanza esistente, entra in un blocco
  * synchronized per impedire a più thread di creare più istanze contemporaneamente. Dentro
- * il blocco synchronized, crea una nuova istanza di ArkivioDatabase utilizzando il metodo
- * Room.databaseBuilder, specificando il context, la classe ArkivioDatabase e il nome del
+ * il blocco synchronized, crea una nuova istanza di CoreDatabase utilizzando il metodo
+ * Room.databaseBuilder, specificando il context, la classe CoreDatabase e il nome del
  * database. Una volta creata l'istanza, la assegna alla variabile INSTANCE e la restituisce.
  */
 @Database(entities = [User::class, it.giovanni.arkivio.puntonet.retrofitgetpost.User::class], version = 1)
-abstract class ArkivioDatabase : RoomDatabase() {
+abstract class CoreDatabase : RoomDatabase() {
 
     abstract fun userCoroutinesDao(): UserCoroutinesDao
 
@@ -50,9 +50,9 @@ abstract class ArkivioDatabase : RoomDatabase() {
     companion object {
 
         @Volatile
-        private var INSTANCE: ArkivioDatabase? = null
+        private var INSTANCE: CoreDatabase? = null
 
-        fun getDatabase(context: Context): ArkivioDatabase {
+        fun getDatabase(context: Context): CoreDatabase {
             val tempInstance = INSTANCE
             if (tempInstance != null) {
                 return tempInstance
@@ -60,8 +60,8 @@ abstract class ArkivioDatabase : RoomDatabase() {
             synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    ArkivioDatabase::class.java,
-                    "arkivio_database"
+                    CoreDatabase::class.java,
+                    "core_database"
                 ).build()
                 INSTANCE = instance
                 return instance

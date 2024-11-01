@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import it.giovanni.arkivio.puntonet.room.database.ArkivioDatabase
+import it.giovanni.arkivio.puntonet.room.database.CoreDatabase
 import it.giovanni.arkivio.puntonet.room.entity.User
 import it.giovanni.arkivio.puntonet.room.repository.RoomRxJavaRepository
 
@@ -22,7 +22,7 @@ class RoomRxJavaViewModel(application: Application) : AndroidViewModel(applicati
         get() = _users
 
     init {
-        val userDao = ArkivioDatabase.getDatabase(application).userRxJavaDao()
+        val userDao = CoreDatabase.getDatabase(application).userRxJavaDao()
         repository = RoomRxJavaRepository(userDao)
     }
 

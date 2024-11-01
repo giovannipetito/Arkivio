@@ -11,11 +11,11 @@ plugins {
 }
 
 android {
-    compileSdk 34
+    compileSdk 35
     defaultConfig {
         applicationId "it.giovanni.arkivio"
-        minSdk 33
-        targetSdk 34
+        minSdk 34
+        targetSdk 35
         versionCode 1
         versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -25,7 +25,6 @@ android {
         debug {
             debuggable true
             minifyEnabled false
-            testCoverageEnabled true
             buildConfigField "String", "CREDITS_PREFIX", "\"DEBUG\""
             buildConfigField("String", "BASE_URL", "\"https://reqres.in\"")
             buildConfigField("String", "API_KEY", "\"019bd4d229msh3acba05acc429ddp1d5cd8jsna65c0bb9b162\"")
@@ -86,23 +85,23 @@ dependencies {
 
     // androidx
     implementation 'androidx.test:core-ktx:1.6.1'
-    implementation 'androidx.core:core-ktx:1.13.1'
+    implementation 'androidx.core:core-ktx:1.15.0'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.core:core-role:1.1.0-rc01'
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.preference:preference-ktx:1.2.1'
     implementation 'androidx.vectordrawable:vectordrawable:1.2.0'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.8.6'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.8.7'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    ksp 'androidx.lifecycle:lifecycle-common-java8:2.8.6'
+    ksp 'androidx.lifecycle:lifecycle-common-java8:2.8.7'
 
     // WorkManager
-    implementation "androidx.work:work-runtime-ktx:2.9.1"
+    implementation "androidx.work:work-runtime-ktx:2.10.0"
 
     // Coroutines
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.8.6'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.8.7'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0'
 
@@ -218,8 +217,4 @@ dependencies {
 // Allow references to generated code
 kapt {
     correctErrorTypes true
-}
-
-tasks.register('cleanBuildCache', Delete) {
-    delete rootProject.buildDir
 }

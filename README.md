@@ -1,3 +1,3 @@
-# Arkivio
+# Core
 
 Giovanni Petito project

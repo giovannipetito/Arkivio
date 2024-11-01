@@ -123,6 +123,7 @@ object Utils {
                             imageView.setImageBitmap(bitmap)
                         }
                     } catch (ex: FileNotFoundException) {
+                        println(ex.message)
                         val defaultImage: ImageView = activity.findViewById(R.id.logo_app)
                         val bitmap: Bitmap = (defaultImage.drawable as BitmapDrawable).bitmap
                         activity.runOnUiThread {
@@ -200,6 +201,7 @@ object Utils {
         try {
             context.startActivity(Intent.createChooser(intent, "Send mail..."))
         } catch (ex: ActivityNotFoundException) {
+            println(ex.message)
             Toast.makeText(context, "There is no email client installed.", Toast.LENGTH_SHORT).show()
         }
     }
@@ -215,6 +217,7 @@ object Utils {
             context.startActivity(Intent.createChooser(intent, "Send mail..."))
             // currentActivity.finish()
         } catch (ex: ActivityNotFoundException) {
+            println(ex.message)
             Toast.makeText(context, "There is no email client installed.", Toast.LENGTH_SHORT).show()
         }
     }
@@ -230,6 +233,7 @@ object Utils {
         try {
             context.startActivity(gmailIntent)
         } catch (ex: ActivityNotFoundException) {
+            println(ex.message)
             // There is no Gmail client installed.
             Toast.makeText(context, "There is no Gmail client installed.", Toast.LENGTH_SHORT).show()
             val intent = Intent(Intent.ACTION_SENDTO)
@@ -241,6 +245,7 @@ object Utils {
             try {
                 context.startActivity(Intent.createChooser(intent, "Send mail..."))
             } catch (ex: ActivityNotFoundException) {
+                println(ex.message)
                 Toast.makeText(context, "There is no email client installed.", Toast.LENGTH_SHORT).show()
             }
         }
@@ -257,6 +262,7 @@ object Utils {
         try {
             context.startActivity(outlookIntent)
         } catch (ex: ActivityNotFoundException) {
+            println(ex.message)
             // There is no Outlook client installed.
             Toast.makeText(context, "There is no Outlook client installed.", Toast.LENGTH_SHORT).show()
             val intent = Intent(Intent.ACTION_SENDTO)
@@ -268,6 +274,7 @@ object Utils {
             try {
                 context.startActivity(Intent.createChooser(intent, "Send mail..."))
             } catch (ex: ActivityNotFoundException) {
+                println(ex.message)
                 Toast.makeText(context, "There is no email client installed.", Toast.LENGTH_SHORT).show()
             }
         }
@@ -298,6 +305,7 @@ object Utils {
                 ContextCompat.startActivity(context, Intent(Intent.ACTION_VIEW).setData(marketUri), Bundle())
             }
         } catch (e: Exception) {
+            e.printStackTrace()
             // app not installed, google play store not installed, then open browser
             ContextCompat.startActivity(
                 context,
@@ -312,6 +320,7 @@ object Utils {
             packageManager.getPackageInfo(packageName, 0)
             true
         } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
             false
         }
     }
@@ -321,7 +330,7 @@ object Utils {
         var hashKey: String? = null
         try {
             val info : PackageInfo = context.packageManager.getPackageInfo(context.packageName, PackageManager.GET_SIGNATURES)
-            for (signature in info.signatures) {
+            for (signature in info.signatures!!) {
                 val md = MessageDigest.getInstance("SHA")
                 md.update(signature.toByteArray())
                 hashKey = String(Base64.encode(md.digest(), Base64.DEFAULT))

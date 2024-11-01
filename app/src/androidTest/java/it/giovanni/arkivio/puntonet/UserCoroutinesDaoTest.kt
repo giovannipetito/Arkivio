@@ -9,7 +9,7 @@ import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth.assertThat
 import it.giovanni.arkivio.getOrAwaitValue
 import it.giovanni.arkivio.puntonet.room.dao.UserCoroutinesDao
-import it.giovanni.arkivio.puntonet.room.database.ArkivioDatabase
+import it.giovanni.arkivio.puntonet.room.database.CoreDatabase
 import it.giovanni.arkivio.puntonet.room.entity.User
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -27,7 +27,7 @@ class UserCoroutinesDaoTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private lateinit var database: ArkivioDatabase
+    private lateinit var database: CoreDatabase
     private lateinit var dao: UserCoroutinesDao
 
     @Before
@@ -36,7 +36,7 @@ class UserCoroutinesDaoTest {
         // but in the volatile memory (RAM).
         database = Room.inMemoryDatabaseBuilder(
             ApplicationProvider.getApplicationContext(),
-            ArkivioDatabase::class.java
+            CoreDatabase::class.java
         ).allowMainThreadQueries().build()
 
         dao = database.userCoroutinesDao()
