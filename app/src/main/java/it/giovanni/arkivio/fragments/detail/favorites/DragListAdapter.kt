@@ -13,48 +13,55 @@ abstract class DragListAdapter<T, VH : RecyclerView.ViewHolder>(
     val dragListener = object : View.OnDragListener {
         override fun onDrag(view: View?, event: DragEvent?): Boolean {
             event?.let {
-                if (it.action == DragEvent.ACTION_DROP) {
-                    val sourceView = it.localState as View
-                    val sourceRecyclerView = sourceView.parent as RecyclerView
-                    val sourceAdapter = sourceRecyclerView.adapter as DragListAdapter<T, VH>
-                    val sourcePosition = sourceRecyclerView.getChildAdapterPosition(sourceView)
+                when (it.action) {
+                    DragEvent.ACTION_DRAG_ENTERED -> {
+                    }
+                    DragEvent.ACTION_DRAG_EXITED -> {
+                    }
+                    DragEvent.ACTION_DROP -> {
 
-                    view?.let { targetView ->
-                        var targetRecyclerView: RecyclerView? = targetView as? RecyclerView
+                        val sourceView = it.localState as View
+                        val sourceRecyclerView = sourceView.parent as RecyclerView
+                        val sourceAdapter = sourceRecyclerView.adapter as DragListAdapter<T, VH>
+                        val sourcePosition = sourceRecyclerView.getChildAdapterPosition(sourceView)
 
-                        if (targetRecyclerView == null) {
-                            targetRecyclerView = targetView.parent as? RecyclerView
-                        }
+                        view?.let { targetView ->
+                            var targetRecyclerView: RecyclerView? = targetView as? RecyclerView
 
-                        if (targetRecyclerView !is RecyclerView) {
+                            if (targetRecyclerView == null) {
+                                targetRecyclerView = targetView.parent as? RecyclerView
+                            }
+
+                            if (targetRecyclerView !is RecyclerView) {
+                                return false
+                            }
+
+                            val targetAdapter = targetRecyclerView.adapter as DragListAdapter<T, VH>
+                            val targetPosition =
+                                if (targetView is RecyclerView) {
+                                    if (sourceRecyclerView.id == targetRecyclerView.id)
+                                        -1 // we can't swap in empty area.
+                                    else 0 // we can swap in empty area.
+                                }
+                                else targetRecyclerView.getChildAdapterPosition(targetView)
+
+                            // If the recyclerview is the same, swap two items.
+                            if (sourceRecyclerView.id == targetRecyclerView.id) {
+                                if (targetPosition >= 0 && sourceAdapter.currentList[targetPosition] != null) {
+                                    sourceAdapter.onSwap(sourcePosition, targetPosition)
+                                }
+                            } else {
+                                try {
+                                    targetAdapter.currentList[targetPosition]?.let {
+                                        sourceAdapter.onSet(targetPosition, sourcePosition)
+                                    }
+                                } catch (e: IndexOutOfBoundsException) {
+                                    println(e.message)
+                                }
+                            }
+                        } ?: run {
                             return false
                         }
-
-                        val targetAdapter = targetRecyclerView.adapter as DragListAdapter<T, VH>
-                        val targetPosition =
-                            if (targetView is RecyclerView) {
-                                if (sourceRecyclerView.id == targetRecyclerView.id)
-                                    -1 // we can't swap in empty area.
-                                else 0 // we can swap in empty area.
-                            }
-                            else targetRecyclerView.getChildAdapterPosition(targetView)
-
-                        // If the recyclerview is the same, swap two items.
-                        if (sourceRecyclerView.id == targetRecyclerView.id) {
-                            if (targetPosition >= 0 && sourceAdapter.currentList[targetPosition] != null) {
-                                sourceAdapter.onSwap(sourcePosition, targetPosition)
-                            }
-                        } else {
-                            try {
-                                targetAdapter.currentList[targetPosition]?.let {
-                                    sourceAdapter.onSet(targetPosition, sourcePosition)
-                                }
-                            } catch (e: IndexOutOfBoundsException) {
-                                println(e.message)
-                            }
-                        }
-                    } ?: run {
-                        return false
                     }
                 }
             }

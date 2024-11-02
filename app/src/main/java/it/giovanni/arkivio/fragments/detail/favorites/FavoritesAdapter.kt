@@ -5,6 +5,7 @@ import android.content.ClipData
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
 import android.util.TypedValue
+import android.view.DragEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.DragShadowBuilder
@@ -21,10 +22,11 @@ import it.giovanni.arkivio.R
 
 class FavoritesAdapter(
     private val isPersonal: Boolean,
-    private val onAdapterListener: OnAdapterListener
+    private val onAdapterListener: OnAdapterListener,
 ) : DragListAdapter<Favorite, RecyclerView.ViewHolder>(diffUtil) {
 
     private var isEditMode = false
+    private var showBadge = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -94,10 +96,29 @@ class FavoritesAdapter(
                 if (isEditMode) {
                     binding.personalBorder.visibility = View.VISIBLE
                     startShimmerEffect(borderValueAnimator, binding)
-
+                    /*
                     binding.root.setOnLongClickListener { view ->
                         val data = ClipData.newPlainText("", "")
                         val shadowBuilder = DragShadowBuilder(view)
+                        view.startDragAndDrop(data, shadowBuilder, view, 0)
+
+                        view.setOnDragListener { _, event ->
+                            if (event.action == DragEvent.ACTION_DRAG_LOCATION) {
+                                if (isOverAvailablesRecyclerView) {
+                                    val shadowBuilder = FavoriteDragShadowBuilder(view, ContextCompat.getDrawable(view.context, R.drawable.circle_item_empty), showBadge) // DragShadowBuilder(view)
+                                    view.startDragAndDrop(data, shadowBuilder, view, 0)
+                                } else {
+                                    view.startDragAndDrop(data, DragShadowBuilder(view), view, 0)
+                                }
+                            }
+                            true
+                        }
+                        false
+                    }
+                    */
+                    binding.root.setOnLongClickListener { view ->
+                        val data = ClipData.newPlainText("", "")
+                        val shadowBuilder = FavoriteDragShadowBuilder(view, ContextCompat.getDrawable(view.context, R.drawable.circle_item_empty), showBadge) // DragShadowBuilder(view)
                         view.startDragAndDrop(data, shadowBuilder, view, 0)
                         false
                     }
