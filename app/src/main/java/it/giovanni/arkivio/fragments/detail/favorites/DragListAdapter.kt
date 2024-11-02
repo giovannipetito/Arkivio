@@ -32,7 +32,11 @@ abstract class DragListAdapter<T, VH : RecyclerView.ViewHolder>(
 
                         val targetAdapter = targetRecyclerView.adapter as DragListAdapter<T, VH>
                         val targetPosition =
-                            if (targetView is RecyclerView) 0
+                            if (targetView is RecyclerView) {
+                                if (sourceRecyclerView.id == targetRecyclerView.id)
+                                    -1 // we can't swap in empty area.
+                                else 0 // we can swap in empty area.
+                            }
                             else targetRecyclerView.getChildAdapterPosition(targetView)
 
                         // If the recyclerview is the same, swap two items.

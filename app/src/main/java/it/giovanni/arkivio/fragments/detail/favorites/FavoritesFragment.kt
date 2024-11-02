@@ -1,6 +1,7 @@
 package it.giovanni.arkivio.fragments.detail.favorites
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -76,11 +77,13 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
         binding?.availablesRecyclerview?.setOnDragListener(availablesAdapter.dragListener)
 
         viewModel.personals.observe(viewLifecycleOwner) { personals ->
+            Log.i("[FAVORITES]", "personals.size: " + personals.size)
             personalsAdapter.submitList(personals)
             personalsAdapter.notifyDataSetChanged()
         }
 
         viewModel.availables.observe(viewLifecycleOwner) { availables ->
+            Log.i("[FAVORITES]", "availables.size: " + availables.size)
             availablesAdapter.submitList(availables)
             availablesAdapter.notifyDataSetChanged()
         }
