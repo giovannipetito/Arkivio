@@ -1,7 +1,6 @@
 package it.giovanni.arkivio.fragments.detail.favorites
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -71,19 +70,17 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
         binding?.presenter = darkModePresenter
         binding?.temp = model
 
-        personalsRecyclerView = binding?.personalsRecyclerview
-        availablesRecyclerView = binding?.availablesRecyclerview
-
         setupRecyclerViews()
 
+        binding?.personalsRecyclerview?.setOnDragListener(personalsAdapter.dragListener)
+        binding?.availablesRecyclerview?.setOnDragListener(availablesAdapter.dragListener)
+
         viewModel.personals.observe(viewLifecycleOwner) { personals ->
-            Log.i("[FAVORITES]", "1) personals.size: " + personals.size)
             personalsAdapter.submitList(personals)
             personalsAdapter.notifyDataSetChanged()
         }
 
         viewModel.availables.observe(viewLifecycleOwner) { availables ->
-            Log.i("[FAVORITES]", "1) availables.size: " + availables.size)
             availablesAdapter.submitList(availables)
             availablesAdapter.notifyDataSetChanged()
         }
@@ -92,6 +89,9 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
     }
 
     private fun setupRecyclerViews() {
+
+        personalsRecyclerView = binding?.personalsRecyclerview
+        availablesRecyclerView = binding?.availablesRecyclerview
 
         personalsAdapter = FavoritesAdapter(true, onAdapterListener = this)
         personalsRecyclerView?.apply {

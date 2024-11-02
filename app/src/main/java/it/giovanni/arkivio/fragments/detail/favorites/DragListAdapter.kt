@@ -18,41 +18,34 @@ abstract class DragListAdapter<T, VH : RecyclerView.ViewHolder>(
                     val sourceRecyclerView = sourceView.parent as RecyclerView
                     val sourceAdapter = sourceRecyclerView.adapter as DragListAdapter<T, VH>
                     val sourcePosition = sourceRecyclerView.getChildAdapterPosition(sourceView)
+
                     view?.let { targetView ->
                         var targetRecyclerView: RecyclerView? = targetView as? RecyclerView
+
                         if (targetRecyclerView == null) {
                             targetRecyclerView = targetView.parent as? RecyclerView
                         }
+
                         if (targetRecyclerView !is RecyclerView) {
                             return false
                         }
+
                         val targetAdapter = targetRecyclerView.adapter as DragListAdapter<T, VH>
-                        val targetPosition = if (targetView is RecyclerView) {
-                            targetAdapter.currentList.size
-                        } else {
-                            targetRecyclerView.getChildAdapterPosition(targetView)
-                        }
-                        // If same Recyclerview swap two item
+                        val targetPosition =
+                            if (targetView is RecyclerView) 0
+                            else targetRecyclerView.getChildAdapterPosition(targetView)
+
+                        // If the recyclerview is the same, swap two items.
                         if (sourceRecyclerView.id == targetRecyclerView.id) {
                             if (targetPosition >= 0 && sourceAdapter.currentList[targetPosition] != null) {
-                                if (targetPosition >= 0) {
-                                    sourceAdapter.onSwap(sourcePosition, targetPosition)
-                                } else {
-                                    sourceAdapter.onSwap(
-                                        sourcePosition,
-                                        sourceAdapter.currentList.size - 1
-                                    )
-                                }
+                                sourceAdapter.onSwap(sourcePosition, targetPosition)
                             }
                         } else {
                             try {
                                 targetAdapter.currentList[targetPosition]?.let {
                                     sourceAdapter.onSet(targetPosition, sourcePosition)
-                                } ?: run {
-                                    // targetAdapter.onAdd(sourceAdapter.currentList[sourcePosition])
                                 }
                             } catch (e: IndexOutOfBoundsException) {
-                                // sourceAdapter.onRemove(sourceAdapter.currentList[sourcePosition])
                                 println(e.message)
                             }
                         }
@@ -66,10 +59,6 @@ abstract class DragListAdapter<T, VH : RecyclerView.ViewHolder>(
     }
 
     abstract fun onSet(targetIndex: Int, sourceIndex: Int)
-
-    // abstract fun onAdd(sourceItem: T)
-
-    // abstract fun onRemove(sourceItem: T)
 
     abstract fun onSwap(from: Int, to: Int)
 }
