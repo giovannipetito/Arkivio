@@ -1,23 +1,36 @@
 package it.giovanni.arkivio.fragments.detail.favorites
 
-import android.view.DragEvent
 import android.view.View
+import android.view.DragEvent
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class DragListAdapter<T, VH : RecyclerView.ViewHolder>(
-    diffUtil: DiffUtil.ItemCallback<T>
-) : ListAdapter<T, VH>(diffUtil) {
+abstract class DragListAdapter<T, VH : RecyclerView.ViewHolder>(diffUtil: DiffUtil.ItemCallback<T>) : ListAdapter<T, VH>(diffUtil) {
 
     val dragListener = object : View.OnDragListener {
         override fun onDrag(view: View?, event: DragEvent?): Boolean {
             event?.let {
                 when (it.action) {
-                    DragEvent.ACTION_DRAG_ENTERED -> {
+                    DragEvent.ACTION_DRAG_LOCATION -> {
+                        view?.let { targetView ->
+                            val parentRecyclerView = when {
+                                targetView.parent is RecyclerView -> targetView.parent as RecyclerView
+                                targetView is RecyclerView -> targetView
+                                else -> null
+                            }
+
+                            when (parentRecyclerView?.id) {
+                                personalsRecyclerView?.id -> {
+                                    onDragLocation(showBadge = false)
+                                }
+                                availablesRecyclerView?.id -> {
+                                    onDragLocation(showBadge = true)
+                                }
+                            }
+                        }
                     }
-                    DragEvent.ACTION_DRAG_EXITED -> {
-                    }
+
                     DragEvent.ACTION_DROP -> {
 
                         val sourceView = it.localState as View
@@ -68,6 +81,8 @@ abstract class DragListAdapter<T, VH : RecyclerView.ViewHolder>(
             return true
         }
     }
+
+    abstract fun onDragLocation(showBadge: Boolean)
 
     abstract fun onSet(targetIndex: Int, sourceIndex: Int)
 

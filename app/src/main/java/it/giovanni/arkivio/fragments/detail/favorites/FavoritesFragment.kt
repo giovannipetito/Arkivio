@@ -14,15 +14,25 @@ import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 
+var personalsRecyclerView: RecyclerView? = null
+var availablesRecyclerView: RecyclerView? = null
+
 class FavoritesFragment : DetailFragment(), OnAdapterListener {
+
+    /*
+    companion object {
+        private var personalsRecyclerView: RecyclerView? = null
+        private var availablesRecyclerView: RecyclerView? = null
+
+        var PERSONALS_RECYCLERVIEW_ID: Int? = personalsRecyclerView?.id
+        var AVAILABLES_RECYCLERVIEW_ID: Int? = availablesRecyclerView?.id
+    }
+    */
 
     private var layoutBinding: FavoritesLayoutBinding? = null
     private val binding get() = layoutBinding
 
     private val viewModel: FavoritesViewModel by viewModels()
-
-    private var personalsRecyclerView: RecyclerView? = null
-    private var availablesRecyclerView: RecyclerView? = null
 
     private lateinit var personalsAdapter: FavoritesAdapter
     private lateinit var availablesAdapter: FavoritesAdapter

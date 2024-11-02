@@ -4,6 +4,7 @@ import android.animation.ValueAnimator
 import android.content.ClipData
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
+import android.util.Log
 import android.util.TypedValue
 import android.view.DragEvent
 import android.view.LayoutInflater
@@ -96,33 +97,14 @@ class FavoritesAdapter(
                 if (isEditMode) {
                     binding.personalBorder.visibility = View.VISIBLE
                     startShimmerEffect(borderValueAnimator, binding)
-                    /*
-                    binding.root.setOnLongClickListener { view ->
-                        val data = ClipData.newPlainText("", "")
-                        val shadowBuilder = DragShadowBuilder(view)
-                        view.startDragAndDrop(data, shadowBuilder, view, 0)
 
-                        view.setOnDragListener { _, event ->
-                            if (event.action == DragEvent.ACTION_DRAG_LOCATION) {
-                                if (isOverAvailablesRecyclerView) {
-                                    val shadowBuilder = FavoriteDragShadowBuilder(view, ContextCompat.getDrawable(view.context, R.drawable.circle_item_empty), showBadge) // DragShadowBuilder(view)
-                                    view.startDragAndDrop(data, shadowBuilder, view, 0)
-                                } else {
-                                    view.startDragAndDrop(data, DragShadowBuilder(view), view, 0)
-                                }
-                            }
-                            true
-                        }
-                        false
-                    }
-                    */
+                    binding.root.setOnDragListener(dragListener)
                     binding.root.setOnLongClickListener { view ->
                         val data = ClipData.newPlainText("", "")
                         val shadowBuilder = FavoriteDragShadowBuilder(view, ContextCompat.getDrawable(view.context, R.drawable.circle_item_empty), showBadge) // DragShadowBuilder(view)
                         view.startDragAndDrop(data, shadowBuilder, view, 0)
                         false
                     }
-                    binding.root.setOnDragListener(dragListener)
                 } else {
                     binding.personalBorder.visibility = View.GONE
                     stopShimmerEffect(borderValueAnimator, binding)
@@ -195,6 +177,11 @@ class FavoritesAdapter(
 
     private fun Int.dpToPx(context: Context): Int {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this.toFloat(), context.resources.displayMetrics).toInt()
+    }
+
+    override fun onDragLocation(showBadge: Boolean) {
+        Log.d("[FAVORITES]", "showBadge: $showBadge")
+        this.showBadge = showBadge
     }
 
     override fun onSet(targetIndex: Int, sourceIndex: Int) {
