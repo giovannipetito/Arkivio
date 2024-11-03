@@ -7,16 +7,15 @@ import android.text.method.PasswordTransformationMethod
 import android.text.method.SingleLineTransformationMethod
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.InputTextBinding
 
-class LoginInputText @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0)
-
-    : LinearLayout(context, attrs, defStyle) {
+class LoginInputText @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyle: Int = 0
+) : LinearLayout(context, attrs, defStyle) {
 
     var layoutBinding: InputTextBinding? = null
     val binding get() = layoutBinding
@@ -40,16 +39,16 @@ class LoginInputText @JvmOverloads constructor(context: Context, attrs: Attribut
 
             val icon = typedArray.getDrawable(R.styleable.LoginInputText_login_textview_icon)
 
-            val texttype = resources.getText(
+            val textType = resources.getText(
                 typedArray.getResourceId(R.styleable.LoginInputText_login_textview_input_type, R.string.input_type_text))
 
             binding?.label?.text = title
             binding?.image?.setImageDrawable(icon)
             binding?.inputText?.hint = hint
-            when (texttype) {
+            when (textType) {
                 "text" -> {
                     binding?.inputText?.inputType = InputType.TYPE_CLASS_TEXT
-                    binding?.mailDomain?.visibility = View.VISIBLE
+                    binding?.mailDomain?.visibility = VISIBLE
                     val params = RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
                     params.addRule(RelativeLayout.LEFT_OF, binding?.mailDomain?.id!!)
                     params.addRule(RelativeLayout.RIGHT_OF, binding?.image?.id!!)
@@ -60,7 +59,7 @@ class LoginInputText @JvmOverloads constructor(context: Context, attrs: Attribut
                     val firaRegular = Typeface.createFromAsset(context.assets, "fonts/fira_regular.ttf")
                     // binding?.inputText?.typeface = Typeface.DEFAULT
                     binding?.inputText?.typeface = firaRegular
-                    binding?.showHidePassword?.visibility = View.VISIBLE
+                    binding?.showHidePassword?.visibility = VISIBLE
                     binding?.showHidePassword?.setOnClickListener {
                         passwordHidden = !passwordHidden
                         if (passwordHidden) {
@@ -88,12 +87,6 @@ class LoginInputText @JvmOverloads constructor(context: Context, attrs: Attribut
     fun getText(): String {
         return binding?.inputText?.text.toString()
     }
-
-    /*
-    fun setInputText(value: String) {
-        binding?.inputText?.setText(value)
-    }
-    */
 
     fun getInputText(): EditText {
         return binding?.inputText!!

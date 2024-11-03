@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -61,8 +60,8 @@
                     android:layout_marginTop="12dp"
                     app:login_textview_hint="@string/login_hint_password"
                     app:login_textview_icon="@drawable/ico_lock"
-                    app:login_textview_input_type="@string/input_type_password"
-                    app:login_textview_title="@string/login_your_password" />
+                    app:login_textview_input_type="@string/password"
+                    app:login_textview_title="@string/password" />
 
                 <Button
                     android:id="@+id/login_button"

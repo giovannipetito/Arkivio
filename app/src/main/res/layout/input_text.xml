@@ -68,7 +68,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="16dp"
-                    android:text="@string/dominio_gmail"
+                    android:text="@string/domain_gmail"
                     android:textColor="@color/black_1"
                     android:textStyle="normal"
                     android:textSize="14sp"
