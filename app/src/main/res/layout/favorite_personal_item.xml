@@ -42,6 +42,18 @@
             android:visibility="gone"
             tools:visibility="visible" />
 
+        <ImageView
+            android:id="@+id/badge_remove"
+            android:layout_width="@dimen/dimen_20dp"
+            android:layout_height="@dimen/dimen_20dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/ico_minus"
+            android:background="@drawable/circle_item_small"
+            android:contentDescription="@string/app_name"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
     </RelativeLayout>
 
 </RelativeLayout>

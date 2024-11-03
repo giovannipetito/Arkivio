@@ -729,19 +729,6 @@ object FavoriteUtils {
                     ),
                     Child(
                         domain = "Galaxy",
-                        identifier = "tvguidecineseries",
-                        kind = "DeepLink",
-                        title = "",
-                        contentPath = "/tvguide/grid/groups/C+CineSeries",
-                        images = listOf(
-                            Image(
-                                role = "Navigation",
-                                contentPath = "galaxy/deeplink/bluecineseries_navigation"
-                            )
-                        )
-                    ),
-                    Child(
-                        domain = "Galaxy",
                         identifier = "blueplay/home-de",
                         kind = "CatalogStorePage",
                         title = "",
@@ -763,6 +750,19 @@ object FavoriteUtils {
                             Image(
                                 role = "Navigation",
                                 contentPath = "galaxy/dossiers/7d5c6fb718"
+                            )
+                        )
+                    ),
+                    Child(
+                        domain = "Galaxy",
+                        identifier = "tvguidecineseries",
+                        kind = "DeepLink",
+                        title = "",
+                        contentPath = "/tvguide/grid/groups/C+CineSeries",
+                        images = listOf(
+                            Image(
+                                role = "Navigation",
+                                contentPath = "galaxy/deeplink/bluecineseries_navigation"
                             )
                         )
                     )

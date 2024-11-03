@@ -124,7 +124,7 @@ abstract class DetailFragment : BaseFragment(SectionType.DETAIL), IDetailFragmen
 
     open fun onActionClickListener() {}
 
-    fun actionLabelState(state: Boolean) {
+    fun setActionLabelState(state: Boolean) {
         when (state) {
             true -> {detailLayoutBinding?.actionLabel?.isEnabled = true}
             false -> {detailLayoutBinding?.actionLabel?.isEnabled = false}

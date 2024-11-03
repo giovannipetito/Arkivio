@@ -3,14 +3,15 @@ package it.giovanni.arkivio.fragments.detail.favorites
 import android.animation.ValueAnimator
 import android.content.ClipData
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
-import android.util.Log
 import android.util.TypedValue
-import android.view.DragEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.DragShadowBuilder
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -80,7 +81,7 @@ class FavoritesAdapter(
 
     inner class PersonalViewHolder(private val binding: FavoritePersonalItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        private var borderValueAnimator: ValueAnimator? = null
+        private var valueAnimator: ValueAnimator? = null
 
         fun bind(personal: Favorite) {
             binding.personalTitle.text = personal.title
@@ -96,7 +97,8 @@ class FavoritesAdapter(
             } else {
                 if (isEditMode) {
                     binding.personalBorder.visibility = View.VISIBLE
-                    startShimmerEffect(borderValueAnimator, binding)
+                    binding.badgeRemove.visibility = View.VISIBLE
+                    startPersonalShimmerEffect(valueAnimator, binding)
 
                     binding.root.setOnDragListener(dragListener)
                     binding.root.setOnLongClickListener { view ->
@@ -107,7 +109,8 @@ class FavoritesAdapter(
                     }
                 } else {
                     binding.personalBorder.visibility = View.GONE
-                    stopShimmerEffect(borderValueAnimator, binding)
+                    binding.badgeRemove.visibility = View.GONE
+                    stopPersonalShimmerEffect(valueAnimator, binding)
 
                     binding.root.setOnLongClickListener(null)
                     binding.root.setOnDragListener(null)
@@ -117,10 +120,16 @@ class FavoritesAdapter(
     }
 
     inner class AvailableViewHolder(private val binding: FavoriteAvailableItemBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        private var valueAnimator: ValueAnimator? = null
+
         fun bind(available: Favorite) {
             binding.availableTitle.text = available.title
             FavoriteUtils.setImageByContentPath(binding.availablePoster, available.images?.get(0)?.contentPath)
             if (isEditMode) {
+                binding.badgeAdd.visibility = View.VISIBLE
+                startAvailableShimmerEffect(valueAnimator, binding)
+
                 binding.root.setOnLongClickListener { view ->
                     val data = ClipData.newPlainText("", "")
                     val shadowBuilder = DragShadowBuilder(view)
@@ -129,6 +138,9 @@ class FavoritesAdapter(
                 }
                 binding.root.setOnDragListener(dragListener)
             } else {
+                binding.badgeAdd.visibility = View.GONE
+                stopAvailableShimmerEffect(valueAnimator, binding)
+
                 binding.root.setOnLongClickListener(null)
                 binding.root.setOnDragListener(null)
             }
@@ -141,7 +153,7 @@ class FavoritesAdapter(
         }
     }
 
-    private fun startShimmerEffect(borderAnimator: ValueAnimator?, binding: FavoritePersonalItemBinding) {
+    private fun startPersonalShimmerEffect(borderAnimator: ValueAnimator?, binding: FavoritePersonalItemBinding) {
         var animator = borderAnimator
         if (animator == null || !animator.isRunning) {
             val startColor = ContextCompat.getColor(binding.root.context, R.color.white)
@@ -153,26 +165,75 @@ class FavoritesAdapter(
                 repeatMode = ValueAnimator.REVERSE
 
                 addUpdateListener { animator ->
-                    val animatedValue = animator.animatedValue as Int
-                    val background = binding.personalBorder.background
+                    val animatedValue: Int = animator.animatedValue as Int
+
+                    val background: Drawable = binding.personalBorder.background
                     if (background is GradientDrawable) {
                         background.setStroke(2.dpToPx(binding.root.context), animatedValue)
                     }
+
+                    val badge: ImageView = binding.badgeRemove
+                    val badgeBackground = GradientDrawable().apply {
+                        shape = GradientDrawable.OVAL
+                        color = ColorStateList.valueOf(animatedValue)
+                    }
+                    badge.background = badgeBackground
                 }
                 start()
             }
         }
     }
 
-    private fun stopShimmerEffect(borderAnimator: ValueAnimator?, binding: FavoritePersonalItemBinding) {
-        borderAnimator?.cancel()
-        val background = binding.personalBorder.background
-        if (background is GradientDrawable) {
-            background.setStroke(
-                2.dpToPx(binding.root.context),
-                ContextCompat.getColor(binding.root.context, R.color.white)
-            )
+    private fun startAvailableShimmerEffect(borderAnimator: ValueAnimator?, binding: FavoriteAvailableItemBinding) {
+        var animator = borderAnimator
+        if (animator == null || !animator.isRunning) {
+            val startColor = ContextCompat.getColor(binding.root.context, R.color.white)
+            val endColor = ContextCompat.getColor(binding.root.context, R.color.grey_3)
+
+            animator = ValueAnimator.ofArgb(startColor, endColor).apply {
+                duration = 1000L
+                repeatCount = ValueAnimator.INFINITE
+                repeatMode = ValueAnimator.REVERSE
+
+                addUpdateListener { animator ->
+                    val animatedValue: Int = animator.animatedValue as Int
+
+                    val badge: ImageView = binding.badgeAdd
+                    val badgeBackground = GradientDrawable().apply {
+                        shape = GradientDrawable.OVAL
+                        color = ColorStateList.valueOf(animatedValue)
+                    }
+                    badge.background = badgeBackground
+                }
+                start()
+            }
         }
+    }
+
+    private fun stopPersonalShimmerEffect(valueAnimator: ValueAnimator?, binding: FavoritePersonalItemBinding) {
+        valueAnimator?.cancel()
+        val background: Drawable = binding.personalBorder.background
+        if (background is GradientDrawable) {
+            background.setStroke(2.dpToPx(binding.root.context), ContextCompat.getColor(binding.root.context, R.color.white))
+        }
+
+        val badge: ImageView = binding.badgeRemove
+        val badgeBackground = GradientDrawable().apply {
+            shape = GradientDrawable.OVAL
+            color = ColorStateList.valueOf(ContextCompat.getColor(binding.root.context, R.color.white))
+        }
+        badge.background = badgeBackground
+    }
+
+    private fun stopAvailableShimmerEffect(valueAnimator: ValueAnimator?, binding: FavoriteAvailableItemBinding) {
+        valueAnimator?.cancel()
+
+        val badge: ImageView = binding.badgeAdd
+        val badgeBackground = GradientDrawable().apply {
+            shape = GradientDrawable.OVAL
+            color = ColorStateList.valueOf(ContextCompat.getColor(binding.root.context, R.color.white))
+        }
+        badge.background = badgeBackground
     }
 
     private fun Int.dpToPx(context: Context): Int {
@@ -180,7 +241,6 @@ class FavoritesAdapter(
     }
 
     override fun onDragLocation(showBadge: Boolean) {
-        Log.d("[FAVORITES]", "showBadge: $showBadge")
         this.showBadge = showBadge
     }
 

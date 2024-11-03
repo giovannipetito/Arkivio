@@ -68,7 +68,8 @@
     <string name="webview_html_title">WebView HTML</string>
 
     <!-- DETAIL LAYOUT -->
-    <string name="edit_search">Cerca…</string>
+    <string name="search_edit_title">Cerca…</string>
+    <string name="action_label_title">Fatto</string>
 
     <!-- LOGCAT PROJECTS -->
     <string name="logcat_projects_title">Logcat projects</string>
@@ -179,7 +180,6 @@
     <string name="get_json_users">Get users from json file</string>
     <string name="get_realtime_users">Get users from Realtime database</string>
     <string name="rubrica_message_dialog">Vuoi aggiungere il contatto in rubrica?</string>
-    <string name="rubrica_list_action_label">Fatto</string>
     <string name="activate_the_search">Attiva la ricerca</string>
     <string name="search_by_name_or_msisdn">Cerca per nome o msisdn</string>
     <string name="no_result_by_search">Nessun risultato con questa stringa di ricerca.</string>

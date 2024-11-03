@@ -52,7 +52,7 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
     private var updatedList: ArrayList<User>? = null
     private lateinit var customDialogPopup: CustomDialogPopup
     private var reallyGoOut: Boolean = false
-    private var labelIsClicked: Boolean = false
+    private var isActionClicked: Boolean = false
     private var sentence: String? = null
     private var isOpen = false
 
@@ -61,7 +61,7 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
     }
 
     override fun getActionTitle(): Int {
-        return R.string.rubrica_list_action_label
+        return R.string.action_label_title
     }
 
     override fun searchAction(): Boolean {
@@ -90,8 +90,13 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
     override fun onActionSearch(searchString: String) {
     }
 
+    override fun onActionClickListener() {
+        isActionClicked = true
+        currentActivity.onBackPressed()
+    }
+
     override fun beforeClosing(): Boolean {
-        if (!labelIsClicked) {
+        if (!isActionClicked) {
             if (!reallyGoOut) {
                 customDialogPopup = CustomDialogPopup(currentActivity, R.style.PopupTheme)
                 customDialogPopup.setCancelable(false)
@@ -118,7 +123,7 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
 
     override fun getResultBack(): Intent {
         val backIntent = Intent()
-        if (labelIsClicked) {
+        if (isActionClicked) {
             if (binding?.flexboxUsers?.childCount!! <= 0) {
                 return backIntent
             } else {
@@ -176,13 +181,13 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
             var brickUsers: ArrayList<User> = ArrayList()
             if (requireArguments().getSerializable(KEY_BRICKS) != null)
                 brickUsers = requireArguments().getSerializable(KEY_BRICKS) as ArrayList<User>
-            if (brickUsers.size > 0) {
+            if (brickUsers.isNotEmpty()) {
                 binding?.flexboxUsers?.removeAllViews()
                 for ((i, user) in brickUsers.withIndex()) {
                     val brick = Brick(requireContext())
                     brick.mode(Brick.ModeType.EDIT)
                     brick.setName(user.nome!!)
-                    if (user.emails?.isEmpty()!!)
+                    if (user.emails?.isEmpty!!)
                         brick.setEmail("")
                     else
                         brick.setEmail(user.emails!![0])
@@ -190,7 +195,7 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
                     brick.position(i)
                     binding?.flexboxUsers?.addView(brick)
                 }
-                actionLabelState(true)
+                setActionLabelState(true)
             }
 
             sentence = requireArguments().getString(KEY_SPEECH_USERS)
@@ -317,7 +322,7 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
         adapter.setList(updatedList)
         adapter.notifyDataSetChanged()
 
-        actionLabelState(true)
+        setActionLabelState(true)
     }
 
     override fun onItemClicked(user: User, color: Int?) {
@@ -326,11 +331,6 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
         bundleUser.putSerializable(RubricaDetailFragment.KEY_RUBRICA, user)
         bundleUser.putInt(RubricaDetailFragment.KEY_COLOR, color!!)
         currentActivity.openDetail(Globals.RUBRICA_DETAIL, bundleUser)
-    }
-
-    override fun onActionClickListener() {
-        labelIsClicked = true
-        currentActivity.onBackPressed()
     }
 
     override fun flexBoxRemoved(position: Int) {

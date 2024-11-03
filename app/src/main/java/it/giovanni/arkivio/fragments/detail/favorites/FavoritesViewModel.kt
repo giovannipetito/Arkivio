@@ -19,10 +19,17 @@ class FavoritesViewModel : ViewModel() {
     val availables: LiveData<List<Favorite?>> get() = _availables
 
     private var responseAvailables: MutableList<Favorite?>
+    private var responsePersonals: MutableList<Favorite?>
+
+    private val _isPersonalsChanged = MutableLiveData<Boolean>()
+    val isPersonalsChanged: LiveData<Boolean> get() = _isPersonalsChanged
 
     init {
-        val responsePersonals: MutableList<Favorite?> = FavoriteUtils.getPersonals()
-        val editablePersonals: MutableList<Favorite?> = responsePersonals.filterNotNull().take(7).toMutableList()
+        _isPersonalsChanged.value = false
+
+        val initResponsePersonals: MutableList<Favorite?> = FavoriteUtils.getPersonals()
+        responsePersonals = initResponsePersonals.filterNotNull().take(7).toMutableList()
+        val editablePersonals: MutableList<Favorite?> = responsePersonals.toMutableList()
 
         val editItem = Favorite()
         editItem.title = "Edit"
@@ -39,7 +46,6 @@ class FavoritesViewModel : ViewModel() {
         _personals.value = editablePersonals
 
         val headerAvailables: MutableList<Favorite?> = FavoriteUtils.addAvailableHeaders(filteredAvailables)
-
         _availables.value = headerAvailables
     }
 
@@ -54,6 +60,7 @@ class FavoritesViewModel : ViewModel() {
                     _personals.value = tempPersonals
 
                     updateDraggableAvailables(tempPersonals)
+                    setIsPersonalsChanged()
                 } else {
                     Toast.makeText(context, "You must have at least one personal favorite.", Toast.LENGTH_SHORT).show()
                 }
@@ -69,6 +76,7 @@ class FavoritesViewModel : ViewModel() {
                     _personals.value = tempPersonals.take(7) // Ensure limit of 7 items.
 
                     updateDraggableAvailables(tempPersonals)
+                    setIsPersonalsChanged()
                 } else {
                     Toast.makeText(context, "You can only have 7 personal favorites.", Toast.LENGTH_SHORT).show()
                 }
@@ -84,6 +92,7 @@ class FavoritesViewModel : ViewModel() {
                 Collections.swap(tempPersonals, from, to)
                 _personals.value = tempPersonals.toList()
             }
+            setIsPersonalsChanged()
         }
         /*
         else {
@@ -113,5 +122,32 @@ class FavoritesViewModel : ViewModel() {
 
         val headerAvailables: MutableList<Favorite?> = FavoriteUtils.addAvailableHeaders(filteredAvailables)
         _availables.value = headerAvailables
+    }
+
+    private fun setIsPersonalsChanged() {
+        _personals.value?.let { currentPersonals ->
+
+            if (currentPersonals.size != responsePersonals.size) {
+                _isPersonalsChanged.value = true
+                return
+            }
+
+            val currentIdentifiers: Set<String?> = currentPersonals.filterNotNull().map { it.identifier }.toSet()
+            val initialIdentifiers: Set<String?> = responsePersonals.filterNotNull().map { it.identifier }.toSet()
+
+            if (currentIdentifiers != initialIdentifiers) {
+                _isPersonalsChanged.value = true
+                return
+            }
+
+            for (i in currentPersonals.indices) {
+                if (currentPersonals[i]?.identifier != responsePersonals[i]?.identifier) {
+                    _isPersonalsChanged.value = true
+                    return
+                }
+            }
+
+            _isPersonalsChanged.value = false
+        }
     }
 }
