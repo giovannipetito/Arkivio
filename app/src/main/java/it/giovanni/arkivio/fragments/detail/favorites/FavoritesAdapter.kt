@@ -107,6 +107,10 @@ class FavoritesAdapter(
                         view.startDragAndDrop(data, shadowBuilder, view, 0)
                         false
                     }
+
+                    binding.root.setOnClickListener {
+                        onAdapterListener.onSet(isPersonal = true, targetIndex = 0, sourceIndex = bindingAdapterPosition)
+                    }
                 } else {
                     binding.personalBorder.visibility = View.GONE
                     binding.badgeRemove.visibility = View.GONE
@@ -114,6 +118,7 @@ class FavoritesAdapter(
 
                     binding.root.setOnLongClickListener(null)
                     binding.root.setOnDragListener(null)
+                    binding.root.setOnClickListener(null)
                 }
             }
         }
@@ -137,12 +142,17 @@ class FavoritesAdapter(
                     false
                 }
                 binding.root.setOnDragListener(dragListener)
+
+                binding.root.setOnClickListener {
+                    onAdapterListener.onSet(isPersonal = false, targetIndex = 0, sourceIndex = bindingAdapterPosition)
+                }
             } else {
                 binding.badgeAdd.visibility = View.GONE
                 stopAvailableShimmerEffect(valueAnimator, binding)
 
                 binding.root.setOnLongClickListener(null)
                 binding.root.setOnDragListener(null)
+                binding.root.setOnClickListener(null)
             }
         }
     }
