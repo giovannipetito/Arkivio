@@ -31,7 +31,7 @@ object FavoriteUtils {
                 .apply(requestOptions)
                 .into(imageView)
         } else {
-            imageView.setImageResource(R.drawable.circle_item)
+            imageView.setImageResource(R.drawable.circle_item_edit)
         }
     }
 

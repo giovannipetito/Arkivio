@@ -32,7 +32,6 @@ class FavoritesViewModel : ViewModel() {
         val editablePersonals: MutableList<Favorite?> = responsePersonals.toMutableList()
 
         val editItem = Favorite()
-        editItem.title = "Edit"
         editItem.identifier = EDIT_IDENTIFIER
 
         editablePersonals.add(editItem)
