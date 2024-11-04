@@ -22,8 +22,8 @@ object FavoriteUtils {
     fun setImageByContentPath(imageView: ImageView, contentPath: String?) {
         val imageUrl: String = getImageUrlByContentPath(contentPath)
         val requestOptions: RequestOptions = RequestOptions()
-            .placeholder(R.drawable.circle_item)
-            .error(R.drawable.circle_item)
+            .placeholder(R.drawable.circle_item_edit)
+            .error(R.drawable.circle_item_edit)
             // .transform(CircleCrop())
         if (imageUrl != null) {
             Glide.with(imageView.context)
@@ -31,7 +31,7 @@ object FavoriteUtils {
                 .apply(requestOptions)
                 .into(imageView)
         } else {
-            imageView.setImageResource(R.drawable.circle_item_edit)
+            imageView.setImageResource(R.drawable.circle_item)
         }
     }
 

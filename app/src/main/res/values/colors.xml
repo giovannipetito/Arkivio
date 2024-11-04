@@ -5,6 +5,7 @@
     <color name="colorPrimaryDark">#0f2056</color>
     <color name="colorAccent">#FAFAFA</color>
     <color name="white">#FFFFFF</color>
+    <color name="white_alpha30">#4DFFFFFF</color>
     <color name="black_1">#000000</color>
     <color name="black_2">#111111</color>
     <color name="white_transparent">#99FFFFFF</color>

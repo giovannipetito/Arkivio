@@ -167,7 +167,7 @@ class FavoritesAdapter(
         var animator = borderAnimator
         if (animator == null || !animator.isRunning) {
             val startColor = ContextCompat.getColor(binding.root.context, R.color.white)
-            val endColor = ContextCompat.getColor(binding.root.context, R.color.grey_3)
+            val endColor = ContextCompat.getColor(binding.root.context, R.color.white_alpha30)
 
             animator = ValueAnimator.ofArgb(startColor, endColor).apply {
                 duration = 2000L
@@ -198,7 +198,7 @@ class FavoritesAdapter(
         var animator = borderAnimator
         if (animator == null || !animator.isRunning) {
             val startColor = ContextCompat.getColor(binding.root.context, R.color.white)
-            val endColor = ContextCompat.getColor(binding.root.context, R.color.grey_3)
+            val endColor = ContextCompat.getColor(binding.root.context, R.color.white_alpha30)
 
             animator = ValueAnimator.ofArgb(startColor, endColor).apply {
                 duration = 2000L
