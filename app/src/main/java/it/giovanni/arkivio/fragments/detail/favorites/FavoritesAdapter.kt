@@ -170,7 +170,7 @@ class FavoritesAdapter(
             val endColor = ContextCompat.getColor(binding.root.context, R.color.grey_3)
 
             animator = ValueAnimator.ofArgb(startColor, endColor).apply {
-                duration = 1000L
+                duration = 2000L
                 repeatCount = ValueAnimator.INFINITE
                 repeatMode = ValueAnimator.REVERSE
 
@@ -201,7 +201,7 @@ class FavoritesAdapter(
             val endColor = ContextCompat.getColor(binding.root.context, R.color.grey_3)
 
             animator = ValueAnimator.ofArgb(startColor, endColor).apply {
-                duration = 1000L
+                duration = 2000L
                 repeatCount = ValueAnimator.INFINITE
                 repeatMode = ValueAnimator.REVERSE
 

@@ -26,8 +26,6 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
     private lateinit var personalsAdapter: FavoritesAdapter
     private lateinit var availablesAdapter: FavoritesAdapter
 
-    private var isEditMode = false
-
     override fun getTitle(): Int {
         return R.string.favorites_title
     }
@@ -152,7 +150,6 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
     }
 
     override fun onEditModeChanged(isEditMode: Boolean) {
-        this.isEditMode = isEditMode
         personalsAdapter.setEditMode(isEditMode)
         availablesAdapter.setEditMode(isEditMode)
     }
