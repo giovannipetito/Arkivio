@@ -24,8 +24,12 @@ class FavoritesViewModel : ViewModel() {
     private val _isPersonalsChanged = MutableLiveData<Boolean>()
     val isPersonalsChanged: LiveData<Boolean> get() = _isPersonalsChanged
 
+    private val _isMaxReached = MutableLiveData<Boolean>()
+    val isMaxReached: LiveData<Boolean> get() = _isMaxReached
+
     init {
         _isPersonalsChanged.value = false
+        _isMaxReached.value = false
 
         val initResponsePersonals: MutableList<Favorite?> = FavoriteUtils.getPersonals()
         responsePersonals = initResponsePersonals.filterNotNull().take(7).toMutableList()
@@ -64,6 +68,7 @@ class FavoritesViewModel : ViewModel() {
                     Toast.makeText(context, "You must have at least one personal favorite.", Toast.LENGTH_SHORT).show()
                 }
             }
+            _isMaxReached.value = false
         } else {
             // Drag available to personals
             _personals.value?.let { personals ->
@@ -76,8 +81,9 @@ class FavoritesViewModel : ViewModel() {
 
                     updateDraggableAvailables(tempPersonals)
                     setIsPersonalsChanged()
+                    _isMaxReached.value = false
                 } else {
-                    Toast.makeText(context, "You can only have 7 personal favorites.", Toast.LENGTH_SHORT).show()
+                    _isMaxReached.value = true
                 }
             }
         }

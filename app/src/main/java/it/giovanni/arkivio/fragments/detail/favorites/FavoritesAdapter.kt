@@ -29,6 +29,7 @@ class FavoritesAdapter(
 
     private var isEditMode = false
     private var showBadge = false
+    private var isMaxReached = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -100,12 +101,17 @@ class FavoritesAdapter(
                     binding.badgeRemove.visibility = View.VISIBLE
                     startPersonalShimmerEffect(valueAnimator, binding)
 
-                    binding.root.setOnDragListener(dragListener)
-                    binding.root.setOnLongClickListener { view ->
-                        val data = ClipData.newPlainText("", "")
-                        val shadowBuilder = FavoriteDragShadowBuilder(view, ContextCompat.getDrawable(view.context, R.drawable.circle_item_empty), showBadge) // DragShadowBuilder(view)
-                        view.startDragAndDrop(data, shadowBuilder, view, 0)
-                        false
+                    if (!isMaxReached) {
+                        binding.root.setOnDragListener(dragListener)
+                        binding.root.setOnLongClickListener { view ->
+                            val data = ClipData.newPlainText("", "")
+                            val shadowBuilder = FavoriteDragShadowBuilder(view, ContextCompat.getDrawable(view.context, R.drawable.circle_item_empty), showBadge) // DragShadowBuilder(view)
+                            view.startDragAndDrop(data, shadowBuilder, view, 0)
+                            false
+                        }
+                    } else {
+                        binding.root.setOnDragListener(null)
+                        binding.root.setOnLongClickListener(null)
                     }
 
                     binding.root.setOnClickListener {
@@ -116,9 +122,9 @@ class FavoritesAdapter(
                     binding.badgeRemove.visibility = View.GONE
                     stopPersonalShimmerEffect(valueAnimator, binding)
 
-                    binding.root.setOnLongClickListener(null)
                     binding.root.setOnDragListener(null)
                     binding.root.setOnClickListener(null)
+                    binding.root.setOnLongClickListener(null)
                 }
             }
         }
@@ -265,6 +271,10 @@ class FavoritesAdapter(
     fun setEditMode(isEditMode: Boolean) {
         this.isEditMode = isEditMode
         notifyDataSetChanged()
+    }
+
+    fun enableDragDrop(isMaxReached: Boolean) {
+        this.isMaxReached = isMaxReached
     }
 
     companion object {

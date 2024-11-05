@@ -91,6 +91,19 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
             setActionLabelState(isPersonalsChanged)
         }
 
+        viewModel.isMaxReached.observe(viewLifecycleOwner) { isMaxReached ->
+            binding?.availablesRecyclerview?.visibility = if (isMaxReached) View.GONE else View.VISIBLE
+            personalsAdapter.enableDragDrop(isMaxReached)
+            personalsAdapter.notifyDataSetChanged()
+
+            if (isMaxReached) {
+                binding?.favoritesDescription?.visibility = View.VISIBLE
+                binding?.favoritesDescription?.setText(R.string.favorites_description_max_reached)
+            } else {
+                binding?.favoritesDescription?.visibility = View.GONE
+            }
+        }
+
         return binding?.root
     }
 

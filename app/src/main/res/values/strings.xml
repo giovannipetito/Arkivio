@@ -375,6 +375,8 @@
 
     <!-- DRAG & DROP -->
     <string name="favorites_title">Drag &amp; Drop Favorites</string>
+    <string name="favorites_description">Drag and sort your favorites however you want.</string>
+    <string name="favorites_description_max_reached">You can only have 7 personal favorites. Remove a favorite first if you want to add a new one.</string>
     <string name="personals">Personali</string>
 
 </resources>
