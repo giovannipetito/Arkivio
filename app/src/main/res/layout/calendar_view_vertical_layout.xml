@@ -20,17 +20,17 @@
             android:orientation="vertical">
 
         <it.giovanni.arkivio.customview.calendarview.CalendarView
-                android:id="@+id/calendarview"
+                android:id="@+id/calendar_view"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                app:cv_month_header="@layout/calendarview_vertical_header"
-                app:cv_day_item="@layout/calendarview_vertical_item"
+                app:cv_month_header="@layout/calendar_view_vertical_header"
+                app:cv_day_item="@layout/calendar_view_vertical_item"
                 app:cv_orientation="vertical"
                 app:cv_scroll_mode="continuous" />
 
         <RelativeLayout
-                android:id="@+id/calendarview_button_container"
+                android:id="@+id/calendar_view_button_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -41,7 +41,7 @@
                     android:background="@drawable/shadow_top" />
 
             <it.giovanni.arkivio.customview.ButtonCustom
-                    android:id="@+id/calendarview_button"
+                    android:id="@+id/calendar_view_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="48dp"

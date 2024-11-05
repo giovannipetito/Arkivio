@@ -14,9 +14,9 @@ import it.giovanni.arkivio.customview.calendarview.model.*
 import it.giovanni.arkivio.customview.calendarview.ui.DayBinder
 import it.giovanni.arkivio.customview.calendarview.ui.MonthHeaderFooterBinder
 import it.giovanni.arkivio.customview.calendarview.ui.ViewContainer
-import it.giovanni.arkivio.databinding.CalendarviewHorizontalHeaderBinding
-import it.giovanni.arkivio.databinding.CalendarviewHorizontalItemBinding
-import it.giovanni.arkivio.databinding.CalendarviewHorizontalLayoutBinding
+import it.giovanni.arkivio.databinding.CalendarViewHorizontalHeaderBinding
+import it.giovanni.arkivio.databinding.CalendarViewHorizontalItemBinding
+import it.giovanni.arkivio.databinding.CalendarViewHorizontalLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
@@ -27,14 +27,14 @@ import java.time.format.DateTimeFormatter
 
 class CalendarViewHorizontalFragment : DetailFragment() {
 
-    private var layoutBinding: CalendarviewHorizontalLayoutBinding? = null
+    private var layoutBinding: CalendarViewHorizontalLayoutBinding? = null
     private val binding get() = layoutBinding
 
     private var selectedDate: LocalDate? = null
     private val today = LocalDate.now()
 
     override fun getTitle(): Int {
-        return R.string.calendarview_horizontal_title
+        return R.string.calendar_view_horizontal_title
     }
 
     override fun getActionTitle(): Int {
@@ -68,7 +68,7 @@ class CalendarViewHorizontalFragment : DetailFragment() {
     }
 
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
-        layoutBinding = CalendarviewHorizontalLayoutBinding.inflate(inflater, container, false)
+        layoutBinding = CalendarViewHorizontalLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this)
         val model = DarkModeModel(requireContext())
@@ -85,7 +85,7 @@ class CalendarViewHorizontalFragment : DetailFragment() {
 
         val daysOfWeek = getDaysOfWeek()
 
-        binding?.calendarviewHorizontalLegend?.children?.forEachIndexed { index, mView ->
+        binding?.calendarViewHorizontalLegend?.children?.forEachIndexed { index, mView ->
             (mView as TextViewCustom).apply {
                 // text = daysOfWeek[index].name.first().toString()
                 if (daysOfWeek[index].name == DaysOfWeek.MONDAY.name) {
@@ -118,14 +118,14 @@ class CalendarViewHorizontalFragment : DetailFragment() {
         val startMonth = currentMonth.minusMonths(2)
         val endMonth = currentMonth.plusMonths(2)
 
-        binding?.calendarviewHorizontal?.setup(startMonth, endMonth, daysOfWeek.first())
-        binding?.calendarviewHorizontal?.scrollToMonth(currentMonth)
+        binding?.calendarViewHorizontal?.setup(startMonth, endMonth, daysOfWeek.first())
+        binding?.calendarViewHorizontal?.scrollToMonth(currentMonth)
 
         class DayViewContainer(view: View) : ViewContainer(view) {
 
             // Will be set when this container is bound. See the dayBinder.
             lateinit var day: CalendarDay
-            val horizontalLabel = CalendarviewHorizontalItemBinding.bind(view).horizontalLabel
+            val horizontalLabel = CalendarViewHorizontalItemBinding.bind(view).horizontalLabel
 
             init {
                 horizontalLabel.setOnClickListener {
@@ -133,18 +133,18 @@ class CalendarViewHorizontalFragment : DetailFragment() {
                         if (selectedDate != day.date) {
                             val oldDate = selectedDate
                             selectedDate = day.date
-                            binding?.calendarviewHorizontal?.notifyDateChanged(day.date)
-                            oldDate?.let { binding?.calendarviewHorizontal?.notifyDateChanged(oldDate) }
+                            binding?.calendarViewHorizontal?.notifyDateChanged(day.date)
+                            oldDate?.let { binding?.calendarViewHorizontal?.notifyDateChanged(oldDate) }
                         } else {
                             selectedDate = null
-                            binding?.calendarviewHorizontal?.notifyDayChanged(day)
+                            binding?.calendarViewHorizontal?.notifyDayChanged(day)
                         }
                     }
                 }
             }
         }
 
-        binding?.calendarviewHorizontal?.dayBinder = object : DayBinder<DayViewContainer> {
+        binding?.calendarViewHorizontal?.dayBinder = object : DayBinder<DayViewContainer> {
 
             override fun create(view: View) = DayViewContainer(view)
             override fun bind(container: DayViewContainer, day: CalendarDay) {
@@ -177,28 +177,27 @@ class CalendarViewHorizontalFragment : DetailFragment() {
                 } else {
                     horizontalLabel.setTextColor(ContextCompat.getColor(context!!, R.color.grey_2))
                     horizontalLabel.background = null
-                    // horizontalLabel.visibility = View.INVISIBLE
                 }
             }
         }
 
         class MonthViewContainer(view: View) : ViewContainer(view) {
-            val calendarviewHorizontalHeader = CalendarviewHorizontalHeaderBinding.bind(view).calendarviewHorizontalHeader
+            val calendarViewHorizontalHeader = CalendarViewHorizontalHeaderBinding.bind(view).calendarViewHorizontalHeader
         }
 
-        binding?.calendarviewHorizontal?.monthHeaderBinder = object : MonthHeaderFooterBinder<MonthViewContainer> {
+        binding?.calendarViewHorizontal?.monthHeaderBinder = object : MonthHeaderFooterBinder<MonthViewContainer> {
             override fun create(view: View) = MonthViewContainer(view)
             override fun bind(container: MonthViewContainer, month: CalendarMonth) {
 
                 var monthName = month.yearMonth.month.name.lowercase()
                 monthName = monthName.substring(0, 1).uppercase() + monthName.substring(1)
                 val date = "$monthName ${month.year}"
-                container.calendarviewHorizontalHeader.text = date
+                container.calendarViewHorizontalHeader.text = date
 
                 if (isDarkMode)
-                    container.calendarviewHorizontalHeader.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+                    container.calendarViewHorizontalHeader.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
                 else
-                    container.calendarviewHorizontalHeader.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
+                    container.calendarViewHorizontalHeader.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
             }
         }
     }

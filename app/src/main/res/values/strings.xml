@@ -9,9 +9,11 @@
     <string name="button_yes">Sì</string>
     <string name="button_open">Apri</string>
     <string name="button_send">Invia</string>
+    <string name="button_add">Aggiungi</string>
     <string name="button_close">Chiudi</string>
     <string name="button_login">Accedi</string>
     <string name="button_cancel">Annulla</string>
+    <string name="button_change">Modifica</string>
     <string name="button_confirm">Conferma</string>
     <string name="button_try_again">Riprova</string>
 
@@ -36,17 +38,24 @@
     <string name="switch_mode_message">Per apportare le modifiche è necessario riavviare l\'app.</string>
     <string name="settings_message">Vuoi comprimere il background all\'apertura del menu laterale?</string>
 
-    <!-- HOME PAGE -->
+    <!-- HOMEPAGE FRAGMENT -->
     <string name="name_title">Giovanni</string>
     <string name="good_evening_title">Buonasera</string>
     <string name="good_moorning_title">Buongiorno</string>
     <string name="name_surname_title">Giovanni Petito</string>
 
-    <!-- WORKING AREA -->
-    <string name="working_area_title">WORKING AREA</string>
+    <!-- LEARNING FRAGMENT -->
+    <string name="learning_title">LEARNING AREA</string>
 
-    <!-- LINK AREA -->
-    <string name="link_area_title">LINK AREA</string>
+    <!-- TRAINING FRAGMENT -->
+    <string name="training_title">TRAINING AREA</string>
+
+    <!-- DETAIL LAYOUT -->
+    <string name="search_edit_title">Cerca…</string>
+    <string name="action_label_title">Fatto</string>
+
+    <!-- LINK -->
+    <string name="link_title">Link</string>
     <string name="static_links_title">Link Statici</string>
     <string name="dynamic_links_title">Link Dinamici</string>
     <string name="webview_drive_w3b_title">Drive W3B</string>
@@ -60,10 +69,6 @@
     <string name="webview_text_title">WebView Text</string>
     <string name="webview_html_title">WebView HTML</string>
 
-    <!-- DETAIL LAYOUT -->
-    <string name="search_edit_title">Cerca…</string>
-    <string name="action_label_title">Fatto</string>
-
     <!-- LOGCAT PROJECTS -->
     <string name="logcat_projects_title">Logcat projects</string>
 
@@ -76,8 +81,8 @@
     <string name="date_title">Date</string>
     <string name="date_format_title">Date Format</string>
     <string name="date_picker_title">Date Picker</string>
-    <string name="calendarview_horizontal_title">CalendarView Horizontal</string>
-    <string name="calendarview_vertical_title">CalendarView Vertical</string>
+    <string name="calendar_view_horizontal_title">CalendarView Horizontal</string>
+    <string name="calendar_view_vertical_title">CalendarView Vertical</string>
     <string name="monday">LUN</string>
     <string name="tuesday">MAR</string>
     <string name="wednesday">MER</string>
@@ -143,18 +148,18 @@
     <string name="Range_TimePicker_1">Range TimePicker 1</string>
     <string name="Range_TimePicker_2">Range TimePicker 2</string>
 
-    <!-- SMARTWORKING -->
-    <string name="smartworking_title">Smartworking</string>
+    <!-- SMART WORKING -->
+    <string name="smart_working_title">Smart working</string>
     <string name="switch_selected_days">Reset selected days</string>
-    <string name="smartworking_message_success">La comunicazione di Smartworking è stata inviata correttamente.</string>
-    <string name="smartworking_message_failure">Si è verificato un errore nella comunicazione di Smartworking. Riprova più tardi.</string>
-    <string name="smartworking_message_modify">Sei sicuro di voler modificare le giornate di Smartworking?</string>
-    <string name="smartworking_message_abort">Vuoi annullare la modifica dei giorni di Smartworking? Le modifiche non saranno salvate.</string>
-    <string name="smartworking_subject_mail">Lavoro in regime agile %1$s</string>
-    <string name="smartworking_content_mail">Buon giorno,\nvi informo che in accordo con il mio responsabile %1$s, %2$s lavorerò in regime agile.\n\nGrazie\n%3$s</string>
-    <string name="smartworking_revision_subject_mail">Lavoro in regime agile - Rettifica %1$s</string>
-    <string name="smartworking_revision_1_content_mail">Buon giorno,\nvi informo che, a differenza di quanto precedentemente comunicato, %1$s lavorerò presso la sede.\n\nGrazie\n%2$s</string>
-    <string name="smartworking_revision_2_content_mail">Buon giorno,\nvi informo che, a differenza di quanto precedentemente comunicato, %1$s lavorerò presso la sede.\n\nIn accordo con il mio responsabile %2$s, lavorerò in regime agile %3$s.\n\nGrazie\n%4$s</string>
+    <string name="smart_working_message_success">La comunicazione di Smart working è stata inviata correttamente.</string>
+    <string name="smart_working_message_failure">Si è verificato un errore nella comunicazione di Smart working. Riprova più tardi.</string>
+    <string name="smart_working_message_modify">Sei sicuro di voler modificare le giornate di Smart working?</string>
+    <string name="smart_working_message_abort">Vuoi annullare la modifica dei giorni di Smart working? Le modifiche non saranno salvate.</string>
+    <string name="smart_working_subject_mail">Lavoro in regime agile %1$s</string>
+    <string name="smart_working_content_mail">Buon giorno,\nvi informo che in accordo con il mio responsabile %1$s, %2$s lavorerò in regime agile.\n\nGrazie\n%3$s</string>
+    <string name="smart_working_revision_subject_mail">Lavoro in regime agile - Rettifica %1$s</string>
+    <string name="smart_working_revision_1_content_mail">Buon giorno,\nvi informo che, a differenza di quanto precedentemente comunicato, %1$s lavorerò presso la sede.\n\nGrazie\n%2$s</string>
+    <string name="smart_working_revision_2_content_mail">Buon giorno,\nvi informo che, a differenza di quanto precedentemente comunicato, %1$s lavorerò presso la sede.\n\nIn accordo con il mio responsabile %2$s, lavorerò in regime agile %3$s.\n\nGrazie\n%4$s</string>
 
     <!-- EMAIL -->
     <string name="email_title">Email</string>
@@ -266,9 +271,6 @@
     <string name="textview_style_nunitoextrabold_nunito_extrabold">TextView style NunitoExtrabold (nunito_extrabold)</string>
     <string name="textview_style_nunitoblack_nunito_black">TextView style NunitoBlack (nunito_black)</string>
 
-    <!-- PUNTONET -->
-    <string name="puntonet_title">PuntoNet</string>
-
     <!-- ARKLIB -->
     <string name="arklib_title">Welcome</string>
 
@@ -333,7 +335,7 @@
     <string name="button_cancel_work">Cancel Work</string>
 
     <!-- CLEAN ARCHITECTURE & HILT -->
-    <string name="clean_architecture_home_title">Clean Architecture &amp; Hilt</string>
+    <string name="clean_architecture_title">Clean Architecture &amp; Hilt</string>
     <string name="clean_architecture_paging_title">Paging &amp; Coroutines</string>
     <string name="clean_architecture_rxjava_title">RxJava</string>
     <string name="clean_architecture_worker_title">WorkManager</string>

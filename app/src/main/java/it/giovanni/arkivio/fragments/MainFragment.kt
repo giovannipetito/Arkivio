@@ -16,7 +16,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.ImageView
-import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
@@ -32,7 +31,7 @@ import it.giovanni.arkivio.customview.popup.CustomDialogPopup
 import it.giovanni.arkivio.databinding.LinkDynamicItemBinding
 import it.giovanni.arkivio.databinding.MainLayoutBinding
 import it.giovanni.arkivio.databinding.NavHeaderItemBinding
-import it.giovanni.arkivio.fragments.homepage.LinkAreaFragment.Companion.linkAreaLayoutBinding
+import it.giovanni.arkivio.fragments.homepage.TrainingFragment.Companion.trainingLayoutBinding
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.Globals
@@ -47,9 +46,9 @@ import it.giovanni.arkivio.viewinterfaces.IDarkMode
 class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
 
     companion object {
-        var TAB_INDEX_HOME: Int = 1
-        var TAB_INDEX_WORKING_AREA: Int = 2
-        var TAB_INDEX_LINK_AREA: Int = 3
+        var TAB_INDEX_HOMEPAGE: Int = 1
+        var TAB_INDEX_LEARNING: Int = 2
+        var TAB_INDEX_TRAINING: Int = 3
     }
 
     private var layoutBinding: MainLayoutBinding? = null
@@ -60,7 +59,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
     private var defaultX: Float = 0f
     private var transitionTime: Long = 100
     var animationFinish = true
-    private var previousTab: Int = TAB_INDEX_HOME
+    private var previousTab: Int = TAB_INDEX_HOMEPAGE
     private lateinit var fragmentAdapter: HomeFragmentAdapter
     private val endScale = 0.9f
     private var listLink: ArrayList<Link>? = null
@@ -183,7 +182,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
 
         binding?.mainContent?.viewPager?.adapter = fragmentAdapter
         binding?.mainContent?.viewPager?.offscreenPageLimit = 3
-        binding?.mainContent?.viewPager?.currentItem = (TAB_INDEX_HOME - 1)
+        binding?.mainContent?.viewPager?.currentItem = (TAB_INDEX_HOMEPAGE - 1)
 
         binding?.mainContent?.viewPager?.addOnPageChangeListener(
             object : ViewPager.OnPageChangeListener {
@@ -257,7 +256,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
                 binding?.mainContent?.tabMenu?.setImageDrawable(
                     ContextCompat.getDrawable(
                         requireContext(),
-                        R.drawable.ico_bottom_menu
+                        R.drawable.ico_menu
                     )
                 )
             }
@@ -302,15 +301,15 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
     }
 
     private fun addLinkViews(listLink: ArrayList<Link>?) {
-
-        linkAreaLayoutBinding?.linkUtiliContainer?.removeAllViews()
+        /*
+        trainingLayoutBinding?.linkUtiliContainer?.removeAllViews()
 
         if (listLink.isNullOrEmpty())
             return
 
         for (item in listLink) {
 
-            val itemBinding = LinkDynamicItemBinding.inflate(LayoutInflater.from(context), linkAreaLayoutBinding?.linkUtiliContainer, false)
+            val itemBinding = LinkDynamicItemBinding.inflate(LayoutInflater.from(context), trainingLayoutBinding?.linkUtiliContainer, false)
             val rowView: View = itemBinding.root
 
             val labelName: TextView = itemBinding.linkName
@@ -322,7 +321,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
 
             labelName.text = item.name
 
-            linkAreaLayoutBinding?.linkUtiliContainer?.addView(rowView)
+            trainingLayoutBinding?.linkUtiliContainer?.addView(rowView)
 
             linkItem.setOnClickListener {
                 when (item.type) {
@@ -337,9 +336,6 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
                         }
                     }
                     appType -> {
-                        // val params = Bundle()
-                        // params.putString(Mapping.WAW3Key.WAW3_LINK, item.analyticsLabel)
-                        // trackEvent(params)
                         currentActivity.openApp(item.appLinkAndroid)
                     }
                     extType -> {
@@ -348,7 +344,8 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
                 }
             }
         }
-        linkAreaLayoutBinding?.linkUtiliContainer?.visibility = View.VISIBLE
+        trainingLayoutBinding?.linkUtiliContainer?.visibility = View.VISIBLE
+        */
     }
 
     private fun addSideViews(listLinkSide: ArrayList<LinkSide>?) {
@@ -398,33 +395,33 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
     }
 
     private fun attachTabListener() {
-        binding?.mainContent?.tabHome?.setOnClickListener(tabHomeClick)
-        binding?.mainContent?.tabWorkingArea?.setOnClickListener(tabWorkingAreaClick)
-        binding?.mainContent?.tabLinkArea?.setOnClickListener(tabLinkAreaClick)
+        binding?.mainContent?.tabHomepage?.setOnClickListener(tabHomepageClick)
+        binding?.mainContent?.tabLearning?.setOnClickListener(tabLearningClick)
+        binding?.mainContent?.tabTraining?.setOnClickListener(tabTrainingClick)
         binding?.mainContent?.tabMenu?.setOnClickListener(tabMenuClick)
     }
 
     private fun resetBackgroundTabNav() {
-        val start = binding?.mainContent?.tabHome?.x!! + (binding?.mainContent?.tabHome?.width!! / 2)
+        val start = binding?.mainContent?.tabHomepage?.x!! + (binding?.mainContent?.tabHomepage?.width!! / 2)
         val end = binding?.mainContent?.tabMenu?.x!! + (binding?.mainContent?.tabMenu?.width!! / 2)
         val delta = (end - start) / 4
 
         binding?.mainContent?.backgroundBottomBar?.x = -(delta * 2)
-        binding?.mainContent?.tabHome?.setImageDrawable(
+        binding?.mainContent?.tabHomepage?.setImageDrawable(
             ContextCompat.getDrawable(
                 requireContext(),
-                R.drawable.ico_bottom_home_rvd
+                R.drawable.ico_home_rvd
             )
         )
-        defaultX = (binding?.mainContent?.tabHome?.width!!).toFloat()
+        defaultX = (binding?.mainContent?.tabHomepage?.width!!).toFloat()
     }
 
     private fun getTabInstanceByPosition(position: Int): ImageView {
         return when (position) {
-            1 -> binding?.mainContent?.tabHome!!
-            2 -> binding?.mainContent?.tabWorkingArea!!
-            3 -> binding?.mainContent?.tabLinkArea!!
-            else -> binding?.mainContent?.tabHome!!
+            1 -> binding?.mainContent?.tabHomepage!!
+            2 -> binding?.mainContent?.tabLearning!!
+            3 -> binding?.mainContent?.tabTraining!!
+            else -> binding?.mainContent?.tabHomepage!!
         }
     }
 
@@ -432,65 +429,59 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
         when (position) {
             1 -> {
                 return if (!rvdType)
-                    ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_home)!!
+                    ContextCompat.getDrawable(requireContext(), R.drawable.ico_home)!!
                 else
-                    ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_home_rvd)!!
+                    ContextCompat.getDrawable(requireContext(), R.drawable.ico_home_rvd)!!
             }
             2 -> {
                 return if (!rvdType)
-                    ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_working_area)!!
+                    ContextCompat.getDrawable(requireContext(), R.drawable.ico_learning)!!
                 else
-                    ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_working_area_rvd)!!
+                    ContextCompat.getDrawable(requireContext(), R.drawable.ico_learning_rvd)!!
             }
             3 -> {
                 return if (!rvdType)
-                    ContextCompat.getDrawable(
-                        requireContext(),
-                        R.drawable.ico_bottom_link_area
-                    )!!
+                    ContextCompat.getDrawable(requireContext(), R.drawable.ico_training)!!
                 else
-                    ContextCompat.getDrawable(
-                        requireContext(),
-                        R.drawable.ico_bottom_link_area_rvd
-                    )!!
+                    ContextCompat.getDrawable(requireContext(), R.drawable.ico_training_rvd)!!
             }
             else -> {
                 return if (!rvdType)
-                    ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_home)!!
+                    ContextCompat.getDrawable(requireContext(), R.drawable.ico_home)!!
                 else
-                    ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_home_rvd)!!
+                    ContextCompat.getDrawable(requireContext(), R.drawable.ico_home_rvd)!!
             }
         }
     }
 
-    private var tabHomeClick: View.OnClickListener = View.OnClickListener {
+    private var tabHomepageClick: View.OnClickListener = View.OnClickListener {
         translateAnimation(
-            TAB_INDEX_HOME,
-            binding?.mainContent?.tabHome!!,
-            ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_home)!!,
-            ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_home_rvd)!!
+            TAB_INDEX_HOMEPAGE,
+            binding?.mainContent?.tabHomepage!!,
+            ContextCompat.getDrawable(requireContext(), R.drawable.ico_home)!!,
+            ContextCompat.getDrawable(requireContext(), R.drawable.ico_home_rvd)!!
         )
-        binding?.mainContent?.viewPager?.currentItem = TAB_INDEX_HOME - 1
+        binding?.mainContent?.viewPager?.currentItem = TAB_INDEX_HOMEPAGE - 1
     }
 
-    private var tabWorkingAreaClick: View.OnClickListener = View.OnClickListener {
+    private var tabLearningClick: View.OnClickListener = View.OnClickListener {
         translateAnimation(
-            TAB_INDEX_WORKING_AREA,
-            binding?.mainContent?.tabWorkingArea!!,
-            ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_working_area)!!,
-            ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_working_area_rvd)!!
+            TAB_INDEX_LEARNING,
+            binding?.mainContent?.tabLearning!!,
+            ContextCompat.getDrawable(requireContext(), R.drawable.ico_learning)!!,
+            ContextCompat.getDrawable(requireContext(), R.drawable.ico_learning_rvd)!!
         )
-        binding?.mainContent?.viewPager?.currentItem = TAB_INDEX_WORKING_AREA - 1
+        binding?.mainContent?.viewPager?.currentItem = TAB_INDEX_LEARNING - 1
     }
 
-    private var tabLinkAreaClick: View.OnClickListener = View.OnClickListener {
+    private var tabTrainingClick: View.OnClickListener = View.OnClickListener {
         translateAnimation(
-            TAB_INDEX_LINK_AREA,
-            binding?.mainContent?.tabLinkArea!!,
-            ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_link_area)!!,
-            ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_link_area_rvd)!!
+            TAB_INDEX_TRAINING,
+            binding?.mainContent?.tabTraining!!,
+            ContextCompat.getDrawable(requireContext(), R.drawable.ico_training)!!,
+            ContextCompat.getDrawable(requireContext(), R.drawable.ico_training_rvd)!!
         )
-        binding?.mainContent?.viewPager?.currentItem = TAB_INDEX_LINK_AREA - 1
+        binding?.mainContent?.viewPager?.currentItem = TAB_INDEX_TRAINING - 1
     }
 
     private var tabMenuClick: View.OnClickListener = View.OnClickListener {
@@ -503,7 +494,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
             binding?.mainContent?.tabMenu?.setImageDrawable(
                 ContextCompat.getDrawable(
                     requireContext(),
-                    R.drawable.ico_bottom_menu
+                    R.drawable.ico_menu
                 )
             )
         }
@@ -516,7 +507,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
             binding?.mainContent?.tabMenu?.setImageDrawable(
                 ContextCompat.getDrawable(
                     requireContext(),
-                    R.drawable.ico_bottom_menu
+                    R.drawable.ico_menu
                 )
             )
         } else {
@@ -574,17 +565,17 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
     }
 
     private fun resetAllImages() {
-        binding?.mainContent?.tabHome?.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ico_bottom_home))
-        binding?.mainContent?.tabWorkingArea?.setImageDrawable(
+        binding?.mainContent?.tabHomepage?.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ico_home))
+        binding?.mainContent?.tabLearning?.setImageDrawable(
             ContextCompat.getDrawable(
                 requireContext(),
-                R.drawable.ico_bottom_working_area
+                R.drawable.ico_learning
             )
         )
-        binding?.mainContent?.tabLinkArea?.setImageDrawable(
+        binding?.mainContent?.tabTraining?.setImageDrawable(
             ContextCompat.getDrawable(
                 requireContext(),
-                R.drawable.ico_bottom_link_area
+                R.drawable.ico_training
             )
         )
     }

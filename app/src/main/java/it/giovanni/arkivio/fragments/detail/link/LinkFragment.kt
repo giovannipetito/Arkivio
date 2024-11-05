@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.homepage
+package it.giovanni.arkivio.fragments.detail.link
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,27 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.databinding.LinkAreaLayoutBinding
-import it.giovanni.arkivio.fragments.HomeFragment
-import it.giovanni.arkivio.fragments.MainFragment
+import it.giovanni.arkivio.databinding.LinkLayoutBinding
+import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.fragments.detail.webview.WebViewActivity
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.Globals
 import it.giovanni.arkivio.utils.Utils
 
-class LinkAreaFragment : HomeFragment() {
+class LinkFragment : DetailFragment() {
 
-    companion object {
-        private var caller: MainFragment? = null
-        fun newInstance(c: MainFragment): LinkAreaFragment {
-            caller = c
-            return LinkAreaFragment()
-        }
-
-        private var layoutBinding: LinkAreaLayoutBinding? = null
-        val linkAreaLayoutBinding get() = layoutBinding
-    }
+    private var layoutBinding: LinkLayoutBinding? = null
+    private val binding get() = layoutBinding
 
     private var bundleW3B: Bundle = Bundle()
     private var bundleWAW3: Bundle = Bundle()
@@ -35,7 +26,37 @@ class LinkAreaFragment : HomeFragment() {
     private var bundleHtml: Bundle = Bundle()
 
     override fun getTitle(): Int {
+        return R.string.link_title
+    }
+
+    override fun getActionTitle(): Int {
         return NO_TITLE
+    }
+
+    override fun searchAction(): Boolean {
+        return false
+    }
+
+    override fun backAction(): Boolean {
+        return true
+    }
+
+    override fun closeAction(): Boolean {
+        return false
+    }
+
+    override fun deleteAction(): Boolean {
+        return false
+    }
+
+    override fun editAction(): Boolean {
+        return false
+    }
+
+    override fun editIconClick() {
+    }
+
+    override fun onActionSearch(searchString: String) {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,45 +79,44 @@ class LinkAreaFragment : HomeFragment() {
     }
 
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
-        layoutBinding = LinkAreaLayoutBinding.inflate(inflater, container, false)
+        layoutBinding = LinkLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this)
         val model = DarkModeModel(requireContext())
-        linkAreaLayoutBinding?.presenter = darkModePresenter
-        linkAreaLayoutBinding?.temp = model
+        binding?.presenter = darkModePresenter
+        binding?.temp = model
 
-        return linkAreaLayoutBinding?.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        linkAreaLayoutBinding?.labelWebviewDriveW3b?.setOnClickListener {
+        binding?.labelWebviewDriveW3b?.setOnClickListener {
             currentActivity.openDetail(Globals.WEB_VIEW, bundleW3B)
         }
 
-        linkAreaLayoutBinding?.labelLinkDriveWaw3?.setOnClickListener {
+        binding?.labelLinkDriveWaw3?.setOnClickListener {
             Utils.openBrowser(requireContext(), requireContext().getString(R.string.url_drive_waw3))
-            // currentActivity.openDetail(Globals.WEB_VIEW, bundleWAW3)
         }
 
-        linkAreaLayoutBinding?.labelBrowserGithub?.setOnClickListener {
+        binding?.labelBrowserGithub?.setOnClickListener {
             Utils.openBrowser(requireContext(), requireContext().getString(R.string.url_github))
         }
 
-        linkAreaLayoutBinding?.labelWebviewGithub?.setOnClickListener {
+        binding?.labelWebviewGithub?.setOnClickListener {
             currentActivity.openDetail(Globals.WEB_VIEW, bundleGitHub)
         }
 
-        linkAreaLayoutBinding?.labelLinkApp?.setOnClickListener {
+        binding?.labelLinkApp?.setOnClickListener {
             Utils.openApp(requireContext(), requireContext().resources.getString(R.string.url_gympass))
         }
 
-        linkAreaLayoutBinding?.labelLinkTest?.setOnClickListener {
+        binding?.labelLinkTest?.setOnClickListener {
             Utils.openBrowser(requireContext(), requireContext().getString(R.string.test_url))
         }
 
-        linkAreaLayoutBinding?.labelWebviewVideoPlayer?.setOnClickListener {
+        binding?.labelWebviewVideoPlayer?.setOnClickListener {
 
             val intent = Intent(context, WebViewActivity::class.java)
             intent.putExtra("bundle_video", bundleVideo)
@@ -105,13 +125,13 @@ class LinkAreaFragment : HomeFragment() {
             activity?.overridePendingTransition(R.anim.left_to_right_2, R.anim.right_to_left_2)
         }
 
-        linkAreaLayoutBinding?.labelWebviewText?.setOnClickListener {
+        binding?.labelWebviewText?.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("TEXT_KEY", message())
             currentActivity.openDetail(Globals.WEB_VIEW, bundle)
         }
 
-        linkAreaLayoutBinding?.labelWebviewHtml?.setOnClickListener {
+        binding?.labelWebviewHtml?.setOnClickListener {
             currentActivity.openDetail(Globals.WEB_VIEW, bundleHtml)
         }
     }

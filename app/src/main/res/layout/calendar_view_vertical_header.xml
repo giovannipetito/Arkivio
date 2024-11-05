@@ -7,7 +7,7 @@
         android:paddingTop="20dp">
 
     <it.giovanni.arkivio.customview.TextViewCustom
-            android:id="@+id/calendarview_vertical_header"
+            android:id="@+id/calendar_view_vertical_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -16,7 +16,7 @@
             tools:textColor="@color/white" />
 
     <LinearLayout
-            android:id="@+id/calendarview_vertical_legend"
+            android:id="@+id/calendar_view_vertical_legend"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"

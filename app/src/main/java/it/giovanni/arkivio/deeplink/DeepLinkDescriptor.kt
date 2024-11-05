@@ -9,13 +9,13 @@ object DeepLinkDescriptor {
     const val DEEP_LINK_URI = "DEEP_LINK_URI"
 
     var URI_CONTACTS = "contacts" // waw3://contacts
-    var URI_OPENAPP = "openapp" // waw3://openapp/{xyz}
+    var URI_OPEN_APP = "openapp" // waw3://openapp/{xyz}
     var URI_VIEW = "view" // waw3://openapp/{xyz}
     var URI_LOGOUT = "logout" // waw3://logout
 
-    var URI_HOME_PAGE = "homePage" // waw3://homePage
-    var URI_WORKING_AREA = "workingArea" // waw3://workingArea
-    var URI_LINK_AREA = "linkArea" // waw3://linkArea
+    var URI_HOMEPAGE = "homepage" // waw3://homepage
+    var URI_LEARNING = "learning" // waw3://learning
+    var URI_TRAINING = "training" // waw3://training
 
     var URI_CALL = "call"
 

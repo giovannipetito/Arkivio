@@ -11,7 +11,7 @@ import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.databinding.RickMortyPagingLayoutBinding
+import it.giovanni.arkivio.databinding.CleanArchitecturePagingLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.puntonet.cleanarchitecture.data.model.RickMorty
 import it.giovanni.arkivio.puntonet.cleanarchitecture.presentation.adapter.CharacterAdapter
@@ -22,9 +22,9 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class RickMortyPagingFragment : DetailFragment() {
+class CleanArchitecturePagingFragment : DetailFragment() {
 
-    private var layoutBinding: RickMortyPagingLayoutBinding? = null
+    private var layoutBinding: CleanArchitecturePagingLayoutBinding? = null
     private val binding get() = layoutBinding
 
     private lateinit var characterAdapter: CharacterAdapter
@@ -66,7 +66,7 @@ class RickMortyPagingFragment : DetailFragment() {
     }
 
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
-        layoutBinding = RickMortyPagingLayoutBinding.inflate(inflater, container, false)
+        layoutBinding = CleanArchitecturePagingLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this)
         val model = DarkModeModel(requireContext())

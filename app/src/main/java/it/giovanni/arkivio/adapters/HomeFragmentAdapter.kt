@@ -4,15 +4,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import it.giovanni.arkivio.fragments.MainFragment
-import it.giovanni.arkivio.fragments.homepage.LinkAreaFragment
+import it.giovanni.arkivio.fragments.homepage.TrainingFragment
 import it.giovanni.arkivio.fragments.homepage.HomePageFragment
-import it.giovanni.arkivio.fragments.homepage.WorkingAreaFragment
+import it.giovanni.arkivio.fragments.homepage.LearningFragment
 
 class HomeFragmentAdapter(fragmentManager: FragmentManager, private val homePageCounter: Int, private val caller: MainFragment) : FragmentPagerAdapter(fragmentManager) {
 
     private var homePageFragment: HomePageFragment? = null
-    private var workingAreaFragment: WorkingAreaFragment? = null
-    private var linkAreaFragment: LinkAreaFragment? = null
+    private var learningFragment: LearningFragment? = null
+    private var trainingFragment: TrainingFragment? = null
 
     override fun getItem(position: Int): Fragment {
         when (position) {
@@ -21,12 +21,12 @@ class HomeFragmentAdapter(fragmentManager: FragmentManager, private val homePage
                 return homePageFragment!!
             }
             1 -> {
-                if (workingAreaFragment == null) workingAreaFragment = WorkingAreaFragment.newInstance(caller)
-                return workingAreaFragment!!
+                if (learningFragment == null) learningFragment = LearningFragment.newInstance(caller)
+                return learningFragment!!
             }
             2 -> {
-                if (linkAreaFragment == null) linkAreaFragment = LinkAreaFragment.newInstance(caller)
-                return linkAreaFragment!!
+                if (trainingFragment == null) trainingFragment = TrainingFragment.newInstance(caller)
+                return trainingFragment!!
             }
             else -> {
                 if (homePageFragment == null) homePageFragment = HomePageFragment.newInstance(caller)

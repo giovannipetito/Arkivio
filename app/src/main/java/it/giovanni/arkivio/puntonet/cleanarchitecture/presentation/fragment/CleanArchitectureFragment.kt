@@ -5,19 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.databinding.RickMortyHomeLayoutBinding
+import it.giovanni.arkivio.databinding.CleanArchitectureLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.Globals
 
-class RickMortyHomeFragment : DetailFragment() {
+class CleanArchitectureFragment : DetailFragment() {
 
-    private var layoutBinding: RickMortyHomeLayoutBinding? = null
+    private var layoutBinding: CleanArchitectureLayoutBinding? = null
     private val binding get() = layoutBinding
 
     override fun getTitle(): Int {
-        return R.string.clean_architecture_home_title
+        return R.string.clean_architecture_title
     }
 
     override fun getActionTitle(): Int {
@@ -51,7 +51,7 @@ class RickMortyHomeFragment : DetailFragment() {
     }
 
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
-        layoutBinding = RickMortyHomeLayoutBinding.inflate(inflater, container, false)
+        layoutBinding = CleanArchitectureLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this)
         val model = DarkModeModel(requireContext())
@@ -64,11 +64,11 @@ class RickMortyHomeFragment : DetailFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding?.labelPagingCoroutines?.setOnClickListener {
-            currentActivity.openDetail(Globals.CLEAN_ARCHITECTURE_PAGING, null)
-        }
         binding?.labelRxjava?.setOnClickListener {
             currentActivity.openDetail(Globals.CLEAN_ARCHITECTURE_RXJAVA, null)
+        }
+        binding?.labelPagingCoroutines?.setOnClickListener {
+            currentActivity.openDetail(Globals.CLEAN_ARCHITECTURE_PAGING, null)
         }
         binding?.labelWorkManager?.setOnClickListener {
             currentActivity.openDetail(Globals.CLEAN_ARCHITECTURE_WORKER, null)

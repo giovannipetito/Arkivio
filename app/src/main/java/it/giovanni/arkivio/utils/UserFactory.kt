@@ -44,8 +44,8 @@ class UserFactory {
         var diseaseWaiting: Boolean = false
         var covidInfoCommunication: String? = null
         var covidMessageCommunication: String? = null
-        var smartworkingSubjectMail: String? = null
-        var smartworkingContentMail: String? = null
+        var smartWorkingSubjectMail: String? = null
+        var smartWorkingContentMail: String? = null
 
         fun clear() {
             email = ""
@@ -76,8 +76,8 @@ class UserFactory {
             diseaseWaiting = false
             covidInfoCommunication = ""
             covidMessageCommunication = ""
-            smartworkingSubjectMail = ""
-            smartworkingContentMail = ""
+            smartWorkingSubjectMail = ""
+            smartWorkingContentMail = ""
         }
     }
 }

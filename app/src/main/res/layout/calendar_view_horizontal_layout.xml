@@ -21,7 +21,7 @@
             android:focusable="true">
 
         <LinearLayout
-                android:id="@+id/calendarview_horizontal_legend"
+                android:id="@+id/calendar_view_horizontal_legend"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -101,11 +101,11 @@
         </LinearLayout>
 
         <it.giovanni.arkivio.customview.calendarview.CalendarView
-                android:id="@+id/calendarview_horizontal"
+                android:id="@+id/calendar_view_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:cv_month_header="@layout/calendarview_horizontal_header"
-                app:cv_day_item="@layout/calendarview_horizontal_item"
+                app:cv_month_header="@layout/calendar_view_horizontal_header"
+                app:cv_day_item="@layout/calendar_view_horizontal_item"
                 app:cv_orientation="horizontal"
                 app:cv_scroll_mode="paged" />
 

@@ -9,15 +9,15 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.databinding.RickMortyItemBinding
-import it.giovanni.arkivio.databinding.RickMortyLayoutBinding
+import it.giovanni.arkivio.databinding.CleanArchitectureRxJavaLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.puntonet.cleanarchitecture.data.model.RickMorty
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 
-class RickMortyFragment : DetailFragment() {
+class CleanArchitectureRxJavaFragment : DetailFragment() {
 
-    private var layoutBinding: RickMortyLayoutBinding? = null
+    private var layoutBinding: CleanArchitectureRxJavaLayoutBinding? = null
     private val binding get() = layoutBinding
 
     override fun getTitle(): Int {
@@ -55,7 +55,7 @@ class RickMortyFragment : DetailFragment() {
     }
 
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
-        layoutBinding = RickMortyLayoutBinding.inflate(inflater, container, false)
+        layoutBinding = CleanArchitectureRxJavaLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this)
         val model = DarkModeModel(requireContext())

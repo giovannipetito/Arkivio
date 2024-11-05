@@ -24,9 +24,9 @@ import it.giovanni.arkivio.customview.calendarview.ui.Badge
 import it.giovanni.arkivio.customview.calendarview.ui.DayBinder
 import it.giovanni.arkivio.customview.calendarview.ui.MonthHeaderFooterBinder
 import it.giovanni.arkivio.customview.calendarview.ui.ViewContainer
-import it.giovanni.arkivio.databinding.CalendarviewVerticalHeaderBinding
-import it.giovanni.arkivio.databinding.CalendarviewVerticalItemBinding
-import it.giovanni.arkivio.databinding.CalendarviewVerticalLayoutBinding
+import it.giovanni.arkivio.databinding.CalendarViewVerticalHeaderBinding
+import it.giovanni.arkivio.databinding.CalendarViewVerticalItemBinding
+import it.giovanni.arkivio.databinding.CalendarViewVerticalLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
@@ -45,7 +45,7 @@ class CalendarViewVerticalFragment : DetailFragment() {
         private var TAG: String = CalendarViewVerticalFragment::class.java.simpleName
     }
 
-    private var layoutBinding: CalendarviewVerticalLayoutBinding? = null
+    private var layoutBinding: CalendarViewVerticalLayoutBinding? = null
     private val binding get() = layoutBinding
 
     private var selectedDate: LocalDate? = null
@@ -57,7 +57,7 @@ class CalendarViewVerticalFragment : DetailFragment() {
     private var deselectedItems: ArrayList<SelectedDay>? = null
 
     override fun getTitle(): Int {
-        return R.string.calendarview_vertical_title
+        return R.string.calendar_view_vertical_title
     }
 
     override fun getActionTitle(): Int {
@@ -91,7 +91,7 @@ class CalendarViewVerticalFragment : DetailFragment() {
     }
 
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
-        layoutBinding = CalendarviewVerticalLayoutBinding.inflate(inflater, container, false)
+        layoutBinding = CalendarViewVerticalLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this)
         val model = DarkModeModel(requireContext())
@@ -112,8 +112,8 @@ class CalendarViewVerticalFragment : DetailFragment() {
         val startMonth = currentMonth.minusMonths(1)
         val endMonth = currentMonth.plusMonths(3)
 
-        binding?.calendarview?.setup(startMonth, endMonth, daysOfWeek.first())
-        binding?.calendarview?.scrollToMonth(currentMonth)
+        binding?.calendarView?.setup(startMonth, endMonth, daysOfWeek.first())
+        binding?.calendarView?.scrollToMonth(currentMonth)
 
         val response = loadSelectedDaysFromPreferences()
         items = response?.selectedDays
@@ -123,7 +123,7 @@ class CalendarViewVerticalFragment : DetailFragment() {
 
         class DayViewContainer(view: View) : ViewContainer(view) {
             lateinit var day: CalendarDay // Will be set when this container is bound.
-            val itemBinding = CalendarviewVerticalItemBinding.bind(view)
+            val itemBinding = CalendarViewVerticalItemBinding.bind(view)
             init {
                 view.setOnClickListener {
                     if (day.owner == DayOwner.THIS_MONTH) {
@@ -132,21 +132,21 @@ class CalendarViewVerticalFragment : DetailFragment() {
                         } else {
                             selectedDates.add(day.date)
                         }
-                        binding?.calendarview?.notifyDayChanged(day)
+                        binding?.calendarView?.notifyDayChanged(day)
 
-                        binding?.calendarviewButton?.isEnabled = selectedDates.isNotEmpty()
+                        binding?.calendarViewButton?.isEnabled = selectedDates.isNotEmpty()
                     }
                 }
             }
         }
 
-        if (items == null || items?.isEmpty()!!)
+        if (items == null || items?.isEmpty!!)
             items = ArrayList()
 
         selectedItems = ArrayList()
         deselectedItems = ArrayList()
 
-        binding?.calendarview?.dayBinder = object : DayBinder<DayViewContainer> {
+        binding?.calendarView?.dayBinder = object : DayBinder<DayViewContainer> {
 
             override fun create(view: View) = DayViewContainer(view)
             override fun bind(container: DayViewContainer, day: CalendarDay) {
@@ -256,11 +256,11 @@ class CalendarViewVerticalFragment : DetailFragment() {
         }
 
         class MonthViewContainerHeader(view: View) : ViewContainer(view) {
-            val calendarviewVerticalHeader = CalendarviewVerticalHeaderBinding.bind(view).calendarviewVerticalHeader
-            val calendarviewVerticalLegend = CalendarviewVerticalHeaderBinding.bind(view).calendarviewVerticalLegend
+            val calendarViewVerticalHeader = CalendarViewVerticalHeaderBinding.bind(view).calendarViewVerticalHeader
+            val calendarViewVerticalLegend = CalendarViewVerticalHeaderBinding.bind(view).calendarViewVerticalLegend
         }
 
-        binding?.calendarview?.monthHeaderBinder = object : MonthHeaderFooterBinder<MonthViewContainerHeader> {
+        binding?.calendarView?.monthHeaderBinder = object : MonthHeaderFooterBinder<MonthViewContainerHeader> {
 
             override fun create(view: View) = MonthViewContainerHeader(view)
 
@@ -268,16 +268,15 @@ class CalendarViewVerticalFragment : DetailFragment() {
 
                 val currentDate = DateTimeFormatter.ofPattern("MMMM").format(month.yearMonth.month) + " | " + month.year
                 val headerDate = currentDate.uppercase()
-                container.calendarviewVerticalHeader.text = headerDate
-                // container.calendarviewVerticalHeader.text = "${month.yearMonth.month.name.uppercase().capitalize(Locale.getDefault())} ${"|"} ${month.year}"
+                container.calendarViewVerticalHeader.text = headerDate
 
                 isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
                 if (isDarkMode)
-                    container.calendarviewVerticalHeader.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+                    container.calendarViewVerticalHeader.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
                 else
-                    container.calendarviewVerticalHeader.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
+                    container.calendarViewVerticalHeader.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
 
-                container.calendarviewVerticalLegend.children.forEachIndexed { index, mView ->
+                container.calendarViewVerticalLegend.children.forEachIndexed { index, mView ->
                     (mView as TextViewCustom).apply {
                         if (daysOfWeek[index].name == DaysOfWeek.MONDAY.name) {
                             setText(R.string.monday)
@@ -327,15 +326,15 @@ class CalendarViewVerticalFragment : DetailFragment() {
             }
         }
 
-        binding?.calendarview?.monthScrollListener = { _ ->
+        binding?.calendarView?.monthScrollListener = { _ ->
             selectedDate?.let {
                 // Clear selection if we scroll to a new month.
                 selectedDate = null
-                binding?.calendarview?.notifyDateChanged(it)
+                binding?.calendarView?.notifyDateChanged(it)
             }
         }
 
-        binding?.calendarviewButton?.setOnClickListener {
+        binding?.calendarViewButton?.setOnClickListener {
             if (items != null) {
                 val selectedDaysResponse = SelectedDaysResponse()
                 selectedDaysResponse.selectedDays = items
@@ -384,9 +383,9 @@ class CalendarViewVerticalFragment : DetailFragment() {
     private fun setViewStyle() {
         isDarkMode = SharedPreferencesManager.loadDarkModeStateFromPreferences()
         if (isDarkMode)
-            binding?.calendarviewButton?.style(R.style.ButtonNormalDarkMode)
+            binding?.calendarViewButton?.style(R.style.ButtonNormalDarkMode)
         else
-            binding?.calendarviewButton?.style(R.style.ButtonNormalLightMode)
+            binding?.calendarViewButton?.style(R.style.ButtonNormalLightMode)
     }
 
     override fun onDestroyView() {

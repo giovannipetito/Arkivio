@@ -20,18 +20,18 @@
             android:focusable="true">
 
         <it.giovanni.arkivio.customview.calendarview.CalendarView
-                android:id="@+id/calendarview"
+                android:id="@+id/calendar_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
                 android:paddingBottom="110dp"
-                app:cv_month_header="@layout/calendarview_header"
-                app:cv_day_item="@layout/calendarview_item"
+                app:cv_month_header="@layout/calendar_view_header"
+                app:cv_day_item="@layout/calendar_view_item"
                 app:cv_orientation="vertical"
                 app:cv_scroll_mode="continuous" />
 
         <LinearLayout
-                android:id="@+id/smartworking_button_container"
+                android:id="@+id/smart_working_button_container"
                 android:layout_width="match_parent"
                 android:layout_height="110dp"
                 android:layout_alignParentBottom="true"
@@ -57,7 +57,7 @@
                         tools:background="@color/colorPrimary" />
 
                 <it.giovanni.arkivio.customview.ButtonCustom
-                        android:id="@+id/smartworking_button"
+                        android:id="@+id/smart_working_button"
                         android:layout_width="290dp"
                         android:layout_height="45dp"
                         android:layout_marginTop="24dp"

@@ -25,9 +25,9 @@ import it.giovanni.arkivio.customview.calendarview.ui.DayBinder
 import it.giovanni.arkivio.customview.calendarview.ui.MonthHeaderFooterBinder
 import it.giovanni.arkivio.customview.calendarview.ui.ViewContainer
 import it.giovanni.arkivio.customview.popup.CustomDialogPopup
-import it.giovanni.arkivio.databinding.CalendarviewHeaderBinding
-import it.giovanni.arkivio.databinding.CalendarviewItemBinding
-import it.giovanni.arkivio.databinding.SmartworkingLayoutBinding
+import it.giovanni.arkivio.databinding.CalendarViewHeaderBinding
+import it.giovanni.arkivio.databinding.CalendarViewItemBinding
+import it.giovanni.arkivio.databinding.SmartWorkingLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
@@ -46,13 +46,13 @@ import java.time.YearMonth
 import java.util.*
 import kotlin.collections.ArrayList
 
-class SmartworkingFragment: DetailFragment() {
+class SmartWorkingFragment: DetailFragment() {
 
     companion object {
-        private var TAG: String = SmartworkingFragment::class.java.simpleName
+        private var TAG: String = SmartWorkingFragment::class.java.simpleName
     }
 
-    private var layoutBinding: SmartworkingLayoutBinding? = null
+    private var layoutBinding: SmartWorkingLayoutBinding? = null
     private val binding get() = layoutBinding
     private var currentDate: DateManager? = null
     private var selectedDate: LocalDate? = null
@@ -67,7 +67,7 @@ class SmartworkingFragment: DetailFragment() {
     private var editingMode: Boolean = false
 
     override fun getTitle(): Int {
-        return R.string.smartworking_title
+        return R.string.smart_working_title
     }
 
     override fun getActionTitle(): Int {
@@ -107,7 +107,7 @@ class SmartworkingFragment: DetailFragment() {
                 customPopup.setCancelable(false)
                 customPopup.setTitle("", "")
 
-                customPopup.setMessage(resources.getString(R.string.smartworking_message_abort))
+                customPopup.setMessage(resources.getString(R.string.smart_working_message_abort))
                 customPopup.setButtons(resources.getString(R.string.button_confirm), {
                     reallyGoOut = true
                     customPopup.dismiss()
@@ -126,7 +126,7 @@ class SmartworkingFragment: DetailFragment() {
     }
 
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
-        layoutBinding = SmartworkingLayoutBinding.inflate(inflater, container, false)
+        layoutBinding = SmartWorkingLayoutBinding.inflate(inflater, container, false)
 
         val darkModePresenter = DarkModePresenter(this)
         val model = DarkModeModel(requireContext())
@@ -158,8 +158,8 @@ class SmartworkingFragment: DetailFragment() {
         val startMonth = currentMonth.minusMonths(1)
         val endMonth = currentMonth.plusMonths(3)
 
-        binding?.calendarview?.setup(startMonth, endMonth, daysOfWeek.first())
-        binding?.calendarview?.scrollToMonth(currentMonth)
+        binding?.calendarView?.setup(startMonth, endMonth, daysOfWeek.first())
+        binding?.calendarView?.scrollToMonth(currentMonth)
 
         val response = loadSelectedDaysFromPreferences()
         items = response?.selectedDays
@@ -170,7 +170,7 @@ class SmartworkingFragment: DetailFragment() {
 
         class DayViewContainer(view: View) : ViewContainer(view) {
             lateinit var day: CalendarDay // Will be set when this container is bound.
-            val mBinding = CalendarviewItemBinding.bind(view)
+            val mBinding = CalendarViewItemBinding.bind(view)
 
             init {
                 view.setOnClickListener {
@@ -208,7 +208,7 @@ class SmartworkingFragment: DetailFragment() {
                                     }
                                 }
                             }
-                            binding?.calendarview?.notifyDayChanged(day)
+                            binding?.calendarView?.notifyDayChanged(day)
                         } else {
                             if (selectedDates.contains(day.date)) {
                                 selectedDates.remove(day.date)
@@ -238,7 +238,7 @@ class SmartworkingFragment: DetailFragment() {
                                     selectedItems?.add(SelectedDay(year, month, dayOfMonth))
                                 }
                             }
-                            binding?.calendarview?.notifyDayChanged(day)
+                            binding?.calendarView?.notifyDayChanged(day)
                         }
                     }
                     checkItemsStatus()
@@ -246,7 +246,7 @@ class SmartworkingFragment: DetailFragment() {
             }
         }
 
-        if (items == null || items?.isEmpty()!!) {
+        if (items == null || items?.isEmpty!!) {
             items = ArrayList()
             oldItems = ArrayList()
         }
@@ -254,7 +254,7 @@ class SmartworkingFragment: DetailFragment() {
         selectedItems = ArrayList()
         deselectedItems = ArrayList()
 
-        binding?.calendarview?.dayBinder = object : DayBinder<DayViewContainer> {
+        binding?.calendarView?.dayBinder = object : DayBinder<DayViewContainer> {
             override fun create(view: View) = DayViewContainer(view)
             override fun bind(container: DayViewContainer, day: CalendarDay) {
 
@@ -291,7 +291,7 @@ class SmartworkingFragment: DetailFragment() {
                                     val customPopup = CustomDialogPopup(currentActivity, R.style.PopupTheme)
                                     customPopup.setCancelable(false)
                                     customPopup.setTitle("", "")
-                                    customPopup.setMessage(resources.getString(R.string.smartworking_message_modify))
+                                    customPopup.setMessage(resources.getString(R.string.smart_working_message_modify))
                                     customPopup.setButtons(
                                         resources.getString(R.string.button_confirm),
                                         {
@@ -396,14 +396,14 @@ class SmartworkingFragment: DetailFragment() {
         }
 
         class MonthViewContainer(view: View) : ViewContainer(view) {
-            val monthHeader = CalendarviewHeaderBinding.bind(view).calendarviewMonthHeader
-            val yearHeader = CalendarviewHeaderBinding.bind(view).calendarviewYearHeader
-            val separator = CalendarviewHeaderBinding.bind(view).calendarviewSeparator
-            val legend = CalendarviewHeaderBinding.bind(view).calendarviewLegend
-            val pipe = CalendarviewHeaderBinding.bind(view).calendarviewPipe
+            val monthHeader = CalendarViewHeaderBinding.bind(view).calendarViewMonthHeader
+            val yearHeader = CalendarViewHeaderBinding.bind(view).calendarViewYearHeader
+            val separator = CalendarViewHeaderBinding.bind(view).calendarViewSeparator
+            val legend = CalendarViewHeaderBinding.bind(view).calendarViewLegend
+            val pipe = CalendarViewHeaderBinding.bind(view).calendarViewPipe
         }
 
-        binding?.calendarview?.monthHeaderBinder = object : MonthHeaderFooterBinder<MonthViewContainer> {
+        binding?.calendarView?.monthHeaderBinder = object : MonthHeaderFooterBinder<MonthViewContainer> {
             override fun create(view: View) = MonthViewContainer(view)
             override fun bind(container: MonthViewContainer, month: CalendarMonth) {
                 if (isDarkMode) {
@@ -461,15 +461,15 @@ class SmartworkingFragment: DetailFragment() {
             }
         }
 
-        binding?.calendarview?.monthScrollListener = { _ ->
+        binding?.calendarView?.monthScrollListener = { _ ->
             selectedDate?.let {
                 // Clear selection if we scroll to a new month.
                 selectedDate = null
-                binding?.calendarview?.notifyDateChanged(it)
+                binding?.calendarView?.notifyDateChanged(it)
             }
         }
 
-        binding?.smartworkingButton?.setOnClickListener {
+        binding?.smartWorkingButton?.setOnClickListener {
             if (items != null) {
                 val sortedDates: ArrayList<Date> = sortItems(items)
                 var sortedItems: ArrayList<String>? = turnDatesToStrings(sortedDates)
@@ -485,67 +485,67 @@ class SmartworkingFragment: DetailFragment() {
                 sortedDeselectedItems = showLastDayOfMonth(sortedDeselectedItems)
                 val contiguousDeselectedItems = groupContiguousItems(sortedDeselectedItems)
 
-                if (sortedItems.isNotEmpty() && sortedSelectedItems.isEmpty() && sortedDeselectedItems.isEmpty()) {
+                if (sortedItems.isNotEmpty() && sortedSelectedItems.isEmpty && sortedDeselectedItems.isEmpty) {
                     Log.i(TAG, "Non mando alcuna segnalazione.")
                 }
 
-                if (sortedItems.isNotEmpty() && sortedSelectedItems.isNotEmpty() && sortedDeselectedItems.isEmpty()) {
-                    UserFactory.getInstance().smartworkingSubjectMail = resources.getString(
-                        R.string.smartworking_subject_mail,
+                if (sortedItems.isNotEmpty() && sortedSelectedItems.isNotEmpty() && sortedDeselectedItems.isEmpty) {
+                    UserFactory.getInstance().smartWorkingSubjectMail = resources.getString(
+                        R.string.smart_working_subject_mail,
                         UserFactory.getInstance().surname
                     )
-                    UserFactory.getInstance().smartworkingContentMail = resources.getString(
-                        R.string.smartworking_content_mail,
+                    UserFactory.getInstance().smartWorkingContentMail = resources.getString(
+                        R.string.smart_working_content_mail,
                         UserFactory.getInstance().lineManagerDisplayName,
                         contiguousSelectedItems,
                         UserFactory.getInstance().givenName
                     )
-                    Log.i(TAG, UserFactory.getInstance().smartworkingSubjectMail + "\n" + UserFactory.getInstance().smartworkingContentMail)
+                    Log.i(TAG, UserFactory.getInstance().smartWorkingSubjectMail + "\n" + UserFactory.getInstance().smartWorkingContentMail)
                 }
 
-                if (sortedItems.isNotEmpty() && sortedSelectedItems.isEmpty() && sortedDeselectedItems.isNotEmpty()) {
-                    UserFactory.getInstance().smartworkingSubjectMail = resources.getString(
-                        R.string.smartworking_revision_subject_mail,
+                if (sortedItems.isNotEmpty() && sortedSelectedItems.isEmpty && sortedDeselectedItems.isNotEmpty()) {
+                    UserFactory.getInstance().smartWorkingSubjectMail = resources.getString(
+                        R.string.smart_working_revision_subject_mail,
                         UserFactory.getInstance().surname
                     )
-                    UserFactory.getInstance().smartworkingContentMail = resources.getString(
-                        R.string.smartworking_revision_1_content_mail,
+                    UserFactory.getInstance().smartWorkingContentMail = resources.getString(
+                        R.string.smart_working_revision_1_content_mail,
                         contiguousDeselectedItems,
                         UserFactory.getInstance().givenName
                     )
                     Log.i(TAG,
-                        UserFactory.getInstance().smartworkingSubjectMail + "\n" + UserFactory.getInstance().smartworkingContentMail)
+                        UserFactory.getInstance().smartWorkingSubjectMail + "\n" + UserFactory.getInstance().smartWorkingContentMail)
                 }
 
-                if (sortedItems.isEmpty() && sortedSelectedItems.isEmpty() && sortedDeselectedItems.isNotEmpty()) {
-                    UserFactory.getInstance().smartworkingSubjectMail = resources.getString(
-                        R.string.smartworking_revision_subject_mail,
+                if (sortedItems.isEmpty && sortedSelectedItems.isEmpty && sortedDeselectedItems.isNotEmpty()) {
+                    UserFactory.getInstance().smartWorkingSubjectMail = resources.getString(
+                        R.string.smart_working_revision_subject_mail,
                         UserFactory.getInstance().surname
                     )
-                    UserFactory.getInstance().smartworkingContentMail = resources.getString(
-                        R.string.smartworking_revision_1_content_mail,
+                    UserFactory.getInstance().smartWorkingContentMail = resources.getString(
+                        R.string.smart_working_revision_1_content_mail,
                         contiguousDeselectedItems,
                         UserFactory.getInstance().givenName
                     )
-                    Log.i(TAG, UserFactory.getInstance().smartworkingSubjectMail + "\n" + UserFactory.getInstance().smartworkingContentMail)
+                    Log.i(TAG, UserFactory.getInstance().smartWorkingSubjectMail + "\n" + UserFactory.getInstance().smartWorkingContentMail)
                 }
 
                 if (sortedItems.isNotEmpty() && sortedSelectedItems.isNotEmpty() && sortedDeselectedItems.isNotEmpty()) {
-                    UserFactory.getInstance().smartworkingSubjectMail = resources.getString(
-                        R.string.smartworking_revision_subject_mail,
+                    UserFactory.getInstance().smartWorkingSubjectMail = resources.getString(
+                        R.string.smart_working_revision_subject_mail,
                         UserFactory.getInstance().surname
                     )
-                    UserFactory.getInstance().smartworkingContentMail = resources.getString(
-                        R.string.smartworking_revision_2_content_mail,
+                    UserFactory.getInstance().smartWorkingContentMail = resources.getString(
+                        R.string.smart_working_revision_2_content_mail,
                         contiguousDeselectedItems,
                         UserFactory.getInstance().lineManagerDisplayName,
                         contiguousSelectedItems,
                         UserFactory.getInstance().givenName
                     )
-                    Log.i(TAG, UserFactory.getInstance().smartworkingSubjectMail + "\n" + UserFactory.getInstance().smartworkingContentMail)
+                    Log.i(TAG, UserFactory.getInstance().smartWorkingSubjectMail + "\n" + UserFactory.getInstance().smartWorkingContentMail)
                 }
 
-                sendSmartworkingCommunication()
+                sendSmartWorkingCommunication()
             }
         }
     }
@@ -553,9 +553,9 @@ class SmartworkingFragment: DetailFragment() {
     private fun setViewStyle() {
         isDarkMode = loadDarkModeStateFromPreferences()
         if (isDarkMode)
-            binding?.smartworkingButton?.style(R.style.ButtonNormalDarkMode)
+            binding?.smartWorkingButton?.style(R.style.ButtonNormalDarkMode)
         else
-            binding?.smartworkingButton?.style(R.style.ButtonNormalLightMode)
+            binding?.smartWorkingButton?.style(R.style.ButtonNormalLightMode)
     }
 
     private fun cloneItems(list: ArrayList<SelectedDay>?): ArrayList<SelectedDay>? {
@@ -570,18 +570,18 @@ class SmartworkingFragment: DetailFragment() {
 
     private fun checkItemsStatus() {
         if (items?.size != oldItems?.size) {
-            binding?.smartworkingButtonContainer?.animate()?.translationY(4F)?.alpha(1.0f)?.duration = 500
+            binding?.smartWorkingButtonContainer?.animate()?.translationY(4F)?.alpha(1.0f)?.duration = 500
         }
         else {
-            if (selectedItems?.isEmpty()!! && deselectedItems?.isEmpty()!!) {
-                binding?.smartworkingButtonContainer?.animate()?.translationY(binding?.smartworkingButtonContainer?.height?.toFloat()!!)?.alpha(0.0f)?.duration = 500
+            if (selectedItems?.isEmpty!! && deselectedItems?.isEmpty!!) {
+                binding?.smartWorkingButtonContainer?.animate()?.translationY(binding?.smartWorkingButtonContainer?.height?.toFloat()!!)?.alpha(0.0f)?.duration = 500
             }
             else {
                 for (i in 0 until items?.size!!) {
                     if (items!![i].year == oldItems!![i].year && items!![i].month == oldItems!![i].month && items!![i].dayOfMonth == oldItems!![i].dayOfMonth) {
-                        binding?.smartworkingButtonContainer?.animate()?.translationY(binding?.smartworkingButtonContainer?.height?.toFloat()!!)?.alpha(0.0f)?.duration = 500
+                        binding?.smartWorkingButtonContainer?.animate()?.translationY(binding?.smartWorkingButtonContainer?.height?.toFloat()!!)?.alpha(0.0f)?.duration = 500
                     } else {
-                        binding?.smartworkingButtonContainer?.animate()?.translationY(4F)?.alpha(1.0f)?.duration = 500
+                        binding?.smartWorkingButtonContainer?.animate()?.translationY(4F)?.alpha(1.0f)?.duration = 500
                         break
                     }
                 }
@@ -677,11 +677,11 @@ class SmartworkingFragment: DetailFragment() {
         return turnArrayListToString(contiguousItems)
     }
 
-    private fun sendSmartworkingCommunication() {
-        onSendSmartworkingCommunicationSuccess()
+    private fun sendSmartWorkingCommunication() {
+        onSendSmartWorkingCommunicationSuccess()
     }
 
-    private fun onSendSmartworkingCommunicationSuccess() {
+    private fun onSendSmartWorkingCommunicationSuccess() {
         val selectedDaysResponse = SelectedDaysResponse()
         selectedDaysResponse.selectedDays = items
         saveSelectedDaysToPreferences(selectedDaysResponse)
@@ -691,7 +691,7 @@ class SmartworkingFragment: DetailFragment() {
             val customPopup = CustomDialogPopup(currentActivity, R.style.PopupTheme)
             customPopup.setCancelable(false)
             customPopup.setTitle("", "")
-            customPopup.setMessage(resources.getString(R.string.smartworking_message_success))
+            customPopup.setMessage(resources.getString(R.string.smart_working_message_success))
             customPopup.setButtons(resources.getString(R.string.button_ok)) {
                 customPopup.dismiss()
                 onSuccess = true

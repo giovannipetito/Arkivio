@@ -50,6 +50,7 @@ class RickMortyPagingSource constructor(private val rickMortyDataSource: RickMor
                 nextKey = if (response.results.isEmpty()) null else currentPage.plus(1)
             )
         } catch (exception: IOException) {
+            exception.printStackTrace()
             val error = IOException("Please Check Internet Connection")
             LoadResult.Error(error)
         } catch (exception: HttpException) {

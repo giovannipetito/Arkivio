@@ -71,14 +71,14 @@ class DateFragment : DetailFragment() {
         binding?.labelDatePicker?.setOnClickListener {
             currentActivity.openDetail(Globals.DATE_PICKER, null)
         }
-        binding?.labelCalendarviewHorizontal?.setOnClickListener {
-            currentActivity.openDetail(Globals.CALENDARVIEW_HORIZONTAL, null)
+        binding?.labelCalendarViewHorizontal?.setOnClickListener {
+            currentActivity.openDetail(Globals.CALENDAR_VIEW_HORIZONTAL, null)
         }
-        binding?.labelCalendarviewVertical?.setOnClickListener {
-            currentActivity.openDetail(Globals.CALENDARVIEW_VERTICAL, null)
+        binding?.labelCalendarViewVertical?.setOnClickListener {
+            currentActivity.openDetail(Globals.CALENDAR_VIEW_VERTICAL, null)
         }
-        binding?.labelSmartworking?.setOnClickListener {
-            currentActivity.openDetail(Globals.SMARTWORKING, null)
+        binding?.labelSmartWorking?.setOnClickListener {
+            currentActivity.openDetail(Globals.SMART_WORKING, null)
         }
         binding?.resetSelectedDays?.setOnClickListener {
             resetSelectedDays()

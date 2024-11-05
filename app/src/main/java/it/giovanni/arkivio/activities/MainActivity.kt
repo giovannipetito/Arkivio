@@ -45,7 +45,7 @@ import it.giovanni.arkivio.fragments.detail.rubrica.RubricaHomeFragment
 import it.giovanni.arkivio.fragments.detail.rubrica.RubricaListFragment
 import it.giovanni.arkivio.fragments.detail.webview.WebViewFragment
 import it.giovanni.arkivio.fragments.detail.permissions.PermissionsFragment
-import it.giovanni.arkivio.puntonet.PuntoNetFragment
+import it.giovanni.arkivio.fragments.detail.link.LinkFragment
 import it.giovanni.arkivio.puntonet.cleanarchitecture.presentation.factory.ViewModelProviderFactory
 import it.giovanni.arkivio.puntonet.coroutines.*
 import it.giovanni.arkivio.puntonet.dependencyinjection.DependencyInjectionFragment
@@ -56,9 +56,9 @@ import it.giovanni.arkivio.puntonet.mvvvm.logininput.LoginInputFragment
 import it.giovanni.arkivio.puntonet.mvvvm.logininput.LoginResultFragment
 import it.giovanni.arkivio.puntonet.mvvvm.userinput.UserInputFragment
 import it.giovanni.arkivio.puntonet.mvvvm.users.MvvmUsersFragment
-import it.giovanni.arkivio.puntonet.cleanarchitecture.presentation.fragment.RickMortyFragment
-import it.giovanni.arkivio.puntonet.cleanarchitecture.presentation.fragment.RickMortyHomeFragment
-import it.giovanni.arkivio.puntonet.cleanarchitecture.presentation.fragment.RickMortyPagingFragment
+import it.giovanni.arkivio.puntonet.cleanarchitecture.presentation.fragment.CleanArchitectureRxJavaFragment
+import it.giovanni.arkivio.puntonet.cleanarchitecture.presentation.fragment.CleanArchitectureFragment
+import it.giovanni.arkivio.puntonet.cleanarchitecture.presentation.fragment.CleanArchitecturePagingFragment
 import it.giovanni.arkivio.puntonet.cleanarchitecture.presentation.fragment.UsersWorkerFragment
 import it.giovanni.arkivio.puntonet.cleanarchitecture.presentation.viewmodel.RickMortyViewModel
 import it.giovanni.arkivio.puntonet.reactivex.RxExample1Fragment
@@ -227,7 +227,7 @@ class MainActivity : BaseActivity(), IProgressLoader {
             DeepLinkDescriptor.URI_CONTACTS -> {
                 openDetail(Globals.RUBRICA_REALTIME, null)
             }
-            DeepLinkDescriptor.URI_OPENAPP -> {
+            DeepLinkDescriptor.URI_OPEN_APP -> {
                 if (uri.pathSegments != null && uri.pathSegments.size > 0)
                     Utils.openApp(this, uri.pathSegments[0])
             }
@@ -260,15 +260,15 @@ class MainActivity : BaseActivity(), IProgressLoader {
             DeepLinkDescriptor.URI_LOGOUT -> {
                 logout()
             }
-            DeepLinkDescriptor.URI_HOME_PAGE -> {
+            DeepLinkDescriptor.URI_HOMEPAGE -> {
                 removeAllFragmentsToMainFragment()
                 handler3?.postDelayed(m3Runnable, delayTime1)
             }
-            DeepLinkDescriptor.URI_WORKING_AREA -> {
+            DeepLinkDescriptor.URI_LEARNING -> {
                 removeAllFragmentsToMainFragment()
                 handler4?.postDelayed(m4Runnable, delayTime1)
             }
-            DeepLinkDescriptor.URI_LINK_AREA -> {
+            DeepLinkDescriptor.URI_TRAINING -> {
                 removeAllFragmentsToMainFragment()
                 handler5?.postDelayed(m5Runnable, delayTime1)
             }
@@ -358,14 +358,14 @@ class MainActivity : BaseActivity(), IProgressLoader {
             Globals.DATE_PICKER -> {
                 baseFragment = DatePickerFragment()
             }
-            Globals.CALENDARVIEW_HORIZONTAL -> {
+            Globals.CALENDAR_VIEW_HORIZONTAL -> {
                 baseFragment = CalendarViewHorizontalFragment()
             }
-            Globals.CALENDARVIEW_VERTICAL -> {
+            Globals.CALENDAR_VIEW_VERTICAL -> {
                 baseFragment = CalendarViewVerticalFragment()
             }
-            Globals.SMARTWORKING -> {
-                baseFragment = SmartworkingFragment()
+            Globals.SMART_WORKING -> {
+                baseFragment = SmartWorkingFragment()
             }
             Globals.EMAIL -> {
                 baseFragment = EmailFragment()
@@ -427,8 +427,8 @@ class MainActivity : BaseActivity(), IProgressLoader {
             Globals.FAVORITES -> {
                 baseFragment = FavoritesFragment()
             }
-            Globals.PUNTONET -> {
-                baseFragment = PuntoNetFragment()
+            Globals.LINK -> {
+                baseFragment = LinkFragment()
             }
             Globals.MVVM_USER_INPUT -> {
                 baseFragment = UserInputFragment()
@@ -502,14 +502,14 @@ class MainActivity : BaseActivity(), IProgressLoader {
             Globals.BLUR_WORKER -> {
                 baseFragment = BlurWorkerFragment()
             }
-            Globals.CLEAN_ARCHITECTURE_HOME -> {
-                baseFragment = RickMortyHomeFragment()
-            }
-            Globals.CLEAN_ARCHITECTURE_PAGING -> {
-                baseFragment = RickMortyPagingFragment()
+            Globals.CLEAN_ARCHITECTURE -> {
+                baseFragment = CleanArchitectureFragment()
             }
             Globals.CLEAN_ARCHITECTURE_RXJAVA -> {
-                baseFragment = RickMortyFragment()
+                baseFragment = CleanArchitectureRxJavaFragment()
+            }
+            Globals.CLEAN_ARCHITECTURE_PAGING -> {
+                baseFragment = CleanArchitecturePagingFragment()
             }
             Globals.CLEAN_ARCHITECTURE_WORKER -> {
                 baseFragment = UsersWorkerFragment()

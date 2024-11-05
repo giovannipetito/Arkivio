@@ -13,7 +13,7 @@
             android:orientation="horizontal">
 
         <it.giovanni.arkivio.customview.TextViewCustom
-                android:id="@+id/calendarview_month_header"
+                android:id="@+id/calendar_view_month_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -23,7 +23,7 @@
                 tools:text="Febbraio" />
 
         <it.giovanni.arkivio.customview.TextViewCustom
-                android:id="@+id/calendarview_pipe"
+                android:id="@+id/calendar_view_pipe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -32,7 +32,7 @@
                 android:text=" | " />
 
         <it.giovanni.arkivio.customview.TextViewCustom
-                android:id="@+id/calendarview_year_header"
+                android:id="@+id/calendar_view_year_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -43,7 +43,7 @@
     </LinearLayout>
 
     <LinearLayout
-            android:id="@+id/calendarview_legend"
+            android:id="@+id/calendar_view_legend"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
@@ -122,7 +122,7 @@
     </LinearLayout>
 
     <View
-            android:id="@+id/calendarview_separator"
+            android:id="@+id/calendar_view_separator"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="24dp"
