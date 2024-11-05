@@ -22,10 +22,10 @@ class TrainingFragment : HomeFragment() {
             caller = c
             return TrainingFragment()
         }
-
-        private var layoutBinding: TrainingLayoutBinding? = null
-        val trainingLayoutBinding get() = layoutBinding
     }
+
+    private var layoutBinding: TrainingLayoutBinding? = null
+    val trainingLayoutBinding get() = layoutBinding
 
     override fun getTitle(): Int {
         return NO_TITLE

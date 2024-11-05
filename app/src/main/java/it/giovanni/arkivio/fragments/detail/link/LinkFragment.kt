@@ -5,14 +5,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.RelativeLayout
+import android.widget.TextView
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.databinding.LinkDynamicItemBinding
 import it.giovanni.arkivio.databinding.LinkLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.fragments.detail.webview.WebViewActivity
 import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.model.Link
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.Globals
+import it.giovanni.arkivio.utils.UserFactory
 import it.giovanni.arkivio.utils.Utils
+import it.giovanni.arkivio.utils.Utils.setBitmapFromUrl
 
 class LinkFragment : DetailFragment() {
 
@@ -24,6 +31,14 @@ class LinkFragment : DetailFragment() {
     private var bundleGitHub: Bundle = Bundle()
     private var bundleVideo: Bundle = Bundle()
     private var bundleHtml: Bundle = Bundle()
+
+    private var listLink: ArrayList<Link>? = null
+
+    private val webviewType = "webview"
+    private val appLinkType = "inAppLink"
+    private val appType = "app"
+    private val extType = "ext"
+    private var bundleDeepLink: Bundle = Bundle()
 
     override fun getTitle(): Int {
         return R.string.link_title
@@ -85,6 +100,15 @@ class LinkFragment : DetailFragment() {
         val model = DarkModeModel(requireContext())
         binding?.presenter = darkModePresenter
         binding?.temp = model
+
+        listLink =
+            if (UserFactory.getInstance().listLink != null)
+                UserFactory.getInstance().listLink
+            else init()
+
+        if (listLink != null) {
+            addLinkViews(listLink)
+        }
 
         return binding?.root
     }
@@ -156,6 +180,93 @@ class LinkFragment : DetailFragment() {
                 "</a>" +
                 "</center>" +
                 "</p>"
+    }
+
+    private fun addLinkViews(listLink: ArrayList<Link>?) {
+
+        binding?.linkUtiliContainer?.removeAllViews()
+
+        if (listLink.isNullOrEmpty())
+            return
+
+        for (item in listLink) {
+
+            val itemBinding = LinkDynamicItemBinding.inflate(LayoutInflater.from(context), binding?.linkUtiliContainer, false)
+            val rowView: View = itemBinding.root
+
+            val labelName: TextView = itemBinding.linkName
+            val labelIcon: ImageView = itemBinding.linkIcon
+
+            setBitmapFromUrl(item.image, labelIcon, requireActivity())
+
+            val linkItem: RelativeLayout = itemBinding.linkItem
+
+            labelName.text = item.name
+
+            binding?.linkUtiliContainer?.addView(rowView)
+
+            linkItem.setOnClickListener {
+                when (item.type) {
+                    webviewType -> {
+                        bundleDeepLink.putString("link_deeplink", item.name)
+                        bundleDeepLink.putString("url_deeplink", item.link)
+                        currentActivity.openDetail(Globals.WEB_VIEW, bundleDeepLink)
+                    }
+                    appLinkType -> {
+                        if (item.link == "waw3://contacts") {
+                            currentActivity.openDetail(Globals.RUBRICA_REALTIME, null)
+                        }
+                    }
+                    appType -> {
+                        currentActivity.openApp(item.appLinkAndroid)
+                    }
+                    extType -> {
+                        currentActivity.openBrowser(item.link)
+                    }
+                }
+            }
+        }
+        binding?.linkUtiliContainer?.visibility = View.VISIBLE
+    }
+
+    private fun init(): ArrayList<Link> {
+
+        val list = ArrayList<Link>()
+        list.add(
+            Link(
+                "",
+                "Grande Cinema 3",
+                "waw3://cinema",
+                "1",
+                "inAppLink",
+                "",
+                "https://static.windtrebusiness.it/mosaicow3b/static/configuration/ico_gctre.png"
+            )
+        )
+        list.add(
+            Link(
+                "Daytronic",
+                "DayTronic",
+                "",
+                "2",
+                "app",
+                "it.day.daytronicFLAT",
+                "https://static.windtrebusiness.it/mosaicow3b/static/configuration/ico_daytronic.png"
+            )
+        )
+        list.add(Link("", "Gympass", "", "3", "app", "com.gympass", ""))
+        list.add(
+            Link(
+                "Bacheca",
+                "Rubrica",
+                "waw3://contacts",
+                "4",
+                "inAppLink",
+                "",
+                "https://static.windtrebusiness.it/mosaicow3b/static/configuration/ico_rubrica.png"
+            )
+        )
+        return list
     }
 
     override fun onDestroyView() {

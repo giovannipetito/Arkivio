@@ -25,13 +25,10 @@ import it.giovanni.arkivio.BuildConfig
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.activities.MainActivity
 import it.giovanni.arkivio.adapters.HomeFragmentAdapter
-import it.giovanni.arkivio.model.Link
 import it.giovanni.arkivio.model.LinkSide
 import it.giovanni.arkivio.customview.popup.CustomDialogPopup
-import it.giovanni.arkivio.databinding.LinkDynamicItemBinding
 import it.giovanni.arkivio.databinding.MainLayoutBinding
 import it.giovanni.arkivio.databinding.NavHeaderItemBinding
-import it.giovanni.arkivio.fragments.homepage.TrainingFragment.Companion.trainingLayoutBinding
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 import it.giovanni.arkivio.utils.Globals
@@ -40,7 +37,6 @@ import it.giovanni.arkivio.utils.SharedPreferencesManager.saveCompressStateToPre
 import it.giovanni.arkivio.utils.SharedPreferencesManager.saveDarkModeStateToPreferences
 import it.giovanni.arkivio.utils.UserFactory
 import it.giovanni.arkivio.utils.Utils.getRoundBitmap
-import it.giovanni.arkivio.utils.Utils.setBitmapFromUrl
 import it.giovanni.arkivio.viewinterfaces.IDarkMode
 
 class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
@@ -62,7 +58,6 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
     private var previousTab: Int = TAB_INDEX_HOMEPAGE
     private lateinit var fragmentAdapter: HomeFragmentAdapter
     private val endScale = 0.9f
-    private var listLink: ArrayList<Link>? = null
     private var listLinkSide: ArrayList<LinkSide>? = null
     private val webviewType = "webview"
     private val appLinkType = "inAppLink"
@@ -144,11 +139,6 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
         val displayMetrics = DisplayMetrics()
         currentActivity.windowManager.defaultDisplay.getMetrics(displayMetrics)
 
-        listLink =
-            if (UserFactory.getInstance().listLink != null)
-                UserFactory.getInstance().listLink
-            else init()
-
         listLinkSide =
             if (UserFactory.getInstance().listLinkSide != null)
                 UserFactory.getInstance().listLinkSide
@@ -158,10 +148,6 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
         attachSideMenu(listLinkSide)
         attachTabListener()
         resetBackgroundTabNav()
-
-        if (listLink != null) {
-            addLinkViews(listLink)
-        }
 
         binding?.mainContent?.voice?.setOnClickListener {
             currentActivity.openDialogDetail(Globals.DIALOG_FLOW, Bundle())
@@ -298,54 +284,6 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
         if (listLinkSide != null) {
             addSideViews(listLinkSide)
         }
-    }
-
-    private fun addLinkViews(listLink: ArrayList<Link>?) {
-        /*
-        trainingLayoutBinding?.linkUtiliContainer?.removeAllViews()
-
-        if (listLink.isNullOrEmpty())
-            return
-
-        for (item in listLink) {
-
-            val itemBinding = LinkDynamicItemBinding.inflate(LayoutInflater.from(context), trainingLayoutBinding?.linkUtiliContainer, false)
-            val rowView: View = itemBinding.root
-
-            val labelName: TextView = itemBinding.linkName
-            val labelIcon: ImageView = itemBinding.linkIcon
-
-            setBitmapFromUrl(item.image, labelIcon, requireActivity())
-
-            val linkItem: RelativeLayout = itemBinding.linkItem
-
-            labelName.text = item.name
-
-            trainingLayoutBinding?.linkUtiliContainer?.addView(rowView)
-
-            linkItem.setOnClickListener {
-                when (item.type) {
-                    webviewType -> {
-                        bundleDeepLink.putString("link_deeplink", item.name)
-                        bundleDeepLink.putString("url_deeplink", item.link)
-                        currentActivity.openDetail(Globals.WEB_VIEW, bundleDeepLink)
-                    }
-                    appLinkType -> {
-                        if (item.link == "waw3://contacts") {
-                            currentActivity.openDetail(Globals.RUBRICA_REALTIME, null)
-                        }
-                    }
-                    appType -> {
-                        currentActivity.openApp(item.appLinkAndroid)
-                    }
-                    extType -> {
-                        currentActivity.openBrowser(item.link)
-                    }
-                }
-            }
-        }
-        trainingLayoutBinding?.linkUtiliContainer?.visibility = View.VISIBLE
-        */
     }
 
     private fun addSideViews(listLinkSide: ArrayList<LinkSide>?) {
@@ -578,46 +516,6 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
                 R.drawable.ico_training
             )
         )
-    }
-
-    private fun init(): ArrayList<Link> {
-
-        val list = ArrayList<Link>()
-        list.add(
-            Link(
-                "",
-                "Grande Cinema 3",
-                "waw3://cinema",
-                "1",
-                "inAppLink",
-                "",
-                "https://static.windtrebusiness.it/mosaicow3b/static/configuration/ico_gctre.png"
-            )
-        )
-        list.add(
-            Link(
-                "Daytronic",
-                "DayTronic",
-                "",
-                "2",
-                "app",
-                "it.day.daytronicFLAT",
-                "https://static.windtrebusiness.it/mosaicow3b/static/configuration/ico_daytronic.png"
-            )
-        )
-        list.add(Link("", "Gympass", "", "3", "app", "com.gympass", ""))
-        list.add(
-            Link(
-                "Bacheca",
-                "Rubrica",
-                "waw3://contacts",
-                "4",
-                "inAppLink",
-                "",
-                "https://static.windtrebusiness.it/mosaicow3b/static/configuration/ico_rubrica.png"
-            )
-        )
-        return list
     }
 
     private fun initSide(): ArrayList<LinkSide> {
