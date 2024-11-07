@@ -4,13 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import it.giovanni.arkivio.R
+import it.giovanni.arkivio.customview.dialog.CoreDialog
 import it.giovanni.arkivio.databinding.FavoritesLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
+import it.giovanni.arkivio.fragments.detail.favorites.FavoritesAdapter.Companion.MAX_FAVORITES_SIZE
 import it.giovanni.arkivio.model.DarkModeModel
+import it.giovanni.arkivio.model.favorite.Favorite
 import it.giovanni.arkivio.presenter.DarkModePresenter
 
 var personalsRecyclerView: RecyclerView? = null
@@ -26,8 +30,10 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
     private lateinit var personalsAdapter: FavoritesAdapter
     private lateinit var availablesAdapter: FavoritesAdapter
 
+    private var title: Int = R.string.favorites_title
+
     override fun getTitle(): Int {
-        return R.string.favorites_title
+        return title
     }
 
     override fun getActionTitle(): Int {
@@ -61,7 +67,7 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
     }
 
     override fun onActionClickListener() {
-        currentActivity.onBackPressed()
+        showSuccessDialog()
     }
 
     override fun onCreateBindingView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -78,13 +84,13 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
         binding?.availablesRecyclerview?.setOnDragListener(availablesAdapter.dragListener)
 
         viewModel.personals.observe(viewLifecycleOwner) { personals ->
+            refreshAdapter(personalsAdapter)
             personalsAdapter.submitList(personals)
-            personalsAdapter.notifyDataSetChanged()
         }
 
         viewModel.availables.observe(viewLifecycleOwner) { availables ->
+            refreshAdapter(availablesAdapter)
             availablesAdapter.submitList(availables)
-            availablesAdapter.notifyDataSetChanged()
         }
 
         viewModel.isPersonalsChanged.observe(viewLifecycleOwner) { isPersonalsChanged ->
@@ -94,14 +100,38 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
         viewModel.isMaxReached.observe(viewLifecycleOwner) { isMaxReached ->
             binding?.availablesRecyclerview?.visibility = if (isMaxReached) View.GONE else View.VISIBLE
             personalsAdapter.enableDragDrop(isMaxReached)
-            personalsAdapter.notifyDataSetChanged()
+            refreshAdapter(personalsAdapter)
 
             if (isMaxReached) {
-                binding?.favoritesDescription?.visibility = View.VISIBLE
+                title = R.string.favorites_title_max_reached
                 binding?.favoritesDescription?.setText(R.string.favorites_description_max_reached)
+                personalsAdapter.enableDragDrop(isMaxReached)
+                binding?.personalsTitle?.visibility = View.GONE
+                binding?.restoreToDefault?.visibility = View.GONE
             } else {
-                binding?.favoritesDescription?.visibility = View.GONE
+                title = R.string.favorites_title
+                binding?.favoritesDescription?.setText(R.string.favorites_description)
+                binding?.personalsTitle?.visibility = View.VISIBLE
+                binding?.restoreToDefault?.visibility = View.VISIBLE
             }
+        }
+
+        viewModel.isSaveFavoritesSuccess.observe(viewLifecycleOwner) { isSaveFavoritesSuccess ->
+            if (isSaveFavoritesSuccess) {
+                resetScreen()
+                val message = requireContext().resources.getString(R.string.favorites_update_success_title)
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+            } else {
+                val message = requireContext().resources.getString(R.string.favorites_update_error_title)
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                showErrorDialog(message)
+            }
+        }
+
+        binding?.restoreToDefault?.setOnClickListener {
+            // val emptyList: List<Favorite?> = emptyList()
+            val initList: MutableList<Favorite?> = viewModel.responsePersonals.filterNotNull().take(3).toMutableList()
+            viewModel.saveFavorites(initList) // emptyList.toMutableList()
         }
 
         return binding?.root
@@ -154,6 +184,35 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
         })
     }
 
+    private fun refreshAdapter(adapter: FavoritesAdapter) {
+        adapter.notifyDataSetChanged()
+    }
+
+    private fun resetScreen() {
+        binding?.nestedScrollViewFavorites?.scrollTo(0, 0)
+        binding?.favoritesDescription?.visibility = View.GONE
+        setActionLabelState(false)
+        personalsAdapter.setEditMode(false)
+        availablesAdapter.setEditMode(false)
+    }
+
+    private fun showSuccessDialog() {
+        val dialog = CoreDialog(currentActivity, R.style.CoreDialogTheme)
+        dialog.setCancelable(false)
+        dialog.setTitle("", "")
+
+        dialog.setMessage(resources.getString(R.string.favorites_save_message_title))
+        dialog.setButtons(resources.getString(R.string.button_confirm), {
+            dialog.dismiss()
+            viewModel.saveFavorites(viewModel.personals.value?.toMutableList()!!)
+        },
+            resources.getString(R.string.button_cancel), {
+                dialog.dismiss()
+            }
+        )
+        dialog.show()
+    }
+
     override fun onSet(isPersonal: Boolean, targetIndex: Int, sourceIndex: Int) {
         viewModel.onSet(isPersonal, targetIndex, sourceIndex)
     }
@@ -168,6 +227,7 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
     }
 
     override fun onEditModeRemoved(position: Int) {
+        binding?.favoritesDescription?.visibility = View.VISIBLE
         viewModel.removeEditItem(position)
     }
 

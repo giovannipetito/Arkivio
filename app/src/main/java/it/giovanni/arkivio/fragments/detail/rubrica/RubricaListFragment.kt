@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.model.user.User
 import it.giovanni.arkivio.customview.Brick
-import it.giovanni.arkivio.customview.popup.CustomDialogPopup
+import it.giovanni.arkivio.customview.dialog.CoreDialog
 import it.giovanni.arkivio.databinding.RubricaListLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.fragments.adapter.UsersAdapter
@@ -50,11 +50,12 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
     private var list: ArrayList<User>? = null
     private var filtered: ArrayList<User>? = null
     private var updatedList: ArrayList<User>? = null
-    private lateinit var customDialogPopup: CustomDialogPopup
     private var reallyGoOut: Boolean = false
     private var isActionClicked: Boolean = false
     private var sentence: String? = null
     private var isOpen = false
+
+    private lateinit var coreDialog: CoreDialog
 
     override fun getTitle(): Int {
         return R.string.rubrica_list_title
@@ -98,21 +99,21 @@ class RubricaListFragment: DetailFragment(), UsersAdapter.OnItemViewClicked, IFl
     override fun beforeClosing(): Boolean {
         if (!isActionClicked) {
             if (!reallyGoOut) {
-                customDialogPopup = CustomDialogPopup(currentActivity, R.style.PopupTheme)
-                customDialogPopup.setCancelable(false)
-                customDialogPopup.setTitle("Rubrica", "Prima di uscire...")
-                customDialogPopup.setMessage("Confermi di voler annullare l'inserimento dei contatti?")
+                coreDialog = CoreDialog(currentActivity, R.style.CoreDialogTheme)
+                coreDialog.setCancelable(false)
+                coreDialog.setTitle("Rubrica", "Prima di uscire...")
+                coreDialog.setMessage("Confermi di voler annullare l'inserimento dei contatti?")
 
-                customDialogPopup.setButtons(resources.getString(R.string.button_confirm), {
+                coreDialog.setButtons(resources.getString(R.string.button_confirm), {
                     reallyGoOut = true
-                    customDialogPopup.dismiss()
+                    coreDialog.dismiss()
                     currentActivity.onBackPressed()
                 },
                     resources.getString(R.string.button_cancel), {
-                        customDialogPopup.dismiss()
+                        coreDialog.dismiss()
                     }
                 )
-                customDialogPopup.show()
+                coreDialog.show()
                 return false
             } else {
                 return true

@@ -122,7 +122,7 @@
         <item name="android:background">@android:color/transparent</item>
     </style>
 
-    <style name="PopupTheme" parent="Base.V7.Theme.AppCompat.Light.Dialog">
+    <style name="CoreDialogTheme" parent="Base.V7.Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">@color/dark</item>
         <item name="android:background">@android:color/transparent</item>
     </style>

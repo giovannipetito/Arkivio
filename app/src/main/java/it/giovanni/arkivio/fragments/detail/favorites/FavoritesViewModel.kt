@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import it.giovanni.arkivio.App.Companion.context
 import it.giovanni.arkivio.fragments.detail.favorites.FavoritesAdapter.Companion.EDIT_IDENTIFIER
+import it.giovanni.arkivio.fragments.detail.favorites.FavoritesAdapter.Companion.MAX_FAVORITES_SIZE
 import it.giovanni.arkivio.utils.FavoriteUtils
 import it.giovanni.arkivio.model.favorite.Favorite
 import java.util.Collections
@@ -18,8 +19,8 @@ class FavoritesViewModel : ViewModel() {
     private val _availables = MutableLiveData<List<Favorite?>>()
     val availables: LiveData<List<Favorite?>> get() = _availables
 
-    private var responseAvailables: MutableList<Favorite?>
-    private var responsePersonals: MutableList<Favorite?>
+    private lateinit var responseAvailables: MutableList<Favorite?>
+    lateinit var responsePersonals: MutableList<Favorite?>
 
     private val _isPersonalsChanged = MutableLiveData<Boolean>()
     val isPersonalsChanged: LiveData<Boolean> get() = _isPersonalsChanged
@@ -27,12 +28,21 @@ class FavoritesViewModel : ViewModel() {
     private val _isMaxReached = MutableLiveData<Boolean>()
     val isMaxReached: LiveData<Boolean> get() = _isMaxReached
 
+    private val _isSaveFavoritesSuccess = MutableLiveData<Boolean>()
+    val isSaveFavoritesSuccess: LiveData<Boolean> get() = _isSaveFavoritesSuccess
+
+    private var pendingAvailable: Favorite? = null
+
     init {
         _isPersonalsChanged.value = false
         _isMaxReached.value = false
+        loadPersonalFavorites()
+    }
 
-        val initResponsePersonals: MutableList<Favorite?> = FavoriteUtils.getPersonals()
-        responsePersonals = initResponsePersonals.filterNotNull().take(7).toMutableList()
+    private fun loadPersonalFavorites() {
+        val personals: MutableList<Favorite?> = FavoriteUtils.getPersonals()
+        responsePersonals = personals.filterNotNull().take(MAX_FAVORITES_SIZE).toMutableList()
+
         val editablePersonals: MutableList<Favorite?> = responsePersonals.toMutableList()
 
         val editItem = Favorite()
@@ -40,16 +50,39 @@ class FavoritesViewModel : ViewModel() {
 
         editablePersonals.add(editItem)
 
-        responseAvailables = FavoriteUtils.convertAvailableToFavorite(FavoriteUtils.getAvailables())
+        _personals.value = editablePersonals
 
-        val filteredAvailables: MutableList<Favorite?> = responseAvailables.filter { available ->
+        loadAvailableFavorites(editablePersonals)
+    }
+
+    private fun loadAvailableFavorites(editablePersonals: MutableList<Favorite?>) {
+        val availables: MutableList<Favorite?> = FavoriteUtils.convertAvailableToFavorite(FavoriteUtils.getAvailables())
+        responseAvailables = availables
+
+        val filteredAvailables: MutableList<Favorite?> = availables.filter { available ->
             editablePersonals.none { personal -> personal?.identifier == available?.identifier }
         }.toMutableList()
 
-        _personals.value = editablePersonals
-
         val headerAvailables: MutableList<Favorite?> = FavoriteUtils.addAvailableHeaders(filteredAvailables)
         _availables.value = headerAvailables
+    }
+
+    fun saveFavorites(newFavorites: MutableList<Favorite?>) {
+
+        _isSaveFavoritesSuccess.value = true
+
+        responsePersonals = newFavorites.filterNotNull().take(MAX_FAVORITES_SIZE).toMutableList()
+
+        val editablePersonals: MutableList<Favorite?> = responsePersonals.toMutableList()
+
+        val editItem = Favorite()
+        editItem.identifier = EDIT_IDENTIFIER
+
+        editablePersonals.add(editItem)
+
+        _personals.value = editablePersonals
+
+        loadAvailableFavorites(editablePersonals)
     }
 
     fun onSet(isPersonal: Boolean, targetIndex: Int, sourceIndex: Int) {
@@ -60,6 +93,11 @@ class FavoritesViewModel : ViewModel() {
 
                 if (tempPersonals.size > 1) {
                     tempPersonals.removeAt(sourceIndex)
+
+                    if (_isMaxReached.value == true) {
+                        tempPersonals.add(sourceIndex, pendingAvailable)
+                    }
+
                     _personals.value = tempPersonals
 
                     updateDraggableAvailables(tempPersonals)
@@ -72,17 +110,17 @@ class FavoritesViewModel : ViewModel() {
         } else {
             // Drag available to personals
             _personals.value?.let { personals ->
-                if (personals.size < 7) {
-                    val tempPersonals: MutableList<Favorite?> = personals.toMutableList()
-
-                    val sourceFavorite: Favorite? = _availables.value?.get(sourceIndex)
+                val tempPersonals: MutableList<Favorite?> = personals.toMutableList()
+                val sourceFavorite: Favorite? = _availables.value?.get(sourceIndex)
+                if (personals.size < MAX_FAVORITES_SIZE) {
                     tempPersonals.add(targetIndex, sourceFavorite)
-                    _personals.value = tempPersonals.take(7) // Ensure limit of 7 items.
+                    _personals.value = tempPersonals.take(MAX_FAVORITES_SIZE) // Ensure limit of 7 items.
 
                     updateDraggableAvailables(tempPersonals)
                     setIsPersonalsChanged()
                     _isMaxReached.value = false
                 } else {
+                    pendingAvailable = sourceFavorite
                     _isMaxReached.value = true
                 }
             }

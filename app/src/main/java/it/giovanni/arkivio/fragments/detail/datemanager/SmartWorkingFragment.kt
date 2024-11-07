@@ -24,7 +24,7 @@ import it.giovanni.arkivio.customview.calendarview.ui.Badge
 import it.giovanni.arkivio.customview.calendarview.ui.DayBinder
 import it.giovanni.arkivio.customview.calendarview.ui.MonthHeaderFooterBinder
 import it.giovanni.arkivio.customview.calendarview.ui.ViewContainer
-import it.giovanni.arkivio.customview.popup.CustomDialogPopup
+import it.giovanni.arkivio.customview.dialog.CoreDialog
 import it.giovanni.arkivio.databinding.CalendarViewHeaderBinding
 import it.giovanni.arkivio.databinding.CalendarViewItemBinding
 import it.giovanni.arkivio.databinding.SmartWorkingLayoutBinding
@@ -103,21 +103,21 @@ class SmartWorkingFragment: DetailFragment() {
     override fun beforeClosing(): Boolean {
         if (!onSuccess) {
             if (!reallyGoOut) {
-                val customPopup = CustomDialogPopup(currentActivity, R.style.PopupTheme)
-                customPopup.setCancelable(false)
-                customPopup.setTitle("", "")
+                val dialog = CoreDialog(currentActivity, R.style.CoreDialogTheme)
+                dialog.setCancelable(false)
+                dialog.setTitle("", "")
 
-                customPopup.setMessage(resources.getString(R.string.smart_working_message_abort))
-                customPopup.setButtons(resources.getString(R.string.button_confirm), {
+                dialog.setMessage(resources.getString(R.string.smart_working_message_abort))
+                dialog.setButtons(resources.getString(R.string.button_confirm), {
                     reallyGoOut = true
-                    customPopup.dismiss()
+                    dialog.dismiss()
                     currentActivity.onBackPressed()
                 },
                     resources.getString(R.string.button_cancel), {
-                        customPopup.dismiss()
+                        dialog.dismiss()
                     }
                 )
-                customPopup.show()
+                dialog.show()
                 return false
             }
             return true
@@ -288,15 +288,15 @@ class SmartWorkingFragment: DetailFragment() {
 
                             if (badge.isVisible) {
                                 if (!editingMode) {
-                                    val customPopup = CustomDialogPopup(currentActivity, R.style.PopupTheme)
-                                    customPopup.setCancelable(false)
-                                    customPopup.setTitle("", "")
-                                    customPopup.setMessage(resources.getString(R.string.smart_working_message_modify))
-                                    customPopup.setButtons(
+                                    val dialog = CoreDialog(currentActivity, R.style.CoreDialogTheme)
+                                    dialog.setCancelable(false)
+                                    dialog.setTitle("", "")
+                                    dialog.setMessage(resources.getString(R.string.smart_working_message_modify))
+                                    dialog.setButtons(
                                         resources.getString(R.string.button_confirm),
                                         {
                                             editingMode = true
-                                            customPopup.dismiss()
+                                            dialog.dismiss()
 
                                             badge.visibility = View.INVISIBLE
                                             if (currentDay.toString() == day.date.toString()) {
@@ -314,7 +314,7 @@ class SmartWorkingFragment: DetailFragment() {
                                         resources.getString(R.string.button_cancel),
                                         {
                                             editingMode = false
-                                            customPopup.dismiss()
+                                            dialog.dismiss()
                                             selectedDates.remove(day.date)
                                             items?.add(SelectedDay(year, month, dayOfMonth))
                                             for (item in deselectedItems!!) {
@@ -326,7 +326,7 @@ class SmartWorkingFragment: DetailFragment() {
                                             checkItemsStatus()
                                         }
                                     )
-                                    customPopup.show()
+                                    dialog.show()
                                 } else {
                                     badge.visibility = View.INVISIBLE
                                     if (currentDay.toString() == day.date.toString()) {
@@ -688,16 +688,16 @@ class SmartWorkingFragment: DetailFragment() {
 
         currentActivity.runOnUiThread {
 
-            val customPopup = CustomDialogPopup(currentActivity, R.style.PopupTheme)
-            customPopup.setCancelable(false)
-            customPopup.setTitle("", "")
-            customPopup.setMessage(resources.getString(R.string.smart_working_message_success))
-            customPopup.setButtons(resources.getString(R.string.button_ok)) {
-                customPopup.dismiss()
+            val dialog = CoreDialog(currentActivity, R.style.CoreDialogTheme)
+            dialog.setCancelable(false)
+            dialog.setTitle("", "")
+            dialog.setMessage(resources.getString(R.string.smart_working_message_success))
+            dialog.setButtons(resources.getString(R.string.button_ok)) {
+                dialog.dismiss()
                 onSuccess = true
                 currentActivity.onBackPressed()
             }
-            customPopup.show()
+            dialog.show()
         }
     }
 

@@ -375,8 +375,13 @@
 
     <!-- DRAG & DROP -->
     <string name="favorites_title">Drag &amp; Drop Favorites</string>
-    <string name="favorites_description">Drag and sort your favorites however you want.</string>
-    <string name="favorites_description_max_reached">You can only have 7 personal favorites. Remove a favorite first if you want to add a new one.</string>
-    <string name="personals">Personali</string>
+    <string name="favorites_title_max_reached">Replace a favorite</string>
+    <string name="favorites_description">Drag and sort your favorites as you prefer.</string>
+    <string name="favorites_description_max_reached">You can only have 7 personal favorites. Which favorite would you like to replace?</string>
+    <string name="restore_to_default">Restore to default</string>
+    <string name="personals_title">Personal favorites</string>
+    <string name="favorites_save_message_title">Do you want to save your favorites?</string>
+    <string name="favorites_update_success_title">Your favorites have been saved successfully.</string>
+    <string name="favorites_update_error_title">An error has occurred. Your favorites have not been saved.</string>
 
 </resources>

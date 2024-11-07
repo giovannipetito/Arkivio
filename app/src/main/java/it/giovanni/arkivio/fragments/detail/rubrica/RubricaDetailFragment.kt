@@ -18,7 +18,7 @@ import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.model.user.User
-import it.giovanni.arkivio.customview.popup.ListDialogPopup
+import it.giovanni.arkivio.customview.dialog.ListDialog
 import it.giovanni.arkivio.databinding.RubricaDetailLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
@@ -42,7 +42,7 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener, Permission
 
     private var avatar: Bitmap? = null
 
-    private lateinit var listDialogPopup: ListDialogPopup
+    private lateinit var listDialog: ListDialog
     private lateinit var labels: ArrayList<String>
     private lateinit var contacts: ArrayList<String>
     private lateinit var label: String
@@ -61,13 +61,13 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener, Permission
         contacts = getContacts()
         contacts.add(labelDelete)
 
-        listDialogPopup = ListDialogPopup(currentActivity, R.style.PopupTheme)
-        listDialogPopup.setCancelable(false)
-        listDialogPopup.setMessage(resources.getString(R.string.rubrica_title))
-        listDialogPopup.setLabels(contacts, this)
-        listDialogPopup.setButtons(resources.getString(R.string.button_cancel)) {}
-        listDialogPopup.setGravityBottom(false)
-        listDialogPopup.show()
+        listDialog = ListDialog(currentActivity, R.style.CoreDialogTheme)
+        listDialog.setCancelable(false)
+        listDialog.setMessage(resources.getString(R.string.rubrica_title))
+        listDialog.setLabels(contacts, this)
+        listDialog.setButtons(resources.getString(R.string.button_cancel)) {}
+        listDialog.setGravityBottom(false)
+        listDialog.show()
 
         hideProgressDialog()
     }
@@ -272,13 +272,13 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener, Permission
         labels.add(labelInsert)
         labels.add(labelDelete)
 
-        listDialogPopup = ListDialogPopup(currentActivity, R.style.PopupTheme)
-        listDialogPopup.setCancelable(false)
-        listDialogPopup.setMessage(resources.getString(R.string.rubrica_message_dialog))
-        listDialogPopup.setLabels(labels, this)
-        listDialogPopup.setButtons(resources.getString(R.string.button_cancel)) {}
-        listDialogPopup.setGravityBottom(true)
-        listDialogPopup.show()
+        listDialog = ListDialog(currentActivity, R.style.CoreDialogTheme)
+        listDialog.setCancelable(false)
+        listDialog.setMessage(resources.getString(R.string.rubrica_message_dialog))
+        listDialog.setLabels(labels, this)
+        listDialog.setButtons(resources.getString(R.string.button_cancel)) {}
+        listDialog.setGravityBottom(true)
+        listDialog.show()
     }
 
     private fun showInsertEditContactDialog() {
@@ -289,13 +289,13 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener, Permission
         labels.add(labelOpen)
         labels.add(labelDelete)
 
-        listDialogPopup = ListDialogPopup(currentActivity, R.style.PopupTheme)
-        listDialogPopup.setCancelable(false)
-        listDialogPopup.setMessage(resources.getString(R.string.rubrica_message_dialog))
-        listDialogPopup.setLabels(labels, this)
-        listDialogPopup.setButtons(resources.getString(R.string.button_cancel)) {}
-        listDialogPopup.setGravityBottom(true)
-        listDialogPopup.show()
+        listDialog = ListDialog(currentActivity, R.style.CoreDialogTheme)
+        listDialog.setCancelable(false)
+        listDialog.setMessage(resources.getString(R.string.rubrica_message_dialog))
+        listDialog.setLabels(labels, this)
+        listDialog.setButtons(resources.getString(R.string.button_cancel)) {}
+        listDialog.setGravityBottom(true)
+        listDialog.show()
     }
 
     private fun getContacts(): ArrayList<String> {
@@ -353,7 +353,7 @@ class RubricaDetailFragment : DetailFragment(), View.OnClickListener, Permission
             }
             labelDelete -> {
                 activity?.runOnUiThread {
-                    listDialogPopup.dismiss()
+                    listDialog.dismiss()
                 }
             }
             else -> {

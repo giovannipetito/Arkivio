@@ -33,6 +33,15 @@
             android:ellipsize="end"
             tools:text="@string/app_name" />
 
+        <View
+            android:id="@+id/available_border"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="@drawable/circle_item_empty"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
         <ImageView
             android:id="@+id/badge_add"
             android:layout_width="@dimen/dimen_16dp"

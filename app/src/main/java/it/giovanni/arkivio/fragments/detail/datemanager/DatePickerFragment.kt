@@ -393,13 +393,13 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
 
             if (startHour!! > endHour!! || (startHour == endHour && startMinute!! > endMinute!!)) {
 
-                showPopupError("L'ora di fine non può essere precedente a quella di inizio.") {
-                    popupError?.dismiss()
+                showErrorDialog("L'ora di fine non può essere precedente a quella di inizio.") {
+                    errorDialog?.dismiss()
                 }
             } else if (startHour!! > endHour!! || (startHour == endHour && startMinute!! == endMinute!!)) {
 
-                showPopupError("L'ora di inizio non può coincidere con quella di fine.") {
-                    popupError?.dismiss()
+                showErrorDialog("L'ora di inizio non può coincidere con quella di fine.") {
+                    errorDialog?.dismiss()
                 }
             } else {
                 binding?.rangeTimePicker1?.text = rangeTime
@@ -540,8 +540,8 @@ class DatePickerFragment : DetailFragment(), DatePickerDialog.OnDateSetListener 
 
     private fun wrongTimeInterval(message: String) {
         initDate()
-        showPopupError(message) {
-            popupError?.dismiss()
+        showErrorDialog(message) {
+            errorDialog?.dismiss()
         }
     }
 

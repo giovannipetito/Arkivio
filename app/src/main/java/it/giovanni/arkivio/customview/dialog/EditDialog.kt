@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.customview.popup
+package it.giovanni.arkivio.customview.dialog
 
 import android.app.Activity
 import android.text.Editable
@@ -8,15 +8,15 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.annotation.StyleRes
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.databinding.PopupEditElementBinding
+import it.giovanni.arkivio.databinding.DialogEditElementBinding
 import it.giovanni.arkivio.puntonet.room.EditUserListener
 import it.giovanni.arkivio.puntonet.room.KEY_AGE
 import it.giovanni.arkivio.puntonet.room.KEY_FIRST_NAME
 import it.giovanni.arkivio.puntonet.room.KEY_LAST_NAME
 
-class EditDialogPopup(activity: Activity, @StyleRes themeResId: Int) : CustomDialogPopup(activity, themeResId) {
+class EditDialog(activity: Activity, @StyleRes themeResId: Int) : CoreDialog(activity, themeResId) {
 
-    var layoutBinding: PopupEditElementBinding? = null
+    var layoutBinding: DialogEditElementBinding? = null
     val binding get() = layoutBinding
 
     init {
@@ -33,7 +33,7 @@ class EditDialogPopup(activity: Activity, @StyleRes themeResId: Int) : CustomDia
         if (map.size > 0) {
 
             for ((key, value) in map) {
-                layoutBinding = PopupEditElementBinding.inflate(LayoutInflater.from(context))
+                layoutBinding = DialogEditElementBinding.inflate(LayoutInflater.from(context))
                 val view: View? = binding?.root
 
                 val element: String = value.toString()

@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.customview.popup
+package it.giovanni.arkivio.customview.dialog
 
 import android.app.Activity
 import android.content.Context
@@ -15,9 +15,9 @@ import androidx.core.content.ContextCompat
 import it.giovanni.arkivio.utils.Utils
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.customview.TextViewCustom
-import it.giovanni.arkivio.databinding.CustomDialogPopupBinding
+import it.giovanni.arkivio.databinding.CoreDialogLayoutBinding
 
-open class CustomDialogPopup : AlertDialog.Builder {
+open class CoreDialog : AlertDialog.Builder {
 
     private val dialogInterfaceKey = 1258932039
     protected lateinit var labelList: LinearLayout
@@ -68,7 +68,7 @@ open class CustomDialogPopup : AlertDialog.Builder {
 
     protected fun prepare() {
 
-        val binding = CustomDialogPopupBinding.inflate(LayoutInflater.from(context), null, false)
+        val binding = CoreDialogLayoutBinding.inflate(LayoutInflater.from(context), null, false)
         dialogView = binding.root
 
         labelList = binding.labelList
@@ -84,10 +84,6 @@ open class CustomDialogPopup : AlertDialog.Builder {
         leftButton = binding.leftButton
         centerButton = binding.centerButton
         rightButton = binding.rightButton
-    }
-
-    fun setType(type: Int) {
-        this.type = type
     }
 
     fun setTitle(mTitle: String, mSubtitle: String) {

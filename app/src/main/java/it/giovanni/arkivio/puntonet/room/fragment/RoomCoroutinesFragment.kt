@@ -11,8 +11,8 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.airbnb.paris.extensions.style
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.customview.popup.CustomDialogPopup
-import it.giovanni.arkivio.customview.popup.EditDialogPopup
+import it.giovanni.arkivio.customview.dialog.CoreDialog
+import it.giovanni.arkivio.customview.dialog.EditDialog
 import it.giovanni.arkivio.databinding.RoomCoroutinesLayoutBinding
 import it.giovanni.arkivio.databinding.UserCardBinding
 import it.giovanni.arkivio.fragments.DetailFragment
@@ -39,9 +39,9 @@ class RoomCoroutinesFragment : DetailFragment(), EditUserListener {
 
     private lateinit var viewModel: RoomCoroutinesViewModel
 
-    private lateinit var editDialogPopup: EditDialogPopup
+    private lateinit var editDialog: EditDialog
 
-    private lateinit var customDialogPopup: CustomDialogPopup
+    private lateinit var coreDialog: CoreDialog
 
     private lateinit var selectedUser: User
 
@@ -174,27 +174,27 @@ class RoomCoroutinesFragment : DetailFragment(), EditUserListener {
         map[KEY_LAST_NAME] = selectedUser.lastName
         map[KEY_AGE] = selectedUser.age
 
-        editDialogPopup = EditDialogPopup(currentActivity, R.style.PopupTheme)
-        editDialogPopup.setCancelable(false)
-        editDialogPopup.setTitle(resources.getString(R.string.insert_user_title_dialog))
-        editDialogPopup.setMessage(resources.getString(R.string.insert_user_message_dialog))
-        editDialogPopup.setEditLabels(map, this)
+        editDialog = EditDialog(currentActivity, R.style.CoreDialogTheme)
+        editDialog.setCancelable(false)
+        editDialog.setTitle(resources.getString(R.string.insert_user_title_dialog))
+        editDialog.setMessage(resources.getString(R.string.insert_user_message_dialog))
+        editDialog.setEditLabels(map, this)
 
-        editDialogPopup.setButtons(resources.getString(R.string.button_confirm), {
+        editDialog.setButtons(resources.getString(R.string.button_confirm), {
 
             if (selectedUser.firstName == "" || selectedUser.lastName == "" || selectedUser.age == "") {
                 Toast.makeText(requireContext(), "Riempi tutti i campi!", Toast.LENGTH_SHORT).show()
             } else {
                 viewModel.addUser(selectedUser)
-                editDialogPopup.dismiss()
+                editDialog.dismiss()
                 updateView()
             }
         },
             resources.getString(R.string.button_cancel), {
-                editDialogPopup.dismiss()
+                editDialog.dismiss()
             }
         )
-        editDialogPopup.show()
+        editDialog.show()
     }
 
     private fun showUpdateUserDialog(user: User) {
@@ -206,13 +206,13 @@ class RoomCoroutinesFragment : DetailFragment(), EditUserListener {
         map[KEY_LAST_NAME] = selectedUser.lastName
         map[KEY_AGE] = selectedUser.age
 
-        editDialogPopup = EditDialogPopup(currentActivity, R.style.PopupTheme)
-        editDialogPopup.setCancelable(false)
-        editDialogPopup.setTitle(resources.getString(R.string.update_user_title_dialog))
-        editDialogPopup.setMessage(resources.getString(R.string.update_user_message_dialog))
-        editDialogPopup.setEditLabels(map, this)
+        editDialog = EditDialog(currentActivity, R.style.CoreDialogTheme)
+        editDialog.setCancelable(false)
+        editDialog.setTitle(resources.getString(R.string.update_user_title_dialog))
+        editDialog.setMessage(resources.getString(R.string.update_user_message_dialog))
+        editDialog.setEditLabels(map, this)
 
-        editDialogPopup.setButtons(resources.getString(R.string.button_confirm), {
+        editDialog.setButtons(resources.getString(R.string.button_confirm), {
 
             if (selectedUser.firstName == user.firstName && selectedUser.lastName == user.lastName && selectedUser.age == user.age) {
                 Toast.makeText(requireContext(), "L'utente " + selectedUser.firstName + " non ha subito alcuna modifica!", Toast.LENGTH_SHORT).show()
@@ -220,55 +220,55 @@ class RoomCoroutinesFragment : DetailFragment(), EditUserListener {
                 Toast.makeText(requireContext(), "Riempi tutti i campi!", Toast.LENGTH_SHORT).show()
             } else {
                 viewModel.updateUser(selectedUser)
-                editDialogPopup.dismiss()
+                editDialog.dismiss()
                 updateView()
             }
         },
             resources.getString(R.string.button_cancel), {
-                editDialogPopup.dismiss()
+                editDialog.dismiss()
             }
         )
-        editDialogPopup.show()
+        editDialog.show()
     }
 
     private fun showDeleteUserDialog(user: User) {
 
         selectedUser = User(user.id, user.firstName, user.lastName, user.age)
 
-        customDialogPopup = CustomDialogPopup(currentActivity, R.style.PopupTheme)
-        customDialogPopup.setCancelable(false)
-        customDialogPopup.setTitle(resources.getString(R.string.delete_user_title_dialog))
-        customDialogPopup.setMessage(resources.getString(R.string.delete_user_message_dialog))
+        coreDialog = CoreDialog(currentActivity, R.style.CoreDialogTheme)
+        coreDialog.setCancelable(false)
+        coreDialog.setTitle(resources.getString(R.string.delete_user_title_dialog))
+        coreDialog.setMessage(resources.getString(R.string.delete_user_message_dialog))
 
-        customDialogPopup.setButtons(resources.getString(R.string.button_confirm), {
+        coreDialog.setButtons(resources.getString(R.string.button_confirm), {
             viewModel.deleteUser(selectedUser)
-            customDialogPopup.dismiss()
+            coreDialog.dismiss()
             updateView()
         },
             resources.getString(R.string.button_cancel), {
-                customDialogPopup.dismiss()
+                coreDialog.dismiss()
             }
         )
-        customDialogPopup.show()
+        coreDialog.show()
     }
 
     private fun showDeleteAllUsersDialog() {
 
-        customDialogPopup = CustomDialogPopup(currentActivity, R.style.PopupTheme)
-        customDialogPopup.setCancelable(false)
-        customDialogPopup.setTitle(resources.getString(R.string.delete_all_users_title_dialog))
-        customDialogPopup.setMessage(resources.getString(R.string.delete_all_users_message_dialog))
+        coreDialog = CoreDialog(currentActivity, R.style.CoreDialogTheme)
+        coreDialog.setCancelable(false)
+        coreDialog.setTitle(resources.getString(R.string.delete_all_users_title_dialog))
+        coreDialog.setMessage(resources.getString(R.string.delete_all_users_message_dialog))
 
-        customDialogPopup.setButtons(resources.getString(R.string.button_confirm), {
+        coreDialog.setButtons(resources.getString(R.string.button_confirm), {
             viewModel.deleteUsers()
-            customDialogPopup.dismiss()
+            coreDialog.dismiss()
             updateView()
         },
             resources.getString(R.string.button_cancel), {
-                customDialogPopup.dismiss()
+                coreDialog.dismiss()
             }
         )
-        customDialogPopup.show()
+        coreDialog.show()
     }
 
     override fun onAddFirstNameChangedListener(input: String) {

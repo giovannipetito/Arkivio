@@ -12,6 +12,7 @@
     </data>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested_scroll_view_favorites"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fillViewport="true">
@@ -25,18 +26,21 @@
                 android:id="@+id/favorites_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="12dp"
+                android:layout_marginVertical="12dp"
+                android:layout_marginHorizontal="12dp"
                 android:text="@string/favorites_description"
-                android:textSize="14sp"
-                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textColor="@color/blue_grey_500"
                 android:visibility="gone"
                 tools:visibility="visible" />
 
             <it.giovanni.arkivio.customview.TextViewCustom
+                android:id="@+id/personals_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="12dp"
-                android:text="@string/personals"
+                android:layout_marginTop="6dp"
+                android:layout_marginHorizontal="12dp"
+                android:text="@string/personals_title"
                 android:textSize="14sp"
                 android:textColor="@color/white" />
 
@@ -53,6 +57,18 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:nestedScrollingEnabled="true" />
+
+            <it.giovanni.arkivio.customview.TextViewCustom
+                android:id="@+id/restore_to_default"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/dimen_24dp"
+                android:padding="12dp"
+                android:gravity="center"
+                android:text="@string/restore_to_default"
+                android:textSize="16sp"
+                android:textColor="@color/blue_A400"
+                android:textStyle="bold" />
 
         </LinearLayout>
 

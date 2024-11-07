@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.activities.MainActivity
-import it.giovanni.arkivio.customview.popup.CustomDialogPopup
+import it.giovanni.arkivio.customview.dialog.CoreDialog
 import it.giovanni.arkivio.utils.SharedPreferencesManager.loadDarkModeStateFromPreferences
 import it.giovanni.arkivio.viewinterfaces.IProgressLoader
 
@@ -15,7 +15,7 @@ abstract class BaseFragment(private var sectionType: SectionType) : Fragment() {
 
     lateinit var currentActivity: MainActivity
 
-    protected var popupError: CustomDialogPopup? = null
+    protected var errorDialog: CoreDialog? = null
 
     var isDarkMode = false
 
@@ -36,25 +36,25 @@ abstract class BaseFragment(private var sectionType: SectionType) : Fragment() {
         DIALOG_FLOW
     }
 
-    fun showPopupError(msg: String) {
-        popupError = CustomDialogPopup(currentActivity, R.style.PopupTheme)
-        popupError?.setCancelable(false)
-        popupError?.setTitle("")
-        popupError?.setMessage(msg)
-        popupError?.setButtons(resources.getString(R.string.button_ok)
+    fun showErrorDialog(msg: String) {
+        errorDialog = CoreDialog(currentActivity, R.style.CoreDialogTheme)
+        errorDialog?.setCancelable(false)
+        errorDialog?.setTitle("")
+        errorDialog?.setMessage(msg)
+        errorDialog?.setButtons(resources.getString(R.string.button_ok)
         ) {
-            popupError?.dismiss()
+            errorDialog?.dismiss()
         }
-        popupError?.show()
+        errorDialog?.show()
     }
 
-    fun showPopupError(msg: String, clickListener: View.OnClickListener) {
-        popupError = CustomDialogPopup(currentActivity, R.style.PopupTheme)
-        popupError?.setCancelable(false)
-        popupError?.setTitle("")
-        popupError?.setMessage(msg)
-        popupError?.setButtons(resources.getString(R.string.button_ok), clickListener)
-        popupError?.show()
+    fun showErrorDialog(msg: String, clickListener: View.OnClickListener) {
+        errorDialog = CoreDialog(currentActivity, R.style.CoreDialogTheme)
+        errorDialog?.setCancelable(false)
+        errorDialog?.setTitle("")
+        errorDialog?.setMessage(msg)
+        errorDialog?.setButtons(resources.getString(R.string.button_ok), clickListener)
+        errorDialog?.show()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

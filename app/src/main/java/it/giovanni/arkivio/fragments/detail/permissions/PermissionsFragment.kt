@@ -15,7 +15,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.FileProvider
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.customview.popup.CustomDialogPopup
+import it.giovanni.arkivio.customview.dialog.CoreDialog
 import it.giovanni.arkivio.databinding.PermissionsLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
@@ -52,7 +52,7 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
     private val binding get() = layoutBinding
 
     private var isDownloading: Boolean = false
-    private lateinit var customDialogPopup: CustomDialogPopup
+    private lateinit var coreDialog: CoreDialog
     private lateinit var action: Action
     private lateinit var url: String
     private lateinit var fileName: String
@@ -160,31 +160,31 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
             phoneState = false
             downloadPdf = true
 
-            customDialogPopup = CustomDialogPopup(currentActivity, R.style.PopupTheme)
-            customDialogPopup.setCancelable(false)
-            customDialogPopup.setTitle("")
-            customDialogPopup.setMessage("")
+            coreDialog = CoreDialog(currentActivity, R.style.CoreDialogTheme)
+            coreDialog.setCancelable(false)
+            coreDialog.setTitle("")
+            coreDialog.setMessage("")
 
-            customDialogPopup.setButtons(
+            coreDialog.setButtons(
                 resources.getString(R.string.button_cancel), {
-                    customDialogPopup.dismiss()
+                    coreDialog.dismiss()
                 },
                 resources.getString(R.string.button_send), {
-                    customDialogPopup.dismiss()
+                    coreDialog.dismiss()
                     action =
                         Action.SEND
                     askPDFPermission()
                     downloadPDF()
                 },
                 resources.getString(R.string.button_open), {
-                    customDialogPopup.dismiss()
+                    coreDialog.dismiss()
                     action =
                         Action.OPEN
                     askPDFPermission()
                     downloadPDF()
                 }
             )
-            customDialogPopup.show()
+            coreDialog.show()
         }
     }
 
@@ -219,10 +219,10 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
         if (!checkPhonePermission())
             return
 
-        customDialogPopup = CustomDialogPopup(currentActivity, R.style.PopupTheme)
-        customDialogPopup.setCancelable(false)
-        customDialogPopup.setTitle("Stato del telefono", "")
-        customDialogPopup.setMessage(
+        coreDialog = CoreDialog(currentActivity, R.style.CoreDialogTheme)
+        coreDialog.setCancelable(false)
+        coreDialog.setTitle("Stato del telefono", "")
+        coreDialog.setMessage(
             "Brand: " + Build.BRAND +
                     "<br><br>Manufacturer: " + Build.MANUFACTURER +
                     "<br><br>Model: " + Build.MODEL +
@@ -249,12 +249,12 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
                     "<br><br>Network Country Iso: " + getNetworkCountryIso()
         )
 
-        customDialogPopup.setButtons(
+        coreDialog.setButtons(
             resources.getString(R.string.button_close)
         ) {
-            customDialogPopup.dismiss()
+            coreDialog.dismiss()
         }
-        customDialogPopup.show()
+        coreDialog.show()
     }
 
     private fun askPDFPermission() {

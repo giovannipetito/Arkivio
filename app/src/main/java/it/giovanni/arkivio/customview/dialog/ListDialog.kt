@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.customview.popup
+package it.giovanni.arkivio.customview.dialog
 
 import android.app.Activity
 import android.view.LayoutInflater
@@ -6,12 +6,12 @@ import android.view.View
 import androidx.annotation.StyleRes
 import androidx.core.content.ContextCompat
 import it.giovanni.arkivio.R
-import it.giovanni.arkivio.databinding.PopupLabelElementBinding
+import it.giovanni.arkivio.databinding.DialogLabelElementBinding
 import kotlin.collections.ArrayList
 
-class ListDialogPopup(activity: Activity, @StyleRes themeResId: Int) : CustomDialogPopup(activity, themeResId) {
+class ListDialog(activity: Activity, @StyleRes themeResId: Int) : CoreDialog(activity, themeResId) {
 
-    var layoutBinding: PopupLabelElementBinding? = null
+    var layoutBinding: DialogLabelElementBinding? = null
     val binding get() = layoutBinding
 
     init {
@@ -29,7 +29,7 @@ class ListDialogPopup(activity: Activity, @StyleRes themeResId: Int) : CustomDia
             val i = list.iterator()
             while (i.hasNext()) {
 
-                layoutBinding = PopupLabelElementBinding.inflate(LayoutInflater.from(context))
+                layoutBinding = DialogLabelElementBinding.inflate(LayoutInflater.from(context))
                 val view: View? = binding?.root
 
                 val element: String = i.next()

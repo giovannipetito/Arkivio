@@ -26,7 +26,7 @@ import it.giovanni.arkivio.R
 import it.giovanni.arkivio.activities.MainActivity
 import it.giovanni.arkivio.adapters.HomeFragmentAdapter
 import it.giovanni.arkivio.model.LinkSide
-import it.giovanni.arkivio.customview.popup.CustomDialogPopup
+import it.giovanni.arkivio.customview.dialog.CoreDialog
 import it.giovanni.arkivio.databinding.MainLayoutBinding
 import it.giovanni.arkivio.databinding.NavHeaderItemBinding
 import it.giovanni.arkivio.model.DarkModeModel
@@ -65,7 +65,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
     private val extType = "ext"
     private var bundleDeepLink: Bundle = Bundle()
 
-    private lateinit var customDialogPopup: CustomDialogPopup
+    private lateinit var coreDialog: CoreDialog
     private var compress: Boolean = false
 
     override fun getTitle(): Int {
@@ -112,25 +112,23 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
 
         binding?.navHeader?.switchMode?.setOnClickListener {
 
-            val customPopup = CustomDialogPopup(currentActivity, R.style.PopupTheme)
-            customPopup.setCancelable(false)
-            customPopup.setTitle("", "")
-            customPopup.setMessage(resources.getString(R.string.switch_mode_message))
+            val dialog = CoreDialog(currentActivity, R.style.CoreDialogTheme)
+            dialog.setCancelable(false)
+            dialog.setTitle("", "")
+            dialog.setMessage(resources.getString(R.string.switch_mode_message))
 
-            customPopup.setButtons(
-                resources.getString(R.string.button_confirm),
-                {
-                    customPopup.dismiss()
+            dialog.setButtons(
+                resources.getString(R.string.button_confirm), {
+                    dialog.dismiss()
                     onSetLayout(model)
                     (activity as MainActivity).logout()
                 },
-                resources.getString(R.string.button_cancel),
-                {
-                    customPopup.dismiss()
+                resources.getString(R.string.button_cancel), {
+                    dialog.dismiss()
                     binding?.navHeader?.switchMode?.isChecked = !isDarkMode
                 }
             )
-            customPopup.show()
+            dialog.show()
         }
     }
 
@@ -251,24 +249,24 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
         binding?.drawerLayout?.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
         binding?.navHeader?.settings?.setOnClickListener {
-            customDialogPopup = CustomDialogPopup(currentActivity, R.style.PopupTheme)
-            customDialogPopup.setCancelable(false)
-            customDialogPopup.setTitle(context?.resources?.getString(R.string.settings)!!, "")
-            customDialogPopup.setMessage(context?.resources?.getString(R.string.settings_message)!!)
+            coreDialog = CoreDialog(currentActivity, R.style.CoreDialogTheme)
+            coreDialog.setCancelable(false)
+            coreDialog.setTitle(context?.resources?.getString(R.string.settings)!!, "")
+            coreDialog.setMessage(context?.resources?.getString(R.string.settings_message)!!)
 
-            customDialogPopup.setButtons(
+            coreDialog.setButtons(
                 resources.getString(R.string.button_yes), {
                     compress = true
                     saveCompressStateToPreferences(compress)
-                    customDialogPopup.dismiss()
+                    coreDialog.dismiss()
                 },
                 resources.getString(R.string.button_no), {
                     compress = false
                     saveCompressStateToPreferences(compress)
-                    customDialogPopup.dismiss()
+                    coreDialog.dismiss()
                 }
             )
-            customDialogPopup.show()
+            coreDialog.show()
         }
 
         binding?.navHeader?.logout?.setOnClickListener {
