@@ -85,7 +85,7 @@ class FavoritesViewModel : ViewModel() {
         loadAvailableFavorites(editablePersonals)
     }
 
-    fun onSet(isPersonal: Boolean, targetPosition: Int, sourcePosition: Int) {
+    fun onSet(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int) {
         if (isPersonal) {
             // Drag personal to availables
             _personals.value?.let { personals ->

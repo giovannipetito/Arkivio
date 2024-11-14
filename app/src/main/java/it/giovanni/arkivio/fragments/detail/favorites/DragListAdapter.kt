@@ -66,7 +66,7 @@ abstract class DragListAdapter<T, VH : RecyclerView.ViewHolder>(diffUtil: DiffUt
                             } else {
                                 try {
                                     targetAdapter.currentList[targetPosition]?.let {
-                                        sourceAdapter.onSet(targetPosition, sourcePosition)
+                                        sourceAdapter.onSet(sourcePosition, targetPosition)
                                     }
                                 } catch (e: IndexOutOfBoundsException) {
                                     println(e.message)
@@ -84,7 +84,7 @@ abstract class DragListAdapter<T, VH : RecyclerView.ViewHolder>(diffUtil: DiffUt
 
     abstract fun onDragLocation(showBadge: Boolean)
 
-    abstract fun onSet(targetPosition: Int, sourcePosition: Int)
+    abstract fun onSet(sourcePosition: Int, targetPosition: Int)
 
     abstract fun onSwap(sourcePosition: Int, targetPosition: Int)
 }
