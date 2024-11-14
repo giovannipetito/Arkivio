@@ -115,7 +115,7 @@ class FavoritesAdapter(
                     }
 
                     binding.root.setOnClickListener {
-                        onAdapterListener.onSet(isPersonal = true, targetIndex = 0, sourceIndex = bindingAdapterPosition)
+                        onAdapterListener.onSet(isPersonal = true, targetPosition = 0, sourcePosition = bindingAdapterPosition)
                     }
                 } else {
                     binding.personalBorder.visibility = View.GONE
@@ -151,7 +151,7 @@ class FavoritesAdapter(
                 }
 
                 binding.root.setOnClickListener {
-                    onAdapterListener.onSet(isPersonal = false, targetIndex = 0, sourceIndex = bindingAdapterPosition)
+                    onAdapterListener.onSet(isPersonal = false, targetPosition = 0, sourcePosition = bindingAdapterPosition)
                 }
             } else {
                 binding.availableBorder.visibility = View.GONE
@@ -293,12 +293,12 @@ class FavoritesAdapter(
         this.showBadge = showBadge
     }
 
-    override fun onSet(targetIndex: Int, sourceIndex: Int) {
-        onAdapterListener.onSet(isPersonal = isPersonal, targetIndex, sourceIndex)
+    override fun onSet(targetPosition: Int, sourcePosition: Int) {
+        onAdapterListener.onSet(isPersonal = isPersonal, targetPosition, sourcePosition)
     }
 
-    override fun onSwap(from: Int, to: Int) {
-        onAdapterListener.onSwap(isPersonal = isPersonal, from, to)
+    override fun onSwap(sourcePosition: Int, targetPosition: Int) {
+        onAdapterListener.onSwap(isPersonal = isPersonal, sourcePosition, targetPosition)
     }
 
     fun setEditMode(isEditMode: Boolean) {

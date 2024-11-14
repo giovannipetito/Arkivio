@@ -85,17 +85,17 @@ class FavoritesViewModel : ViewModel() {
         loadAvailableFavorites(editablePersonals)
     }
 
-    fun onSet(isPersonal: Boolean, targetIndex: Int, sourceIndex: Int) {
+    fun onSet(isPersonal: Boolean, targetPosition: Int, sourcePosition: Int) {
         if (isPersonal) {
             // Drag personal to availables
             _personals.value?.let { personals ->
                 val tempPersonals: MutableList<Favorite?> = personals.toMutableList()
 
                 if (tempPersonals.size > 1) {
-                    tempPersonals.removeAt(sourceIndex)
+                    tempPersonals.removeAt(sourcePosition)
 
                     if (_isMaxReached.value == true) {
-                        tempPersonals.add(sourceIndex, pendingAvailable)
+                        tempPersonals.add(sourcePosition, pendingAvailable)
                     }
 
                     _personals.value = tempPersonals
@@ -111,9 +111,9 @@ class FavoritesViewModel : ViewModel() {
             // Drag available to personals
             _personals.value?.let { personals ->
                 val tempPersonals: MutableList<Favorite?> = personals.toMutableList()
-                val sourceFavorite: Favorite? = _availables.value?.get(sourceIndex)
+                val sourceFavorite: Favorite? = _availables.value?.get(sourcePosition)
                 if (personals.size < MAX_FAVORITES_SIZE) {
-                    tempPersonals.add(targetIndex, sourceFavorite)
+                    tempPersonals.add(targetPosition, sourceFavorite)
                     _personals.value = tempPersonals.take(MAX_FAVORITES_SIZE) // Ensure limit of 7 items.
 
                     updateDraggableAvailables(tempPersonals)
@@ -127,12 +127,12 @@ class FavoritesViewModel : ViewModel() {
         }
     }
 
-    fun onSwap(isPersonal: Boolean, from: Int, to: Int) {
+    fun onSwap(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int) {
         if (isPersonal) {
             // Swap personal items.
             _personals.value?.let { personals ->
                 val tempPersonals: MutableList<Favorite?> = personals.toMutableList()
-                Collections.swap(tempPersonals, from, to)
+                Collections.swap(tempPersonals, sourcePosition, targetPosition)
                 _personals.value = tempPersonals.toList()
             }
             setIsPersonalsChanged()
@@ -142,7 +142,7 @@ class FavoritesViewModel : ViewModel() {
             // Swap available items. Available items must not be swappable.
             _availables.value?.let { availables ->
                 val tempAvailables: MutableList<Favorite?> = availables.toMutableList()
-                Collections.swap(tempAvailables, from, to)
+                Collections.swap(tempAvailables, sourcePosition, targetPosition)
                 _availables.value = tempAvailables.toList()
             }
         }

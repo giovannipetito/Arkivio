@@ -144,7 +144,7 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
 
         personalsAdapter = FavoritesAdapter(true, onAdapterListener = this)
         personalsRecyclerView?.apply {
-            setHasFixedSize(true)
+            setHasFixedSize(false)
             layoutManager = GridLayoutManager(requireContext(), 4)
             adapter = personalsAdapter
         }
