@@ -14,13 +14,13 @@ abstract class DragListAdapter<T, VH : RecyclerView.ViewHolder>(diffUtil: DiffUt
                 when (it.action) {
                     DragEvent.ACTION_DRAG_LOCATION -> {
                         view?.let { targetView ->
-                            val parentRecyclerView = when {
+                            val targetRecyclerView = when {
                                 targetView.parent is RecyclerView -> targetView.parent as RecyclerView
                                 targetView is RecyclerView -> targetView
                                 else -> null
                             }
 
-                            when (parentRecyclerView?.id) {
+                            when (targetRecyclerView?.id) {
                                 personalsRecyclerView?.id -> {
                                     onDragLocation(showBadge = false)
                                 }

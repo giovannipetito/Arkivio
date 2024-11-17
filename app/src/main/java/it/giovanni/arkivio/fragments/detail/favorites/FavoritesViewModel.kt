@@ -28,12 +28,13 @@ class FavoritesViewModel : ViewModel() {
     private val _isMaxReached = MutableLiveData<Boolean>()
     val isMaxReached: LiveData<Boolean> get() = _isMaxReached
 
-    private val _isSaveFavoritesSuccess = MutableLiveData<Boolean>()
-    val isSaveFavoritesSuccess: LiveData<Boolean> get() = _isSaveFavoritesSuccess
+    private val _editState = MutableLiveData<EditState>()
+    val editState: LiveData<EditState> get() = _editState
 
     private var pendingAvailable: Favorite? = null
 
     init {
+        _editState.value = EditState.INIT
         _isPersonalsChanged.value = false
         _isMaxReached.value = false
         loadPersonalFavorites()
@@ -69,7 +70,8 @@ class FavoritesViewModel : ViewModel() {
 
     fun saveFavorites(newFavorites: MutableList<Favorite?>) {
 
-        _isSaveFavoritesSuccess.value = true
+        _editState.value = EditState.SUCCESS
+        _isPersonalsChanged.value = false
 
         responsePersonals = newFavorites.filterNotNull().take(MAX_FAVORITES_SIZE).toMutableList()
 
@@ -158,6 +160,10 @@ class FavoritesViewModel : ViewModel() {
         }
     }
 
+    fun initEditState(state: EditState) {
+        _editState.value = state
+    }
+
     fun updateDraggableAvailables(tempPersonals: MutableList<Favorite?>) {
         val filteredAvailables: MutableList<Favorite?> = responseAvailables.filter { available ->
             tempPersonals.none { personal -> personal?.identifier == available?.identifier }
@@ -192,5 +198,11 @@ class FavoritesViewModel : ViewModel() {
 
             _isPersonalsChanged.value = false
         }
+    }
+
+    enum class EditState {
+        INIT,
+        SUCCESS,
+        ERROR
     }
 }

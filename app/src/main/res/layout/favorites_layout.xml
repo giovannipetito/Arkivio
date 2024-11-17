@@ -49,14 +49,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:nestedScrollingEnabled="true" />
+                android:nestedScrollingEnabled="true"
+                android:overScrollMode="never" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/availables_recyclerview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:nestedScrollingEnabled="true" />
+                android:nestedScrollingEnabled="true"
+                android:overScrollMode="never" />
 
             <it.giovanni.arkivio.customview.TextViewCustom
                 android:id="@+id/restore_to_default"

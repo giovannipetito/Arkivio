@@ -1,5 +1,6 @@
 package it.giovanni.arkivio.fragments.detail.favorites
 
+import android.util.Log
 import android.view.View
 import android.view.DragEvent
 import androidx.recyclerview.widget.DiffUtil
@@ -8,77 +9,97 @@ import androidx.recyclerview.widget.RecyclerView
 
 abstract class DragListAdapter2<T, VH : RecyclerView.ViewHolder>(diffUtil: DiffUtil.ItemCallback<T>) : ListAdapter<T, VH>(diffUtil) {
 
-    private var isDragStarted = false
-    private var isOriginalParent = true
-    private var initialPositionInOriginalParent = 0
-    private var initialPositionInOtherParent = 0
-    private var finalPosition = 0
-    private var finalPositionInOriginalParent = 0
-    private var finalParent: RecyclerView? = null
+    private var sourcePosition: Int = -1
 
     val dragListener = object : View.OnDragListener {
         override fun onDrag(view: View?, event: DragEvent?): Boolean {
             event?.let {
                 when (it.action) {
                     DragEvent.ACTION_DRAG_STARTED -> {
-                        val sourceView = event.localState as? View ?: return true
-                        if (!isDragStarted && sourceView.parent is RecyclerView) {
+                        // Retrieve the source view and calculate sourcePosition
+                        val sourceView = it.localState as View
+                        if (sourceView.parent != null) {
                             val sourceRecyclerView = sourceView.parent as RecyclerView
-                            initialPositionInOriginalParent = sourceRecyclerView.getChildAdapterPosition(sourceView)
-                            finalPosition = initialPositionInOriginalParent
-                            isDragStarted = true
+                            sourcePosition = sourceRecyclerView.getChildAdapterPosition(sourceView)
                         }
                     }
-                    DragEvent.ACTION_DRAG_ENTERED -> {
-                        val sourceView = event.localState as? View ?: return true
-                        val targetRecyclerView = (view?.parent as? RecyclerView) ?: return true
-                        val targetAdapter = targetRecyclerView.adapter as? DragListAdapter2<T, VH> ?: return true
-                        val targetPosition = targetRecyclerView.getChildAdapterPosition(view)
 
-                        if (view.parent == sourceView.parent) {
-                            if (isOriginalParent) {
-                                try {
-                                    targetAdapter.notifyItemMoved(finalPosition, targetPosition)
-                                } catch (e: Exception) {
-                                    println("ignore index out of bound: ${e.message}")
+                    DragEvent.ACTION_DRAG_LOCATION -> {
+                        view?.let { targetView ->
+                            val targetRecyclerView = when {
+                                targetView.parent is RecyclerView -> targetView.parent as RecyclerView
+                                targetView is RecyclerView -> targetView
+                                else -> null
+                            }
+
+                            if (targetRecyclerView != null) {
+                                when (targetRecyclerView.id) {
+                                    personalsRecyclerView?.id -> {
+
+                                        try {
+                                            val targetPosition = targetRecyclerView.getChildAdapterPosition(targetView)
+                                            Log.i("[FAVORITES]", "targetPosition: $targetPosition")
+                                            Log.i("[FAVORITES]", "sourcePosition: $sourcePosition")
+                                            val targetAdapter = targetRecyclerView.adapter as DragListAdapter2<T, VH>
+                                            targetAdapter.notifyItemMoved(sourcePosition, targetPosition)
+                                        } catch (e: ClassCastException) {
+                                            e.printStackTrace()
+                                        }
+
+                                        onDragLocation(showBadge = false)
+                                    }
+                                    availablesRecyclerView?.id -> {
+                                        onDragLocation(showBadge = true)
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    DragEvent.ACTION_DROP -> {
+
+                        val sourceView = it.localState as View
+                        val sourceRecyclerView = sourceView.parent as RecyclerView
+                        val sourceAdapter = sourceRecyclerView.adapter as DragListAdapter2<T, VH>
+                        val sourcePosition = sourceRecyclerView.getChildAdapterPosition(sourceView)
+
+                        view?.let { targetView ->
+                            var targetRecyclerView: RecyclerView? = targetView as? RecyclerView
+
+                            if (targetRecyclerView == null) {
+                                targetRecyclerView = targetView.parent as? RecyclerView
+                            }
+
+                            if (targetRecyclerView !is RecyclerView) {
+                                return false
+                            }
+
+                            val targetAdapter = targetRecyclerView.adapter as DragListAdapter2<T, VH>
+                            val targetPosition =
+                                if (targetView is RecyclerView) {
+                                    if (sourceRecyclerView.id == targetRecyclerView.id)
+                                        -1 // we can't swap in empty area.
+                                    else 0 // we can swap in empty area.
+                                }
+                                else targetRecyclerView.getChildAdapterPosition(targetView)
+
+                            // If the recyclerview is the same, swap two items.
+                            if (sourceRecyclerView.id == targetRecyclerView.id) {
+                                if (targetPosition >= 0 && sourceAdapter.currentList[targetPosition] != null) {
+                                    sourceAdapter.onSwap(sourcePosition, targetPosition)
                                 }
                             } else {
                                 try {
-                                    targetAdapter.notifyItemMoved(finalPositionInOriginalParent, targetPosition)
-                                    (finalParent?.adapter as? DragListAdapter2<T, VH>)?.currentList?.removeAt(initialPositionInOtherParent)
-                                    finalParent?.adapter?.notifyDataSetChanged()
-                                } catch (e: Exception) {
-                                    println("ignore index out of bound: ${e.message}")
+                                    targetAdapter.currentList[targetPosition]?.let {
+                                        sourceAdapter.onSet(sourcePosition, targetPosition)
+                                    }
+                                } catch (e: IndexOutOfBoundsException) {
+                                    println(e.message)
                                 }
-                                isOriginalParent = true
                             }
-                            finalPosition = targetPosition
-                            finalPositionInOriginalParent = targetPosition
-                        } else {
-                            if (isOriginalParent) {
-                                val sourceValue = (sourceView.parent as RecyclerView).adapter?.let { adapter ->
-                                    (adapter as DragListAdapter2<T, VH>).currentList[initialPositionInOriginalParent]
-                                } ?: return true
-
-                                try {
-                                    targetAdapter.currentList.add(targetPosition, sourceValue)
-                                    targetAdapter.notifyDataSetChanged()
-                                    initialPositionInOtherParent = targetPosition
-                                } catch (e: Exception) {
-                                    println("ignore index out of bound: ${e.message}")
-                                }
-                                isOriginalParent = false
-                                finalPosition = targetPosition
-                            } else if (finalPosition != targetPosition) {
-                                try {
-                                    targetAdapter.notifyItemMoved(finalPosition, targetPosition)
-                                } catch (e: Exception) {
-                                    println("ignore index out of bound: ${e.message}")
-                                }
-                                finalPosition = targetPosition
-                            }
+                        } ?: run {
+                            return false
                         }
-                        finalParent = targetRecyclerView
                     }
                 }
             }
@@ -86,8 +107,9 @@ abstract class DragListAdapter2<T, VH : RecyclerView.ViewHolder>(diffUtil: DiffU
         }
     }
 
-    // Abstract functions to handle swap and drag location behavior
     abstract fun onDragLocation(showBadge: Boolean)
-    abstract fun onSet(targetPosition: Int, sourcePosition: Int)
+
+    abstract fun onSet(sourcePosition: Int, targetPosition: Int)
+
     abstract fun onSwap(sourcePosition: Int, targetPosition: Int)
 }

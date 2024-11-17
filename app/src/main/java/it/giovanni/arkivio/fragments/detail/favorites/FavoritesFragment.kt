@@ -12,7 +12,7 @@ import it.giovanni.arkivio.R
 import it.giovanni.arkivio.customview.dialog.CoreDialog
 import it.giovanni.arkivio.databinding.FavoritesLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
-import it.giovanni.arkivio.fragments.detail.favorites.FavoritesAdapter.Companion.MAX_FAVORITES_SIZE
+import it.giovanni.arkivio.fragments.detail.favorites.FavoritesViewModel.EditState
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.model.favorite.Favorite
 import it.giovanni.arkivio.presenter.DarkModePresenter
@@ -116,12 +116,12 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
             }
         }
 
-        viewModel.isSaveFavoritesSuccess.observe(viewLifecycleOwner) { isSaveFavoritesSuccess ->
-            if (isSaveFavoritesSuccess) {
+        viewModel.editState.observe(viewLifecycleOwner) { editState ->
+            if (editState == EditState.SUCCESS) {
                 resetScreen()
                 val message = requireContext().resources.getString(R.string.favorites_update_success_title)
                 Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-            } else {
+            } else if (editState == EditState.ERROR) {
                 val message = requireContext().resources.getString(R.string.favorites_update_error_title)
                 Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
                 showErrorDialog(message)
@@ -151,7 +151,7 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
 
         availablesAdapter = FavoritesAdapter(false, onAdapterListener = this)
         availablesRecyclerView?.apply {
-            setHasFixedSize(true)
+            setHasFixedSize(false)
             val gridLayoutManager = GridLayoutManager(requireContext(), 5)
             gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int {
@@ -202,10 +202,11 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
         dialog.setTitle("", "")
 
         dialog.setMessage(resources.getString(R.string.favorites_save_message_title))
-        dialog.setButtons(resources.getString(R.string.button_confirm), {
-            dialog.dismiss()
-            viewModel.saveFavorites(viewModel.personals.value?.toMutableList()!!)
-        },
+        dialog.setButtons(
+            resources.getString(R.string.button_confirm), {
+                dialog.dismiss()
+                viewModel.saveFavorites(viewModel.personals.value?.toMutableList()!!)
+            },
             resources.getString(R.string.button_cancel), {
                 dialog.dismiss()
             }
@@ -229,6 +230,11 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
     override fun onEditModeRemoved(position: Int) {
         binding?.favoritesDescription?.visibility = View.VISIBLE
         viewModel.removeEditItem(position)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.initEditState(EditState.INIT)
     }
 
     override fun onDestroyView() {

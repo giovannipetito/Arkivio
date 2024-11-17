@@ -25,7 +25,7 @@ import it.giovanni.arkivio.R
 class FavoritesAdapter(
     private val isPersonal: Boolean,
     private val onAdapterListener: OnAdapterListener,
-) : DragListAdapter<Favorite, RecyclerView.ViewHolder>(diffUtil) {
+) : DragListAdapter2<Favorite, RecyclerView.ViewHolder>(diffUtil) {
 
     private var isEditMode = false
     private var showBadge = false
@@ -124,7 +124,10 @@ class FavoritesAdapter(
 
                     binding.root.setOnDragListener(null)
                     binding.root.setOnLongClickListener(null)
-                    binding.root.setOnClickListener(null)
+
+                    binding.root.setOnClickListener {
+                        // TODO: Open detail
+                    }
                 }
             }
         }
@@ -160,7 +163,10 @@ class FavoritesAdapter(
 
                 binding.root.setOnDragListener(null)
                 binding.root.setOnLongClickListener(null)
-                binding.root.setOnClickListener(null)
+
+                binding.root.setOnClickListener {
+                    // TODO: Open detail
+                }
             }
         }
     }
