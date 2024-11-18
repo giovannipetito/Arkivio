@@ -214,12 +214,16 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
         dialog.show()
     }
 
-    override fun onSet(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int) {
-        viewModel.onSet(isPersonal = isPersonal, sourcePosition = sourcePosition, targetPosition = targetPosition)
-    }
-
     override fun onSwap(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int) {
         viewModel.onSwap(isPersonal = isPersonal, sourcePosition = sourcePosition, targetPosition = targetPosition)
+    }
+
+    override fun onDrag(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int) {
+        viewModel.onDrag(isPersonal = isPersonal, sourcePosition = sourcePosition, targetPosition = targetPosition)
+    }
+
+    override fun onDrop(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int) {
+        viewModel.onDrop(isPersonal = isPersonal, sourcePosition = sourcePosition, targetPosition = targetPosition)
     }
 
     override fun onEditModeChanged(isEditMode: Boolean) {

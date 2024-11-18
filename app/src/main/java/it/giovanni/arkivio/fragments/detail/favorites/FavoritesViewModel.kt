@@ -87,7 +87,33 @@ class FavoritesViewModel : ViewModel() {
         loadAvailableFavorites(editablePersonals)
     }
 
-    fun onSet(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int) {
+    fun onSwap(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int) {
+        if (isPersonal) {
+            // Swap personal items.
+            _personals.value?.let { personals ->
+                val tempPersonals: MutableList<Favorite?> = personals.toMutableList()
+                Collections.swap(tempPersonals, sourcePosition, targetPosition)
+                _personals.value = tempPersonals.toList()
+            }
+            setIsPersonalsChanged()
+        }
+        /*
+        else {
+            // Swap available items. Available items must not be swappable.
+            _availables.value?.let { availables ->
+                val tempAvailables: MutableList<Favorite?> = availables.toMutableList()
+                Collections.swap(tempAvailables, sourcePosition, targetPosition)
+                _availables.value = tempAvailables.toList()
+            }
+        }
+        */
+    }
+
+    fun onDrag(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int) {
+
+    }
+
+    fun onDrop(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int) {
         if (isPersonal) {
             // Drag personal to availables
             _personals.value?.let { personals ->
@@ -127,28 +153,6 @@ class FavoritesViewModel : ViewModel() {
                 }
             }
         }
-    }
-
-    fun onSwap(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int) {
-        if (isPersonal) {
-            // Swap personal items.
-            _personals.value?.let { personals ->
-                val tempPersonals: MutableList<Favorite?> = personals.toMutableList()
-                Collections.swap(tempPersonals, sourcePosition, targetPosition)
-                _personals.value = tempPersonals.toList()
-            }
-            setIsPersonalsChanged()
-        }
-        /*
-        else {
-            // Swap available items. Available items must not be swappable.
-            _availables.value?.let { availables ->
-                val tempAvailables: MutableList<Favorite?> = availables.toMutableList()
-                Collections.swap(tempAvailables, sourcePosition, targetPosition)
-                _availables.value = tempAvailables.toList()
-            }
-        }
-        */
     }
 
     fun removeEditItem(position: Int) {
