@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 
 abstract class DragListAdapter2<T, VH : RecyclerView.ViewHolder>(diffUtil: DiffUtil.ItemCallback<T>) : ListAdapter<T, VH>(diffUtil) {
 
+    // private lateinit var sourceRecyclerView: RecyclerView
+    // private lateinit var sourceAdapter: DragListAdapter2<T, VH>
     private var sourcePosition: Int = -1
 
     val dragListener = object : View.OnDragListener {
@@ -24,7 +26,7 @@ abstract class DragListAdapter2<T, VH : RecyclerView.ViewHolder>(diffUtil: DiffU
                         }
                     }
 
-                    DragEvent.ACTION_DRAG_LOCATION -> {
+                    DragEvent.ACTION_DRAG_ENTERED -> {
                         view?.let { targetView ->
                             val targetRecyclerView = when {
                                 targetView.parent is RecyclerView -> targetView.parent as RecyclerView
@@ -41,7 +43,7 @@ abstract class DragListAdapter2<T, VH : RecyclerView.ViewHolder>(diffUtil: DiffU
                                             Log.i("[FAVORITES]", "targetPosition: $targetPosition")
                                             Log.i("[FAVORITES]", "sourcePosition: $sourcePosition")
                                             val targetAdapter = targetRecyclerView.adapter as DragListAdapter2<T, VH>
-                                            targetAdapter.notifyItemMoved(sourcePosition, targetPosition)
+                                            // targetAdapter.notifyItemMoved(sourcePosition, targetPosition)
                                         } catch (e: ClassCastException) {
                                             e.printStackTrace()
                                         }
@@ -56,7 +58,7 @@ abstract class DragListAdapter2<T, VH : RecyclerView.ViewHolder>(diffUtil: DiffU
                         }
                     }
 
-                    DragEvent.ACTION_DROP -> {
+                    DragEvent.ACTION_DROP -> { // DO NOT USE ACTION_DRAG_ENDED
 
                         val sourceView = it.localState as View
                         val sourceRecyclerView = sourceView.parent as RecyclerView
@@ -111,7 +113,12 @@ abstract class DragListAdapter2<T, VH : RecyclerView.ViewHolder>(diffUtil: DiffU
 
     abstract fun onSwap(sourcePosition: Int, targetPosition: Int)
 
-    abstract fun onDrag(sourcePosition: Int, targetPosition: Int)
+    // abstract fun onDrag(sourcePosition: Int, targetPosition: Int)
 
     abstract fun onDrop(sourcePosition: Int, targetPosition: Int)
+
+    abstract fun onSwapEntered(sourcePosition: Int, targetPosition: Int)
+    abstract fun onSwapEnded(sourcePosition: Int, targetPosition: Int)
+    abstract fun onDragEntered(sourcePosition: Int, targetPosition: Int)
+    abstract fun onDragEnded(sourcePosition: Int, targetPosition: Int)
 }

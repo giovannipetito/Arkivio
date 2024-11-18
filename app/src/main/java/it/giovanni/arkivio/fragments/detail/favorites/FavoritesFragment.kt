@@ -218,12 +218,24 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
         viewModel.onSwap(isPersonal = isPersonal, sourcePosition = sourcePosition, targetPosition = targetPosition)
     }
 
-    override fun onDrag(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int) {
-        viewModel.onDrag(isPersonal = isPersonal, sourcePosition = sourcePosition, targetPosition = targetPosition)
-    }
-
     override fun onDrop(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int) {
         viewModel.onDrop(isPersonal = isPersonal, sourcePosition = sourcePosition, targetPosition = targetPosition)
+    }
+
+    override fun onSwapEntered(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int) {
+        viewModel.onSwapEntered(isPersonal = isPersonal, sourcePosition = sourcePosition, targetPosition = targetPosition)
+    }
+
+    override fun onSwapEnded(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int) {
+        viewModel.onSwapEnded(isPersonal = isPersonal, sourcePosition = sourcePosition, targetPosition = targetPosition)
+    }
+
+    override fun onDragEntered(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int) {
+        viewModel.onDragEntered(isPersonal = isPersonal, sourcePosition = sourcePosition, targetPosition = targetPosition)
+    }
+
+    override fun onDragEnded(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int) {
+        viewModel.onDragEnded(isPersonal = isPersonal, sourcePosition = sourcePosition, targetPosition = targetPosition)
     }
 
     override fun onEditModeChanged(isEditMode: Boolean) {

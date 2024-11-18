@@ -303,12 +303,24 @@ class FavoritesAdapter(
         onAdapterListener.onSwap(isPersonal = isPersonal, sourcePosition, targetPosition)
     }
 
-    override fun onDrag(sourcePosition: Int, targetPosition: Int) {
-        onAdapterListener.onDrag(isPersonal = isPersonal, sourcePosition, targetPosition)
-    }
-
     override fun onDrop(sourcePosition: Int, targetPosition: Int) {
         onAdapterListener.onDrop(isPersonal = isPersonal, sourcePosition, targetPosition)
+    }
+
+    override fun onSwapEntered(sourcePosition: Int, targetPosition: Int) {
+        onAdapterListener.onSwapEntered(isPersonal = isPersonal, sourcePosition, targetPosition)
+    }
+
+    override fun onSwapEnded(sourcePosition: Int, targetPosition: Int) {
+        onAdapterListener.onSwapEnded(isPersonal = isPersonal, sourcePosition, targetPosition)
+    }
+
+    override fun onDragEntered(sourcePosition: Int, targetPosition: Int) {
+        onAdapterListener.onDragEntered(isPersonal = isPersonal, sourcePosition, targetPosition)
+    }
+
+    override fun onDragEnded(sourcePosition: Int, targetPosition: Int) {
+        onAdapterListener.onDragEnded(isPersonal = isPersonal, sourcePosition, targetPosition)
     }
 
     fun setEditMode(isEditMode: Boolean) {
