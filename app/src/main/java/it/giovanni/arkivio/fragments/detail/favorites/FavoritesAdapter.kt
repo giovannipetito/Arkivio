@@ -89,6 +89,8 @@ class FavoritesAdapter(
             FavoriteUtils.setImageByContentPath(binding.personalPoster, personal.images?.get(0)?.contentPath)
 
             if (personal.identifier == EDIT_IDENTIFIER) {
+                binding.personalBorder.visibility = View.GONE
+                binding.badgeRemove.visibility = View.GONE
                 binding.root.setOnClickListener {
                     if (!isEditMode) {
                         onAdapterListener.onEditModeRemoved(bindingAdapterPosition)
