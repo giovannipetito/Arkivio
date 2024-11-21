@@ -26,7 +26,7 @@ abstract class DragListAdapter2<T, VH : RecyclerView.ViewHolder>(diffUtil: DiffU
                         }
                     }
 
-                    DragEvent.ACTION_DRAG_ENTERED -> {
+                    DragEvent.ACTION_DRAG_LOCATION -> { // // DO NOT USE ACTION_DRAG_ENTERED
                         view?.let { targetView ->
                             val targetRecyclerView = when {
                                 targetView.parent is RecyclerView -> targetView.parent as RecyclerView
