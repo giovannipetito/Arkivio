@@ -79,13 +79,13 @@ class DragFragment : DetailFragment(), MyRecyclerviewAdapter.OnClickListener {
         adapterRight.setDragListener(dragListener)
 
         binding?.recyclerViewLeft?.apply {
-            setHasFixedSize(true) // TODO: try to remove this
+            setHasFixedSize(false)
             layoutManager = GridLayoutManager(requireContext(), 5)
             adapter = adapterLeft
         }
 
         binding?.recyclerViewRight?.apply {
-            setHasFixedSize(true) // TODO: try to remove this
+            setHasFixedSize(false)
             layoutManager = GridLayoutManager(requireContext(), 5)
             adapter = adapterRight
         }

@@ -25,7 +25,7 @@ import it.giovanni.arkivio.R
 class FavoritesAdapter(
     private val isPersonal: Boolean,
     private val onAdapterListener: OnAdapterListener,
-) : DragListAdapter2<Favorite, RecyclerView.ViewHolder>(diffUtil) {
+) : DragListAdapter3<Favorite, RecyclerView.ViewHolder>(diffUtil) {
 
     private var isEditMode = false
     private var showBadge = false

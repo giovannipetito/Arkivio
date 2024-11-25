@@ -22,8 +22,8 @@ class MyDragListener : View.OnDragListener {
     private var finalPositionInOriParent = 0
     private var finalParent: RecyclerView? = null
 
-    override fun onDrag(v: View?, event: DragEvent?): Boolean {
-        if (v == null || v is RecyclerView || v.parent == null) {
+    override fun onDrag(view: View?, event: DragEvent?): Boolean {
+        if (view == null || view is RecyclerView || view.parent == null) {
             return true
         }
         when (event?.action) {
@@ -43,9 +43,9 @@ class MyDragListener : View.OnDragListener {
                 if (sourceView.parent == null) {
                     return true
                 }
-                val targetAdapter = (v.parent as RecyclerView).adapter!! as MyRecyclerviewAdapter
-                val targetPosition = (v.parent as RecyclerView).getChildAdapterPosition(v)
-                if (v.parent == sourceView.parent) {
+                val targetAdapter = (view.parent as RecyclerView).adapter!! as MyRecyclerviewAdapter
+                val targetPosition = (view.parent as RecyclerView).getChildAdapterPosition(view)
+                if (view.parent == sourceView.parent) {
                     if (isOriginalParent) {
                         try {
                             targetAdapter.notifyItemMoved(finalPosition, targetPosition)
@@ -71,7 +71,7 @@ class MyDragListener : View.OnDragListener {
                             targetAdapter.getData().add(targetPosition, sourceValue)
                             targetAdapter.notifyDataSetChanged()
 
-                            val recyclerView: RecyclerView = (v.parent as RecyclerView)
+                            val recyclerView: RecyclerView = (view.parent as RecyclerView)
                             recyclerView[targetPosition].visibility = View.INVISIBLE  // not working, don't know why
                             initPositionInOtherParent = targetPosition
                         } catch (e: Exception) {
@@ -90,7 +90,7 @@ class MyDragListener : View.OnDragListener {
                         }
                     }
                 }
-                finalParent = v.parent as RecyclerView
+                finalParent = view.parent as RecyclerView
             }
             DragEvent.ACTION_DRAG_ENDED -> {
                 Log.i("[FAVORITES]", "ACTION_DRAG_ENDED")
