@@ -109,6 +109,23 @@ class FavoritesViewModel : ViewModel() {
         */
     }
 
+    fun onSwapManually(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int) {
+        if (isPersonal) {
+            // Swap personal items manually.
+            _personals.value?.let { personals ->
+                val tempPersonals: MutableList<Favorite?> = personals.toMutableList()
+
+                // Perform the swap
+                val temp = tempPersonals[sourcePosition]
+                tempPersonals[sourcePosition] = tempPersonals[targetPosition]
+                tempPersonals[targetPosition] = temp
+
+                _personals.value = tempPersonals.toList()
+            }
+            setIsPersonalsChanged()
+        }
+    }
+
     fun onDrop(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int) {
         if (isPersonal) {
             // Drag personal to availables

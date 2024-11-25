@@ -9,8 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 
 abstract class DragListAdapter2<T, VH : RecyclerView.ViewHolder>(diffUtil: DiffUtil.ItemCallback<T>) : ListAdapter<T, VH>(diffUtil) {
 
-    // private lateinit var sourceRecyclerView: RecyclerView
-    // private lateinit var sourceAdapter: DragListAdapter2<T, VH>
+    private lateinit var sourceView: View
+    private lateinit var sourceRecyclerView: RecyclerView
+    private lateinit var sourceAdapter: DragListAdapter2<T, VH>
     private var sourcePosition: Int = -1
 
     private var lastLoggedTargetPosition: Int = -1
@@ -22,9 +23,10 @@ abstract class DragListAdapter2<T, VH : RecyclerView.ViewHolder>(diffUtil: DiffU
                 when (it.action) {
                     DragEvent.ACTION_DRAG_STARTED -> {
                         // Retrieve the source view and calculate sourcePosition
-                        val sourceView = it.localState as View
+                        sourceView = it.localState as View
                         if (sourceView.parent != null) {
-                            val sourceRecyclerView = sourceView.parent as RecyclerView
+                            sourceRecyclerView = sourceView.parent as RecyclerView
+                            sourceAdapter = sourceRecyclerView.adapter as DragListAdapter2<T, VH>
                             sourcePosition = sourceRecyclerView.getChildAdapterPosition(sourceView)
                         }
                     }
@@ -42,7 +44,7 @@ abstract class DragListAdapter2<T, VH : RecyclerView.ViewHolder>(diffUtil: DiffU
                                     personalsRecyclerView?.id -> {
 
                                         try {
-                                            val targetPosition = targetRecyclerView.getChildAdapterPosition(targetView)
+                                            var targetPosition = targetRecyclerView.getChildAdapterPosition(targetView)
 
                                             // Log only if targetPosition or sourcePosition has changed
                                             if (targetPosition != lastLoggedTargetPosition || sourcePosition != lastLoggedSourcePosition) {
@@ -52,6 +54,13 @@ abstract class DragListAdapter2<T, VH : RecyclerView.ViewHolder>(diffUtil: DiffU
                                                 Log.i("[FAVORITES]", "sourcePosition: $sourcePosition")
                                                 val targetAdapter = targetRecyclerView.adapter as DragListAdapter2<T, VH>
                                                 // targetAdapter.notifyItemMoved(sourcePosition, targetPosition)
+
+                                                // If the recyclerview is the same, swap two items.
+                                                if (sourceRecyclerView.id == targetRecyclerView.id) {
+                                                    if (targetPosition >= 0 && sourceAdapter.currentList[targetPosition] != null) {
+                                                        // sourceAdapter.onSwap(sourcePosition, targetPosition)
+                                                    }
+                                                }
                                             }
                                         } catch (e: ClassCastException) {
                                             e.printStackTrace()
