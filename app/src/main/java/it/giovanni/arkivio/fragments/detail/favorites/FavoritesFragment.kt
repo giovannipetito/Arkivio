@@ -222,22 +222,6 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
         viewModel.onDrop(isPersonal = isPersonal, sourcePosition = sourcePosition, targetPosition = targetPosition)
     }
 
-    override fun onSwapEntered(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int) {
-        viewModel.onSwapEntered(isPersonal = isPersonal, sourcePosition = sourcePosition, targetPosition = targetPosition)
-    }
-
-    override fun onSwapEnded(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int) {
-        viewModel.onSwapEnded(isPersonal = isPersonal, sourcePosition = sourcePosition, targetPosition = targetPosition)
-    }
-
-    override fun onDragEntered(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int) {
-        viewModel.onDragEntered(isPersonal = isPersonal, sourcePosition = sourcePosition, targetPosition = targetPosition)
-    }
-
-    override fun onDragEnded(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int) {
-        viewModel.onDragEnded(isPersonal = isPersonal, sourcePosition = sourcePosition, targetPosition = targetPosition)
-    }
-
     override fun onEditModeChanged(isEditMode: Boolean) {
         personalsAdapter.setEditMode(isEditMode)
         availablesAdapter.setEditMode(isEditMode)

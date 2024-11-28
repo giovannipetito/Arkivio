@@ -168,31 +168,6 @@ class FavoritesViewModel : ViewModel() {
         }
     }
 
-    fun onSwapEntered(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int) {
-        if (isPersonal) {
-            // Swap personal items.
-            _personals.value?.let { personals ->
-                val tempPersonals: MutableList<Favorite?> = personals.toMutableList()
-                Collections.swap(tempPersonals, sourcePosition, targetPosition)
-                _personals.value = tempPersonals.toList()
-            }
-        }
-    }
-
-    fun onSwapEnded(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int) {
-        if (isPersonal) {
-            setIsPersonalsChanged()
-        }
-    }
-
-    fun onDragEntered(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int) {
-
-    }
-
-    fun onDragEnded(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int) {
-
-    }
-
     fun removeEditItem(position: Int) {
         _personals.value?.let { personals ->
             val updatedPersonals: MutableList<Favorite?> = personals.toMutableList().apply {

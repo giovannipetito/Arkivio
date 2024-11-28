@@ -131,12 +131,5 @@ abstract class DragListAdapter2<T, VH : RecyclerView.ViewHolder>(diffUtil: DiffU
 
     abstract fun onSwap(sourcePosition: Int, targetPosition: Int)
 
-    // abstract fun onDrag(sourcePosition: Int, targetPosition: Int)
-
     abstract fun onDrop(sourcePosition: Int, targetPosition: Int)
-
-    abstract fun onSwapEntered(sourcePosition: Int, targetPosition: Int)
-    abstract fun onSwapEnded(sourcePosition: Int, targetPosition: Int)
-    abstract fun onDragEntered(sourcePosition: Int, targetPosition: Int)
-    abstract fun onDragEnded(sourcePosition: Int, targetPosition: Int)
 }
