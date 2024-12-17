@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.dragdrop
+package it.giovanni.arkivio.fragments.detail.drag
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,15 +12,15 @@ import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.presenter.DarkModePresenter
 
-class DragFragment : DetailFragment(), MyRecyclerviewAdapter.OnClickListener {
+class DragFragment : DetailFragment(), DragAdapter.OnClickListener {
 
     private var layoutBinding: DragLayoutBinding? = null
     private val binding get() = layoutBinding
 
-    private lateinit var adapterLeft: MyRecyclerviewAdapter
-    private lateinit var adapterRight: MyRecyclerviewAdapter
+    private lateinit var adapterLeft: DragAdapter
+    private lateinit var adapterRight: DragAdapter
 
-    private val dragListener = MyDragListener()
+    private val dragListener = DragListener()
 
     private val listLeft = mutableListOf<Any>("cat", "dog", "rabbit", "horse", "elephant", "eagle", "bear", "cow", "chicken", "dear")
     private val listRight = mutableListOf<Any>("fish", "clam", "whale", "turtle", "dolphin", "coral", "octopus", "frog", "screw", "shark")
@@ -70,11 +70,11 @@ class DragFragment : DetailFragment(), MyRecyclerviewAdapter.OnClickListener {
         binding?.presenter = darkModePresenter
         binding?.temp = model
 
-        adapterLeft = MyRecyclerviewAdapter()
+        adapterLeft = DragAdapter()
         adapterLeft.setClickListener(this)
         adapterLeft.setDragListener(dragListener)
 
-        adapterRight = MyRecyclerviewAdapter()
+        adapterRight = DragAdapter()
         adapterRight.setClickListener(this)
         adapterRight.setDragListener(dragListener)
 

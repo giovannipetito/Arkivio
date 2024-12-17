@@ -39,7 +39,7 @@ import it.giovanni.arkivio.fragments.detail.machinelearning.MachineLearningFragm
 import it.giovanni.arkivio.fragments.detail.machinelearning.facialdetection.FacialDetectionFragment
 import it.giovanni.arkivio.fragments.detail.machinelearning.textrecognition.TextRecognitionFragment
 import it.giovanni.arkivio.fragments.detail.checklist.CheckListFragment
-import it.giovanni.arkivio.fragments.detail.dragdrop.DragFragment
+import it.giovanni.arkivio.fragments.detail.drag.DragFragment
 import it.giovanni.arkivio.fragments.detail.favorites.FavoritesFragment
 import it.giovanni.arkivio.fragments.detail.rubrica.RubricaDetailFragment
 import it.giovanni.arkivio.fragments.detail.rubrica.RubricaHomeFragment
@@ -425,9 +425,14 @@ class MainActivity : BaseActivity(), IProgressLoader {
             Globals.EXOPLAYER -> {
                 baseFragment = ExoPlayerFragment()
             }
+
             Globals.FAVORITES -> {
                 baseFragment = FavoritesFragment()
             }
+            Globals.DRAG -> {
+                baseFragment = DragFragment()
+            }
+
             Globals.LINK -> {
                 baseFragment = LinkFragment()
             }

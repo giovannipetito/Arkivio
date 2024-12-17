@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.dragdrop
+package it.giovanni.arkivio.fragments.detail.drag
 
 import android.annotation.SuppressLint
 import android.view.MotionEvent
@@ -10,7 +10,7 @@ import android.view.View.DragShadowBuilder
  *  You have to make your RecyclerViewAdapter implement this interface and also create a instance of
  *  MyDragListener to let your RecyclerView's item draggable.
  */
-interface MyDragAdapter {
+interface DragInterface {
     /**
      *  Set data of the RecyclerView.
      *  The data could be any type you want, but the list must be mutable.
@@ -30,7 +30,7 @@ interface MyDragAdapter {
      *  calling this method.
      *  @param listener the drag listener that handle all drag events.
      */
-    fun setDragListener(listener: MyDragListener)
+    fun setDragListener(listener: DragListener)
 
     /**
      *  Set each item of the RecyclerView to be draggable.
@@ -48,7 +48,7 @@ interface MyDragAdapter {
      *  @param dragListener the drag listener that handle all drag events.
      */
     @SuppressLint("ClickableViewAccessibility")
-    fun setDrag(v: View, position: Int, dragListener: MyDragListener) {
+    fun setDrag(v: View, position: Int, dragListener: DragListener) {
         var touchedX = 0f  // closure variable
         var touchedY = 0f  // closure variable
         v.visibility = View.VISIBLE

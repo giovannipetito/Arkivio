@@ -9,118 +9,153 @@ import androidx.recyclerview.widget.RecyclerView
 
 abstract class DragListAdapter2<T, VH : RecyclerView.ViewHolder>(diffUtil: DiffUtil.ItemCallback<T>) : ListAdapter<T, VH>(diffUtil) {
 
-    private lateinit var sourceView: View
-    private lateinit var sourceRecyclerView: RecyclerView
-    private lateinit var sourceAdapter: DragListAdapter2<T, VH>
-    private var sourcePosition: Int = -1
-
-    private var lastLoggedTargetPosition: Int = -1
-    private var lastLoggedSourcePosition: Int = -1
+    private var isStarted = false
+    private var isOriginalParent = true
+    private var initPosition = 0
+    private var initPositionInOtherParent = 0
+    private var finalPosition = 0
+    private var finalPositionInOriParent = 0
+    private var finalParent: RecyclerView? = null
 
     val dragListener = object : View.OnDragListener {
         override fun onDrag(view: View?, event: DragEvent?): Boolean {
-            event?.let {
-                when (it.action) {
-                    DragEvent.ACTION_DRAG_STARTED -> {
-                        // Retrieve the source view and calculate sourcePosition
-                        sourceView = it.localState as View
-                        if (sourceView.parent != null) {
-                            sourceRecyclerView = sourceView.parent as RecyclerView
-                            sourceAdapter = sourceRecyclerView.adapter as DragListAdapter2<T, VH>
-                            sourcePosition = sourceRecyclerView.getChildAdapterPosition(sourceView)
-                        }
+            if (view == null || view is RecyclerView || view.parent == null) {
+                return true
+            }
+            when (event?.action) {
+
+                DragEvent.ACTION_DRAG_STARTED -> {
+                    val sourceView = event.localState as View
+                    // if (!isStarted && sourceView.parent != null) {
+                        val sourceRecyclerView: RecyclerView = sourceView.parent as RecyclerView
+                        val sourcePosition: Int = sourceRecyclerView.getChildAdapterPosition(sourceView)
+                        initPosition = sourcePosition
+                        finalPosition = sourcePosition
+                        isStarted = true
+                    // }
+                }
+
+                DragEvent.ACTION_DRAG_ENTERED -> {
+                    val targetView = event.localState as View
+                    if (targetView.parent == null) {
+                        return true
                     }
-
-                    DragEvent.ACTION_DRAG_LOCATION -> {
-                        view?.let { targetView ->
-                            val targetRecyclerView = when {
-                                targetView.parent is RecyclerView -> targetView.parent as RecyclerView
-                                targetView is RecyclerView -> targetView
-                                else -> null
-                            }
-
-                            if (targetRecyclerView != null) {
+                    val targetRecyclerView: RecyclerView = view.parent as RecyclerView
+                    val targetAdapter = targetRecyclerView.adapter!! as DragListAdapter2<T, VH>
+                    val targetPosition = targetRecyclerView.getChildAdapterPosition(view)
+                    if (view.parent == targetView.parent) {
+                        if (isOriginalParent) {
+                            try {
+                                Log.i("[FAVORITES]", "1) finalPosition: $finalPosition, targetPosition: $targetPosition")
+                                targetAdapter.notifyItemMoved(finalPosition, targetPosition)
+                                /*
                                 when (targetRecyclerView.id) {
                                     personalsRecyclerView?.id -> {
-
-                                        try {
-                                            var targetPosition = targetRecyclerView.getChildAdapterPosition(targetView)
-
-                                            // Log only if targetPosition or sourcePosition has changed
-                                            if (targetPosition != lastLoggedTargetPosition || sourcePosition != lastLoggedSourcePosition) {
-                                                lastLoggedTargetPosition = targetPosition
-                                                lastLoggedSourcePosition = sourcePosition
-                                                Log.i("[FAVORITES]", "targetPosition: $targetPosition")
-                                                Log.i("[FAVORITES]", "sourcePosition: $sourcePosition")
-                                                val targetAdapter = targetRecyclerView.adapter as DragListAdapter2<T, VH>
-                                                // targetAdapter.notifyItemMoved(sourcePosition, targetPosition)
-
-                                                // If the recyclerview is the same, swap two items.
-                                                if (sourceRecyclerView.id == targetRecyclerView.id) {
-                                                    if (targetPosition >= 0 && sourceAdapter.currentList[targetPosition] != null) {
-                                                        // sourceAdapter.onSwap(sourcePosition, targetPosition)
-                                                    }
-                                                }
-                                            }
-                                        } catch (e: ClassCastException) {
-                                            e.printStackTrace()
-                                        }
-
-                                        onDragLocation(showBadge = false)
+                                        Log.i("[FAVORITES]", "1) finalPosition: $finalPosition, targetPosition: $targetPosition")
+                                        targetAdapter.notifyItemMoved(finalPosition, targetPosition)
                                     }
                                     availablesRecyclerView?.id -> {
-                                        onDragLocation(showBadge = true)
                                     }
                                 }
+                                */
+                            } catch (exception: Exception) {
+                                println("Ignore IndexOutOfBoundsException: " + exception.message)
                             }
+                        } else {
+                            Log.i("[FAVORITES]", "2) finalPositionInOriParent: $finalPositionInOriParent, targetPosition: $targetPosition")
+                            /*
+                            try {
+                                targetAdapter.notifyItemMoved(finalPositionInOriParent, targetPosition)
+                                // (finalParent?.adapter as DragListAdapter2<T, VH>).getData()!!.removeAt(initPositionInOtherParent)
+                                finalParent?.adapter?.notifyDataSetChanged()
+                            } catch (exception: Exception) {
+                                println("Ignore IndexOutOfBoundsException: " + exception.message)
+                            }
+                            isOriginalParent = true
+                            */
                         }
-                    }
+                        finalPosition = targetPosition
+                        finalPositionInOriParent = targetPosition
+                    } else {
+                        if (isOriginalParent) {
+                            Log.i("[FAVORITES]", "3) finalPosition: $finalPosition, targetPosition: $targetPosition")
+                            // val sourceValue = ((sourceView.parent as RecyclerView).adapter as DragListAdapter2<T, VH>).getData()[initPosition]
+                            /*
+                            try {
+                                // targetAdapter.getData().add(targetPosition, sourceValue)
+                                targetAdapter.notifyDataSetChanged()
 
-                    DragEvent.ACTION_DROP -> {
-
-                        val sourceView = it.localState as View
-                        val sourceRecyclerView = sourceView.parent as RecyclerView
-                        val sourceAdapter = sourceRecyclerView.adapter as DragListAdapter2<T, VH>
-                        val sourcePosition = sourceRecyclerView.getChildAdapterPosition(sourceView)
-
-                        view?.let { targetView ->
-                            var targetRecyclerView: RecyclerView? = targetView as? RecyclerView
-
-                            if (targetRecyclerView == null) {
-                                targetRecyclerView = targetView.parent as? RecyclerView
+                                val recyclerView: RecyclerView = (view.parent as RecyclerView)
+                                // recyclerView[targetPosition].visibility = View.INVISIBLE // not working
+                                initPositionInOtherParent = targetPosition
+                            } catch (exception: Exception) {
+                                println("Ignore IndexOutOfBoundsException: " + exception.message)
                             }
-
-                            if (targetRecyclerView !is RecyclerView) {
-                                return false
-                            }
-
-                            val targetAdapter = targetRecyclerView.adapter as DragListAdapter2<T, VH>
-                            val targetPosition =
-                                if (targetView is RecyclerView) {
-                                    if (sourceRecyclerView.id == targetRecyclerView.id)
-                                        -1 // we can't swap in empty area.
-                                    else 0 // we can swap in empty area.
-                                }
-                                else targetRecyclerView.getChildAdapterPosition(targetView)
-
-                            // If the recyclerview is the same, swap two items.
-                            if (sourceRecyclerView.id == targetRecyclerView.id) {
-                                if (targetPosition >= 0 && sourceAdapter.currentList[targetPosition] != null) {
-                                    sourceAdapter.onSwap(sourcePosition, targetPosition)
-                                }
-                            } else {
+                            */
+                            isOriginalParent = false
+                            finalPosition = targetPosition
+                        } else {
+                            Log.i("[FAVORITES]", "4) finalPosition: $finalPosition, targetPosition: $targetPosition")
+                            if (finalPosition != targetPosition) {
                                 try {
-                                    targetAdapter.currentList[targetPosition]?.let {
-                                        sourceAdapter.onDrop(sourcePosition, targetPosition)
+                                    targetAdapter.notifyItemMoved(finalPosition, targetPosition)
+                                } catch (exception: Exception) {
+                                    println("Ignore IndexOutOfBoundsException: " + exception.message)
+                                }
+                                finalPosition = targetPosition
+                            }
+                            /*
+                            when (targetRecyclerView.id) {
+                                personalsRecyclerView?.id -> {
+                                    if (finalPosition != targetPosition) {
+                                        try {
+                                            targetAdapter.notifyItemMoved(finalPosition, targetPosition)
+                                        } catch (exception: Exception) {
+                                            println("Ignore IndexOutOfBoundsException: " + exception.message)
+                                        }
+                                        finalPosition = targetPosition
                                     }
-                                } catch (e: IndexOutOfBoundsException) {
-                                    println(e.message)
+                                }
+                                availablesRecyclerView?.id -> {
                                 }
                             }
-                        } ?: run {
-                            return false
+                            */
                         }
                     }
+                    finalParent = view.parent as RecyclerView
+                }
+
+                DragEvent.ACTION_DRAG_ENDED -> {
+                    val sourceView = event.localState as View
+                    if (finalParent == null || sourceView.parent == null) {
+                        return true
+                    }
+                    val sourceParent: RecyclerView = sourceView.parent as RecyclerView
+                    // val sourceValue = ((sourceView.parent as RecyclerView).adapter as DragListAdapter2<T, VH>).getData()[initPosition]
+                    if (finalParent == sourceView.parent) {
+                        Log.i("[FAVORITES]", "5) initPosition: $initPosition, finalPosition: $finalPosition")
+                        /*
+                        when (sourceParent.id) {
+                            personalsRecyclerView?.id -> {
+                                Log.i("[FAVORITES]", "5) finalPosition: $finalPosition, initPosition: $initPosition")
+                            }
+                            availablesRecyclerView?.id -> {
+                            }
+                        }
+                        */
+                        // (finalParent!!.adapter as DragListAdapter2<T, VH>).getData().removeAt(initPosition)
+                        // (finalParent!!.adapter as DragListAdapter2<T, VH>).getData().add(finalPosition, sourceValue)
+                    } else {
+                        Log.i("[FAVORITES]", "6) initPosition: $initPosition, finalPosition: $finalPosition, initPositionInOtherParent: $initPositionInOtherParent")
+                        // (sourceParent.adapter as DragListAdapter2<T, VH>).getData().removeAt(initPosition)
+                        // (finalParent!!.adapter as DragListAdapter2<T, VH>).getData().removeAt(initPositionInOtherParent)
+                        // (finalParent!!.adapter as DragListAdapter2<T, VH>).getData().add(finalPosition, sourceValue)
+                    }
+                    (finalParent!!.adapter as DragListAdapter2<T, VH>).notifyDataSetChanged() // TODO: TO REMOVE?
+                    (sourceView.parent as RecyclerView?)?.adapter?.notifyDataSetChanged()  // TODO: TO REMOVE?
+                    isStarted = false
+                    finalParent = null
+                    isOriginalParent = true
                 }
             }
             return true

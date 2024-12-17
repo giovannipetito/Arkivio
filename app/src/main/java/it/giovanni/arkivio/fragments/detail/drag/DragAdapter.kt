@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.dragdrop
+package it.giovanni.arkivio.fragments.detail.drag
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.customview.TextViewCustom
 
-class MyRecyclerviewAdapter : RecyclerView.Adapter<MyRecyclerviewAdapter.MyViewHolder>(), MyDragAdapter {
+class DragAdapter : RecyclerView.Adapter<DragAdapter.MyViewHolder>(), DragInterface {
 
     private var clickListener: OnClickListener? = null
     private var myDataset = mutableListOf<Any>()
-    private var dragListener: MyDragListener? = null
+    private var dragListener: DragListener? = null
 
     interface OnClickListener {
         fun recyclerviewClick(name: String)
@@ -22,7 +22,7 @@ class MyRecyclerviewAdapter : RecyclerView.Adapter<MyRecyclerviewAdapter.MyViewH
         clickListener = parentFragment
     }
 
-    override fun setDragListener(listener: MyDragListener) {
+    override fun setDragListener(listener: DragListener) {
         dragListener = listener
     }
 
