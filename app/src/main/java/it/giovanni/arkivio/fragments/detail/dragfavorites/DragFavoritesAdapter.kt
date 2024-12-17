@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.favorites
+package it.giovanni.arkivio.fragments.detail.dragfavorites
 
 import android.animation.ValueAnimator
 import android.content.ClipData
@@ -22,7 +22,7 @@ import it.giovanni.arkivio.model.favorite.Favorite
 import it.giovanni.arkivio.utils.FavoriteUtils
 import it.giovanni.arkivio.R
 
-class FavoritesAdapter(
+class DragFavoritesAdapter(
     private val isPersonal: Boolean,
     private val onAdapterListener: OnAdapterListener,
 ) : DragListAdapter<Favorite, RecyclerView.ViewHolder>(diffUtil) {
@@ -107,7 +107,7 @@ class FavoritesAdapter(
                         binding.root.setOnDragListener(dragListener)
                         binding.root.setOnLongClickListener { view ->
                             val data = ClipData.newPlainText("", "")
-                            val shadowBuilder = FavoriteDragShadowBuilder(view, ContextCompat.getDrawable(view.context, R.drawable.circle_item_empty), showBadge) // DragShadowBuilder(view)
+                            val shadowBuilder = DragShadowBuilder(view)
                             view.startDragAndDrop(data, shadowBuilder, view, 0)
                             false
                         }

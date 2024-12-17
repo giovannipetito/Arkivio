@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.favorites
+package it.giovanni.arkivio.fragments.detail.dragfavorites
 
 import android.util.Log
 import android.view.View
@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class DragListAdapter2<T, VH : RecyclerView.ViewHolder>(diffUtil: DiffUtil.ItemCallback<T>) : ListAdapter<T, VH>(diffUtil) {
+abstract class DragListAdapter<T, VH : RecyclerView.ViewHolder>(diffUtil: DiffUtil.ItemCallback<T>) : ListAdapter<T, VH>(diffUtil) {
 
     private var isStarted = false
     private var isOriginalParent = true
@@ -41,7 +41,7 @@ abstract class DragListAdapter2<T, VH : RecyclerView.ViewHolder>(diffUtil: DiffU
                         return true
                     }
                     val targetRecyclerView: RecyclerView = view.parent as RecyclerView
-                    val targetAdapter = targetRecyclerView.adapter!! as DragListAdapter2<T, VH>
+                    val targetAdapter = targetRecyclerView.adapter!! as DragListAdapter<T, VH>
                     val targetPosition = targetRecyclerView.getChildAdapterPosition(view)
                     if (view.parent == targetView.parent) {
                         if (isOriginalParent) {
@@ -151,7 +151,7 @@ abstract class DragListAdapter2<T, VH : RecyclerView.ViewHolder>(diffUtil: DiffU
                         // (finalParent!!.adapter as DragListAdapter2<T, VH>).getData().removeAt(initPositionInOtherParent)
                         // (finalParent!!.adapter as DragListAdapter2<T, VH>).getData().add(finalPosition, sourceValue)
                     }
-                    (finalParent!!.adapter as DragListAdapter2<T, VH>).notifyDataSetChanged() // TODO: TO REMOVE?
+                    (finalParent!!.adapter as DragListAdapter<T, VH>).notifyDataSetChanged() // TODO: TO REMOVE?
                     (sourceView.parent as RecyclerView?)?.adapter?.notifyDataSetChanged()  // TODO: TO REMOVE?
                     isStarted = false
                     finalParent = null

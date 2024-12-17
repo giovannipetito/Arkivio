@@ -13,8 +13,9 @@ object Globals {
     var CHECKLIST = "CHECKLIST"
     var EXOPLAYER = "EXOPLAYER"
 
-    var FAVORITES = "FAVORITES"
     var DRAG = "DRAG"
+    var DRAG_FAVORITES = "DRAG_FAVORITES"
+    var DROP_FAVORITES = "DROP_FAVORITES"
 
     var ASYNC_HTTP = "ASYNC_HTTP"
     var DATE_FORMAT = "DATE_FORMAT"

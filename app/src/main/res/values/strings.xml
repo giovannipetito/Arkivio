@@ -374,7 +374,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- DRAG & DROP -->
-    <string name="favorites_title">Drag &amp; Drop Favorites</string>
+    <string name="drag_favorites_title">Drag Favorites</string>
+    <string name="drop_favorites_title">Drop Favorites</string>
     <string name="favorites_title_max_reached">Replace a favorite</string>
     <string name="favorites_description">Drag and sort your favorites as you prefer.</string>
     <string name="favorites_description_max_reached">You can only have 7 personal favorites. Which favorite would you like to replace?</string>

@@ -90,11 +90,14 @@ class LearningFragment : HomeFragment() {
         binding?.labelExoplayer?.setOnClickListener {
             currentActivity.openDetail(Globals.EXOPLAYER, null)
         }
-        binding?.labelFavorites?.setOnClickListener {
-            currentActivity.openDetail(Globals.FAVORITES, null)
-        }
         binding?.labelDrag?.setOnClickListener {
             currentActivity.openDetail(Globals.DRAG, null)
+        }
+        binding?.labelDragFavorites?.setOnClickListener {
+            currentActivity.openDetail(Globals.DRAG_FAVORITES, null)
+        }
+        binding?.labelDropFavorites?.setOnClickListener {
+            currentActivity.openDetail(Globals.DROP_FAVORITES, null)
         }
     }
 

@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.favorites
+package it.giovanni.arkivio.fragments.detail.dropfavorites
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +12,7 @@ import it.giovanni.arkivio.R
 import it.giovanni.arkivio.customview.dialog.CoreDialog
 import it.giovanni.arkivio.databinding.FavoritesLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
-import it.giovanni.arkivio.fragments.detail.favorites.FavoritesViewModel.EditState
+import it.giovanni.arkivio.fragments.detail.dropfavorites.DropFavoritesViewModel.EditState
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.model.favorite.Favorite
 import it.giovanni.arkivio.presenter.DarkModePresenter
@@ -20,17 +20,17 @@ import it.giovanni.arkivio.presenter.DarkModePresenter
 var personalsRecyclerView: RecyclerView? = null
 var availablesRecyclerView: RecyclerView? = null
 
-class FavoritesFragment : DetailFragment(), OnAdapterListener {
+class DropFavoritesFragment : DetailFragment(), OnAdapterListener {
 
     private var layoutBinding: FavoritesLayoutBinding? = null
     private val binding get() = layoutBinding
 
-    private val viewModel: FavoritesViewModel by viewModels()
+    private val viewModel: DropFavoritesViewModel by viewModels()
 
-    private lateinit var personalsAdapter: FavoritesAdapter
-    private lateinit var availablesAdapter: FavoritesAdapter
+    private lateinit var personalsAdapter: DropFavoritesAdapter
+    private lateinit var availablesAdapter: DropFavoritesAdapter
 
-    private var title: Int = R.string.favorites_title
+    private var title: Int = R.string.drop_favorites_title
 
     override fun getTitle(): Int {
         return title
@@ -109,7 +109,7 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
                 binding?.personalsTitle?.visibility = View.GONE
                 binding?.restoreToDefault?.visibility = View.GONE
             } else {
-                title = R.string.favorites_title
+                title = R.string.drag_favorites_title
                 binding?.favoritesDescription?.setText(R.string.favorites_description)
                 binding?.personalsTitle?.visibility = View.VISIBLE
                 binding?.restoreToDefault?.visibility = View.VISIBLE
@@ -142,21 +142,21 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
         personalsRecyclerView = binding?.personalsRecyclerview
         availablesRecyclerView = binding?.availablesRecyclerview
 
-        personalsAdapter = FavoritesAdapter(true, onAdapterListener = this)
+        personalsAdapter = DropFavoritesAdapter(true, onAdapterListener = this)
         personalsRecyclerView?.apply {
             setHasFixedSize(false)
             layoutManager = GridLayoutManager(requireContext(), 4)
             adapter = personalsAdapter
         }
 
-        availablesAdapter = FavoritesAdapter(false, onAdapterListener = this)
+        availablesAdapter = DropFavoritesAdapter(false, onAdapterListener = this)
         availablesRecyclerView?.apply {
             setHasFixedSize(false)
             val gridLayoutManager = GridLayoutManager(requireContext(), 5)
             gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int {
                     return when (availablesAdapter.getItemViewType(position)) {
-                        FavoritesAdapter.VIEW_TYPE_HEADER -> gridLayoutManager.spanCount // Span all columns for headers
+                        DropFavoritesAdapter.VIEW_TYPE_HEADER -> gridLayoutManager.spanCount // Span all columns for headers
                         else -> 1 // Normal items take 1 span
                     }
                 }
@@ -184,7 +184,7 @@ class FavoritesFragment : DetailFragment(), OnAdapterListener {
         })
     }
 
-    private fun refreshAdapter(adapter: FavoritesAdapter) {
+    private fun refreshAdapter(adapter: DropFavoritesAdapter) {
         adapter.notifyDataSetChanged()
     }
 

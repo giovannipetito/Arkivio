@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.favorites
+package it.giovanni.arkivio.fragments.detail.dropfavorites
 
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable

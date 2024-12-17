@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.favorites
+package it.giovanni.arkivio.fragments.detail.dropfavorites
 
 import android.view.View
 import android.view.DragEvent
@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class DragListAdapter<T, VH : RecyclerView.ViewHolder>(diffUtil: DiffUtil.ItemCallback<T>) : ListAdapter<T, VH>(diffUtil) {
+abstract class DropListAdapter<T, VH : RecyclerView.ViewHolder>(diffUtil: DiffUtil.ItemCallback<T>) : ListAdapter<T, VH>(diffUtil) {
 
     val dragListener = object : View.OnDragListener {
         override fun onDrag(view: View?, event: DragEvent?): Boolean {
@@ -35,7 +35,7 @@ abstract class DragListAdapter<T, VH : RecyclerView.ViewHolder>(diffUtil: DiffUt
 
                         val sourceView = it.localState as View
                         val sourceRecyclerView = sourceView.parent as RecyclerView
-                        val sourceAdapter = sourceRecyclerView.adapter as DragListAdapter<T, VH>
+                        val sourceAdapter = sourceRecyclerView.adapter as DropListAdapter<T, VH>
                         val sourcePosition = sourceRecyclerView.getChildAdapterPosition(sourceView)
 
                         view?.let { targetView ->
@@ -49,7 +49,7 @@ abstract class DragListAdapter<T, VH : RecyclerView.ViewHolder>(diffUtil: DiffUt
                                 return false
                             }
 
-                            val targetAdapter = targetRecyclerView.adapter as DragListAdapter<T, VH>
+                            val targetAdapter = targetRecyclerView.adapter as DropListAdapter<T, VH>
                             val targetPosition =
                                 if (targetView is RecyclerView) {
                                     if (sourceRecyclerView.id == targetRecyclerView.id)

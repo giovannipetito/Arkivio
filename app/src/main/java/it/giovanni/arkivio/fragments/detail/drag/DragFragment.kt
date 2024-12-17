@@ -26,7 +26,7 @@ class DragFragment : DetailFragment(), DragAdapter.OnClickListener {
     private val listRight = mutableListOf<Any>("fish", "clam", "whale", "turtle", "dolphin", "coral", "octopus", "frog", "screw", "shark")
 
     override fun getTitle(): Int {
-        return R.string.favorites_title
+        return R.string.drag_favorites_title
     }
 
     override fun getActionTitle(): Int {

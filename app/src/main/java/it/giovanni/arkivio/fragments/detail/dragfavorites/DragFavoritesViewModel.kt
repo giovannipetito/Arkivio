@@ -1,17 +1,17 @@
-package it.giovanni.arkivio.fragments.detail.favorites
+package it.giovanni.arkivio.fragments.detail.dragfavorites
 
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import it.giovanni.arkivio.App.Companion.context
-import it.giovanni.arkivio.fragments.detail.favorites.FavoritesAdapter.Companion.EDIT_IDENTIFIER
-import it.giovanni.arkivio.fragments.detail.favorites.FavoritesAdapter.Companion.MAX_FAVORITES_SIZE
+import it.giovanni.arkivio.fragments.detail.dragfavorites.DragFavoritesAdapter.Companion.EDIT_IDENTIFIER
+import it.giovanni.arkivio.fragments.detail.dragfavorites.DragFavoritesAdapter.Companion.MAX_FAVORITES_SIZE
 import it.giovanni.arkivio.utils.FavoriteUtils
 import it.giovanni.arkivio.model.favorite.Favorite
 import java.util.Collections
 
-class FavoritesViewModel : ViewModel() {
+class DragFavoritesViewModel : ViewModel() {
 
     private val _personals = MutableLiveData<List<Favorite?>>()
     val personals: LiveData<List<Favorite?>> get() = _personals
