@@ -2,9 +2,9 @@ package it.giovanni.arkivio.puntonet.workmanager.workers
 
 import android.content.Context
 import android.graphics.BitmapFactory
-import android.net.Uri
 import android.text.TextUtils
 import android.util.Log
+import androidx.core.net.toUri
 import androidx.work.CoroutineWorker
 import androidx.work.Data
 import androidx.work.WorkerParameters
@@ -65,7 +65,7 @@ class BlurWorker(context: Context, params: WorkerParameters) : CoroutineWorker(c
 
             val resolver = appContext.contentResolver
 
-            val picture = BitmapFactory.decodeStream(resolver.openInputStream(Uri.parse(resourceUri)))
+            val picture = BitmapFactory.decodeStream(resolver.openInputStream(resourceUri?.toUri()!!))
 
             val output = blurBitmap(picture, appContext)
 

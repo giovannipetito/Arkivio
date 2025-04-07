@@ -460,8 +460,8 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
     private fun translateAnimation(
         tab: Int,
         imageView: ImageView,
-        drawable_from: Drawable,
-        drawable_to: Drawable
+        drawableFrom: Drawable,
+        drawableTo: Drawable
     ) {
         if (animationFinish) {
             resetAllImages()
@@ -484,7 +484,7 @@ class MainFragment : BaseFragment(SectionType.MAIN), IDarkMode.View {
 
             animationFinish = false
             valueAnimator.start()
-            tabSelectedDrawableAnimation(imageView, drawable_from, drawable_to)
+            tabSelectedDrawableAnimation(imageView, drawableFrom, drawableTo)
         }
     }
 

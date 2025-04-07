@@ -2,7 +2,11 @@ package it.giovanni.arkivio.fragments.detail.permissions
 
 import android.Manifest
 import android.app.DownloadManager
-import android.content.*
+import android.content.ActivityNotFoundException
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
@@ -14,6 +18,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.FileProvider
+import androidx.core.net.toUri
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.customview.dialog.CoreDialog
 import it.giovanni.arkivio.databinding.PermissionsLayoutBinding
@@ -40,7 +45,6 @@ import it.giovanni.arkivio.utils.Utils.isOnWiFiConnection
 import it.giovanni.arkivio.utils.Utils.isOnline
 import it.giovanni.arkivio.utils.Utils.isSimKena
 import java.io.File
-import java.util.*
 
 class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListener {
 
@@ -316,7 +320,7 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
             filePath = File(context?.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "/").toString()
 
             // Create the download request.
-            val request = DownloadManager.Request(Uri.parse(url))
+            val request = DownloadManager.Request(url.toUri())
             request.setDestinationInExternalFilesDir(context, Environment.DIRECTORY_DOWNLOADS, fileName)
             val manager = context?.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
 
@@ -337,8 +341,7 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
                         } else if (action == Action.OPEN) {
                             open(filePath, fileName)
                         }
-                        action =
-                            Action.NONE
+                        action = Action.NONE
                     }
                 }
             }

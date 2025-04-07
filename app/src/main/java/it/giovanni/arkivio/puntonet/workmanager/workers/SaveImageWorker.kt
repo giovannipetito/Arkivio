@@ -2,12 +2,12 @@ package it.giovanni.arkivio.puntonet.workmanager.workers
 
 import android.content.Context
 import android.graphics.BitmapFactory
-import android.net.Uri
 import android.provider.MediaStore
 import android.util.Log
+import androidx.core.net.toUri
 import androidx.work.CoroutineWorker
-import androidx.work.workDataOf
 import androidx.work.WorkerParameters
+import androidx.work.workDataOf
 import it.giovanni.arkivio.puntonet.workmanager.KEY_IMAGE_URI
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -63,7 +63,7 @@ class SaveImageWorker(context: Context, params: WorkerParameters) : CoroutineWor
              * aprendo un flusso di input utilizzando il resolver e resourceUri. Utilizza
              * BitmapFactory.decodeStream per decodificare l'immagine in un oggetto Bitmap.
              */
-            val bitmap = BitmapFactory.decodeStream(resolver.openInputStream(Uri.parse(resourceUri)))
+            val bitmap = BitmapFactory.decodeStream(resolver.openInputStream(resourceUri?.toUri()!!))
 
             /**
              * Salvataggio dell'immagine in MediaStore: se il processo di decodifica ha esito
