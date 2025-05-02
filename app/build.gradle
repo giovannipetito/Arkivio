@@ -73,31 +73,35 @@ android {
     lint {
         baseline file('lint-baseline.xml')
     }
+
+    buildFeatures {
+        buildConfig true
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'org.jetbrains.kotlin:kotlin-reflect:2.0.21'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.21'
+    implementation 'org.jetbrains.kotlin:kotlin-reflect:2.1.0'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.0'
 
     // ArkLib
     implementation 'com.github.giovannipetito:ArkLib:1.0.8'
 
     // androidx
     implementation 'androidx.test:core-ktx:1.6.1'
-    implementation 'androidx.core:core-ktx:1.15.0'
+    implementation 'androidx.core:core-ktx:1.16.0'
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'androidx.core:core-role:1.1.0-rc01'
+    implementation 'androidx.core:core-role:1.1.0'
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.preference:preference-ktx:1.2.1'
     implementation 'androidx.vectordrawable:vectordrawable:1.2.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.8.7'
-    implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     ksp 'androidx.lifecycle:lifecycle-common-java8:2.8.7'
 
     // WorkManager
-    implementation "androidx.work:work-runtime-ktx:2.10.0"
+    implementation "androidx.work:work-runtime-ktx:2.10.1"
 
     // Coroutines
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.8.7'
@@ -106,10 +110,10 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0'
 
     // Room
-    implementation 'androidx.room:room-ktx:2.6.1'
-    implementation 'androidx.room:room-runtime:2.6.1'
-    implementation 'androidx.room:room-rxjava3:2.6.1'
-    ksp 'androidx.room:room-compiler:2.6.1'
+    implementation 'androidx.room:room-ktx:2.7.1'
+    implementation 'androidx.room:room-runtime:2.7.1'
+    implementation 'androidx.room:room-rxjava3:2.7.1'
+    ksp 'androidx.room:room-compiler:2.7.1'
 
     // Material
     implementation 'com.google.android.material:material:1.12.0'
@@ -120,22 +124,22 @@ dependencies {
     kapt 'com.google.dagger:hilt-android-compiler:2.52'
 
     // Navigation Component
-    implementation 'androidx.navigation:navigation-ui-ktx:2.8.3'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.8.3'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.8.9'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.8.9'
 
     // Google Mobile Services
     implementation 'com.google.android.gms:play-services-gcm:17.0.0'
-    implementation 'com.google.android.gms:play-services-maps:19.0.0'
-    implementation 'com.google.android.gms:play-services-auth:21.2.0'
+    implementation 'com.google.android.gms:play-services-maps:19.2.0'
+    implementation 'com.google.android.gms:play-services-auth:21.3.0'
     implementation 'com.google.android.gms:play-services-plus:17.0.0'
     implementation 'com.google.android.gms:play-services-location:21.3.0'
     implementation 'com.google.android.gms:play-services-analytics:18.1.1'
 
     // Firebase
     implementation 'com.google.firebase:firebase-database-ktx:21.0.0'
-    implementation 'com.google.firebase:firebase-analytics-ktx:22.1.2'
-    implementation 'com.google.firebase:firebase-messaging-ktx:24.0.3'
-    implementation 'com.google.firebase:firebase-crashlytics-ktx:19.2.1'
+    implementation 'com.google.firebase:firebase-analytics-ktx:22.4.0'
+    implementation 'com.google.firebase:firebase-messaging-ktx:24.1.1'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx:19.4.3'
 
     // GSON
     implementation 'com.google.code.gson:gson:2.11.0'

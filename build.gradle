@@ -6,8 +6,8 @@ buildscript {
         classpath 'io.realm:realm-gradle-plugin:10.10.1'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.23'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:3.0.2'
-        classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.8.3'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:3.0.3'
+        classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.8.9'
         classpath 'com.google.devtools.ksp:symbol-processing-gradle-plugin:2.0.21-1.0.25'
     }
     repositories {
@@ -42,5 +42,5 @@ allprojects {
 }
 
 ext {
-    ARKIVIO_VERSION = "1.0.0"
+    CORE_VERSION = "1.0.0"
 }
