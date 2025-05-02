@@ -3,6 +3,7 @@ package it.giovanni.arkivio.puntonet.workmanager
 import android.app.Application
 import android.content.ContentResolver
 import android.net.Uri
+import androidx.core.net.toUri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.work.Constraints
@@ -61,7 +62,7 @@ class BlurWorkerViewModel(application: Application) : ViewModel() {
     }
 
     fun setOutputUri(outputImageUri: String?) {
-        outputUri = if (!outputImageUri.isNullOrEmpty()) Uri.parse(outputImageUri)
+        outputUri = if (!outputImageUri.isNullOrEmpty()) outputImageUri.toUri()
         else null
     }
 

@@ -1,11 +1,20 @@
 package it.giovanni.arkivio.utils
 
 import android.Manifest
-import android.content.*
+import android.content.ActivityNotFoundException
+import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.res.Resources
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffXfermode
+import android.graphics.Rect
+import android.graphics.RectF
 import android.graphics.drawable.BitmapDrawable
 import android.media.ThumbnailUtils
 import android.net.ConnectivityManager
@@ -24,17 +33,25 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.net.toUri
 import androidx.fragment.app.FragmentActivity
 import com.squareup.picasso.Picasso
 import it.giovanni.arkivio.App.Companion.context
 import it.giovanni.arkivio.BuildConfig
 import it.giovanni.arkivio.R
-import java.io.*
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.IOException
+import java.io.InputStream
+import java.io.ObjectInputStream
+import java.io.ObjectOutputStream
 import java.net.HttpURLConnection
 import java.net.URL
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
-import java.util.*
+import java.util.Locale
 import java.util.concurrent.Executors
 import kotlin.math.min
 
@@ -177,7 +194,7 @@ object Utils {
     fun callContact1(context: Context, phone: String) {
         try {
             val uri = "tel:$phone"
-            val intent = Intent(Intent.ACTION_DIAL, Uri.parse(uri))
+            val intent = Intent(Intent.ACTION_DIAL, uri.toUri())
             context.startActivity(intent)
         } catch (e: Exception) {
             e.printStackTrace()
@@ -189,7 +206,7 @@ object Utils {
         val phone = label.substring(label.indexOf(": "), label.length)
         try {
             val uri = "tel:$phone"
-            val intent = Intent(Intent.ACTION_DIAL, Uri.parse(uri))
+            val intent = Intent(Intent.ACTION_DIAL, uri.toUri())
             context.startActivity(intent)
         } catch (e: Exception) {
             e.printStackTrace()
@@ -197,7 +214,7 @@ object Utils {
     }
 
     fun sendSimpleMail(context: Context, email: String) {
-        val intent = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:$email"))
+        val intent = Intent(Intent.ACTION_SENDTO, "mailto:$email".toUri())
         try {
             context.startActivity(Intent.createChooser(intent, "Send mail..."))
         } catch (ex: ActivityNotFoundException) {
@@ -208,7 +225,7 @@ object Utils {
 
     fun sendFilledOutMail(context: Context, to: Array<String>, cc: Array<String>, subject: String, text: String) {
         val intent = Intent(Intent.ACTION_SENDTO)
-        intent.data = Uri.parse("mailto:")
+        intent.data = "mailto:".toUri()
         intent.putExtra(Intent.EXTRA_EMAIL, to)
         intent.putExtra(Intent.EXTRA_CC, cc)
         intent.putExtra(Intent.EXTRA_SUBJECT, subject) // Email subject.
@@ -237,7 +254,7 @@ object Utils {
             // There is no Gmail client installed.
             Toast.makeText(context, "There is no Gmail client installed.", Toast.LENGTH_SHORT).show()
             val intent = Intent(Intent.ACTION_SENDTO)
-            intent.data = Uri.parse("mailto:")
+            intent.data = "mailto:".toUri()
             intent.putExtra(Intent.EXTRA_EMAIL, to)
             intent.putExtra(Intent.EXTRA_CC, cc)
             intent.putExtra(Intent.EXTRA_SUBJECT, subject)
@@ -266,7 +283,7 @@ object Utils {
             // There is no Outlook client installed.
             Toast.makeText(context, "There is no Outlook client installed.", Toast.LENGTH_SHORT).show()
             val intent = Intent(Intent.ACTION_SENDTO)
-            intent.data = Uri.parse("mailto:")
+            intent.data = "mailto:".toUri()
             intent.putExtra(Intent.EXTRA_EMAIL, to)
             intent.putExtra(Intent.EXTRA_CC, cc)
             intent.putExtra(Intent.EXTRA_SUBJECT, subject)
@@ -288,7 +305,7 @@ object Utils {
         var url: String = link
         if (!url.startsWith("http://") && !url.startsWith("https://"))
             url = "http://$url"
-        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        val browserIntent = Intent(Intent.ACTION_VIEW, url.toUri())
         ContextCompat.startActivity(context, browserIntent, Bundle())
     }
 
@@ -301,7 +318,7 @@ object Utils {
                 ContextCompat.startActivity(context, i!!, Bundle())
             } else {
                 // app not installed, try to open google play store
-                val marketUri = Uri.parse("market://details?id=$packageName")
+                val marketUri = "market://details?id=$packageName".toUri()
                 ContextCompat.startActivity(context, Intent(Intent.ACTION_VIEW).setData(marketUri), Bundle())
             }
         } catch (e: Exception) {
@@ -309,7 +326,8 @@ object Utils {
             // app not installed, google play store not installed, then open browser
             ContextCompat.startActivity(
                 context,
-                Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=$packageName")),
+                Intent(Intent.ACTION_VIEW,
+                    "http://play.google.com/store/apps/details?id=$packageName".toUri()),
                 Bundle()
             )
         }

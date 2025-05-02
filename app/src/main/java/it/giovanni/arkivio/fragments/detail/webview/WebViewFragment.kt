@@ -1,13 +1,19 @@
 package it.giovanni.arkivio.fragments.detail.webview
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.*
+import android.webkit.PermissionRequest
+import android.webkit.WebChromeClient
+import android.webkit.WebResourceRequest
+import android.webkit.WebResourceResponse
+import android.webkit.WebSettings
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import androidx.core.net.toUri
 import it.giovanni.arkivio.databinding.WebviewLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
 import it.giovanni.arkivio.model.DarkModeModel
@@ -114,7 +120,7 @@ class WebViewFragment : DetailFragment() {
         binding?.webview?.settings?.builtInZoomControls = false
         binding?.webview?.isHorizontalScrollBarEnabled = true
         binding?.webview?.isVerticalScrollBarEnabled = true
-        // binding?.webview?.settings?.javaScriptEnabled = true
+        binding?.webview?.settings?.javaScriptEnabled = true
         binding?.webview?.settings?.domStorageEnabled = true
         binding?.webview?.settings?.useWideViewPort = true
 
@@ -125,7 +131,7 @@ class WebViewFragment : DetailFragment() {
                 Log.i(TAG, "Url: $url") // market://details?id=it.wind.windtre
                 try {
                     if (url.startsWith("market")) {
-                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                        startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
                     } else currentActivity.onBackPressed()
                 } catch (e: Exception) {
                     currentActivity.onBackPressed()
