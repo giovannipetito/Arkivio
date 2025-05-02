@@ -13,7 +13,7 @@ import java.util.Collections
 
 class DropFavoritesViewModel : ViewModel() {
 
-    private val favoritesSize = 7
+    val initSize = 7
 
     private val _personals = MutableLiveData<List<Favorite?>>()
     val personals: LiveData<List<Favorite?>> get() = _personals
@@ -44,7 +44,7 @@ class DropFavoritesViewModel : ViewModel() {
 
     private fun loadPersonalFavorites() {
         val personals: MutableList<Favorite?> = FavoriteUtils.getPersonals()
-        responsePersonals = personals.filterNotNull().take(favoritesSize).toMutableList()
+        responsePersonals = personals.filterNotNull().take(initSize).toMutableList()
 
         val editablePersonals: MutableList<Favorite?> = responsePersonals.toMutableList()
 
@@ -75,7 +75,7 @@ class DropFavoritesViewModel : ViewModel() {
         _editState.value = EditState.SUCCESS
         _isPersonalsChanged.value = false
 
-        responsePersonals = newFavorites.filterNotNull().take(favoritesSize).toMutableList()
+        responsePersonals = newFavorites.filterNotNull().take(initSize).toMutableList()
 
         val editablePersonals: MutableList<Favorite?> = responsePersonals.toMutableList()
 

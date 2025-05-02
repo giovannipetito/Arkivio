@@ -6,8 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexWrap
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import it.giovanni.arkivio.R
 import it.giovanni.arkivio.customview.dialog.CoreDialog
 import it.giovanni.arkivio.databinding.FavoritesLayoutBinding
@@ -130,7 +133,7 @@ class DropFavoritesFragment : DetailFragment(), OnDropAdapterListener {
 
         binding?.restoreToDefault?.setOnClickListener {
             // val emptyList: List<Favorite?> = emptyList()
-            val initList: MutableList<Favorite?> = viewModel.responsePersonals.filterNotNull().take(3).toMutableList()
+            val initList: MutableList<Favorite?> = viewModel.responsePersonals.filterNotNull().take(viewModel.initSize).toMutableList()
             viewModel.saveFavorites(initList) // emptyList.toMutableList()
         }
 
@@ -139,49 +142,34 @@ class DropFavoritesFragment : DetailFragment(), OnDropAdapterListener {
 
     private fun setupRecyclerViews() {
 
+        val flexboxPersonals = FlexboxLayoutManager(context).apply {
+            flexDirection = FlexDirection.ROW
+            flexWrap = FlexWrap.WRAP
+            justifyContent = JustifyContent.FLEX_START
+        }
+
+        val flexboxAvailables = FlexboxLayoutManager(context).apply {
+            flexDirection = FlexDirection.ROW
+            flexWrap = FlexWrap.WRAP
+            justifyContent = JustifyContent.FLEX_START
+        }
+
         personalsRecyclerView = binding?.personalsRecyclerview
         availablesRecyclerView = binding?.availablesRecyclerview
 
         personalsAdapter = DropFavoritesAdapter(true, onAdapterListener = this)
         personalsRecyclerView?.apply {
             setHasFixedSize(false)
-            layoutManager = GridLayoutManager(requireContext(), 4)
+            layoutManager = flexboxPersonals
             adapter = personalsAdapter
         }
 
         availablesAdapter = DropFavoritesAdapter(false, onAdapterListener = this)
         availablesRecyclerView?.apply {
             setHasFixedSize(false)
-            val gridLayoutManager = GridLayoutManager(requireContext(), 5)
-            gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                override fun getSpanSize(position: Int): Int {
-                    return when (availablesAdapter.getItemViewType(position)) {
-                        DropFavoritesAdapter.VIEW_TYPE_HEADER -> gridLayoutManager.spanCount // Span all columns for headers
-                        else -> 1 // Normal items take 1 span
-                    }
-                }
-            }
-            layoutManager = gridLayoutManager
+            layoutManager = flexboxAvailables
             adapter = availablesAdapter
         }
-
-        synchronizeScrollListeners()
-    }
-
-    private fun synchronizeScrollListeners() {
-        personalsRecyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                // Scroll the other RecyclerView with the same distance.
-                availablesRecyclerView?.scrollBy(dx, dy)
-            }
-        })
-
-        availablesRecyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                // Scroll the other RecyclerView with the same distance.
-                personalsRecyclerView?.scrollBy(dx, dy)
-            }
-        })
     }
 
     private fun refreshAdapter(adapter: DropFavoritesAdapter) {
