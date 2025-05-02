@@ -1,17 +1,19 @@
-package it.giovanni.arkivio.fragments.detail.dragfavorites
+package it.giovanni.arkivio.fragments.detail.favorites.drag
 
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import it.giovanni.arkivio.App.Companion.context
-import it.giovanni.arkivio.fragments.detail.dragfavorites.DragFavoritesAdapter.Companion.EDIT_IDENTIFIER
-import it.giovanni.arkivio.fragments.detail.dragfavorites.DragFavoritesAdapter.Companion.MAX_FAVORITES_SIZE
+import it.giovanni.arkivio.fragments.detail.favorites.drag.DragFavoritesAdapter.Companion.EDIT_IDENTIFIER
+import it.giovanni.arkivio.fragments.detail.favorites.drag.DragFavoritesAdapter.Companion.MAX_FAVORITES_SIZE
 import it.giovanni.arkivio.utils.FavoriteUtils
 import it.giovanni.arkivio.model.favorite.Favorite
 import java.util.Collections
 
 class DragFavoritesViewModel : ViewModel() {
+
+    private val favoritesSize = 7
 
     private val _personals = MutableLiveData<List<Favorite?>>()
     val personals: LiveData<List<Favorite?>> get() = _personals
@@ -42,7 +44,7 @@ class DragFavoritesViewModel : ViewModel() {
 
     private fun loadPersonalFavorites() {
         val personals: MutableList<Favorite?> = FavoriteUtils.getPersonals()
-        responsePersonals = personals.filterNotNull().take(MAX_FAVORITES_SIZE).toMutableList()
+        responsePersonals = personals.filterNotNull().take(favoritesSize).toMutableList()
 
         val editablePersonals: MutableList<Favorite?> = responsePersonals.toMutableList()
 
@@ -73,7 +75,7 @@ class DragFavoritesViewModel : ViewModel() {
         _editState.value = EditState.SUCCESS
         _isPersonalsChanged.value = false
 
-        responsePersonals = newFavorites.filterNotNull().take(MAX_FAVORITES_SIZE).toMutableList()
+        responsePersonals = newFavorites.filterNotNull().take(favoritesSize).toMutableList()
 
         val editablePersonals: MutableList<Favorite?> = responsePersonals.toMutableList()
 
@@ -138,7 +140,7 @@ class DragFavoritesViewModel : ViewModel() {
                 val sourceFavorite: Favorite? = _availables.value?.get(sourcePosition)
                 if (personals.size < MAX_FAVORITES_SIZE) {
                     tempPersonals.add(targetPosition, sourceFavorite)
-                    _personals.value = tempPersonals.take(MAX_FAVORITES_SIZE) // Ensure limit of 7 items.
+                    _personals.value = tempPersonals.take(MAX_FAVORITES_SIZE) // Ensure limit of 10 items.
 
                     updateDraggableAvailables(tempPersonals)
                     setIsPersonalsChanged()

@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.dragfavorites
+package it.giovanni.arkivio.fragments.detail.favorites.drag
 
 interface OnDragAdapterListener {
     fun onDrag(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int)

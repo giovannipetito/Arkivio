@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.dropfavorites
+package it.giovanni.arkivio.fragments.detail.favorites.drop
 
 interface OnDropAdapterListener {
     fun onSwap(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int)

@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.dropfavorites
+package it.giovanni.arkivio.fragments.detail.favorites.drop
 
 import android.animation.ValueAnimator
 import android.content.ClipData

@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.dropfavorites
+package it.giovanni.arkivio.fragments.detail.favorites.drop
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +12,7 @@ import it.giovanni.arkivio.R
 import it.giovanni.arkivio.customview.dialog.CoreDialog
 import it.giovanni.arkivio.databinding.FavoritesLayoutBinding
 import it.giovanni.arkivio.fragments.DetailFragment
-import it.giovanni.arkivio.fragments.detail.dropfavorites.DropFavoritesViewModel.EditState
+import it.giovanni.arkivio.fragments.detail.favorites.drop.DropFavoritesViewModel.EditState
 import it.giovanni.arkivio.model.DarkModeModel
 import it.giovanni.arkivio.model.favorite.Favorite
 import it.giovanni.arkivio.presenter.DarkModePresenter

@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.drag
+package it.giovanni.arkivio.fragments.detail.favoritesdraft
 
 import android.os.Bundle
 import android.view.LayoutInflater

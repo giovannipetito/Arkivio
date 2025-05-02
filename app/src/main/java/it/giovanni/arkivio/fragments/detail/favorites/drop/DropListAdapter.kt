@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.dropfavorites
+package it.giovanni.arkivio.fragments.detail.favorites.drop
 
 import android.view.View
 import android.view.DragEvent

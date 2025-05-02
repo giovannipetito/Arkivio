@@ -1,4 +1,4 @@
-package it.giovanni.arkivio.fragments.detail.drag
+package it.giovanni.arkivio.fragments.detail.favoritesdraft
 
 import android.view.DragEvent
 import android.view.View
