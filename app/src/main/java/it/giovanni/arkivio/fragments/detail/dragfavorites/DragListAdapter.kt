@@ -36,7 +36,7 @@ abstract class DragListAdapter<T, VH : RecyclerView.ViewHolder>(diffUtil: DiffUt
                         return true
                     }
                     val targetRecyclerView: RecyclerView = view.parent as RecyclerView
-                    val targetAdapter = targetRecyclerView.adapter!! as DragListAdapter<T, VH>
+                    val targetAdapter = targetRecyclerView.adapter as DragListAdapter<T, VH>
                     val targetPosition = targetRecyclerView.getChildAdapterPosition(view)
                     if (view.parent == targetView.parent) {
                         if (isSourceView) {
@@ -84,8 +84,71 @@ abstract class DragListAdapter<T, VH : RecyclerView.ViewHolder>(diffUtil: DiffUt
                     } else {
                         Log.i("[FAVORITES]", "6) finalPosition: $finalPosition")
                     }
-                    (finalParent!!.adapter as DragListAdapter<T, VH>).notifyDataSetChanged() // TODO: TO REMOVE?
-                    (sourceView.parent as RecyclerView?)?.adapter?.notifyDataSetChanged()  // TODO: TO REMOVE?
+                    finalParent = null
+                    isSourceView = true
+                }
+            }
+            return true
+        }
+    }
+}
+
+// Solution 1: Using ACTION_DRAG_ENTERED
+abstract class DragListAdapter1<T, VH : RecyclerView.ViewHolder>(diffUtil: DiffUtil.ItemCallback<T>) : ListAdapter<T, VH>(diffUtil) {
+    private var sourceView: View? = null
+    private var sourceRecyclerView: RecyclerView? = null
+    private var isSourceView = true
+    private var finalPosition = 0
+    private var finalParent: RecyclerView? = null
+
+    val dragListener = object : View.OnDragListener {
+        override fun onDrag(view: View?, event: DragEvent?): Boolean {
+            if (view == null || event == null) return true
+
+            when (event.action) {
+                DragEvent.ACTION_DRAG_STARTED -> {
+                    sourceView = event.localState as View
+                    sourceRecyclerView = sourceView?.parent as RecyclerView?
+                    finalPosition = sourceRecyclerView?.getChildAdapterPosition(sourceView!!) ?: 0
+                }
+
+                DragEvent.ACTION_DRAG_ENTERED -> {
+                    val targetView = view
+                    val targetRecyclerView = view.parent as? RecyclerView ?: return true
+                    val targetPosition = targetRecyclerView.getChildAdapterPosition(view)
+
+                    if (targetRecyclerView == sourceRecyclerView) {
+                        // Handle reordering within the same RecyclerView
+                        if (isSourceView && finalPosition != targetPosition) {
+                            try {
+                                if (sourceRecyclerView?.id == personalsRecyclerView?.id) {
+                                    onDrag(true, finalPosition, targetPosition)
+                                    notifyItemMoved(finalPosition, targetPosition)
+                                }
+                            } catch (exception: Exception) {
+                                println("Ignore IndexOutOfBoundsException: ${exception.message}")
+                            }
+                        }
+                    } else {
+                        // Handle moving between different RecyclerViews
+                        if (!isSourceView && finalPosition != targetPosition) {
+                            try {
+                                if (sourceRecyclerView?.id == availablesRecyclerView?.id &&
+                                    targetRecyclerView.id == personalsRecyclerView?.id) {
+                                    onDrag(false, finalPosition, targetPosition)
+                                    notifyItemMoved(finalPosition, targetPosition)
+                                }
+                            } catch (exception: Exception) {
+                                println("Ignore IndexOutOfBoundsException: ${exception.message}")
+                            }
+                        }
+                        isSourceView = false
+                    }
+                    finalPosition = targetPosition
+                    finalParent = targetRecyclerView
+                }
+
+                DragEvent.ACTION_DRAG_ENDED -> {
                     finalParent = null
                     isSourceView = true
                 }
@@ -94,9 +157,72 @@ abstract class DragListAdapter<T, VH : RecyclerView.ViewHolder>(diffUtil: DiffUt
         }
     }
 
-    abstract fun onDragLocation(showBadge: Boolean)
+    abstract fun onDrag(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int)
+}
 
-    abstract fun onSwap(sourcePosition: Int, targetPosition: Int)
+// Solution 2: Using ACTION_DRAG_ENDED
+abstract class DragListAdapter2<T, VH : RecyclerView.ViewHolder>(diffUtil: DiffUtil.ItemCallback<T>) : ListAdapter<T, VH>(diffUtil) {
+    private var sourceView: View? = null
+    private var sourceRecyclerView: RecyclerView? = null
+    private var sourcePosition = 0
+    private var lastTargetPosition = 0
+    private var lastTargetRecyclerView: RecyclerView? = null
 
-    abstract fun onDrop(sourcePosition: Int, targetPosition: Int)
+    val dragListener = object : View.OnDragListener {
+        override fun onDrag(view: View?, event: DragEvent?): Boolean {
+            if (view == null || event == null) return true
+
+            when (event.action) {
+                DragEvent.ACTION_DRAG_STARTED -> {
+                    sourceView = event.localState as View
+                    sourceRecyclerView = sourceView?.parent as RecyclerView?
+                    sourcePosition = sourceRecyclerView?.getChildAdapterPosition(sourceView!!) ?: 0
+                }
+
+                DragEvent.ACTION_DRAG_ENTERED -> {
+                    val targetRecyclerView = view.parent as? RecyclerView ?: return true
+                    lastTargetPosition = targetRecyclerView.getChildAdapterPosition(view)
+                    lastTargetRecyclerView = targetRecyclerView
+                }
+
+                DragEvent.ACTION_DRAG_ENDED -> {
+                    if (lastTargetRecyclerView != null) {
+                        val isPersonal = sourceRecyclerView?.id == personalsRecyclerView?.id
+
+                        if (sourceRecyclerView == lastTargetRecyclerView) {
+                            // Handle reordering within the same RecyclerView
+                            if (sourcePosition != lastTargetPosition) {
+                                try {
+                                    if (sourceRecyclerView?.id == personalsRecyclerView?.id) {
+                                        onDrag(true, sourcePosition, lastTargetPosition)
+                                        notifyItemMoved(sourcePosition, lastTargetPosition)
+                                    }
+                                } catch (exception: Exception) {
+                                    println("Ignore IndexOutOfBoundsException: ${exception.message}")
+                                }
+                            }
+                        } else {
+                            // Handle moving between different RecyclerViews
+                            try {
+                                if (sourceRecyclerView?.id == availablesRecyclerView?.id &&
+                                    lastTargetRecyclerView?.id == personalsRecyclerView?.id) {
+                                    onDrag(false, sourcePosition, lastTargetPosition)
+                                    notifyItemMoved(sourcePosition, lastTargetPosition)
+                                }
+                            } catch (exception: Exception) {
+                                println("Ignore IndexOutOfBoundsException: ${exception.message}")
+                            }
+                        }
+                    }
+                    // Reset values
+                    sourceView = null
+                    lastTargetRecyclerView = null
+                    lastTargetPosition = 0
+                }
+            }
+            return true
+        }
+    }
+
+    abstract fun onDrag(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int)
 }

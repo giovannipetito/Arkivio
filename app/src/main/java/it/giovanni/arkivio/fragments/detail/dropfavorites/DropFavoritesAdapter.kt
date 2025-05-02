@@ -24,7 +24,7 @@ import it.giovanni.arkivio.R
 
 class DropFavoritesAdapter(
     private val isPersonal: Boolean,
-    private val onAdapterListener: OnAdapterListener,
+    private val onAdapterListener: OnDropAdapterListener,
 ) : DropListAdapter<Favorite, RecyclerView.ViewHolder>(diffUtil) {
 
     private var isEditMode = false
@@ -323,7 +323,7 @@ class DropFavoritesAdapter(
         const val VIEW_TYPE_AVAILABLE = 1
         const val VIEW_TYPE_HEADER = 2
         const val EDIT_IDENTIFIER = "edit"
-        const val MAX_FAVORITES_SIZE = 7
+        const val MAX_FAVORITES_SIZE = 10
 
         val diffUtil = object : DiffUtil.ItemCallback<Favorite>() {
             override fun areItemsTheSame(oldItem: Favorite, newItem: Favorite): Boolean {

@@ -20,7 +20,7 @@ import it.giovanni.arkivio.presenter.DarkModePresenter
 var personalsRecyclerView: RecyclerView? = null
 var availablesRecyclerView: RecyclerView? = null
 
-class DragFavoritesFragment : DetailFragment(), OnAdapterListener {
+class DragFavoritesFragment : DetailFragment(), OnDragAdapterListener {
 
     private var layoutBinding: FavoritesLayoutBinding? = null
     private val binding get() = layoutBinding
@@ -214,12 +214,8 @@ class DragFavoritesFragment : DetailFragment(), OnAdapterListener {
         dialog.show()
     }
 
-    override fun onSwap(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int) {
-        viewModel.onSwap(isPersonal = isPersonal, sourcePosition = sourcePosition, targetPosition = targetPosition)
-    }
-
-    override fun onDrop(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int) {
-        viewModel.onDrop(isPersonal = isPersonal, sourcePosition = sourcePosition, targetPosition = targetPosition)
+    override fun onDrag(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int) {
+        viewModel.onDrag(isPersonal = isPersonal, sourcePosition = sourcePosition, targetPosition = targetPosition)
     }
 
     override fun onEditModeChanged(isEditMode: Boolean) {

@@ -20,7 +20,7 @@ import it.giovanni.arkivio.presenter.DarkModePresenter
 var personalsRecyclerView: RecyclerView? = null
 var availablesRecyclerView: RecyclerView? = null
 
-class DropFavoritesFragment : DetailFragment(), OnAdapterListener {
+class DropFavoritesFragment : DetailFragment(), OnDropAdapterListener {
 
     private var layoutBinding: FavoritesLayoutBinding? = null
     private val binding get() = layoutBinding

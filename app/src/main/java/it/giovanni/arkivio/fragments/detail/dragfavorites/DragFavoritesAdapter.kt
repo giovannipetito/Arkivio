@@ -24,8 +24,8 @@ import it.giovanni.arkivio.R
 
 class DragFavoritesAdapter(
     private val isPersonal: Boolean,
-    private val onAdapterListener: OnAdapterListener,
-) : DragListAdapter<Favorite, RecyclerView.ViewHolder>(diffUtil) {
+    private val onAdapterListener: OnDragAdapterListener,
+) : DragListAdapter1<Favorite, RecyclerView.ViewHolder>(diffUtil) {
 
     private var isEditMode = false
     private var showBadge = false
@@ -115,10 +115,6 @@ class DragFavoritesAdapter(
                         binding.root.setOnDragListener(null)
                         binding.root.setOnLongClickListener(null)
                     }
-
-                    binding.root.setOnClickListener {
-                        onAdapterListener.onDrop(isPersonal = true, sourcePosition = bindingAdapterPosition, targetPosition = 0)
-                    }
                 } else {
                     binding.personalBorder.visibility = View.GONE
                     binding.badgeRemove.visibility = View.GONE
@@ -153,10 +149,6 @@ class DragFavoritesAdapter(
                     val shadowBuilder = DragShadowBuilder(view)
                     view.startDragAndDrop(data, shadowBuilder, view, 0)
                     false
-                }
-
-                binding.root.setOnClickListener {
-                    onAdapterListener.onDrop(isPersonal = false, sourcePosition = bindingAdapterPosition, targetPosition = 0)
                 }
             } else {
                 binding.availableBorder.visibility = View.GONE
@@ -297,16 +289,8 @@ class DragFavoritesAdapter(
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this.toFloat(), context.resources.displayMetrics).toInt()
     }
 
-    override fun onDragLocation(showBadge: Boolean) {
-        this.showBadge = showBadge
-    }
-
-    override fun onSwap(sourcePosition: Int, targetPosition: Int) {
-        onAdapterListener.onSwap(isPersonal = isPersonal, sourcePosition, targetPosition)
-    }
-
-    override fun onDrop(sourcePosition: Int, targetPosition: Int) {
-        onAdapterListener.onDrop(isPersonal = isPersonal, sourcePosition, targetPosition)
+    override fun onDrag(isPersonal: Boolean, sourcePosition: Int, targetPosition: Int) {
+        onAdapterListener.onDrag(isPersonal = isPersonal, sourcePosition, targetPosition)
     }
 
     fun setEditMode(isEditMode: Boolean) {
@@ -323,7 +307,7 @@ class DragFavoritesAdapter(
         const val VIEW_TYPE_AVAILABLE = 1
         const val VIEW_TYPE_HEADER = 2
         const val EDIT_IDENTIFIER = "edit"
-        const val MAX_FAVORITES_SIZE = 7
+        const val MAX_FAVORITES_SIZE = 10
 
         val diffUtil = object : DiffUtil.ItemCallback<Favorite>() {
             override fun areItemsTheSame(oldItem: Favorite, newItem: Favorite): Boolean {
