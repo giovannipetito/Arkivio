@@ -598,7 +598,7 @@ class MainActivity : BaseActivity(), IProgressLoader {
         if (baseFragmentView.targetFragment != null) {
             baseFragmentView.targetFragment?.onActivityResult(
                 baseFragmentView.targetRequestCode,
-                Activity.RESULT_OK,
+                RESULT_OK,
                 baseFragmentView.getResultBack()
             )
         }
@@ -615,7 +615,7 @@ class MainActivity : BaseActivity(), IProgressLoader {
         if (baseFragmentView.targetFragment != null) {
             baseFragmentView.targetFragment?.onActivityResult(
                 baseFragmentView.targetRequestCode,
-                Activity.RESULT_OK,
+                RESULT_OK,
                 Intent()
             )
         }
