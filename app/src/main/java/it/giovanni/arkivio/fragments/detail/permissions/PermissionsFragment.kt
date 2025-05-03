@@ -143,6 +143,7 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
             try {
                 startActivity(intent)
             } catch (e: ActivityNotFoundException) {
+                e.printStackTrace()
                 Toast.makeText(activity, "No application found", Toast.LENGTH_SHORT).show()
             }
         }
@@ -358,7 +359,10 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
         val intent = Intent(Intent.ACTION_VIEW)
         val tempFile = File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "test.pdf")
         intent.setDataAndType(Uri.fromFile(tempFile), "application/pdf")
-        return context.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY).size > 0
+        return context.packageManager.queryIntentActivities(
+            intent,
+            PackageManager.MATCH_DEFAULT_ONLY
+        ).isNotEmpty()
     }
 
     private fun send(filePath: String, fileName: String) {
@@ -385,7 +389,7 @@ class PermissionsFragment : DetailFragment(), PermissionManager.PermissionListen
         viewIntent.setDataAndType(apkURI, "application/pdf")
 
         val resolved = activity?.packageManager?.queryIntentActivities(viewIntent, 0)
-        if (resolved != null && resolved.size > 0)
+        if (resolved != null && resolved.isNotEmpty())
             startActivity(viewIntent)
         else
             Toast.makeText(activity, resources.getString(R.string.no_pdf_reader), Toast.LENGTH_SHORT).show()

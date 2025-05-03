@@ -54,6 +54,7 @@ import java.security.NoSuchAlgorithmException
 import java.util.Locale
 import java.util.concurrent.Executors
 import kotlin.math.min
+import androidx.core.graphics.createBitmap
 
 object Utils {
 
@@ -96,7 +97,7 @@ object Utils {
         var dimen : Int = bitmap.width
         if (bitmap.width > bitmap.height)
             dimen = bitmap.height
-        val output = Bitmap.createBitmap(dimen, dimen, Bitmap.Config.ARGB_8888)
+        val output = createBitmap(dimen, dimen)
         val canvas = Canvas(output)
         val paint = Paint()
         val rect = Rect(0, 0, dimen, dimen)

@@ -230,7 +230,7 @@ class MainActivity : BaseActivity(), IProgressLoader {
                 openDetail(Globals.RUBRICA_REALTIME, null)
             }
             DeepLinkDescriptor.URI_OPEN_APP -> {
-                if (uri.pathSegments != null && uri.pathSegments.size > 0)
+                if (uri.pathSegments != null && uri.pathSegments.isNotEmpty())
                     Utils.openApp(this, uri.pathSegments[0])
             }
             // WebView

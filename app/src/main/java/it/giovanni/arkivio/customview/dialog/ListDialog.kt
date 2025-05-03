@@ -25,7 +25,7 @@ class ListDialog(activity: Activity, @StyleRes themeResId: Int) : CoreDialog(act
         messageDialog.visibility = View.VISIBLE
         buttonsContainer.visibility = View.GONE
         // Inflate element
-        if (list.size > 0) {
+        if (list.isNotEmpty()) {
             val i = list.iterator()
             while (i.hasNext()) {
 

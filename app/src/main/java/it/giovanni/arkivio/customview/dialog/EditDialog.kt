@@ -30,7 +30,7 @@ class EditDialog(activity: Activity, @StyleRes themeResId: Int) : CoreDialog(act
         messageDialog.visibility = View.VISIBLE
         buttonsContainer.visibility = View.VISIBLE
         // Inflate element
-        if (map.size > 0) {
+        if (map.isNotEmpty()) {
 
             for ((key, value) in map) {
                 layoutBinding = DialogEditElementBinding.inflate(LayoutInflater.from(context))
